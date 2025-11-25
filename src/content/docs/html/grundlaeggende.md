@@ -1,6 +1,8 @@
 ---
 title: HTML Grundlæggende
 description: Lær de grundlæggende HTML-tags og strukturen på en webside
+sidebar:
+  order: 1
 ---
 
 ## Hvad er HTML?

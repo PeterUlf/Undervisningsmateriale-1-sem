@@ -1,6 +1,8 @@
 ---
 title: Semantisk HTML
 description: Giv din kode mening med gode, beskrivende HTML-elementer
+sidebar:
+  order: 2
 ---
 
 ## Hvad betyder semantisk HTML?

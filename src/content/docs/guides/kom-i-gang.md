@@ -1,6 +1,8 @@
 ---
 title: Kom i gang
 description: Start din rejse med HTML, CSS og JavaScript
+sidebar:
+  order: 1
 ---
 
 ## Velkommen til webudvikling!

@@ -4,7 +4,7 @@ title: Farvekorrektion og eksport til platforme
 description: Grundlæggende farvekorrektion i Premiere Pro og eksport til forskellige platforme
 sidebar:
   label: Farve og eksport
-  order: 4
+  order: 5
 ---
 
 # Farvekorrektion og eksport til platforme

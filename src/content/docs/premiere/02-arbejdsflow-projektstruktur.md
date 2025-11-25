@@ -4,7 +4,7 @@ title: Arbejdsflow og projektstruktur i Premiere Pro
 description: Bedste praksis for projektstruktur, sequences og versioner i Premiere Pro
 sidebar:
   label: Arbejdsflow og struktur
-  order: 2
+  order: 3
 ---
 
 # Arbejdsflow og projektstruktur i Premiere Pro

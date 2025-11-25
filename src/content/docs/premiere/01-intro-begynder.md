@@ -4,7 +4,7 @@ title: Premiere Pro for begyndere
 description: Introduktion til Premiere Pro for helt nye brugere
 sidebar:
   label: Premiere Pro
-  order: 1
+  order: 2
 ---
 
 # Premiere Pro for begyndere

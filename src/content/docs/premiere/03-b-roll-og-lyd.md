@@ -4,7 +4,7 @@ title: Fortælling med B-roll og lyd
 description: Brug af B-roll, tempo og lyd til at styrke fortællingen i Premiere Pro
 sidebar:
   label: B-roll og lyd
-  order: 3
+  order: 4
 ---
 
 # Fortælling med B-roll og lyd

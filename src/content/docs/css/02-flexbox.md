@@ -1,6 +1,8 @@
 ---
 title: Flexbox
 description: Fleksible 1D-layouts til rækker og kolonner
+sidebar:
+  order: 2
 ---
 
 ## Hvad er Flexbox?

@@ -1,6 +1,8 @@
 ---
 title: CSS Grid
 description: Layout med kolonner og rækker – moderne 2D-layout i CSS
+sidebar:
+  order: 3
 ---
 
 ## Hvad er CSS Grid?

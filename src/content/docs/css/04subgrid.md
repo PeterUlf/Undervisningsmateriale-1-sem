@@ -1,6 +1,8 @@
 ---
 title: CSS Subgrid
 description: Del grid-strukturen med dine children – avanceret Grid-layout
+sidebar:
+  order: 4
 ---
 
 ## Hvad er subgrid?
