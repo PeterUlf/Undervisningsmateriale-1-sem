@@ -3,8 +3,15 @@ title: Intro til CSS
 description: Fra struktur til design – sådan styler du HTML med CSS
 sidebar:
   order: 1
+  badge:
+    text: Tema 1
+    variant: tip
+    class: badge-theme-1
 ---
 
+import Slide from "../../../components/Slide.astro";
+
+<Slide> 
 ## Hvad er CSS?
 
 CSS står for **Cascading Style Sheets** og er sproget, vi bruger til at styre, hvordan HTML ser ud:
@@ -17,6 +24,8 @@ CSS står for **Cascading Style Sheets** og er sproget, vi bruger til at styre, 
 
 Hvor **HTML** handler om struktur og betydning, handler **CSS** om udseende og design.
 
+</Slide> 
+<Slide> 
 ## HTML vs. CSS
 
 - **HTML**: fortæller _hvad_ noget er (overskrift, afsnit, liste, billede …)
@@ -41,6 +50,8 @@ p {
 }
 ```
 
+</Slide> 
+<Slide> 
 ## Hvordan fungerer CSS?
 
 CSS består af **regler**. Hver regel har:
@@ -64,6 +75,8 @@ h1 {
 }
 ```
 
+</Slide> 
+<Slide> 
 ## Typer af selectorer
 
 Fra kompendiet arbejder vi især med disse selectorer:
@@ -77,7 +90,9 @@ Fra kompendiet arbejder vi især med disse selectorer:
   - `div, p` – alle `div` og alle `p`
 - **Pseudoselectorer:** `a:hover`, `p::first-letter`
 
-Eksempel:
+</Slide> 
+<Slide> 
+## Eksempel:
 
 ```css
 /* Alle afsnit */
@@ -101,9 +116,9 @@ nav a {
 }
 ```
 
-## Hvor skriver man CSS?
-
-Der er tre almindelige måder at bruge CSS på:
+</Slide> 
+<Slide> 
+## Hvor skriver man CSS? - tre metoder:
 
 1. **Ekstern CSS** (anbefalet)
 
@@ -136,6 +151,8 @@ Der er tre almindelige måder at bruge CSS på:
 
 Til rigtige projekter bruger man næsten altid **eksterne stylesheets**, fordi det er mest overskueligt.
 
+</Slide> 
+<Slide> 
 ## Kaskade, specificitet og rækkefølge
 
 CSS står for **Cascading** Style Sheets. "Kaskaden" betyder, at der er regler for, hvilke CSS-regler der vinder, når flere regler rammer det samme element.
@@ -145,7 +162,9 @@ Vigtige ting:
 - Regler, der kommer **senere i filen**, kan overskrive tidligere regler
 - Mere **specifikke** selectorer vinder over mindre specifikke
 
-Eksempel med rækkefølge:
+</Slide> 
+<Slide> 
+## Eksempel med rækkefølge:
 
 ```css
 p {
@@ -157,7 +176,9 @@ p {
 }
 ```
 
-Eksempel med forskellig specificitet:
+</Slide> 
+<Slide> 
+## Eksempel med forskellig specificitet:
 
 ```css
 h1 {
@@ -183,6 +204,8 @@ så bliver farven **rød**, fordi `#top` (id-selector) er mest specifik.
 
 Det svarer til kompendiets pointe: **"Den mest specifikke vinder"**.
 
+</Slide> 
+<Slide> 
 ## Nedarvning
 
 Nogle CSS-properties bliver **arvet** af de elementer, der ligger inde i et andet.
@@ -206,12 +229,27 @@ og HTML ser sådan her ud:
 
 Så vil både `h2` og `p` som udgangspunkt arve farven blå.
 
+</Slide> 
+<Slide> 
 ## Margin og padding
 
 **Margin** og **padding** er to helt centrale begreber i layout.
 
 - **Margin:** afstand _udenfor_ et element – til andre elementer
 - **Padding:** afstand _indenfor_ elementets kant – mellem kant og indhold
+
+:::note[Box-sizing]
+En vigtig detalje i CSS er `box-sizing: border-box`. Det sikrer, at padding og border tælles _med_ i elementets bredde, så det ikke bliver bredere end du forventer.
+
+Man sætter det typisk på **alle** elementer i starten af sin CSS-fil:
+
+```css
+* {
+  box-sizing: border-box;
+}
+```
+
+:::
 
 Eksempel:
 
@@ -237,6 +275,8 @@ border-style: solid;
 border-color: red;
 ```
 
+</Slide> 
+<Slide> 
 ## Enheder i CSS
 
 Du kommer til at møde mange forskellige enheder. Nogle af de vigtigste er:
@@ -259,16 +299,27 @@ p {
 }
 ```
 
+</Slide> 
+<Slide> 
 ## Hvad kan vi styre med CSS?
 
 - **Farver:** baggrund, tekst, kanter
 - **Tekst:** font-type, størrelse, linjeafstand, fed/kursiv
 - **Rammer:** `border-width`, `border-style`, `border-color`
 - **Afstande:** `margin`, `padding`
-- **Layout:** fx Flexbox og Grid (senere i forløbet)
+- **Layout:** fx Flexbox og Grid
 - **Responsivitet:** tilpasning til mobil, tablet, desktop
 - **Animationer og effekter:** overgang (transition), transform, hover-effekter
 
+:::tip[Flexbox eller Grid?]
+En god tommelfingerregel:
+
+- Brug **Flexbox** til 1 dimension (en række _eller_ en kolonne).
+- Brug **Grid** til 2 dimensioner (både rækker _og_ kolonner) eller til hele sidelayouts.
+  :::
+
+</Slide> 
+<Slide> 
 ## Opgaver
 
 1. Lav en simpel HTML-side med en overskrift, et par afsnit og et billede.
@@ -284,9 +335,23 @@ p {
 Hold HTML til **struktur og betydning** – og brug CSS til **stil og design**.
 :::
 
+</Slide> 
+<Slide> 
 ## Links og ressourcer
 
 - [ExerCSSises – CSS-øvelser](https://exercssises.vercel.app/)
 - [Grid-øvelser](https://exercssises.vercel.app/grid)
 - [Subgrid-øvelser](https://exercssises.vercel.app/subgrid)
 - [Flexbox-øvelser](https://exercssises.vercel.app/flex)
+
+</Slide>
+
+<Slide>
+
+## Næste skridt
+
+Lær at lave fleksible layouts, der tilpasser sig skærmen.
+
+[Gå til Flexbox (/css/flexbox) →](/css/flexbox)
+
+</Slide>

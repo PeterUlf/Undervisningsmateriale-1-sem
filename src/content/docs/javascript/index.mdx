@@ -1,0 +1,227 @@
+---
+title: Intro til JavaScript
+description: Lær det grundlæggende i JavaScript gennem interaktivitet
+sidebar:
+  order: 1
+  badge:
+    text: Tema 4
+    variant: note
+    class: badge-theme-4
+---
+
+import Slide from "../../../components/Slide.astro";
+
+<Slide>
+
+JavaScript er sproget, der gør websider **interaktive**. Mens HTML er strukturen og CSS er udseendet, er JavaScript "hjernen", der får ting til at ske, når brugeren klikker, scroller eller skriver.
+
+Her gennemgår vi de begreber, du skal kende for at lave simpel interaktivitet.
+
+</Slide>
+
+<Slide>
+
+## 1. Variabler (`let`)
+
+En variabel er en beholder til data. Vi bruger `let` til at oprette en variabel.
+
+```javascript
+let disease = "Navn på sygdom";
+let diseaseDescription = "Beskrivelse af sygdomme";
+```
+
+Her har vi gemt to tekster (strings) i variablerne `disease` og `diseaseDescription`. Vi kan bruge disse navne senere i koden i stedet for at skrive teksten igen.
+
+</Slide>
+
+<Slide>
+
+## Funktioner (`function`)
+
+En funktion er en samling af kode, der kun kører, når vi beder den om det.
+
+```javascript
+function klar() {
+  console.log("Siden er klar!");
+}
+```
+
+Koden inde i `{ ... }` kører ikke med det samme. Den venter på at blive kaldt.
+
+</Slide>
+
+<Slide>
+
+## Events (`addEventListener`)
+
+Vi vil ofte have koden til at køre, når der sker noget bestemt – en "event".
+
+</Slide>
+
+<Slide>
+
+## Vent på at siden er indlæst
+
+Det er vigtigt, at vi ikke prøver at finde HTML-elementer, før de er indlæst. Derfor starter vi ofte med:
+
+```javascript
+window.addEventListener("load", klar);
+```
+
+Dette betyder: "Når vinduet (`window`) er færdig med at indlæse (`load`), så kør funktionen `klar`."
+
+</Slide>
+
+<Slide>
+
+## Klik-events
+
+Vi kan også lytte efter klik på specifikke elementer. Her laver vi en funktion `klikPaaKnap`, som vi kobler på knappen:
+
+```javascript
+function klikPaaKnap() {
+  console.log("Der blev klikket på knappen!");
+}
+
+document.querySelector("#knap").addEventListener("click", klikPaaKnap);
+```
+
+Her undgår vi **anonyme funktioner** ved at navngive funktionen først. Det gør koden lettere at læse og genbruge.
+
+</Slide>
+
+<Slide>
+
+## Find elementer (`querySelector`)
+
+For at gøre noget ved et HTML-element, skal vi først finde det. Vi bruger `document.querySelector()` ligesom vi bruger selectors i CSS.
+
+```javascript
+// Finder elementet med id="influenza"
+document.querySelector("#influenza");
+
+// Finder elementet med class="selected"
+document.querySelector(".selected");
+```
+
+</Slide>
+
+<Slide>
+
+## Ændre indhold og udseende
+
+Når vi har fundet et element, kan vi ændre det.
+
+### Ændre tekst (`textContent`)
+
+```javascript
+document.querySelector("#efficiency").textContent = "Ny tekst her";
+```
+
+### Ændre klasser (`classList`)
+
+Vi kan tilføje og fjerne CSS-klasser for at ændre udseendet dynamisk.
+
+```javascript
+// Tilføj en klasse (fx for at markere noget som valgt)
+document.querySelector("#frederiksberg").classList.add("selected");
+
+// Fjern en klasse
+document.querySelector("#frederiksberg").classList.remove("selected");
+```
+
+</Slide>
+
+<Slide>
+
+## Samlet eksempel
+
+Her er koden samlet, som viser hvordan man kan lave et interaktivt kort over sygdomme i bydele. Vi har delt koden op i navngivne funktioner for at gøre det mere overskueligt.
+
+```javascript
+// Vi venter på at siden er loadet før vi starter
+window.addEventListener("load", klar);
+
+// Globale variabler
+let disease = "Navn på sygdom";
+let diseaseDescription = "Beskrivelse af sygdomme";
+
+function klar() {
+  console.log("Loaded");
+
+  // Vi kobler funktioner til knapperne
+  document
+    .querySelector("#influenza")
+    .addEventListener("click", clickInfluenza);
+  document.querySelector("#covid").addEventListener("click", clickCovid);
+  document
+    .querySelector("#mundogklovsyge")
+    .addEventListener("click", clickMundOgKlovsyge);
+  document.querySelector("#reset").addEventListener("click", clickReset);
+}
+
+function clickInfluenza() {
+  console.log("klikket influenza");
+  resetBydel(); // Fjern markering fra alle først
+
+  // Marker Frederiksberg og opdater tekst
+  document.querySelector("#frederiksberg").classList.add("selected");
+  document.querySelector("#efficiency").textContent = "Influenza";
+  document.querySelector("#requirement").textContent =
+    "Ikke rigtigt farlige, men meget iriterende";
+}
+
+function clickCovid() {
+  console.log("klikket covid");
+  resetBydel();
+
+  document.querySelector("#oesterbro").classList.add("selected");
+  document.querySelector("#efficiency").textContent = "Covid";
+  document.querySelector("#requirement").textContent = "Super spændende";
+}
+
+function clickMundOgKlovsyge() {
+  console.log("klikket mundogklovsyge");
+  resetBydel();
+
+  document.querySelector("#amager").classList.add("selected");
+  document.querySelector("#efficiency").textContent = "Mund og klovsyge";
+  document.querySelector("#requirement").textContent =
+    "Farligt hvis du er en ko";
+}
+
+function clickReset() {
+  resetBydel();
+}
+
+// Hjælpefunktion til at nulstille alt
+function resetBydel() {
+  // Fjern 'selected' klassen fra alle bydele
+  document.querySelector("#frederiksberg").classList.remove("selected");
+  document.querySelector("#oesterbro").classList.remove("selected");
+  document.querySelector("#amager").classList.remove("selected");
+
+  // Nulstil teksten til standard-variablerne
+  document.querySelector("#efficiency").textContent = disease;
+  document.querySelector("#requirement").textContent = diseaseDescription;
+}
+```
+
+### Hvad sker der i koden?
+
+1. **`window.addEventListener("load", klar)`**: Sikrer at HTML'en er klar.
+2. **`resetBydel()`**: En smart funktion vi har lavet for at undgå at gentage koden til at "rydde op". Den fjerner markeringer og nulstiller teksten.
+3. **`classList.add("selected")`**: Vi bruger CSS-klassen `.selected` (som vi har stylet i CSS) til at vise brugeren, hvad der er valgt.
+4. **`textContent`**: Opdaterer informationen på skærmen baseret på hvad man klikker på.
+
+</Slide>
+
+<Slide>
+
+## Næste skridt
+
+Sæt alt det du har lært sammen i et rigtigt projekt.
+
+[Gå til Kom i gang med et projekt (/guides/kom-i-gang) →](/guides/kom-i-gang)
+
+</Slide>

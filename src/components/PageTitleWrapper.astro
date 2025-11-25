@@ -1,0 +1,10 @@
+---
+import Default from '@astrojs/starlight/components/PageTitle.astro';
+import PresentationMode from './PresentationMode.astro';
+---
+
+<Default {...Astro.props}>
+  <slot />
+</Default>
+
+<PresentationMode />

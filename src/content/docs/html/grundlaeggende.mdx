@@ -3,11 +3,23 @@ title: HTML Grundlæggende
 description: Lær de grundlæggende HTML-tags og strukturen på en webside
 sidebar:
   order: 1
+  badge:
+    text: Tema 1
+    variant: tip
+    class: badge-theme-1
 ---
+
+import Slide from "../../../components/Slide.astro";
+
+<Slide>
 
 ## Hvad er HTML?
 
 HTML står for **HyperText Markup Language** og er sproget, vi bruger til at strukturere indhold på websider. HTML fortæller browseren, hvad der er en overskrift, et afsnit, et billede osv.
+
+</Slide>
+
+<Slide>
 
 ## Grundstruktur
 
@@ -27,14 +39,26 @@ Hver HTML-side følger denne grundlæggende struktur:
 </html>
 ```
 
-### Forklaring af elementerne:
+</Slide>
 
-- `<!DOCTYPE html>` - Fortæller browseren at det er HTML5
+<Slide>
+
+## Forklaring af elementerne:
+
+- `<!DOCTYPE html>` - Fortæller browseren at det er HTML5 og sikrer at siden vises i "standard mode" (så layout ikke går i stykker)
 - `<html>` - Rod-elementet, indeholder hele dokumentet
 - `<head>` - Metadata om siden (ikke synligt på siden)
 - `<meta charset="UTF-8">` - Tegnsæt for at vise danske tegn korrekt
 - `<title>` - Titlen der vises i browser-fanen
 - `<body>` - Det synlige indhold på siden
+
+:::tip[Sprog]
+Læg mærke til `<html lang="da">`. Det fortæller browseren, at sidens indhold er på dansk. Det hjælper både oplæsningsværktøjer (tilgængelighed) og stavekontrol.
+:::
+
+</Slide>
+
+<Slide>
 
 ## Vigtige HTML-tags
 
@@ -55,7 +79,11 @@ HTML har 6 niveauer af overskrifter, fra `<h1>` (størst) til `<h6>` (mindst):
 Brug kun én `<h1>` per side - det er din hovedoverskrift!
 :::
 
-### Afsnit og tekst
+</Slide>
+
+<Slide>
+
+## Afsnit og tekst
 
 ```html
 <p>Dette er et afsnit tekst.</p>
@@ -70,37 +98,24 @@ Brug kun én `<h1>` per side - det er din hovedoverskrift!
 - `<strong>` - Vigtig tekst (fed skrift)
 - `<em>` - Fremhævet tekst (kursiv)
 
-### Links
+</Slide>
+
+<Slide>
+## Links
 
 Links laver du med `<a>`-tagget:
 
-````html
+```html
 <a href="https://www.google.dk">Gå til Google</a>
 
 <a href="om.html">Om os</a>
---- title: HTML Grundlæggende description: Introduktion til HTML, tags,
-attributter og god struktur --- ## Hvad er HTML? HTML står for **HyperText
-Markup Language**. Det er sproget, vi bruger til at opmærke (markere) tekst og
-indhold, så en browser forstår, hvad der er hvad: - hvad der er en
-**overskrift** - hvad der er **brødtekst** - hvor der er **billeder**,
-**lister**, **links** osv. HTML handler om **struktur og betydning**, ikke om
-design. Udseendet kommer senere med CSS. ## Grundstruktur for en HTML-side En
-simpel HTML-side kunne se sådan ud: ```html
-<!DOCTYPE html>
-<html lang="da">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Min første side</title>
-  </head>
-  <body>
-    <h1>Hello World!</h1>
-    <p>Dette er min første HTML-side.</p>
-  </body>
-</html>
-````
+```
 
-### Hvad betyder de forskellige dele?
+</Slide>
+
+<Slide>
+
+## Hvad betyder de forskellige dele?
 
 - `<!DOCTYPE html>` – fortæller browseren, at vi bruger HTML5
 - `<html>` – rod-elementet, indeholder hele dokumentet
@@ -108,6 +123,10 @@ simpel HTML-side kunne se sådan ud: ```html
 - `<meta charset="UTF-8">` – sikrer at danske tegn (æ, ø, å) vises korrekt
 - `<title>` – teksten i browser-fanen
 - `<body>` – alt det synlige indhold på siden
+
+</Slide>
+
+<Slide>
 
 ## Tags og nesting
 
@@ -122,14 +141,23 @@ HTML består af **tags**. De fleste tags kommer i par:
 - `</h1>` er **slut-tag**
 - teksten imellem er indholdet
 
-Der findes overordnet to typer tags:
+</Slide>
+<Slide>
+
+## Tagtyper
+
+### Der findes overordnet to typer tags
 
 1. **Container-tags** – der har start- og slut-tag og kan indeholde indhold
    - eksempel: `<h1> ... </h1>`, `<p> ... </p>`
 2. **Empty tags** – der ikke indeholder indhold (ingen slut-tag)
    - eksempel: `<img>`
 
-### Nesting (at lægge tags rigtigt ind i hinanden)
+</Slide>
+
+<Slide>
+## Nesting 
+### (at lægge tags rigtigt ind i hinanden)
 
 Tags skal **næstes** korrekt – altså lukkes i den rigtige rækkefølge:
 
@@ -142,9 +170,12 @@ Tags skal **næstes** korrekt – altså lukkes i den rigtige rækkefølge:
 
 Det er vigtigt, at tags altid bliver lukket i samme rækkefølge, som de er åbnet.
 
+</Slide>
+<Slide>
+
 ## Tekst: overskrifter, brødtekst og vigtig tekst
 
-HTML har seks niveauer af overskrifter:
+### HTML har seks niveauer af overskrifter:
 
 ```html
 <h1>Hovedoverskrift</h1>
@@ -158,7 +189,10 @@ HTML har seks niveauer af overskrifter:
 Brug kun én `<h1>` pr. side. Det er sidens hovedoverskrift.
 :::
 
-Brødtekst skrives med `<p>`:
+</Slide>
+<Slide>
+
+## Brødtekst skrives med `<p>`:
 
 ```html
 <p>Dette er et almindeligt afsnit brødtekst.</p>
@@ -172,6 +206,10 @@ Hvis du vil markere noget tekst som vigtigt eller fremhævet, bruger du:
 
 - `<strong>` – vigtigt indhold (vises typisk som fed)
 - `<em>` – tekst med betoning (vises typisk som kursiv)
+
+</Slide>
+
+<Slide>
 
 ## Links
 
@@ -189,6 +227,9 @@ Vigtige attributter:
 
 - `href` – den adresse (URL), linket peger på
 - `target="_blank"` – åbner linket i en ny fane
+
+</Slide>
+<Slide>
 
 ## Attributter
 
@@ -211,6 +252,10 @@ Generelt skrives attributter sådan her:
 <tag attribut="værdi">Indhold</tag>
 ```
 
+</Slide>
+
+<Slide>
+
 ## Billeder og alt-tekst
 
 Billeder indsættes med `<img>`-tagget (et **empty tag**):
@@ -226,7 +271,11 @@ Billeder indsættes med `<img>`-tagget (et **empty tag**):
 `alt` er vigtig for **tilgængelighed** (skærmlæsere) og vises, hvis billedet ikke kan indlæses.
 :::
 
-### Relative stier
+</Slide>
+
+<Slide>
+
+## Relative stier
 
 Når du refererer til filer (billeder, CSS, andre sider), bruger du ofte **relative stier** – altså stier i forhold til den aktuelle fil.
 
@@ -240,6 +289,10 @@ Eksempel:
 ```
 
 Her ligger billedet i en mappe `img` ved siden af HTML-filen.
+
+</Slide>
+
+<Slide>
 
 ## Lister
 
@@ -267,6 +320,10 @@ Der er to basistyper af lister:
 
 Lister er god semantisk markup, fordi de viser, at noget hører sammen.
 
+</Slide>
+
+<Slide>
+
 ## Semantisk struktur: header, main og footer
 
 Ud over tekst-tags findes der også tags til at beskrive **strukturen** på en side:
@@ -292,6 +349,10 @@ Ud over tekst-tags findes der også tags til at beskrive **strukturen** på en s
 </body>
 ```
 
+</Slide>
+
+<Slide>
+
 ## Figurer og billedtekster
 
 Når et billede eller en grafik er vigtigt indhold, kan du samle det i et `<figure>`-element med en billedtekst (`<figcaption>`):
@@ -305,12 +366,18 @@ Når et billede eller en grafik er vigtigt indhold, kan du samle det i et `<figu
 
 `<figure>` bruges til indhold, der kan stå for sig selv (self-contained), og `<figcaption>` beskriver figuren.
 
+</Slide>
+
+<Slide>
 ## Opsummering
 
 - HTML **opmærker** tekst og indhold, så browseren forstår betydning
 - Vi bruger tags med `<` og `>` og lukker dem med `</tag>`
 - Vi skelner mellem **struktur** (HTML) og **udseende** (CSS)
 - God HTML er semantisk – dvs. den afspejler meningen i indholdet
+
+</Slide>
+<Slide>
 
 ## Prøv selv
 
@@ -354,6 +421,17 @@ Lav en fil, f.eks. `index.html`, med følgende indhold:
 
 Åbn filen i din browser og tjek, at alt ser rigtigt ud.
 
+</Slide>
+<Slide>
+
+## Links og ressourcer
+
+- [W3C Validator](https://validator.w3.org/) - Tjek din HTML for fejl
+- [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/HTML) - Den bedste dokumentation til HTML
+
+</Slide>
+<Slide>
+
 ## Næste skridt
 
 Når du er tryg ved:
@@ -367,4 +445,4 @@ så er du klar til at gå videre til:
 - **Semantisk HTML** (mere om struktur og betydning)
 - **Intro til CSS** – hvordan du får din side til at se flot ud
 
-Se næste side: [Intro til CSS](/css/intro)
+</Slide>

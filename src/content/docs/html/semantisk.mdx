@@ -3,9 +3,16 @@ title: Semantisk HTML
 description: Giv din kode mening med gode, beskrivende HTML-elementer
 sidebar:
   order: 2
+  badge:
+    text: Tema 1
+    variant: tip
+    class: badge-theme-1
 ---
 
-## Hvad betyder semantisk HTML?
+import Slide from "../../../components/Slide.astro";
+
+  <Slide> 
+  ## Hvad betyder semantisk HTML?
 
 **Semantisk HTML** betyder, at vi vælger HTML-tags, der beskriver indholdets _betydning_, ikke kun hvordan det ser ud.
 
@@ -18,7 +25,10 @@ Det gør det lettere for:
 
 at forstå, hvad siden handler om.
 
-Eksempler på semantiske elementer:
+</Slide> 
+<Slide>
+
+## Eksempler på semantiske elementer:
 
 - `header` – sidehoved
 - `nav` – navigation
@@ -29,6 +39,8 @@ Eksempler på semantiske elementer:
 - `footer` – sidefod
 - `figure` / `figcaption` – figur + billedtekst
 
+</Slide> 
+<Slide> 
 ## Struktur på en side
 
 En typisk side kan opdeles i:
@@ -37,6 +49,9 @@ En typisk side kan opdeles i:
 - en **hoveddel** (`main`)
 - en **slutning** (`footer`)
 
+</Slide> 
+<Slide> 
+## Eksempel
 ```html
 <body>
   <header>
@@ -49,10 +64,12 @@ En typisk side kan opdeles i:
     </nav>
   </header>
 
-  <main>
-    <h2>Velkommen</h2>
-    <p>Her er mit indhold.</p>
-  </main>
+{" "}
+
+<main>
+  <h2>Velkommen</h2>
+  <p>Her er mit indhold.</p>
+</main>
 
   <footer>
     <p>&copy; 2025 Mig selv</p>
@@ -62,6 +79,8 @@ En typisk side kan opdeles i:
 
 Her fortæller strukturen meget mere end hvis vi kun brugte `<div>` overalt.
 
+</Slide> 
+<Slide> 
 ## Afsnit, overskrifter og lister
 
 Fra kompendiet:
@@ -76,6 +95,8 @@ Det betyder, at vi skal:
 
 Ikke bare lave alt med `<div>` eller `<span>`.
 
+</Slide> 
+<Slide> 
 ## `figure` og `figcaption`
 
 Nogle gange har vi indhold, der kan stå for sig selv, f.eks. et billede + en forklaring. Der giver det mening at bruge `figure` og `figcaption`.
@@ -94,6 +115,8 @@ Her er:
 
 Det er _semantisk_: vi fortæller, at dette er en figur med en forklaring.
 
+</Slide> 
+<Slide> 
 ## Bedre markup med lister
 
 Lister er også en vigtig del af semantisk HTML:
@@ -108,6 +131,8 @@ Lister er også en vigtig del af semantisk HTML:
 
 Det viser, at punkterne hører sammen – både visuelt og logisk.
 
+</Slide> 
+<Slide> 
 ## Semantisk vs. ikke-semantisk
 
 Ikke-semantisk kode kunne se sådan her ud:
@@ -133,6 +158,8 @@ En semantisk version kunne være:
 
 Begge kan styles til at se ens ud med CSS, men den semantiske version er meget mere meningsfuld.
 
+</Slide> 
+<Slide> 
 ## Links og URL’er
 
 Når vi laver links, bruger vi `a`-elementet og en URL:
@@ -149,6 +176,8 @@ Du kan læse mere om URL’er i f.eks. RFC 3986 eller på Wikipedia, men til vor
 - `www.dr.dk` – domænenavn
 - resten af stien – vej til en specifik side eller fil
 
+</Slide> 
+<Slide> 
 ## HTML-kommentarer
 
 Nogle gange vil du skrive noter til dig selv eller andre udviklere. Det gør du med kommentarer:
@@ -163,6 +192,8 @@ Brug kommentarer til:
 - TODOs
 - markering af større sektioner i koden
 
+</Slide> 
+<Slide> 
 ## Opgaver
 
 1. Omskriv en eksisterende side, så du bruger:
@@ -174,9 +205,18 @@ Brug kommentarer til:
 3. Indsæt et billede som en semantisk figur med `figure` og `figcaption`.
 4. Tilføj mindst to HTML-kommentarer, der forklarer din struktur.
 
-## Videre læsning
+</Slide> 
+<Slide> 
+## Links og ressourcer
 
 - [MDN: HTML element reference](https://developer.mozilla.org/en-US/docs/Web/HTML/Element)
 - [MDN: HTML: A good basis for accessibility](https://developer.mozilla.org/en-US/docs/Learn/Accessibility/HTML)
 
-Næste skridt: begynd at **style** din semantiske HTML med [Intro til CSS](/css/intro).
+</Slide> 
+<Slide>
+
+## Næste skridt
+
+begynd at **style** din semantiske HTML med [Intro til CSS](/css/intro).
+
+</Slide>

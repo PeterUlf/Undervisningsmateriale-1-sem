@@ -1,9 +1,17 @@
 ---
-title: CSS Subgrid
+title: Subgrid
 description: Del grid-strukturen med dine children – avanceret Grid-layout
 sidebar:
-  order: 4
+  order: 5
+  badge:
+    text: Tema 7
+    variant: tip
+    class: badge-theme-7
 ---
+
+import Slide from "../../../components/Slide.astro";
+
+<Slide>
 
 ## Hvad er subgrid?
 
@@ -15,6 +23,10 @@ Det er nyttigt, når:
 - du har komplekse layouts med gentagne strukturer
 
 > Bemærk: Subgrid er stadig relativt nyt – støtte kan variere mellem browsere, men moderne browsere er ved at være med.
+
+</Slide>
+
+<Slide>
 
 ## Grund-idé
 
@@ -39,7 +51,16 @@ Inde i den har du en sektion, der også er grid – men med `subgrid`:
 
 Så vil `.section` bruge **de samme kolonner** som `.page`.
 
+</Slide>
+
+<Slide>
+
 ## Simpelt eksempel
+
+<div class="columns-2">
+
+<div>
+HTML:
 
 ```html
 <div class="page">
@@ -54,6 +75,11 @@ Så vil `.section` bruge **de samme kolonner** som `.page`.
   </section>
 </div>
 ```
+
+</div>
+
+<div>
+CSS:
 
 ```css
 .page {
@@ -77,7 +103,15 @@ Så vil `.section` bruge **de samme kolonner** som `.page`.
 }
 ```
 
+</div>
+
+</div>
+
 Her flugter overskrifter og tekst på tværs af sektionerne, fordi de bruger samme grid-kolonner.
+
+</Slide>
+
+<Slide>
 
 ## Subgrid på rækker
 
@@ -98,6 +132,10 @@ Du kan også bruge subgrid på rækker:
 Dette er især nyttigt, hvis du vil have
 sektioner med samme rækker (fx ens højder på tværs af flere områder).
 
+</Slide>
+
+<Slide>
+
 ## Opgaver (inspireret af exercssises)
 
 1. Lav en side, hvor:
@@ -111,3 +149,15 @@ sektioner med samme rækker (fx ens højder på tværs af flere områder).
 :::tip[Tip]
 Brug browserens Grid-inspektor til at se, hvordan subgrid arver kolonnerne.
 :::
+
+</Slide>
+
+<Slide>
+
+## Næste skridt
+
+Gør din side levende med animationer når brugeren scroller.
+
+[Gå til Scroll Effekter (/css/scroll-effects) →](/css/scroll-effects)
+
+</Slide>

@@ -1,9 +1,17 @@
 ---
-title: CSS Grid
+title: Grid
 description: Layout med kolonner og rækker – moderne 2D-layout i CSS
 sidebar:
   order: 3
+  badge:
+    text: Tema 1
+    variant: tip
+    class: badge-theme-1
 ---
+
+import Slide from "../../../components/Slide.astro";
+
+<Slide>
 
 ## Hvad er CSS Grid?
 
@@ -15,12 +23,21 @@ Det er især godt til:
 - dashboards og kort
 - gallerier og overskuelige grids
 
+</Slide>
+
+<Slide>
+
 ## Kom i gang med grid
 
 For at bruge Grid skal du:
 
 1. have en **container**, der får `display: grid;`
 2. definere **kolonner** og evt. rækker
+
+<div class="columns-2">
+
+<div>
+HTML:
 
 ```html
 <div class="grid">
@@ -31,6 +48,10 @@ For at bruge Grid skal du:
 </div>
 ```
 
+</div>
+<div>
+CSS:
+
 ```css
 .grid {
   display: grid;
@@ -39,7 +60,15 @@ For at bruge Grid skal du:
 }
 ```
 
+</div>
+
+</div>
+
 Her får vi et simpelt 2x2-grid med lidt afstand mellem felterne.
+
+</Slide>
+
+<Slide>
 
 ## Vigtige properties
 
@@ -48,7 +77,12 @@ Her får vi et simpelt 2x2-grid med lidt afstand mellem felterne.
 - `grid-template-rows` – definerer rækker (valgfri, ofte lader man dem vokse automatisk)
 - `gap` – afstand mellem rækker og kolonner
 
-Eksempler på kolonner:
+</Slide>
+
+<Slide>
+## Eksempler på kolonner:
+
+CSS:
 
 ```css
 /* Tre lige brede kolonner */
@@ -67,11 +101,17 @@ Eksempler på kolonner:
 }
 ```
 
+</Slide>
+
+<Slide>
+
 ## Placering af elementer
 
 Hvert barn i en grid-container kan placeres eksplicit, men ofte lader man Grid selv placere dem i rækkefølge.
 
 Eksempel på manuel placering:
+
+CSS:
 
 ```css
 .header {
@@ -87,7 +127,16 @@ Eksempel på manuel placering:
 }
 ```
 
+</Slide>
+
+<Slide>
+
 ## En simpel side med Grid
+
+<div class="columns-2">
+
+<div>
+HTML:
 
 ```html
 <body>
@@ -99,6 +148,11 @@ Eksempel på manuel placering:
   </div>
 </body>
 ```
+
+</div>
+
+<div>
+CSS:
 
 ```css
 .page-grid {
@@ -125,6 +179,14 @@ Eksempel på manuel placering:
 }
 ```
 
+</div>
+
+</div>
+
+</Slide>
+
+<Slide>
+
 ## Opgaver (inspireret af exercssises)
 
 1. Lav et 3x3-grid med ni bokse, der alle har samme størrelse.
@@ -141,3 +203,15 @@ Eksempel på manuel placering:
 :::tip[Ekstra]
 Prøv at åbne udviklerværktøjerne i browseren (Firefox/Chrome) – de har gode Grid-visualiseringer.
 :::
+
+</Slide>
+
+<Slide>
+
+## Næste skridt
+
+Gør din side levende med animationer når brugeren scroller.
+
+[Gå til Scroll Effekter (/css/scroll-effects) →](/css/scroll-effects)
+
+</Slide>

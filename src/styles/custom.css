@@ -1,0 +1,286 @@
+/* Flyt badge til venstre for titlen i menuen */
+
+/* Target links in the sidebar */
+#starlight__sidebar a {
+  display: flex !important;
+  align-items: center;
+  gap: 0.5em;
+}
+
+/* Target group labels in the sidebar */
+#starlight__sidebar .group-label {
+  display: flex !important;
+  align-items: center;
+  gap: 0.5em;
+}
+
+/* Move the badge to the beginning */
+#starlight__sidebar .sl-badge {
+  order: -1;
+}
+
+/* Reset Starlight's default margins */
+#starlight__sidebar a > *:not(:last-child),
+#starlight__sidebar .group-label > *:not(:last-child) {
+  margin-inline-end: 0 !important;
+}
+
+/* Theme Badge Colors */
+.badge-theme-1 {
+  --sl-color-bg-badge: hsla(0, 50%, 20%, 0.5);
+  --sl-color-border-badge: hsl(0, 60%, 40%);
+  --sl-color-text-badge: hsl(0, 80%, 90%);
+}
+
+:root[data-theme="light"] .badge-theme-1 {
+  --sl-color-bg-badge: hsla(0, 50%, 90%, 0.5);
+  --sl-color-border-badge: hsl(0, 60%, 60%);
+  --sl-color-text-badge: hsl(0, 80%, 20%);
+}
+
+.badge-theme-2 {
+  --sl-color-bg-badge: hsla(21, 50%, 20%, 0.5);
+  --sl-color-border-badge: hsl(21, 60%, 40%);
+  --sl-color-text-badge: hsl(21, 80%, 90%);
+}
+
+:root[data-theme="light"] .badge-theme-2 {
+  --sl-color-bg-badge: hsla(21, 50%, 90%, 0.5);
+  --sl-color-border-badge: hsl(21, 60%, 60%);
+  --sl-color-text-badge: hsl(21, 80%, 20%);
+}
+
+.badge-theme-3 {
+  --sl-color-bg-badge: hsla(42, 50%, 20%, 0.5);
+  --sl-color-border-badge: hsl(42, 60%, 40%);
+  --sl-color-text-badge: hsl(42, 80%, 90%);
+}
+
+:root[data-theme="light"] .badge-theme-3 {
+  --sl-color-bg-badge: hsla(42, 50%, 90%, 0.5);
+  --sl-color-border-badge: hsl(42, 60%, 60%);
+  --sl-color-text-badge: hsl(42, 80%, 20%);
+}
+
+.badge-theme-4 {
+  --sl-color-bg-badge: hsla(63, 50%, 20%, 0.5);
+  --sl-color-border-badge: hsl(63, 60%, 40%);
+  --sl-color-text-badge: hsl(63, 80%, 90%);
+}
+
+:root[data-theme="light"] .badge-theme-4 {
+  --sl-color-bg-badge: hsla(63, 50%, 90%, 0.5);
+  --sl-color-border-badge: hsl(63, 60%, 60%);
+  --sl-color-text-badge: hsl(63, 80%, 20%);
+}
+
+.badge-theme-5 {
+  --sl-color-bg-badge: hsla(84, 50%, 20%, 0.5);
+  --sl-color-border-badge: hsl(84, 60%, 40%);
+  --sl-color-text-badge: hsl(84, 80%, 90%);
+}
+
+:root[data-theme="light"] .badge-theme-5 {
+  --sl-color-bg-badge: hsla(84, 50%, 90%, 0.5);
+  --sl-color-border-badge: hsl(84, 60%, 60%);
+  --sl-color-text-badge: hsl(84, 80%, 20%);
+}
+
+.badge-theme-6 {
+  --sl-color-bg-badge: hsla(105, 50%, 20%, 0.5);
+  --sl-color-border-badge: hsl(105, 60%, 40%);
+  --sl-color-text-badge: hsl(105, 80%, 90%);
+}
+
+:root[data-theme="light"] .badge-theme-6 {
+  --sl-color-bg-badge: hsla(105, 50%, 90%, 0.5);
+  --sl-color-border-badge: hsl(105, 60%, 60%);
+  --sl-color-text-badge: hsl(105, 80%, 20%);
+}
+
+.badge-theme-7 {
+  --sl-color-bg-badge: hsla(127, 50%, 20%, 0.5);
+  --sl-color-border-badge: hsl(127, 60%, 40%);
+  --sl-color-text-badge: hsl(127, 80%, 90%);
+}
+
+:root[data-theme="light"] .badge-theme-7 {
+  --sl-color-bg-badge: hsla(127, 50%, 90%, 0.5);
+  --sl-color-border-badge: hsl(127, 60%, 60%);
+  --sl-color-text-badge: hsl(127, 80%, 20%);
+}
+
+.badge-theme-8 {
+  --sl-color-bg-badge: hsla(148, 50%, 20%, 0.5);
+  --sl-color-border-badge: hsl(148, 60%, 40%);
+  --sl-color-text-badge: hsl(148, 80%, 90%);
+}
+
+:root[data-theme="light"] .badge-theme-8 {
+  --sl-color-bg-badge: hsla(148, 50%, 90%, 0.5);
+  --sl-color-border-badge: hsl(148, 60%, 60%);
+  --sl-color-text-badge: hsl(148, 80%, 20%);
+}
+
+.badge-theme-9 {
+  --sl-color-bg-badge: hsla(169, 50%, 20%, 0.5);
+  --sl-color-border-badge: hsl(169, 60%, 40%);
+  --sl-color-text-badge: hsl(169, 80%, 90%);
+}
+
+:root[data-theme="light"] .badge-theme-9 {
+  --sl-color-bg-badge: hsla(169, 50%, 90%, 0.5);
+  --sl-color-border-badge: hsl(169, 60%, 60%);
+  --sl-color-text-badge: hsl(169, 80%, 20%);
+}
+
+.badge-theme-10 {
+  --sl-color-bg-badge: hsla(190, 50%, 20%, 0.5);
+  --sl-color-border-badge: hsl(190, 60%, 40%);
+  --sl-color-text-badge: hsl(190, 80%, 90%);
+}
+
+:root[data-theme="light"] .badge-theme-10 {
+  --sl-color-bg-badge: hsla(190, 50%, 90%, 0.5);
+  --sl-color-border-badge: hsl(190, 60%, 60%);
+  --sl-color-text-badge: hsl(190, 80%, 20%);
+}
+
+.badge-theme-11 {
+  --sl-color-bg-badge: hsla(211, 50%, 20%, 0.5);
+  --sl-color-border-badge: hsl(211, 60%, 40%);
+  --sl-color-text-badge: hsl(211, 80%, 90%);
+}
+
+:root[data-theme="light"] .badge-theme-11 {
+  --sl-color-bg-badge: hsla(211, 50%, 90%, 0.5);
+  --sl-color-border-badge: hsl(211, 60%, 60%);
+  --sl-color-text-badge: hsl(211, 80%, 20%);
+}
+
+.badge-theme-12 {
+  --sl-color-bg-badge: hsla(232, 50%, 20%, 0.5);
+  --sl-color-border-badge: hsl(232, 60%, 40%);
+  --sl-color-text-badge: hsl(232, 80%, 90%);
+}
+
+:root[data-theme="light"] .badge-theme-12 {
+  --sl-color-bg-badge: hsla(232, 50%, 90%, 0.5);
+  --sl-color-border-badge: hsl(232, 60%, 60%);
+  --sl-color-text-badge: hsl(232, 80%, 20%);
+}
+
+.badge-theme-13 {
+  --sl-color-bg-badge: hsla(254, 50%, 20%, 0.5);
+  --sl-color-border-badge: hsl(254, 60%, 40%);
+  --sl-color-text-badge: hsl(254, 80%, 90%);
+}
+
+:root[data-theme="light"] .badge-theme-13 {
+  --sl-color-bg-badge: hsla(254, 50%, 90%, 0.5);
+  --sl-color-border-badge: hsl(254, 60%, 60%);
+  --sl-color-text-badge: hsl(254, 80%, 20%);
+}
+
+.badge-theme-14 {
+  --sl-color-bg-badge: hsla(275, 50%, 20%, 0.5);
+  --sl-color-border-badge: hsl(275, 60%, 40%);
+  --sl-color-text-badge: hsl(275, 80%, 90%);
+}
+
+:root[data-theme="light"] .badge-theme-14 {
+  --sl-color-bg-badge: hsla(275, 50%, 90%, 0.5);
+  --sl-color-border-badge: hsl(275, 60%, 60%);
+  --sl-color-text-badge: hsl(275, 80%, 20%);
+}
+
+.badge-theme-15 {
+  --sl-color-bg-badge: hsla(296, 50%, 20%, 0.5);
+  --sl-color-border-badge: hsl(296, 60%, 40%);
+  --sl-color-text-badge: hsl(296, 80%, 90%);
+}
+
+:root[data-theme="light"] .badge-theme-15 {
+  --sl-color-bg-badge: hsla(296, 50%, 90%, 0.5);
+  --sl-color-border-badge: hsl(296, 60%, 60%);
+  --sl-color-text-badge: hsl(296, 80%, 20%);
+}
+
+.badge-theme-16 {
+  --sl-color-bg-badge: hsla(317, 50%, 20%, 0.5);
+  --sl-color-border-badge: hsl(317, 60%, 40%);
+  --sl-color-text-badge: hsl(317, 80%, 90%);
+}
+
+:root[data-theme="light"] .badge-theme-16 {
+  --sl-color-bg-badge: hsla(317, 50%, 90%, 0.5);
+  --sl-color-border-badge: hsl(317, 60%, 60%);
+  --sl-color-text-badge: hsl(317, 80%, 20%);
+}
+
+.badge-theme-17 {
+  --sl-color-bg-badge: hsla(338, 50%, 20%, 0.5);
+  --sl-color-border-badge: hsl(338, 60%, 40%);
+  --sl-color-text-badge: hsl(338, 80%, 90%);
+}
+
+:root[data-theme="light"] .badge-theme-17 {
+  --sl-color-bg-badge: hsla(338, 50%, 90%, 0.5);
+  --sl-color-border-badge: hsl(338, 60%, 60%);
+  --sl-color-text-badge: hsl(338, 80%, 20%);
+}
+
+/* Mere luft over overskrifter */
+.sl-markdown-content h2 {
+  margin-top: 3rem !important;
+}
+
+/* Nummererede H2 overskrifter */
+.sl-markdown-content {
+  counter-reset: h2counter;
+}
+
+.sl-markdown-content h2 {
+  counter-increment: h2counter;
+}
+
+.sl-markdown-content h2::before {
+  content: counter(h2counter) ". ";
+  color: var(--sl-color-accent);
+  margin-right: 0.5rem;
+}
+
+/* Nummerering i "On this page" (Table of Contents) */
+starlight-toc nav > ul {
+  counter-reset: toc-counter;
+}
+
+/* Apply numbering to all items EXCEPT the first one (which is Overview) */
+starlight-toc nav > ul > li:not(:first-child) > a {
+  position: relative;
+  z-index: 1;
+}
+
+starlight-toc nav > ul > li:not(:first-child) > a::before {
+  counter-increment: toc-counter;
+  content: counter(toc-counter) ". ";
+  color: var(--sl-color-accent);
+  margin-right: 0.4em;
+  pointer-events: none; /* Ensure clicks pass through the number */
+}
+
+/* Two column layout for code blocks */
+@media (min-width: 50rem) {
+  .columns-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    align-items: start;
+  }
+
+  /* Ensure code blocks inside don't overflow */
+  .columns-2 > * {
+    min-width: 0;
+    margin-top: 0 !important;
+  }
+}

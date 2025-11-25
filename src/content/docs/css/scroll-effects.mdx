@@ -2,12 +2,24 @@
 title: Scroll Effekter
 description: Lær at lave smarte effekter når brugeren scroller
 sidebar:
-  order: 5
+  order: 4
+  badge:
+    text: Tema 5
+    variant: tip
+    class: badge-theme-5
 ---
+
+import Slide from "../../../components/Slide.astro";
+import ScrollDemo from "../../../components/ScrollDemo.astro";
+import ParallaxHero from "../../../components/ParallaxHero.astro";
+import OnEnter from "../../../components/OnEnter.astro";
+import HorizontalScroll from "../../../components/HorizontalScroll.astro";
 
 At skabe liv på siden når brugeren scroller er en populær måde at gøre et website mere engagerende på. Her er nogle teknikker fra helt simple til avancerede.
 
-## 1. Smooth Scrolling
+<Slide>
+
+## Smooth Scrolling
 
 Gør at siden glider pænt når man klikker på et anker-link, i stedet for at hoppe direkte.
 
@@ -17,7 +29,11 @@ html {
 }
 ```
 
-## 2. Sticky Elementer
+</Slide>
+
+<Slide>
+
+## Sticky Elementer
 
 Få et element til at "klistre" fast i toppen (eller bunden) af skærmen, indtil dets container er slut. Perfekt til menuer eller sidebars.
 
@@ -28,7 +44,11 @@ Få et element til at "klistre" fast i toppen (eller bunden) af skærmen, indtil
 }
 ```
 
-## 3. Scroll Snap
+</Slide>
+
+<Slide>
+
+## Scroll Snap
 
 Lav en oplevelse der minder om TikTok eller præsentations-slides, hvor scroll "låser" sig fast til bestemte sektioner.
 
@@ -47,7 +67,11 @@ Lav en oplevelse der minder om TikTok eller præsentations-slides, hvor scroll "
 }
 ```
 
-## 4. Scroll-driven Animations (Moderne CSS)
+</Slide>
+
+<Slide>
+
+## Scroll-driven Animations (Moderne CSS)
 
 Med moderne CSS kan vi animere elementer baseret på hvor langt man har scrollet, helt uden JavaScript.
 
@@ -82,16 +106,40 @@ En bar i toppen der vokser mens man scroller ned ad siden.
 }
 ```
 
-### Live Demo: Element der reagerer på synlighed
+</Slide>
+
+<Slide>
+## Live Demo: Element der reagerer på synlighed
 
 Herunder er en boks, der roterer og fader ind, når den kommer ind i dit synsfelt (viewport). Prøv at scrolle op og ned forbi den.
 
-import ScrollDemo from "../../../components/ScrollDemo.astro";
-import ParallaxHero from "../../../components/ParallaxHero.astro";
-import OnEnter from "../../../components/OnEnter.astro";
-import HorizontalScroll from "../../../components/HorizontalScroll.astro";
+<ScrollDemo />
 
-## 5. Parallax Hero
+```css
+/* Koden for boksen ovenfor */
+.box {
+  animation: appear-and-rotate linear both;
+  animation-timeline: view();
+  animation-range: entry 0% cover 50%;
+}
+
+@keyframes appear-and-rotate {
+  from {
+    opacity: 0;
+    transform: translateX(-100px) rotate(-180deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) rotate(0deg);
+  }
+}
+```
+
+</Slide>
+
+<Slide>
+
+## Parallax Hero
 
 En klassisk effekt hvor baggrundsbilledet bevæger sig i et andet tempo end indholdet, hvilket skaber en følelse af dybde.
 
@@ -115,7 +163,11 @@ En klassisk effekt hvor baggrundsbilledet bevæger sig i et andet tempo end indh
 }
 ```
 
-## 6. OnEnter Animationer
+</Slide>
+
+<Slide>
+
+## OnEnter Animationer
 
 Elementer der animerer ind på skærmen, når de bliver synlige. Dette giver en lækker "reveal" effekt når brugeren scroller ned.
 
@@ -141,7 +193,11 @@ Elementer der animerer ind på skærmen, når de bliver synlige. Dette giver en 
 }
 ```
 
-## 7. Vandret Scroll Sektion
+</Slide>
+
+<Slide>
+
+## Vandret Scroll Sektion
 
 En avanceret teknik hvor siden ser ud til at scrolle vandret, mens man scroller nedad. Dette gøres ved at kombinere en meget høj container med `position: sticky`.
 
@@ -168,22 +224,14 @@ En avanceret teknik hvor siden ser ud til at scrolle vandret, mens man scroller 
 }
 ```
 
-```css
-/* Koden for boksen ovenfor */
-.box {
-  animation: appear-and-rotate linear both;
-  animation-timeline: view();
-  animation-range: entry 0% cover 50%;
-}
+</Slide>
 
-@keyframes appear-and-rotate {
-  from {
-    opacity: 0;
-    transform: translateX(-100px) rotate(-180deg);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0) rotate(0deg);
-  }
-}
-```
+<Slide>
+
+## Næste skridt
+
+Gør siden interaktiv med kode.
+
+[Gå til Intro til JavaScript (/javascript) →](/javascript)
+
+</Slide>

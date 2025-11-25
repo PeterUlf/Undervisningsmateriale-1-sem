@@ -1,0 +1,145 @@
+---
+// src/components/SlideDeck.astro
+---
+
+<slide-deck>
+  <div class="slide-deck-container">
+    <div class="screen">
+      <slot />
+    </div>
+    
+    <div class="controls">
+      <button data-action="prev" disabled>← Forrige</button>
+      <span data-target="indicator">1 / ?</span>
+      <button data-action="next">Næste →</button>
+    </div>
+  </div>
+</slide-deck>
+
+<style>
+  .slide-deck-container {
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 8px;
+    background: var(--sl-color-black);
+    margin: 2rem 0;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  }
+
+  .screen {
+    padding: 3rem;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: var(--sl-color-gray-6);
+    border-top: 1px solid var(--sl-color-gray-5);
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+  }
+
+  button {
+    background: var(--sl-color-accent-low);
+    color: var(--sl-color-white);
+    border: 1px solid var(--sl-color-accent);
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.2s;
+  }
+
+  button:hover:not(:disabled) {
+    background: var(--sl-color-accent);
+  }
+
+  button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    filter: grayscale(1);
+  }
+
+  #indicator {
+    font-family: monospace;
+    color: var(--sl-color-gray-2);
+  }
+
+  /* Hide slides inside the deck by default */
+  :global(slide-deck .slide) {
+    display: none;
+  }
+</style>
+
+<script>
+  // @ts-nocheck
+  class SlideDeck extends HTMLElement {
+    constructor() {
+      super();
+      this.currentIndex = 0;
+      this.slides = [];
+      this.prevBtn = null;
+      this.nextBtn = null;
+      this.indicator = null;
+    }
+
+    connectedCallback() {
+      // Find elementer
+      this.slides = Array.from(this.querySelectorAll('.slide'));
+      this.prevBtn = this.querySelector('[data-action="prev"]');
+      this.nextBtn = this.querySelector('[data-action="next"]');
+      this.indicator = this.querySelector('[data-target="indicator"]');
+
+      if (this.slides.length === 0) return;
+
+      // Event listeners
+      if (this.prevBtn) this.prevBtn.addEventListener('click', () => this.prev());
+      if (this.nextBtn) this.nextBtn.addEventListener('click', () => this.next());
+
+      // Vis første slide
+      this.showSlide(0);
+    }
+
+    showSlide(index) {
+      if (!this.slides[index]) return;
+
+      // Opdater slides visning
+      this.slides.forEach((slide, i) => {
+        if (i === index) {
+          slide.style.display = 'flex';
+        } else {
+          slide.style.display = 'none';
+        }
+      });
+      
+      // Opdater knapper
+      if (this.prevBtn) this.prevBtn.disabled = index === 0;
+      if (this.nextBtn) this.nextBtn.disabled = index === this.slides.length - 1;
+      
+      // Opdater tekst
+      if (this.indicator) this.indicator.textContent = `${index + 1} / ${this.slides.length}`;
+      
+      this.currentIndex = index;
+    }
+
+    next() {
+      if (this.currentIndex < this.slides.length - 1) {
+        this.showSlide(this.currentIndex + 1);
+      }
+    }
+
+    prev() {
+      if (this.currentIndex > 0) {
+        this.showSlide(this.currentIndex - 1);
+      }
+    }
+  }
+
+  if (!customElements.get('slide-deck')) {
+    customElements.define('slide-deck', SlideDeck);
+  }
+</script>

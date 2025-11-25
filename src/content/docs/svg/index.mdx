@@ -1,0 +1,104 @@
+---
+title: Intro til SVG
+description: Lær om Scalable Vector Graphics (SVG) og hvordan du bruger det på nettet
+sidebar:
+  hidden: false
+  order: 1
+
+  badge:
+    text: Tema 4
+    variant: tip
+    class: badge-theme-4
+---
+import Slide from "../../../components/Slide.astro";
+
+<Slide>
+
+# Hvad er SVG?
+
+SVG står for **Scalable Vector Graphics**. Det er et billedformat baseret på XML (ligesom HTML), hvilket betyder, at det består af kode frem for pixels.
+
+</Slide>
+
+<Slide>
+
+## Vektor vs. Raster
+
+- **Raster (Pixel-grafik):** Billeder som JPG, PNG og GIF består af et gitter af pixels. Hvis du zoomer ind, bliver de grynede og uskarpe.
+- **Vektor (SVG):** Består af matematiske former (linjer, kurver, cirkler). De kan skaleres uendeligt uden at miste kvalitet.
+
+</Slide>
+
+<Slide>
+
+## Hvorfor bruge SVG?
+
+1. **Skalerbarhed:** Ser skarpt ud på alle skærme (mobil, retina, storskærm).
+2. **Filstørrelse:** Ofte meget mindre end JPG/PNG for simple logoer, ikoner og illustrationer.
+3. **Styling:** Kan styles med CSS (farve, størrelse, animation).
+4. **Interaktivitet:** Kan manipuleres med JavaScript.
+
+</Slide>
+
+<Slide>
+
+## Indsæt SVG i HTML
+
+Du kan bruge SVG på to måder:
+
+### 1. Som et billede (`<img>`)
+
+Den nemmeste måde, hvis du bare skal vise grafikken.
+
+```html
+<img src="logo.svg" alt="Mit logo" />
+```
+
+### 2. Inline SVG (direkte i koden)
+
+Hvis du vil kunne style delene af grafikken med CSS, skal du indsætte SVG-koden direkte i din HTML.
+
+```html
+<svg width="100" height="100">
+  <circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="red" />
+</svg>
+```
+
+Dette tegner en rød cirkel med sort kant. Fordelen ved denne metode er, at du kan ændre farven med CSS:
+
+```css
+/* Gør cirklen blå, når man holder musen over */
+circle:hover {
+  fill: blue;
+  cursor: pointer;
+}
+```
+
+</Slide>
+
+<Slide>
+
+## Grundlæggende former
+
+SVG har tags til forskellige former:
+
+- `<rect>`: Rektangel
+- `<circle>`: Cirkel
+- `<ellipse>`: Ellipse
+- `<line>`: Linje
+- `<polyline>`: Linje med flere punkter
+- `<polygon>`: Lukket form med flere sider
+- `<path>`: Avanceret sti (kan tegne alt)
+
+</Slide>
+
+<Slide>
+
+## Øvelse
+
+1. Find et simpelt SVG-ikon på nettet (fx fra [Heroicons](https://heroicons.com/) eller [Phosphor Icons](https://phosphoricons.com/)).
+2. Kopier SVG-koden (Copy SVG).
+3. Indsæt den direkte i din HTML-fil.
+4. Prøv at ændre `fill` eller `stroke` farven med CSS.
+
+</Slide>

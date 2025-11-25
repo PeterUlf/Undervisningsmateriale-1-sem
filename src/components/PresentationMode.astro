@@ -1,0 +1,302 @@
+---
+// src/components/PresentationMode.astro
+---
+
+<div class="presentation-ui">
+  <button id="start-presentation-btn" class="start-btn">
+    📺 Start Præsentation
+  </button>
+
+  <dialog id="presentation-dialog">
+    <div class="controls">
+      <button id="prev-slide" disabled>←</button>
+      <span id="slide-counter">1 / 1</span>
+      <button id="next-slide">→</button>
+      <button id="close-presentation" class="close-btn">✕ Luk</button>
+    </div>
+    <div id="slide-container"></div>
+  </dialog>
+</div>
+
+<style>
+  .presentation-ui {
+    margin: 1rem 0;
+  }
+
+  .start-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background-color: var(--sl-color-accent-low);
+    color: var(--sl-color-white);
+    border: 1px solid var(--sl-color-accent);
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: var(--sl-text-sm);
+    transition: background-color 0.2s;
+  }
+
+  .start-btn:hover {
+    background-color: var(--sl-color-accent);
+  }
+
+  dialog {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    max-width: 100vw;
+    max-height: 100vh;
+    background: var(--sl-color-bg);
+    border: none;
+    padding: 0;
+    margin: 0;
+    z-index: 9999;
+    display: none; /* Skjult som standard */
+    flex-direction: column;
+  }
+
+  dialog[open] {
+    display: flex;
+  }
+
+  .controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: var(--sl-color-bg-nav);
+    border-bottom: 1px solid var(--sl-color-hairline);
+  }
+
+  .controls button {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    background: var(--sl-color-gray-5);
+    color: var(--sl-color-white);
+    border: none;
+    border-radius: 0.25rem;
+  }
+
+  .controls button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .close-btn {
+    background-color: var(--sl-color-red-low) !important;
+    color: var(--sl-color-red-high) !important;
+    margin-left: auto;
+  }
+
+  #slide-container {
+    flex: 1;
+    overflow-y: auto;
+    padding: 4rem 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  /* Slide styling */
+  :global(.generated-slide) {
+    display: none;
+    width: 100%;
+    max-width: 900px;
+    animation: fadeIn 0.3s ease-out;
+  }
+
+  :global(.generated-slide.active) {
+    display: block;
+  }
+
+  :global(.generated-slide h1),
+  :global(.generated-slide h2) {
+    color: var(--sl-color-accent);
+    margin-bottom: 1.5rem;
+  }
+  
+  :global(.generated-slide h1) { font-size: 3rem; }
+  :global(.generated-slide h2) { font-size: 2.5rem; }
+  
+  /* Skjul anker-links i præsentationen */
+  :global(.generated-slide .sl-anchor-link) {
+    display: none;
+  }
+
+  :global(.generated-slide > *) {
+    font-size: 1.25rem; /* Gør tekst lidt større i præsentation */
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+
+<script>
+  // @ts-nocheck
+  class PresentationMode {
+    constructor() {
+      this.startBtn = document.getElementById('start-presentation-btn');
+      this.dialog = document.getElementById('presentation-dialog');
+      this.container = document.getElementById('slide-container');
+      this.prevBtn = document.getElementById('prev-slide');
+      this.nextBtn = document.getElementById('next-slide');
+      this.closeBtn = document.getElementById('close-presentation');
+      this.counter = document.getElementById('slide-counter');
+      
+      this.slides = [];
+      this.currentIndex = 0;
+
+      if (this.startBtn) {
+        this.startBtn.addEventListener('click', () => this.start());
+      }
+      
+      if (this.closeBtn) {
+        this.closeBtn.addEventListener('click', () => this.close());
+      }
+
+      if (this.prevBtn) this.prevBtn.addEventListener('click', () => this.prev());
+      if (this.nextBtn) this.nextBtn.addEventListener('click', () => this.next());
+
+      document.addEventListener('keydown', (e) => this.handleKey(e));
+    }
+
+    start() {
+      // Find indholdet - prøver flere selectors for sikkerheds skyld
+      const content = document.querySelector('.sl-markdown-content') || document.querySelector('main');
+      
+      if (!content) {
+        console.error('Kunne ikke finde indholdet');
+        return;
+      }
+
+      this.generateSlides(content);
+      this.dialog.showModal();
+      this.showSlide(0);
+    }
+
+    close() {
+      this.dialog.close();
+    }
+
+    generateSlides(content) {
+      this.container.innerHTML = '';
+      this.slides = [];
+      
+      const children = Array.from(content.children);
+      let currentSlideContent = [];
+      
+      const flushSlide = () => {
+        if (currentSlideContent.length === 0) return;
+        
+        const slideDiv = document.createElement('div');
+        slideDiv.className = 'generated-slide';
+        currentSlideContent.forEach(el => slideDiv.appendChild(el.cloneNode(true)));
+        this.slides.push(slideDiv);
+        this.container.appendChild(slideDiv);
+        currentSlideContent = [];
+      };
+
+      children.forEach(child => {
+        // Ignorer scripts, styles og UI elementer
+        if (['STYLE', 'SCRIPT', 'LINK', 'META'].includes(child.tagName)) return;
+        if (child.classList.contains('presentation-ui') || child.querySelector('.presentation-ui')) return;
+
+        // Case 1: Eksplicit Slide komponent (<Slide>...</Slide>)
+        if (child.classList.contains('slide')) {
+            flushSlide(); // Afslut nuværende slide
+            
+            // Opret slide fra den eksplicitte wrapper
+            const slideDiv = document.createElement('div');
+            slideDiv.className = 'generated-slide';
+            slideDiv.innerHTML = child.innerHTML;
+            this.slides.push(slideDiv);
+            this.container.appendChild(slideDiv);
+            return;
+        }
+
+        // Case 2: Overskrift starter nyt slide
+        // Vi tjekker både H1 og H2
+        if (child.tagName === 'H1' || child.tagName === 'H2') {
+            flushSlide();
+        }
+        
+        currentSlideContent.push(child);
+      });
+
+      // Få det sidste med
+      flushSlide();
+      
+      // Fallback: Hvis ingen slides blev genereret (f.eks. hvis strukturen er anderledes),
+      // så lav ét stort slide med alt indholdet.
+      if (this.slides.length === 0 && children.length > 0) {
+        console.warn('Ingen slides genereret automatisk. Laver fallback slide.');
+        const slideDiv = document.createElement('div');
+        slideDiv.className = 'generated-slide';
+        slideDiv.innerHTML = content.innerHTML;
+        this.slides.push(slideDiv);
+        this.container.appendChild(slideDiv);
+      }
+      
+      console.log(`Presentation Mode: Generated ${this.slides.length} slides from ${children.length} elements.`);
+    }
+
+    showSlide(index) {
+      if (index < 0 || index >= this.slides.length) return;
+
+      this.slides.forEach(s => s.classList.remove('active'));
+      this.slides[index].classList.add('active');
+      
+      this.currentIndex = index;
+      this.updateControls();
+    }
+
+    updateControls() {
+      this.counter.textContent = `${this.currentIndex + 1} / ${this.slides.length}`;
+      this.prevBtn.disabled = this.currentIndex === 0;
+      this.nextBtn.disabled = this.currentIndex === this.slides.length - 1;
+    }
+
+    next() {
+      this.showSlide(this.currentIndex + 1);
+    }
+
+    prev() {
+      this.showSlide(this.currentIndex - 1);
+    }
+
+    handleKey(e) {
+      if (!this.dialog.open) return;
+      
+      if (e.key === 'ArrowRight' || e.key === ' ') {
+        e.preventDefault();
+        this.next();
+      }
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        this.prev();
+      }
+      if (e.key === 'Escape') {
+        this.close();
+      }
+    }
+  }
+
+  // Start når DOM er klar
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => new PresentationMode());
+  } else {
+    new PresentationMode();
+  }
+  
+  // Support for View Transitions
+  document.addEventListener('astro:page-load', () => {
+    new PresentationMode();
+  });
+</script>

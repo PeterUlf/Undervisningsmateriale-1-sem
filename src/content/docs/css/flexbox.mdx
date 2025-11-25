@@ -3,8 +3,15 @@ title: Flexbox
 description: Fleksible 1D-layouts til rækker og kolonner
 sidebar:
   order: 2
+  badge:
+    text: Tema 1
+    variant: tip
+    class: badge-theme-1
 ---
 
+import Slide from "../../../components/Slide.astro";
+
+<Slide> 
 ## Hvad er Flexbox?
 
 **Flexbox** er et layout-system til én dimension ad gangen – enten **række** (row) eller **kolonne** (column).
@@ -15,6 +22,9 @@ Det er særligt godt til:
 - knap-rækker
 - card-layouts, der skal wrappe pænt
 - centrering af indhold
+
+</Slide> 
+<Slide>
 
 ## Kom i gang med Flexbox
 
@@ -28,7 +38,10 @@ For at bruge Flexbox skal du give en container:
 
 Alle direkte children bliver nu flex-items.
 
-### Retning (`flex-direction`)
+</Slide> 
+<Slide>
+
+## Retning (`flex-direction`)
 
 ```css
 /* Vandret (standard) */
@@ -43,6 +56,9 @@ Alle direkte children bliver nu flex-items.
   flex-direction: column;
 }
 ```
+
+</Slide> 
+<Slide>
 
 ## Justering og fordeling
 
@@ -66,6 +82,9 @@ Eksempler:
   align-items: center;
 }
 ```
+
+</Slide> 
+<Slide>
 
 ## Flex-grow, flex-shrink og flex-basis
 
@@ -95,9 +114,15 @@ Et simpelt kort-layout:
 }
 ```
 
-## Eksempler
+</Slide> 
+<Slide>
 
-Navigation:
+## Eksempel navigation
+
+<div class="columns-2">
+
+<div>
+HTML:
 
 ```html
 <nav class="nav">
@@ -106,6 +131,11 @@ Navigation:
   <a href="#">Kontakt</a>
 </nav>
 ```
+
+</div>
+
+<div>
+CSS:
 
 ```css
 .nav {
@@ -118,13 +148,30 @@ Navigation:
 }
 ```
 
-Centreret indhold:
+</div>
+
+</div>
+
+</Slide> 
+<Slide>
+
+## Eksempel centreret indhold
+
+<div class="columns-2">
+
+<div>
+HTML:
 
 ```html
 <div class="centered">
   <p>Jeg står helt i midten!</p>
 </div>
 ```
+
+</div>
+
+<div>
+CSS:
 
 ```css
 .centered {
@@ -134,6 +181,13 @@ Centreret indhold:
   min-height: 200px;
 }
 ```
+
+</div>
+
+</div>
+
+</Slide> 
+<Slide>
 
 ## Opgaver (inspireret af exercssises)
 
@@ -147,3 +201,15 @@ Centreret indhold:
 :::tip[Leg videre]
 Hvis du vil træne Flexbox endnu mere, findes der gode spil som f.eks. Flexbox Froggy.
 :::
+
+</Slide>
+
+<Slide>
+
+## Næste skridt
+
+Tag fuld kontrol over dit layout i to dimensioner.
+
+[Gå til CSS Grid (/css/grid) →](/css/grid)
+
+</Slide>
