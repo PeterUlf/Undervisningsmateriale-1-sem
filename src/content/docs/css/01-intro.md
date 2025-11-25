@@ -1,6 +1,8 @@
 ---
 title: Intro til CSS
 description: Fra struktur til design – sådan styler du HTML med CSS
+sidebar:
+  order: 1
 ---
 
 ## Hvad er CSS?
