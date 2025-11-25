@@ -7,7 +7,7 @@ import starlightThemeRapide from "starlight-theme-rapide";
 export default defineConfig({
   integrations: [
     starlight({
-      title: "Webudvikling - Undervisningsmateriale",
+      title: "Webudvikling - Undervisningsmateriale version 0.1",
       customCss: ["./src/styles/custom.css"],
       components: {
         PageTitle: "./src/components/PageTitleWrapper.astro",
