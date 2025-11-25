@@ -1,0 +1,94 @@
+---
+id: premiere-intro-begynder
+title: Premiere Pro for begyndere
+description: Introduktion til Premiere Pro for helt nye brugere
+sidebar:
+  label: Premiere Pro
+  order: 1
+---
+
+# Premiere Pro for begyndere
+
+Dette materiale er målrettet elever, der aldrig har arbejdet i Premiere Pro før.
+
+## Målet med forløbet
+
+- Få styr på brugerfladen i Premiere Pro
+- Lære at importere klip, billeder og lyd
+- Kunne lave en simpel film med klip, musik og tekst
+- Eksportere en færdig videofil til fremvisning
+
+## 1. Første gang du åbner Premiere Pro
+
+- Start et **nyt projekt** (New Project)
+- Giv projektet et tydeligt navn (fx _Interview_1g_2025_)
+- Vælg en mappe til dit projekt (brug en elevmappe eller projektmappe)
+
+Når projektet er oprettet, ser du typisk disse områder:
+
+- **Project**: Her ligger alle dine klip, billeder og lydfiler
+- **Timeline/Sequence**: Her bygger du din film op af klip
+- **Program Monitor**: Her ser du resultatet af din film
+- **Source Monitor**: Her kan du forhåndsvise råklip
+
+## 2. Import af mediefiler
+
+1. Find panelet `Project`
+2. Højreklik og vælg **Import**
+3. Vælg videofiler, lydfiler og billeder fra din mappe
+4. Tjek at filerne nu ligger i dit `Project`-vindue
+
+Tip: Hold dine filer organiseret i undermapper fx `video`, `lyd`, `grafik`.
+
+## 3. Første simple klipning
+
+1. Træk et videoklip ned på **Timeline**
+2. Brug **Space** til at afspille/stoppe
+3. Brug værktøjet **Razor Tool (C)** til at klippe klippet i mindre stykker
+4. Vælg **Selection Tool (V)** for at flytte eller slette dele af klippet
+
+Øv jer i at:
+
+- Klippe starten og slutningen af et klip
+- Sætte to klip efter hinanden
+- Få en ren overgang mellem to klip
+
+## 4. Tilføj musik og lyd
+
+1. Importer en lydfil (musik eller speak)
+2. Træk lydfilen ned på et lydspor under videosporet
+3. Justér længden, så den passer til din film
+4. Brug keyframes eller `Audio Gain` til at skrue op/ned for lyden
+
+Tal med eleverne om **ophavsret**: Brug kun musik, I har lov til at bruge (fx fra skolens aftaler eller royalty free-musik).
+
+## 5. Tekst og titler
+
+- Gå til **Type Tool (T)**
+- Klik i **Program Monitor** og skriv en titel
+- Justér placering, størrelse og farve i **Essential Graphics**-panelet
+
+Mulige øvelser:
+
+- Lav en åbnings-titel med navn på filmen
+- Skriv navne på personer, der bliver interviewet (lower thirds)
+
+## 6. Eksport af film
+
+Når en første version er klar:
+
+1. Marker timeline-vinduet
+2. Gå til **File → Export → Media...**
+3. Vælg format **H.264**
+4. Brug en preset som fx `YouTube 1080p` eller `Match Source - High bitrate`
+5. Giv filen et tydeligt navn og vælg placering
+6. Klik **Export**
+
+## Forslag til første undervisningsforløb (2–4 lektioner)
+
+1. **Intro & rundtur i Premiere Pro** (10–20 min)
+2. **Fælles demo**: Læreren viser import, klip, lyd og tekst (20–30 min)
+3. **Elevøvelse 1**: Klip et kort interview eller sekvens (30–60 min)
+4. **Elevøvelse 2**: Tilføj musik, simple titler og eksporter film (30–60 min)
+
+Til sidst kan I lave en fælles visning, hvor eleverne viser deres første film og giver hinanden kort feedback.

@@ -1,0 +1,122 @@
+---
+id: premiere-b-roll-lyd
+title: Fortælling med B-roll og lyd
+description: Brug af B-roll, tempo og lyd til at styrke fortællingen i Premiere Pro
+sidebar:
+  label: B-roll og lyd
+  order: 3
+---
+
+# Fortælling med B-roll og lyd
+
+Målgruppe: Multimediedesign-studerende, der har styr på helt basal klipning i Premiere.
+
+## Læringsmål
+
+- Forstå forskellen på A-roll (hovedfortælling) og B-roll (dækbilleder).
+- Kunne bruge B-roll til at skjule klip og skabe bedre flow.
+- Anvende J-cuts og L-cuts til mere naturlige overgange i lyd.
+- Justere lydniveauer, så tale, musik og effektlyde balancerer.
+
+## 1. A-roll vs. B-roll
+
+**A-roll**: Den primære fortælling – fx interview, voice-over, hovedhandling.
+
+**B-roll**: Billeder, der **dækker** A-rollen – fx close-ups, miljøbilleder, produktshots.
+
+Diskussion:
+
+- Hvilken type B-roll kunne understøtte:
+  - Et interview med en studerende?
+  - En case-film om en virksomhed?
+  - En produktvideo?
+
+## 2. Brug af B-roll i praksis
+
+Typisk workflow:
+
+1. Læg A-roll (interview/voice-over) på **V1**.
+2. Læg B-roll på **V2** ovenpå A-roll.
+3. Trim B-roll, så det skifter ved naturlige pauser eller pointer i talen.
+4. Sørg for, at lyden primært kommer fra A-roll (ikke B-roll-klippen).
+
+Øvelse (20–30 min):
+
+- Giv de studerende et kort interviewklip (1–2 min) + en mappe med B-roll.
+- Opgave:
+  - Lav en version **uden** B-roll.
+  - Lav en version **med** B-roll.
+- Tal om forskellen: Hvilken version føles mest professionel og hvorfor?
+
+## 3. J-cuts og L-cuts
+
+Forklar begreberne visuelt på tavlen:
+
+- **J-cut**: Lyden fra næste klip starter **før** billedet skifter.
+- **L-cut**: Billedet skifter, men lyden fra forrige klip fortsætter kort tid.
+
+Workflow:
+
+1. Sørg for, at video- og lydspor er _unlinked_, hvis nødvendigt.
+2. Brug `Rolling Edit` eller trim-værktøjer til at justere lyden uafhængigt af billedet.
+3. Lyt mere end du kigger – handler om rytme og talestrøm.
+
+Øvelse (20 min):
+
+- I samme interview-projekt:
+  - Find et hårdt klip mellem to sætninger.
+  - Lav først et rent “hard cut”.
+  - Lav derefter et J-cut eller L-cut og sammenlign.
+
+## 4. Lydniveauer og balance
+
+Grundprincip:
+
+- Tale (dialog/interview): ca. **-6 til -12 dB** peak.
+- Musik: lavere end tale, ofte **-18 til -24 dB** afhængigt af genre.
+- Effektlyde: må gerne stikke lidt ud kortvarigt, men ikke overdøve tale.
+
+Praktisk i Premiere:
+
+- Brug **Audio Track Mixer** eller **Clip Volume** til at justere.
+- Brug keyframes til at fade musik ind/ud omkring tale.
+- Brug evt. simple presets i **Essential Sound** (Dialogue, Music, SFX).
+
+Øvelse (20–30 min):
+
+1. Giv de studerende et projekt med:
+   - A-roll (interview)
+   - Baggrundsmusik
+   - Evt. 1–2 effektlyde
+2. Opgave:
+   - Sørg for, at interviewet altid er tydeligt.
+   - Musik må gerne være lidt højere i intro/outro, lavere under tale.
+   - Lav bløde fade-ins/outs.
+
+## 5. Mini-projekt: 30–60 sek. fortælling
+
+Opgaveidé (kan være gruppevis):
+
+> Lav en kort video (30–60 sek.), der fortæller en simpel historie med udgangspunkt i et interview + B-roll.
+
+Krav:
+
+- Klart fokus (hvem/hvad er historien?).
+- Min. 1 eksempel på J-cut eller L-cut.
+- B-roll, der **understøtter** det, der bliver sagt (ikke bare fyld).
+- Balanceret lyd (tale + musik).
+
+Aflevering:
+
+- Eksporter som `.mp4` (H.264, 1080p).
+- Upload fx til læringsplatform eller vis i klassen.
+
+## 6. Refleksion
+
+Spørgsmål til klassen eller som skriftlig refleksion:
+
+- Hvordan ændrer B-roll oplevelsen af det samme interview?
+- Hvornår giver det mening at bruge J- eller L-cuts?
+- Hvad er forskellen på “amatør”- og “professionelt” lydmix i jeres oplevelse?
+
+Dette modul lægger op til mere avancerede greb i næste trin, fx farvekorrektion og grafiske elementer.

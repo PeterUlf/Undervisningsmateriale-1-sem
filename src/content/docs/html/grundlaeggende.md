@@ -1,0 +1,368 @@
+---
+title: HTML Grundlæggende
+description: Lær de grundlæggende HTML-tags og strukturen på en webside
+---
+
+## Hvad er HTML?
+
+HTML står for **HyperText Markup Language** og er sproget, vi bruger til at strukturere indhold på websider. HTML fortæller browseren, hvad der er en overskrift, et afsnit, et billede osv.
+
+## Grundstruktur
+
+Hver HTML-side følger denne grundlæggende struktur:
+
+```html
+<!DOCTYPE html>
+<html lang="da">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Min side</title>
+  </head>
+  <body>
+    <!-- Dit indhold kommer her -->
+  </body>
+</html>
+```
+
+### Forklaring af elementerne:
+
+- `<!DOCTYPE html>` - Fortæller browseren at det er HTML5
+- `<html>` - Rod-elementet, indeholder hele dokumentet
+- `<head>` - Metadata om siden (ikke synligt på siden)
+- `<meta charset="UTF-8">` - Tegnsæt for at vise danske tegn korrekt
+- `<title>` - Titlen der vises i browser-fanen
+- `<body>` - Det synlige indhold på siden
+
+## Vigtige HTML-tags
+
+### Overskrifter
+
+HTML har 6 niveauer af overskrifter, fra `<h1>` (størst) til `<h6>` (mindst):
+
+```html
+<h1>Hovedoverskrift</h1>
+<h2>Underoverskrift</h2>
+<h3>Mindre overskrift</h3>
+<h4>Endnu mindre</h4>
+<h5>Meget lille</h5>
+<h6>Mindst</h6>
+```
+
+:::tip[Vigtig regel]
+Brug kun én `<h1>` per side - det er din hovedoverskrift!
+:::
+
+### Afsnit og tekst
+
+```html
+<p>Dette er et afsnit tekst.</p>
+
+<p>
+  Du kan have flere afsnit. Hver <strong>vigtig tekst</strong> kan fremhæves, og
+  du kan også <em>lægge vægt</em> på ord.
+</p>
+```
+
+- `<p>` - Afsnit (paragraph)
+- `<strong>` - Vigtig tekst (fed skrift)
+- `<em>` - Fremhævet tekst (kursiv)
+
+### Links
+
+Links laver du med `<a>`-tagget:
+
+````html
+<a href="https://www.google.dk">Gå til Google</a>
+
+<a href="om.html">Om os</a>
+--- title: HTML Grundlæggende description: Introduktion til HTML, tags,
+attributter og god struktur --- ## Hvad er HTML? HTML står for **HyperText
+Markup Language**. Det er sproget, vi bruger til at opmærke (markere) tekst og
+indhold, så en browser forstår, hvad der er hvad: - hvad der er en
+**overskrift** - hvad der er **brødtekst** - hvor der er **billeder**,
+**lister**, **links** osv. HTML handler om **struktur og betydning**, ikke om
+design. Udseendet kommer senere med CSS. ## Grundstruktur for en HTML-side En
+simpel HTML-side kunne se sådan ud: ```html
+<!DOCTYPE html>
+<html lang="da">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Min første side</title>
+  </head>
+  <body>
+    <h1>Hello World!</h1>
+    <p>Dette er min første HTML-side.</p>
+  </body>
+</html>
+````
+
+### Hvad betyder de forskellige dele?
+
+- `<!DOCTYPE html>` – fortæller browseren, at vi bruger HTML5
+- `<html>` – rod-elementet, indeholder hele dokumentet
+- `<head>` – metadata om siden (titel, tegnsæt osv.)
+- `<meta charset="UTF-8">` – sikrer at danske tegn (æ, ø, å) vises korrekt
+- `<title>` – teksten i browser-fanen
+- `<body>` – alt det synlige indhold på siden
+
+## Tags og nesting
+
+HTML består af **tags**. De fleste tags kommer i par:
+
+```html
+<h1>Overskrift</h1>
+<p>Et afsnit tekst.</p>
+```
+
+- `<h1>` er **start-tag**
+- `</h1>` er **slut-tag**
+- teksten imellem er indholdet
+
+Der findes overordnet to typer tags:
+
+1. **Container-tags** – der har start- og slut-tag og kan indeholde indhold
+   - eksempel: `<h1> ... </h1>`, `<p> ... </p>`
+2. **Empty tags** – der ikke indeholder indhold (ingen slut-tag)
+   - eksempel: `<img>`
+
+### Nesting (at lægge tags rigtigt ind i hinanden)
+
+Tags skal **næstes** korrekt – altså lukkes i den rigtige rækkefølge:
+
+```html
+<body>
+  <h1>Overskrift 1</h1>
+  <p>Tekst</p>
+</body>
+```
+
+Det er vigtigt, at tags altid bliver lukket i samme rækkefølge, som de er åbnet.
+
+## Tekst: overskrifter, brødtekst og vigtig tekst
+
+HTML har seks niveauer af overskrifter:
+
+```html
+<h1>Hovedoverskrift</h1>
+<h2>Underoverskrift</h2>
+<h3>Under-underoverskrift</h3>
+...
+<h6>Mindste overskrift</h6>
+```
+
+:::tip[Vigtig regel]
+Brug kun én `<h1>` pr. side. Det er sidens hovedoverskrift.
+:::
+
+Brødtekst skrives med `<p>`:
+
+```html
+<p>Dette er et almindeligt afsnit brødtekst.</p>
+```
+
+Hvis du vil markere noget tekst som vigtigt eller fremhævet, bruger du:
+
+```html
+<p>Dette er <strong>vigtig tekst</strong> og <em>fremhævet tekst</em>.</p>
+```
+
+- `<strong>` – vigtigt indhold (vises typisk som fed)
+- `<em>` – tekst med betoning (vises typisk som kursiv)
+
+## Links
+
+Links laves med `<a>`-tagget (anchor):
+
+```html
+<a href="https://www.dr.dk">Gå til DR</a>
+
+<a href="om.html">Om os</a>
+
+<a href="kontakt.html" target="_blank">Kontakt (åbner i ny fane)</a>
+```
+
+Vigtige attributter:
+
+- `href` – den adresse (URL), linket peger på
+- `target="_blank"` – åbner linket i en ny fane
+
+## Attributter
+
+Mange HTML-tags kan have **attributter**, som giver ekstra information.
+
+Eksempler:
+
+```html
+<a href="https://www.dr.dk">DR</a>
+
+<img src="minhund.jpg" alt="Min hund" />
+```
+
+- `href` er en attribut på `<a>`
+- `src` og `alt` er attributter på `<img>`
+
+Generelt skrives attributter sådan her:
+
+```html
+<tag attribut="værdi">Indhold</tag>
+```
+
+## Billeder og alt-tekst
+
+Billeder indsættes med `<img>`-tagget (et **empty tag**):
+
+```html
+<img src="billeder/minhund.jpg" alt="Min hund i haven" />
+```
+
+- `src` – stien til billedfilen
+- `alt` – en kort tekstbeskrivelse af billedet
+
+:::caution[Husk alt-attributten]
+`alt` er vigtig for **tilgængelighed** (skærmlæsere) og vises, hvis billedet ikke kan indlæses.
+:::
+
+### Relative stier
+
+Når du refererer til filer (billeder, CSS, andre sider), bruger du ofte **relative stier** – altså stier i forhold til den aktuelle fil.
+
+Eksempel:
+
+```html
+<img
+  src="img/usb_connectors.webp"
+  alt="En oversigt over forskellige USB-stik"
+/>
+```
+
+Her ligger billedet i en mappe `img` ved siden af HTML-filen.
+
+## Lister
+
+Der er to basistyper af lister:
+
+**Uordnet liste** (punkter):
+
+```html
+<ul>
+  <li>Første punkt</li>
+  <li>Andet punkt</li>
+  <li>Tredje punkt</li>
+</ul>
+```
+
+**Ordnet liste** (nummereret):
+
+```html
+<ol>
+  <li>Første trin</li>
+  <li>Andet trin</li>
+  <li>Tredje trin</li>
+</ol>
+```
+
+Lister er god semantisk markup, fordi de viser, at noget hører sammen.
+
+## Semantisk struktur: header, main og footer
+
+Ud over tekst-tags findes der også tags til at beskrive **strukturen** på en side:
+
+- `<header>` – toppen af siden (logo, navigation osv.)
+- `<main>` – sidens hovedindhold
+- `<footer>` – bundsektion (kontaktinfo, copyright osv.)
+
+```html
+<body>
+  <header>
+    <h1>Min hjemmeside</h1>
+  </header>
+
+  <main>
+    <h2>Velkommen</h2>
+    <p>Her er noget tekst.</p>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Mig selv</p>
+  </footer>
+</body>
+```
+
+## Figurer og billedtekster
+
+Når et billede eller en grafik er vigtigt indhold, kan du samle det i et `<figure>`-element med en billedtekst (`<figcaption>`):
+
+```html
+<figure>
+  <img src="img/usb_connectors.webp" alt="Forskellige USB-connector-typer" />
+  <figcaption>En oversigt over forskellige USB connector-typer.</figcaption>
+</figure>
+```
+
+`<figure>` bruges til indhold, der kan stå for sig selv (self-contained), og `<figcaption>` beskriver figuren.
+
+## Opsummering
+
+- HTML **opmærker** tekst og indhold, så browseren forstår betydning
+- Vi bruger tags med `<` og `>` og lukker dem med `</tag>`
+- Vi skelner mellem **struktur** (HTML) og **udseende** (CSS)
+- God HTML er semantisk – dvs. den afspejler meningen i indholdet
+
+## Prøv selv
+
+Lav en fil, f.eks. `index.html`, med følgende indhold:
+
+```html
+<!DOCTYPE html>
+<html lang="da">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Om mig</title>
+  </head>
+  <body>
+    <header>
+      <h1>Om mig</h1>
+    </header>
+
+    <main>
+      <p>Hej, jeg hedder ...</p>
+
+      <h2>Mine interesser</h2>
+      <ul>
+        <li>...</li>
+        <li>...</li>
+        <li>...</li>
+      </ul>
+
+      <figure>
+        <img src="img/mig.jpg" alt="Et billede af mig" />
+        <figcaption>Mit yndlingsbillede af mig selv.</figcaption>
+      </figure>
+    </main>
+
+    <footer>
+      <p>Kontakt: mig@example.com</p>
+    </footer>
+  </body>
+</html>
+```
+
+Åbn filen i din browser og tjek, at alt ser rigtigt ud.
+
+## Næste skridt
+
+Når du er tryg ved:
+
+- grundstrukturen for HTML
+- overskrifter, afsnit, lister og billeder
+- semantiske elementer som `<header>`, `<main>`, `<footer>`, `<figure>` og `<figcaption>`
+
+så er du klar til at gå videre til:
+
+- **Semantisk HTML** (mere om struktur og betydning)
+- **Intro til CSS** – hvordan du får din side til at se flot ud
+
+Se næste side: [Intro til CSS](/css/intro)

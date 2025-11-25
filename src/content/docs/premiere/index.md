@@ -1,0 +1,27 @@
+---
+title: Premiere Pro
+description: Oversigt over Premiere Pro-forløb og materiale
+sidebar:
+  label: Premiere Pro
+  order: 1
+---
+
+# Premiere Pro – undervisningsforløb
+
+Denne sektion samler undervisningsmateriale til Premiere Pro for begyndere.
+
+## Forslag til modulopbygning
+
+1. [Premiere Pro for begyndere](/premiere/01-intro-begynder/)
+2. [Arbejdsflow og projektstruktur](/premiere/02-arbejdsflow-projektstruktur/)
+3. [Fortælling med B-roll og lyd](/premiere/03-b-roll-og-lyd/)
+4. [Farvekorrektion og eksport til platforme](/premiere/04-farve-og-eksport/)
+
+### Anvendelse i undervisningen
+
+- Brug modul 1 til at få alle i gang og sikre, at alle kan åbne, klippe og eksportere.
+- Brug modul 2 til at træne professionel projektstruktur, navngivning og versionsstyring.
+- Brug modul 3 til at arbejde med fortælling, rytme og lyd som designgreb.
+- Brug modul 4 som afsluttende samling, hvor farve, grafik og eksport kobles på.
+
+Modulerne kan køres samlet som et kort Premiere-forløb eller spredes ud over et semester og kobles til andre projekter (case-videoer, kampagner, SoMe-indhold osv.).

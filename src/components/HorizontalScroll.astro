@@ -1,0 +1,75 @@
+<div class="horizontal-scroll-container">
+  <div class="sticky-wrapper">
+    <div class="content-header">
+      <h3>Vandret Scroll Sektion</h3>
+      <p>Scrol ned for at se kortene bevæge sig sidelæns.</p>
+    </div>
+    <div class="cards-track">
+      <div class="h-card c1">1</div>
+      <div class="h-card c2">2</div>
+      <div class="h-card c3">3</div>
+      <div class="h-card c4">4</div>
+      <div class="h-card c5">5</div>
+    </div>
+  </div>
+</div>
+
+<style>
+.horizontal-scroll-container {
+  height: 300vh; /* Gør sektionen meget høj for at give plads til scroll */
+  view-timeline: --h-scroll block;
+  margin: 4rem 0;
+}
+
+.sticky-wrapper {
+  position: sticky;
+  top: 15vh;
+  height: 70vh;
+  overflow: hidden;
+  background: var(--sl-color-gray-6);
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2rem;
+  border: 1px solid var(--sl-color-gray-5);
+}
+
+.content-header {
+  margin-bottom: 2rem;
+}
+
+.cards-track {
+  display: flex;
+  gap: 2rem;
+  width: max-content;
+  
+  animation: move-horizontal linear both;
+  animation-timeline: --h-scroll;
+  animation-range: contain 0% contain 100%;
+}
+
+.h-card {
+  width: 300px;
+  height: 400px;
+  background: var(--sl-color-accent);
+  color: white;
+  display: grid;
+  place-items: center;
+  font-size: 5rem;
+  font-weight: bold;
+  border-radius: 1rem;
+  flex-shrink: 0;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+.c1 { background: #ff6b6b; }
+.c2 { background: #4ecdc4; }
+.c3 { background: #45b7d1; }
+.c4 { background: #96ceb4; }
+.c5 { background: #ffeead; color: #333; }
+
+@keyframes move-horizontal {
+  to { transform: translateX(-80%); }
+}
+</style>

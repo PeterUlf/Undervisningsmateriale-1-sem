@@ -1,0 +1,129 @@
+---
+id: premiere-arbejdsflow-projektstruktur
+title: Arbejdsflow og projektstruktur i Premiere Pro
+description: Bedste praksis for projektstruktur, sequences og versioner i Premiere Pro
+sidebar:
+  label: Arbejdsflow og struktur
+  order: 2
+---
+
+# Arbejdsflow og projektstruktur i Premiere Pro
+
+Målgruppe: Multimediedesign-studerende (2-årig uddannelse efter gymnasiet), der er nye i Premiere, men vant til at arbejde projektorienteret.
+
+## Læringsmål
+
+- Kunne organisere et Premiere-projekt, så andre kan overtage det.
+- Bruge en klar mappestruktur til mediefiler, eksport og projektfiler.
+- Forstå idéen med flere sequences (rough cut, fine cut, versioner).
+- Undgå typiske fejl som _missing media_ og forkerte framerates.
+
+## 1. Mappestruktur på disken
+
+Før I åbner Premiere, opret en projektsmappe som fx:
+
+```text
+kunde-projekt-navn/
+  01_project/
+  02_media/
+    video/
+    audio/
+    graphics/
+  03_exports/
+  04_assets-from-client/
+```
+
+Øvelse (10–15 min):
+
+- Lad de studerende oprette en mappe pr. øveprojekt.
+- Bed dem lægge eksisterende klip, lyd og grafik i relevante undermapper.
+- Tal om, hvad der sker, hvis de flytter filer _efter_ de er importeret i Premiere.
+
+## 2. Projektopsætning i Premiere
+
+Når et nyt projekt laves:
+
+- Gem `.prproj`-filen i mappen `01_project/`.
+- Sørg for, at **Scratch Disks** peger på projektmappen (ikke tilfældig standardmappe).
+- Navngiv projektet, så det matcher kunden/casen og dato, fx `KEA_case-video_2025-03_v01`.
+
+Diskussion (5 min):
+
+- Hvad er forskellen på projektfil (`.prproj`) og mediefiler (`.mp4`, `.wav`, `.png` osv.)?
+- Hvad sker der, hvis man sender kun `.prproj` til en kunde uden mediefiler?
+
+## 3. Sequences: rough cut, fine cut og versioner
+
+Introducer begreber:
+
+- **Rough cut**: Grov klipning, fokus på indhold og rækkefølge.
+- **Fine cut**: Detaljeret klipning, rytme, tempo, præcise klip.
+- **Versioner**: Fx `v01`, `v02`, `final`, `final_final` (og hvorfor det er en dårlig idé).
+
+Anbefalet navngivning:
+
+```text
+SEQ_Interview_Rough_v01
+SEQ_Interview_Fine_v01
+SEQ_SoMe_15s_v01
+SEQ_SoMe_30s_v01
+```
+
+Øvelse (15–20 min):
+
+1. Lad de studerende oprette mindst **to sequences** i samme projekt:
+   - En _rough cut_-sequence.
+   - En _fine cut_-sequence, som de først bruger senere.
+2. De kopierer rough cut-sequencen til en ny, når de er klar til finpudsning.
+
+Tal om, hvordan dette minder om versionsstyring i designfiler eller kode.
+
+## 4. Typiske fejl og hvordan de undgås
+
+### Missing media
+
+- Årsag: Filer er flyttet eller omdøbt efter import.
+- Løsning:
+  - Hold mediefiler i `02_media/` og flyt dem ikke.
+  - Hvis det sker: Brug **Link Media** og peg på de nye placeringer.
+
+### Forkert framerate eller opløsning
+
+- Problem: Klip hakker eller ser mærkeligt ud.
+- Løsning:
+  - Højreklik på sekvens → **Sequence Settings**.
+  - Sørg for, at framerate (fx 25 fps) og opløsning (fx 1920x1080) matcher hovedmaterialet.
+  - Alternativt: Træk et klip ned på **New Item**-ikonet for automatisk at matche.
+
+### Kaos i tidslinjen
+
+- For mange spor, ingen navne, alt ligger hulter til bulter.
+- Løsning:
+  - Navngiv spor (fx `V1: Main video`, `A1: Interview`, `A2: Music`).
+  - Brug farver til at skelne typer af klip (B-roll, interview, grafik).
+
+## 5. Klasseøvelse – mini-case
+
+Sæt en simpel case op, fx:
+
+> En kunde vil have en kort præsentationsvideo (30–60 sek.), der skal kunne klippes om til både en SoMe-version (15–30 sek.) og en længere webversion.
+
+Opgave (30–45 min):
+
+1. Organisér mediefiler iht. mappestrukturen.
+2. Opret et Premiere-projekt i `01_project/`.
+3. Lav **mindst to sequences**:
+   - `SEQ_MainWeb_60s_v01`
+   - `SEQ_SoMe_15s_v01`
+4. Lav et simpelt rough cut i web-sequencen.
+5. Kopiér relevante klip over i SoMe-sequencen og tilpas længde/tempo.
+
+Afrunding: Lad grupperne forklare deres navngivning og struktur for hinanden.
+
+## 6. Refleksionsspørgsmål (til aflevering eller diskussion)
+
+- Hvad gør et Premiere-projekt let at overtage for en ny klipper?
+- Hvilke navngivningskonventioner vil I bruge fremover til projekter og sequences?
+- Hvordan minder dette om versionsstyring i Figma, GitHub eller andre værktøjer, I kender?
+
+Dette modul kan afsluttes med en kort, mundtlig præsentation af hver gruppes struktur eller et screenshot-dokument, der viser deres mappe- og sequence-setup.

@@ -1,0 +1,290 @@
+---
+title: Intro til CSS
+description: Fra struktur til design – sådan styler du HTML med CSS
+---
+
+## Hvad er CSS?
+
+CSS står for **Cascading Style Sheets** og er sproget, vi bruger til at styre, hvordan HTML ser ud:
+
+- farver
+- fonte og tekst
+- afstande (margin og padding)
+- rammer
+- layout og responsivitet
+
+Hvor **HTML** handler om struktur og betydning, handler **CSS** om udseende og design.
+
+## HTML vs. CSS
+
+- **HTML**: fortæller _hvad_ noget er (overskrift, afsnit, liste, billede …)
+- **CSS**: fortæller _hvordan det skal se ud_ (størrelse, farve, placering …)
+
+Eksempel:
+
+```html
+<h1>USB stik - en oversigt</h1>
+<p>Der findes en del forskellige USB-stik...</p>
+```
+
+Med CSS kan vi ændre udseendet af denne overskrift og tekst:
+
+```css
+h1 {
+  color: blue;
+}
+
+p {
+  color: #555;
+}
+```
+
+## Hvordan fungerer CSS?
+
+CSS består af **regler**. Hver regel har:
+
+- en **selector** (hvad vi vil style)
+- en eller flere **properties** (hvad vi vil ændre)
+- en **value** (hvad vi vil sætte den til)
+
+```css
+selector {
+  property: value;
+}
+```
+
+Eksempel:
+
+```css
+h1 {
+  color: red; /* property: color, value: red */
+  font-size: 2rem; /* property: font-size, value: 2rem */
+}
+```
+
+## Typer af selectorer
+
+Fra kompendiet arbejder vi især med disse selectorer:
+
+- **Element-selectorer:** `a`, `body`, `div`, `section`, `footer` …
+- **ID-selectorer:** `#eksempler`, `#splash`, `#top`
+- **Class-selectorer:** `.container`, `.left`, `.mitbillede`, `.overskrift`
+- **Universal selector:** `*` (alle elementer på siden)
+- **Kombinationer:**
+  - `div p` – alle `p` inde i `div`
+  - `div, p` – alle `div` og alle `p`
+- **Pseudoselectorer:** `a:hover`, `p::first-letter`
+
+Eksempel:
+
+```css
+/* Alle afsnit */
+p {
+  line-height: 1.5;
+}
+
+/* Et bestemt element med id="top" */
+#top {
+  color: red;
+}
+
+/* Alle elementer med klassen "overskrift" */
+.overskrift {
+  font-weight: bold;
+}
+
+/* Alle links inde i en nav */
+nav a {
+  text-decoration: none;
+}
+```
+
+## Hvor skriver man CSS?
+
+Der er tre almindelige måder at bruge CSS på:
+
+1. **Ekstern CSS** (anbefalet)
+
+   - Du har en separat `.css`-fil, f.eks. `style.css`.
+   - Du linker til den i `<head>` i din HTML:
+
+   ```html
+   <link rel="stylesheet" href="style.css" />
+   ```
+
+2. **Intern CSS**
+
+   - CSS skrives i et `<style>`-tag i `<head>`:
+
+   ```html
+   <style>
+     p {
+       color: #ff0000;
+     }
+   </style>
+   ```
+
+3. **Inline CSS** (bør kun bruges sjældent)
+
+   - CSS skrives direkte på et element via `style`-attributten:
+
+   ```html
+   <p style="color: #ff0000;">Dette er rød tekst</p>
+   ```
+
+Til rigtige projekter bruger man næsten altid **eksterne stylesheets**, fordi det er mest overskueligt.
+
+## Kaskade, specificitet og rækkefølge
+
+CSS står for **Cascading** Style Sheets. "Kaskaden" betyder, at der er regler for, hvilke CSS-regler der vinder, når flere regler rammer det samme element.
+
+Vigtige ting:
+
+- Regler, der kommer **senere i filen**, kan overskrive tidligere regler
+- Mere **specifikke** selectorer vinder over mindre specifikke
+
+Eksempel med rækkefølge:
+
+```css
+p {
+  color: #ccc;
+}
+
+p {
+  color: #f00; /* denne vinder, fordi den står sidst */
+}
+```
+
+Eksempel med forskellig specificitet:
+
+```css
+h1 {
+  color: green;
+}
+
+.overskrift {
+  color: blue;
+}
+
+#top {
+  color: red;
+}
+```
+
+Hvis vi har:
+
+```html
+<h1 id="top" class="overskrift">CSS Test</h1>
+```
+
+så bliver farven **rød**, fordi `#top` (id-selector) er mest specifik.
+
+Det svarer til kompendiets pointe: **"Den mest specifikke vinder"**.
+
+## Nedarvning
+
+Nogle CSS-properties bliver **arvet** af de elementer, der ligger inde i et andet.
+
+Hvis vi f.eks. skriver:
+
+```css
+section {
+  color: blue;
+}
+```
+
+og HTML ser sådan her ud:
+
+```html
+<section>
+  <h2>Overskrift</h2>
+  <p>Brødtekst i sektionen.</p>
+</section>
+```
+
+Så vil både `h2` og `p` som udgangspunkt arve farven blå.
+
+## Margin og padding
+
+**Margin** og **padding** er to helt centrale begreber i layout.
+
+- **Margin:** afstand _udenfor_ et element – til andre elementer
+- **Padding:** afstand _indenfor_ elementets kant – mellem kant og indhold
+
+Eksempel:
+
+```css
+.card {
+  margin: 1rem; /* afstand til andre elementer */
+  padding: 1rem; /* luft rundt om indholdet inde i boksen */
+  border: 1px solid #ccc;
+}
+```
+
+Du kan bruge shorthand til at skrive kortere CSS, f.eks.:
+
+```css
+border: 1px solid red;
+```
+
+i stedet for:
+
+```css
+border-width: 1px;
+border-style: solid;
+border-color: red;
+```
+
+## Enheder i CSS
+
+Du kommer til at møde mange forskellige enheder. Nogle af de vigtigste er:
+
+- `px` – pixels
+- `em` – relativ til den nuværende font-størrelse
+- `rem` – relativ til dokumentets root-font-størrelse
+- `%` – procent (f.eks. af bredde eller font-størrelse)
+- `vw` / `vh` – procent af viewportens bredde/højde
+
+Eksempel:
+
+```css
+h1 {
+  font-size: 2rem; /* 2 gange root-font-størrelsen */
+}
+
+p {
+  font-size: 1rem;
+}
+```
+
+## Hvad kan vi styre med CSS?
+
+- **Farver:** baggrund, tekst, kanter
+- **Tekst:** font-type, størrelse, linjeafstand, fed/kursiv
+- **Rammer:** `border-width`, `border-style`, `border-color`
+- **Afstande:** `margin`, `padding`
+- **Layout:** fx Flexbox og Grid (senere i forløbet)
+- **Responsivitet:** tilpasning til mobil, tablet, desktop
+- **Animationer og effekter:** overgang (transition), transform, hover-effekter
+
+## Opgaver
+
+1. Lav en simpel HTML-side med en overskrift, et par afsnit og et billede.
+2. Opret en ekstern CSS-fil (`style.css`) og link til den i HTML.
+3. Ændr:
+   - baggrundsfarve på siden
+   - tekstfarve på overskriften
+   - font på brødteksten
+4. Tilføj margin og padding til et af dine afsnit, så det ligner et "kort".
+5. Brug en class-selector til at give **kun ét afsnit** en anden farve.
+
+:::tip[Husk]
+Hold HTML til **struktur og betydning** – og brug CSS til **stil og design**.
+:::
+
+## Links og ressourcer
+
+- [ExerCSSises – CSS-øvelser](https://exercssises.vercel.app/)
+- [Grid-øvelser](https://exercssises.vercel.app/grid)
+- [Subgrid-øvelser](https://exercssises.vercel.app/subgrid)
+- [Flexbox-øvelser](https://exercssises.vercel.app/flex)

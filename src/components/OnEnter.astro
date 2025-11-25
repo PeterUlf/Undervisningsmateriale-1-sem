@@ -1,0 +1,57 @@
+<div class="on-enter-grid">
+  <div class="card from-left">
+    <h3>Fra Venstre</h3>
+    <p>Denne boks glider ind fra siden.</p>
+  </div>
+  <div class="card from-right">
+    <h3>Fra Højre</h3>
+    <p>Denne boks kommer fra den anden side.</p>
+  </div>
+  <div class="card from-bottom">
+    <h3>Fra Bunden</h3>
+    <p>Denne boks stiger op nedefra.</p>
+  </div>
+  <div class="card fade-in">
+    <h3>Fade In</h3>
+    <p>Denne boks toner bare frem.</p>
+  </div>
+</div>
+
+<style>
+.on-enter-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin: 4rem 0;
+}
+
+.card {
+  background: var(--sl-color-gray-6);
+  padding: 2rem;
+  border-radius: 8px;
+  border: 1px solid var(--sl-color-gray-5);
+  
+  /* Base animation settings */
+  animation: enter-anim linear both;
+  animation-timeline: view();
+  /* Start når toppen af elementet kommer ind i bunden af skærmen */
+  /* Slut når elementet er 30% oppe på skærmen */
+  animation-range: entry 0% cover 30%;
+}
+
+.from-left { --start-x: -100px; --start-y: 0; }
+.from-right { --start-x: 100px; --start-y: 0; }
+.from-bottom { --start-x: 0; --start-y: 100px; }
+.fade-in { --start-x: 0; --start-y: 0; }
+
+@keyframes enter-anim {
+  from {
+    opacity: 0;
+    transform: translate(var(--start-x), var(--start-y));
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+</style>
