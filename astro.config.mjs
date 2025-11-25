@@ -61,10 +61,10 @@ export default defineConfig({
           autogenerate: { directory: "photo" },
         },
 
-        // {
-        //   label: "Photoshop",
-        //   autogenerate: { directory: "photoshop" },
-        // },
+        {
+          label: "Photoshop",
+          autogenerate: { directory: "photoshop" },
+        },
         {
           label: "Reference",
           autogenerate: { directory: "reference" },

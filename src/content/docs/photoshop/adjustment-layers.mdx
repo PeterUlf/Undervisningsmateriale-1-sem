@@ -1,0 +1,134 @@
+---
+title: Adjustment Layers
+description: Lær at bruge Adjustment Layers til non-destruktiv billedredigering i Photoshop
+sidebar:
+  order: 2
+  badge:
+    text: Tema 5
+    variant: tip
+    class: badge-theme-5
+---
+
+import Slide from "../../../components/Slide.astro";
+
+<Slide>
+
+## Hvad er Adjustment Layers?
+
+**Adjustment Layers** (justeringslag) er en af de vigtigste funktioner i Photoshop. De giver dig mulighed for at ændre farver og lys i dit billede **uden at ødelægge** de originale pixels.
+
+Dette kaldes **non-destruktiv redigering**.
+
+</Slide>
+
+<Slide>
+
+## Hvorfor bruge dem?
+
+Hvis du bruger _Image > Adjustments_ direkte, ændrer du billedet permanent. Hvis du fortryder i morgen, er det for sent.
+
+Med **Adjustment Layers**:
+
+1. Ligger ændringen som et lag ovenpå dit billede.
+2. Du kan altid tænde/slukke for det.
+3. Du kan ændre indstillingerne igen senere.
+4. Du kan bruge en **maske** til kun at ramme dele af billedet.
+
+</Slide>
+
+<Slide>
+
+## De mest brugte typer
+
+Du finder dem i bunden af Layers-panelet (cirklen der er halvt sort/hvid) eller i Adjustments-panelet.
+
+- **Levels / Curves:** Styrer lys, kontrast og tonalitet.
+- **Hue/Saturation:** Ændrer farvemætning og farvetone.
+- **Color Balance:** Justerer farvestik i skygger, mellemtoner og højlys.
+- **Black & White:** Konverterer til sort/hvid med fuld kontrol over farvekanalerne.
+
+</Slide>
+
+<Slide>
+
+## Levels (Niveauer)
+
+Levels er fantastisk til hurtigt at fikse kontrast.
+
+- **Det sorte punkt (venstre):** Gør de mørke områder helt sorte.
+- **Det hvide punkt (højre):** Gør de lyse områder helt hvide.
+- **Gamma (midten):** Styrer lysstyrken i mellemtonerne.
+
+_Tip:_ Hold `Alt` (Windows) eller `Option` (Mac) nede, mens du trækker i skyderne for at se præcis, hvornår du mister detaljer (clipper).
+
+</Slide>
+
+<Slide>
+
+## Hue/Saturation (Farve/Mætning)
+
+Brug denne til at:
+
+- Skrue op/ned for farverne (**Saturation**).
+- Skifte farverne helt (**Hue**).
+- Gøre farverne lysere/mørkere (**Lightness**).
+
+Du kan også vælge "Master" og skifte til fx "Reds" for kun at ændre de røde farver i billedet.
+
+</Slide>
+
+<Slide>
+
+## Masker på Adjustment Layers
+
+Hvert Adjustment Layer kommer automatisk med en **Layer Mask** (den hvide firkant ved siden af ikonet).
+
+- **Hvid:** Effekten er synlig.
+- **Sort:** Effekten er skjult.
+
+Brug en pensel (Brush Tool) med sort farve til at male på masken, hvis du fx kun vil gøre himlen mørkere, men ikke jorden.
+
+</Slide>
+
+<Slide>
+
+## Clipping Masks
+
+Hvis du har flere lag, påvirker et Adjustment Layer som udgangspunkt **alle** lag under det.
+
+Hvis du kun vil påvirke laget lige under:
+
+1. Hold `Alt` / `Option` nede.
+2. Klik på linjen mellem Adjustment Layeret og laget under det.
+3. Der kommer en lille pil, der peger nedad.
+
+Nu er justeringen "clippet" til kun det ene lag.
+
+</Slide>
+
+<Slide>
+
+## Adjustment layers tutorial fra YouTUBE
+
+<iframe
+  width="560"
+  height="315"
+  src="https://www.youtube.com/embed/YwSWiB5ajOE?si=j7GhC7-LGdQRO-KV"
+  title="YouTube video player"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+  referrerpolicy="strict-origin-when-cross-origin"
+  allowfullscreen
+></iframe>
+
+</Slide>
+
+<Slide>
+
+## Næste skridt
+
+Nu har du styr på farvejusteringer. Prøv at kombinere det med fritlægning.
+
+[Gå til Photoshop Intro (/photoshop/index) →](/photoshop/index)
+
+</Slide>
