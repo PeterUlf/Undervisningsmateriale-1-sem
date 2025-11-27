@@ -1,0 +1,220 @@
+---
+title: Lydoptagelse
+description: Lær om professionel lydoptagelse med RØDE Reporter og lydfilformater
+sidebar:
+  order: 1
+  badge:
+    text: Tema 5
+    variant: tip
+    class: badge-theme-5
+---
+
+import Slide from "../../../components/Slide.astro";
+
+<Slide>
+
+# Lydoptagelse til video
+
+Lær at optage professionel lyd til dine videoprojekter.
+
+</Slide>
+
+<Slide>
+
+## RØDE Reporter App
+
+**RØDE Reporter** er en professionel lydoptager-app til smartphone, udviklet af mikrofon-producenten RØDE.
+
+### Hvorfor bruge RØDE Reporter?
+
+- ✅ **Professionel lydkvalitet** - Bedre end standardoptageren
+- ✅ **Avancerede indstillinger** - Fuld kontrol over optagelsen
+- ✅ **Gratis** - Ingen abonnement eller in-app køb
+- ✅ **Indbygget redigering** - Klip og eksporter direkte i appen
+- ✅ **Professionelle formater** - Støtter WAV og flere formater
+
+**Download:**
+
+- [iOS (iPhone/iPad)](https://apps.apple.com/app/rode-reporter/id1455382620)
+- [Android](https://play.google.com/store/apps/details?id=com.rode.reporter)
+
+</Slide>
+
+<Slide>
+
+## Vigtige indstillinger i RØDE Reporter
+
+### 1. Sample Rate (Sampling frekvens)
+
+**Sample rate** bestemmer hvor mange gange pr. sekund lyden samples (måles).
+
+- **44.1 kHz** - Standard for CD-kvalitet og musikproduktion
+- **48 kHz** - Standard for video og filmproduktion ⭐ **Anbefalet**
+- **96 kHz** - Høj kvalitet, større filer
+
+**Anbefaling:** Brug **48 kHz** til videoprojekter.
+
+### 2. Bit Depth (Bit dybde)
+
+**Bit depth** bestemmer hvor præcist lydstyrken måles.
+
+- **16-bit** - Standard kvalitet, mindre filer
+- **24-bit** - Professionel kvalitet, større dynamisk range ⭐ **Anbefalet**
+- **32-bit float** - Maksimal kvalitet, meget store filer
+
+**Anbefaling:** Brug **24-bit** for god balance mellem kvalitet og filstørrelse.
+
+### 3. Input Gain (Forstærkning)
+
+Styrer hvor følsom mikrofonen er.
+
+- **Auto** - Appen justerer automatisk (kan give ujævn lyd)
+- **Manuel** - Du styrer selv ⭐ **Anbefalet**
+
+**Tips:**
+
+- Juster gain så lydniveauet ligger omkring **-12 til -6 dB**
+- Undgå røde områder (clipping/forvrængning)
+- Optag et par sekunder testlyd først
+
+### 4. Filformat
+
+- **WAV** - Ukomprimeret, høj kvalitet ⭐ **Anbefalet til professionelt arbejde**
+- **AAC** - Komprimeret, mindre filer (god til hurtig deling)
+
+</Slide>
+
+<Slide>
+
+## Lydfilformater - Oversigt
+
+### Ukomprimerede formater (høj kvalitet, store filer)
+
+**WAV (Waveform Audio File Format)**
+
+- ✅ Standard i professionel lydproduktion
+- ✅ Ingen kvalitetstab
+- ✅ Kompatibel med alle redigeringsprogrammer
+- ❌ Store filer (ca. 10 MB pr. minut ved 48 kHz/24-bit)
+
+**AIFF (Audio Interchange File Format)**
+
+- ✅ Apple's version af WAV
+- ✅ Samme kvalitet som WAV
+- ❌ Mindre udbredt på Windows
+
+### Komprimerede formater (lavere kvalitet, små filer)
+
+**MP3**
+
+- ✅ Meget små filer
+- ✅ Understøttes overalt
+- ❌ Tab af kvalitet (lossy kompression)
+- ❌ Ikke anbefalet til professionelt arbejde
+
+**AAC (Advanced Audio Coding)**
+
+- ✅ Bedre kvalitet end MP3 ved samme filstørrelse
+- ✅ Standard på iOS og YouTube
+- ❌ Tab af kvalitet (lossy kompression)
+
+**FLAC (Free Lossless Audio Codec)**
+
+- ✅ Komprimeret uden kvalitetstab (lossless)
+- ✅ Ca. 50% mindre end WAV
+- ❌ Ikke understøttet i alle programmer
+
+</Slide>
+
+<Slide>
+
+## Workflow: Fra optagelse til redigering
+
+### 1. Forberedelse
+
+- Åbn RØDE Reporter
+- Indstil: **48 kHz**, **24-bit**, **WAV-format**
+- Sæt gain manuelt (test først!)
+- Brug hovedtelefoner for at monitorere lyden
+
+### 2. Under optagelsen
+
+- Hold telefonen/mikrofonen stabilt
+- Undgå vindstøj (brug vindskærm hvis muligt)
+- Optag i et roligt miljø
+- Lav et par sekunders "room tone" (baggrundsstøj) i starten
+
+### 3. Efter optagelsen
+
+- Eksporter som **WAV-fil**
+- Overfør til computer via:
+  - AirDrop (Mac)
+  - Email/cloud storage
+  - USB-kabel
+- Importer i Premiere Pro eller Audition
+
+### 4. I redigeringen (Audition)
+
+- Fjern støj med Noise Reduction
+- Normaliser lydniveauet
+- Fjern "bib" og andre fejl
+- Eksporter til video-redigering
+
+</Slide>
+
+<Slide>
+
+## Tips til bedre lydoptagelser
+
+### Mikrofonteknik
+
+- **Afstand:** Hold mikrofonen **15-30 cm** fra munden
+- **Vinkel:** Undgå at tale direkte ind i mikrofonen (minimerer "plosiver" som P og B)
+- **Konsistens:** Hold samme afstand gennem hele optagelsen
+
+### Miljø
+
+- **Roligt rum:** Undgå ekko og baggrundsstøj
+- **Sluk støjkilder:** Aircondition, køleskab, computerventilatorer
+- **Bløde materialer:** Tæpper, gardiner og møbler absorberer lyd
+
+### Teknisk
+
+- **Flytilstand:** Undgå interferens fra mobilnetværket
+- **Lad batteriet op:** Tomme batterier kan give støj
+- **Test altid først:** Optag 10 sekunder og lyt igennem
+
+</Slide>
+
+<Slide>
+
+## Opsummering
+
+### Anbefalede indstillinger i RØDE Reporter:
+
+- **Format:** WAV
+- **Sample Rate:** 48 kHz
+- **Bit Depth:** 24-bit
+- **Gain:** Manuel (omkring -12 til -6 dB)
+
+### Husk:
+
+- ✅ Test altid inden du starter rigtig optagelse
+- ✅ Brug hovedtelefoner for at monitorere lyden
+- ✅ Optag room tone i starten
+- ✅ Gem altid originalen i WAV-format
+- ✅ Konverter kun til MP3/AAC til deling, aldrig til redigering
+
+**God lyd er 50% af videoens kvalitet!** 🎙️
+
+</Slide>
+
+<Slide>
+
+## Næste skridt
+
+Lær at redigere og forbedre din lyd i Adobe Audition.
+
+[Gå til Lyd i Premiere (/premiere/06-lyd) →](/premiere/06-lyd)
+
+</Slide>

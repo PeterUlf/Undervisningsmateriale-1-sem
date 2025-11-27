@@ -55,7 +55,10 @@ export default defineConfig({
           label: "Premiere Pro",
           autogenerate: { directory: "premiere" },
         },
-
+        {
+          label: "Lyd",
+          autogenerate: { directory: "lyd" },
+        },
         {
           label: "Foto",
           autogenerate: { directory: "photo" },
