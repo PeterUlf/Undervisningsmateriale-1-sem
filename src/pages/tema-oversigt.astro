@@ -41,8 +41,18 @@ const sortedTemaer = Array.from(temaMap.entries()).sort((a, b) => {
   <h1>Tema Oversigt</h1>
   <p>Find indhold organiseret efter tema. Denne oversigt opdateres automatisk baseret på badge-tags.</p>
 
+  <div style="margin-bottom: 2rem;">
+    <label for="tema-filter" style="font-weight: bold; margin-right: 0.5rem;">Filtrer efter tema:</label>
+    <select id="tema-filter" style="padding: 0.5rem; border-radius: 0.25rem; border: 1px solid var(--sl-color-gray-5);">
+      <option value="all">Alle temaer</option>
+      {sortedTemaer.map(([tema]) => (
+        <option value={tema}>{tema}</option>
+      ))}
+    </select>
+  </div>
+
   {sortedTemaer.map(([tema, items]) => (
-    <>
+    <div class="tema-section" data-tema={tema}>
       <h2>{tema}</h2>
       <div style="margin-bottom: 2rem;">
         {items.map(doc => {
@@ -60,6 +70,22 @@ const sortedTemaer = Array.from(temaMap.entries()).sort((a, b) => {
           );
         })}
       </div>
-    </>
+    </div>
   ))}
+
+  <script>
+    document.getElementById('tema-filter')?.addEventListener('change', (e) => {
+      const selectedTema = (e.target as HTMLSelectElement).value;
+      const sections = document.querySelectorAll('.tema-section');
+      
+      sections.forEach(section => {
+        const sectionTema = section.getAttribute('data-tema');
+        if (selectedTema === 'all' || selectedTema === sectionTema) {
+          (section as HTMLElement).style.display = 'block';
+        } else {
+          (section as HTMLElement).style.display = 'none';
+        }
+      });
+    });
+  </script>
 </StarlightPage>
