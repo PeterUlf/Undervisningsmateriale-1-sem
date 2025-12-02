@@ -35,8 +35,8 @@ Lær at optage professionel lyd til dine videoprojekter.
 
 **Download:**
 
-- [iOS (iPhone/iPad)](https://apps.apple.com/app/rode-reporter/id1455382620)
-- [Android](https://play.google.com/store/apps/details?id=com.rode.reporter)
+- [iOS (iPhone/iPad)](https://apps.apple.com/us/app/r%C3%B8de-reporter/id1066635435)
+- [Android](https://play.google.com/store/apps/details?id=com.rode.rodereporter&hl=da)
 
 </Slide>
 
@@ -44,49 +44,95 @@ Lær at optage professionel lyd til dine videoprojekter.
 
 ## Vigtige indstillinger i RØDE Reporter
 
+<div style="display: grid; grid-template-columns: 1fr 2fr; gap: 1rem; align-items: start;">
+  <div>
+
+<img
+  src="/illustrationer/lyd_roede_reporter.png"
+  alt="RØDE Reporter indstillinger"
+  style="max-height: 600px; width: auto; object-fit: contain;"
+/>
+
+  </div>
+  <div style="line-height: 1.4;">
+
 ### 1. Sample Rate (Sampling frekvens)
 
-**Sample rate** bestemmer hvor mange gange pr. sekund lyden samples (måles).
-
-- **44.1 kHz** - Standard for CD-kvalitet og musikproduktion
-- **48 kHz** - Standard for video og filmproduktion ⭐ **Anbefalet**
-- **96 kHz** - Høj kvalitet, større filer
-
-**Anbefaling:** Brug **48 kHz** til videoprojekter.
+<p style="margin: 0.5rem 0 0.2rem 0;">
+  <strong>Sample rate</strong> bestemmer hvor mange gange pr. sekund lyden
+  samples (måles). 44.1 kHz er Standard for CD-kvalitet og musikproduktion
+</p>
+<ul style="margin: 0.2rem 0 0.5rem 0;">
+  <li>
+    <strong>48 kHz</strong> - Standard for video og filmproduktion ⭐{" "}
+    <strong>Anbefalet</strong>
+  </li>
+</ul>
 
 ### 2. Bit Depth (Bit dybde)
 
-**Bit depth** bestemmer hvor præcist lydstyrken måles.
+<p style="margin: 0.5rem 0 0.2rem 0;">
+  <strong>Bit depth</strong> bestemmer hvor præcist lydstyrken måles. 16-bit er
+  standard kvalitet, mindre filer
+</p>
 
-- **16-bit** - Standard kvalitet, mindre filer
-- **24-bit** - Professionel kvalitet, større dynamisk range ⭐ **Anbefalet**
-- **32-bit float** - Maksimal kvalitet, meget store filer
-
-**Anbefaling:** Brug **24-bit** for god balance mellem kvalitet og filstørrelse.
+<ul style="margin: 0.2rem 0 0.5rem 0;">
+  <li>
+    <strong>24-bit</strong> - Professionel kvalitet, større dynamisk range ⭐{" "}
+    <strong>Anbefalet</strong>
+  </li>
+</ul>
 
 ### 3. Input Gain (Forstærkning)
 
-Styrer hvor følsom mikrofonen er.
+<p style="margin: 0.5rem 0 0.2rem 0;">Styrer hvor følsom mikrofonen er.</p>
 
-- **Auto** - Appen justerer automatisk (kan give ujævn lyd)
-- **Manuel** - Du styrer selv ⭐ **Anbefalet**
+<p style="margin: 0.5rem 0 0.2rem 0;">
+  <strong>Tips:</strong>
+</p>
 
-**Tips:**
+<ul style="margin: 0.2rem 0 0.5rem 0;">
+  <li>Juster slideren så optagelsen ikke kommer i rød</li>
+  <li>Undgå røde områder (clipping/forvrængning)</li>
+  <li>Optag et par sekunder testlyd først</li>
+</ul>
 
-- Juster gain så lydniveauet ligger omkring **-12 til -6 dB**
-- Undgå røde områder (clipping/forvrængning)
-- Optag et par sekunder testlyd først
+  </div>
+</div>
 
+</Slide>
+
+<Slide>
 ### 4. Filformat
 
-- **WAV** - Ukomprimeret, høj kvalitet ⭐ **Anbefalet til professionelt arbejde**
-- **AAC** - Komprimeret, mindre filer (god til hurtig deling)
+**WAV (Ukomprimeret format)**
+
+- Sample rate: **48 kHz** ⭐ **Anbefalet til professionelt arbejde**
+- Bit depth: **24-bit**
+- Høj kvalitet, ingen kvalitetstab
+- Store filer
+
+**Compressed (Komprimeret format)**
+
+- Sample rate: **16.0 kHz** (standard)
+- Bitrate: **128 kbps**, **256 kbps** eller **320 kbps**
+- ⭐ **Anbefaling:** Brug **256 kbps** for god balance mellem kvalitet og filstørrelse
+  - 128 kbps: Laveste kvalitet, mindste filer
+  - 256 kbps: God kvalitet til deling og backup
+  - 320 kbps: Bedste komprimerede kvalitet
+- Meget mindre filer end WAV
+- God til hurtig deling og backup
+
+**Hvornår bruge hvad?**
+
+- **WAV:** Når du skal redigere lyden i Audition/Premiere
+- **Compressed (256 kbps):** Til backup, deling eller når pladsen er begrænset
 
 </Slide>
 
 <Slide>
 
-## Lydfilformater - Oversigt
+## Lydfilformater generelt (ikke alle i RØDE Reporter) - Oversigt
 
 ### Ukomprimerede formater (høj kvalitet, store filer)
 
@@ -102,6 +148,12 @@ Styrer hvor følsom mikrofonen er.
 - ✅ Apple's version af WAV
 - ✅ Samme kvalitet som WAV
 - ❌ Mindre udbredt på Windows
+
+</Slide>
+
+<Slide>
+
+## Lydfilformater generelt (ikke alle i RØDE Reporter) - Oversigt
 
 ### Komprimerede formater (lavere kvalitet, små filer)
 
