@@ -1,0 +1,65 @@
+---
+import { getCollection } from 'astro:content';
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+const docs = await getCollection('docs');
+
+// Organiser efter tema
+const temaMap = new Map();
+docs.forEach(doc => {
+  const tema = doc.data.sidebar?.badge?.text;
+  if (tema && tema.startsWith('Tema')) {
+    if (!temaMap.has(tema)) {
+      temaMap.set(tema, []);
+    }
+    temaMap.get(tema).push(doc);
+  }
+});
+
+// Sorter temaer efter nummer
+const sortedTemaer = Array.from(temaMap.entries()).sort((a, b) => {
+  const numA = parseInt(a[0].match(/\d+/)?.[0] || '0');
+  const numB = parseInt(b[0].match(/\d+/)?.[0] || '0');
+  return numA - numB;
+});
+---
+
+<StarlightPage 
+  frontmatter={{ 
+    title: 'Tema Oversigt',
+    description: 'Oversigt over alt indhold organiseret efter tema',
+    sidebar: {
+      badge: {
+        text: 'Tema',
+        variant: 'tip',
+        class: 'badge-theme-1',
+      },
+    },
+  }}
+>
+  <h1>Tema Oversigt</h1>
+  <p>Find indhold organiseret efter tema. Denne oversigt opdateres automatisk baseret på badge-tags.</p>
+
+  {sortedTemaer.map(([tema, items]) => (
+    <>
+      <h2>{tema}</h2>
+      <div style="margin-bottom: 2rem;">
+        {items.map(doc => {
+          const slug = doc.id.replace(/\.mdx?$/, '');
+          return (
+            <details style="border: 1px solid var(--sl-color-gray-5); border-radius: 0.5rem; padding: 0.75rem; margin-bottom: 0.5rem;">
+              <summary style="cursor: pointer; font-weight: bold; font-size: 1.05rem;">
+                {doc.data.title}
+              </summary>
+              <div style="margin-top: 0.75rem; padding-left: 1.25rem;">
+                <p style="margin: 0 0 0.5rem 0;">{doc.data.description || ''}</p>
+                <a href={`/${slug}`}>Læs mere →</a>
+              </div>
+            </details>
+          );
+        })}
+      </div>
+    </>
+  ))}
+</StarlightPage>

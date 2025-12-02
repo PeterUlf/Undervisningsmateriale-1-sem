@@ -7,7 +7,7 @@ import starlightThemeRapide from "starlight-theme-rapide";
 export default defineConfig({
   integrations: [
     starlight({
-      title: "Webudvikling - Undervisningsmateriale version 0.1",
+      title: "MMD undervisningsmateriale E2025 version 0.1",
       customCss: ["./src/styles/custom.css"],
       components: {
         PageTitle: "./src/components/PageTitleWrapper.astro",
@@ -22,7 +22,8 @@ export default defineConfig({
       ],
       sidebar: [
         {
-          label: "Start her",
+          label: "Web Development",
+          collapsed: true,
           items: [
             {
               label: "Kom i gang",
@@ -33,44 +34,81 @@ export default defineConfig({
                 class: "badge-theme-1",
               },
             },
+            {
+              label: "HTML",
+              autogenerate: { directory: "html" },
+            },
+            {
+              label: "CSS",
+              autogenerate: { directory: "css" },
+            },
+            {
+              label: "JavaScript",
+              autogenerate: { directory: "javascript" },
+            },
+            {
+              label: "SVG",
+              autogenerate: { directory: "svg" },
+            },
+            {
+              label: "Git & GitHub",
+              autogenerate: { directory: "git" },
+            },
           ],
         },
         {
-          label: "HTML",
-          autogenerate: { directory: "html" },
-        },
-        {
-          label: "CSS",
-          autogenerate: { directory: "css" },
-        },
-        {
-          label: "JavaScript",
-          autogenerate: { directory: "javascript" },
-        },
-        {
-          label: "SVG",
-          autogenerate: { directory: "svg" },
-        },
-        {
-          label: "Premiere Pro",
-          autogenerate: { directory: "premiere" },
-        },
-        {
-          label: "Lyd",
-          autogenerate: { directory: "lyd" },
-        },
-        {
-          label: "Foto",
-          autogenerate: { directory: "photo" },
-        },
-
-        {
-          label: "Photoshop",
-          autogenerate: { directory: "photoshop" },
+          label: "Video / Foto",
+          collapsed: true,
+          items: [
+            {
+              label: "Kom i gang",
+              slug: "premiere",
+              badge: {
+                text: "Tema 5",
+                variant: "tip",
+                class: "badge-theme-5",
+              },
+            },
+            {
+              label: "Premiere Pro",
+              autogenerate: { directory: "premiere" },
+            },
+            {
+              label: "Lyd",
+              autogenerate: { directory: "lyd" },
+            },
+            {
+              label: "Foto",
+              autogenerate: { directory: "photo" },
+            },
+            {
+              label: "Photoshop",
+              autogenerate: { directory: "photoshop" },
+            },
+            {
+              label: "Vintereventyr E2025",
+              slug: "premiere/07-vintereventyr",
+              badge: {
+                text: "Tema 5",
+                variant: "tip",
+                class: "badge-theme-5",
+              },
+            },
+          ],
         },
         {
           label: "Reference",
-          autogenerate: { directory: "reference" },
+          items: [
+            {
+              label: "Oversigt",
+              link: "/tema-oversigt",
+              badge: {
+                text: "Tema",
+                variant: "tip",
+                class: "badge-theme-1",
+              },
+            },
+          ],
         },
       ],
     }),

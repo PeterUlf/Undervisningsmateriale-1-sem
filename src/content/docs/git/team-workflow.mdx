@@ -1,0 +1,596 @@
+---
+title: GitHub Team Workflow
+description: Sådan arbejder I sammen om et projekt på GitHub som team
+sidebar:
+  order: 2
+  badge:
+    text: Tema 5
+    variant: tip
+    class: badge-theme-5
+---
+
+import Slide from "../../../components/Slide.astro";
+
+<Slide>
+
+# GitHub Team Workflow
+
+Lær at arbejde sammen om et projekt med jeres team ved hjælp af GitHub.
+
+</Slide>
+
+<Slide>
+
+## 1. Opret et repository under GitHub Organizations
+
+### For Scrum Master:
+
+1. Log ind på [github.com](https://github.com)
+2. Klik på **"+"** → **"New organization"** (eller brug eksisterende organization)
+3. Klik på **"+"** → **"New repository"** under organisationen
+4. Giv repositoriet et beskrivende navn (fx `team-projekt-2025`)
+5. Vælg **Public** (vigtigt så læreren kan rette)
+6. Klik **"Create repository"**
+
+### Tilføj teammedlemmer:
+
+1. Gå til repository **Settings** → **Collaborators and teams**
+2. Klik **"Add people"**
+3. Søg efter hvert teammedlems GitHub-brugernavn
+4. Tilføj dem med **Write** eller **Admin** rettigheder
+5. Hver person modtager en invitation via email
+
+**Vigtigt:** Alle skal acceptere invitationen før de kan arbejde i repositoriet!
+
+</Slide>
+
+<Slide>
+
+## 2. Scrum Master opretter projektstrukturen
+
+### Clone repositoriet og opret filer i VS Code:
+
+**Clone det tomme repository:**
+
+1. Åbn VS Code
+2. Tryk **Ctrl/Cmd + Shift + P**
+3. Skriv `Git: Clone` og vælg den
+4. Indsæt repository URL: `https://github.com/organisation/team-projekt-2025.git`
+5. Vælg en mappe og åbn projektet
+
+</Slide>
+
+<Slide>
+## 2. Scrum Master opretter projektstrukturen (fortsat)
+
+**Opret projektstruktur i VS Code:**
+
+1. Højreklik i **Explorer** → **New Folder**
+
+   - Opret mapper: `css`, `js`, `img`
+
+2. Højreklik i roden → **New File**
+   - Opret: `index.html`
+   - Opret: `README.md`
+
+</Slide>
+
+<Slide>
+
+## 2. Scrum Master opretter projektstrukturen (fortsat)
+
+**Opret filer til hvert teammedlem:**
+
+**Eksempel for et 4-persons team:**
+
+Højreklik i roden → "New File" og opret:
+
+- `produkter.html` (Peter)
+- `om-os.html` (Marie)
+- `kontakt.html` (Jonas)
+- `galleri.html` (Sara)
+
+Højreklik i `css` mappen → **New File**:
+
+- `generel.css` (fælles styling: custom properties, menu, footer)
+- `style-produkter.css` (Peters side-specifikke CSS)
+- `style-om-os.css` (Maries side-specifikke CSS)
+- `style-kontakt.css` (Jonas' side-specifikke CSS)
+- `style-galleri.css` (Saras side-specifikke CSS)
+
+Højreklik i `js` mappen → **New File**:
+
+- `main.js`
+
+</Slide>
+
+<Slide>
+
+## 2. Scrum Master opretter projektstrukturen (fortsat)
+
+**Tilføj grundlæggende indhold:**
+
+Åbn `README.md` og skriv:
+
+```markdown
+# Team Projekt 2025
+
+## Team medlemmer
+
+- Peter (produkter.html + style-produkter.css)
+- Marie (om-os.html + style-om-os.css)
+- Jonas (kontakt.html + style-kontakt.css)
+- Sara (galleri.html + style-galleri.css)
+
+## CSS-struktur
+
+- `generel.css` - Fælles styles (custom properties, menu, footer)
+- `style-[side].css` - Side-specifikke styles (layout og andet)
+```
+
+</Slide>
+
+<Slide>
+## 2. Scrum Master opretter projektstrukturen (fortsat)
+
+### Commit og push strukturen:
+
+1. Gå til **Source Control** (Ctrl/Cmd + Shift + G)
+2. Se alle de nye filer under "Changes"
+3. Klik **"+"** ved "Changes" for at stage alle filer
+4. Skriv commit-besked: "Tilføj initial projektstruktur"
+5. Klik **✓ Commit**
+6. Klik **"Sync Changes"** eller **"Publish Branch"**
+
+Nu er strukturen på GitHub! ✅
+
+</Slide>
+
+<Slide>
+
+## 3. Alle medlemmer puller strukturen
+
+### Hvert teammedlem:
+
+**Første gang - Clone repositoriet i VS Code:**
+
+1. Åbn VS Code
+2. Tryk **Ctrl/Cmd + Shift + P** (Command Palette)
+3. Skriv `Git: Clone` og vælg den
+4. Indsæt repository URL: `https://github.com/organisation/team-projekt-2025.git`
+5. Vælg en mappe hvor projektet skal gemmes
+6. Klik **"Open"** når det er clonet
+
+**Eller hvis I allerede har clonet det:**
+
+1. Åbn projektet i VS Code
+2. Klik på **Source Control** ikonet i venstre sidebar (eller **Ctrl/Cmd + Shift + G**)
+3. Klik på **"..."** (mere menu) → **Pull**
+
+### Tjek at I har alle filerne:
+
+Se i **Explorer** panelet (Ctrl/Cmd + Shift + E) at alle mapper og filer er der.
+
+Nu har alle den samme projektstruktur! ✅
+
+</Slide>
+
+<Slide>
+
+## 4. Opret feature branch og arbejd
+
+### Hver person opretter sin egen feature branch i VS Code:
+
+**Opret ny branch:**
+
+1. Klik på **branch-navnet** nederst til venstre (står "main")
+2. Klik **"+ Create new branch"**
+3. Indtast branch-navn (fx `peter/produktside`)
+4. Tryk Enter
+
+**Navngivning af branches:**
+
+- Brug beskrivende navne
+- Inkluder dit navn eller initialer
+- Beskriv featuren
+
+**Eksempler:**
+
+- `peter/produktside`
+- `marie/om-os-side`
+- `jonas/kontaktformular`
+- `sara/galleri`
+
+</Slide>
+
+<Slide>
+## 4. Opret feature branch og arbejd (fortsat)
+### Arbejd i din branch:
+
+**Lav dine ændringer i filerne** (fx rediger `produkter.html`)
+
+**Commit dine ændringer:**
+
+1. Klik på **Source Control** ikonet (**Ctrl/Cmd + Shift + G**)
+2. Se dine ændrede filer under "Changes"
+3. Klik **"+"** ved siden af filnavnet for at stage filen
+   - Eller klik **"+"** ved "Changes" for at stage alle filer
+4. Skriv en commit-besked i tekstfeltet (fx "Tilføj produktoversigt med grid layout")
+5. Klik **✓ Commit** knappen
+6. Klik **"Sync Changes"** eller **"Publish Branch"** for at pushe til GitHub
+
+**Tips:** Hvis du får en dialog om "Would you like to stage all changes?" - klik **Yes** hvis du vil committe alle ændringer.
+
+</Slide>
+
+<Slide>
+
+## 5. Merge til main (VIGTIGT!)
+
+### ⚠️ Vigtig regel om merging:
+
+**Der skal kun merges når ALLE i gruppen er tilstede!**
+
+**Hvorfor?**
+
+- Merge-konflikter skal løses sammen
+- Alle skal forstå de ændringer der sker
+- Undgå at overskrive hinandens arbejde
+
+</Slide>
+
+<Slide>
+
+## 5. Merge til main (fortsat)
+
+### Proces for merging i VS Code:
+
+**Alle mødes fysisk eller online**
+
+**Den der skal merge:**
+
+1. Klik på **branch-navnet** nederst til venstre
+2. Vælg **main** branch for at skifte til den
+3. Klik på **"..."** i Source Control → **Pull** (hent nyeste ændringer)
+4. Klik på **branch-navnet** igen og vælg din feature branch (fx `peter/produktside`)
+5. Klik på **"..."** → **Branch** → **Merge Branch**
+6. Vælg **main** fra listen
+7. Hvis der er konflikter - løs dem sammen (se næste slide)
+
+**Når alt er OK - push til GitHub:**
+
+1. Klik **"Sync Changes"** for at pushe din branch
+2. Gå til GitHub.com og opret en **Pull Request**
+3. Merge Pull Request på GitHub når teamet godkender
+
+</Slide>
+
+<Slide>
+
+## 6. Håndtering af merge-konflikter
+
+### Når opstår konflikter?
+
+Når to personer har ændret de samme linjer i samme fil.
+
+### Sådan løser I dem i VS Code:
+
+**VS Code viser konflikter tydeligt:**
+
+Når du merger og der er konflikter, vil VS Code markere filerne med **"C"** (Conflict) i Source Control.
+
+**Åbn den konfliktende fil:**
+
+VS Code viser konfliktområder med farver og klikbare knapper:
+
+```html
+<<<<<<< HEAD (Current Change)
+<h1>Min version af overskriften</h1>
+=======
+<h1>Andres version af overskriften</h1>
+>>>>>>> main (Incoming Change)
+```
+
+</Slide>
+
+<Slide>
+
+## 6. Håndtering af merge-konflikter (fortsat)
+
+**Løs konflikten sammen med teamet:**
+
+VS Code giver dig 4 muligheder (klik på knapperne over konflikten):
+
+- **Accept Current Change** - behold din version
+- **Accept Incoming Change** - behold den anden version
+- **Accept Both Changes** - behold begge versioner
+- **Compare Changes** - se forskellen side om side
+
+**Når I har besluttet:**
+
+1. Klik på den relevante knap (fx "Accept Current Change")
+2. Eller rediger manuelt og fjern `<<<<<<<`, `=======`, `>>>>>>>` markørerne
+3. Gem filen (Ctrl/Cmd + S)
+4. Klik **"+"** i Source Control for at stage filen
+5. Commit med besked: "Løs merge-konflikt i overskrift"
+
+**Tips:** VS Code's merge conflict editor er meget intuitiv - brug den!
+
+</Slide>
+
+<Slide>
+
+## 7. Alle puller efter merge
+
+### Efter en succesfuld merge til main:
+
+**ALLE teammedlemmer skal opdatere deres lokale main i VS Code:**
+
+1. Klik på **branch-navnet** nederst til venstre
+2. Vælg **main** branch
+3. Klik på **Source Control** ikonet
+4. Klik på **"..."** → **Pull**
+
+### Tjek at I har de nyeste ændringer:
+
+Se i **Explorer** at de nye filer/ændringer er der.
+
+Eller se commit-historik:
+
+1. Klik på **"..."** i Source Control
+2. Vælg **View History** (kræver Git History extension)
+
+Nu har alle den opdaterede kode! ✅
+
+</Slide>
+
+<Slide>
+
+## 8. Opret ny feature branch fra opdateret main
+
+### Efter pull - opret ny branch i VS Code:
+
+**Den der lige har merget (Peter):**
+
+1. Sørg for at være på **main** branch (klik på branch-navn nederst)
+2. Klik på **branch-navnet** igen
+3. Vælg **"+ Create new branch"**
+4. Indtast nyt navn: `peter/produktfilter`
+5. Tryk Enter
+6. Start arbejde på ny feature
+
+</Slide>
+
+<Slide>
+
+## 8. Opret ny feature branch fra opdateret main (fortsat)
+
+### Alle andre fortsætter i deres branches:
+
+**Marie (opdaterer sin branch med nyeste main):**
+
+1. Klik på **branch-navnet** og vælg **main**
+2. Klik **"..."** → **Pull**
+3. Klik på **branch-navnet** og vælg din feature branch (`marie/om-os-side`)
+4. Klik **"..."** → **Branch** → **Merge Branch**
+5. Vælg **main**
+6. Løs eventuelle konflikter
+7. Fortsæt arbejde
+
+**Husk:** Merge kun til main når hele teamet er samlet!
+
+</Slide>
+
+<Slide>
+
+## 9. Best Practices for team-arbejde
+
+### ✅ Gør dette:
+
+- **Commit ofte** med beskrivende beskeder
+- **Pull før du starter** hver dag
+- **Kommuniker** hvad du arbejder på
+- **Test din kode** før merge
+- **Vær til stede** ved merges
+- **Brug beskrivende branch-navne**
+
+### ❌ Undgå dette:
+
+- Merge uden teamet er tilstede
+- Arbejde direkte i main branch
+- Store commits med mange ændringer
+- Push uden at teste
+- Ændre filer andre arbejder på (uden aftale)
+- Arbejde i hinandens CSS-filer (hver sin `style-[side].css`)
+
+</Slide>
+
+<Slide>
+
+## 10. CSS-struktur for at undgå konflikter
+
+**generel.css (alle skal være enige):**
+
+- Custom properties (farver, fonte, spacing)
+- Menu-styling
+- Footer-styling
+- Fælles komponenter
+
+**style-[side].css (hver person sin fil):**
+
+- Layout specifikt for din side (Grid, Flexbox)
+- Side-specifikke klasser og styling
+- Responsive breakpoints for din side
+
+**Eksempel HTML:**
+
+```html
+<link rel="stylesheet" href="css/generel.css" />
+<link rel="stylesheet" href="css/style-produkter.css" />
+```
+
+</Slide>
+
+<Slide>
+
+## 11. Pull Requests på GitHub
+
+### Opret Pull Request:
+
+1. Gå til jeres repository på GitHub
+2. Klik på **"Pull requests"** → **"New pull request"**
+3. Vælg din branch (fx `peter/produktside`) → `main`
+4. Skriv en beskrivelse af dine ændringer
+5. Klik **"Create pull request"**
+
+### Review processen:
+
+- Teamet kan se alle ændringer
+- Kommenter på koden
+- Godkend eller anmod om ændringer
+- Når alle er enige → **Merge pull request**
+
+**Tips:** Brug Pull Requests til at holde overblik over hvem der arbejder på hvad!
+
+</Slide>
+
+<Slide>
+
+## 12. Typisk dagsflow
+
+**Morgen (før arbejde starter):**
+
+1. Åbn VS Code og dit projekt
+2. Klik på **branch-navn** nederst til venstre → vælg **main**
+3. Klik på **Source Control** → **"..."** → **Pull**
+4. Klik på **branch-navn** → **"+ Create new branch"**
+5. Indtast: `dit-navn/ny-feature`
+6. Start arbejde
+
+**I løbet af dagen:**
+
+1. Lav dine ændringer i filerne
+2. Gå til **Source Control** (Ctrl/Cmd + Shift + G)
+3. Klik **"+"** ved ændrede filer (stage)
+4. Skriv commit-besked
+5. Klik **✓ Commit**
+6. Klik **"Sync Changes"** (push til GitHub)
+7. Gentag ofte!
+
+</Slide>
+
+<Slide>
+
+## 12. Typisk dagsflow (fortsat)
+
+**Når feature er færdig:**
+
+1. Kald teamet sammen
+2. Merge til main (sammen) via Pull Request på GitHub
+3. Alle puller bagefter
+
+**Start ny feature:**
+
+1. Skift til **main** branch
+2. Pull nyeste ændringer
+3. Opret ny branch: `dit-navn/naeste-feature`
+
+</Slide>
+
+<Slide>
+
+## 13. GitHub Projects (valgfrit)
+
+Brug GitHub Projects til at organisere jeres arbejde:
+
+1. Gå til **Projects** i jeres repository
+2. Opret et nyt **Board**
+3. Tilføj kolonner: **To Do**, **In Progress**, **Done**
+4. Opret **Issues** for hver opgave
+5. Tildel issues til teammedlemmer
+6. Flyt kort mens I arbejder
+
+**Fordele:**
+
+- Overblik over hvem der laver hvad
+- Se hvad der mangler
+- Koordiner arbejdet visuelt
+
+</Slide>
+
+<Slide>
+
+## 14. Troubleshooting
+
+### Problem: "Permission denied"
+
+**Løsning:**
+
+1. Tjek at du har accepteret invitationen til organisationen
+2. Gå til GitHub.com → Notifications og accepter
+
+### Problem: "Merge conflict"
+
+**Løsning:**
+
+1. Kald teamet sammen
+2. Åbn den konfliktende fil i VS Code
+3. Brug VS Code's merge conflict knapper
+4. Stage, commit og push
+
+### Problem: "Can't push to main"
+
+**Løsning:**
+
+- Du skal arbejde i en feature branch, ikke direkte i main
+- Opret en ny branch først
+
+### Problem: "Out of sync with remote"
+
+**Løsning:**
+
+1. Klik på **Source Control**
+2. Klik **"..."** → **Pull**
+3. Løs eventuelle konflikter
+
+### Problem: "Filen vises ikke i Changes"
+
+**Løsning:**
+
+- Gem filen først (Ctrl/Cmd + S)
+- Opdater Source Control vinduet
+
+</Slide>
+
+<Slide>
+
+## 15. Opsummering: Team Workflow
+
+1. **Scrum Master** opretter repository og tilføjer teamet
+2. **Scrum Master** opretter projektstruktur og pusher til main
+3. **Alle** puller strukturen
+4. **Hver person** opretter feature branch og arbejder
+5. **Merge kun når alle er tilstede** - løs konflikter sammen
+6. **Alle puller** efter merge
+7. **Næste feature** - opret ny branch fra opdateret main
+8. **Gentag fra trin 4**
+
+**Husk:** Kommunikation er nøglen til godt teamwork! 🤝
+
+</Slide>
+
+<Slide>
+
+## 16. Næste skridt
+
+Øv jer på workflow'et:
+
+1. Opret et test-repository som team
+2. Lav simple HTML-filer
+3. Øv jer på branches, commits og merges
+4. Lav bevidst merge-konflikter og løs dem
+5. Brug workflow'et i jeres rigtige projekt
+
+[Tilbage til Git & GitHub oversigt (/git) →](/git)
+
+</Slide>

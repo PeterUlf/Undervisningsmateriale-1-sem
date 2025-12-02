@@ -1,0 +1,365 @@
+---
+title: Git & GitHub
+description: Lær versionskontrol med Git og samarbejd med GitHub
+sidebar:
+  order: 1
+  badge:
+    text: Tema 2
+    variant: tip
+    class: badge-theme-2
+---
+
+import Slide from "../../../components/Slide.astro";
+
+<Slide>
+
+# Git & GitHub
+
+Lær at bruge Git til versionskontrol og GitHub til samarbejde om kode.
+
+</Slide>
+
+<Slide>
+
+## Hvad er Git?
+
+**Git** er et versionskontrolsystem, der hjælper dig med at:
+
+- 📝 **Spore ændringer** i din kode over tid
+- ⏮️ **Gå tilbage** til tidligere versioner
+- 🔀 **Arbejde sammen** med andre udviklere
+- 🌿 **Eksperimentere** med nye features uden at ødelægge fungerende kode
+
+### Hvad er GitHub?
+
+**GitHub** er en online platform hvor du kan:
+
+- ☁️ **Gemme** dine Git-repositories i skyen
+- 🤝 **Samarbejde** med andre på projekter
+- 📦 **Dele** din kode med verden
+- 🔍 **Finde** open source projekter
+
+</Slide>
+
+<Slide>
+
+## Installation
+
+### Download Git
+
+- **macOS:** [git-scm.com/download/mac](https://git-scm.com/download/mac)
+  - Eller brug Homebrew: `brew install git`
+- **Windows:** [git-scm.com/download/win](https://git-scm.com/download/win)
+
+### Opret GitHub-konto
+
+Gå til [github.com](https://github.com) og opret en gratis konto.
+
+### Konfigurer Git
+
+Efter installation, åbn VS Code og åbn terminalen (Ctrl/Cmd + `):
+
+```bash
+git config --global user.name "Dit Navn"
+git config --global user.email "din@email.dk"
+```
+
+Tjek din konfiguration:
+
+```bash
+git config --list
+```
+
+**Tip:** Du kan også konfigurere Git direkte i VS Code's settings.
+
+</Slide>
+
+<Slide>
+
+## Grundlæggende Git i VS Code
+
+### 1. Initialiser et nyt repository
+
+1. Åbn din projektmappe i VS Code
+2. Klik på **Source Control** ikonet i venstre sidebar (Ctrl/Cmd + Shift + G)
+3. Klik på **"Initialize Repository"** knappen
+
+Elettekster tryk Ctrl/Cmd + Shift + P og vælg "Git: Initialize Repository".
+
+### 2. Se status på dine filer
+
+I **Source Control** panelet ser du automatisk:
+
+- Ændrede filer (markeret med M)
+- Nye filer (markeret med U for Untracked)
+- Slettede filer (markeret med D)
+
+### 3. Tilføj filer til staging
+
+Klik på **"+"** knappen ved siden af filnavnet for at stage filen.
+
+Eller klik **"+"** ved "Changes" for at stage alle filer.
+
+### 4. Commit dine ændringer
+
+1. Skriv en commit-besked i tekstfeltet øverst
+2. Klik på **✓ Commit** knappen (eller tryk Ctrl/Cmd + Enter)
+
+</Slide>
+
+<Slide>
+
+## Arbejde med GitHub
+
+### 1. Opret et nyt repository på GitHub
+
+1. Log ind på [github.com](https://github.com)
+2. Klik på **"+"** → **"New repository"**
+3. Giv det et navn (fx `mit-website`)
+4. Vælg om det skal være **Public** eller **Private**
+5. Klik **"Create repository"**
+
+### 2. Forbind dit lokale repository til GitHub
+
+1. Kopiér repository URL fra GitHub
+2. I VS Code, tryk Ctrl/Cmd + Shift + P
+3. Vælg "Git: Add Remote"
+4. Indsæt URL'en
+
+### 3. Push dine ændringer til GitHub
+
+1. Klik på **"..."** i Source Control panelet
+2. Vælg **"Push"**
+
+Eller klik på **"Publish Branch"** knappen nederst i VS Code.
+
+</Slide>
+
+<Slide>
+
+## Clone et repository
+
+Hvis du vil hente et eksisterende projekt fra GitHub:
+
+1. Åbn VS Code
+2. Tryk **Ctrl/Cmd + Shift + P**
+3. Skriv `Git: Clone` og vælg den
+4. Indsæt repository URL (fx `https://github.com/PeterUlf/E2025-T4-SVG.git`)
+5. Vælg en mappe hvor projektet skal gemmes
+6. Klik **"Open"** når det er clonet
+
+Dette downloader hele projektet til din computer.
+
+</Slide>
+
+<Slide>
+
+## Branches (grene)
+
+Branches lader dig arbejde på nye features uden at påvirke hovedkoden.
+
+### Se alle branches
+
+Klik på **branch-navnet** nederst til venstre i VS Code - du ser alle branches.
+
+### Opret en ny branch
+
+1. Klik på **branch-navnet** nederst til venstre
+2. Klik **"+ Create new branch"**
+3. Indtast navn (fx `ny-feature`)
+4. Tryk Enter
+
+### Skift til en branch
+
+1. Klik på **branch-navnet** nederst til venstre
+2. Vælg den branch du vil skifte til
+
+### Merge en branch tilbage til main
+
+1. Klik på **branch-navnet** og vælg **main**
+2. Klik på **"..."** i Source Control
+3. Vælg **"Branch"** → **"Merge Branch"**
+4. Vælg den branch du vil merge (fx `ny-feature`)
+
+</Slide>
+
+<Slide>
+
+## Hent ændringer fra GitHub
+
+### Pull (hent og merge)
+
+1. Klik på **Source Control** ikonet
+2. Klik på **"..."**
+3. Vælg **"Pull"**
+
+Eller klik på **"Sync Changes"** knappen nederst i VS Code.
+
+Dette henter de nyeste ændringer fra GitHub og merger dem med din lokale kode.
+
+### Fetch (kun hent)
+
+1. Klik på **"..."** i Source Control
+2. Vælg **"Fetch"**
+
+Henter ændringer uden at merge dem.
+
+</Slide>
+
+<Slide>
+
+## Typisk workflow i VS Code
+
+1. **Pull** de nyeste ændringer:
+
+   - Klik på **"..."** i Source Control → **"Pull"**
+
+2. **Lav dine ændringer** i koden
+
+3. **Tjek status**:
+
+   - Se ændringer i Source Control panelet (Ctrl/Cmd + Shift + G)
+
+4. **Tilføj filer til staging**:
+
+   - Klik **"+"** ved filerne eller ved "Changes"
+
+5. **Commit med en god besked**:
+
+   - Skriv besked i tekstfeltet (fx "Tilføj navigation til header")
+   - Klik **✓ Commit**
+
+6. **Push til GitHub**:
+   - Klik **"Sync Changes"** eller **"..."** → **"Push"**
+
+</Slide>
+
+<Slide>
+
+## .gitignore
+
+En `.gitignore`-fil fortæller Git hvilke filer den skal ignorere.
+
+### Eksempel på .gitignore
+
+```
+# Node modules
+node_modules/
+
+# macOS filer
+.DS_Store
+
+# VS Code settings
+.vscode/
+
+# Environment variables
+.env
+
+# Build output
+dist/
+build/
+```
+
+Opret en fil kaldet `.gitignore` i roden af dit projekt og tilføj ovenstående.
+
+</Slide>
+
+<Slide>
+
+## VS Code Git Integration
+
+VS Code har indbygget Git-understøttelse - vi bruger den i stedet for terminalen!
+
+### Source Control Panel
+
+- Åbn med **Ctrl/Cmd + Shift + G**
+- Se alle ændringer
+- Stage, commit og push direkte
+- Se commit-historik
+
+### Branch Selector
+
+- Nederst til venstre ser du nuværende branch
+- Klik for at skifte eller oprette branches
+
+### GitHub Desktop (alternativ)
+
+Hvis du foretrækker en separat grafisk brugerflade:
+
+- Download **GitHub Desktop**: [desktop.github.com](https://desktop.github.com)
+- Nem måde at clone, commit, push og pull
+
+</Slide>
+
+<Slide>
+
+## Gode commit-beskeder
+
+✅ **Gode eksempler:**
+
+- `"Tilføj responsive navigation"`
+- `"Fix: Ret fejl i kontaktformular"`
+- `"Opdater farvetema til mørkere nuancer"`
+
+❌ **Dårlige eksempler:**
+
+- `"Update"`
+- `"Ændringer"`
+- `"test"`
+- `"asdf"`
+
+**Tips:** Skriv hvad ændringen gør, ikke hvad du gjorde.
+
+</Slide>
+
+<Slide>
+
+## Øvelse: Dit første Git-projekt
+
+1. **Opret en ny mappe og åbn den i VS Code:**
+
+   - File → Open Folder
+   - Vælg eller opret mappen `mit-git-projekt`
+
+2. **Initializer Git:**
+
+   - Klik på Source Control ikonet (Ctrl/Cmd + Shift + G)
+   - Klik "Initialize Repository"
+
+3. **Opret en fil:**
+
+   - Højreklik i Explorer → New File
+   - Opret `README.md`
+   - Skriv: `# Mit Projekt`
+
+4. **Stage og commit:**
+
+   - Gå til Source Control
+   - Klik **"+"** ved README.md
+   - Skriv commit-besked: "Tilføj README"
+   - Klik **✓ Commit**
+
+5. **Opret et repository på GitHub** og push din kode
+   - Klik "Publish Branch" i VS Code
+
+</Slide>
+
+<Slide>
+
+## Næste skridt
+
+Nu kender du det grundlæggende i Git og GitHub!
+
+**Lær mere:**
+
+- [GitHub Guides](https://guides.github.com/)
+- [Git Documentation](https://git-scm.com/doc)
+- [GitHub Learning Lab](https://lab.github.com/)
+
+**Øv dig ved at:**
+
+- Clone eksisterende projekter
+- Bidrag til open source
+- Brug Git til alle dine projekter
+
+</Slide>

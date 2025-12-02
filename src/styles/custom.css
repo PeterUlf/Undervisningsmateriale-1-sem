@@ -17,6 +17,7 @@
 /* Move the badge to the beginning */
 #starlight__sidebar .sl-badge {
   order: -1;
+  white-space: nowrap;
 }
 
 /* Reset Starlight's default margins */
@@ -245,9 +246,12 @@
 }
 
 .sl-markdown-content h2::before {
-  content: counter(h2counter) ". ";
+  content: "Side " counter(h2counter) ":\A";
   color: var(--sl-color-accent);
-  margin-right: 0.5rem;
+  white-space: pre;
+  display: block;
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
 }
 
 /* Nummerering i "On this page" (Table of Contents) */
@@ -263,7 +267,7 @@ starlight-toc nav > ul > li:not(:first-child) > a {
 
 starlight-toc nav > ul > li:not(:first-child) > a::before {
   counter-increment: toc-counter;
-  content: counter(toc-counter) ". ";
+  content: "Side " counter(toc-counter) ": ";
   color: var(--sl-color-accent);
   margin-right: 0.4em;
   pointer-events: none; /* Ensure clicks pass through the number */
