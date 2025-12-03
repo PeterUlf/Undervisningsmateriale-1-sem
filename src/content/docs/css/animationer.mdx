@@ -1,0 +1,614 @@
+---
+title: CSS Animationer
+description: Lær at lave animationer med CSS keyframes
+
+sidebar:
+  order: 5
+  badge:
+    text: Tema 4
+    variant: tip
+    class: badge-theme-4
+---
+
+import Slide from "../../../components/Slide.astro";
+
+<Slide>
+
+## Hvad er en CSS animation?
+
+CSS animationer gør det muligt at skabe bevægelse og liv på dine websider uden JavaScript. Med `@keyframes` og `animation` properties kan du lave alt fra simple fade-ins til komplekse animationer.
+
+En animation består af to dele:
+
+1. **@keyframes** - Definerer hvad der skal ske (fra start til slut)
+2. **animation** - Anvender animationen på et element
+
+Når siden loader, starter animationen automatisk. I eksemplet nedenfor glider en boks ind fra oven og fader ind samtidig.
+
+</Slide> 
+<Slide>
+## Simpelt Eksempel - Klar til CodePen
+
+**HTML:**
+
+```html
+<div class="box">Hej! Jeg animerer 👋</div>
+```
+
+**CSS:**
+
+```css
+.box {
+  background: purple;
+  color: white;
+  padding: 2rem;
+
+  animation: slide-in 1s;
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+```
+
+<a
+  href="https://codepen.io/PeterUlf/pen/zxqmYwj"
+  target="_blank"
+  style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background-color: var(--sl-color-accent-low); color: var(--sl-color-white); border: 1px solid var(--sl-color-accent); border-radius: 0.5rem; text-decoration: none; font-weight: 600; font-size: var(--sl-text-sm); transition: background-color 0.2s;"
+>
+  Se eksempel på CodePen →
+</a>
+
+</Slide> 
+<Slide>
+
+## Keyframes - From/To
+
+Den simpleste måde at definere en animation på:
+
+```css
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+```
+
+</Slide>
+
+<Slide>
+## Keyframes - Procent
+
+For mere kontrol kan du bruge procent til at definere flere trin:
+
+```css
+@keyframes bounce {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-30px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+```
+
+## Animation Properties
+
+```css
+.element {
+  animation-name: bounce; /* Hvilket keyframe */
+  animation-duration: 2s; /* Hvor lang tid */
+  animation-timing-function: ease; /* Hastighed-kurve */
+  animation-delay: 0.5s; /* Vent før start */
+  animation-iteration-count: 3; /* Antal gentagelser */
+  animation-direction: alternate; /* Retning */
+  animation-fill-mode: forwards; /* Hvad sker før/efter */
+}
+```
+
+</Slide> 
+<Slide>
+ 
+### Shorthand
+
+I stedet for at skrive hver property kan du bruge shorthand:
+
+```css
+.element {
+  animation: bounce 2s ease 0.5s 3 alternate forwards;
+  /*         name  dur  timing delay count direction fill */
+}
+```
+
+</Slide> 
+<Slide> 
+## Timing Functions
+
+Styrer hvordan hastigheden ændrer sig gennem animationen:
+
+```css
+/* Foruddefinerede */
+animation-timing-function: linear; /* Konstant hastighed */
+animation-timing-function: ease; /* Langsom start/slut */
+animation-timing-function: ease-in; /* Langsom start */
+animation-timing-function: ease-out; /* Langsom slut */
+animation-timing-function: ease-in-out; /* Langsom begge ender */
+
+/* Custom med cubic-bezier */
+animation-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+```
+
+<a
+  href="https://cubic-bezier.com/"
+  target="_blank"
+  style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background-color: var(--sl-color-accent-low); color: var(--sl-color-white); border: 1px solid var(--sl-color-accent); border-radius: 0.5rem; text-decoration: none; font-weight: 600; font-size: var(--sl-text-sm); transition: background-color 0.2s;"
+>
+  Lav din egen cubic-bezier →
+</a>
+
+</Slide> 
+<Slide> 
+## Iteration Count
+
+```css
+animation-iteration-count: 1; /* Kør én gang */
+animation-iteration-count: 3; /* Kør 3 gange */
+animation-iteration-count: infinite; /* Kør i uendelighed */
+```
+
+</Slide> 
+<Slide> 
+## Direction
+
+```css
+animation-direction: normal; /* Frem hver gang */
+animation-direction: reverse; /* Baglæns hver gang */
+animation-direction: alternate; /* Frem, tilbage, frem... */
+```
+
+</Slide> 
+<Slide> 
+## Fill Mode
+
+Bestemmer hvordan elementet ser ud før og efter animationen:
+
+```css
+animation-fill-mode: none; /* Normal før/efter */
+animation-fill-mode: forwards; /* Behold slut-tilstand */
+animation-fill-mode: backwards; /* Start med første keyframe */
+animation-fill-mode: both; /* Både forwards og backwards */
+```
+
+</Slide> 
+<Slide> 
+## Praktiske Eksempler
+
+### Fade In
+
+```css
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fade-in 1s ease-in;
+}
+```
+
+### Slide In From Left
+
+```css
+@keyframes slide-in-left {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.slide-in-left {
+  animation: slide-in-left 0.6s ease-out;
+}
+```
+
+</Slide> 
+<Slide> 
+### Pulserende Knap
+
+```css
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.button {
+  animation: pulse 2s ease-in-out infinite;
+}
+```
+
+### Roterende Loading Spinner
+
+```css
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+}
+```
+
+</Slide> 
+<Slide> 
+### Bounce Effect
+
+```css
+@keyframes bounce {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-30px);
+  }
+  60% {
+    transform: translateY(-15px);
+  }
+}
+
+.bounce {
+  animation: bounce 2s ease;
+}
+```
+
+</Slide> 
+<Slide> 
+### Shake/Ryst
+
+```css
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translateX(-10px);
+  }
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translateX(10px);
+  }
+}
+
+.shake {
+  animation: shake 0.5s ease;
+}
+```
+
+</Slide> 
+<Slide> 
+## Pause og Play
+
+Du kan styre om en animation kører eller er sat på pause:
+
+```css
+.element {
+  animation: spin 2s linear infinite;
+  animation-play-state: running; /* Standard */
+}
+
+.element:hover {
+  animation-play-state: paused; /* Pause ved hover */
+}
+```
+
+</Slide> 
+<Slide> 
+## Flere Animationer
+
+Du kan køre flere animationer på samme element:
+
+```css
+.element {
+  animation: spin 2s linear infinite, pulse 1s ease-in-out infinite,
+    fade-in 0.5s ease-out;
+}
+```
+
+</Slide> 
+<Slide> 
+## Tips og Tricks
+
+### 1. Performance
+
+Animer kun `transform` og `opacity` for bedst performance:
+
+```css
+/* ✅ Godt - hardware accelereret */
+@keyframes good {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100px);
+  }
+}
+
+/* ❌ Dårligt - kan være hakket */
+@keyframes bad {
+  from {
+    left: 0;
+  }
+  to {
+    left: 100px;
+  }
+}
+```
+
+</Slide> 
+<Slide> 
+### 2. will-change
+
+Giv browseren et hint om hvad der skal animeres, så den kan optimere i forvejen:
+
+```css
+.element {
+  will-change: transform, opacity;
+  animation: slide-in 1s;
+}
+```
+
+**Hvorfor bruge will-change?**
+
+Når browseren ved hvad der skal animeres, kan den forberede sig ved at:
+
+- Oprette et separat lag til animationen
+- Allokere hukommelse på forhånd
+- Bruge GPU acceleration
+
+**Resultat:** Mere flydende animationer, især på mobile enheder.
+
+**Vigtigt:** Brug det kun på elementer der faktisk skal animeres. Hvis du bruger det på ALT, bliver det langsommere i stedet for hurtigere.
+
+</Slide> 
+<Slide>
+
+### 3. Reduced Motion
+
+Respekter brugere der har slået animationer fra i deres system-indstillinger:
+
+```css
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01s !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+```
+
+**Hvor skal denne kode placeres?**
+
+Denne CSS skal placeres **i bunden af din CSS-fil**, efter alle dine animationer. Det sikrer at den overskriver alle animationer når brugeren har slået dem fra.
+
+**Eksempel:**
+
+```css
+/* Dine animationer */
+@keyframes slide-in {
+  from {
+    transform: translateX(-100px);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.box {
+  animation: slide-in 1s;
+}
+
+/* Reduced motion - ALTID I BUNDEN */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01s !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+```
+
+Dette er vigtigt for tilgængelighed - nogle mennesker bliver faktisk syge af bevægelse på skærmen.
+
+</Slide> 
+<Slide>
+
+## Animation vs Transition
+
+**Animation**: Kører automatisk, kan have flere steps, kan loope
+
+```css
+.box {
+  animation: spin 2s infinite;
+}
+```
+
+**Transition**: Kræver en state-ændring (hover, class, etc.), kun start og slut
+
+```css
+.box {
+  transition: transform 0.3s;
+}
+.box:hover {
+  transform: scale(1.2);
+}
+```
+
+</Slide> 
+<Slide> 
+## Browser Support
+
+CSS animationer er understøttet i alle moderne browsere. For meget gamle browsere kan du bruge prefixes:
+
+```css
+@-webkit-keyframes slide-in {
+  from {
+    transform: translateX(-100px);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateX(-100px);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+```
+
+Men det er sjældent nødvendigt i dag.
+
+</Slide>
+
+<Slide>
+
+## Opgave: Prøv selv!
+
+Brug denne HTML kode til at teste de forskellige animationer fra siden:
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 2rem 0;">
+
+<div>
+
+**HTML:**
+
+```html
+<div class="grid">
+  <div class="box">Fade In</div>
+  <div class="box">Slide Left</div>
+  <div class="box">Pulse</div>
+  <div class="box">Bounce</div>
+  <div class="box">Shake</div>
+  <div class="box">Spin</div>
+</div>
+```
+
+**Opgaver:**
+
+1. Kopier HTML og CSS til CodePen
+2. Tilføj `@keyframes` for hver animation fra siden (fade-in, slide-in-left, pulse, bounce, shake, spin)
+3. Tilføj `animation` property til hver class (.fade-in, .slide-in-left, osv.)
+4. Eksperimenter med forskellige `timing-functions` og `duration`
+5. Prøv at lave dine egne animationer!
+
+<a
+  href="https://codepen.io/pen/"
+  target="_blank"
+  style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background-color: var(--sl-color-accent-low); color: var(--sl-color-white); border: 1px solid var(--sl-color-accent); border-radius: 0.5rem; text-decoration: none; font-weight: 600; font-size: var(--sl-text-sm); transition: background-color 0.2s;"
+>
+  Åbn CodePen →
+</a>
+
+</div>
+
+<div>
+
+**CSS (starter kode):**
+
+```css
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, sans-serif;
+  background: #1a1a2e;
+  color: white;
+  padding: 2rem;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  max-width: 1000px;
+}
+
+.box {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 2rem;
+  border-radius: 1rem;
+  text-align: center;
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+/* Tilføj dine @keyframes og animation classes her! */
+```
+
+</div>
+
+</div>
+
+</Slide>
+
+<Slide>
+
+## Næste Skridt
+
+Nu hvor du kan animere elementer, kan du lære at koble animationer til scroll:
+
+[Gå til Scroll Effekter →](/css/scroll-effects)
+
+</Slide>

@@ -2,7 +2,7 @@
 title: Scroll Effekter
 description: Lær at lave smarte effekter når brugeren scroller
 sidebar:
-  order: 4
+  order: 7
   badge:
     text: Tema 5
     variant: tip
@@ -32,6 +32,17 @@ html {
 </Slide>
 
 <Slide>
+## Smooth Scrolling (fortsat)
+<p class="codepen" data-height="300" data-default-tab="html,result" data-slug-hash="JoXagog" data-pen-title="E25 smooth scroll" data-user="PeterUlf" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+      <span>See the Pen <a href="https://codepen.io/PeterUlf/pen/JoXagog">
+  E25 smooth scroll</a> by Peter Ulf Jørgensen (<a href="https://codepen.io/PeterUlf">@PeterUlf</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+      </p>
+      <script async src="https://public.codepenassets.com/embed/index.js"></script>
+
+     </Slide>
+
+<Slide>
 
 ## Sticky Elementer
 
@@ -45,6 +56,13 @@ Få et element til at "klistre" fast i toppen (eller bunden) af skærmen, indtil
 ```
 
 </Slide>
+## Sticky Elementer (fortsat)
+<p class="codepen" data-height="300" data-default-tab="html,result" data-slug-hash="KwzxOaB" data-pen-title="E25 sticky" data-user="PeterUlf" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+      <span>See the Pen <a href="https://codepen.io/PeterUlf/pen/KwzxOaB">
+  E25 sticky</a> by Peter Ulf Jørgensen (<a href="https://codepen.io/PeterUlf">@PeterUlf</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+      </p>
+      <script async src="https://public.codepenassets.com/embed/index.js"></script>
 
 <Slide>
 
@@ -52,17 +70,42 @@ Få et element til at "klistre" fast i toppen (eller bunden) af skærmen, indtil
 
 Lav en oplevelse der minder om TikTok eller præsentations-slides, hvor scroll "låser" sig fast til bestemte sektioner.
 
+### scroll-snap-type
+
+Sættes på containeren og bestemmer **hvordan** og **hvor strengt** scroll-snap skal fungere.
+
+**Syntax:** `scroll-snap-type: [retning] [strenghed]`
+
+**Retning:**
+
+- `y` = lodret scroll (op/ned)
+- `x` = vandret scroll (venstre/højre)
+- `both` = begge retninger
+
+**Strenghed:**
+
+- `mandatory` = SKAL altid snappe til et snap-punkt (streng)
+- `proximity` = snapper kun hvis du er tæt på et snap-punkt (blød)
+
+### scroll-snap-align
+
+Sættes på child-elementerne og bestemmer **hvor** på elementet snap-punktet skal være.
+
+**Værdier:**
+
+- `start` = toppen/venstre kant
+- `center` = midten af elementet
+- `end` = bunden/højre kant
+
 ```css
 .container {
-  /* y = vertikal scroll, mandatory = skal snappe */
-  scroll-snap-type: y mandatory;
+  scroll-snap-type: y mandatory; /* Lodret scroll, skal altid snappe */
   overflow-y: scroll;
   height: 100vh;
 }
 
 .section {
-  /* start = toppen af elementet snapper til toppen af containeren */
-  scroll-snap-align: start;
+  scroll-snap-align: start; /* Snap til toppen af sektionen */
   height: 100vh;
 }
 ```
@@ -70,7 +113,27 @@ Lav en oplevelse der minder om TikTok eller præsentations-slides, hvor scroll "
 </Slide>
 
 <Slide>
+  ## Scroll Snap (fortsat)
+  <p
+    class="codepen"
+    data-height="300"
+    data-default-tab="html,result"
+    data-slug-hash="myPGNOR"
+    data-pen-title="scroll snap"
+    data-user="PeterUlf"
+    style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;"
+  >
+    <span>
+      See the Pen{" "}
+      <a href="https://codepen.io/PeterUlf/pen/myPGNOR">scroll snap</a> by Peter
+      Ulf Jørgensen (<a href="https://codepen.io/PeterUlf">@PeterUlf</a>) on{" "}
+      <a href="https://codepen.io">CodePen</a>.
+    </span>
+  </p>
+  <script async src="https://public.codepenassets.com/embed/index.js"></script>
+</Slide>
 
+<Slide>
 ## Scroll-driven Animations (Moderne CSS)
 
 Med moderne CSS kan vi animere elementer baseret på hvor langt man har scrollet, helt uden JavaScript.
@@ -109,6 +172,33 @@ En bar i toppen der vokser mens man scroller ned ad siden.
 </Slide>
 
 <Slide>
+
+## Eksempel: Progress Bar
+
+<p
+  class="codepen"
+  data-height="300"
+  data-default-tab="html,result"
+  data-slug-hash="gbrdVgW"
+  data-pen-title="E25 Scroll Progress Bar Demo"
+  data-user="PeterUlf"
+  style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;"
+>
+  <span>
+    See the Pen{" "}
+    <a href="https://codepen.io/PeterUlf/pen/gbrdVgW">
+      E25 Scroll Progress Bar Demo
+    </a>{" "}
+    by Peter Ulf Jørgensen (<a href="https://codepen.io/PeterUlf">@PeterUlf</a>)
+    on <a href="https://codepen.io">CodePen</a>.
+  </span>
+</p>
+<script async src="https://public.codepenassets.com/embed/index.js"></script>
+
+</Slide>
+
+<Slide>
+
 ## Live Demo: Element der reagerer på synlighed
 
 Herunder er en boks, der roterer og fader ind, når den kommer ind i dit synsfelt (viewport). Prøv at scrolle op og ned forbi den.
@@ -139,6 +229,31 @@ Herunder er en boks, der roterer og fader ind, når den kommer ind i dit synsfel
 
 <Slide>
 
+## Element Synlighed (View Timeline)
+
+<p
+  class="codepen"
+  data-height="300"
+  data-default-tab="html,result"
+  data-slug-hash="OPNoKpj"
+  data-pen-title="E25 Element Synlighed (View Timeline)"
+  data-user="PeterUlf"
+  style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;"
+>
+  <span>
+    See the Pen{" "}
+    <a href="https://codepen.io/PeterUlf/pen/OPNoKpj">
+      E25 Element Synlighed (View Timeline)
+    </a>{" "}
+    by Peter Ulf Jørgensen (<a href="https://codepen.io/PeterUlf">@PeterUlf</a>)
+    on <a href="https://codepen.io">CodePen</a>.
+  </span>
+</p>
+<script async src="https://public.codepenassets.com/embed/index.js"></script>
+
+</Slide>
+
+<Slide>
 ## Parallax Hero
 
 En klassisk effekt hvor baggrundsbilledet bevæger sig i et andet tempo end indholdet, hvilket skaber en følelse af dybde.
@@ -162,6 +277,30 @@ En klassisk effekt hvor baggrundsbilledet bevæger sig i et andet tempo end indh
   }
 }
 ```
+
+</Slide>
+
+<Slide>
+
+## Parallax Hero (fortsat)
+
+<p
+  class="codepen"
+  data-height="300"
+  data-default-tab="html,result"
+  data-slug-hash="pvyOMWQ"
+  data-pen-title="E25 Paralex hero"
+  data-user="PeterUlf"
+  style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;"
+>
+  <span>
+    See the Pen{" "}
+    <a href="https://codepen.io/PeterUlf/pen/pvyOMWQ">E25 Paralex hero</a> by
+    Peter Ulf Jørgensen (<a href="https://codepen.io/PeterUlf">@PeterUlf</a>) on{" "}
+    <a href="https://codepen.io">CodePen</a>.
+  </span>
+</p>
+<script async src="https://public.codepenassets.com/embed/index.js"></script>
 
 </Slide>
 
@@ -196,7 +335,17 @@ Elementer der animerer ind på skærmen, når de bliver synlige. Dette giver en 
 </Slide>
 
 <Slide>
+## onEnter Animationer (fortsat)
+<p class="codepen" data-height="300" data-default-tab="html,result" data-slug-hash="raeZXpE" data-pen-title="Untitled" data-user="PeterUlf" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+      <span>See the Pen <a href="https://codepen.io/PeterUlf/pen/raeZXpE">
+  Untitled</a> by Peter Ulf Jørgensen (<a href="https://codepen.io/PeterUlf">@PeterUlf</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+      </p>
+      <script async src="https://public.codepenassets.com/embed/index.js"></script>
 
+</Slide>
+
+<Slide>
 ## Vandret Scroll Sektion
 
 En avanceret teknik hvor siden ser ud til at scrolle vandret, mens man scroller nedad. Dette gøres ved at kombinere en meget høj container med `position: sticky`.
@@ -228,6 +377,29 @@ En avanceret teknik hvor siden ser ud til at scrolle vandret, mens man scroller 
 
 <Slide>
 
+## Vandret Scroll Sektion
+
+<p
+  class="codepen"
+  data-height="300"
+  data-default-tab="html,result"
+  data-slug-hash="vEGzoqe"
+  data-pen-title="E25 vandret scroll"
+  data-user="PeterUlf"
+  style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;"
+>
+  <span>
+    See the Pen{" "}
+    <a href="https://codepen.io/PeterUlf/pen/vEGzoqe">E25 vandret scroll</a> by
+    Peter Ulf Jørgensen (<a href="https://codepen.io/PeterUlf">@PeterUlf</a>) on{" "}
+    <a href="https://codepen.io">CodePen</a>.
+  </span>
+</p>
+<script async src="https://public.codepenassets.com/embed/index.js"></script>
+
+</Slide>
+
+<Slide>
 ## Næste skridt
 
 Gør siden interaktiv med kode.
