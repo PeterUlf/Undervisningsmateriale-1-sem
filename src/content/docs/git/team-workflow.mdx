@@ -243,25 +243,42 @@ Nu har alle den samme projektstruktur! ✅
 
 ## 5. Merge til main (fortsat)
 
-### Proces for merging i VS Code:
+### Proces for merging på GitHub:
 
 **Alle mødes fysisk eller online**
 
 **Den der skal merge:**
 
-1. Klik på **branch-navnet** nederst til venstre
-2. Vælg **main** branch for at skifte til den
-3. Klik på **"..."** i Source Control → **Pull** (hent nyeste ændringer)
-4. Klik på **branch-navnet** igen og vælg din feature branch (fx `peter/produktside`)
-5. Klik på **"..."** → **Branch** → **Merge Branch**
-6. Vælg **main** fra listen
-7. Hvis der er konflikter - løs dem sammen (se næste slide)
+1. Push din feature branch til GitHub:
 
-**Når alt er OK - push til GitHub:**
+   - Klik på **Source Control** ikonet
+   - Klik **"Sync Changes"** eller **"Publish Branch"**
 
-1. Klik **"Sync Changes"** for at pushe din branch
-2. Gå til GitHub.com og opret en **Pull Request**
-3. Merge Pull Request på GitHub når teamet godkender
+2. Gå til repository på [github.com](https://github.com)
+
+3. GitHub viser en gul banner: **"Compare & pull request"** - klik på den
+
+   - Hvis ikke: Klik på **"Pull requests"** → **"New pull request"**
+   - Vælg din feature branch (fx `peter/produktside`)
+
+4. Udfyld Pull Request:
+
+   - Skriv en beskrivende titel
+   - Beskriv hvad du har lavet
+   - Klik **"Create pull request"**
+
+5. Vent på at teamet ser koden igennem
+
+   - Teammedlemmer kan kommentere og godkende
+   - Hvis der er konflikter vises det på GitHub
+
+6. Når alle er enige: Klik **"Merge pull request"** på GitHub
+   - Klik **"Confirm merge"**
+   - Klik **"Delete branch"** for at rydde op
+
+**Efter merge - alle puller main:**
+
+Alle andre teammedlemmer skal nu pulle de nye ændringer fra main!
 
 </Slide>
 
@@ -273,23 +290,13 @@ Nu har alle den samme projektstruktur! ✅
 
 Når to personer har ændret de samme linjer i samme fil.
 
-### Sådan løser I dem i VS Code:
+### Sådan løser I dem på GitHub:
 
-**VS Code viser konflikter tydeligt:**
+**GitHub opdager konflikter automatisk:**
 
-Når du merger og der er konflikter, vil VS Code markere filerne med **"C"** (Conflict) i Source Control.
+Når du opretter en Pull Request, og der er konflikter, viser GitHub en advarsel:
 
-**Åbn den konfliktende fil:**
-
-VS Code viser konfliktområder med farver og klikbare knapper:
-
-```html
-<<<<<<< HEAD (Current Change)
-<h1>Min version af overskriften</h1>
-=======
-<h1>Andres version af overskriften</h1>
->>>>>>> main (Incoming Change)
-```
+**"This branch has conflicts that must be resolved"**
 
 </Slide>
 
@@ -297,24 +304,32 @@ VS Code viser konfliktområder med farver og klikbare knapper:
 
 ## 6. Håndtering af merge-konflikter (fortsat)
 
-**Løs konflikten sammen med teamet:**
+### Løs konflikter på GitHub:
 
-VS Code giver dig 4 muligheder (klik på knapperne over konflikten):
+**Brug GitHub's web editor:**
 
-- **Accept Current Change** - behold din version
-- **Accept Incoming Change** - behold den anden version
-- **Accept Both Changes** - behold begge versioner
-- **Compare Changes** - se forskellen side om side
+1. På Pull Request-siden, klik **"Resolve conflicts"** knappen
+2. GitHub viser filen med konfliktmarkører:
 
-**Når I har besluttet:**
+```html
+<<<<<<< peter/produktside
+<h1>Min version af overskriften</h1>
+=======
+<h1>Andres version af overskriften</h1>
+>>>>>>> main
+```
 
-1. Klik på den relevante knap (fx "Accept Current Change")
-2. Eller rediger manuelt og fjern `<<<<<<<`, `=======`, `>>>>>>>` markørerne
-3. Gem filen (Ctrl/Cmd + S)
-4. Klik **"+"** i Source Control for at stage filen
-5. Commit med besked: "Løs merge-konflikt i overskrift"
+3. **Rediger filen sammen med teamet:**
 
-**Tips:** VS Code's merge conflict editor er meget intuitiv - brug den!
+   - Fjern `<<<<<<<`, `=======`, `>>>>>>>` linjerne
+   - Behold den rigtige kode eller kombiner begge versioner
+   - Diskuter hvad der giver mest mening
+
+4. Klik **"Mark as resolved"** når I er færdige
+5. Klik **"Commit merge"**
+6. Nu kan I merge Pull Request!
+
+**Husk:** Løs altid konflikter sammen som team!
 
 </Slide>
 
@@ -499,28 +514,7 @@ Nu har alle den opdaterede kode! ✅
 
 <Slide>
 
-## 13. GitHub Projects (valgfrit)
-
-Brug GitHub Projects til at organisere jeres arbejde:
-
-1. Gå til **Projects** i jeres repository
-2. Opret et nyt **Board**
-3. Tilføj kolonner: **To Do**, **In Progress**, **Done**
-4. Opret **Issues** for hver opgave
-5. Tildel issues til teammedlemmer
-6. Flyt kort mens I arbejder
-
-**Fordele:**
-
-- Overblik over hvem der laver hvad
-- Se hvad der mangler
-- Koordiner arbejdet visuelt
-
-</Slide>
-
-<Slide>
-
-## 14. Troubleshooting
+## 13. Troubleshooting
 
 ### Problem: "Permission denied"
 
@@ -564,7 +558,7 @@ Brug GitHub Projects til at organisere jeres arbejde:
 
 <Slide>
 
-## 15. Opsummering: Team Workflow
+## 14. Opsummering: Team Workflow
 
 1. **Scrum Master** opretter repository og tilføjer teamet
 2. **Scrum Master** opretter projektstruktur og pusher til main
@@ -581,7 +575,7 @@ Brug GitHub Projects til at organisere jeres arbejde:
 
 <Slide>
 
-## 16. Næste skridt
+## 15. Næste skridt
 
 Øv jer på workflow'et:
 
