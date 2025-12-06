@@ -18,7 +18,7 @@ JavaScript er sproget, der gør websider **interaktive**. Mens HTML er strukture
 Her gennemgår vi de begreber, du skal kende for at lave simpel interaktivitet.
 
 </Slide>
-
+<div class="page-break"></div>
 <Slide>
 
 ## 1. Variabler (`let`)
@@ -33,7 +33,7 @@ let diseaseDescription = "Beskrivelse af sygdomme";
 Her har vi gemt to tekster (strings) i variablerne `disease` og `diseaseDescription`. Vi kan bruge disse navne senere i koden i stedet for at skrive teksten igen.
 
 </Slide>
-
+<div class="page-break"></div>
 <Slide>
 
 ## Funktioner (`function`)
@@ -49,7 +49,7 @@ function klar() {
 Koden inde i `{ ... }` kører ikke med det samme. Den venter på at blive kaldt.
 
 </Slide>
-
+<div class="page-break"></div>
 <Slide>
 
 ## Events (`addEventListener`)
@@ -57,7 +57,7 @@ Koden inde i `{ ... }` kører ikke med det samme. Den venter på at blive kaldt.
 Vi vil ofte have koden til at køre, når der sker noget bestemt – en "event".
 
 </Slide>
-
+<div class="page-break"></div>
 <Slide>
 
 ## Vent på at siden er indlæst
@@ -71,7 +71,7 @@ window.addEventListener("load", klar);
 Dette betyder: "Når vinduet (`window`) er færdig med at indlæse (`load`), så kør funktionen `klar`."
 
 </Slide>
-
+<div class="page-break"></div>
 <Slide>
 
 ## Klik-events
@@ -89,7 +89,7 @@ document.querySelector("#knap").addEventListener("click", klikPaaKnap);
 Her undgår vi **anonyme funktioner** ved at navngive funktionen først. Det gør koden lettere at læse og genbruge.
 
 </Slide>
-
+<div class="page-break"></div>
 <Slide>
 
 ## Find elementer (`querySelector`)
@@ -105,7 +105,7 @@ document.querySelector(".selected");
 ```
 
 </Slide>
-
+<div class="page-break"></div>
 <Slide>
 
 ## Ændre indhold og udseende
@@ -131,7 +131,7 @@ document.querySelector("#frederiksberg").classList.remove("selected");
 ```
 
 </Slide>
-
+<div class="page-break"></div>
 <Slide>
 
 ## Samlet eksempel
@@ -215,7 +215,7 @@ function resetBydel() {
 4. **`textContent`**: Opdaterer informationen på skærmen baseret på hvad man klikker på.
 
 </Slide>
-
+<div class="page-break"></div>
 <Slide>
 
 ## Næste skridt

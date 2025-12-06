@@ -55,7 +55,7 @@
     padding: 0;
     margin: 0;
     z-index: 9999;
-    display: none; /* Skjult som standard */
+    display: none;
     flex-direction: column;
   }
 
@@ -96,17 +96,31 @@
   #slide-container {
     flex: 1;
     overflow-y: auto;
-    padding: 4rem 2rem;
+    padding: 0;
     display: flex;
     justify-content: center;
     align-items: flex-start;
   }
 
   /* Slide styling */
-  :global(.generated-slide) {
+  :global(.slide-wrapper) {
     display: none;
     width: 100%;
+    min-height: 100%;
+  }
+
+  :global(.slide-wrapper.active) {
+    display: block;
+  }
+
+  :global(.generated-slide) {
+    display: block;
+    width: 100%;
+    min-height: calc(100vh - 4rem);
     max-width: 900px;
+    padding: 4rem 2rem;
+    box-sizing: border-box;
+    margin: 0 auto;
     animation: fadeIn 0.3s ease-out;
   }
 
@@ -192,14 +206,33 @@
       const children = Array.from(content.children);
       let currentSlideContent = [];
       
+      // Hent dagens dato
+      const today = new Date();
+      const dateStr = today.toLocaleDateString('da-DK', { 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+      });
+      
+      // Tjek om der er eksplicitte Slide komponenter
+      const hasExplicitSlides = children.some(child => child.classList.contains('slide'));
+      
       const flushSlide = () => {
         if (currentSlideContent.length === 0) return;
+        
+        // Opret wrapper for page-break
+        const wrapper = document.createElement('div');
+        wrapper.className = 'slide-wrapper print-page';
+        wrapper.setAttribute('data-date', dateStr);
         
         const slideDiv = document.createElement('div');
         slideDiv.className = 'generated-slide';
         currentSlideContent.forEach(el => slideDiv.appendChild(el.cloneNode(true)));
-        this.slides.push(slideDiv);
-        this.container.appendChild(slideDiv);
+        
+        wrapper.appendChild(slideDiv);
+        
+        this.slides.push(wrapper);
+        this.container.appendChild(wrapper);
         currentSlideContent = [];
       };
 
@@ -207,41 +240,60 @@
         // Ignorer scripts, styles og UI elementer
         if (['STYLE', 'SCRIPT', 'LINK', 'META'].includes(child.tagName)) return;
         if (child.classList.contains('presentation-ui') || child.querySelector('.presentation-ui')) return;
+        // Ignorer page-break divs
+        if (child.classList.contains('page-break')) return;
 
         // Case 1: Eksplicit Slide komponent (<Slide>...</Slide>)
         if (child.classList.contains('slide')) {
             flushSlide(); // Afslut nuværende slide
             
+            // Opret wrapper for page-break
+            const wrapper = document.createElement('div');
+            wrapper.className = 'slide-wrapper print-page';
+            wrapper.setAttribute('data-date', dateStr);
+            
             // Opret slide fra den eksplicitte wrapper
             const slideDiv = document.createElement('div');
             slideDiv.className = 'generated-slide';
             slideDiv.innerHTML = child.innerHTML;
-            this.slides.push(slideDiv);
-            this.container.appendChild(slideDiv);
+            
+            wrapper.appendChild(slideDiv);
+            
+            this.slides.push(wrapper);
+            this.container.appendChild(wrapper);
             return;
         }
 
-        // Case 2: Overskrift starter nyt slide
-        // Vi tjekker både H1 og H2
-        if (child.tagName === 'H1' || child.tagName === 'H2') {
+        // Case 2: Overskrift starter nyt slide (kun hvis der IKKE er eksplicitte Slide komponenter)
+        if (!hasExplicitSlides && (child.tagName === 'H1' || child.tagName === 'H2')) {
             flushSlide();
         }
         
         currentSlideContent.push(child);
       });
 
-      // Få det sidste med
-      flushSlide();
+      // Få det sidste med (kun hvis der ikke var eksplicitte slides)
+      if (!hasExplicitSlides) {
+        flushSlide();
+      }
       
       // Fallback: Hvis ingen slides blev genereret (f.eks. hvis strukturen er anderledes),
       // så lav ét stort slide med alt indholdet.
       if (this.slides.length === 0 && children.length > 0) {
         console.warn('Ingen slides genereret automatisk. Laver fallback slide.');
+        
+        const wrapper = document.createElement('div');
+        wrapper.className = 'slide-wrapper print-page';
+        wrapper.setAttribute('data-date', dateStr);
+        
         const slideDiv = document.createElement('div');
         slideDiv.className = 'generated-slide';
         slideDiv.innerHTML = content.innerHTML;
-        this.slides.push(slideDiv);
-        this.container.appendChild(slideDiv);
+        
+        wrapper.appendChild(slideDiv);
+        
+        this.slides.push(wrapper);
+        this.container.appendChild(wrapper);
       }
       
       console.log(`Presentation Mode: Generated ${this.slides.length} slides from ${children.length} elements.`);
@@ -250,8 +302,13 @@
     showSlide(index) {
       if (index < 0 || index >= this.slides.length) return;
 
-      this.slides.forEach(s => s.classList.remove('active'));
-      this.slides[index].classList.add('active');
+      // Wrappers skal vises/skjules i stedet for slides
+      this.slides.forEach(wrapper => {
+        wrapper.classList.remove('active');
+      });
+      
+      const activeWrapper = this.slides[index];
+      activeWrapper.classList.add('active');
       
       this.currentIndex = index;
       this.updateControls();

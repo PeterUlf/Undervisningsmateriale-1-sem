@@ -7,7 +7,7 @@ import starlightThemeRapide from "starlight-theme-rapide";
 export default defineConfig({
   integrations: [
     starlight({
-      title: "MMD undervisningsmateriale E2025 version 0.1",
+      title: "MMD undervisningsmateriale E2025 V  0.1",
       customCss: ["./src/styles/custom.css"],
       components: {
         PageTitle: "./src/components/PageTitleWrapper.astro",

@@ -288,3 +288,10 @@ starlight-toc nav > ul > li:not(:first-child) > a::before {
     margin-top: 0 !important;
   }
 }
+
+/* Print styles */
+@media print {
+  .page-break {
+    page-break-before: always;
+  }
+}
