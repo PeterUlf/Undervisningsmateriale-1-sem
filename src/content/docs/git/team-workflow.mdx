@@ -17,6 +17,33 @@ import Slide from "../../../components/Slide.astro";
 
 Lær at arbejde sammen om et projekt med jeres team ved hjælp af GitHub.
 
+## Workflow Oversigt
+
+**Scrum Master:**
+
+1. Opret organization + repository på GitHub
+2. Inviter teammedlemmer
+3. Clone repository i VS Code (Ctrl/Cmd + Shift + P → "Git: Clone")
+4. Opret projektstruktur (mapper, filer, `.gitignore`)
+5. Source Control → Stage alle → Commit → Sync Changes
+
+**Alle teammedlemmer:**
+
+1. Accepter invitation
+2. Clone repository i VS Code
+3. Klik på branch-navn nederst til venstre → "Create new branch" → navngiv `feature/dit-navn`
+4. Arbejd på din del (HTML + CSS)
+5. Source Control → Stage Changes (✓) → Commit → Sync Changes
+6. Gå til GitHub → Lav Pull Request
+7. Vent på review og merge
+
+**Dagligt workflow:**
+
+- Skift til `main` branch (klik branch-navn nederst) → Sync Changes (hent nye ændringer)
+- Opret ny branch fra opdateret `main`
+- Merge conflicts? Klik "Resolve in Editor" i VS Code
+- Gentag proces for hver feature
+
 </Slide>
 <div class="page-break"></div>
 <Slide>

@@ -22,36 +22,74 @@ Tid til at øve scroll-effekter! Her er opgaver der går fra simple til avancere
 **HTML:**
 
 ```html
-<!DOCTYPE html>
-<html lang="da">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Smooth Scroll</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <nav>
-      <a href="#sektion1">Sektion 1</a>
-      <a href="#sektion2">Sektion 2</a>
-      <a href="#sektion3">Sektion 3</a>
-    </nav>
+<nav>
+  <a href="#sektion1">Sektion 1</a>
+  <a href="#sektion2">Sektion 2</a>
+  <a href="#sektion3">Sektion 3</a>
+</nav>
 
-    <section id="sektion1">
-      <h1>Sektion 1</h1>
-      <p>Scroll ned...</p>
-    </section>
+<section id="sektion1">
+  <h1>Sektion 1</h1>
+  <p>Scroll ned...</p>
+</section>
 
-    <section id="sektion2">
-      <h1>Sektion 2</h1>
-      <p>Fortsæt...</p>
-    </section>
+<section id="sektion2">
+  <h1>Sektion 2</h1>
+  <p>Fortsæt...</p>
+</section>
 
-    <section id="sektion3">
-      <h1>Sektion 3</h1>
-      <p>Sidste sektion</p>
-    </section>
-  </body>
-</html>
+<section id="sektion3">
+  <h1>Sektion 3</h1>
+  <p>Sidste sektion</p>
+</section>
+```
+
+**Starter CSS:**
+
+```css
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, sans-serif;
+}
+
+nav {
+  background: #333;
+  padding: 1rem;
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  transition: background 0.3s;
+}
+
+nav a:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+section {
+  display: grid;
+  place-items: center;
+  padding: 2rem;
+}
+
+section:nth-child(odd) {
+  background: #f0f0f0;
+}
+
+section:nth-child(even) {
+  background: #e0e0e0;
+}
 ```
 
 **Opgaver:**
@@ -64,7 +102,7 @@ Tid til at øve scroll-effekter! Her er opgaver der går fra simple til avancere
 
 **Ekstra udfordring:**
 
-Tilføj forskellige baggrundsfarver til hver sektion og lav en fade-effekt mellem dem.
+Tilføj forskellige baggrundsfarver til hver sektion for at gøre det nemmere at se smooth scroll-effekten.
 
 </Slide>
 <div class="page-break"></div>
@@ -135,25 +173,64 @@ main {
 **HTML:**
 
 ```html
+<header>
+  <h1>Scroll ned for at se cards fade ind</h1>
+</header>
+
+<section class="spacer">
+  <p>Scroll ned...</p>
+</section>
+
 <div class="card">
   <h2>Card 1</h2>
-  <p>Indhold her...</p>
+  <p>Denne card fader ind når den kommer i synsfelt.</p>
 </div>
 
 <div class="card">
   <h2>Card 2</h2>
-  <p>Indhold her...</p>
+  <p>Denne card fader ind når den kommer i synsfelt.</p>
 </div>
 
 <div class="card">
   <h2>Card 3</h2>
-  <p>Indhold her...</p>
+  <p>Denne card fader ind når den kommer i synsfelt.</p>
 </div>
+
+<section class="spacer">
+  <p>Bund af siden</p>
+</section>
 ```
 
 **Starter CSS:**
 
 ```css
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, sans-serif;
+  background: #f5f5f5;
+  color: #333;
+}
+
+header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+.spacer {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  font-size: 1.5rem;
+  color: #999;
+}
+
 .card {
   background: white;
   padding: 2rem;
@@ -169,14 +246,15 @@ main {
 1. Opret en `@keyframes` animation for fade-in effekt
 
    - **Hint:** Animer både `opacity` og `translate`
-   - **Hint:** Start usynlig og lidt nede (fx 50px)
+   - **Hint:** Start usynlig `opacity: 0; ` og ude i venstre side fx. `translate: -100vw 0; `
    - **Hint:** Slut synlig og i normal position
 
 2. Tilføj scroll-driven animation til `.card`
 
    - **Hint:** Brug `animation-timeline: view()`
-   - **Hint:** Start når card kommer ind (`entry 0%`)
-   - **Hint:** Slut tidligt i cover-fasen (fx `cover 30%`)
+   - **Hint:** Brug `animation-range:`
+   - Start når card kommer ind (`entry 0%`) Slut tidligt i cover-fasen (fx `cover 30%`)
+   - **Dvs. fx.:** dvs `animation-range: entry 0% cover 30%;`
 
 3. Test at hver card fader ind når den kommer i syne
 
@@ -210,26 +288,130 @@ main {
 </header>
 
 <main>
-  <h2>Indhold</h2>
-  <p>Scroll ned og se hvordan header-billedet bevæger sig...</p>
+  <h2>Velkommen</h2>
+  <p>
+    Scroll ned og se hvordan header-billedet bevæger sig langsommere end resten
+    af siden...
+  </p>
+  <p>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+    tempor incididunt ut labore et dolore magna aliqua.
+  </p>
+
+  <h2>Fremgangsmåde</h2>
+
+  <ol>
+    <li>
+      Sæt baggrundsfarve på din header. Dvs. enten på .hero eller på header
+    </li>
+    <li>Tjek udseendet</li>
+    <li>
+      Sæt maske på billedet. Brug evt. denne<br />
+      mask: linear-gradient(180deg, #141935, 80%, transparent);
+    </li>
+    <li>
+      Lav en animation der flytter billedet lidt nedad i headeren ved scroll.
+      Dvs. når man scroller flytter headeren sig opad, men langsommere end
+      resten af sitet
+    </li>
+  </ol>
 </main>
+```
+
+**Starter CSS:**
+
+```css
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.hero {
+  display: grid;
+  height: 100svh;
+}
+
+body {
+  font-family: system-ui, sans-serif;
+}
+
+.hero-bg {
+  grid-area: 1/1;
+  object-fit: cover;
+}
+
+.hero-content {
+  grid-area: 1/1;
+  place-self: end center;
+  color: white;
+  text-align: center;
+  z-index: 1;
+}
+
+.hero-content h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.hero-content p {
+  font-size: 1.5rem;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+main {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+main h2 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+main p {
+  margin-bottom: 1rem;
+  color: #666;
+}
 ```
 
 **Opgaver:**
 
 1. Giv `.hero` disse properties:
-   - **Hint:** Fuld skærmhøjde (min-height)
-   - **Hint:** `overflow: clip` for at skjule billede der bevæger sig ud
-   - **Hint:** `display: grid` for overlappende elementer
-2. Lav overlappende elementer:
+   - **Hint:** ` background-color: black;` Tjek at der kommer en sort box om teksten
+2. Giv img denne property:
 
-   - **Hint:** Alle børn skal have samme `grid-area`
-   - **Hint:** Dette får dem til at ligge ovenpå hinanden
+   - **Hint:** `mask: linear-gradient(180deg, #141935, 80%, transparent);` Tjek at der kommer en fade op i billedet
 
-3. Tilføj parallax animation til billedet:
-   - **Hint:** Animer `translate` (ned) og `opacity` (fade ud)
-   - **Hint:** Brug `animation-timeline: scroll()`
-   - **Hint:** Sæt `animation-range` fra `0` til `100vh`
+3. Tilføj en `@keyframes` animation der kun har `to {`. Her helt gennemsigtig og flytter billedet nedad:
+
+   ```css
+   @keyframes parallax {
+     to {
+       opacity: 0;
+       translate: 0 75svh;
+     }
+   }
+   ```
+
+4. Tilføj parallax animation til billedet:
+
+   ```css
+   animation: parallax both linear;
+   animation-timeline: scroll();
+   animation-range: 0 100svh;
+   ```
 
 **Ekstra:** Prøv forskellige `translate` værdier og se hvordan parallax-effekten ændrer sig!
 
@@ -263,15 +445,44 @@ main {
 </div>
 ```
 
+**Starter CSS:**
+
+```css
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, sans-serif;
+}
+
+.slideshow {
+  /* Tilføj dine egenskaber her */
+}
+
+.slide {
+  color: white;
+  font-size: 2rem;
+  /* Tilføj dine egenskaber her */
+}
+
+h1 {
+  font-size: 4rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+```
+
 **Opgaver:**
 
-1. Tilføj scroll snap til container:
+1. Tilføj scroll snap til container (`.slideshow`):
 
-   - **Hint:** Brug `scroll-snap-type` med y-akse og `mandatory`
-   - **Hint:** Sørg for `overflow-y: scroll`
-   - **Hint:** Sæt højden til fuld skærm
+   - **Hint:** `scroll-snap-type: y mandatory;` (scroll "låser" til slides når du scroller lodret)
+   - **Hint:** `overflow-y: scroll;` (tillad scroll i højden)
+   - **Hint:** `height: 100vh;` (containeren fylder hele skærmen)
 
-2. Lav hver slide fuld højde:
+2. Lav hver slide fuld højde (`.slide`):
 
    - **Hint:** Brug `scroll-snap-align: start`
    - **Hint:** Hver slide skal have `height: 100vh`
@@ -325,27 +536,97 @@ main {
 </div>
 ```
 
+**Starter CSS:**
+
+```css
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, sans-serif;
+  background: #f5f5f5;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  /* Tilføj grid properties her */
+}
+
+.sidebar {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  /* Tilføj sticky properties her */
+}
+
+.sidebar h3 {
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.sidebar ul {
+  list-style: none;
+}
+
+.sidebar li {
+  margin-bottom: 0.5rem;
+}
+
+.sidebar a {
+  color: #667eea;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.sidebar a:hover {
+  color: #764ba2;
+}
+
+.content section {
+  background: white;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  min-height: 100vh;
+}
+
+.content h2 {
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.content p {
+  color: #666;
+  line-height: 1.6;
+}
+```
+
 **Opgaver:**
 
-1. Lav grid layout:
+1. Lav grid layout på `.container`:
 
-   - **Hint:** 2 kolonner - en smal til sidebar (fx 250px), resten til content
-   - **Hint:** Brug `grid-template-columns`
-   - **Hint:** Tilføj gap mellem kolonnerne
+   - **Hint:** `display: grid;`
+   - **Hint:** `grid-template-columns: 250px 1fr;` (smal sidebar, resten til content)
+   - **Hint:** `gap: 2rem;` (mellemrum mellem kolonnerne)
 
 2. Gør sidebar sticky:
 
-   - **Hint:** Brug `position: sticky`
-   - **Hint:** Sæt `top` til lidt afstand fra toppen
-   - **Hint:** Sæt `height: fit-content` så den kun er så høj som indholdet
+   - **Hint:** `position: sticky;` på `.sidebar`
+   - **Hint:** `top: 2rem;` (afstand fra toppen)
+   - **Hint:** `height: fit-content;` (kun så høj som indholdet)
 
-3. Style sidebar pænt med baggrund og padding
+3. Test at sidebar følger med når du scroller
 
 **Ekstra udfordringer:**
 
-1. Highlight det aktive menu-punkt baseret på scroll position
-2. Lav sidebar kun sticky når den når toppen af skærmen
-3. Kombiner med smooth scroll
+1. Kombiner med smooth scroll
 
 </Slide>
 <div class="page-break"></div>
@@ -360,47 +641,162 @@ main {
 **HTML:**
 
 ```html
-<div class="spacer"></div>
+<div class="spacer">
+  <p>Scroll ned for at se vandret scroll galleri...</p>
+</div>
 
-<div class="gallery-container">
-  <div class="gallery-track">
-    <div class="gallery-item">
-      <img src="billede1.jpg" alt="" />
-    </div>
-    <div class="gallery-item">
-      <img src="billede2.jpg" alt="" />
-    </div>
-    <div class="gallery-item">
-      <img src="billede3.jpg" alt="" />
-    </div>
-    <div class="gallery-item">
-      <img src="billede4.jpg" alt="" />
+<div class="horizontal-scroll-container">
+  <div class="sticky-wrapper">
+    <h3>Vandret Scroll Galleri</h3>
+    <p>Scroll ned for at se billederne bevæge sig sidelæns.</p>
+
+    <div class="gallery-track">
+      <div class="gallery-item">
+        <img
+          src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4"
+          alt="Mountains"
+        />
+      </div>
+      <div class="gallery-item">
+        <img
+          src="https://images.unsplash.com/photo-1469474968028-56623f02e42e"
+          alt="Nature"
+        />
+      </div>
+      <div class="gallery-item">
+        <img
+          src="https://images.unsplash.com/photo-1501594907352-04cda38ebc29"
+          alt="Lake"
+        />
+      </div>
+      <div class="gallery-item">
+        <img
+          src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05"
+          alt="Forest"
+        />
+      </div>
+      <div class="gallery-item">
+        <img
+          src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e"
+          alt="Forest Path"
+        />
+      </div>
     </div>
   </div>
 </div>
 
-<div class="spacer"></div>
+<div class="spacer">
+  <p>Bund af siden</p>
+</div>
+```
+
+**Starter CSS:**
+
+```css
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, sans-serif;
+  background: #1a1a1a;
+  color: white;
+}
+
+.spacer {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(180deg, #1a1a1a 0%, #2a2a2a 100%);
+  color: #999;
+  font-size: 1.5rem;
+}
+
+.horizontal-scroll-container {
+  margin: 4rem 0;
+  /* Tilføj height og view-timeline her */
+}
+
+.sticky-wrapper {
+  background: #2a2a2a;
+  border-radius: 1rem;
+  padding: 2rem;
+  /* Tilføj sticky properties her */
+}
+
+.sticky-wrapper h3 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.sticky-wrapper p {
+  color: #999;
+  margin-bottom: 2rem;
+}
+
+.gallery-track {
+  display: flex;
+  gap: 2rem;
+  width: max-content;
+  /* Tilføj animation properties her */
+}
+
+.gallery-item {
+  width: 400px;
+  height: 500px;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+  flex-shrink: 0;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
 ```
 
 **Opgaver:**
 
-1. Opret view-timeline:
+1. Tilføj scroll-container properties til `.horizontal-scroll-container`:
 
-   - **Hint:** Containeren skal have stor højde (fx `300vh`) for scroll-afstand
-   - **Hint:** Brug `view-timeline` property med et custom navn (fx `--gallery`)
+   - **Hint:** `height: 300vh;` (gør sektionen 3x skærmhøjden for scroll-plads)
+   - **Hint:** `view-timeline: --gallery block;` (lav custom timeline)
+   - **Forklaring:** View-timeline tracker når elementet er synligt i viewporten
 
-2. Gør track sticky:
+2. Gør wrapper sticky på `.sticky-wrapper`:
 
-   - **Hint:** `position: sticky` med `top` værdi
-   - **Hint:** Brug `display: flex` for at lægge billeder ved siden af hinanden
-   - **Hint:** Tilknyt animation til din custom timeline
+   - **Hint:** `position: sticky;`
+   - **Hint:** `top: 10vh;` (afstand fra toppen)
+   - **Hint:** `height: 80vh;` (højden på den synlige del)
+   - **Hint:** `overflow: hidden;` (skjul billeder der er udenfor)
+   - **Hint:** `display: flex; flex-direction: column; justify-content: center;` (centrer indhold lodret)
 
-3. Tilføj animation:
-   - **Hint:** Animer `translate` i x-retning (vandret)
-   - **Hint:** Beregn hvor langt den skal: `calc(-100% + 100vw)`
-   - **Hint:** Dette flytter galleriet helt til venstre, men holder sidste billede synligt
+3. Tilføj scroll-animation til `.gallery-track`:
 
-**Tips:** Brug Unsplash til billeder: `https://images.unsplash.com/photo-...`
+   - **Hint:** `animation: move-horizontal linear both;`
+   - **Hint:** `animation-timeline: --gallery;` (brug din custom timeline)
+   - **Hint:** `animation-range: contain 0% contain 100%;` (animation kører mens container er synlig)
+
+4. Opret keyframes animation:
+
+   ```css
+   @keyframes move-horizontal {
+     to {
+       translate: -80% 0;
+     }
+   }
+   ```
+
+**Ekstra udfordringer:**
+
+1. Prøv forskellige `translateX` værdier (fx `-70%` eller `-90%`)
+2. Tilføj fade-effekt på billederne når de kommer ind
+3. Lav kortene i forskellige størrelser
 
 </Slide>
 <div class="page-break"></div>
