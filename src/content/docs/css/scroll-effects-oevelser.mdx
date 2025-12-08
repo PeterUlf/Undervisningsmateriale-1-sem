@@ -1,0 +1,514 @@
+---
+title: Scroll Effekter - Øvelser
+description: Praktiske øvelser i scroll-drevne animationer
+sidebar:
+  order: 8
+  badge:
+    text: Tema 5
+    variant: tip
+    class: badge-theme-5
+---
+
+import Slide from "../../../components/Slide.astro";
+
+Tid til at øve scroll-effekter! Her er opgaver der går fra simple til avancerede.
+
+<Slide>
+
+## Øvelse 1: Smooth Scroll Menu
+
+**Mål:** Lav en side med smooth scroll mellem sektioner.
+
+**HTML:**
+
+```html
+<!DOCTYPE html>
+<html lang="da">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Smooth Scroll</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <nav>
+      <a href="#sektion1">Sektion 1</a>
+      <a href="#sektion2">Sektion 2</a>
+      <a href="#sektion3">Sektion 3</a>
+    </nav>
+
+    <section id="sektion1">
+      <h1>Sektion 1</h1>
+      <p>Scroll ned...</p>
+    </section>
+
+    <section id="sektion2">
+      <h1>Sektion 2</h1>
+      <p>Fortsæt...</p>
+    </section>
+
+    <section id="sektion3">
+      <h1>Sektion 3</h1>
+      <p>Sidste sektion</p>
+    </section>
+  </body>
+</html>
+```
+
+**Opgaver:**
+
+1. Tilføj `scroll-behavior: smooth;` til `html`
+2. Giv hver section `min-height: 100vh`
+3. Lav navigation sticky med `position: sticky; top: 0;`
+4. Style navigationslinkene pænt
+5. Test at scrolling mellem sektioner er smooth
+
+**Ekstra udfordring:**
+
+Tilføj forskellige baggrundsfarver til hver sektion og lav en fade-effekt mellem dem.
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Øvelse 2: Scroll Progress Bar
+
+**Mål:** Lav en progress bar der viser hvor langt man har scrollet.
+
+**HTML:**
+
+```html
+<div class="progress-bar"></div>
+
+<main>
+  <h1>Min Artikel</h1>
+  <p>Lorem ipsum dolor sit amet...</p>
+  <!-- Meget mere indhold -->
+</main>
+```
+
+**Starter CSS:**
+
+```css
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
+  transform-origin: 0 50%;
+  z-index: 1000;
+}
+
+main {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  min-height: 200vh;
+}
+```
+
+**Opgaver:**
+
+1. Opret en `@keyframes` animation der skalerer baren fra 0 til fuld bredde
+   - **Hint:** Brug `scale` property (x y format)
+   - **Hint:** Start med 0 bredde, fuld højde
+2. Tilføj scroll-driven animation til `.progress-bar`
+   - **Hint:** Brug `animation-timeline: scroll()`
+   - **Hint:** Husk `both` for at beholde start/slut tilstand
+3. Test at baren vokser når du scroller
+
+**Ekstra udfordringer:**
+
+1. Ændr farven til at gå fra rød → gul → grøn
+2. Tilføj en lille cirkel i enden af baren der viser præcis position
+3. Lav en vertikal progress bar i højre side i stedet
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Øvelse 3: Card Fade-In
+
+**Mål:** Få cards til at fade ind når de kommer i synsfelt.
+
+**HTML:**
+
+```html
+<div class="card">
+  <h2>Card 1</h2>
+  <p>Indhold her...</p>
+</div>
+
+<div class="card">
+  <h2>Card 2</h2>
+  <p>Indhold her...</p>
+</div>
+
+<div class="card">
+  <h2>Card 3</h2>
+  <p>Indhold her...</p>
+</div>
+```
+
+**Starter CSS:**
+
+```css
+.card {
+  background: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  margin: 2rem auto;
+  max-width: 600px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+```
+
+**Opgaver:**
+
+1. Opret en `@keyframes` animation for fade-in effekt
+
+   - **Hint:** Animer både `opacity` og `translate`
+   - **Hint:** Start usynlig og lidt nede (fx 50px)
+   - **Hint:** Slut synlig og i normal position
+
+2. Tilføj scroll-driven animation til `.card`
+
+   - **Hint:** Brug `animation-timeline: view()`
+   - **Hint:** Start når card kommer ind (`entry 0%`)
+   - **Hint:** Slut tidligt i cover-fasen (fx `cover 30%`)
+
+3. Test at hver card fader ind når den kommer i syne
+
+**Ekstra udfordringer:**
+
+1. Lav forskellige animationer: slide-in fra venstre/højre
+2. Tilføj delay mellem hver card
+3. Kombiner fade med rotation eller scale
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Øvelse 4: Parallax Hero Header
+
+**Mål:** Lav en header hvor baggrundsbilledet bevæger sig langsommere end indholdet.
+
+**HTML:**
+
+```html
+<header class="hero">
+  <img
+    src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4"
+    alt="Mountains"
+    class="hero-bg"
+  />
+  <div class="hero-content">
+    <h1>Min Fantastiske Side</h1>
+    <p>Scroll ned for at se parallax effekt</p>
+  </div>
+</header>
+
+<main>
+  <h2>Indhold</h2>
+  <p>Scroll ned og se hvordan header-billedet bevæger sig...</p>
+</main>
+```
+
+**Opgaver:**
+
+1. Giv `.hero` disse properties:
+   - **Hint:** Fuld skærmhøjde (min-height)
+   - **Hint:** `overflow: clip` for at skjule billede der bevæger sig ud
+   - **Hint:** `display: grid` for overlappende elementer
+2. Lav overlappende elementer:
+
+   - **Hint:** Alle børn skal have samme `grid-area`
+   - **Hint:** Dette får dem til at ligge ovenpå hinanden
+
+3. Tilføj parallax animation til billedet:
+   - **Hint:** Animer `translate` (ned) og `opacity` (fade ud)
+   - **Hint:** Brug `animation-timeline: scroll()`
+   - **Hint:** Sæt `animation-range` fra `0` til `100vh`
+
+**Ekstra:** Prøv forskellige `translate` værdier og se hvordan parallax-effekten ændrer sig!
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Øvelse 5: Scroll Snap Slideshow
+
+**Mål:** Lav en lodret slideshow med scroll snap.
+
+**HTML:**
+
+```html
+<div class="slideshow">
+  <section class="slide" style="background: #ff6b6b;">
+    <h1>Slide 1</h1>
+  </section>
+
+  <section class="slide" style="background: #4ecdc4;">
+    <h1>Slide 2</h1>
+  </section>
+
+  <section class="slide" style="background: #45b7d1;">
+    <h1>Slide 3</h1>
+  </section>
+
+  <section class="slide" style="background: #f7b731;">
+    <h1>Slide 4</h1>
+  </section>
+</div>
+```
+
+**Opgaver:**
+
+1. Tilføj scroll snap til container:
+
+   - **Hint:** Brug `scroll-snap-type` med y-akse og `mandatory`
+   - **Hint:** Sørg for `overflow-y: scroll`
+   - **Hint:** Sæt højden til fuld skærm
+
+2. Lav hver slide fuld højde:
+
+   - **Hint:** Brug `scroll-snap-align: start`
+   - **Hint:** Hver slide skal have `height: 100vh`
+   - **Hint:** Centrer indholdet med `display: grid` og `place-items`
+
+3. Test at scrolling "snapper" til hver slide
+
+**Ekstra udfordringer:**
+
+1. Lav en vandret version (hint: `scroll-snap-type: x mandatory`)
+2. Tilføj pile-navigation med smooth scroll
+3. Kombiner med fade-in animation for indholdet
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Øvelse 6: Sticky Sidebar
+
+**Mål:** Lav en sidebar der følger med når man scroller.
+
+**HTML:**
+
+```html
+<div class="container">
+  <aside class="sidebar">
+    <h3>Indholdsfortegnelse</h3>
+    <ul>
+      <li><a href="#del1">Del 1</a></li>
+      <li><a href="#del2">Del 2</a></li>
+      <li><a href="#del3">Del 3</a></li>
+    </ul>
+  </aside>
+
+  <main class="content">
+    <section id="del1">
+      <h2>Del 1</h2>
+      <p>Meget indhold...</p>
+    </section>
+
+    <section id="del2">
+      <h2>Del 2</h2>
+      <p>Meget indhold...</p>
+    </section>
+
+    <section id="del3">
+      <h2>Del 3</h2>
+      <p>Meget indhold...</p>
+    </section>
+  </main>
+</div>
+```
+
+**Opgaver:**
+
+1. Lav grid layout:
+
+   - **Hint:** 2 kolonner - en smal til sidebar (fx 250px), resten til content
+   - **Hint:** Brug `grid-template-columns`
+   - **Hint:** Tilføj gap mellem kolonnerne
+
+2. Gør sidebar sticky:
+
+   - **Hint:** Brug `position: sticky`
+   - **Hint:** Sæt `top` til lidt afstand fra toppen
+   - **Hint:** Sæt `height: fit-content` så den kun er så høj som indholdet
+
+3. Style sidebar pænt med baggrund og padding
+
+**Ekstra udfordringer:**
+
+1. Highlight det aktive menu-punkt baseret på scroll position
+2. Lav sidebar kun sticky når den når toppen af skærmen
+3. Kombiner med smooth scroll
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Øvelse 7: Vandret Scroll Galleri ⭐
+
+**Mål:** Lav et galleri der scroller vandret når du scroller lodret.
+
+**Dette er en avanceret øvelse!**
+
+**HTML:**
+
+```html
+<div class="spacer"></div>
+
+<div class="gallery-container">
+  <div class="gallery-track">
+    <div class="gallery-item">
+      <img src="billede1.jpg" alt="" />
+    </div>
+    <div class="gallery-item">
+      <img src="billede2.jpg" alt="" />
+    </div>
+    <div class="gallery-item">
+      <img src="billede3.jpg" alt="" />
+    </div>
+    <div class="gallery-item">
+      <img src="billede4.jpg" alt="" />
+    </div>
+  </div>
+</div>
+
+<div class="spacer"></div>
+```
+
+**Opgaver:**
+
+1. Opret view-timeline:
+
+   - **Hint:** Containeren skal have stor højde (fx `300vh`) for scroll-afstand
+   - **Hint:** Brug `view-timeline` property med et custom navn (fx `--gallery`)
+
+2. Gør track sticky:
+
+   - **Hint:** `position: sticky` med `top` værdi
+   - **Hint:** Brug `display: flex` for at lægge billeder ved siden af hinanden
+   - **Hint:** Tilknyt animation til din custom timeline
+
+3. Tilføj animation:
+   - **Hint:** Animer `translate` i x-retning (vandret)
+   - **Hint:** Beregn hvor langt den skal: `calc(-100% + 100vw)`
+   - **Hint:** Dette flytter galleriet helt til venstre, men holder sidste billede synligt
+
+**Tips:** Brug Unsplash til billeder: `https://images.unsplash.com/photo-...`
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Øvelse 8: Kombinations-udfordring 🚀
+
+**Mål:** Kombiner flere effekter på én side.
+
+**Opgave:**
+
+Lav en komplet landing page der bruger:
+
+1. ✅ Parallax hero header
+2. ✅ Scroll progress bar
+3. ✅ Fade-in cards når de kommer i syne
+4. ✅ Sticky navigation
+5. ✅ Smooth scroll mellem sektioner
+6. ✅ (Bonus) Vandret scroll galleri
+
+**Start fra bunden:**
+
+1. Planlæg strukturen på papir først
+2. Byg HTML med alle sektioner
+3. Tilføj én effekt ad gangen
+4. Test løbende
+5. Polér design til sidst
+
+**Inspiration:**
+
+- Apple produktsider
+- Awwwards.com
+- CodePen trending
+
+<a
+  href="https://codepen.io/pen/"
+  target="_blank"
+  style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background-color: var(--sl-color-accent-low); color: var(--sl-color-white); border: 1px solid var(--sl-color-accent); border-radius: 0.5rem; text-decoration: none; font-weight: 600; font-size: var(--sl-text-sm); transition: background-color 0.2s;"
+>
+  Start i CodePen →
+</a>
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Debugging Tips
+
+Når scroll-effekter ikke virker som forventet:
+
+**1. Tjek browser-support:**
+
+- `animation-timeline: scroll()` kræver nyere browser
+- Test i Chrome/Edge først
+
+**2. Almindelige fejl:**
+
+```css
+/* ❌ Glemmer both */
+animation: move linear;
+
+/* ✅ Korrekt */
+animation: move linear both;
+```
+
+**3. Debugging værktøjer:**
+
+- Chrome DevTools → Animations panel
+- Scroll langsomt for at se keyframes
+- Brug `outline` til at se container-grænser
+
+**4. Test-trick:**
+
+```css
+/* Sæt fast duration for at teste animation uden scroll */
+animation: move 3s linear both;
+/* animation-timeline: scroll(); */ /* Udkommenter midlertidigt */
+```
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Ressourcer
+
+**Tutorials & Dokumentation:**
+
+- [MDN: CSS Scroll-driven Animations](https://developer.mozilla.org/en-US/docs/Web/CSS/animation-timeline)
+- [web.dev: Scroll-driven Animations](https://developer.chrome.com/articles/scroll-driven-animations/)
+
+**Inspiration:**
+
+- [CodePen: Scroll Effects](https://codepen.io/search/pens?q=scroll+animation)
+- [Awwwards: Site of the Day](https://www.awwwards.com/websites/scroll/)
+
+**Tools:**
+
+- [cubic-bezier.com](https://cubic-bezier.com/) - Timing functions
+- [Unsplash](https://unsplash.com/) - Gratis billeder
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Næste Skridt
+
+Når du er komfortabel med scroll-effekter, er næste skridt at lære JavaScript for endnu mere kontrol:
+
+Gå til JavaScript Intro →
+
+</Slide>

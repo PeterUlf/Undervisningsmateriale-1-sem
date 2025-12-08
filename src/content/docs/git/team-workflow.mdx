@@ -73,6 +73,21 @@ Lær at arbejde sammen om et projekt med jeres team ved hjælp af GitHub.
 
    - Opret: `index.html` (hjemmesiden - det første brugeren ser)
    - Opret: `README.md` (projektbeskrivelse og team-information)
+   - Opret: `.gitignore` (filer Git skal ignorere)
+
+3. Åbn `.gitignore` og tilføj:
+
+```
+# macOS
+.DS_Store
+
+# Videoer (for store til GitHub)
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.webm
+```
 
 <br />
 
@@ -89,6 +104,12 @@ Lær at arbejde sammen om et projekt med jeres team ved hjælp af GitHub.
 
 - Vises på GitHub's forside som projektbeskrivelse
 - Perfekt til at liste teammedlemmer og deres ansvar
+
+**.gitignore:**
+
+- `.DS_Store` er macOS systemfiler der ikke skal på GitHub
+- Videoer er for store til GitHub (max 100MB per fil)
+- Git ignorerer automatisk alt der står i `.gitignore`
 
 :::
 
