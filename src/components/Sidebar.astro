@@ -13,82 +13,104 @@ import Default from '@astrojs/starlight/components/Sidebar.astro';
 <Default {...Astro.props}><slot /></Default>
 
 <script>
-  // Find alle unikke tema-numre dynamisk
-  const sidebarLinks = document.querySelectorAll('.sidebar a .sl-badge');
-  const themeNumbers = new Set<number>();
-  
-  sidebarLinks.forEach((badge) => {
-    const badgeText = badge.textContent?.trim();
-    if (badgeText?.startsWith('Tema')) {
-      const themeNumber = parseInt(badgeText.replace('Tema ', ''));
-      if (!isNaN(themeNumber)) {
-        themeNumbers.add(themeNumber);
-      }
-    }
-  });
-  
-  // Sorter tema-numre
-  const sortedThemes = Array.from(themeNumbers).sort((a, b) => a - b);
-  
-  // Byg options dynamisk
-  const select = document.getElementById('theme-select') as HTMLSelectElement;
-  
-  if (select && sortedThemes.length > 0) {
-    // Tilføj tema options
-    sortedThemes.forEach(num => {
-      const option = document.createElement('option');
-      option.value = num.toString();
-      option.textContent = `Op til Tema ${num}`;
-      select.appendChild(option);
-    });
+  // Rod-elementet for Starlight-sidebaren
+  const sidebarRoot = document.getElementById('starlight__sidebar');
+
+  if (sidebarRoot) {
+    // Find alle unikke tema-numre dynamisk
+    const badgeNodes = sidebarRoot.querySelectorAll('a .sl-badge');
+    const themeNumbers = new Set<number>();
     
-    // Hent gemt valg
-    const savedTheme = localStorage.getItem('selectedTheme') || 'all';
-    select.value = savedTheme;
-    
-    // Funktion til at filtrere
-    function filterMenuItems(maxTheme: string) {
-      const sidebarLinks = document.querySelectorAll('.sidebar a');
-      
-      sidebarLinks.forEach((link) => {
-        const badge = link.querySelector('.sl-badge');
-        
-        if (badge) {
-          const badgeText = badge.textContent?.trim();
-          
-          if (badgeText?.startsWith('Tema')) {
-            const themeNumber = parseInt(badgeText.replace('Tema ', ''));
-            const listItem = link.closest('li');
-            
-            if (maxTheme === 'all') {
-              if (listItem) (listItem as HTMLElement).style.display = '';
-            } else {
-              const maxThemeNum = parseInt(maxTheme);
-              if (listItem) {
-                (listItem as HTMLElement).style.display = themeNumber <= maxThemeNum ? '' : 'none';
-              }
-            }
-          }
+    badgeNodes.forEach((badge) => {
+      const badgeText = badge.textContent?.trim();
+      if (badgeText?.startsWith('Tema')) {
+        const themeNumber = parseInt(badgeText.replace('Tema ', ''));
+        if (!isNaN(themeNumber)) {
+          themeNumbers.add(themeNumber);
         }
+      }
+    });
+    
+    // Sorter tema-numre
+    const sortedThemes = Array.from(themeNumbers).sort((a, b) => a - b);
+    
+    // Byg options dynamisk
+    const select = document.getElementById('theme-select') as HTMLSelectElement;
+    
+    if (select && sortedThemes.length > 0) {
+      // Tilføj tema options
+      sortedThemes.forEach(num => {
+        const option = document.createElement('option');
+        option.value = num.toString();
+        option.textContent = `Op til Tema ${num}`;
+        select.appendChild(option);
       });
       
-      // Skjul tomme grupper
-      const sidebarGroups = document.querySelectorAll('.sidebar details');
-      sidebarGroups.forEach((group) => {
-        const visibleItems = group.querySelectorAll('li:not([style*="display: none"])');
-        (group as HTMLElement).style.display = visibleItems.length > 0 ? '' : 'none';
+      // Hent gemt valg
+      const savedTheme = localStorage.getItem('selectedTheme') || 'all';
+      select.value = savedTheme;
+      
+      // Funktion til at filtrere
+      function filterMenuItems(maxTheme: string) {
+        const isAll = maxTheme === 'all';
+        const maxThemeNum = isAll ? null : parseInt(maxTheme);
+
+        // Filtrér alle links i den rigtige sidebar
+        const sidebarLinks = sidebarRoot!.querySelectorAll('a');
+
+        sidebarLinks.forEach((link) => {
+          const badge = link.querySelector('.sl-badge');
+          const listItem = link.closest('li');
+          if (!listItem) return;
+
+          const liEl = listItem as HTMLElement;
+
+          // Hvis der ikke er noget badge, så skjul punktet når der filtreres på et specifikt tema
+          if (!badge) {
+            liEl.style.display = isAll ? '' : 'none';
+            return;
+          }
+
+          const badgeText = badge.textContent?.trim();
+
+          // Kun badges med "Tema X" tæller som temamærker
+          if (badgeText?.startsWith('Tema ')) {
+            const themeNumber = parseInt(badgeText.replace('Tema ', ''));
+
+            if (isAll || isNaN(themeNumber) || maxThemeNum === null) {
+              liEl.style.display = '';
+            } else {
+              liEl.style.display = themeNumber <= maxThemeNum ? '' : 'none';
+            }
+          } else {
+            // Andre badges (fx bare "Tema") skjules også ved filtrering
+            liEl.style.display = isAll ? '' : 'none';
+          }
+        });
+        
+        // Skjul tomme grupper: en gruppe er tom hvis den ingen SYNLIGE links har
+        const sidebarGroups = sidebarRoot!.querySelectorAll('details');
+        sidebarGroups.forEach((group) => {
+          const links = Array.from(group.querySelectorAll('a'));
+          const visibleLinks = links.filter((link) => {
+            const li = link.closest('li');
+            return li && (li as HTMLElement).style.display !== 'none';
+          });
+
+          (group as HTMLElement).style.display = visibleLinks.length === 0 ? 'none' : '';
+        });
+      }
+      
+      // Filtrer ved load
+      filterMenuItems(savedTheme);
+      
+      // Lyt efter ændringer
+      select.addEventListener('change', (e) => {
+        const selectedTheme = (e.target as HTMLSelectElement).value;
+        localStorage.setItem('selectedTheme', selectedTheme);
+        filterMenuItems(selectedTheme);
       });
     }
-    
-    // Filtrer ved load
-    filterMenuItems(savedTheme);
-    
-    // Lyt efter ændringer
-    select.addEventListener('change', (e) => {
-      const selectedTheme = (e.target as HTMLSelectElement).value;
-      localStorage.setItem('selectedTheme', selectedTheme);
-      filterMenuItems(selectedTheme);
-    });
   }
 </script>
 
