@@ -108,7 +108,220 @@ Tilføj forskellige baggrundsfarver til hver sektion for at gøre det nemmere at
 <div class="page-break"></div>
 <Slide>
 
-## Øvelse 2: Scroll Progress Bar
+## Øvelse 2: Sticky Sidebar
+
+**Mål:** Lav en sidebar der følger med når man scroller.
+
+**HTML:**
+
+```html
+<div class="container">
+  <aside class="sidebar">
+    <h3>Indholdsfortegnelse</h3>
+    <ul>
+      <li><a href="#del1">Del 1</a></li>
+      <li><a href="#del2">Del 2</a></li>
+      <li><a href="#del3">Del 3</a></li>
+    </ul>
+  </aside>
+
+  <main class="content">
+    <section id="del1">
+      <h2>Del 1</h2>
+      <p>Meget indhold...</p>
+    </section>
+
+    <section id="del2">
+      <h2>Del 2</h2>
+      <p>Meget indhold...</p>
+    </section>
+
+    <section id="del3">
+      <h2>Del 3</h2>
+      <p>Meget indhold...</p>
+    </section>
+  </main>
+</div>
+```
+
+**Starter CSS:**
+
+```css
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, sans-serif;
+  background: #f5f5f5;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  /* Tilføj grid properties her */
+}
+
+.sidebar {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  /* Tilføj sticky properties her */
+}
+
+.sidebar h3 {
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.sidebar ul {
+  list-style: none;
+}
+
+.sidebar li {
+  margin-bottom: 0.5rem;
+}
+
+.sidebar a {
+  color: #667eea;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.sidebar a:hover {
+  color: #764ba2;
+}
+
+.content section {
+  background: white;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  min-height: 100vh;
+}
+
+.content h2 {
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.content p {
+  color: #666;
+  line-height: 1.6;
+}
+```
+
+**Opgaver:**
+
+1. Lav grid layout på `.container`:
+
+   - **Hint:** `display: grid;`
+   - **Hint:** `grid-template-columns: 250px 1fr;` (smal sidebar, resten til content)
+   - **Hint:** `gap: 2rem;` (mellemrum mellem kolonnerne)
+
+2. Gør sidebar sticky:
+
+   - **Hint:** `position: sticky;` på `.sidebar`
+   - **Hint:** `top: 2rem;` (afstand fra toppen)
+   - **Hint:** `height: fit-content;` (kun så høj som indholdet)
+
+3. Test at sidebar følger med når du scroller
+
+**Ekstra udfordringer:**
+
+1. Kombiner med smooth scroll
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Øvelse 3: Scroll Snap SlideshowSlideshow
+
+**Mål:** Lav en lodret slideshow med scroll snap.
+
+**HTML:**
+
+```html
+<div class="slideshow">
+  <section class="slide" style="background: #ff6b6b;">
+    <h1>Slide 1</h1>
+  </section>
+
+  <section class="slide" style="background: #4ecdc4;">
+    <h1>Slide 2</h1>
+  </section>
+
+  <section class="slide" style="background: #45b7d1;">
+    <h1>Slide 3</h1>
+  </section>
+
+  <section class="slide" style="background: #f7b731;">
+    <h1>Slide 4</h1>
+  </section>
+</div>
+```
+
+**Starter CSS:**
+
+```css
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, sans-serif;
+}
+
+.slideshow {
+  /* Tilføj dine egenskaber her */
+}
+
+.slide {
+  color: white;
+  font-size: 2rem;
+  /* Tilføj dine egenskaber her */
+}
+
+h1 {
+  font-size: 4rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+```
+
+**Opgaver:**
+
+1. Tilføj scroll snap til container (`.slideshow`):
+
+   - **Hint:** `scroll-snap-type: y mandatory;` (scroll "låser" til slides når du scroller lodret)
+   - **Hint:** `overflow-y: scroll;` (tillad scroll i højden)
+   - **Hint:** `height: 100vh;` (containeren fylder hele skærmen)
+
+2. Lav hver slide fuld højde (`.slide`):
+
+   - **Hint:** Brug `scroll-snap-align: start`
+   - **Hint:** Hver slide skal have `height: 100vh`
+   - **Hint:** Centrer indholdet med `display: grid` og `place-items`
+
+3. Test at scrolling "snapper" til hver slide
+
+**Ekstra udfordringer:**
+
+1. Lav en vandret version (hint: `scroll-snap-type: x mandatory`)
+2. Tilføj pile-navigation med smooth scroll
+3. Kombiner med fade-in animation for indholdet
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Øvelse 4: Scroll Progress Bar
 
 **Mål:** Lav en progress bar der viser hvor langt man har scrollet.
 
@@ -166,109 +379,7 @@ main {
 <div class="page-break"></div>
 <Slide>
 
-## Øvelse 3: Card Fade-In
-
-**Mål:** Få cards til at fade ind når de kommer i synsfelt.
-
-**HTML:**
-
-```html
-<header>
-  <h1>Scroll ned for at se cards fade ind</h1>
-</header>
-
-<section class="spacer">
-  <p>Scroll ned...</p>
-</section>
-
-<div class="card">
-  <h2>Card 1</h2>
-  <p>Denne card fader ind når den kommer i synsfelt.</p>
-</div>
-
-<div class="card">
-  <h2>Card 2</h2>
-  <p>Denne card fader ind når den kommer i synsfelt.</p>
-</div>
-
-<div class="card">
-  <h2>Card 3</h2>
-  <p>Denne card fader ind når den kommer i synsfelt.</p>
-</div>
-
-<section class="spacer">
-  <p>Bund af siden</p>
-</section>
-```
-
-**Starter CSS:**
-
-```css
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: system-ui, sans-serif;
-  background: #f5f5f5;
-  color: #333;
-}
-
-header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 4rem 2rem;
-  text-align: center;
-}
-
-.spacer {
-  min-height: 100vh;
-  display: grid;
-  place-items: center;
-  font-size: 1.5rem;
-  color: #999;
-}
-
-.card {
-  background: white;
-  padding: 2rem;
-  border-radius: 1rem;
-  margin: 2rem auto;
-  max-width: 600px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-```
-
-**Opgaver:**
-
-1. Opret en `@keyframes` animation for fade-in effekt
-
-   - **Hint:** Animer både `opacity` og `translate`
-   - **Hint:** Start usynlig `opacity: 0; ` og ude i venstre side fx. `translate: -100vw 0; `
-   - **Hint:** Slut synlig og i normal position
-
-2. Tilføj scroll-driven animation til `.card`
-
-   - **Hint:** Brug `animation-timeline: view()`
-   - **Hint:** Brug `animation-range:`
-   - Start når card kommer ind (`entry 0%`) Slut tidligt i cover-fasen (fx `cover 30%`)
-   - **Dvs. fx.:** dvs `animation-range: entry 0% cover 30%;`
-
-3. Test at hver card fader ind når den kommer i syne
-
-**Ekstra udfordringer:**
-
-1. Lav forskellige animationer: slide-in fra venstre/højre
-2. Tilføj delay mellem hver card
-3. Kombiner fade med rotation eller scale
-
-</Slide>
-<div class="page-break"></div>
-<Slide>
-
-## Øvelse 4: Parallax Hero Header
+## Øvelse 5: Parallax Hero Header
 
 **Mål:** Lav en header hvor baggrundsbilledet bevæger sig langsommere end indholdet.
 
@@ -419,121 +530,39 @@ main p {
 <div class="page-break"></div>
 <Slide>
 
-## Øvelse 5: Scroll Snap Slideshow
+## Øvelse 6: Card Fade-In
 
-**Mål:** Lav en lodret slideshow med scroll snap.
-
-**HTML:**
-
-```html
-<div class="slideshow">
-  <section class="slide" style="background: #ff6b6b;">
-    <h1>Slide 1</h1>
-  </section>
-
-  <section class="slide" style="background: #4ecdc4;">
-    <h1>Slide 2</h1>
-  </section>
-
-  <section class="slide" style="background: #45b7d1;">
-    <h1>Slide 3</h1>
-  </section>
-
-  <section class="slide" style="background: #f7b731;">
-    <h1>Slide 4</h1>
-  </section>
-</div>
-```
-
-**Starter CSS:**
-
-```css
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: system-ui, sans-serif;
-}
-
-.slideshow {
-  /* Tilføj dine egenskaber her */
-}
-
-.slide {
-  color: white;
-  font-size: 2rem;
-  /* Tilføj dine egenskaber her */
-}
-
-h1 {
-  font-size: 4rem;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-}
-```
-
-**Opgaver:**
-
-1. Tilføj scroll snap til container (`.slideshow`):
-
-   - **Hint:** `scroll-snap-type: y mandatory;` (scroll "låser" til slides når du scroller lodret)
-   - **Hint:** `overflow-y: scroll;` (tillad scroll i højden)
-   - **Hint:** `height: 100vh;` (containeren fylder hele skærmen)
-
-2. Lav hver slide fuld højde (`.slide`):
-
-   - **Hint:** Brug `scroll-snap-align: start`
-   - **Hint:** Hver slide skal have `height: 100vh`
-   - **Hint:** Centrer indholdet med `display: grid` og `place-items`
-
-3. Test at scrolling "snapper" til hver slide
-
-**Ekstra udfordringer:**
-
-1. Lav en vandret version (hint: `scroll-snap-type: x mandatory`)
-2. Tilføj pile-navigation med smooth scroll
-3. Kombiner med fade-in animation for indholdet
-
-</Slide>
-<div class="page-break"></div>
-<Slide>
-
-## Øvelse 6: Sticky Sidebar
-
-**Mål:** Lav en sidebar der følger med når man scroller.
+**Mål:** Få cards til at fade ind når de kommer i synsfelt.
 
 **HTML:**
 
 ```html
-<div class="container">
-  <aside class="sidebar">
-    <h3>Indholdsfortegnelse</h3>
-    <ul>
-      <li><a href="#del1">Del 1</a></li>
-      <li><a href="#del2">Del 2</a></li>
-      <li><a href="#del3">Del 3</a></li>
-    </ul>
-  </aside>
+<header>
+  <h1>Scroll ned for at se cards fade ind</h1>
+</header>
 
-  <main class="content">
-    <section id="del1">
-      <h2>Del 1</h2>
-      <p>Meget indhold...</p>
-    </section>
+<section class="spacer">
+  <p>Scroll ned...</p>
+</section>
 
-    <section id="del2">
-      <h2>Del 2</h2>
-      <p>Meget indhold...</p>
-    </section>
-
-    <section id="del3">
-      <h2>Del 3</h2>
-      <p>Meget indhold...</p>
-    </section>
-  </main>
+<div class="card">
+  <h2>Card 1</h2>
+  <p>Denne card fader ind når den kommer i synsfelt.</p>
 </div>
+
+<div class="card">
+  <h2>Card 2</h2>
+  <p>Denne card fader ind når den kommer i synsfelt.</p>
+</div>
+
+<div class="card">
+  <h2>Card 3</h2>
+  <p>Denne card fader ind når den kommer i synsfelt.</p>
+</div>
+
+<section class="spacer">
+  <p>Bund af siden</p>
+</section>
 ```
 
 **Starter CSS:**
@@ -548,85 +577,56 @@ h1 {
 body {
   font-family: system-ui, sans-serif;
   background: #f5f5f5;
-}
-
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
-  /* Tilføj grid properties her */
-}
-
-.sidebar {
-  background: white;
-  padding: 1.5rem;
-  border-radius: 0.5rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  /* Tilføj sticky properties her */
-}
-
-.sidebar h3 {
-  margin-bottom: 1rem;
   color: #333;
 }
 
-.sidebar ul {
-  list-style: none;
+header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 4rem 2rem;
+  text-align: center;
 }
 
-.sidebar li {
-  margin-bottom: 0.5rem;
-}
-
-.sidebar a {
-  color: #667eea;
-  text-decoration: none;
-  transition: color 0.2s;
-}
-
-.sidebar a:hover {
-  color: #764ba2;
-}
-
-.content section {
-  background: white;
-  padding: 2rem;
-  margin-bottom: 2rem;
-  border-radius: 0.5rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+.spacer {
   min-height: 100vh;
+  display: grid;
+  place-items: center;
+  font-size: 1.5rem;
+  color: #999;
 }
 
-.content h2 {
-  color: #333;
-  margin-bottom: 1rem;
-}
-
-.content p {
-  color: #666;
-  line-height: 1.6;
+.card {
+  background: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  margin: 2rem auto;
+  max-width: 600px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 ```
 
 **Opgaver:**
 
-1. Lav grid layout på `.container`:
+1. Opret en `@keyframes` animation for fade-in effekt
 
-   - **Hint:** `display: grid;`
-   - **Hint:** `grid-template-columns: 250px 1fr;` (smal sidebar, resten til content)
-   - **Hint:** `gap: 2rem;` (mellemrum mellem kolonnerne)
+   - **Hint:** Animer både `opacity` og `translate`
+   - **Hint:** Start usynlig `opacity: 0; ` og ude i venstre side fx. `translate: -100vw 0; `
+   - **Hint:** Slut synlig og i normal position
 
-2. Gør sidebar sticky:
+2. Tilføj scroll-driven animation til `.card`
 
-   - **Hint:** `position: sticky;` på `.sidebar`
-   - **Hint:** `top: 2rem;` (afstand fra toppen)
-   - **Hint:** `height: fit-content;` (kun så høj som indholdet)
+   - **Hint:** Brug `animation-timeline: view()`
+   - **Hint:** Brug `animation-range:`
+   - Start når card kommer ind (`entry 0%`) Slut tidligt i cover-fasen (fx `cover 30%`)
+   - **Dvs. fx.:** dvs `animation-range: entry 0% cover 30%;`
 
-3. Test at sidebar følger med når du scroller
+3. Test at hver card fader ind når den kommer i syne
 
 **Ekstra udfordringer:**
 
-1. Kombiner med smooth scroll
+1. Lav forskellige animationer: slide-in fra venstre/højre
+2. Tilføj delay mellem hver card
+3. Kombiner fade med rotation eller scale
 
 </Slide>
 <div class="page-break"></div>
