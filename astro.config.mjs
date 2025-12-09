@@ -65,9 +65,9 @@ export default defineConfig({
               label: "Scrum Grundprincipper",
               slug: "git/scrum",
               badge: {
-                text: "Tema 7",
+                text: "Tema 5",
                 variant: "tip",
-                class: "badge-theme-7",
+                class: "badge-theme-5",
               },
             },
           ],
