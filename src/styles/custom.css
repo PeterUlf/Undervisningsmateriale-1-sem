@@ -3,6 +3,26 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Gør hero-knappen visuelt magen til præsentationsknappen */
+.hero .sl-link-button.not-content.primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: var(--sl-color-accent-low);
+  color: var(--sl-color-white);
+  border: 1px solid var(--sl-color-accent);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: var(--sl-text-sm);
+  transition: background-color 0.2s;
+}
+
+.hero .sl-link-button.not-content.primary:hover {
+  background-color: var(--sl-color-accent);
+}
+
 /* Flyt badge til venstre for titlen i menuen */
 
 /* Target links in the sidebar */
