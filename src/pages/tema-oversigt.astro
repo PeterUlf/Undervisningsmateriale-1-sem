@@ -6,14 +6,14 @@ import { Card, CardGrid } from '@astrojs/starlight/components';
 const docs = await getCollection('docs');
 
 // Organiser efter tema
-const temaMap = new Map();
-docs.forEach(doc => {
+const temaMap = new Map<string, any[]>();
+docs.forEach((doc: any) => {
   const tema = doc.data.sidebar?.badge?.text;
   if (tema && tema.startsWith('Tema')) {
     if (!temaMap.has(tema)) {
       temaMap.set(tema, []);
     }
-    temaMap.get(tema).push(doc);
+    temaMap.get(tema)!.push(doc);
   }
 });
 
@@ -29,13 +29,6 @@ const sortedTemaer = Array.from(temaMap.entries()).sort((a, b) => {
   frontmatter={{ 
     title: 'Tema Oversigt',
     description: 'Oversigt over alt indhold organiseret efter tema',
-    sidebar: {
-      badge: {
-        text: 'Tema',
-        variant: 'tip',
-        class: 'badge-theme-1',
-      },
-    },
   }}
 >
   <h1>Tema Oversigt</h1>
@@ -55,7 +48,7 @@ const sortedTemaer = Array.from(temaMap.entries()).sort((a, b) => {
     <div class="tema-section" data-tema={tema}>
       <h2>{tema}</h2>
       <div style="margin-bottom: 2rem;">
-        {items.map(doc => {
+        {items.map((doc: any) => {
           const slug = doc.id.replace(/\.mdx?$/, '');
           return (
             <details style="border: 1px solid var(--sl-color-gray-5); border-radius: 0.5rem; padding: 0.75rem; margin-bottom: 0.5rem;">
