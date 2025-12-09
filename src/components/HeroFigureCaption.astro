@@ -1,0 +1,46 @@
+---
+// Denne komponent tilføjer en figur + figurtekst omkring hero-billedet på sider med .hero
+---
+
+<script>
+  // @ts-nocheck
+  function setupHeroFigure() {
+    try {
+      const hero = document.querySelector('.hero');
+      if (!hero) return;
+
+      const img = hero.querySelector('img[data-image-component]');
+      if (!img) return;
+
+      // Undgå at lave den om flere gange
+      if (img.closest('figure.hero-figure')) return;
+
+      const figure = document.createElement('figure');
+      figure.className = 'hero-figure';
+      figure.style.margin = '0';
+      figure.style.textAlign = 'center';
+
+      const caption = document.createElement('figcaption');
+      caption.textContent = 'Scannet med telefonen, 3D printet og farvelagt med Poscha tuscher';
+      caption.style.fontSize = '0.9rem';
+      caption.style.color = 'var(--sl-color-text-soft)';
+      caption.style.marginTop = '0.75rem';
+
+      hero.insertBefore(figure, img);
+      figure.appendChild(img);
+      figure.appendChild(caption);
+    } catch (e) {
+      console.error('Hero figure setup failed', e);
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupHeroFigure);
+  } else {
+    setupHeroFigure();
+  }
+
+  document.addEventListener('astro:page-load', () => {
+    setupHeroFigure();
+  });
+</script>

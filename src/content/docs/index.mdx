@@ -1,24 +1,30 @@
 ---
-title: MATERIALE - 1. semester på MMD (Multimediedesign) - ek.dk
+title: MATERIALER
 description: Lær at planlægge, udvikle materiale til og bygge moderne websider fra bunden.
 template: splash
 hero:
-  tagline: Grundlæggende <br>HTML // CSS // JavaScript  <br> Premiere pro // Photoshop
+  tagline: HTML // CSS // JavaScript  <br> Premiere pro // Photoshop
   image:
     file: https://media.licdn.com/dms/image/v2/D4E03AQE6i_BQJklp_w/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1677578708601?e=1765411200&v=beta&t=Ue26tM3WEYsvWM1fKDct3R2yAFyd1d5l7Gc_gQKG2-0
   actions:
-    - text: Kom i gang
+    - text: Undervisningsmaterialerne
       link: /guides/kom-i-gang/
       icon: right-arrow
 ---
 
 import Slide from "../../components/Slide.astro";
+import PresentationMode from "../../components/PresentationMode.astro";
+import HeroFigureCaption from "../../components/HeroFigureCaption.astro";
 
 import { Card, CardGrid } from "@astrojs/starlight/components";
 
+<HeroFigureCaption />
+
+<PresentationMode />
+
 <Slide>
 
-## Vælg dit emne
+## Lær om:
 
 <CardGrid stagger>
   <Card title="HTML, CSS & JavaScript" icon="laptop">
@@ -41,69 +47,62 @@ import { Card, CardGrid } from "@astrojs/starlight/components";
 <div class="page-break"></div>
 <Slide>
 
-## Om underviseren
+## Peter Ulf Jørgensen
 
-<div style="display: flex; gap: 2rem; align-items: center; margin-top: 2rem;">
-  <img
-    src="https://media.licdn.com/dms/image/v2/D4E03AQE6i_BQJklp_w/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1677578708601?e=1765411200&v=beta&t=Ue26tM3WEYsvWM1fKDct3R2yAFyd1d5l7Gc_gQKG2-0"
-    alt="Peter Ulf Jørgensen"
-    style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; box-shadow: 0 4px 14px rgba(0,0,0,0.1);"
-  />
-  <p style="font-size: 0.8rem; max-width: 180px; margin-top: 0.5rem;">
-    Ja, jeg har 3D-scannet mig selv med min telefon, printet figuren og
-    farvelagt den med Posca-tuscher.
-  </p>
-  <div>
-    <h3 style="margin: 0;">Peter Ulf Jørgensen</h3>
-    <p style="margin-top: 0.25rem;">
-      <em>Underviser i Multimediedesign på Erhvervsakademi Københavns (EK)</em>
-    </p>
-    <h3 style="margin-top: 0.5rem;">Pædagogisk profil</h3>
-    <p>
-      Siden 2016 har jeg arbejdet som underviser på KEA med fokus på at gøre
-      tungt stof til sjov og motiverende læring.
-    </p>
-    <h3>Erfaring og faglig baggrund</h3>
-    <p>
-      Jeg har tidligere været selvstændig i webbureauet Bongobeat og arbejdet
-      som underviser for bl.a. IDG og Softworld. Jeg er oprindeligt uddannet
-      cand.polit. (bachelor, mangler speciale), hvilket giver mig en stærk
-      analytisk og metodisk baggrund.
-    </p>
-    <h3>Undervisningsstil</h3>
-    <p>
-      Mit læringssyn bygger på en legende og social tilgang til nyt stof, hvor
-      man lærer <em>med</em> og <em>af</em> hinanden. Jeg arbejder bevidst med
-      stilladsering (scaffolding), så opgaverne ligger i din nærmeste
-      udviklingszone og er tilpas udfordrende – især vigtigt på 1. semester.
-    </p>
-    <p>
-      Jeg bruger metodemangfoldighed og varierer løbende undervisningsformerne –
-      bl.a. med digitale læringsmaterialer, differentiering og gamification – så
-      der frigøres mere tid til individuel vejledning og opfølgning.
-    </p>
-    <p>
-      Jeg arbejder iterativt og udviklingsbaseret og justerer temaer og opgaver
-      ud fra evalueringer og egne erfaringer. Samtidig holder jeg min viden
-      ajour, bl.a. inden for HTML/CSS og relaterede teknologier, så
-      undervisningen afspejler aktuelle standarder og trends.
-    </p>
-    <h3>Musik og kreativitet</h3>
-    <p>
-      Ved siden af undervisningen synger jeg i koret Gospel Unlimited og er
-      sanger, guitarist og sangskriver i bandet <em>Hund i snor</em>, som bl.a.
-      har haft sangen "Tæt på" som nr. 1 på Dansktoppen.
-    </p>
-    <p>Velkommen til faget – jeg glæder mig til at følge din udvikling!</p>
+  <div
+    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem;"
+  >
+    <div>
+    <img
+  src="https://media.licdn.com/dms/image/v2/D4E03AQE6i_BQJklp_w/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1677578708601?e=1765411200&v=beta&t=Ue26tM3WEYsvWM1fKDct3R2yAFyd1d5l7Gc_gQKG2-0"
+  alt="Peter Ulf Jørgensen"
+  style="width: 140px; height: 140px; border-radius: 50%; object-fit: cover; box-shadow: 0 4px 14px rgba(0,0,0,0.15); flex-shrink: 0;"
+/>
+   
+      
+      <h3 style="margin-top: 0.5rem;">Pædagogisk profil</h3>
+      <p>
+        <em>
+          Underviser i Multimediedesign på Erhvervsakademi Københavns (EK)
+        </em>
+      </p>
+      <p>
+        Siden 2016 har jeg arbejdet som underviser på KEA med fokus på at gøre
+        tungt stof til sjov og motiverende læring.
+      </p>
+      <h3>Erfaring og faglig baggrund</h3>
+      <p>
+        Jeg har tidligere været selvstændig i webbureauet Bongobeat og arbejdet
+        som underviser for bl.a. IDG og Softworld. Jeg er oprindeligt uddannet
+        cand.polit. (bachelor, mangler speciale), hvilket giver mig en stærk
+        analytisk og metodisk baggrund.
+      </p>
+    </div>
+
+    <div>
+      <h3>Undervisningsstil</h3>
+      <p>
+        Mit læringssyn bygger på en legende og social tilgang til nyt stof, hvor
+        man lærer <em>med</em> og <em>af</em> hinanden. Jeg arbejder bevidst med
+        stilladsering (scaffolding), så opgaverne ligger i din nærmeste
+        udviklingszone og er tilpas udfordrende – især vigtigt på 1. semester.
+      </p>
+      <p>
+        Jeg bruger metodemangfoldighed og varierer løbende undervisningsformerne –
+        bl.a. med digitale læringsmaterialer, differentiering og gamification – så
+        der frigøres mere tid til individuel vejledning og opfølgning.
+      </p>
+
+      <h3>Musik og kreativitet</h3>
+      <p>
+        Ved siden af undervisningen synger jeg i koret Gospel Unlimited og er
+        sanger, guitarist og sangskriver i bandet <em>Hund i snor</em>, som bl.a.
+        har haft sangen "Tæt på" som nr. 1 på Dansktoppen.
+      </p>
+
+      <p>Velkommen til faget – jeg glæder mig til at følge din udvikling!</p>
+    </div>
+
   </div>
-</div>
-
-</Slide>
-<div class="page-break"></div>
-<Slide>
-
-## Klar til at komme i gang?
-
-Dette undervisningsmateriale er struktureret, så du kan lære i dit eget tempo. Start med [Kom i gang](/guides/kom-i-gang/) guiden for at opsætte dit udviklingsmiljø og lave din første webside.
 
 </Slide>

@@ -12,6 +12,7 @@ export default defineConfig({
       components: {
         PageTitle: "./src/components/PageTitleWrapper.astro",
         Sidebar: "./src/components/Sidebar.astro",
+        Head: "./src/components/CustomHead.astro",
       },
       plugins: [starlightThemeRapide()],
       social: [
