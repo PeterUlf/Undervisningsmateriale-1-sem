@@ -11,6 +11,7 @@ export default defineConfig({
       customCss: ["./src/styles/custom.css"],
       components: {
         PageTitle: "./src/components/PageTitleWrapper.astro",
+        Sidebar: "./src/components/Sidebar.astro",
       },
       plugins: [starlightThemeRapide()],
       social: [

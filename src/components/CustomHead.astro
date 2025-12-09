@@ -1,0 +1,157 @@
+---
+import type { Props } from '@astrojs/starlight/props';
+import Default from '@astrojs/starlight/components/Head.astro';
+---
+
+<Default {...Astro.props}><slot /></Default>
+
+<script is:inline>
+  function initThemeFilter() {
+    // Find sidebar - prøv forskellige selectors
+    const sidebar = document.querySelector('.sidebar') || 
+                    document.querySelector('nav.sidebar') ||
+                    document.querySelector('[data-pagefind-ignore]');
+    
+    console.log('Sidebar found:', sidebar); // Debug
+    
+    if (sidebar) {
+      // Tjek om filter allerede eksisterer
+      if (document.getElementById('theme-filter-container')) {
+        console.log('Filter already exists');
+        return;
+      }
+      
+      // Find alle unikke tema-numre dynamisk
+      const sidebarLinks = document.querySelectorAll('.sidebar a .sl-badge');
+      const themeNumbers = new Set();
+      
+      console.log('Badge count:', sidebarLinks.length); // Debug
+      
+      sidebarLinks.forEach((badge) => {
+        const badgeText = badge.textContent?.trim();
+        console.log('Badge text:', badgeText); // Debug
+        if (badgeText?.startsWith('Tema')) {
+          const themeNumber = parseInt(badgeText.replace('Tema ', ''));
+          if (!isNaN(themeNumber)) {
+            themeNumbers.add(themeNumber);
+          }
+        }
+      });
+      
+      console.log('Theme numbers found:', Array.from(themeNumbers)); // Debug
+      
+      // Sorter tema-numre
+      const sortedThemes = Array.from(themeNumbers).sort((a, b) => a - b);
+      
+      // Opret filter dropdown kun hvis der er temaer
+      if (sortedThemes.length > 0) {
+        const filterContainer = document.createElement('div');
+        filterContainer.id = 'theme-filter-container';
+        
+        // Byg options dynamisk
+        let optionsHTML = '<option value="all">Alle temaer</option>';
+        sortedThemes.forEach(num => {
+          optionsHTML += `<option value="${num}">Op til Tema ${num}</option>`;
+        });
+        
+        filterContainer.innerHTML = `
+          <label for="theme-select">Vis temaer:</label>
+          <select id="theme-select">
+            ${optionsHTML}
+          </select>
+        `;
+        
+        // Indsæt før første child
+        sidebar.insertBefore(filterContainer, sidebar.firstChild);
+        
+        // Hent gemt valg
+        const savedTheme = localStorage.getItem('selectedTheme') || 'all';
+        const select = document.getElementById('theme-select');
+        
+        if (select) {
+          select.value = savedTheme;
+          
+          // Funktion til at filtrere
+          function filterMenuItems(maxTheme) {
+            const sidebarLinks = document.querySelectorAll('.sidebar a');
+            
+            sidebarLinks.forEach((link) => {
+              const badge = link.querySelector('.sl-badge');
+              
+              if (badge) {
+                const badgeText = badge.textContent?.trim();
+                
+                if (badgeText?.startsWith('Tema')) {
+                  const themeNumber = parseInt(badgeText.replace('Tema ', ''));
+                  const listItem = link.closest('li');
+                  
+                  if (maxTheme === 'all') {
+                    if (listItem) listItem.style.display = '';
+                  } else {
+                    const maxThemeNum = parseInt(maxTheme);
+                    if (listItem) {
+                      listItem.style.display = themeNumber <= maxThemeNum ? '' : 'none';
+                    }
+                  }
+                }
+              }
+            });
+            
+            // Skjul tomme grupper
+            const sidebarGroups = document.querySelectorAll('.sidebar details');
+            sidebarGroups.forEach((group) => {
+              const visibleItems = group.querySelectorAll('li:not([style*="display: none"])');
+              group.style.display = visibleItems.length > 0 ? '' : 'none';
+            });
+          }
+          
+          // Filtrer ved load
+          filterMenuItems(savedTheme);
+          
+          // Lyt efter ændringer
+          select.addEventListener('change', (e) => {
+            const selectedTheme = e.target.value;
+            localStorage.setItem('selectedTheme', selectedTheme);
+            filterMenuItems(selectedTheme);
+          });
+        }
+      }
+    }
+  });
+</script>
+
+<style is:global>
+  #theme-filter-container {
+    padding: 1rem;
+    border-bottom: 1px solid var(--sl-color-gray-5);
+    margin-bottom: 1rem;
+  }
+
+  #theme-filter-container label {
+    display: block;
+    font-weight: 600;
+    font-size: var(--sl-text-sm);
+    color: var(--sl-color-white);
+    margin-bottom: 0.5rem;
+  }
+
+  #theme-select {
+    width: 100%;
+    padding: 0.5rem;
+    background: var(--sl-color-gray-6);
+    color: var(--sl-color-white);
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 0.375rem;
+    font-size: var(--sl-text-sm);
+    cursor: pointer;
+  }
+
+  #theme-select:hover {
+    background: var(--sl-color-gray-5);
+  }
+
+  #theme-select:focus {
+    outline: 2px solid var(--sl-color-accent);
+    outline-offset: 2px;
+  }
+</style>
