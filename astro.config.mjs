@@ -58,6 +58,21 @@ export default defineConfig({
           ],
         },
         {
+          label: "Projektledelse",
+          collapsed: true,
+          items: [
+            {
+              label: "Scrum Grundprincipper",
+              slug: "git/scrum",
+              badge: {
+                text: "Tema 7",
+                variant: "tip",
+                class: "badge-theme-7",
+              },
+            },
+          ],
+        },
+        {
           label: "Video / Foto",
           collapsed: true,
           items: [
