@@ -9,11 +9,23 @@ sidebar:
     class: badge-theme-5
 ---
 
+import Slide from "../../../components/Slide.astro";
+
+<Slide>
+
 ## Hvad er Animation Timeline?
 
 `animation-timeline` forbinder en CSS animation med scroll-position i stedet for tid. I stedet for at animationen kører over fx 2 sekunder, kører den når du scroller.
 
 Der er tre typer:
+
+1. `scroll()` - Document Scroll Timeline
+2. `view()` - View Progress Timeline
+3. Custom Named Timelines
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
 
 ## 1. `scroll()` - Document Scroll Timeline
 
@@ -39,7 +51,11 @@ Følger scroll-positionen af hele siden (eller en specifik container).
 
 Animation starter når siden er scrollet 0% og slutter når siden er scrollet 100%.
 
-### Brug til:
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## scroll() - Brug til:
 
 - ✅ Progress bars der viser scroll-fremskridt
 - ✅ Parallax effekter der følger hele sidens scroll
@@ -74,7 +90,9 @@ En progress bar i toppen af siden der vokser fra 0% til 100% når du scroller ne
 }
 ```
 
----
+</Slide>
+<div class="page-break"></div>
+<Slide>
 
 ## 2. `view()` - View Progress Timeline
 
@@ -103,7 +121,11 @@ Følger når et **specifikt element** kommer ind i og ud af viewport.
 
 Animation starter når elementet kommer ind i viewport og slutter når det er dækket af viewport.
 
-### Brug til:
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## view() - Brug til:
 
 - ✅ Fade-in effekter når elementer kommer i syne
 - ✅ Hver ting skal animere individuelt
@@ -133,9 +155,11 @@ Cards der fader ind når de scroller ind i skærmen:
 }
 ```
 
-Hver card animerer uafhængigt når den kommer i syne.
+</Slide>
+<div class="page-break"></div>
+<Slide>
 
-### View Timeline Faser:
+## View Timeline Faser
 
 Når du bruger `view()`, er der forskellige faser:
 
@@ -157,7 +181,9 @@ animation-range: entry 0% cover 30%;
 animation-range: entry 0% exit 100%;
 ```
 
----
+</Slide>
+<div class="page-break"></div>
+<Slide>
 
 ## 3. Custom Named Timelines - `view-timeline`
 
@@ -187,7 +213,11 @@ Lav din egen timeline med navn på én element, så andre elementer kan bruge de
 
 Parent's synlighed styrer child's animation.
 
-### Brug til:
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Custom Timeline - Brug til:
 
 - ✅ Vandret scroll-effekter
 - ✅ Når parent skal styre child's animation
@@ -201,8 +231,8 @@ Vandret scrollende galleri:
 ```css
 /* Container: definer timeline */
 .horizontal-scroll-container {
-  height: 300vh; /* Høj for scroll-plads */
-  view-timeline: --gallery block; /* Opret named timeline */
+  height: 300vh;
+  view-timeline: --gallery block;
 }
 
 /* Wrapper: sticky */
@@ -217,9 +247,8 @@ Vandret scrollende galleri:
 .gallery-track {
   display: flex;
   gap: 2rem;
-
   animation: move-horizontal linear both;
-  animation-timeline: --gallery; /* Brug parent's timeline */
+  animation-timeline: --gallery;
   animation-range: contain 0% contain 100%;
 }
 
@@ -232,7 +261,9 @@ Vandret scrollende galleri:
 
 Mens du scroller lodret gennem container (300vh høj), bevæger gallery-track sig vandret.
 
----
+</Slide>
+<div class="page-break"></div>
+<Slide>
 
 ## Sammenligning: Hvornår skal jeg bruge hvad?
 
@@ -245,7 +276,11 @@ Mens du scroller lodret gennem container (300vh høj), bevæger gallery-track si
 | Sticky sidebar animation  | `view()`        | Animerer når sidebar-området er synligt          |
 | Scroll-triggered effekter | `view()`        | Effekt starter når element kommer i syne         |
 
-## Tommelfingerregel:
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Tommelfingerregel
 
 ### Brug `scroll()` når:
 
@@ -271,7 +306,9 @@ Mens du scroller lodret gennem container (300vh høj), bevæger gallery-track si
 
 **→ Ja? Brug custom timeline**
 
----
+</Slide>
+<div class="page-break"></div>
+<Slide>
 
 ## Praktiske Eksempler
 
@@ -301,6 +338,12 @@ Mens du scroller lodret gennem container (300vh høj), bevæger gallery-track si
 }
 ```
 
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Praktiske Eksempler (fortsat)
+
 ### Eksempel 2: Fade-in Cards (view)
 
 ```css
@@ -321,6 +364,12 @@ Mens du scroller lodret gennem container (300vh høj), bevæger gallery-track si
   }
 }
 ```
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Praktiske Eksempler (fortsat)
 
 ### Eksempel 3: Vandret Galleri (custom)
 
@@ -347,7 +396,9 @@ Mens du scroller lodret gennem container (300vh høj), bevæger gallery-track si
 }
 ```
 
----
+</Slide>
+<div class="page-break"></div>
+<Slide>
 
 ## Browser Support
 
@@ -359,7 +410,9 @@ Mens du scroller lodret gennem container (300vh høj), bevæger gallery-track si
 
 Tjek altid i moderne browser ved test!
 
----
+</Slide>
+<div class="page-break"></div>
+<Slide>
 
 ## Næste Skridt
 
@@ -370,3 +423,5 @@ Nu hvor du forstår de forskellige timeline-typer, prøv at:
 3. Lav et vandret galleri med custom timeline
 
 Se [Scroll Effekter Øvelser](/css/scroll-effects-oevelser/) for praktiske opgaver!
+
+</Slide>
