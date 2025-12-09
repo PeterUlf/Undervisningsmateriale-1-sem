@@ -1,3 +1,8 @@
+/* Global smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
 /* Flyt badge til venstre for titlen i menuen */
 
 /* Target links in the sidebar */
