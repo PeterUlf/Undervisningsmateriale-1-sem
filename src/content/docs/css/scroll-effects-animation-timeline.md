@@ -1,8 +1,8 @@
 ---
-title: Animation Timeline
+title: Scroll Effekter - Animation Timeline
 description: Forstå forskellen på scroll(), view() og custom timelines
 sidebar:
-  order: 9
+  order: 6.5
   badge:
     text: Tema 5
     variant: tip
@@ -28,8 +28,12 @@ Følger scroll-positionen af hele siden (eller en specifik container).
 }
 
 @keyframes grow {
-  from { scale: 0 1; }
-  to { scale: 1 1; }
+  from {
+    scale: 0 1;
+  }
+  to {
+    scale: 1 1;
+  }
 }
 ```
 
@@ -55,14 +59,18 @@ En progress bar i toppen af siden der vokser fra 0% til 100% når du scroller ne
   height: 5px;
   background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
   transform-origin: 0 50%;
-  
+
   animation: grow linear both;
   animation-timeline: scroll(); /* Tracker hele dokumentets scroll */
 }
 
 @keyframes grow {
-  from { scale: 0 1; } /* 0% bred ved top */
-  to { scale: 1 1; }   /* 100% bred ved bund */
+  from {
+    scale: 0 1;
+  } /* 0% bred ved top */
+  to {
+    scale: 1 1;
+  } /* 100% bred ved bund */
 }
 ```
 
@@ -82,11 +90,11 @@ Følger når et **specifikt element** kommer ind i og ud af viewport.
 }
 
 @keyframes fade-in {
-  from { 
+  from {
     opacity: 0;
     translate: -100vw 0;
   }
-  to { 
+  to {
     opacity: 1;
     translate: 0 0;
   }
@@ -114,11 +122,11 @@ Cards der fader ind når de scroller ind i skærmen:
 }
 
 @keyframes fade-in {
-  from { 
+  from {
     opacity: 0;
     translate: -50px 0;
   }
-  to { 
+  to {
     opacity: 1;
     translate: 0 0;
   }
@@ -171,7 +179,9 @@ Lav din egen timeline med navn på én element, så andre elementer kan bruge de
 }
 
 @keyframes move-horizontal {
-  to { translate: -80% 0; }
+  to {
+    translate: -80% 0;
+  }
 }
 ```
 
@@ -207,14 +217,16 @@ Vandret scrollende galleri:
 .gallery-track {
   display: flex;
   gap: 2rem;
-  
+
   animation: move-horizontal linear both;
   animation-timeline: --gallery; /* Brug parent's timeline */
   animation-range: contain 0% contain 100%;
 }
 
 @keyframes move-horizontal {
-  to { translate: -80% 0; }
+  to {
+    translate: -80% 0;
+  }
 }
 ```
 
@@ -224,18 +236,19 @@ Mens du scroller lodret gennem container (300vh høj), bevæger gallery-track si
 
 ## Sammenligning: Hvornår skal jeg bruge hvad?
 
-| Situation | Brug | Forklaring |
-|-----------|------|------------|
-| Progress bar i toppen | `scroll()` | Skal følge hele sidens scroll |
-| Cards der fader ind | `view()` | Hver card animerer når den bliver synlig |
-| Parallax hero header | `scroll()` | Baggrund skal følge sidens scroll |
-| Vandret scroll galleri | Custom timeline | Parent's scroll styrer child's vandret bevægelse |
-| Sticky sidebar animation | `view()` | Animerer når sidebar-området er synligt |
-| Scroll-triggered effekter | `view()` | Effekt starter når element kommer i syne |
+| Situation                 | Brug            | Forklaring                                       |
+| ------------------------- | --------------- | ------------------------------------------------ |
+| Progress bar i toppen     | `scroll()`      | Skal følge hele sidens scroll                    |
+| Cards der fader ind       | `view()`        | Hver card animerer når den bliver synlig         |
+| Parallax hero header      | `scroll()`      | Baggrund skal følge sidens scroll                |
+| Vandret scroll galleri    | Custom timeline | Parent's scroll styrer child's vandret bevægelse |
+| Sticky sidebar animation  | `view()`        | Animerer når sidebar-området er synligt          |
+| Scroll-triggered effekter | `view()`        | Effekt starter når element kommer i syne         |
 
 ## Tommelfingerregel:
 
 ### Brug `scroll()` når:
+
 - ❓ Skal animationen følge hele sidens scroll?
 - ❓ Er det én global effekt?
 - ❓ Skal alle se det samme ved samme scroll-position?
@@ -243,6 +256,7 @@ Mens du scroller lodret gennem container (300vh høj), bevæger gallery-track si
 **→ Ja? Brug `scroll()`**
 
 ### Brug `view()` når:
+
 - ❓ Skal hvert element animere individuelt?
 - ❓ Starter animationen når elementet kommer i syne?
 - ❓ Er der mange elementer der skal animere uafhængigt?
@@ -250,6 +264,7 @@ Mens du scroller lodret gennem container (300vh høj), bevæger gallery-track si
 **→ Ja? Brug `view()`**
 
 ### Brug custom timeline når:
+
 - ❓ Skal parent's scroll styre child's animation?
 - ❓ Skal flere elementer følge samme scroll-område?
 - ❓ Laver du vandret scroll eller komplekse koordinerede effekter?
@@ -271,14 +286,18 @@ Mens du scroller lodret gennem container (300vh høj), bevæger gallery-track si
   height: 4px;
   background: blue;
   transform-origin: 0 50%;
-  
+
   animation: grow linear both;
   animation-timeline: scroll(); /* Følger hele siden */
 }
 
 @keyframes grow {
-  from { scale: 0 1; }
-  to { scale: 1 1; }
+  from {
+    scale: 0 1;
+  }
+  to {
+    scale: 1 1;
+  }
 }
 ```
 
@@ -292,11 +311,11 @@ Mens du scroller lodret gennem container (300vh høj), bevæger gallery-track si
 }
 
 @keyframes fade-in {
-  from { 
+  from {
     opacity: 0;
     translate: 0 50px;
   }
-  to { 
+  to {
     opacity: 1;
     translate: 0 0;
   }
@@ -315,14 +334,16 @@ Mens du scroller lodret gennem container (300vh høj), bevæger gallery-track si
   position: sticky;
   top: 0;
   display: flex;
-  
+
   animation: slide linear both;
   animation-timeline: --gallery; /* Brug timeline */
   animation-range: contain 0% contain 100%;
 }
 
 @keyframes slide {
-  to { translate: -80% 0; }
+  to {
+    translate: -80% 0;
+  }
 }
 ```
 
