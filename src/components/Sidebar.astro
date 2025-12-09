@@ -38,11 +38,11 @@ import Default from '@astrojs/starlight/components/Sidebar.astro';
     const select = document.getElementById('theme-select') as HTMLSelectElement;
     
     if (select && sortedThemes.length > 0) {
-      // Tilføj tema options
+      // Tilføj tema options (ét tema ad gangen)
       sortedThemes.forEach(num => {
         const option = document.createElement('option');
         option.value = num.toString();
-        option.textContent = `Op til Tema ${num}`;
+        option.textContent = `Tema ${num}`;
         select.appendChild(option);
       });
       
@@ -51,9 +51,9 @@ import Default from '@astrojs/starlight/components/Sidebar.astro';
       select.value = savedTheme;
       
       // Funktion til at filtrere
-      function filterMenuItems(maxTheme: string) {
-        const isAll = maxTheme === 'all';
-        const maxThemeNum = isAll ? null : parseInt(maxTheme);
+      function filterMenuItems(selectedTheme: string) {
+        const isAll = selectedTheme === 'all';
+        const selectedThemeNum = isAll ? null : parseInt(selectedTheme);
 
         // Filtrér alle links i den rigtige sidebar
         const sidebarLinks = sidebarRoot!.querySelectorAll('a');
@@ -77,10 +77,11 @@ import Default from '@astrojs/starlight/components/Sidebar.astro';
           if (badgeText?.startsWith('Tema ')) {
             const themeNumber = parseInt(badgeText.replace('Tema ', ''));
 
-            if (isAll || isNaN(themeNumber) || maxThemeNum === null) {
+            if (isAll || isNaN(themeNumber) || selectedThemeNum === null) {
               liEl.style.display = '';
             } else {
-              liEl.style.display = themeNumber <= maxThemeNum ? '' : 'none';
+              // Vis KUN det valgte tema (ikke "op til")
+              liEl.style.display = themeNumber === selectedThemeNum ? '' : 'none';
             }
           } else {
             // Andre badges (fx bare "Tema") skjules også ved filtrering
