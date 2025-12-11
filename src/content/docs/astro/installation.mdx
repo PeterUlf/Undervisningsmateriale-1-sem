@@ -1,0 +1,204 @@
+---
+title: Astro – Installation og opstart
+description: Sådan opretter du et nyt Astro-projekt og kører det lokalt.
+sidebar:
+  label: "1. Astro – Installation og opstart"
+  order: 1
+  badge:
+    text: Tema 8
+    variant: tip
+    class: badge-theme-8
+---
+
+import Slide from "../../../components/Slide.astro";
+
+<Slide>
+## Hvad er Astro?
+
+Astro er et moderne webframework, der gør det nemt at bygge **hurtige** websider og dokumentations-sites.
+Det du ser her (undervisningssitet) er selv bygget med Astro + Starlight.
+
+Astro bygger som udgangspunkt **statisk HTML** og sender kun JavaScript til browseren, når du eksplicit beder om det.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+## Forudsætninger
+
+Du skal have:
+
+- **Node.js** (seneste LTS-version anbefales)
+- **npm** (følger normalt med Node)
+- En editor, fx **VS Code**
+
+Download-links:
+
+- [Node.js (LTS)](https://nodejs.org/en)
+- [Visual Studio Code](https://code.visualstudio.com/)
+
+Se også Git-introen på dette site:
+
+- [Git & GitHub – kom i gang](/git/)
+
+Tjek versioner i terminalen:
+
+```bash
+node -v
+npm -v
+```
+
+Hvis disse kommandoer ikke virker, er Node ikke installeret korrekt.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+## Installation på Mac vs. PC
+
+Vi arbejder i denne vejledning **altid inde i VS Code** og bruger kun terminalen i VS Code – både på Mac og på PC.
+
+Selve Astro-kommandoerne er de **samme** på Mac og PC. Forskellen er kun, hvordan du installerer Node første gang.
+
+### Mac (macOS)
+
+1. Gå til [nodejs.org](https://nodejs.org/en) og download **Latest LTS** til macOS.
+2. Åbn `.pkg`-filen og følg installationsguiden.
+3. Åbn **VS Code** og åbn den mappe, du vil arbejde i.
+4. Åbn terminalen i VS Code: `View → Terminal`.
+5. Skriv:
+
+   ```bash
+   node -v
+   npm -v
+   ```
+
+   Hvis du ser versionsnumre, er alt klart.
+
+> Alternativt kan du (hvis du kender Homebrew) bruge: `brew install node`.
+
+### PC (Windows)
+
+1. Gå til [nodejs.org](https://nodejs.org/en) og download **Latest LTS** til Windows.
+2. Åbn `.msi`-installationsfilen og klik dig igennem guiden (standardvalg er fint).
+3. Åbn **VS Code** og åbn den mappe, du vil arbejde i.
+4. Åbn terminalen i VS Code: `View → Terminal`.
+5. Skriv:
+
+   ```powershell
+   node -v
+   npm -v
+   ```
+
+   Hvis du ser versionsnumre, er Node og npm klar.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+## 1. Opret et nyt Astro-projekt
+
+Uanset om du er på Mac eller PC, foregår resten i **VS Code-terminalen**.
+
+1. Opret en mappe til dine projekter (fx `~/projekter` eller `C:\projekter`).
+2. Åbn den mappe i **VS Code**.
+3. Åbn terminalen i VS Code: `View → Terminal` (eller genvej ` Ctrl+\`` /  `Cmd+\``).
+
+Kør derefter:
+
+```bash
+npm create astro@latest
+```
+
+Følg guiden i terminalen:
+
+- Vælg et projektnavn (fx `min-astro-side`)
+- Skabelon: fx **"Docs"** eller **"Blog"** – eller en tom skabelon
+- TypeScript: vælg det du foretrækker (begge virker)
+- `npm` som pakkehåndtering (medmindre du bruger pnpm/yarn)
+
+Når guiden er færdig, går du ind i den nye projektmappe og installerer afhængigheder (hvis create-kommandoen ikke allerede har gjort det):
+
+```bash
+cd min-astro-side
+npm install
+```
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+## 2. Kør udviklingsserveren
+
+Start dev-serveren:
+
+```bash
+npm run dev
+```
+
+Åbn derefter adressen, der bliver skrevet i terminalen – typisk:
+
+```text
+http://localhost:4321
+```
+
+Nu kan du ændre filer i `src/` og se ændringerne live i browseren.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+## 3. Projektstruktur (kort)
+
+Et nyt Astro-projekt har typisk:
+
+- `src/pages/` – sider (hver `.astro`-fil bliver til en URL)
+- `src/components/` – genbrugelige komponenter
+- `public/` – statiske filer (billeder, favicons osv.)
+- `astro.config.mjs` – konfiguration af Astro
+
+Med Starlight (som dette site) ligger indholdet i `src/content/docs/` i stedet for `src/pages/`.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+## 4. Byg til produktion
+
+Når du vil bygge en færdig version til hosting, skal du bruge terminalen i VS Code:
+
+Åbn terminalen i VS Code (`View → Terminal`).
+Kør denne kommando:
+
+```bash
+npm run build
+```
+
+**Hvad sker der når du builder?**
+
+- Astro læser alle dine sider og komponenter.
+- Den genererer statiske HTML-filer og kopierer alle nødvendige assets (CSS, billeder osv.) til en ny mappe.
+- JavaScript bliver kun inkluderet hvis du har brugt client-direktiver.
+- Outputtet kommer (som standard) i mappen `dist/`.
+
+Du kan nu uploade indholdet af `dist/` til et webhotel eller hoste på fx Netlify, Vercel eller GitHub Pages.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+## 5. Hvor kan jeg lære mere?
+
+- [Astro docs](https://docs.astro.build/) – officiel dokumentation
+- [Starlight docs](https://starlight.astro.build/) – dokumentations-temaet vi bruger her
+
+Brug resten af dette tema til at vise studerende, hvordan de går fra **ren HTML/CSS** til et struktureret projekt med Astro.
+
+</Slide>

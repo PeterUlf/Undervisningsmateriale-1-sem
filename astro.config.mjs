@@ -37,6 +37,10 @@ export default defineConfig({
               },
             },
             {
+              label: "Astro",
+              autogenerate: { directory: "astro" },
+            },
+            {
               label: "HTML",
               autogenerate: { directory: "html" },
             },
@@ -109,6 +113,57 @@ export default defineConfig({
                 text: "Tema 5",
                 variant: "tip",
                 class: "badge-theme-5",
+              },
+            },
+          ],
+        },
+        {
+          label: "Quizzer",
+          collapsed: true,
+          items: [
+            {
+              label: "Tema 1 – Quiz",
+              slug: "quiz/tema-1",
+              badge: {
+                text: "Tema 1",
+                variant: "tip",
+                class: "badge-theme-1",
+              },
+            },
+            {
+              label: "Tema 2 – Quiz",
+              slug: "quiz/tema-2",
+              badge: {
+                text: "Tema 2",
+                variant: "tip",
+                class: "badge-theme-2",
+              },
+            },
+            {
+              label: "Tema 4 – Quiz",
+              slug: "quiz/tema-4",
+              badge: {
+                text: "Tema 4",
+                variant: "tip",
+                class: "badge-theme-4",
+              },
+            },
+            {
+              label: "Tema 5 – Quiz",
+              slug: "quiz/tema-5",
+              badge: {
+                text: "Tema 5",
+                variant: "tip",
+                class: "badge-theme-5",
+              },
+            },
+            {
+              label: "Tema 7 – Quiz",
+              slug: "quiz/tema-7",
+              badge: {
+                text: "Tema 7",
+                variant: "tip",
+                class: "badge-theme-7",
               },
             },
           ],

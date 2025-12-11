@@ -1,0 +1,405 @@
+---
+title: Tema 2 – Multiple Choice
+description: Test din viden om Git og versionsstyring.
+sidebar:
+  order: 2
+  badge:
+    text: Tema 2
+    variant: tip
+    class: badge-theme-2
+---
+
+import Quiz from "../../../components/Quiz.astro";
+
+<Quiz
+  title="Tema 2 – Git og versionsstyring"
+  questions={[
+    {
+      question: "Hvad er hovedformålet med Git i et projekt?",
+      options: [
+        "At designe brugergrænseflader",
+        "At versionere kode og holde styr på ændringer over tid",
+        "At komprimere billeder til web",
+        "At hoste databaser i skyen",
+      ],
+      correctIndex: 1,
+      explanation:
+        "Git er et versionsstyringssystem, der gemmer historik og gør det muligt at samarbejde om kode.",
+    },
+    {
+      question: "Hvad er et repository (repo) i Git?",
+      options: [
+        "En ekstern harddisk",
+        "En mappe med projektfiler og hele historikken for ændringer",
+        "En backup i skyen, som ikke kan ændres",
+        "En liste over opgaver i et projekt",
+      ],
+      correctIndex: 1,
+      explanation:
+        "Et repository indeholder både filerne og metadata om alle commits, branches mv.",
+    },
+    {
+      question: "Hvad gør kommandoen `git status`?",
+      options: [
+        "Viser systeminformationen for din computer",
+        "Viser forskellen mellem to commits",
+        "Viser hvilke filer der er ændret, staged eller untracked",
+        "Sletter midlertidige filer",
+      ],
+      correctIndex: 2,
+      explanation:
+        "`git status` giver et overblik over ændringer i arbejdsområdet og staging area.",
+    },
+    {
+      question:
+        "Hvad er forskellen på working directory og staging area i Git?",
+      options: [
+        "Working directory er kun på serveren, staging area er lokalt",
+        "Working directory er dine aktuelle filer, staging area er de ændringer der er klar til commit",
+        "Staging area er en backup i skyen, working directory er en kopi",
+        "Der er ingen forskel, det er to navne for det samme",
+      ],
+      correctIndex: 1,
+      explanation:
+        "Working directory er dine nuværende filer, staging area er en kurv med de ændringer, du vil have med i næste commit.",
+    },
+    {
+      question: "Hvad gør kommandoen `git add`?",
+      options: [
+        "Laver et nyt repository",
+        "Fjerner filer fra projektet",
+        "Tilføjer ændringer til staging area",
+        "Uploader koden til GitHub automatisk",
+      ],
+      correctIndex: 2,
+      explanation:
+        "`git add` markerer ændringer, så de kommer med i næste commit.",
+    },
+    {
+      question: 'Hvad gør kommandoen `git commit -m "besked"`?',
+      options: [
+        "Uploader koden til internettet",
+        "Gemmer en version (snapshot) af de staged ændringer med en besked",
+        "Genskaber en tidligere version af projektet",
+        "Installerer nye afhængigheder",
+      ],
+      correctIndex: 1,
+      explanation:
+        "Et commit er et snapshot af de ændringer, der er i staging area, sammen med en bekrivende besked.",
+    },
+    {
+      question: "Hvad er en god commit-besked?",
+      options: [
+        '"Fix"',
+        '"asdfasdf"',
+        "Kort og præcis beskrivelse af hvad der er ændret",
+        "En lang roman om hele projektet",
+      ],
+      correctIndex: 2,
+      explanation:
+        "Commit-beskeder skal være korte og meningsfulde, så historikken er let at læse.",
+    },
+    {
+      question: "Hvad er en branch i Git?",
+      options: [
+        "En kopi af projektet til at eksperimentere uden at ødelægge main",
+        "En mappe til billeder",
+        "En ekstern server",
+        "En logfil over fejl",
+      ],
+      correctIndex: 0,
+      explanation:
+        "En branch lader dig udvikle nye features eller teste ideer uden at påvirke hovedbranchen.",
+    },
+    {
+      question: "Hvad kaldes typisk hoved-branch i et Git-repository?",
+      options: ["dev", "main eller master", "feature", "prod"],
+      correctIndex: 1,
+      explanation:
+        "Mange projekter bruger `main` (eller ældre: `master`) som hoved-branch.",
+    },
+    {
+      question: "Hvad gør kommandoen `git log`?",
+      options: [
+        "Viser alle branches",
+        "Viser historik over commits",
+        "Viser kun filer der er slettet",
+        "Viser ændringer i staging area",
+      ],
+      correctIndex: 1,
+      explanation:
+        "`git log` lister commits med beskeder, datoer og forfatter.",
+    },
+    {
+      question:
+        "Hvad er forskellen på et lokalt repo og et remote (fx GitHub)?",
+      options: [
+        "Der er ingen forskel",
+        "Det lokale repo ligger på din maskine, remote ligger på en server på nettet",
+        "Remote er kun til billeder, lokalt er kun til kode",
+        "Lokalt repo kræver internet, remote gør ikke",
+      ],
+      correctIndex: 1,
+      explanation:
+        "Lokalt arbejder du på din egen computer, remote bruges til backup og samarbejde.",
+    },
+    {
+      question: "Hvad gør kommandoen `git clone`?",
+      options: [
+        "Sletter et repository",
+        "Kopierer et eksternt repository ned på din maskine",
+        "Opdaterer din lokale branch",
+        "Laver et nyt commit",
+      ],
+      correctIndex: 1,
+      explanation:
+        "Med `git clone` henter du et remote repository ned som et nyt lokalt repo.",
+    },
+    {
+      question: "Hvad gør kommandoen `git pull`?",
+      options: [
+        "Uploader ændringer til remote",
+        "Henter og merger de nyeste ændringer fra remote til din aktuelle branch",
+        "Opretter en ny branch",
+        "Annullerer det sidste commit",
+      ],
+      correctIndex: 1,
+      explanation:
+        "`git pull` kombinerer `git fetch` og `git merge` og opdaterer din lokale branch.",
+    },
+    {
+      question: "Hvad gør kommandoen `git push`?",
+      options: [
+        "Sender dine lokale commits til remote repository",
+        "Henter ændringer fra remote",
+        "Sletter remote repository",
+        "Lukker Git-klienten",
+      ],
+      correctIndex: 0,
+      explanation:
+        "`git push` uploader dine commits til fx GitHub, så andre kan se dem.",
+    },
+    {
+      question: "Hvad er et merge-konflikt?",
+      options: [
+        "Når to personer bruger samme computer",
+        "Når Git ikke ved, hvilke ændringer der skal beholdes, fordi samme linje er ændret forskelligt",
+        "Når internettet går ned",
+        "Når man ikke kan lave commit",
+      ],
+      correctIndex: 1,
+      explanation:
+        "En merge-konflikt opstår når forskellige ændringer rammer samme del af en fil. Det skal løses manuelt.",
+    },
+    {
+      question:
+        "Hvad er en god praksis for at undgå store og besværlige merge-konflikter?",
+      options: [
+        "Aldrig at committe",
+        "At arbejde alene på projektet",
+        "At lave små commits og merge/pull ofte",
+        "At ignorere konflikter og håbe de forsvinder",
+      ],
+      correctIndex: 2,
+      explanation:
+        "Små, hyppige commits og løbende merge/pull gør konflikter nemmere at håndtere.",
+    },
+    {
+      question: "Hvad bruges `.gitignore`-filen til?",
+      options: [
+        "At gemme login-oplysninger",
+        "At angive filer og mapper, som Git skal ignorere",
+        "At konfigurere VS Code",
+        "At beskrive projektets licens",
+      ],
+      correctIndex: 1,
+      explanation:
+        "`.gitignore` sikrer at fx build-mapper, midlertidige filer og hemmelige nøgler ikke bliver committed.",
+    },
+    {
+      question:
+        "Hvilken filtype bør næsten altid være i `.gitignore` i et Node-projekt?",
+      options: [".html", "package.json", "node_modules/", "README.md"],
+      correctIndex: 2,
+      explanation:
+        "`node_modules` kan altid genskabes ud fra `package.json` og er ofte meget stor.",
+    },
+    {
+      question: "Hvad er en pull request (PR) på GitHub?",
+      options: [
+        "En anmodning om lønforhøjelse",
+        "En anmodning om at merge en branch ind i en anden, typisk efter code review",
+        "En backup af hele repoet",
+        "En automatisk opdatering af dependencies",
+      ],
+      correctIndex: 1,
+      explanation:
+        "En PR bruges til at gennemgå og diskutere ændringer, før de merges til fx main.",
+    },
+    {
+      question: "Hvorfor er code review via pull requests en god idé?",
+      options: [
+        "Det gør projektet langsommere med vilje",
+        "Det sikrer at kun læreren kan se koden",
+        "Det hjælper med at fange fejl, dele viden og sikre ensartet kvalitet",
+        "Det fjerner behovet for at teste",
+      ],
+      correctIndex: 2,
+      explanation:
+        "Code review forbedrer kvaliteten, øger læring i teamet og opdager fejl tidligere.",
+    },
+    {
+      question:
+        "Hvad er en typisk workflow når man arbejder på en ny feature i et team?",
+      options: [
+        "Commit direkte på main uden at tale med nogen",
+        "Opret en feature-branch, lav commits, push, åbn pull request, få review og merge",
+        "Sende filer via USB-stick",
+        "Slette repoet og starte forfra",
+      ],
+      correctIndex: 1,
+      explanation:
+        "Branches og pull requests giver en struktureret proces omkring nye features.",
+    },
+    {
+      question: 'Hvad betyder det at "forke" et repository på GitHub?',
+      options: [
+        "At slette det",
+        "At lave en personlig kopi af et andet repository under din egen konto",
+        "At lave en backup på din harddisk",
+        "At lukke for adgang for andre",
+      ],
+      correctIndex: 1,
+      explanation:
+        "En fork er din egen kopi af et projekt, så du kan eksperimentere eller bidrage med ændringer.",
+    },
+    {
+      question: "Hvad er forskellen på `git fetch` og `git pull`?",
+      options: [
+        "`git pull` findes ikke",
+        "`git fetch` henter nye commits uden at merge, `git pull` henter og merger i én kommando",
+        "`git fetch` sletter commits, `git pull` genskaber dem",
+        "De gør præcis det samme",
+      ],
+      correctIndex: 1,
+      explanation:
+        "`git fetch` er mere sikkert hvis du vil se ændringerne først, før du merger dem ind.",
+    },
+    {
+      question:
+        "Hvorfor er det en dårlig idé at committe hemmelige nøgler (API keys, passwords)?",
+      options: [
+        "Fordi Git ikke kan håndtere tekstfiler",
+        "Fordi de så bliver en del af historikken og kan lækkes, også selv om du sletter dem igen",
+        "Fordi repoet bliver for stort",
+        "Fordi VS Code ikke kan åbne dem",
+      ],
+      correctIndex: 1,
+      explanation:
+        "Når noget først er committed, er det svært at fjerne fuldstændigt fra historikken. Brug miljøvariabler og `.gitignore` i stedet.",
+    },
+    {
+      question: 'Hvad er en "commit diff"?',
+      options: [
+        "En backup af et commit",
+        "En visning af forskellen mellem to versioner af filer",
+        "En liste over alle branches",
+        "En kopi af hele repoet",
+      ],
+      correctIndex: 1,
+      explanation:
+        "En diff viser linje for linje hvad der er tilføjet, ændret eller fjernet.",
+    },
+    {
+      question:
+        "Hvordan kan du bruge Git til at eksperimentere sikkert med en ny idé?",
+      options: [
+        "Redigere direkte på main og håbe det går",
+        "Lave en ny branch, eksperimentere der og kun merge hvis det virker",
+        "Slette gamle commits",
+        "Deaktivere Git midlertidigt",
+      ],
+      correctIndex: 1,
+      explanation:
+        "Branches er netop til at afprøve ting uden at ødelægge den stabile version på main.",
+    },
+    {
+      question:
+        "Hvad er en fordel ved at arbejde med små opgaver (issues) koblet til commits?",
+      options: [
+        "Det fylder mere i repoet",
+        "Det bliver sværere at se sammenhængen",
+        "Det gør det nemmere at spore hvorfor en ændring er lavet, og hvad den hører til",
+        "Det gør Git langsommere",
+      ],
+      correctIndex: 2,
+      explanation:
+        "Når commits refererer til konkrete issues, kan man nemt se konteksten bag ændringerne.",
+    },
+    {
+      question:
+        'Hvad betyder det at repoet er "clean" når du kører `git status`?',
+      options: [
+        "At alle filer er slettet",
+        "At der ikke er ændringer i working directory eller staging area",
+        "At Git ikke virker",
+        "At du ikke har et remote repository",
+      ],
+      correctIndex: 1,
+      explanation:
+        'En "clean" status betyder at alt er committed, og der er ingen lokale ændringer.',
+    },
+    {
+      question:
+        "Hvad er en typisk konvention for navngivning af feature-branches?",
+      options: [
+        "`feature/` efterfulgt af en kort beskrivelse, fx `feature/login-form`",
+        "Tilfældige bogstaver",
+        "Kun tal",
+        "Navnet på din hund",
+      ],
+      correctIndex: 0,
+      explanation:
+        "Konsekvente branch-navne gør det lettere at forstå formålet med hver branch.",
+    },
+    {
+      question:
+        "Hvorfor er det en god idé at hente (pull) ofte, når du arbejder i et team?",
+      options: [
+        "Så du kan arbejde offline",
+        "Så du altid har de nyeste ændringer fra andre og undgår store konflikter",
+        "Så Git kan komprimere historikken",
+        "Det har ingen betydning",
+      ],
+      correctIndex: 1,
+      explanation:
+        "Hyppige pulls holder din kode synkroniseret med teamet og minimerer konflikter.",
+    },
+    {
+      question:
+        'Hvad betyder det, hvis en fil vises som "untracked" i `git status`?',
+      options: [
+        "At Git ignorerer den permanent",
+        "At filen ikke er en del af repoet endnu, før du kører `git add`",
+        "At filen er ødelagt",
+        "At filen kun findes på remote",
+      ],
+      correctIndex: 1,
+      explanation:
+        "Untracked filer er nye filer, som Git ikke kender endnu, før de bliver tilføjet.",
+    },
+    {
+      question:
+        "Hvad bør du gøre, før du starter på en ny opgave på et delt repository?",
+      options: [
+        "Ingenting, bare kode løs",
+        "Sørge for at din lokale `main` er opdateret med `git pull`, og evt. oprette en ny branch fra den",
+        "Slette hele repoet",
+        "Committe alle gamle fejl",
+      ],
+      correctIndex: 1,
+      explanation:
+        "Det er vigtigt at starte fra en opdateret hoved-branch, så dit arbejde bygger ovenpå den nyeste version.",
+    },
+  ]}
+/>

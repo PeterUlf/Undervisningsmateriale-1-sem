@@ -1,0 +1,363 @@
+---
+title: Tema 4 – Multiple Choice
+description: Test din viden om JavaScript, SVG og animationer.
+sidebar:
+  order: 3
+  badge:
+    text: Tema 4
+    variant: tip
+    class: badge-theme-4
+---
+
+import Quiz from "../../../components/Quiz.astro";
+
+<Quiz
+  title="Tema 4 – JavaScript, SVG og animationer"
+  questions={[
+    {
+      question: "Hvad er JavaScripts primære rolle i en webside?",
+      options: [
+        "At beskrive struktur og indhold",
+        "At styre udseende og layout",
+        "At gøre siden interaktiv og reagere på brugerens handlinger",
+        "At optimere billeder til web",
+      ],
+      correctIndex: 2,
+      explanation:
+        "JavaScript bruges til logik og interaktivitet – fx klik-hændelser, dynamisk indhold og formularvalidering.",
+    },
+    {
+      question:
+        "Hvor i et HTML-dokument placeres JavaScript typisk, hvis det skal køre efter at DOM er indlæst?",
+      options: [
+        "I `<head>` uden attributter",
+        "Lige før afsluttende `</body>`",
+        "Som inline-stil på et element",
+        "Det er ligegyldigt",
+      ],
+      correctIndex: 1,
+      explanation:
+        "Ved at placere scriptet sidst i `<body>` er HTML'en loaded, før koden kører.",
+    },
+    {
+      question: "Hvilket udsagn er sandt om variabler i JavaScript?",
+      options: [
+        "`let` og `const` blev indført før `var`",
+        "`const`-variabler kan ikke re-deklareres eller reassignes",
+        "`let` bruges til blokscope-variabler, `const` til værdier der ikke skal ændres",
+        "`var` er altid det bedste valg i moderne kode",
+      ],
+      correctIndex: 2,
+      explanation:
+        "I moderne JavaScript bruger man typisk `let` og `const` frem for `var`.",
+    },
+    {
+      question: "Hvad returnerer `document.querySelector('#app')`?",
+      options: [
+        "En liste med alle elementer på siden",
+        "Det første element der matcher CSS-selektoren `#app` eller `null`",
+        "Alle elementer med klassen `app`",
+        "Kun `<body>`-elementet",
+      ],
+      correctIndex: 1,
+      explanation:
+        "`querySelector` finder det første match på den angivne CSS-selektor.",
+    },
+    {
+      question:
+        "Hvordan tilføjer du en klik-hændelse på en knap med JavaScript?",
+      options: [
+        "`button.onclick = handleClick;`",
+        "`button.addEventListener('click', handleClick);`",
+        "Begge dele kan bruges",
+        "Det kan kun gøres med CSS",
+      ],
+      correctIndex: 2,
+      explanation:
+        "`addEventListener` anbefales ofte, men `onclick` virker også. `addEventListener` giver mest fleksibilitet.",
+    },
+    {
+      question: "Hvad er `event.preventDefault()` nyttigt til?",
+      options: [
+        "At nulstille CSS-styles",
+        "At stoppe standardadfærden, fx at en formular sender og genindlæser siden",
+        "At lukke browseren",
+        "At validere input automatisk",
+      ],
+      correctIndex: 1,
+      explanation:
+        "Man bruger ofte `preventDefault()` til at håndtere formularer med JavaScript i stedet for side-reloads.",
+    },
+    {
+      question: "Hvad er forskellen på `==` og `===` i JavaScript?",
+      options: [
+        "Der er ingen forskel",
+        "`==` sammenligner både værdi og type, `===` kun værdi",
+        "`==` laver type-coercion, `===` kræver samme type og værdi",
+        "`===` er for tal, `==` er for tekst",
+      ],
+      correctIndex: 2,
+      explanation: "`===` er den strenge lighed, som man generelt foretrækker.",
+    },
+    {
+      question: "Hvad gør `Array.prototype.forEach`?",
+      options: [
+        "Sorter arrayet alfabetisk",
+        "Looper over alle elementer og udfører en funktion for hvert element",
+        "Returnerer et filtreret array",
+        "Returnerer længden af arrayet",
+      ],
+      correctIndex: 1,
+      explanation:
+        "`forEach` bruges til at køre en funktion for hvert element – uden at lave et nyt array.",
+    },
+    {
+      question: "Hvad gør `Array.prototype.map`?",
+      options: [
+        "Returnerer et nyt array med resultatet af funktionen for hvert element",
+        "Ændrer arrayet på stedet",
+        "Fjerner elementer fra arrayet",
+        "Returnerer kun det første element",
+      ],
+      correctIndex: 0,
+      explanation:
+        "`map` er god til at omforme data – fx tal til tekst, objekter til JSX osv.",
+    },
+    {
+      question: "Hvad bruges `console.log` typisk til?",
+      options: [
+        "At vise fejl direkte til brugeren",
+        "At logge værdier i udviklingskonsollen til debugging",
+        "At gemme data permanent",
+        "At optimere performance",
+      ],
+      correctIndex: 1,
+      explanation:
+        "`console.log` er et af de vigtigste værktøjer når man vil forstå, hvad koden gør.",
+    },
+    {
+      question: "Hvad er et SVG?",
+      options: [
+        "Et rasterbillede i høj opløsning",
+        "Et vektorformat beskrevet med XML, som kan skaleres uden kvalitetstab",
+        "En type videofil",
+        "Et specielt JavaScript-bibliotek",
+      ],
+      correctIndex: 1,
+      explanation:
+        "SVG er velegnet til ikoner, logoer og illustrationer, fordi de er skalerbare og kan styles med CSS.",
+    },
+    {
+      question:
+        "Hvordan kan du ændre farven på et SVG-ikon, der er indlejret direkte i HTML?",
+      options: [
+        "Det er umuligt",
+        "Ved at bruge CSS på fx `fill` eller `stroke` på SVG-elementerne",
+        "Kun ved at redigere filen i Illustrator",
+        "Kun ved at ændre filtypen",
+      ],
+      correctIndex: 1,
+      explanation:
+        "Inline-SVG kan styles med CSS, fx `.icon path { fill: red; }`.",
+    },
+    {
+      question: "Hvad står CSS-transitions for?",
+      options: [
+        "Øjeblikkelige stil-ændringer uden animation",
+        "Glatte overgange mellem to værdier over tid",
+        "Et nyt layout-system",
+        "Et JavaScript-bibliotek",
+      ],
+      correctIndex: 1,
+      explanation:
+        "Transitions gør det muligt at animere ændringer i CSS-egenskaber, fx farve eller position.",
+    },
+    {
+      question:
+        "Hvilken CSS-egenskab bruges til at definere varigheden af en transition?",
+      options: [
+        "transition-delay",
+        "transition-time",
+        "transition-duration",
+        "animation-speed",
+      ],
+      correctIndex: 2,
+      explanation:
+        "`transition-duration` styrer hvor lang tid overgangen tager.",
+    },
+    {
+      question: "Hvad er en keyframe-animation i CSS?",
+      options: [
+        "En enkel hover-effekt",
+        "En animation defineret med `@keyframes`, hvor du kan beskrive flere trin i bevægelsen",
+        "En JavaScript-funktion",
+        "Et SVG-filter",
+      ],
+      correctIndex: 1,
+      explanation:
+        "Med `@keyframes` kan du beskrive fx 0%, 50%, 100% af en animation.",
+    },
+    {
+      question:
+        "Hvilken kombination bruges til at definere og anvende en CSS-keyframe-animation?",
+      options: [
+        "`@keyframes` og egenskaben `animation` på et element",
+        "Kun `transition`",
+        "Kun `transform`",
+        "Kun JavaScript",
+      ],
+      correctIndex: 0,
+      explanation:
+        "Du definerer sekvensen med `@keyframes` og bruger fx `animation: navn 1s ease-in-out infinite;` på elementet.",
+    },
+    {
+      question: "Hvad gør CSS-egenskaben `transform: translateX(100px);`?",
+      options: [
+        "Flytter elementet 100px til højre",
+        "Ændrer elementets skalering",
+        "Gør elementet gennemsigtigt",
+        "Roterer elementet",
+      ],
+      correctIndex: 0,
+      explanation:
+        "`translateX` flytter elementet horisontalt i forhold til dets oprindelige position.",
+    },
+    {
+      question:
+        "Hvorfor er det ofte bedre at animere `transform` og `opacity` frem for `top/left`?",
+      options: [
+        "Fordi det ser pænere ud i HTML-koden",
+        "Fordi browseren kan optimere disse egenskaber bedre (GPU), så animationer bliver mere flydende",
+        "Der er ingen forskel",
+        "Fordi `top/left` ikke findes i moderne browsere",
+      ],
+      correctIndex: 1,
+      explanation:
+        "`transform` og `opacity` er mere performante at animere end layout-egenskaber.",
+    },
+    {
+      question: 'Hvad betyder det, når en animation er "infinite" i CSS?',
+      options: [
+        "At den kun kører én gang",
+        "At den kører et uendeligt antal gange",
+        "At den kun kører ved hover",
+        "At den stopper efter 3 gange",
+      ],
+      correctIndex: 1,
+      explanation:
+        "`animation-iteration-count: infinite;` betyder at animationen aldrig stopper af sig selv.",
+    },
+    {
+      question: "Hvad er formålet med `requestAnimationFrame` i JavaScript?",
+      options: [
+        "At lave synkroniserede og performante animationer ved at lade browseren styre timing",
+        "At lave server-kald",
+        "At ændre CSS-variabler automatisk",
+        "At komprimere billeder",
+      ],
+      correctIndex: 0,
+      explanation:
+        "`requestAnimationFrame` kalder en funktion lige før browseren tegner næste frame.",
+    },
+    {
+      question: "Hvad er en fordel ved at bruge SVG til ikoner frem for PNG?",
+      options: [
+        "SVG fylder altid mere",
+        "SVG bliver grimt når man zoomer",
+        "SVG kan skaleres uden at blive pixeleret og kan styles med CSS",
+        "SVG kan ikke bruges i moderne browsere",
+      ],
+      correctIndex: 2,
+      explanation: "SVG er vektorgrafik og derfor skalerbart og fleksibelt.",
+    },
+    {
+      question:
+        "Hvordan kan JavaScript bruges sammen med CSS-klasser til animation?",
+      options: [
+        "Ved at skrive CSS inde i JavaScript-kommentarer",
+        "Ved at tilføje/fjerne klasser på elementer, som har definerede transitions eller animationer i CSS",
+        "Det er ikke muligt",
+        "Kun via browser-udvidelser",
+      ],
+      correctIndex: 1,
+      explanation:
+        "Et klasseskift kan trigge en transition eller starte en keyframe-animation.",
+    },
+    {
+      question: 'Hvad er "easing" i forbindelse med animationer?',
+      options: [
+        "En måde at definere, hvordan hastigheden ændrer sig over tid (fx `ease-in`, `ease-out`)",
+        "En type SVG-filter",
+        "En måde at komprimere video",
+        "En property for lydstyrke",
+      ],
+      correctIndex: 0,
+      explanation:
+        "Easing gør bevægelser mere naturlige ved at ændre acceleration og deceleration.",
+    },
+    {
+      question:
+        "Hvad bør du være opmærksom på ift. tilgængelighed, når du laver animationer?",
+      options: [
+        "At animationer altid skal være så vilde som muligt",
+        "At hurtige blink og voldsomme bevægelser kan være ubehagelige og trigge fx epilepsi",
+        "At alle sider skal have autoplay video",
+        "At tekst kun må stå oven på videoer",
+      ],
+      correctIndex: 1,
+      explanation:
+        "Undgå aggressive effekter og respekter brugerindstillinger som `prefers-reduced-motion`.",
+    },
+    {
+      question: "Hvad bruges `prefers-reduced-motion` media query til?",
+      options: [
+        "At øge mængden af animation",
+        "At tilpasse styling, hvis brugeren har angivet, at de ønsker færre animationer",
+        "At skifte farvetema",
+        "At ændre skriftstørrelse",
+      ],
+      correctIndex: 1,
+      explanation:
+        "Du kan fx slå ikke-væsentlige animationer fra for brugere, der har valgt reduced motion.",
+    },
+    {
+      question:
+        'Hvad er en "timeline" i mere avancerede scroll/animation-biblioteker?',
+      options: [
+        "En liste over commits i Git",
+        "En struktur hvor flere animationer kan koordineres over tid",
+        "En type SVG",
+        "En HTML5-tag",
+      ],
+      correctIndex: 1,
+      explanation:
+        "Timelines bruges til at styre komplekse sekvenser af animationer.",
+    },
+    {
+      question:
+        "Hvordan kan du teste dine JavaScript- og animations-effekter i browseren?",
+      options: [
+        "Ved kun at gætte på, hvad koden gør",
+        "Ved at bruge udviklerværktøjerne (DevTools) til at inspicere DOM, CSS og konsol-log",
+        "Ved at printe koden ud på papir",
+        "Det kan ikke testes",
+      ],
+      correctIndex: 1,
+      explanation:
+        "DevTools er centralt til debugging af både JavaScript, CSS og animationer.",
+    },
+    {
+      question:
+        "Hvorfor er det en god idé at holde JavaScript-kode organiseret i funktioner og moduler?",
+      options: [
+        "Så filerne bliver så lange som muligt",
+        "For at gøre koden mere genbrugelig, testbar og overskuelig",
+        "For at skjule fejl",
+        "For at undgå at bruge HTML",
+      ],
+      correctIndex: 1,
+      explanation:
+        "Struktureret kode er lettere at vedligeholde og samarbejde om.",
+    },
+  ]}
+/>

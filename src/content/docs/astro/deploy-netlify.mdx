@@ -1,0 +1,148 @@
+---
+title: Astro – Deploy med GitHub og Netlify
+description: Fra lokalt Astro-projekt til live site med automatisk deploy.
+sidebar:
+  label: "4. Astro – Deploy med GitHub og Netlify"
+  order: 4
+  badge:
+    text: Tema 8
+    variant: tip
+    class: badge-theme-8
+---
+
+import Slide from "../../../components/Slide.astro";
+
+<Slide>
+## Overblik: Fra VS Code til live site
+
+Målet her er:
+
+1. At **pushed** dit Astro-projekt fra VS Code til **GitHub**
+2. At forbinde **Netlify** til repository'et på GitHub
+3. At lade Netlify **bygge og uploade automatisk**, hver gang du laver ændringer og pusher
+
+Kort sagt:
+
+> VS Code → GitHub → Netlify → live site (auto-opdateret).
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+## Forudsætninger
+
+Du skal have:
+
+- Et **Astro-projekt**, der kører lokalt (`npm run dev` virker)
+- **Git** installeret (ofte følger det med macOS; på Windows kan du installere [Git for Windows](https://git-scm.com/download/win))
+- En konto på **GitHub**
+- En konto på **Netlify**
+- Vi arbejder i **VS Code** og bruger kun VS Codes terminal
+
+> Hvis `git --version` _ikke_ virker i VS Code-terminalen, skal Git installeres/konfigureres først.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+## 1. Sørg for at koden ligger på GitHub
+
+På denne slide går vi ikke i detaljer med Git-kommandoer – det er dækket et andet sted.
+
+Her antager vi bare, at du:
+
+1. Har initialiseret et Git-repo i projektet
+2. Har oprettet et repository på GitHub
+3. Har pushed din kode op på GitHub (så du kan se filerne der)
+
+Se detaljeret gennemgang her:
+
+- [Git & GitHub – kom i gang](/git/)
+
+Når det er på plads, kan du forbinde Netlify.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+## 2. Forbind Netlify til GitHub-repoet
+
+1. Gå til [netlify.com](https://www.netlify.com/) og log ind
+2. Vælg **Add new site → Import an existing project**
+3. Vælg **GitHub** som kilde og giv Netlify lov til at læse dine repos
+4. Vælg det repository, du lige har oprettet (fx `min-astro-side`)
+
+Nu ser du en opsætningsside for build.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+## 3. Byg-indstillinger i Netlify
+
+På opsætningssiden i Netlify skal du typisk angive:
+
+- **Build command**: `npm run build`
+- **Publish directory**: `dist`
+
+Resten kan ofte stå til standard.
+
+Klik derefter på **Deploy site**.
+
+Netlify:
+
+- henter koden fra GitHub
+- kører `npm install` og `npm run build`
+- uploader indholdet af `dist/` til en offentlig URL
+
+Efter første deploy får du et midlertidigt domæne, fx `https://et-tilfaeldigt-navn.netlify.app`.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+## 4. Automatisk deploy ved hver ændring
+
+Nu er kæden sat op:
+
+> VS Code → Git (commit & push) → GitHub → Netlify build → opdateret site
+
+Når du ændrer noget i projektet:
+
+1. Åbn **Source Control**-panelet i VS Code (ikonet med en gren i venstre side).
+2. Skriv en kort **commit-besked** i feltet øverst.
+3. Klik på knappen **Commit** (✓) for at gemme ændringerne i Git.
+4. Klik derefter på **Sync/Push**-knappen (de runde pile), så ændringerne bliver sendt til GitHub.
+
+Netlify ser den nye commit/push på GitHub og:
+
+- henter nyeste kode
+- bygger igen (`npm run build`)
+- opdaterer sitet automatisk
+
+Du behøver **ikke** selv at uploade filer til serveren.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+## 5. Ekstra: Miljøvariabler (fx Supabase)
+
+Hvis du bruger eksterne tjenester (fx Supabase), skal du ofte sætte **environment variables** i Netlify.
+
+I Netlify:
+
+1. Gå til dit site → **Site settings**
+2. Vælg **Environment variables** (Build & deploy)
+3. Tilføj de samme nøgler som i din lokale `.env` (fx `SUPABASE_URL`, `SUPABASE_ANON_KEY`)
+4. Gem og lav en ny deploy (fx ved at lave en lille ændring og pushe)
+
+På den måde kan dit Astro-site både lokalt **og** på Netlify få adgang til de samme hemmelige nøgler – uden at de ligger i GitHub-koden.
+
+</Slide>

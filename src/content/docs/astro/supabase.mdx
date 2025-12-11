@@ -1,0 +1,140 @@
+---
+title: Astro + Supabase – data i dine sider
+description: Sådan henter du data fra Supabase ind i Astro.
+sidebar:
+  label: "3. Astro + Supabase – data i dine sider"
+  order: 3
+  badge:
+    text: Tema 8
+    variant: tip
+    class: badge-theme-8
+---
+
+## Hvad er Supabase?
+
+[Supabase](https://supabase.com/) er en backend-as-a-service bygget oven på PostgreSQL.
+Du får:
+
+- Database
+- Autentifikation
+- Simple API'er
+
+… uden selv at skulle sætte en server op.
+
+I Astro kan du bruge Supabase til fx:
+
+- at vise en liste af projekter/elever
+- at hente quiz-resultater
+- at gemme feedback fra studerende
+
+---
+
+## 1. Installer Supabase-klienten
+
+I et Astro-projekt:
+
+```bash
+npm install @supabase/supabase-js
+```
+
+> **Mac vs. PC:**
+>
+> - Kommandoen er den **samme** på Mac og Windows.
+> - På Mac kører du den typisk i **Terminal** eller VS Code-terminalen.
+> - På Windows kører du den i **PowerShell**, **Command Prompt** eller VS Code-terminalen.
+
+---
+
+## 2. Opret en Supabase-klient (server-side)
+
+Lav fx en hjælper i `src/lib/supabase.ts` eller `src/lib/supabase.js`:
+
+```ts
+import { createClient } from "@supabase/supabase-js";
+
+const SUPABASE_URL = import.meta.env.SUPABASE_URL;
+const SUPABASE_ANON_KEY = import.meta.env.SUPABASE_ANON_KEY;
+
+export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+```
+
+> Vigtigt: Læg **ikke** nøgler direkte i koden. Brug miljøvariabler.
+
+I Astro lægger du dem typisk i en `.env`-fil i projektets rod:
+
+```bash
+SUPABASE_URL=https://dit-projekt-id.supabase.co
+SUPABASE_ANON_KEY=public-anon-key-her
+```
+
+> **Mac vs. PC:**
+>
+> - Filen hedder det samme (`.env`) på begge platforme.
+> - Sørg for, at den ligger i **roden** af projektet (samme mappe som `package.json`).
+> - Brug **ikke** filen i Git (tilføj den til `.gitignore`).
+
+---
+
+## 3. Hent data i en Astro-side
+
+I en `.astro`-side kan du hente data i frontmatter (server-side):
+
+```astro
+---
+import { supabase } from "../lib/supabase";
+
+const { data: projects, error } = await supabase
+  .from("projects")
+  .select("id, title, student_name")
+  .order("created_at", { ascending: false });
+
+if (error) {
+  console.error(error);
+}
+---
+
+<h1>Projekter</h1>
+
+{error && <p>Kunne ikke hente data lige nu.</p>}
+
+<ul>
+  {projects?.map((project) => (
+    <li>
+      <strong>{project.title}</strong> – {project.student_name}
+    </li>
+  ))}
+</ul>
+```
+
+Her sker der:
+
+- Koden i `---` kører på serveren, inden HTML'en genereres
+- Data fra Supabase bliver mappet direkte ud i HTML-listen
+
+---
+
+## 4. Statisk build vs. server-side rendering
+
+Astro kan:
+
+- **Bygge statisk** (data hentes ved build-tid) – godt til sider, der sjældent ændrer sig
+- **Køre med server-side rendering (SSR)** – data hentes ved hver request
+
+Til undervisning/materialer er statisk typisk fint, fx `npm run build` + hosting.
+Hvis data ofte ændrer sig (fx live-resultater), kan SSR være en fordel.
+
+Se Astro-dokumentationen for at slå SSR til, hvis du vil bruge det.
+
+---
+
+## 5. Simple øvelsesidéer
+
+- Lav en tabel i Supabase med **projekter** (titel, beskrivelse, navn på elev)
+- Hent dem ind på en Astro-side og vis dem pænt med et grid/kort-layout
+- Filtrer projekter på fx tema eller teknologier
+
+Når eleverne først forstår sammenhængen:
+
+> Astro-side → helper-fil (`supabase`) → tabel i Supabase
+
+… har de en realistisk fullstack-pipeline, men med relativt lav teknisk barriere.

@@ -1,0 +1,335 @@
+---
+title: Tema 7 – Multiple Choice
+description: Test din viden om subgrid og avancerede layout-teknikker i CSS.
+sidebar:
+  order: 5
+  badge:
+    text: Tema 7
+    variant: tip
+    class: badge-theme-7
+---
+
+import Quiz from "../../../components/Quiz.astro";
+
+<Quiz
+  title="Tema 7 – Subgrid og avanceret layout"
+  questions={[
+    {
+      question: "Hvad er formålet med CSS Grid?",
+      options: [
+        "At lave enkle liste-styles",
+        "At lave todimensionelle layout med rækker og kolonner",
+        "At animere farver",
+        "At håndtere formularvalidering",
+      ],
+      correctIndex: 1,
+      explanation:
+        "Grid er et todimensionelt layout-system, der kan styre både rækker og kolonner.",
+    },
+    {
+      question: "Hvad er `subgrid` i CSS Grid?",
+      options: [
+        "En type media query",
+        "En måde at lade et nested grid arve spor (tracks) fra sin parent",
+        "En speciel flexbox-variant",
+        "En preprocessor til CSS",
+      ],
+      correctIndex: 1,
+      explanation:
+        "Med `subgrid` kan et underordnet grid justere sig efter forælderens kolonner/rækker.",
+    },
+    {
+      question:
+        "Hvilken værdi skal du typisk bruge på `grid-template-columns` i parent for at subgrid giver mening?",
+      options: [
+        "`none`",
+        "Noget der definerer spor, fx `repeat(4, 1fr)`",
+        "Kun `auto`",
+        "Det er ligegyldigt",
+      ],
+      correctIndex: 1,
+      explanation:
+        "Parent-gridet skal have definerede spor, som subgrid kan arve.",
+    },
+    {
+      question: "Hvordan aktiverer du subgrid på et child-element?",
+      options: [
+        "`display: subgrid;`",
+        "`display: grid;` og fx `grid-template-columns: subgrid;`",
+        "`display: flex;`",
+        "`position: subgrid;`",
+      ],
+      correctIndex: 1,
+      explanation:
+        "Elementet er et grid, men dets spor defineres af parent via værdien `subgrid`.",
+    },
+    {
+      question: "Hvad er en fordel ved at bruge subgrid i et komplekst layout?",
+      options: [
+        "At hver komponent kan definere helt vilkårlige kolonner",
+        "At nested elementer kan flugte pænt på tværs af rækker og kolonner uden duplikering af grid-definitioner",
+        "At du helt slipper for media queries",
+        "At browseren bliver hurtigere",
+      ],
+      correctIndex: 1,
+      explanation:
+        "Subgrid gør det nemmere at holde kolonner/rytme ens, selv dybt nede i hierarkiet.",
+    },
+    {
+      question:
+        "Hvilken property kan sættes til `subgrid` ud over `grid-template-columns`?",
+      options: ["grid-template-rows", "justify-content", "gap", "align-items"],
+      correctIndex: 0,
+      explanation:
+        "Du kan arve rækker, kolonner – eller begge – fra parent-gridet.",
+    },
+    {
+      question:
+        "Hvad sker der, hvis du sætter `grid-template-columns: subgrid;` men parent ikke har definerede kolonner?",
+      options: [
+        "Det virker fint alligevel",
+        "Browseren gætter på kolonnerne",
+        "Subgrid kan ikke fungere, fordi der ikke er noget at arve",
+        "Det slår grid helt fra",
+      ],
+      correctIndex: 2,
+      explanation:
+        "Subgrid er afhængig af at parent-gridet har definerede spor.",
+    },
+    {
+      question: "Hvad er `gap` i CSS Grid?",
+      options: [
+        "Afstand mellem border og indhold",
+        "Afstand mellem rækker og kolonner (gitterets mellemrum)",
+        "Margin mellem grid og viewport",
+        "Linjehøjden på tekst",
+      ],
+      correctIndex: 1,
+      explanation: "`gap` styrer mellemrummet mellem grid-cellerne.",
+    },
+    {
+      question: "Hvad er forskellen på `gap` og `margin` i et grid-layout?",
+      options: [
+        "`gap` påvirker kun mellemrum inde i gridet, `margin` påvirker ydre afstand til andre elementer",
+        "Der er ingen forskel",
+        "`margin` er kun til flexbox",
+        "`gap` kan kun bruges vandret",
+      ],
+      correctIndex: 0,
+      explanation:
+        "`gap` er indvendig spacing, mens `margin` er udvendig spacing.",
+    },
+    {
+      question: "Hvordan kan du kombinere CSS Grid og flexbox i samme layout?",
+      options: [
+        "Det er ikke muligt",
+        "Ved at bruge grid til den overordnede struktur og flexbox til små komponenter inde i grid-celler",
+        "Kun ved at bruge JavaScript",
+        "Kun i Firefox",
+      ],
+      correctIndex: 1,
+      explanation:
+        "Ofte bruges grid til det store layout og flexbox til justering inde i enkelte bokse.",
+    },
+    {
+      question:
+        "Hvilket værktøj i browserens DevTools er særligt nyttigt til at forstå komplekse grids?",
+      options: [
+        "Netværks-inspektoren",
+        "Grid-inspektoren, der kan tegne linjer og numre oven på layoutet",
+        "Performance-profileren",
+        "Lyd-inspektoren",
+      ],
+      correctIndex: 1,
+      explanation:
+        "Grid-inspektorer gør det nemmere at se spor, linjer og celler direkte i browseren.",
+    },
+    {
+      question:
+        "Hvad betyder det, hvis du sætter `minmax(200px, 1fr)` i en grid-definition?",
+      options: [
+        "Cellerne bliver altid 200px",
+        "Cellerne kan blive mindre end 200px",
+        "Cellerne kan ikke blive større end 200px",
+        "Cellerne er mindst 200px brede og kan vokse op til at fylde den ledige plads (1fr)",
+      ],
+      correctIndex: 3,
+      explanation: "`minmax` er nyttig til responsive kolonner.",
+    },
+    {
+      question: "Hvad bruges `auto-fit` og `auto-fill` ofte til i `repeat()`?",
+      options: [
+        "At lave animationer",
+        "At udfylde rækken med så mange kolonner som muligt, afhængigt af bredden",
+        "At ændre typografien",
+        "At definere z-index",
+      ],
+      correctIndex: 1,
+      explanation:
+        "De hjælper med at lave responsive grid-layouts uden faste antal kolonner.",
+    },
+    {
+      question: "Hvad er forskellen på `auto-fit` og `auto-fill`?",
+      options: [
+        "Der er ingen forskel",
+        '`auto-fit` kan trække kolonner sammen, så de fylder rummet, mens `auto-fill` reserverer plads til "tomme" spor',
+        "`auto-fit` er kun til rækker",
+        "`auto-fill` er kun til mobil",
+      ],
+      correctIndex: 1,
+      explanation:
+        "Forskellen ses især når viewporten bliver større end den samlede minimumsbredde.",
+    },
+    {
+      question:
+        "Hvordan kan du centrere et element både lodret og vandret i et grid?",
+      options: [
+        "`align-self: center; justify-self: center;` på elementet",
+        "`text-align: center;`",
+        "`margin: auto 0;`",
+        "Det er umuligt",
+      ],
+      correctIndex: 0,
+      explanation:
+        "`align-self` styrer lodret justering, `justify-self` vandret inden for cellen.",
+    },
+    {
+      question: "Hvad gør `grid-template-areas`?",
+      options: [
+        'Definerer navngivne felter (områder) i gridet ved hjælp af et "tekst-lignende" mønster',
+        "Definerer farver på celler",
+        "Definerer animationer",
+        "Definerer kun antal rækker",
+      ],
+      correctIndex: 0,
+      explanation:
+        "`grid-template-areas` gør komplekse layouts mere læsbare og nemmere at vedligeholde.",
+    },
+    {
+      question:
+        "Hvordan placerer du et element i et område defineret med `grid-template-areas`?",
+      options: [
+        "Med `grid-area: navn;` på elementet",
+        "Med `position: absolute;`",
+        "Med `display: block;`",
+        "Med `float: left;`",
+      ],
+      correctIndex: 0,
+      explanation: "`grid-area` binder elementet til et navngivet område.",
+    },
+    {
+      question: "Hvad gør `align-content` i et grid-layout?",
+      options: [
+        "Justerer individuelle items i en celle",
+        "Justerer hele grid-blokken inden for containeren (når der er ekstra plads i cross-aksen)",
+        "Skifter skrifttype",
+        "Bestemmer responsive breakpoints",
+      ],
+      correctIndex: 1,
+      explanation:
+        "`align-content` handler om hele gridets placering, ikke enkelte celler.",
+    },
+    {
+      question: "Hvad gør `justify-content` i et grid-layout?",
+      options: [
+        "Justerer gridet horisontalt i containeren",
+        "Justerer tekst i en celle",
+        "Skifter farven på baggrunden",
+        "Ændrer antal kolonner",
+      ],
+      correctIndex: 0,
+      explanation:
+        "`justify-content` handler om horisontal justering af hele gridet.",
+    },
+    {
+      question: 'Hvad er en "layout-ryggrad" i design af større sider?',
+      options: [
+        "En tilfældig opsætning",
+        "En konsekvent grid-struktur (kolonner, margins, gutter), som alle sider følger",
+        "Kun typografien",
+        "Kun farverne",
+      ],
+      correctIndex: 1,
+      explanation:
+        "En fælles layout-ryggrad gør designet sammenhængende og ensartet.",
+    },
+    {
+      question:
+        "Hvordan kan subgrid hjælpe med at holde en fælles layout-ryggrad?",
+      options: [
+        "Ved at ignorere parent-layoutet",
+        "Ved at sørge for at indhold længere nede i DOM'en stadig flugter med overordnede kolonner",
+        "Ved at fjerne behovet for grid helt",
+        "Ved at tvinge alle elementer til fuld bredde",
+      ],
+      correctIndex: 1,
+      explanation:
+        "Subgrid sikrer at selv nested komponenter respekterer hoved-gridets spor.",
+    },
+    {
+      question:
+        "Hvad er vigtigt at teste, når du laver avancerede layouts med subgrid?",
+      options: [
+        "Kun hvordan det ser ud i én browser",
+        "Hvordan layoutet opfører sig på forskellige skærmstørrelser og i flere browsere",
+        "Kun farverne",
+        "Kun skrifttypen",
+      ],
+      correctIndex: 1,
+      explanation:
+        "Tjek både responsivitet og browser-support – især når du bruger nyere features som subgrid.",
+    },
+    {
+      question:
+        "Hvordan kan du lave et simpelt fallback, hvis en browser ikke understøtter subgrid?",
+      options: [
+        "Ved at lade siden fejle",
+        "Ved at definere et mere simpelt layout uden subgrid, som stadig er brugbart",
+        "Ved at skjule alt indhold",
+        "Det er umuligt",
+      ],
+      correctIndex: 1,
+      explanation:
+        "Progressive enhancement: giv en god basisoplevelse og forbedr med subgrid hvor muligt.",
+    },
+    {
+      question:
+        "Hvad er en god måde at starte på, når du designer et komplekst grid-layout?",
+      options: [
+        "Kode det direkte uden plan",
+        "Lave en hurtig skitse eller wireframe med hovedområder og kolonner",
+        "Starte med farverne",
+        "Kun tænke på animationer",
+      ],
+      correctIndex: 1,
+      explanation:
+        "En skitse hjælper dig med at definere struktur og hierarki, før du koder.",
+    },
+    {
+      question:
+        "Hvorfor er konsistente spacing-værdier (fx 4/8/16/24px) vigtige i layouts?",
+      options: [
+        "Så designet ser tilfældigt ud",
+        "De gør layoutet mere harmonisk, forudsigeligt og lettere at ændre",
+        "For at bruge mere CSS",
+        "For at undgå grid",
+      ],
+      correctIndex: 1,
+      explanation:
+        "Et design-system med faste spacing-trin gør det lettere at holde styr på layoutet.",
+    },
+    {
+      question:
+        "Hvordan kan du beskrive layoutet til andre på holdet, før du koder det?",
+      options: [
+        "Ved at sende CSS-filer uden forklaring",
+        "Ved at bruge skitser, diagrammer eller simple bokse (wireframes)",
+        "Ved kun at tale om farver",
+        "Ved at nævne tilfældige pixel-tal",
+      ],
+      correctIndex: 1,
+      explanation:
+        "En fælles visuel reference sikrer, at alle forstår strukturen, før der kodes.",
+    },
+  ]}
+/>

@@ -1,0 +1,175 @@
+---
+title: Astro – Komponenter
+description: Lær at bygge og genbruge Astro-komponenter.
+sidebar:
+  label: "2. Astro – Komponenter"
+  order: 2
+  badge:
+    text: Tema 8
+    variant: tip
+    class: badge-theme-8
+---
+
+## Hvad er en komponent i Astro?
+
+En **komponent** er et lille, genbrugeligt stykke UI – fx en knap, et kort eller et helt layout.
+
+I Astro er komponenter som regel filer med endelsen `.astro` i mappen `src/components/`.
+
+```text
+src/
+  components/
+    Card.astro
+    Layout.astro
+```
+
+> **Mac vs. PC:**
+>
+> - På **Mac** vil du typisk have projektet i en mappe som `~/projekter/min-astro-side/`.
+> - På **Windows** kan det være `C:\\projekter\\min-astro-side\\`.
+>
+> Filstrukturen inde i projektet er den samme – kun stien til projektmappen er forskellig.
+
+---
+
+## Grundstruktur i en `.astro`-fil
+
+En Astro-komponent består af:
+
+1. **Frontmatter** (mellem `---`), hvor du kan importere ting og definere props
+2. **Template** (HTML + JSX-lignende syntaks)
+
+```astro
+---
+const { title, children } = Astro.props;
+---
+
+<section class="card">
+  <h2>{title}</h2>
+  <div>{children}</div>
+</section>
+```
+
+- `Astro.props` indeholder de værdier du sender ind, når du bruger komponenten.
+- `{children}` er alt det indhold, du putter mellem åbnings- og lukketagget.
+
+---
+
+## Brug af en komponent
+
+Hvis du har en `Card.astro`, kan du bruge den i en side eller en anden komponent:
+
+```astro
+---
+import Card from "../components/Card.astro";
+---
+
+<Card title="Velkommen">
+  Dette er indholdet inde i kortet.
+</Card>
+```
+
+Komponenten bliver oversat til almindelig HTML i det færdige build.
+
+---
+
+## Props (egenskaber)
+
+Du kan give komponenten data via props:
+
+```astro
+---
+const { title = "Standardtitel", highlight = false } = Astro.props;
+---
+
+<h2 class={highlight ? "headline--highlight" : "headline"}>{title}</h2>
+```
+
+Og når du bruger den:
+
+```astro
+<Headline title="Astro er fedt" highlight={true} />
+```
+
+> Tip: Du kan bruge TypeScript i frontmatter til at dokumentere props, fx `type Props = { title: string }` og derefter `const { title } = Astro.props as Props`.
+
+---
+
+## Slots – fleksible pladser til indhold
+
+Astro har også **slots**, som er lidt ligesom `children`, men med navne.
+
+```astro
+---
+---
+
+<article class="panel">
+  <header>
+    <slot name="header" />
+  </header>
+  <section>
+    <slot />
+  </section>
+  <footer>
+    <slot name="footer" />
+  </footer>
+</article>
+```
+
+Brug:
+
+```astro
+<Panel>
+  <h2 slot="header">Titel</h2>
+  <p>Indhold i midten.</p>
+  <small slot="footer">Lille note i bunden.</small>
+</Panel>
+```
+
+Slots gør det let at lave fleksible layouts til fx undervisningsmateriale.
+
+---
+
+## Klient-side interaktivitet (client directives)
+
+Som udgangspunkt sender Astro **ingen** JavaScript til klienten.
+Hvis du vil have en interaktiv komponent (fx en React/Vue/Svelte-komponent), bruger du en **client directive**:
+
+```astro
+---
+import Counter from "../components/Counter.jsx";
+---
+
+<Counter client:load />
+```
+
+Typiske directives:
+
+- `client:load` – kør, når siden er loadet
+- `client:idle` – kør, når browseren er i ro
+- `client:visible` – kør, når komponenten scroller ind i viewport
+
+Til rene Astro-komponenter (uden React/Vue/Svelte) behøver du ofte slet ingen client-JS.
+
+---
+
+## Eksempel: Simpel undervisningskomponent
+
+```astro
+---
+const { question, answer } = Astro.props;
+---
+
+<details class="faq">
+  <summary>{question}</summary>
+  <p>{answer}</p>
+</details>
+```
+
+Brug den i dit materiale:
+
+```astro
+<Faq question="Hvad er Astro?" answer="Et moderne framework til hurtige sites." />
+```
+
+Med relativt få linjer kan du bygge en god samling af genbrugelige byggesten til dine kurser.

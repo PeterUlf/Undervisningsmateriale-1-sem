@@ -1,0 +1,370 @@
+---
+title: Tema 5 – Multiple Choice
+description: Test din viden om Scrum og grundlæggende video-/fotoproduktion.
+sidebar:
+  order: 2
+  badge:
+    text: Tema 5
+    variant: tip
+    class: badge-theme-5
+---
+
+import Quiz from "../../../components/Quiz.astro";
+
+<Quiz
+  title="Tema 5 – Scrum og Video/Foto"
+  questions={[
+    {
+      question: "Hvad er formålet med Scrum som rammeværk?",
+      options: [
+        "At skrive detaljerede kontrakter",
+        "At styre komplekst arbejde gennem korte feedback-loop og løbende tilpasning",
+        "At lave vandfaldsprojekter mere effektive",
+        "At fjerne behovet for dialog med kunden",
+      ],
+      correctIndex: 1,
+      explanation:
+        "Scrum hjælper teams med at håndtere kompleksitet gennem iterationer, transparens og feedback.",
+    },
+    {
+      question:
+        "Hvilken rolle i Scrum er ansvarlig for at maksimere værdien af produktet?",
+      options: [
+        "Scrum Master",
+        "Product Owner",
+        "Udviklingsteamet",
+        "Projektlederen",
+      ],
+      correctIndex: 1,
+      explanation:
+        "Product Owner prioriterer Product Backlog og har fokus på forretningsværdi.",
+    },
+    {
+      question:
+        "Hvad kaldes den liste over opgaver/krav, som teamet arbejder ud fra i Scrum?",
+      options: ["Task Board", "Sprint Goal", "Product Backlog", "Kanban Board"],
+      correctIndex: 2,
+      explanation:
+        "Product Backlog er den prioriterede liste over alt ønsket arbejde på produktet.",
+    },
+    {
+      question: "Hvad er et sprint i Scrum?",
+      options: [
+        "En lang projektfase på 6-12 måneder",
+        "En kort, tidsafgrænset periode hvor teamet leverer et færdigt, potentielt releasable produktinkrement",
+        "Et uformelt møde",
+        "En rapport til ledelsen",
+      ],
+      correctIndex: 1,
+      explanation:
+        "Et sprint varer typisk 1-4 uger og afsluttes med et produktinkrement.",
+    },
+    {
+      question: "Hvad er formålet med Daily Scrum?",
+      options: [
+        "At rapportere til chefen",
+        "At koordinere dagens arbejde i teamet og tilpasse planen",
+        "At skrive dokumentation",
+        "At estimere nye opgaver",
+      ],
+      correctIndex: 1,
+      explanation:
+        "Daily Scrum er et kort møde for teamet til at skabe overblik og justere planen.",
+    },
+    {
+      question: "Hvem deltager typisk aktivt i Daily Scrum?",
+      options: [
+        "Kun Product Owner",
+        "Kun Scrum Master",
+        "Udviklingsteamet (de der udfører arbejdet)",
+        "Kunden og ledelsen",
+      ],
+      correctIndex: 2,
+      explanation:
+        "Daily Scrum er for udviklingsteamet. Scrum Master og Product Owner kan deltage, men mødet er for teamet.",
+    },
+    {
+      question: "Hvad er et Sprint Goal?",
+      options: [
+        "En liste over alle bugs",
+        "En kort formulering af sprintets overordnede formål",
+        "En detaljeret tidsplan",
+        "En aftale om overarbejde",
+      ],
+      correctIndex: 1,
+      explanation:
+        "Sprint Goal beskriver, hvorfor sprintet er vigtigt, og hvad der binder arbejdet sammen.",
+    },
+    {
+      question: "Hvad er formålet med Sprint Review?",
+      options: [
+        "At evaluere teamets trivsel",
+        "At vise det færdige inkrement frem og få feedback fra interessenter",
+        "At gennemgå ferieplaner",
+        "At estimere næste sprint",
+      ],
+      correctIndex: 1,
+      explanation:
+        "Sprint Review handler om at inspicere resultatet og tilpasse Product Backlog ud fra feedback.",
+    },
+    {
+      question: "Hvad fokuserer Sprint Retrospective primært på?",
+      options: [
+        "Produktets funktioner",
+        "Teamets samarbejde, proces og forbedringsmuligheder",
+        "Budgettet",
+        "Kundens kontrakt",
+      ],
+      correctIndex: 1,
+      explanation:
+        "Retrospective handler om løbende forbedring af måde at arbejde på (proces og samarbejde).",
+    },
+    {
+      question: "Hvad betyder det, at et Scrum-team er tværfagligt?",
+      options: [
+        "At teamet har én ekspert inden for hvert område i organisationen",
+        "At teamet har alle nødvendige kompetencer til selv at levere et færdigt produktinkrement",
+        "At teamet består af folk fra forskellige lande",
+        "At teamet roterer mellem projekter hver uge",
+      ],
+      correctIndex: 1,
+      explanation:
+        "Tværfaglig betyder, at teamet samlet set kan løse alle opgaver uden at være afhængig af andre teams i det daglige.",
+    },
+    {
+      question: "Hvad er en user story typisk bygget op om?",
+      options: [
+        "Som [designer] vil jeg [lave wireframes] så [jeg kan style dem]",
+        "Som [brugerrolle] vil jeg [mål/handling] så [værdi/begrundelse]",
+        "Som [kunde] vil jeg [have en kontrakt] så [projektet kan startes]",
+        "Som [udvikler] vil jeg [skrive kode] så [jeg kan deploye]",
+      ],
+      correctIndex: 1,
+      explanation:
+        "Den klassiske form: Som [rolle] vil jeg [noget] så [værdi].",
+    },
+    {
+      question:
+        "Hvorfor arbejder man med korte sprint i stedet for én stor lang plan?",
+      options: [
+        "For at kunne fakturere oftere",
+        "For at få mere kontrol over medarbejderne",
+        "For at kunne lære undervejs og tilpasse kursen baseret på feedback",
+        "For at kunne ignorere ændringer i krav",
+      ],
+      correctIndex: 2,
+      explanation:
+        "Korte sprint gør det muligt at eksperimentere, lære og ændre retning uden at spilde meget arbejde.",
+    },
+    {
+      question: 'Hvad er en "Definition of Done" (DoD)?',
+      options: [
+        "En liste over alle opgaver i sprintet",
+        "En fælles aftale om, hvornår en opgave/inkrement er færdig og i den rette kvalitet",
+        "En beskrivelse af kundens kontrakt",
+        "En plan for ferie og fridage",
+      ],
+      correctIndex: 1,
+      explanation:
+        "DoD sikrer fælles forståelse for kvalitet og færdiggørelse.",
+    },
+    {
+      question: "Hvorfor er transparens vigtigt i Scrum?",
+      options: [
+        "Så lederen kan kontrollere teamet",
+        "Så alle kan se status og problemer tidligt og handle på dem",
+        "Så kunden ikke stiller spørgsmål",
+        "Transparens er ikke vigtigt i Scrum",
+      ],
+      correctIndex: 1,
+      explanation:
+        "Transparens er en forudsætning for inspektion og tilpasning – de tre søjler i empirisk proceskontrol.",
+    },
+    {
+      question: "Hvad er et storyboard i videoproduktion?",
+      options: [
+        "En liste over alle filer på harddisken",
+        "En plan for budget og tidsforbrug",
+        "En række tegninger/billeder der viser de vigtigste scener og kameravinkler",
+        "En effekt i Premiere Pro",
+      ],
+      correctIndex: 2,
+      explanation:
+        "Storyboardet visualiserer historien scene for scene, før optagelse og klipning.",
+    },
+    {
+      question: "Hvad betyder B-roll i videoproduktion?",
+      options: [
+        "Baggrundsmusik",
+        "Klip af ekstra materiale, der understøtter hovedhistorien",
+        "Fejlklip der skal slettes",
+        "En bestemt overgangseffekt",
+      ],
+      correctIndex: 1,
+      explanation:
+        "B-roll er supplerende optagelser, der fx viser stemning, detaljer eller miljø.",
+    },
+    {
+      question: "Hvad er white balance på et kamera?",
+      options: [
+        "Indstilling af fokus",
+        "Indstilling af lydniveau",
+        "Indstilling der korrigerer farver, så hvidt ser hvidt ud under forskelligt lys",
+        "Indstilling af billedstørrelse",
+      ],
+      correctIndex: 2,
+      explanation:
+        "Korrekt hvidbalance sikrer naturlige farver under fx dagslys, kunstlys eller blandet lys.",
+    },
+    {
+      question:
+        "Hvad betyder det, når en video optages i 25 fps (frames per second)?",
+      options: [
+        "Kameraet tager 25 stillbilleder i sekundet",
+        "Videoen varer 25 sekunder",
+        "Videoen fylder 25 MB",
+        "Der er 25 klip i videoen",
+      ],
+      correctIndex: 0,
+      explanation:
+        "fps angiver hvor mange enkeltbilleder pr. sekund videoen består af.",
+    },
+    {
+      question: "Hvorfor er stabilisering vigtig i videooptagelse?",
+      options: [
+        "For at gøre filen mindre",
+        "For at undgå rystede optagelser, der virker uprofessionelle og ubehagelige at se",
+        "For at ændre billedformatet",
+        "For at slå lyden fra",
+      ],
+      correctIndex: 1,
+      explanation:
+        "Stabile optagelser gør videoen mere behagelig og professionel.",
+    },
+    {
+      question: "Hvad er en establishing shot?",
+      options: [
+        "Et meget tæt close-up af en genstand",
+        "Et klip uden lyd",
+        "Et bredt skud, der etablerer stedet og konteksten for scenen",
+        "En hurtig montage af flere klip",
+      ],
+      correctIndex: 2,
+      explanation:
+        "Establishing shots viser ofte bygningen, rummet eller miljøet, før vi går tættere på handlingen.",
+    },
+    {
+      question: 'Hvad betyder begrebet "rule of thirds" i billedkomposition?',
+      options: [
+        "At billedet deles i tre lag i dybden",
+        "At man altid skal have tre personer i billedet",
+        "At man deler billedet i 3x3 felter og placerer vigtige elementer langs linjerne eller i krydspunkterne",
+        "At man kun må bruge tre farver",
+      ],
+      correctIndex: 2,
+      explanation:
+        "Rule of thirds hjælper med at placere motiver mere interessant end lige midt i billedet.",
+    },
+    {
+      question:
+        "Hvad er fordelen ved at optage i høj opløsning (fx 4K), selvom slutproduktet måske bliver 1080p?",
+      options: [
+        "Der er ingen fordele",
+        "Det gør filen mindre",
+        "Man får flere muligheder for at beskære og stabilisere i redigeringen uden kvalitetstab",
+        "Lyden bliver bedre",
+      ],
+      correctIndex: 2,
+      explanation:
+        "4K giver større fleksibilitet i post-produktion (beskæring, zoom, stabilisering).",
+    },
+    {
+      question: "Hvad er en crossfade i lydredigering?",
+      options: [
+        "En effekt der fjerner støj",
+        "En overgang hvor én lyd fader ud, mens en anden fader ind",
+        "En måde at komprimere lydfiler",
+        "En type equalizer",
+      ],
+      correctIndex: 1,
+      explanation: "Crossfade giver glatte overgange mellem to lydkilder.",
+    },
+    {
+      question:
+        "Hvad bør du især være opmærksom på, når du optager interview-lyd?",
+      options: [
+        "At zoome langt ind",
+        "At have meget baggrundsstøj for stemning",
+        "At mikrofonen er tæt på munden og at lydniveauet ikke klipper",
+        "At optage i slowmotion",
+      ],
+      correctIndex: 2,
+      explanation:
+        "God interview-lyd kræver tæt mikrofon, rent signal og lav baggrundsstøj.",
+    },
+    {
+      question:
+        "Hvad er white balance og exposure et eksempel på i kameraindstillinger?",
+      options: [
+        "Lydkontrol",
+        "Farvekorrektion i postproduktion",
+        "Grundlæggende billedindstillinger, der bør tjekkes før optagelse",
+        "Effekter i Premiere Pro",
+      ],
+      correctIndex: 2,
+      explanation:
+        "White balance og exposure er basisindstillinger for et korrekt billede.",
+    },
+    {
+      question:
+        "Hvorfor er det en god idé at planlægge optagelser med et simpelt manus eller outline?",
+      options: [
+        "For at undgå at improvisere for meget og misse vigtige klip",
+        "For at gøre filerne større",
+        "For at kunne optage hurtigere uden at tænke",
+        "Det er kun nødvendigt i spillefilm",
+      ],
+      correctIndex: 0,
+      explanation:
+        "Et simpelt manus/outline sikrer, at du får alle nødvendige optagelser til historien.",
+    },
+    {
+      question:
+        "Hvad er formålet med at arbejde iterativt på et video- eller projektforløb?",
+      options: [
+        "At gøre planlægningen mere uforudsigelig",
+        "At kunne forbedre produktet lidt efter lidt baseret på feedback og test",
+        "At undgå feedback fra andre",
+        "At færdiggøre alt i én omgang",
+      ],
+      correctIndex: 1,
+      explanation:
+        "Iterationer gør det muligt at lære undervejs og hæve kvaliteten trin for trin.",
+    },
+    {
+      question: "Hvad er en burndown chart i Scrum-kontekst?",
+      options: [
+        "En graf over projektets økonomi",
+        "Et værktøj til at vise hvor meget arbejde der er tilbage i sprintet over tid",
+        "En linje der viser antallet af fejl",
+        "En kontrakt mellem kunde og leverandør",
+      ],
+      correctIndex: 1,
+      explanation:
+        "Burndown viser resterende arbejde pr. dag og kan give overblik over fremdrift.",
+    },
+    {
+      question:
+        "Hvad er en fordel ved at bruge Kanban- eller Scrum-tavler (fx To Do / Doing / Done)?",
+      options: [
+        "De gør projektet mere hemmeligt",
+        "De viser visuelt status på opgaver, så alle kan følge med",
+        "De erstatter al dokumentation",
+        "De bruges kun i store virksomheder",
+      ],
+      correctIndex: 1,
+      explanation:
+        "Tavler skaber transparens og fælles overblik over arbejdet.",
+    },
+  ]}
+/>

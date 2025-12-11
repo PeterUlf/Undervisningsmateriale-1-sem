@@ -1,0 +1,344 @@
+---
+// Genbrugelig multiple choice-quizkomponent
+
+type Question = {
+  question: string;
+  options: string[];
+  correctIndex: number;
+  explanation?: string;
+};
+
+type Props = {
+  title?: string;
+  questions: Question[];
+};
+
+const { title, questions } = Astro.props as Props;
+const visibleQuestions = questions.slice(0, 20);
+---
+
+<section class="quiz">
+  <div class="quiz-timer-bar">
+    <div class="quiz-timer-inner">
+      {title && <h2 class="quiz-title">{title}</h2>}
+      <div class="quiz-timer-display" data-total-seconds="1200">
+        Tid tilbage: <span class="quiz-time">20:00</span>
+      </div>
+    </div>
+  </div>
+  {visibleQuestions?.map((q, index) => (
+    <article class="quiz-question" data-index={index}>
+      <p class="quiz-question-text">
+        {index + 1}. {q.question}
+      </p>
+      <ul class="quiz-options">
+        {q.options.map((opt, optIndex) => (
+          <li>
+            <label>
+              <input
+                type="radio"
+                name={`quiz-q-${index}`}
+                value={optIndex}
+              />
+              <span>{opt}</span>
+            </label>
+          </li>
+        ))}
+      </ul>
+      <p
+        class="quiz-feedback"
+        data-correct={q.correctIndex}
+        data-explanation={q.explanation || ""}
+        hidden
+      ></p>
+    </article>
+  ))}
+
+  <div class="quiz-submit-wrapper">
+    <button type="button" class="quiz-submit-btn">
+      Aflever test
+    </button>
+    <p class="quiz-result" hidden></p>
+  </div>
+</section>
+
+<style>
+  .quiz {
+    margin: 2rem 0;
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+    border: 1px solid var(--sl-color-gray-5);
+    background: var(--sl-color-bg-nav);
+  }
+
+  .quiz-timer-bar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    padding-bottom: 0.75rem;
+    margin-bottom: 1.25rem;
+    background: linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--sl-color-bg-nav) 90%, transparent),
+      transparent
+    );
+  }
+
+  .quiz-timer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .quiz-title {
+    margin: 0;
+  }
+
+  .quiz-timer-display {
+    font-size: 0.9rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    border: 1px solid var(--sl-color-accent);
+    background: color-mix(in srgb, var(--sl-color-accent-low) 40%, transparent);
+  }
+
+  .quiz-question {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--sl-color-gray-6);
+  }
+
+  .quiz-question:last-of-type {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .quiz-options {
+    list-style: none;
+    padding-left: 0;
+    margin: 0 0 0.75rem 0;
+  }
+
+  .quiz-options li {
+    margin-bottom: 0.25rem;
+  }
+
+  .quiz-options label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+  }
+
+  .quiz-submit-wrapper {
+    margin-top: 1.5rem;
+    border-top: 1px solid var(--sl-color-gray-6);
+    padding-top: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .quiz-submit-btn {
+    padding: 0.5rem 1.25rem;
+    font-size: 0.95rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--sl-color-accent);
+    background: var(--sl-color-accent-low);
+    color: var(--sl-color-white);
+    cursor: pointer;
+    font-weight: 600;
+  }
+
+  .quiz-submit-btn:hover:not(:disabled) {
+    background: var(--sl-color-accent);
+  }
+
+  .quiz-submit-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  .quiz-feedback {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  .quiz-feedback.correct {
+    color: var(--sl-color-green);
+  }
+
+  .quiz-feedback.incorrect {
+    color: var(--sl-color-red);
+  }
+
+  .quiz-result {
+    font-size: 0.95rem;
+  }
+</style>
+
+<script>
+  // @ts-nocheck
+  function initQuiz(root) {
+    const questions = root.querySelectorAll('.quiz-question');
+    const submitBtn = root.querySelector('.quiz-submit-btn');
+    const resultEl = root.querySelector('.quiz-result');
+    const timerDisplay = root.querySelector('.quiz-time');
+    const timerContainer = root.querySelector('.quiz-timer-display');
+
+    const totalSeconds = parseInt(
+      timerContainer?.dataset.totalSeconds ?? '1200',
+      10
+    );
+    let remaining = totalSeconds;
+    let finished = false;
+    let timerStarted = false;
+    let intervalId = null;
+
+    function formatTime(sec) {
+      const m = Math.floor(sec / 60)
+        .toString()
+        .padStart(2, '0');
+      const s = (sec % 60).toString().padStart(2, '0');
+      return `${m}:${s}`;
+    }
+
+    if (timerDisplay) {
+      timerDisplay.textContent = formatTime(remaining);
+    }
+
+    function startTimer() {
+      if (timerStarted || !timerDisplay) return;
+      timerStarted = true;
+      intervalId = setInterval(() => {
+        if (finished) {
+          clearInterval(intervalId);
+          return;
+        }
+        remaining -= 1;
+        if (remaining <= 0) {
+          remaining = 0;
+          timerDisplay.textContent = formatTime(remaining);
+          clearInterval(intervalId);
+          autoSubmit();
+          return;
+        }
+        timerDisplay.textContent = formatTime(remaining);
+      }, 1000);
+    }
+
+    function autoSubmit() {
+      if (finished) return;
+      finished = true;
+      if (submitBtn) submitBtn.disabled = true;
+      gradeQuiz(true);
+    }
+
+    function gradeFromPercent(percent) {
+      if (percent >= 92) return '12';
+      if (percent >= 80) return '10';
+      if (percent >= 65) return '7';
+      if (percent >= 55) return '4';
+      if (percent >= 50) return '02';
+      if (percent >= 40) return '00';
+      return '-3';
+    }
+
+    function gradeQuiz(fromTimeout = false) {
+      let correctCount = 0;
+      let answeredCount = 0;
+
+      questions.forEach((qEl) => {
+        const feedback = qEl.querySelector('.quiz-feedback');
+        const correctIndex = parseInt(
+          feedback.dataset.correct ?? '-1',
+          10
+        );
+        const selected = qEl.querySelector(
+          'input[type="radio"]:checked'
+        );
+
+        if (!selected) {
+          feedback.hidden = false;
+          feedback.textContent = 'Intet svar valgt.';
+          feedback.classList.remove('correct');
+          feedback.classList.add('incorrect');
+          return;
+        }
+
+        answeredCount += 1;
+        const value = parseInt(selected.value, 10);
+        const explanation = feedback.dataset.explanation || '';
+
+        feedback.hidden = false;
+        if (value === correctIndex) {
+          correctCount += 1;
+          feedback.textContent = explanation
+            ? `Korrekt! ${explanation}`
+            : 'Korrekt!';
+          feedback.classList.add('correct');
+          feedback.classList.remove('incorrect');
+        } else {
+          feedback.textContent = explanation
+            ? `Ikke helt. ${explanation}`
+            : 'Ikke helt.';
+          feedback.classList.add('incorrect');
+          feedback.classList.remove('correct');
+        }
+
+        // Lås svar efter aflevering
+        qEl
+          .querySelectorAll('input[type="radio"]')
+          .forEach((input) => (input.disabled = true));
+      });
+
+      if (resultEl) {
+        resultEl.hidden = false;
+        const total = questions.length;
+        const percent = total > 0 ? Math.round((correctCount / total) * 100) : 0;
+        const grade = gradeFromPercent(percent);
+        let text = `Du fik ${correctCount} ud af ${total} rigtige (${percent}%). Karakter: ${grade}.`;
+        if (fromTimeout) {
+          text += ' Tiden er gået.';
+        }
+        resultEl.textContent = text;
+      }
+    }
+
+    // Start timer on first answer selection
+    root
+      .querySelectorAll('input[type="radio"]')
+      .forEach((input) => {
+        input.addEventListener('change', () => {
+          startTimer();
+        });
+      });
+
+    submitBtn?.addEventListener('click', () => {
+      if (finished) return;
+      finished = true;
+      submitBtn.disabled = true;
+      gradeQuiz(false);
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      document
+        .querySelectorAll('.quiz')
+        .forEach((el) => initQuiz(el));
+    });
+  } else {
+    document
+      .querySelectorAll('.quiz')
+      .forEach((el) => initQuiz(el));
+  }
+
+  document.addEventListener('astro:page-load', () => {
+    document
+      .querySelectorAll('.quiz')
+      .forEach((el) => initQuiz(el));
+  });
+</script>
