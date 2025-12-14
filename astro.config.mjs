@@ -24,6 +24,48 @@ export default defineConfig({
       ],
       sidebar: [
         {
+          label: "Test",
+          collapsed: true,
+          items: [
+            {
+              label: "5 sek test",
+              slug: "test/5-sek-test",
+              badge: {
+                text: "Tema 5",
+                variant: "tip",
+                class: "badge-theme-5",
+              },
+            },
+            {
+              label: "Heuristisk test",
+              slug: "test/heuristisk-test",
+              badge: {
+                text: "Tema 5",
+                variant: "tip",
+                class: "badge-theme-5",
+              },
+            },
+            {
+              label: "Likert test",
+              slug: "test/likert-test",
+              badge: {
+                text: "Tema 5",
+                variant: "tip",
+                class: "badge-theme-5",
+              },
+            },
+            {
+              label: "Lighthouse test",
+              slug: "test/lighthouse-test",
+              badge: {
+                text: "Tema 5",
+                variant: "tip",
+                class: "badge-theme-5",
+              },
+            },
+          ],
+        },
+        {
           label: "Web Development",
           collapsed: true,
           items: [

@@ -4,8 +4,8 @@ description: Lær at planlægge, udvikle materiale til og bygge moderne websider
 template: splash
 hero:
   tagline: Underviser i<br> HTML // CSS // JavaScript  <br>Git // GitHub // Scrum<br> Premiere pro // Photoshop
-  image:
-    file: https://media.licdn.com/dms/image/v2/D4E03AQE6i_BQJklp_w/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1677578708601?e=1765411200&v=beta&t=Ue26tM3WEYsvWM1fKDct3R2yAFyd1d5l7Gc_gQKG2-0
+  # image:
+  #   file:
   actions:
     - text: Undervisningsmaterialerne
       link: /guides/kom-i-gang/
@@ -15,7 +15,6 @@ hero:
 import Slide from "../../components/Slide.astro";
 import PresentationMode from "../../components/PresentationMode.astro";
 import HeroFigureCaption from "../../components/HeroFigureCaption.astro";
-
 import { Card, CardGrid } from "@astrojs/starlight/components";
 
 <HeroFigureCaption />
@@ -53,13 +52,7 @@ import { Card, CardGrid } from "@astrojs/starlight/components";
     style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem;"
   >
     <div>
-    <img
-  src="https://media.licdn.com/dms/image/v2/D4E03AQE6i_BQJklp_w/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1677578708601?e=1765411200&v=beta&t=Ue26tM3WEYsvWM1fKDct3R2yAFyd1d5l7Gc_gQKG2-0"
-  alt="Peter Ulf Jørgensen"
-  style="width: 140px; height: 140px; border-radius: 50%; object-fit: cover; box-shadow: 0 4px 14px rgba(0,0,0,0.15); flex-shrink: 0;"
-/>
-   
-      
+      <img src="/billeder/peter_ulf.jpeg"alt="Peter Ulf" style="max-width: 180px; border-radius: 90px; margin-bottom: 1rem;" />
       <h3 style="margin-top: 0.5rem;">Pædagogisk profil</h3>
       <p>
         <em>
