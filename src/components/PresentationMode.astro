@@ -186,6 +186,18 @@ const { buttonText = "📺 Slideshow" } = Astro.props;
       
       // Intercept link clicks i præsentationstilstand
       document.addEventListener('click', (e) => this.handleLinkClick(e));
+      
+      // Auto-open hvis hash er #presentation-trigger
+      if (window.location.hash === '#presentation-trigger') {
+        setTimeout(() => this.start(), 100);
+      }
+      
+      // Lyt til hash changes også fra hero button
+      window.addEventListener('hashchange', () => {
+        if (window.location.hash === '#presentation-trigger') {
+          setTimeout(() => this.start(), 100);
+        }
+      });
     }
     
     handleLinkClick(e) {

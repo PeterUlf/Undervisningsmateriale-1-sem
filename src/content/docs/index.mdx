@@ -10,6 +10,9 @@ hero:
     - text: Undervisningsmaterialerne
       link: /guides/kom-i-gang/?tema=2
       icon: right-arrow
+    - text: Om underviseren
+      link: "#presentation-trigger"
+      icon: right-arrow
 ---
 
 import Slide from "../../components/Slide.astro";
@@ -19,7 +22,9 @@ import { Card, CardGrid } from "@astrojs/starlight/components";
 
 <HeroFigureCaption />
 
-<PresentationMode buttonText="Om underviseren" />
+<div id="presentation-trigger" style="scroll-margin-top: 2rem;">
+  <PresentationMode buttonText="Om underviseren" />
+</div>
 
 <Slide>
 

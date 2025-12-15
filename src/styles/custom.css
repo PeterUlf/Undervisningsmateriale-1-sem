@@ -3,6 +3,14 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Gør hero sektionen 100vh høj så side 1 ligger under folden */
+.hero {
+  min-height: 100vh !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 /* Gør hero-knappen visuelt magen til præsentationsknappen */
 .hero .sl-link-button.not-content.primary {
   display: inline-flex;
