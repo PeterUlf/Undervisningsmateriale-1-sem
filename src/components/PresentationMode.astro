@@ -179,6 +179,28 @@
       if (this.nextBtn) this.nextBtn.addEventListener('click', () => this.next());
 
       document.addEventListener('keydown', (e) => this.handleKey(e));
+      
+      // Lyt til hash ændringer for at opdatere slide
+      window.addEventListener('hashchange', () => this.handleHashChange());
+      
+      // Intercept link clicks i præsentationstilstand
+      document.addEventListener('click', (e) => this.handleLinkClick(e));
+    }
+    
+    handleLinkClick(e) {
+      if (!this.dialog.open) return;
+      
+      const target = e.target.closest('a');
+      if (!target || !target.hash) return;
+      
+      // Check if it's a slide link
+      if (target.hash.startsWith('#slide-')) {
+        e.preventDefault();
+        const slideNum = parseInt(target.hash.replace('#slide-', ''));
+        if (!isNaN(slideNum) && slideNum > 0 && slideNum <= this.slides.length) {
+          this.showSlide(slideNum - 1);
+        }
+      }
     }
 
     start() {
@@ -192,11 +214,27 @@
 
       this.generateSlides(content);
       this.dialog.showModal();
+      
+      // Når brugeren klikker på "Start Præsentation", start altid på første slide
       this.showSlide(0);
+    }
+    
+    handleHashChange() {
+      if (!this.dialog.open) return;
+      
+      const hash = window.location.hash;
+      if (hash && hash.startsWith('#slide-')) {
+        const slideNum = parseInt(hash.replace('#slide-', ''));
+        if (!isNaN(slideNum) && slideNum > 0 && slideNum <= this.slides.length) {
+          this.showSlide(slideNum - 1);
+        }
+      }
     }
 
     close() {
       this.dialog.close();
+      // Fjern hash når præsentation lukkes
+      history.replaceState(null, '', window.location.pathname);
     }
 
     generateSlides(content) {
@@ -312,6 +350,12 @@
       
       this.currentIndex = index;
       this.updateControls();
+      
+      // Opdater URL hash uden at trigge hashchange event
+      const newHash = `#slide-${index + 1}`;
+      if (window.location.hash !== newHash) {
+        history.replaceState(null, '', newHash);
+      }
     }
 
     updateControls() {

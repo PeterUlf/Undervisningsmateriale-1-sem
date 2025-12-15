@@ -4,9 +4,9 @@ description: Få browsere til at opføre sig ens med et simpelt CSS reset
 sidebar:
   order: 1
   badge:
-    text: Tema 1
+    text: Tema 2
     variant: tip
-    class: badge-theme-1
+    class: badge-theme-2
 ---
 
 ## Hvorfor CSS Reset?

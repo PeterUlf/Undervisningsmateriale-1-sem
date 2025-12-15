@@ -1,8 +1,8 @@
 ---
 title: Tema 2 – Multiple Choice
-description: Test din viden om Git og versionsstyring.
+description: Test din viden om grundlæggende webudvikling (HTML, CSS og lidt JavaScript).
 sidebar:
-  order: 2
+  order: 1
   badge:
     text: Tema 2
     variant: tip
@@ -12,394 +12,363 @@ sidebar:
 import Quiz from "../../../components/Quiz.astro";
 
 <Quiz
-  title="Tema 2 – Git og versionsstyring"
+  title="Tema 2 – Grundlæggende webudvikling"
   questions={[
     {
-      question: "Hvad er hovedformålet med Git i et projekt?",
+      question: "Hvad er formålet med HTML i en webside?",
       options: [
-        "At designe brugergrænseflader",
-        "At versionere kode og holde styr på ændringer over tid",
-        "At komprimere billeder til web",
-        "At hoste databaser i skyen",
+        "At styre sidens layout og farver",
+        "At beskrive sidens indhold og struktur",
+        "At håndtere brugerens input og data",
+        "At optimere siden til søgemaskiner",
       ],
       correctIndex: 1,
       explanation:
-        "Git er et versionsstyringssystem, der gemmer historik og gør det muligt at samarbejde om kode.",
-    },
-    {
-      question: "Hvad er et repository (repo) i Git?",
-      options: [
-        "En ekstern harddisk",
-        "En mappe med projektfiler og hele historikken for ændringer",
-        "En backup i skyen, som ikke kan ændres",
-        "En liste over opgaver i et projekt",
-      ],
-      correctIndex: 1,
-      explanation:
-        "Et repository indeholder både filerne og metadata om alle commits, branches mv.",
-    },
-    {
-      question: "Hvad gør kommandoen `git status`?",
-      options: [
-        "Viser systeminformationen for din computer",
-        "Viser forskellen mellem to commits",
-        "Viser hvilke filer der er ændret, staged eller untracked",
-        "Sletter midlertidige filer",
-      ],
-      correctIndex: 2,
-      explanation:
-        "`git status` giver et overblik over ændringer i arbejdsområdet og staging area.",
+        "HTML er et struktursprog, der beskriver indhold (overskrifter, afsnit, lister, links osv.).",
     },
     {
       question:
-        "Hvad er forskellen på working directory og staging area i Git?",
-      options: [
-        "Working directory er kun på serveren, staging area er lokalt",
-        "Working directory er dine aktuelle filer, staging area er de ændringer der er klar til commit",
-        "Staging area er en backup i skyen, working directory er en kopi",
-        "Der er ingen forskel, det er to navne for det samme",
-      ],
+        "Hvilket HTML-element bruges til den vigtigste overskrift på en side?",
+      options: ["<title>", "<h1>", "<header>", "<main>"],
       correctIndex: 1,
       explanation:
-        "Working directory er dine nuværende filer, staging area er en kurv med de ændringer, du vil have med i næste commit.",
+        "<h1> er den primære overskrift i dokumentet. Der bør kun være én <h1> pr. side.",
     },
     {
-      question: "Hvad gør kommandoen `git add`?",
+      question: "Hvad står CSS for?",
       options: [
-        "Laver et nyt repository",
-        "Fjerner filer fra projektet",
-        "Tilføjer ændringer til staging area",
-        "Uploader koden til GitHub automatisk",
+        "Computer Styled Sections",
+        "Coded Style Sheets",
+        "Cascading Style Sheets",
+        "Creative Style System",
       ],
       correctIndex: 2,
       explanation:
-        "`git add` markerer ændringer, så de kommer med i næste commit.",
+        "CSS står for Cascading Style Sheets og bruges til at styre udseendet på HTML.",
     },
     {
-      question: 'Hvad gør kommandoen `git commit -m "besked"`?',
+      question: "Hvilken CSS-egenskab bruges til at ændre tekstfarven?",
+      options: ["background-color", "font-style", "color", "text-align"],
+      correctIndex: 2,
+      explanation: "Egenskaben color styrer tekstfarven.",
+    },
+    {
+      question: "Hvad gør HTML-elementet <a>?",
       options: [
-        "Uploader koden til internettet",
-        "Gemmer en version (snapshot) af de staged ændringer med en besked",
-        "Genskaber en tidligere version af projektet",
-        "Installerer nye afhængigheder",
+        "Indsætter et billede",
+        "Opretter et link",
+        "Markerer vigtig tekst",
+        "Tilføjer en liste",
       ],
       correctIndex: 1,
       explanation:
-        "Et commit er et snapshot af de ændringer, der er i staging area, sammen med en bekrivende besked.",
+        "<a>-elementet bruges til hyperlinks – både internt på siden og til andre sider.",
     },
     {
-      question: "Hvad er en god commit-besked?",
+      question:
+        "Hvilket attribut bruges på <img> for at beskrive billedet for skærmlæsere?",
+      options: ["title", "src", "alt", "aria-label"],
+      correctIndex: 2,
+      explanation:
+        "alt-teksten beskriver billedet og er vigtig for tilgængelighed.",
+    },
+    {
+      question: "Hvad er den korrekte rækkefølge i et typisk webprojekt?",
       options: [
-        '"Fix"',
-        '"asdfasdf"',
-        "Kort og præcis beskrivelse af hvad der er ændret",
-        "En lang roman om hele projektet",
+        "CSS først, derefter HTML og til sidst JavaScript",
+        "JavaScript, CSS og derefter HTML",
+        "HTML som struktur, CSS til stil og JavaScript til interaktivitet",
+        "Rækkefølgen er ligegyldig",
       ],
       correctIndex: 2,
       explanation:
-        "Commit-beskeder skal være korte og meningsfulde, så historikken er let at læse.",
+        "Man starter normalt med HTML-struktur, derefter CSS-styling og til sidst JavaScript interaktivitet.",
     },
     {
-      question: "Hvad er en branch i Git?",
+      question:
+        "Hvilket HTML-element bruges til en punktopstilling (bulleted list)?",
+      options: ["<ul>", "<ol>", "<li>", "<dl>"],
+      correctIndex: 0,
+      explanation:
+        "<ul> er en unordered list (punktopstilling), mens <ol> er nummereret liste.",
+    },
+    {
+      question: "Hvor placeres CSS typisk i et HTML-dokument?",
       options: [
-        "En kopi af projektet til at eksperimentere uden at ødelægge main",
-        "En mappe til billeder",
-        "En ekstern server",
-        "En logfil over fejl",
+        "I <head> via <link> eller <style>",
+        "Altid nederst i <body>",
+        "Som kommentarer i HTML-koden",
+        "CSS skal ligge i samme fil som JavaScript",
       ],
       correctIndex: 0,
       explanation:
-        "En branch lader dig udvikle nye features eller teste ideer uden at påvirke hovedbranchen.",
+        "CSS refereres oftest fra <head> via en ekstern .css-fil eller et <style>-tag.",
     },
     {
-      question: "Hvad kaldes typisk hoved-branch i et Git-repository?",
-      options: ["dev", "main eller master", "feature", "prod"],
-      correctIndex: 1,
-      explanation:
-        "Mange projekter bruger `main` (eller ældre: `master`) som hoved-branch.",
+      question: "Hvilken filtype bruges typisk til CSS-stylesheets?",
+      options: [".html", ".js", ".css", ".json"],
+      correctIndex: 2,
+      explanation: "CSS-lagres i filer med endelsen .css.",
     },
     {
-      question: "Hvad gør kommandoen `git log`?",
+      question: "Hvad gør CSS-egenskaben margin?",
       options: [
-        "Viser alle branches",
-        "Viser historik over commits",
-        "Viser kun filer der er slettet",
-        "Viser ændringer i staging area",
+        "Styrer afstanden inde i elementet",
+        "Styrer afstanden uden om elementet",
+        "Styrer tekstens højde",
+        "Styrer elementets baggrundsfarve",
       ],
       correctIndex: 1,
       explanation:
-        "`git log` lister commits med beskeder, datoer og forfatter.",
+        "margin er afstand UDEN om elementet, mens padding er INDEN i elementet.",
+    },
+    {
+      question: "Hvad gør CSS-egenskaben padding?",
+      options: [
+        "Styrer tykkelsen på en border",
+        "Tilføjer skygge til et element",
+        "Styrer afstand mellem elementer",
+        "Styrer afstand mellem indhold og kant (border)",
+      ],
+      correctIndex: 3,
+      explanation: "padding er afstanden mellem indholdet og elementets kant.",
+    },
+    {
+      question: "Hvad er et responsivt layout?",
+      options: [
+        "Et layout der kun virker på mobil",
+        "Et layout der tilpasser sig forskellige skærmstørrelser",
+        "Et layout uden billeder",
+        "Et layout der loader hurtigt",
+      ],
+      correctIndex: 1,
+      explanation:
+        "Responsivt design tilpasser sig skærmstørrelser ved hjælp af fx flexbox, grid og media queries.",
+    },
+    {
+      question: "Hvad bruges meta viewport-tagget typisk til?",
+      options: [
+        "At definere sidens titel",
+        "At gøre siden responsiv på mobile enheder",
+        "At tilføje et favicon",
+        "At styre skrifttyper",
+      ],
+      correctIndex: 1,
+      explanation:
+        "Viewport-tagget hjælper browseren på mobil med at skalere siden korrekt.",
     },
     {
       question:
-        "Hvad er forskellen på et lokalt repo og et remote (fx GitHub)?",
+        "Hvad er den korrekte måde at referere til et eksternt CSS-stylesheet i HTML?",
       options: [
+        '<style src="styles.css"></style>',
+        '<css href="styles.css"></css>',
+        '<link rel="stylesheet" href="styles.css" />',
+        '<script src="styles.css"></script>',
+      ],
+      correctIndex: 2,
+      explanation: 'Man bruger <link rel="stylesheet" href="..." /> i <head>.',
+    },
+    {
+      question: "Hvad gør HTML-elementet <strong>?",
+      options: [
+        "Gør teksten kursiv",
+        "Markerer vigtig tekst (ofte vist som fed)",
+        "Tilføjer en overskrift",
+        "Markerer et citat",
+      ],
+      correctIndex: 1,
+      explanation:
+        "<strong> bruges til semantisk vigtig tekst og vises typisk som fed.",
+    },
+    {
+      question:
+        "Hvilken CSS-egenskab bruges til at centrere tekst horisontalt i et element?",
+      options: [
+        "align-items",
+        "justify-content",
+        "text-align",
+        "vertical-align",
+      ],
+      correctIndex: 2,
+      explanation: "text-align: center; centrerer tekst horisontalt.",
+    },
+    {
+      question: "Hvad bruges <header>-elementet typisk til?",
+      options: [
+        "Sidefod med kontaktinfo",
+        "Navigation, logo og topindhold",
+        "Hovedindholdet på siden",
+        "Sidebar med ekstra information",
+      ],
+      correctIndex: 1,
+      explanation:
+        "<header> indeholder typisk logo, navigation og evt. hero-indhold.",
+    },
+    {
+      question: "Hvad er forskellen på <section> og <div>?",
+      options: [
+        "<section> er semantisk, <div> er rent strukturelt",
+        "<div> kan ikke styles med CSS",
         "Der er ingen forskel",
-        "Det lokale repo ligger på din maskine, remote ligger på en server på nettet",
-        "Remote er kun til billeder, lokalt er kun til kode",
-        "Lokalt repo kræver internet, remote gør ikke",
-      ],
-      correctIndex: 1,
-      explanation:
-        "Lokalt arbejder du på din egen computer, remote bruges til backup og samarbejde.",
-    },
-    {
-      question: "Hvad gør kommandoen `git clone`?",
-      options: [
-        "Sletter et repository",
-        "Kopierer et eksternt repository ned på din maskine",
-        "Opdaterer din lokale branch",
-        "Laver et nyt commit",
-      ],
-      correctIndex: 1,
-      explanation:
-        "Med `git clone` henter du et remote repository ned som et nyt lokalt repo.",
-    },
-    {
-      question: "Hvad gør kommandoen `git pull`?",
-      options: [
-        "Uploader ændringer til remote",
-        "Henter og merger de nyeste ændringer fra remote til din aktuelle branch",
-        "Opretter en ny branch",
-        "Annullerer det sidste commit",
-      ],
-      correctIndex: 1,
-      explanation:
-        "`git pull` kombinerer `git fetch` og `git merge` og opdaterer din lokale branch.",
-    },
-    {
-      question: "Hvad gør kommandoen `git push`?",
-      options: [
-        "Sender dine lokale commits til remote repository",
-        "Henter ændringer fra remote",
-        "Sletter remote repository",
-        "Lukker Git-klienten",
+        "<section> må kun bruges én gang pr. side",
       ],
       correctIndex: 0,
       explanation:
-        "`git push` uploader dine commits til fx GitHub, så andre kan se dem.",
+        "<section> har semantisk betydning (en selvstændig sektion), mens <div> er generisk.",
     },
     {
-      question: "Hvad er et merge-konflikt?",
+      question: "Hvad bruges JavaScript primært til i en webside?",
       options: [
-        "Når to personer bruger samme computer",
-        "Når Git ikke ved, hvilke ændringer der skal beholdes, fordi samme linje er ændret forskelligt",
-        "Når internettet går ned",
-        "Når man ikke kan lave commit",
-      ],
-      correctIndex: 1,
-      explanation:
-        "En merge-konflikt opstår når forskellige ændringer rammer samme del af en fil. Det skal løses manuelt.",
-    },
-    {
-      question:
-        "Hvad er en god praksis for at undgå store og besværlige merge-konflikter?",
-      options: [
-        "Aldrig at committe",
-        "At arbejde alene på projektet",
-        "At lave små commits og merge/pull ofte",
-        "At ignorere konflikter og håbe de forsvinder",
+        "At definere sidens struktur",
+        "At beskrive sidens udseende",
+        "At tilføje interaktivitet og logik",
+        "At gemme siden som PDF",
       ],
       correctIndex: 2,
       explanation:
-        "Små, hyppige commits og løbende merge/pull gør konflikter nemmere at håndtere.",
+        "JavaScript bruges til interaktivitet, logik og dynamisk ændring af DOM'en.",
     },
     {
-      question: "Hvad bruges `.gitignore`-filen til?",
+      question: "Hvilken syntaks er korrekt for en simpel JavaScript-variabel?",
       options: [
-        "At gemme login-oplysninger",
-        "At angive filer og mapper, som Git skal ignorere",
-        "At konfigurere VS Code",
-        "At beskrive projektets licens",
-      ],
-      correctIndex: 1,
-      explanation:
-        "`.gitignore` sikrer at fx build-mapper, midlertidige filer og hemmelige nøgler ikke bliver committed.",
-    },
-    {
-      question:
-        "Hvilken filtype bør næsten altid være i `.gitignore` i et Node-projekt?",
-      options: [".html", "package.json", "node_modules/", "README.md"],
-      correctIndex: 2,
-      explanation:
-        "`node_modules` kan altid genskabes ud fra `package.json` og er ofte meget stor.",
-    },
-    {
-      question: "Hvad er en pull request (PR) på GitHub?",
-      options: [
-        "En anmodning om lønforhøjelse",
-        "En anmodning om at merge en branch ind i en anden, typisk efter code review",
-        "En backup af hele repoet",
-        "En automatisk opdatering af dependencies",
-      ],
-      correctIndex: 1,
-      explanation:
-        "En PR bruges til at gennemgå og diskutere ændringer, før de merges til fx main.",
-    },
-    {
-      question: "Hvorfor er code review via pull requests en god idé?",
-      options: [
-        "Det gør projektet langsommere med vilje",
-        "Det sikrer at kun læreren kan se koden",
-        "Det hjælper med at fange fejl, dele viden og sikre ensartet kvalitet",
-        "Det fjerner behovet for at teste",
+        "variable navn = 5",
+        "let 5 = tal;",
+        "let tal = 5;",
+        "var = 5;",
       ],
       correctIndex: 2,
-      explanation:
-        "Code review forbedrer kvaliteten, øger læring i teamet og opdager fejl tidligere.",
+      explanation: "En simpel moderne deklaration er: let tal = 5;",
     },
     {
       question:
-        "Hvad er en typisk workflow når man arbejder på en ny feature i et team?",
+        "Hvilken HTML-tag bruges til at inkludere JavaScript i en HTML-side?",
+      options: ["<js>", "<script>", "<code>", "<javascript>"],
+      correctIndex: 1,
+      explanation:
+        "<script>-tagget bruges til at inkludere JavaScript-kode eller referere til en .js-fil.",
+    },
+    {
+      question: 'Hvad betyder det, at HTML er "semantisk"?',
       options: [
-        "Commit direkte på main uden at tale med nogen",
-        "Opret en feature-branch, lav commits, push, åbn pull request, få review og merge",
-        "Sende filer via USB-stick",
-        "Slette repoet og starte forfra",
+        "At koden er kort",
+        "At elementerne har meningsfulde navne der beskriver indholdet",
+        "At siden loader hurtigt",
+        "At man bruger mange klasser",
       ],
       correctIndex: 1,
       explanation:
-        "Branches og pull requests giver en struktureret proces omkring nye features.",
+        "Semantisk HTML betyder, at man bruger elementer som <header>, <nav>, <main>, <article> osv. til at beskrive indholdet.",
     },
     {
-      question: 'Hvad betyder det at "forke" et repository på GitHub?',
+      question: "Hvad er en wireframe i webudvikling?",
       options: [
-        "At slette det",
-        "At lave en personlig kopi af et andet repository under din egen konto",
-        "At lave en backup på din harddisk",
-        "At lukke for adgang for andre",
+        "En færdigdesignet webside",
+        "En skitse over struktur og indhold på en side",
+        "En test af JavaScript-fejl",
+        "En CSS-fil med variabler",
       ],
       correctIndex: 1,
       explanation:
-        "En fork er din egen kopi af et projekt, så du kan eksperimentere eller bidrage med ændringer.",
+        "En wireframe er en enkel skitse over layout og indhold, før man designer og koder.",
     },
     {
-      question: "Hvad er forskellen på `git fetch` og `git pull`?",
+      question: "Hvad er formålet med at validere HTML-kode?",
       options: [
-        "`git pull` findes ikke",
-        "`git fetch` henter nye commits uden at merge, `git pull` henter og merger i én kommando",
-        "`git fetch` sletter commits, `git pull` genskaber dem",
-        "De gør præcis det samme",
+        "At gøre siden hurtigere",
+        "At sikre at koden følger standarder og er uden syntaksfejl",
+        "At lave SEO-optimering",
+        "At komprimere billeder",
       ],
       correctIndex: 1,
       explanation:
-        "`git fetch` er mere sikkert hvis du vil se ændringerne først, før du merger dem ind.",
+        "Validering hjælper med at finde fejl og sikre, at koden følger HTML-standarden.",
     },
     {
-      question:
-        "Hvorfor er det en dårlig idé at committe hemmelige nøgler (API keys, passwords)?",
+      question: 'Hvad betyder det, at CSS er "cascading"?',
       options: [
-        "Fordi Git ikke kan håndtere tekstfiler",
-        "Fordi de så bliver en del af historikken og kan lækkes, også selv om du sletter dem igen",
-        "Fordi repoet bliver for stort",
-        "Fordi VS Code ikke kan åbne dem",
+        "At CSS altid overskriver HTML",
+        "At styles kan arves og overskrive hinanden afhængigt af specifikhed og rækkefølge",
+        "At CSS kun virker i moderne browsere",
+        "At man altid skriver CSS ovenfra og ned",
       ],
       correctIndex: 1,
       explanation:
-        "Når noget først er committed, er det svært at fjerne fuldstændigt fra historikken. Brug miljøvariabler og `.gitignore` i stedet.",
+        "Cascading betyder, at den endelige stil afgøres af specifikhed, rækkefølge og arv.",
     },
     {
-      question: 'Hvad er en "commit diff"?',
+      question: "Hvad er en media query i CSS?",
       options: [
-        "En backup af et commit",
-        "En visning af forskellen mellem to versioner af filer",
-        "En liste over alle branches",
-        "En kopi af hele repoet",
-      ],
-      correctIndex: 1,
-      explanation:
-        "En diff viser linje for linje hvad der er tilføjet, ændret eller fjernet.",
-    },
-    {
-      question:
-        "Hvordan kan du bruge Git til at eksperimentere sikkert med en ny idé?",
-      options: [
-        "Redigere direkte på main og håbe det går",
-        "Lave en ny branch, eksperimentere der og kun merge hvis det virker",
-        "Slette gamle commits",
-        "Deaktivere Git midlertidigt",
-      ],
-      correctIndex: 1,
-      explanation:
-        "Branches er netop til at afprøve ting uden at ødelægge den stabile version på main.",
-    },
-    {
-      question:
-        "Hvad er en fordel ved at arbejde med små opgaver (issues) koblet til commits?",
-      options: [
-        "Det fylder mere i repoet",
-        "Det bliver sværere at se sammenhængen",
-        "Det gør det nemmere at spore hvorfor en ændring er lavet, og hvad den hører til",
-        "Det gør Git langsommere",
+        "En måde at spørge brugeren om input",
+        "En forespørgsel til databasen",
+        "En regel der ændrer styling baseret på fx skærmbredde",
+        "En måde at hente eksterne skrifttyper",
       ],
       correctIndex: 2,
       explanation:
-        "Når commits refererer til konkrete issues, kan man nemt se konteksten bag ændringerne.",
+        "Media queries bruges til at gøre designet responsivt på forskellige skærmstørrelser.",
     },
     {
-      question:
-        'Hvad betyder det at repoet er "clean" når du kører `git status`?',
+      question: "Hvad betyder mobile-first i CSS-arbejde?",
       options: [
-        "At alle filer er slettet",
-        "At der ikke er ændringer i working directory eller staging area",
-        "At Git ikke virker",
-        "At du ikke har et remote repository",
+        "At man kun designer til mobil",
+        "At man starter med bred skærm og nedskalerer",
+        "At man starter med et simpelt layout til mobil og bygger op til større skærme",
+        "At man kun tester på telefoner",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
-        'En "clean" status betyder at alt er committed, og der er ingen lokale ændringer.',
+        "Mobile-first betyder, at man designer til små skærme først og udvider med media queries.",
     },
     {
       question:
-        "Hvad er en typisk konvention for navngivning af feature-branches?",
+        "Hvorfor er det vigtigt at navngive klasser meningsfuldt i CSS?",
       options: [
-        "`feature/` efterfulgt af en kort beskrivelse, fx `feature/login-form`",
-        "Tilfældige bogstaver",
-        "Kun tal",
-        "Navnet på din hund",
-      ],
-      correctIndex: 0,
-      explanation:
-        "Konsekvente branch-navne gør det lettere at forstå formålet med hver branch.",
-    },
-    {
-      question:
-        "Hvorfor er det en god idé at hente (pull) ofte, når du arbejder i et team?",
-      options: [
-        "Så du kan arbejde offline",
-        "Så du altid har de nyeste ændringer fra andre og undgår store konflikter",
-        "Så Git kan komprimere historikken",
+        "Det gør filen mindre",
+        "Det gør det nemmere at forstå og vedligeholde koden",
+        "Browseren loader hurtigere",
         "Det har ingen betydning",
       ],
       correctIndex: 1,
       explanation:
-        "Hyppige pulls holder din kode synkroniseret med teamet og minimerer konflikter.",
+        "Gode, meningsfulde klassenavne gør samarbejde og videreudvikling langt nemmere.",
     },
     {
       question:
-        'Hvad betyder det, hvis en fil vises som "untracked" i `git status`?',
+        "Hvad er et udviklingsværktøj (dev tools) i browseren nyttigt til?",
       options: [
-        "At Git ignorerer den permanent",
-        "At filen ikke er en del af repoet endnu, før du kører `git add`",
-        "At filen er ødelagt",
-        "At filen kun findes på remote",
+        "At købe domæner",
+        "At se og ændre HTML/CSS midlertidigt, debugge JavaScript og måle performance",
+        "At installere plugins",
+        "At sende mails fra siden",
       ],
       correctIndex: 1,
       explanation:
-        "Untracked filer er nye filer, som Git ikke kender endnu, før de bliver tilføjet.",
+        "Dev tools bruges til at inspicere DOM, teste CSS, debugge JavaScript og analysere performance.",
     },
     {
-      question:
-        "Hvad bør du gøre, før du starter på en ny opgave på et delt repository?",
+      question: 'Hvad betyder det, at en side er "tilgængelig" (accessible)?',
       options: [
-        "Ingenting, bare kode løs",
-        "Sørge for at din lokale `main` er opdateret med `git pull`, og evt. oprette en ny branch fra den",
-        "Slette hele repoet",
-        "Committe alle gamle fejl",
+        "At den kun kan tilgås med login",
+        "At den virker hurtigt på alle netværk",
+        "At personer med handicap også kan bruge siden",
+        "At den kan printes pænt",
+      ],
+      correctIndex: 2,
+      explanation:
+        "Tilgængelighed handler bl.a. om skærmlæsere, kontraster, tastaturnavigation og tydelige labels.",
+    },
+    {
+      question: "Hvad er versionstyring (fx Git) nyttigt til i webprojekter?",
+      options: [
+        "At komprimere billeder",
+        "At styre forskellige versioner af koden, samarbejde og kunne rulle ændringer tilbage",
+        "At installere skrifttyper",
+        "At hoste databaser",
       ],
       correctIndex: 1,
       explanation:
-        "Det er vigtigt at starte fra en opdateret hoved-branch, så dit arbejde bygger ovenpå den nyeste version.",
+        "Git hjælper med historik, branches, samarbejde og sikkerhed i projekter.",
     },
   ]}
 />

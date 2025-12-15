@@ -21,16 +21,25 @@ Her gennemgår vi de begreber, du skal kende for at lave simpel interaktivitet.
 <div class="page-break"></div>
 <Slide>
 
-## 1. Variabler (`let`)
+## 1. Variabler (`let`, `const`, `var`)
 
-En variabel er en beholder til data. Vi bruger `let` til at oprette en variabel.
+En variabel er en beholder til data. Vi bruger `let` eller `const` til at oprette variabler.
 
 ```javascript
 let disease = "Navn på sygdom";
-let diseaseDescription = "Beskrivelse af sygdomme";
+const diseaseDescription = "Beskrivelse af sygdomme";
 ```
 
-Her har vi gemt to tekster (strings) i variablerne `disease` og `diseaseDescription`. Vi kan bruge disse navne senere i koden i stedet for at skrive teksten igen.
+Her har vi gemt to tekster (strings) i variablerne `disease` og `diseaseDescription`.
+
+:::tip[let vs. const vs. var]
+
+- **`const`** – Brug til værdier, der ikke skal ændres (anbefalet som standard)
+- **`let`** – Brug til værdier, der skal ændres senere
+- **`var`** – Gammel måde, brug **ikke** var i moderne kode
+
+Tommelfingerregel: Start altid med `const`. Hvis du senere skal ændre værdien, skift til `let`.
+:::
 
 </Slide>
 <div class="page-break"></div>

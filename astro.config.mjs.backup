@@ -24,127 +24,6 @@ export default defineConfig({
       ],
       sidebar: [
         {
-          label: "Web Development",
-          collapsed: true,
-          items: [
-            {
-              label: "Introuge",
-              slug: "guides/introuge",
-              badge: {
-                text: "Tema 1",
-                variant: "tip",
-                class: "badge-theme-1",
-              },
-            },
-            {
-              label: "Kom i gang",
-              slug: "guides/kom-i-gang",
-              badge: {
-                text: "Tema 2",
-                variant: "tip",
-                class: "badge-theme-2",
-              },
-            },
-            {
-              label: "Astro",
-              autogenerate: { directory: "astro" },
-            },
-            {
-              label: "HTML",
-              autogenerate: { directory: "html" },
-            },
-            {
-              label: "CSS",
-              autogenerate: { directory: "css" },
-            },
-            {
-              label: "JavaScript",
-              autogenerate: { directory: "javascript" },
-            },
-            {
-              label: "SVG",
-              autogenerate: { directory: "svg" },
-            },
-            {
-              label: "Git & GitHub",
-              items: [
-                {
-                  label: "Git & GitHub",
-                  link: "/git/",
-                  badge: {
-                    text: "Tema 3",
-                    variant: "tip",
-                    class: "badge-theme-3",
-                  },
-                },
-                {
-                  label: ".gitignore",
-                  link: "/git/gitignore/",
-                  badge: {
-                    text: "Tema 5",
-                    variant: "tip",
-                    class: "badge-theme-5",
-                  },
-                },
-                {
-                  label: "GitHub Team Workflow",
-                  link: "/git/team-workflow/",
-                  badge: {
-                    text: "Tema 5",
-                    variant: "tip",
-                    class: "badge-theme-5",
-                  },
-                },
-              ],
-            },
-          ],
-        },
-        {
-          label: "Projektstyring",
-          collapsed: true,
-          autogenerate: { directory: "projektledelse" },
-        },
-        {
-          label: "Video / Foto",
-          collapsed: true,
-          items: [
-            {
-              label: "Kom i gang",
-              slug: "premiere",
-              badge: {
-                text: "Tema 5",
-                variant: "tip",
-                class: "badge-theme-5",
-              },
-            },
-            {
-              label: "Premiere Pro",
-              autogenerate: { directory: "premiere" },
-            },
-            {
-              label: "Lyd",
-              autogenerate: { directory: "lyd" },
-            },
-            {
-              label: "Foto",
-              autogenerate: { directory: "photo" },
-            },
-            {
-              label: "Photoshop",
-              autogenerate: { directory: "photoshop" },
-            },
-            {
-              label: "Vintereventyr E2025",
-              slug: "premiere/07-vintereventyr",
-              badge: {
-                text: "Tema 5",
-                variant: "tip",
-                class: "badge-theme-5",
-              },
-            },
-          ],
-        },
-        {
           label: "Testmetoder",
           collapsed: true,
           items: [
@@ -205,9 +84,112 @@ export default defineConfig({
           ],
         },
         {
+          label: "Web Development",
+          collapsed: true,
+          items: [
+            {
+              label: "Kom i gang",
+              slug: "guides/kom-i-gang",
+              badge: {
+                text: "Tema 1",
+                variant: "tip",
+                class: "badge-theme-1",
+              },
+            },
+            {
+              label: "Astro",
+              autogenerate: { directory: "astro" },
+            },
+            {
+              label: "HTML",
+              autogenerate: { directory: "html" },
+            },
+            {
+              label: "CSS",
+              autogenerate: { directory: "css" },
+            },
+            {
+              label: "JavaScript",
+              autogenerate: { directory: "javascript" },
+            },
+            {
+              label: "SVG",
+              autogenerate: { directory: "svg" },
+            },
+            {
+              label: "Git & GitHub",
+              autogenerate: { directory: "git" },
+            },
+          ],
+        },
+        {
+          label: "Projektstyring",
+          collapsed: true,
+          items: [
+            {
+              label: "Scrum Grundprincipper",
+              slug: "git/scrum",
+              badge: {
+                text: "Tema 5",
+                variant: "tip",
+                class: "badge-theme-5",
+              },
+            },
+          ],
+        },
+        {
+          label: "Video / Foto",
+          collapsed: true,
+          items: [
+            {
+              label: "Kom i gang",
+              slug: "premiere",
+              badge: {
+                text: "Tema 5",
+                variant: "tip",
+                class: "badge-theme-5",
+              },
+            },
+            {
+              label: "Premiere Pro",
+              autogenerate: { directory: "premiere" },
+            },
+            {
+              label: "Lyd",
+              autogenerate: { directory: "lyd" },
+            },
+            {
+              label: "Foto",
+              autogenerate: { directory: "photo" },
+            },
+            {
+              label: "Photoshop",
+              autogenerate: { directory: "photoshop" },
+            },
+            {
+              label: "Vintereventyr E2025",
+              slug: "premiere/07-vintereventyr",
+              badge: {
+                text: "Tema 5",
+                variant: "tip",
+                class: "badge-theme-5",
+              },
+            },
+          ],
+        },
+        {
           label: "Quizzer",
           collapsed: true,
           items: [
+            {
+              label: "Tema 1 – Quiz",
+              slug: "quiz/tema-1",
+              badge: {
+                text: "Tema 1",
+                variant: "tip",
+                class: "badge-theme-1",
+              },
+            },
             {
               label: "Tema 2 – Quiz",
               slug: "quiz/tema-2",
@@ -215,15 +197,6 @@ export default defineConfig({
                 text: "Tema 2",
                 variant: "tip",
                 class: "badge-theme-2",
-              },
-            },
-            {
-              label: "Tema 3 – Quiz",
-              slug: "quiz/tema-3",
-              badge: {
-                text: "Tema 3",
-                variant: "tip",
-                class: "badge-theme-3",
               },
             },
             {
@@ -265,15 +238,6 @@ export default defineConfig({
                 text: "Tema",
                 variant: "tip",
                 class: "badge-theme-1",
-              },
-            },
-            {
-              label: "Genvejstaster",
-              link: "/reference/genvejstaster/",
-              badge: {
-                text: "Tema 5",
-                variant: "tip",
-                class: "badge-theme-5",
               },
             },
           ],

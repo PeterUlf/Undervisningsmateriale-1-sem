@@ -38,11 +38,24 @@ import Default from '@astrojs/starlight/components/Sidebar.astro';
     const select = document.getElementById('theme-select') as HTMLSelectElement;
     
     if (select && sortedThemes.length > 0) {
+      // Tema navne
+      const themeNames: { [key: number]: string } = {
+        1: 'Introuge',
+        2: 'Web I',
+        3: 'UX I',
+        4: 'Brugergrænseflade udvikling I',
+        5: 'Indhold I',
+        6: 'Eksamen',
+        7: 'Indhold II',
+        8: 'Web II'
+      };
+      
       // Tilføj tema options (ét tema ad gangen)
       sortedThemes.forEach(num => {
         const option = document.createElement('option');
         option.value = num.toString();
-        option.textContent = `Tema ${num}`;
+        const themeName = themeNames[num] || '';
+        option.textContent = themeName ? `Tema ${num} - ${themeName}` : `Tema ${num}`;
         select.appendChild(option);
       });
       

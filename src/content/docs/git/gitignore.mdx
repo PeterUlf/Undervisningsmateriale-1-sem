@@ -1,0 +1,137 @@
+---
+title: .gitignore
+description: Lær at bruge .gitignore til at holde unødvendige filer ude af Git
+sidebar:
+  order: 10
+  badge:
+    text: Tema 5
+    variant: tip
+    class: badge-theme-5
+---
+
+import Slide from "../../../components/Slide.astro";
+
+<Slide>
+
+# .gitignore
+
+En `.gitignore`-fil fortæller Git hvilke filer og mapper den skal ignorere. Det er vigtigt for at undgå at uploade unødvendige eller følsomme filer til GitHub.
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Hvorfor bruge .gitignore?
+
+**Filer du IKKE vil have på GitHub:**
+
+- macOS systemfiler (`.DS_Store`)
+- Editor-indstillinger (`.vscode/`)
+- Store videofiler (`.mp4`, `.mov` osv.)
+- Hemmelige nøgler (`.env`)
+- Build-mapper (`node_modules/`, `dist/`)
+
+**Fordele:**
+
+- Holder dit repository rent
+- Undgår konflikter mellem teammedlemmer
+- Beskytter følsomme oplysninger
+- Sparer plads på GitHub
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Fornuftig .gitignore for begyndere
+
+Opret en fil kaldet `.gitignore` i roden af dit projekt:
+
+```
+# macOS systemfiler
+.DS_Store
+
+# VS Code indstillinger
+.vscode/
+
+# Videoer (for store til GitHub)
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.webm
+*.flv
+
+# Windows
+Thumbs.db
+```
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Sådan opretter du .gitignore
+
+**I VS Code:**
+
+1. Højreklik i din projektmappe
+2. Vælg "New File"
+3. Navngiv den `.gitignore` (husk punktummet!)
+4. Kopier indholdet fra forrige slide ind
+
+**Via Terminal:**
+
+```bash
+touch .gitignore
+```
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Hvad betyder linjerne?
+
+- **`#`** - Kommentar (ignoreres af Git)
+- **`.DS_Store`** - Ignorerer præcis denne fil
+- **`.vscode/`** - Ignorerer hele mappen
+- **`*.mp4`** - Ignorerer alle filer der ender på `.mp4`
+- **`!vigtig.mp4`** - Undtagelse: denne fil ignoreres IKKE
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Hvad hvis jeg allerede har committed en fil?
+
+Hvis du har committed en fil, før du tilføjede den til `.gitignore`, skal du fjerne den fra Git:
+
+```bash
+git rm --cached .DS_Store
+git commit -m "Fjern .DS_Store fra Git"
+```
+
+**Husk:** Dette fjerner kun filen fra Git, ikke fra din computer.
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Tips til .gitignore
+
+:::tip[Best practices]
+
+- Opret `.gitignore` FØR dit første commit
+- Tilføj altid `.DS_Store` og `.vscode/` på Mac/VS Code projekter
+- Tilføj altid store filer (videoer, billeder over 10MB)
+- Tjek hvad andre projekter i samme teknologi bruger (fx på [gitignore.io](https://gitignore.io))
+  :::
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Ressourcer
+
+- [gitignore.io](https://gitignore.io) - Generer .gitignore for dit projekt
+- [GitHub's .gitignore templates](https://github.com/github/gitignore) - Eksempler for forskellige teknologier
+
+</Slide>

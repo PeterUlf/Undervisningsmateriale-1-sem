@@ -4,9 +4,9 @@ description: Fra struktur til design – sådan styler du HTML med CSS
 sidebar:
   order: 1
   badge:
-    text: Tema 1
+    text: Tema 2
     variant: tip
-    class: badge-theme-1
+    class: badge-theme-2
 ---
 
 import Slide from "../../../components/Slide.astro";
@@ -92,6 +92,26 @@ Fra kompendiet arbejder vi især med disse selectorer:
   - `div p` – alle `p` inde i `div`
   - `div, p` – alle `div` og alle `p`
 - **Pseudoselectorer:** `a:hover`, `p::first-letter`
+
+:::tip[Class vs. ID – hvornår bruger man hvad?]
+**Class (.)** - Brug til styling, der kan genbruges på flere elementer:
+
+```css
+.knap {
+  background: blue;
+}
+```
+
+**ID (#)** - Brug kun til unikke elementer (ét element pr. side):
+
+```css
+#top {
+  position: fixed;
+}
+```
+
+Tommelfingerregel: Brug **class** til det meste. ID bruges primært til JavaScript eller anker-links.
+:::
 
 </Slide>
 <div class="page-break"></div>
@@ -307,6 +327,37 @@ h1 {
 
 p {
   font-size: 1rem;
+}
+```
+
+</Slide>
+<div class="page-break"></div>
+<Slide> 
+## CSS-enheder
+
+Du kommer til at møde mange forskellige enheder i CSS:
+
+- **`px`** – pixels (fast størrelse)
+- **`rem`** – relativ til root font-størrelse (anbefalet til font og afstande)
+- **`em`** – relativ til nuværende font-størrelse
+- **`%`** – procent af forældreelementets størrelse
+- **`vw` / `vh`** – procent af viewportens bredde/højde
+
+Eksempel:
+
+```css
+body {
+  font-size: 16px; /* root font-størrelse */
+}
+
+h1 {
+  font-size: 2rem; /* 2 × 16px = 32px */
+  margin-bottom: 1rem; /* 16px */
+}
+
+.container {
+  width: 80%; /* 80% af forældrens bredde */
+  max-width: 1200px;
 }
 ```
 

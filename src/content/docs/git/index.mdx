@@ -4,9 +4,9 @@ description: Lær versionskontrol med Git og samarbejd med GitHub
 sidebar:
   order: 1
   badge:
-    text: Tema 2
+    text: Tema 3
     variant: tip
-    class: badge-theme-2
+    class: badge-theme-3
 ---
 
 import Slide from "../../../components/Slide.astro";
@@ -38,6 +38,13 @@ Lær at bruge Git til versionskontrol og GitHub til samarbejde om kode.
 - 🤝 **Samarbejde** med andre på projekter
 - 📦 **Dele** din kode med verden
 - 🔍 **Finde** open source projekter
+
+:::tip[Forskellen mellem Git og GitHub]
+**Git** er det lokale værktøj installeret på din computer – det tracker dine ændringer.
+**GitHub** er en online service, hvor du kan dele dit arbejde og samarbejde med andre.
+
+Tænk på det sådan: Git er som Word på din computer, og GitHub er som Google Drive, hvor du deler dokumenter.
+:::
 
 </Slide>
 <div class="page-break"></div>
@@ -185,6 +192,24 @@ Klik på **branch-navnet** nederst til venstre i VS Code - du ser alle branches.
 <div class="page-break"></div>
 <Slide>
 
+## Håndter merge conflicts
+
+Hvis to personer har ændret det samme sted i koden, opstår der en **merge conflict**:
+
+1. VS Code viser konfliktlinjer med `<<<<<<<`, `=======` og `>>>>>>>`
+2. Klik på **"Accept Current Change"** (behold din version)
+3. Eller klik på **"Accept Incoming Change"** (brug den anden version)
+4. Eller rediger manuelt og kombiner begge ændringer
+5. Gem filen og commit igen
+
+:::tip[Undgå konflikter]
+Kommuniker med dit team om, hvem der arbejder på hvilke filer. Pull ofte for at få de nyeste ændringer.
+:::
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
 ## Hent ændringer fra GitHub
 
 ### Pull (hent og merge)
@@ -243,8 +268,11 @@ En `.gitignore`-fil fortæller Git hvilke filer den skal ignorere.
 ### Eksempel på .gitignore
 
 ```
-# macOS
+# macOS systemfiler
 .DS_Store
+
+# VS Code indstillinger
+.vscode/
 
 # Videoer (for store til GitHub)
 *.mp4
@@ -252,9 +280,17 @@ En `.gitignore`-fil fortæller Git hvilke filer den skal ignorere.
 *.avi
 *.mkv
 *.webm
+*.flv
+
+# Windows
+Thumbs.db
 ```
 
 Opret en fil kaldet `.gitignore` i roden af dit projekt og tilføj ovenstående.
+
+:::tip[Vigtig note]
+Tilføj altid `.vscode/` mappen til .gitignore for at undgå konflikter mellem teammedlemmers editor-indstillinger.
+:::
 
 </Slide>
 <div class="page-break"></div>

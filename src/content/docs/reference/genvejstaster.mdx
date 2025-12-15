@@ -1,0 +1,269 @@
+---
+title: Genvejstaster
+description: Oversigt over nyttige tastaturgenveje til Mac (og PC)
+sidebar:
+  order: 1
+  badge:
+    text: Tema 5
+    variant: tip
+    class: badge-theme-5
+---
+
+import Slide from "../../../components/Slide.astro";
+
+<Slide>
+
+# Genvejstaster
+
+En oversigt over de vigtigste tastaturgenveje til effektiv arbejdsgang. Når der står ⌘ i Mac kolonnen, skal du på en PC typisk bruge Ctrl i stedet.
+:::tip[For PC brugere]
+
+⌘ => Ctrl
+:::
+
+<div style="columns: 2; column-gap: 2rem;">
+
+**Generelle genveje:**
+
+- [Grundlæggende redigering](#slide-2)
+- [Markering af tekst](#slide-3)
+- [Søgning og erstatning](#slide-4)
+- [Filhåndtering](#slide-5)
+- [Markering af filer](#slide-6)
+- [System genveje](#slide-7)
+
+**VS Code specifikke:**
+
+- [Kommentarer og formatering](#slide-8)
+- [Redigering af linier](#slide-9)
+- [Multi-cursor editing](#slide-10)
+- [Navigation og layout](#slide-11)
+- [Visning](#slide-12)
+
+</div>
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Generelle genveje (Grundlæggende redigering)
+
+### Virker i f.eks. Word, Browser, Finder osv.
+
+| Funktion         | Mac             | PC (hvis anderledes) |
+| ---------------- | --------------- | -------------------- |
+| Kopier           | `⌘ + C`         |                      |
+| Klip             | `⌘ + X`         |                      |
+| Sæt ind          | `⌘ + V`         |                      |
+| Fortryd          | `⌘ + Z`         |                      |
+| Annuller fortryd | `⌘ + Shift + Z` |                      |
+| Marker alt       | `⌘ + A`         |                      |
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+## Generelle genveje (Markering af tekst)
+
+:::tip[Du kan kombinere SHIFT med andre navigationstaster for at markere præcist det du vil]
+Hold `Shift` nede mens du navigerer med piletaster eller andre genveje.
+:::
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+## Generelle genveje (Markering af tekst)
+
+### Navigation og markering med tastaturet
+
+| Funktion                          | Mac                    | PC (hvis anderledes)      |
+| --------------------------------- | ---------------------- | ------------------------- |
+| Marker til venstre/højre (tegn)   | `Shift + ←/→`          |                           |
+| Marker op/ned (linje)             | `Shift + ↑/↓`          |                           |
+| Marker til start/slut af ord      | `Shift + Option + ←/→` | `Shift + Ctrl + ←/→`      |
+| Marker til start/slut af linje    | `Shift + ⌘ + ←/→`      | `Shift + Home/End`        |
+| Marker til start/slut af dokument | `Shift + ⌘ + ↑/↓`      | `Shift + Ctrl + Home/End` |
+| Marker hele ord                   | Dobbeltklik eller træk |                           |
+| Udvid markering til ord           | `⌘ + Shift + D`        | `Ctrl + D`                |
+
+:::tip[**OBS:** Dobbeltklik virker ikke?]
+Har ordet bindestreg (-) eller underscore (\_)?
+Eksempler:
+
+- `hello-world` vil kun markere `hello` eller `world` ved dobbeltklik
+- `variable_name` vil kun markere `variable` eller `name` ved dobbeltklik
+- I VS Code kan du bruge `Shift + Option + →` (Mac) eller `Shift + Ctrl + →` (PC) for at markere hele udtryk med bindestreg eller underscore
+  :::
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Generelle genveje (Søgning og erstatning)
+
+| Funktion          | Mac              | PC (hvis anderledes) |
+| ----------------- | ---------------- | -------------------- |
+| Find              | `⌘ + F`          |                      |
+| Find næste        | `⌘ + G`          |                      |
+| Erstat            | `⌘ + Option + F` | `Ctrl + H`           |
+| **Kun i VS Code** |                  |                      |
+| Find i filer      | `⌘ + Shift + F`  |                      |
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Generelle genveje (Filhåndtering)
+
+| Funktion       | Mac             | PC (hvis anderledes) |
+| -------------- | --------------- | -------------------- |
+| Gem            | `⌘ + S`         |                      |
+| Gem som        | `⌘ + Shift + S` |                      |
+| Nyt dokument   | `⌘ + N`         |                      |
+| Åbn fil        | `⌘ + O`         |                      |
+| Luk vindue     | `⌘ + W`         |                      |
+| Afslut program | `⌘ + Q`         | `Alt + F4`           |
+| Print          | `⌘ + P`         |                      |
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Generelle genveje (Markering af filer)
+
+### I Finder (Mac) eller File Explorer (Windows)
+
+| Funktion                       | Mac                       | PC (hvis anderledes) |
+| ------------------------------ | ------------------------- | -------------------- |
+| Marker alle filer              | `⌘ + A`                   |                      |
+| Naviger mellem filer           | `↑/↓` eller `←/→`         |                      |
+| Udvid markering med piletaster | `Shift + ↑/↓` eller `←/→` |                      |
+| Åbn markeret fil               | `⌘ + O` eller `Enter`     | `Enter`              |
+
+:::tip[Kombiner SHIFT og ⌘]
+**Marker flere spredte filer:** Hold `⌘` (Mac) eller `Ctrl` (PC) nede og klik på hver fil du vil markere.
+
+**Marker en række filer:** Klik på den første fil, hold `Shift` nede, og klik på den sidste fil. Alle filer imellem bliver markeret.
+
+**Kombination:** Du kan kombinere de to teknikker - marker først en række med `Shift + klik`, og tilføj derefter enkelte filer med `⌘/Ctrl + klik`.
+:::
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## System genveje
+
+| Funktion                     | Mac             | PC (hvis anderledes)     |
+| ---------------------------- | --------------- | ------------------------ |
+| Skift mellem åbne programmer | `⌘ + Tab`       | `Alt + Tab`              |
+| Skærmbillede (hele skærmen)  | `⌘ + Shift + 3` | `Windows + Print Screen` |
+| Skærmbillede (område)        | `⌘ + Shift + 4` | `Windows + Shift + S`    |
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## VS Code - Kommentarer og formatering
+
+| Funktion               | Mac              | PC (hvis anderledes) |
+| ---------------------- | ---------------- | -------------------- |
+| Toggle linje-kommentar | `⌘ + /`          |                      |
+| Toggle blok-kommentar  | `⌘ + Option + /` | `Ctrl + Shift + A`   |
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## VS Code - Redigering af linier
+
+| Funktion           | Mac                  | PC (hvis anderledes) |
+| ------------------ | -------------------- | -------------------- |
+| Flyt linje op      | `Option + ↑`         | `Alt + ↑`            |
+| Flyt linje ned     | `Option + ↓`         | `Alt + ↓`            |
+| Kopier linje op    | `Shift + Option + ↑` | `Shift + Alt + ↑`    |
+| Kopier linje ned   | `Shift + Option + ↓` | `Shift + Alt + ↓`    |
+| Slet linje         | `⌘ + Shift + K`      |                      |
+| Indsæt linje under | `⌘ + Enter`          |                      |
+| Indsæt linje over  | `⌘ + Shift + Enter`  |                      |
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## VS Code - Multi-cursor editing
+
+### Markering og cursors at redigere på flere linier samtidigt.
+
+| Funktion                | Mac                     | PC (hvis anderledes) |
+| ----------------------- | ----------------------- | -------------------- |
+| Tilføj cursor over      | `⌘ + Option + ↑`        | `Ctrl + Alt + ↑`     |
+| Tilføj cursor under     | `⌘ + Option + ↓`        | `Ctrl + Alt + ↓`     |
+| Marker næste forekomst  | `⌘ + D`                 |                      |
+| Marker alle forekomster | `⌘ + Shift + L`         |                      |
+| Tilføj cursor ved klik  | `Option + klik`         | `Alt + klik`         |
+| Column selection        | `Shift + Option + træk` | `Shift + Alt + træk` |
+
+:::tip[Tip til multi-cursor]
+For at redigere samme tekst på flere næsten ens linier:
+
+1. Marker den del af teksten du vil ændre på første linje
+2. Tryk `⌘ + D` (Mac) eller `Ctrl + D` (PC) flere gange for at markere samme tekst på de næste linier
+3. Begynd at skrive - ændringen sker på alle markerede steder samtidigt
+   :::
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## VS Code - Navigation og layout
+
+| Funktion                    | Mac             | PC (hvis anderledes) |
+| --------------------------- | --------------- | -------------------- |
+| Quick Open (åbn fil)        | `⌘ + P`         |                      |
+| Command Palette             | `⌘ + Shift + P` |                      |
+| Gå til linje                | `⌘ + G`         |                      |
+| Gå til definition           | `F12`           |                      |
+| Peek definition             | `Option + F12`  | `Alt + F12`          |
+| Find i filer                | `⌘ + Shift + F` |                      |
+| Skift mellem editor grupper | `⌘ + 1/2/3`     |                      |
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## VS Code - Visning
+
+| Funktion        | Mac       | PC (hvis anderledes) |
+| --------------- | --------- | -------------------- |
+| Toggle sidebar  | `⌘ + B`   |                      |
+| Toggle terminal | `⌘ + J`   |                      |
+| Zen mode        | `⌘ + K Z` |                      |
+| Split editor    | `⌘ + \`   |                      |
+| Zoom ind        | `⌘ + =`   |                      |
+| Zoom ud         | `⌘ + -`   |                      |
+
+</Slide>
