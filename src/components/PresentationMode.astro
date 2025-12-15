@@ -1,10 +1,11 @@
 ---
 // src/components/PresentationMode.astro
+const { buttonText = "📺 Slideshow" } = Astro.props;
 ---
 
 <div class="presentation-ui">
   <button id="start-presentation-btn" class="start-btn">
-    📺 Start Præsentation
+    {buttonText}
   </button>
 
   <dialog id="presentation-dialog">

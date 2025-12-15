@@ -59,9 +59,16 @@ import Default from '@astrojs/starlight/components/Sidebar.astro';
         select.appendChild(option);
       });
       
-      // Hent gemt valg
-      const savedTheme = localStorage.getItem('selectedTheme') || 'all';
+      // Hent gemt valg eller check for URL parameter
+      const urlParams = new URLSearchParams(window.location.search);
+      const urlTheme = urlParams.get('tema');
+      const savedTheme = urlTheme || localStorage.getItem('selectedTheme') || 'all';
       select.value = savedTheme;
+      
+      // Gem tema fra URL til localStorage
+      if (urlTheme) {
+        localStorage.setItem('selectedTheme', urlTheme);
+      }
       
       // Funktion til at filtrere
       function filterMenuItems(selectedTheme: string) {

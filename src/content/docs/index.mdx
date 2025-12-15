@@ -8,7 +8,7 @@ hero:
     file: ../../assets/peter_ulf.jpeg
   actions:
     - text: Undervisningsmaterialerne
-      link: /guides/kom-i-gang/
+      link: /guides/kom-i-gang/?tema=2
       icon: right-arrow
 ---
 
@@ -19,36 +19,8 @@ import { Card, CardGrid } from "@astrojs/starlight/components";
 
 <HeroFigureCaption />
 
-<PresentationMode />
+<PresentationMode buttonText="Om underviseren" />
 
-<Slide>
-
-## Lær om:
-
-<CardGrid stagger>
-  <Card title="HTML, CSS & JavaScript" icon="laptop">
-    Lær at kode websider fra bunden. Vi starter med HTML-struktur, styler med
-    CSS og gør det levende med JavaScript. [Gå til Webudvikling
-    →](/guides/kom-i-gang/)
-  </Card>
-  <Card title="Video / Foto" icon="open-book">
-    Lær videoredigering i Premiere Pro og fotografering med smartphone. Fra
-    optagelse til færdigt produkt. [Gå til Video / Foto →](/premiere/)
-  </Card>
-  <Card title="Projektstyring (Scrum)" icon="open-book">
-    Lær grundlæggende agil projektstyring med Scrum – roller, events og
-    artefakter, så du kan planlægge og styre projekter i teams. [Gå til
-    Projektstyring →](/git/scrum/)
-  </Card>
-  <Card title="Testmetoder" icon="magnifier">
-    Lær hvordan du tester brugeroplevelsen på din webside med forskellige
-    testmetoder – fra 5-sekunders-test til heuristisk evaluering. [Gå til
-    Testmetoder →](/test/om-test/)
-  </Card>
-</CardGrid>
-
-</Slide>
-<div class="page-break"></div>
 <Slide>
 
 ## Peter Ulf Jørgensen
