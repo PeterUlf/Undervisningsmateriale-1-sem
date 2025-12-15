@@ -24,9 +24,18 @@ export default defineConfig({
       ],
       sidebar: [
         {
-          label: "Test",
+          label: "Testmetoder",
           collapsed: true,
           items: [
+            {
+              label: "Om test",
+              slug: "test/om-test",
+              badge: {
+                text: "Tema 5",
+                variant: "tip",
+                class: "badge-theme-5",
+              },
+            },
             {
               label: "5 sek test",
               slug: "test/5-sek-test",
@@ -57,6 +66,15 @@ export default defineConfig({
             {
               label: "Lighthouse test",
               slug: "test/lighthouse-test",
+              badge: {
+                text: "Tema 5",
+                variant: "tip",
+                class: "badge-theme-5",
+              },
+            },
+            {
+              label: "Tænke-højt test",
+              slug: "test/taenke-hoejt-test",
               badge: {
                 text: "Tema 5",
                 variant: "tip",
