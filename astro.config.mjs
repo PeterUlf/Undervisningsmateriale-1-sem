@@ -276,6 +276,24 @@ export default defineConfig({
                 class: "badge-theme-5",
               },
             },
+            {
+              label: "Genvejstaster – Øvelser",
+              link: "/reference/genvejstaster-oevelser/",
+              badge: {
+                text: "Tema 5",
+                variant: "tip",
+                class: "badge-theme-5",
+              },
+            },
+            {
+              label: "Genvejstaster – Quiz",
+              slug: "quiz/genvejstaster",
+              badge: {
+                text: "Tema 5",
+                variant: "tip",
+                class: "badge-theme-5",
+              },
+            },
           ],
         },
       ],

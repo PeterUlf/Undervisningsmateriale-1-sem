@@ -1,0 +1,297 @@
+---
+title: Genvejstaster – Øvelser
+description: Interaktive øvelser til at træne genvejstaster
+sidebar:
+  order: 2
+  badge:
+    text: Tema 5
+    variant: tip
+    class: badge-theme-5
+---
+
+import Slide from "../../../components/Slide.astro";
+import PracticeTextBox from "../../../components/PracticeTextBox.astro";
+
+<Slide>
+
+# Genvejstaster – Øvelser
+
+Praktiske øvelser til at træne de vigtigste genvejstaster. Nogle øvelser har tekstbokse hvor du kan øve dig direkte på siden, andre kræver VS Code.
+
+:::tip[For PC brugere]
+⌘ => Ctrl
+:::
+
+<div style="columns: 2; column-gap: 2rem;">
+
+**Generelle genveje:**
+
+- [Grundlæggende redigering](#slide-2)
+- [Søgning og markering](#slide-3)
+
+**VS Code specifikke:**
+
+- [Kommentarer](#slide-4)
+- [Linje manipulation](#slide-5)
+- [Multi-cursor magi](#slide-6)
+- [Navigation](#slide-7)
+
+</div>
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## 🎯 Øvelse: Grundlæggende redigering
+
+**Prøv følgende i tekstboksen nedenfor:**
+
+1. **Skriv denne tekst:** `Hej med dig, jeg hedder [dit navn]`
+2. **Marker dit navn** (dobbeltklik eller træk)
+3. **Kopier** navnet med `⌘/Ctrl + C`
+4. **Flyt cursoren** til slutningen af linjen med `⌘ + →` (Mac) eller `End` (PC)
+5. **Sæt ind** med `⌘/Ctrl + V` tre gange for at gentage dit navn
+6. **Fortryd** den sidste indsættelse med `⌘/Ctrl + Z`
+7. **Marker hele linjen** med `⌘/Ctrl + A`
+8. **Klip** teksten med `⌘/Ctrl + X`
+9. **Sæt ind igen** med `⌘/Ctrl + V`
+
+<PracticeTextBox
+  placeholder="Start med at skrive: Hej med dig, jeg hedder..."
+  height="200px"
+/>
+
+:::tip[Bonus challenge]
+Prøv at bruge `⌘/Ctrl + Shift + Z` for at annullere din fortryd!
+:::
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## 🎯 Øvelse: Søgning og markering
+
+**Prøv i tekstboksen nedenfor:**
+
+1. **Find et ord** med `⌘/Ctrl + F` (åbner browser søgning)
+2. **Skriv flere linjer** tekst med gentagende ord
+3. **Marker et ord** (dobbeltklik)
+4. **Brug** `Shift + Option/Alt + →` for at udvide markeringen ord for ord
+5. **Brug** `Shift + ⌘/Ctrl + →` for at markere resten af linjen
+6. **Øv** at markere frem og tilbage med `Shift + piletaster`
+
+<PracticeTextBox
+  initialText={`Dette er linje 1 med nogle ord
+Dette er linje 2 med nogle ord
+Dette er linje 3 med nogle ord
+Prøv at markere og søge i denne tekst!`}
+  height="250px"
+/>
+
+:::tip[Pro tip]
+Hvis du vil markere alle forekomster af et ord, markér ordet og tryk `⌘/Ctrl + Shift + L` - så får du multi-cursor på alle steder!
+:::
+
+</Slide>
+
+<div class="page-break"></div>
+
+:::note[Arbejd med VS Code og opgaver side om side]
+**Åbn VS Code i browseren:**
+
+1. Gå til [vscode.dev](https://vscode.dev) eller [github.dev](https://github.dev)
+2. **Åbn din Tema 5 mappe** ved at klikke på "Open Folder" eller trykke `⌘/Ctrl + O`
+   - Find din Tema 5 mappe på computeren
+   - Opret en ny mappe inde i Tema 5 kaldet **"genvejstastoevelser"**
+   - Åbn denne mappe i VS Code
+3. Nu kan du oprette nye filer til øvelserne
+
+**Split faner så du kan se opgaven:**
+
+1. **Højreklik** på denne fane (øvelsessiden) i din browser
+2. Vælg **"Organiser opdelt visning"** eller **"Split tab"**
+3. Nu kan du se opgaven i den ene side og VS Code i den anden!
+   :::
+
+<Slide>
+
+## 🎯 Øvelse: Kommentarer
+
+**Åbn VS Code ([vscode.dev](https://vscode.dev)) og opret en ny fil:**
+
+**Forberedelse:**
+
+1. Opret en ny fil: `test.js`
+2. Kopier denne tekst over i filen:
+
+```javascript
+const name = "Peter";
+const age = 35;
+const city = "København";
+console.log(name);
+```
+
+**Nu skal du øve:**
+
+1. **Placer cursoren** på linjen med `const name`
+2. **Kommenter linjen** med `⌘/Ctrl + /`
+3. **Uncommenter igen** ved at trykke `⌘/Ctrl + /` igen
+4. **Markér alle 4 linjer**
+5. **Kommenter dem alle** med `⌘/Ctrl + /`
+6. **Uncommenter alle** igen
+7. **Markér teksten** `"Peter"` (inkl. anførselstegn)
+8. **Prøv blok-kommentar** med `⌘ + Option + /` (Mac) eller `Ctrl + Shift + A` (PC)
+
+:::tip[Smart!]
+VS Code tilpasser automatisk kommentar-syntaksen til filtypen:
+
+- JavaScript/CSS: `//` eller `/* */`
+- HTML: `<!-- -->`
+- Python: `#`
+  :::
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## 🎯 Øvelse: Linje manipulation
+
+**Åbn VS Code ([vscode.dev](https://vscode.dev)) og opret en HTML-fil:**
+
+**Forberedelse:**
+
+1. Opret en ny HTML-fil: `test.html`
+2. Kopier denne liste over i filen:
+
+```html
+<ol>
+  <li>Første punkt</li>
+  <li>Andet punkt</li>
+  <li>Tredje punkt</li>
+</ol>
+```
+
+**Nu skal du øve:**
+
+1. **Placer cursoren** på linje 2 ("Andet punkt")
+2. **Flyt linjen op** med `Option/Alt + ↑` (nu skal den være over "Første punkt")
+3. **Flyt den ned igen** med `Option/Alt + ↓` to gange
+4. **Kopier linjen** med `Shift + Option/Alt + ↓` (duplikér 2-3 gange)
+5. **Slet en af linjerne** med `⌘/Ctrl + Shift + K`
+6. **Indsæt ny linje under** med `⌘/Ctrl + Enter` og skriv noget nyt
+7. **Indsæt ny linje over** med `⌘/Ctrl + Shift + Enter`
+
+:::tip[Hurtig workflow]
+Disse genvejstaster er nogle af de mest brugte i daglig kodning - de sparer dig for meget copy-paste!
+:::
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## 🎯 Øvelse: Multi-cursor magi
+
+**Åbn VS Code ([vscode.dev](https://vscode.dev)) og opret en HTML-fil:**
+
+**Forberedelse:**
+
+1. Opret en ny HTML-fil: `test.html`
+2. Kopier denne HTML-liste over i filen:
+
+```html
+<ol>
+  <li>Item 1</li>
+  <li>Item 2</li>
+  <li>Item 3</li>
+  <li>Item 4</li>
+</ol>
+```
+
+**Opgave 1: Omdøb "Item" til "Punkt"**
+
+1. **Dobbeltklik** på ordet "Item" på første linje
+2. **Tryk** `⌘/Ctrl + D` tre gange for at markere "Item" på alle linjer
+3. **Skriv** "Punkt" - det erstattes alle steder!
+
+**Opgave 2: Tilføj klasse på alle `<li>` tags**
+
+1. **Placer cursor** efter `<li` på første linje
+2. **Tryk** `⌘/Ctrl + Option/Alt + ↓` tre gange for cursors på alle linjer
+3. **Skriv** ` class="list-item"` - det tilføjes alle steder!
+
+**Opgave 3: Alt + klik**
+
+1. **Hold** `Option/Alt` nede
+2. **Klik** på 4 forskellige steder i din kode
+3. **Skriv** noget - det indsættes alle steder!
+
+:::tip[Mind = Blown 🤯]
+Multi-cursor er en superkraft! Det sparer dig for meget tid.
+:::
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## 🎯 Øvelse: Navigation i VS Code
+
+**Åbn VS Code ([vscode.dev](https://vscode.dev)) med flere filer:**
+
+**Forberedelse:**
+
+1. Opret 2-3 forskellige filer (f.eks. `index.html`, `styles.css`, `script.js`)
+2. Skriv lidt indhold i hver fil
+
+**Nu skal du øve:**
+
+1. **Quick Open:** Tryk `⌘/Ctrl + P`
+
+   - Skriv navnet på en af dine filer
+   - Tryk Enter for at åbne den
+   - Prøv at skrive kun første bogstav fra hvert ord (f.eks. "stcss" for "styles.css")
+
+2. **Command Palette:** Tryk `⌘/Ctrl + Shift + P`
+
+   - Skriv "format" og vælg "Format Document"
+   - Prøv at søge efter "theme" og skift farvetema
+
+3. **Gå til linje:** Tryk `⌘/Ctrl + G`
+
+   - Skriv et linjenummer og hop direkte dertil
+
+4. **Split editor:** Tryk `⌘/Ctrl + \`
+   - Åbn samme fil side-by-side
+   - Skift mellem dem med `⌘/Ctrl + 1` og `⌘/Ctrl + 2`
+
+:::tip[Power User Tip]
+`⌘/Ctrl + P` kan mere! Prøv:
+
+- `@symbolname` - søg efter funktioner/klasser i filen
+- `:42` - gå til linje 42
+- `?` - se alle mulige kommandoer
+  :::
+
+</Slide>
+
+---
+
+## 🎮 Fortsæt træningen
+
+- **[Genvejstaster oversigt](/reference/genvejstaster/)** - Se alle genvejstaster
+- **[Genvejstaster Quiz](/quiz/genvejstaster/)** - Test din viden med 20 spørgsmål
+- **[Shortcut Foo](https://www.shortcutfoo.com/)** - Interaktiv online træning
+- **[VSCode.dev](https://vscode.dev/)** - Øv VS Code direkte i browseren
+
+:::tip[Lær effektivt]
+Fokuser på at mestre 2-3 genvejstaster ad gangen. Brug dem aktivt i en uge, før du lærer nye!
+:::

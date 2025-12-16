@@ -1,0 +1,83 @@
+---
+// src/components/PracticeTextBox.astro
+const { placeholder = "Skriv eller prøv genvejstaster her...", initialText = "", height = "300px" } = Astro.props;
+---
+
+<div class="practice-box">
+  <div class="practice-header">
+    <span>✏️ Øvelsesområde</span>
+    <button class="reset-btn" onclick="this.closest('.practice-box').querySelector('.practice-textarea').value = this.dataset.initial" data-initial={initialText}>
+      ↻ Nulstil
+    </button>
+  </div>
+  <textarea 
+    class="practice-textarea" 
+    placeholder={placeholder}
+    style={`height: ${height}`}
+  >{initialText}</textarea>
+  <div class="practice-footer">
+    💡 Tip: Alle genvejstaster virker her som de ville i en normal teksteditor
+  </div>
+</div>
+
+<style>
+  .practice-box {
+    margin: 2rem 0;
+    border: 2px solid var(--sl-color-accent);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    background: var(--sl-color-bg-nav);
+  }
+
+  .practice-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background: var(--sl-color-accent-low);
+    border-bottom: 1px solid var(--sl-color-accent);
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  .reset-btn {
+    padding: 0.25rem 0.75rem;
+    background: var(--sl-color-bg);
+    color: var(--sl-color-text);
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 0.25rem;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+  }
+
+  .reset-btn:hover {
+    background: var(--sl-color-gray-6);
+    border-color: var(--sl-color-accent);
+  }
+
+  .practice-textarea {
+    width: 100%;
+    padding: 1rem;
+    font-family: 'Courier New', monospace;
+    font-size: 1rem;
+    line-height: 1.6;
+    background: var(--sl-color-bg);
+    color: var(--sl-color-text);
+    border: none;
+    resize: vertical;
+    outline: none;
+  }
+
+  .practice-textarea:focus {
+    background: var(--sl-color-bg-sidebar);
+  }
+
+  .practice-footer {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+    color: var(--sl-color-text-accent);
+    background: var(--sl-color-bg-nav);
+    border-top: 1px solid var(--sl-color-hairline);
+  }
+</style>
