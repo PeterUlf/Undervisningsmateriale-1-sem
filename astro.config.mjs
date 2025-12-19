@@ -3,6 +3,8 @@ import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
 import starlightThemeRapide from "starlight-theme-rapide";
 
+const isDev = process.env.NODE_ENV !== 'production';
+
 // https://astro.build/config
 export default defineConfig({
   integrations: [
@@ -267,14 +269,15 @@ export default defineConfig({
                 class: "badge-theme-1",
               },
             },
-            {
+            // Draft items - kun synlige i development
+            ...(isDev ? [{
               label: "Genvejstaster (Draft)",
               link: "/reference/genvejstaster/",
               badge: {
                 text: "Draft",
                 variant: "caution",
               },
-            },
+            }] : []),
             {
               label: "Genvejstaster – Øvelser",
               link: "/reference/genvejstaster-oevelser/",
