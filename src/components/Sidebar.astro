@@ -118,7 +118,15 @@ import Default from '@astrojs/starlight/components/Sidebar.astro';
             return li && (li as HTMLElement).style.display !== 'none';
           });
 
-          (group as HTMLElement).style.display = visibleLinks.length === 0 ? 'none' : '';
+          const detailsEl = group as HTMLDetailsElement;
+          detailsEl.style.display = visibleLinks.length === 0 ? 'none' : '';
+          
+          // Luk alle details når "Alle temaer" er valgt, åbn dem når et specifikt tema er valgt
+          if (isAll) {
+            detailsEl.open = false;
+          } else if (visibleLinks.length > 0) {
+            detailsEl.open = true;
+          }
         });
       }
       

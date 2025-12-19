@@ -247,6 +247,15 @@ export default defineConfig({
               },
             },
             {
+              label: "Genvejstaster – Quiz",
+              slug: "quiz/genvejstaster",
+              badge: {
+                text: "Tema 5",
+                variant: "tip",
+                class: "badge-theme-5",
+              },
+            },
+            {
               label: "Tema 7 – Quiz",
               slug: "quiz/tema-7",
               badge: {
@@ -285,15 +294,6 @@ export default defineConfig({
             {
               label: "Genvejstaster – Øvelser",
               link: "/reference/genvejstaster-oevelser/",
-              badge: {
-                text: "Tema 5",
-                variant: "tip",
-                class: "badge-theme-5",
-              },
-            },
-            {
-              label: "Genvejstaster – Quiz",
-              slug: "quiz/genvejstaster",
               badge: {
                 text: "Tema 5",
                 variant: "tip",
