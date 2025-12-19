@@ -268,12 +268,11 @@ export default defineConfig({
               },
             },
             {
-              label: "Genvejstaster",
+              label: "Genvejstaster (Draft)",
               link: "/reference/genvejstaster/",
               badge: {
-                text: "Tema 5",
-                variant: "tip",
-                class: "badge-theme-5",
+                text: "Draft",
+                variant: "caution",
               },
             },
             {
