@@ -2,7 +2,7 @@
 title: Genvejstaster – Quiz
 description: Test din viden om genvejstaster i VS Code og generelle editortaster.
 sidebar:
-  order: 10
+  order: 6
   badge:
     text: Tema 5
     variant: tip
@@ -15,7 +15,7 @@ import Quiz from "../../../components/Quiz.astro";
   title="Genvejstaster – Test din viden"
   questions={[
     {
-      question: "Hvad gør Cmd + D / Ctrl + D i VS Code?",
+      question: "Hvad gør ⌘ + D i VS Code?",
       options: [
         "Sletter den aktuelle linje",
         "Duplikerer den aktuelle linje",
@@ -24,34 +24,34 @@ import Quiz from "../../../components/Quiz.astro";
       ],
       correctIndex: 2,
       explanation:
-        "Cmd/Ctrl + D tilføjer næste forekomst af den markerede tekst til multi-cursor, så du kan redigere flere steder samtidig.",
+        "⌘ + D tilføjer næste forekomst af den markerede tekst til multi-cursor, så du kan redigere flere steder samtidig.",
     },
     {
       question: "Hvilken genvej bruger du til at kommentere/uncommentere kode?",
       options: [
-        "Cmd/Ctrl + K",
-        "Cmd/Ctrl + /",
-        "Cmd/Ctrl + C",
-        "Cmd/Ctrl + B",
+        "⌘ + K",
+        "⌘ + /",
+        "⌘ + C",
+        "⌘ + B",
       ],
       correctIndex: 1,
       explanation:
-        "Cmd/Ctrl + / toggler kommentarer på den valgte linje eller de valgte linjer.",
+        "⌘ + / toggler kommentarer på den valgte linje eller de valgte linjer.",
     },
     {
       question: "Hvordan åbner du Quick Open (fil-søgning) i VS Code?",
       options: [
-        "Cmd/Ctrl + O",
-        "Cmd/Ctrl + F",
-        "Cmd/Ctrl + P",
-        "Cmd/Ctrl + K",
+        "⌘ + O",
+        "⌘ + F",
+        "⌘ + P",
+        "⌘ + K",
       ],
       correctIndex: 2,
       explanation:
-        "Cmd/Ctrl + P åbner Quick Open, hvor du hurtigt kan søge efter og åbne filer i dit projekt.",
+        "⌘ + P åbner Quick Open, hvor du hurtigt kan søge efter og åbne filer i dit projekt.",
     },
     {
-      question: "Hvad gør Cmd/Ctrl + Shift + K?",
+      question: "Hvad gør ⌘ + Shift + K?",
       options: [
         "Kopierer linjen",
         "Sletter linjen",
@@ -60,22 +60,22 @@ import Quiz from "../../../components/Quiz.astro";
       ],
       correctIndex: 1,
       explanation:
-        "Cmd/Ctrl + Shift + K sletter hele den aktuelle linje uden at skulle markere den først.",
+        "⌘ + Shift + K sletter hele den aktuelle linje uden at skulle markere den først.",
     },
     {
       question: "Hvordan vælger du alle forekomster af den markerede tekst?",
       options: [
-        "Cmd/Ctrl + D flere gange",
-        "Cmd/Ctrl + Shift + L",
-        "Cmd/Ctrl + A",
-        "Cmd/Ctrl + F2",
+        "⌘ + D flere gange",
+        "⌘ + Shift + L",
+        "⌘ + A",
+        "⌘ + F2",
       ],
       correctIndex: 1,
       explanation:
-        "Cmd/Ctrl + Shift + L vælger alle forekomster af den markerede tekst på én gang og laver multi-cursor.",
+        "⌘ + Shift + L vælger alle forekomster af den markerede tekst på én gang og laver multi-cursor.",
     },
     {
-      question: "Hvad bruges Cmd/Ctrl + Shift + F til?",
+      question: "Hvad bruges ⌘ + Shift + F til?",
       options: [
         "Find i filen",
         "Find og erstat i filen",
@@ -84,22 +84,22 @@ import Quiz from "../../../components/Quiz.astro";
       ],
       correctIndex: 2,
       explanation:
-        "Cmd/Ctrl + Shift + F åbner global søgning, hvor du kan søge i alle filer i dit projekt.",
+        "⌘ + Shift + F åbner global søgning, hvor du kan søge i alle filer i dit projekt.",
     },
     {
       question: "Hvordan indsætter du en cursor på flere linjer?",
       options: [
-        "Cmd/Ctrl + Alt + pil op/ned",
-        "Alt + klik",
+        "⌘ + Option + pil op/ned",
+        "Option + klik",
         "Shift + pil op/ned",
         "Begge A og B",
       ],
       correctIndex: 3,
       explanation:
-        "Både Cmd/Ctrl + Alt + pil op/ned og Alt + klik kan bruges til at oprette multiple cursors på forskellige linjer.",
+        "Både ⌘ + Option + pil op/ned og Option + klik kan bruges til at oprette multiple cursors på forskellige linjer.",
     },
     {
-      question: "Hvad gør Cmd/Ctrl + B i VS Code?",
+      question: "Hvad gør ⌘ + B i VS Code?",
       options: [
         "Gør tekst fed",
         "Bygger projektet",
@@ -108,22 +108,22 @@ import Quiz from "../../../components/Quiz.astro";
       ],
       correctIndex: 2,
       explanation:
-        "Cmd/Ctrl + B toggler visningen af sidebaren, så du får mere plads til din kode.",
+        "⌘ + B toggler visningen af sidebaren, så du får mere plads til din kode.",
     },
     {
       question: "Hvordan navigerer du til en specifik linje?",
       options: [
-        "Cmd/Ctrl + L",
-        "Cmd/Ctrl + G",
-        "Cmd/Ctrl + N",
-        "Cmd/Ctrl + J",
+        "⌘ + L",
+        "⌘ + G",
+        "⌘ + N",
+        "⌘ + J",
       ],
       correctIndex: 1,
       explanation:
-        "Cmd/Ctrl + G åbner 'Go to Line', hvor du kan indtaste et linjenummer og hoppe direkte dertil.",
+        "⌘ + G åbner 'Go to Line', hvor du kan indtaste et linjenummer og hoppe direkte dertil.",
     },
     {
-      question: "Hvad gør Alt + pil op/ned?",
+      question: "Hvad gør Option + pil op/ned?",
       options: [
         "Kopierer linjen op eller ned",
         "Flytter linjen op eller ned",
@@ -132,22 +132,22 @@ import Quiz from "../../../components/Quiz.astro";
       ],
       correctIndex: 1,
       explanation:
-        "Alt + pil op/ned flytter den aktuelle linje eller de markerede linjer op eller ned i filen.",
+        "Option + pil op/ned flytter den aktuelle linje eller de markerede linjer op eller ned i filen.",
     },
     {
       question: "Hvordan åbner du kommandopaletten i VS Code?",
       options: [
-        "Cmd/Ctrl + K",
-        "Cmd/Ctrl + Shift + P",
-        "Cmd/Ctrl + P",
-        "Cmd/Ctrl + Alt + P",
+        "⌘ + K",
+        "⌘ + Shift + P",
+        "⌘ + P",
+        "⌘ + Option + P",
       ],
       correctIndex: 1,
       explanation:
-        "Cmd/Ctrl + Shift + P åbner kommandopaletten, hvor du kan udføre næsten alle kommandoer i VS Code.",
+        "⌘ + Shift + P åbner kommandopaletten, hvor du kan udføre næsten alle kommandoer i VS Code.",
     },
     {
-      question: "Hvad gør Cmd/Ctrl + / i en HTML-fil?",
+      question: "Hvad gør ⌘ + / i en HTML-fil?",
       options: [
         "Laver en kommentar med //",
         "Laver en kommentar med /* */",
@@ -161,17 +161,17 @@ import Quiz from "../../../components/Quiz.astro";
     {
       question: "Hvordan vælger du hele linjen hurtigt?",
       options: [
-        "Cmd/Ctrl + L",
+        "⌘ + L",
         "Triple-klik på linjen",
-        "Cmd/Ctrl + A",
-        "Cmd/Ctrl + Shift + L",
+        "⌘ + A",
+        "⌘ + Shift + L",
       ],
       correctIndex: 0,
       explanation:
-        "Cmd/Ctrl + L vælger hele den aktuelle linje. Du kan trykke flere gange for at vælge flere linjer.",
+        "⌘ + L vælger hele den aktuelle linje. Du kan trykke flere gange for at vælge flere linjer.",
     },
     {
-      question: "Hvad bruges Cmd/Ctrl + K + Cmd/Ctrl + C til?",
+      question: "Hvad bruges ⌘ + K + ⌘ + C til?",
       options: [
         "Kopierer koden",
         "Kommenterer linjen",
@@ -180,22 +180,22 @@ import Quiz from "../../../components/Quiz.astro";
       ],
       correctIndex: 1,
       explanation:
-        "Cmd/Ctrl + K efterfulgt af Cmd/Ctrl + C tilføjer kommentarer til de valgte linjer (uden at toggle).",
+        "⌘ + K efterfulgt af ⌘ + C tilføjer kommentarer til de valgte linjer (uden at toggle).",
     },
     {
       question: "Hvordan gemmer du alle åbne filer på én gang?",
       options: [
-        "Cmd/Ctrl + S flere gange",
-        "Cmd/Ctrl + K efterfulgt af S",
-        "Cmd/Ctrl + Alt + S",
-        "Cmd/Ctrl + Shift + S",
+        "⌘ + S flere gange",
+        "⌘ + K efterfulgt af S",
+        "⌘ + Option + S",
+        "⌘ + Shift + S",
       ],
       correctIndex: 1,
       explanation:
-        "Cmd/Ctrl + K efterfulgt af S gemmer alle åbne filer samtidig.",
+        "⌘ + K efterfulgt af S gemmer alle åbne filer samtidig.",
     },
     {
-      question: "Hvad gør Cmd/Ctrl + Shift + O?",
+      question: "Hvad gør ⌘ + Shift + O?",
       options: [
         "Åbner en ny fil",
         "Viser alle symboler i filen",
@@ -204,22 +204,22 @@ import Quiz from "../../../components/Quiz.astro";
       ],
       correctIndex: 1,
       explanation:
-        "Cmd/Ctrl + Shift + O viser en liste over alle funktioner, klasser og symboler i den aktuelle fil, så du hurtigt kan navigere.",
+        "⌘ + Shift + O viser en liste over alle funktioner, klasser og symboler i den aktuelle fil, så du hurtigt kan navigere.",
     },
     {
       question: "Hvordan folder du kodeblokke sammen/ud?",
       options: [
-        "Cmd/Ctrl + K + Cmd/Ctrl + 0",
-        "Cmd/Ctrl + Shift + [",
-        "Alt + Z",
-        "Cmd/Ctrl + F",
+        "⌘ + K + ⌘ + 0",
+        "⌘ + Shift + [",
+        "Option + Z",
+        "⌘ + F",
       ],
       correctIndex: 1,
       explanation:
-        "Cmd/Ctrl + Shift + [ folder koden sammen, og Cmd/Ctrl + Shift + ] folder den ud igen.",
+        "⌘ + Shift + [ folder koden sammen, og ⌘ + Shift + ] folder den ud igen.",
     },
     {
-      question: "Hvad gør Cmd/Ctrl + Space?",
+      question: "Hvad gør ⌘ + Space?",
       options: [
         "Indsætter et mellemrum",
         "Aktiverer Copilot",
@@ -228,22 +228,22 @@ import Quiz from "../../../components/Quiz.astro";
       ],
       correctIndex: 2,
       explanation:
-        "Cmd/Ctrl + Space trigger IntelliSense/autofuldførelse manuelt, så du kan se forslag til kode.",
+        "⌘ + Space trigger IntelliSense/autofuldførelse manuelt, så du kan se forslag til kode.",
     },
     {
       question: "Hvordan åbner du den integrerede terminal?",
       options: [
-        "Cmd/Ctrl + T",
-        "Cmd/Ctrl + `",
-        "Cmd/Ctrl + J",
+        "⌘ + T",
+        "⌘ + `",
+        "⌘ + J",
         "Både B og C",
       ],
       correctIndex: 3,
       explanation:
-        "Både Cmd/Ctrl + ` (backtick) og Cmd/Ctrl + J toggler den integrerede terminal i VS Code.",
+        "Både ⌘ + ` (backtick) og ⌘ + J toggler den integrerede terminal i VS Code.",
     },
     {
-      question: "Hvad bruges Shift + Alt + F til?",
+      question: "Hvad bruges Shift + Option + F til?",
       options: [
         "Find næste",
         "Formater hele dokumentet",
@@ -252,7 +252,7 @@ import Quiz from "../../../components/Quiz.astro";
       ],
       correctIndex: 1,
       explanation:
-        "Shift + Alt + F formaterer hele dokumentet automatisk baseret på dine indstillinger og installerede formatters.",
+        "Shift + Option + F formaterer hele dokumentet automatisk baseret på dine indstillinger og installerede formatters.",
     },
   ]}
 />
@@ -282,5 +282,5 @@ Her er nogle gode ressourcer til at træne genvejstaster:
 5. **Tilpas til dit workflow** - Lær først de genvejstaster du bruger mest
 
 :::tip[Pro Tip]
-I VS Code kan du trykke **Cmd/Ctrl + K + Cmd/Ctrl + S** for at åbne keyboard shortcuts editoren, hvor du kan se og tilpasse alle genvejstaster!
+I VS Code kan du trykke **⌘ + K + ⌘ + S** for at åbne keyboard shortcuts editoren, hvor du kan se og tilpasse alle genvejstaster!
 :::
