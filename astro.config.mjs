@@ -247,12 +247,12 @@ export default defineConfig({
               },
             },
             {
-              label: "Tema 7 – Quiz",
-              slug: "quiz/tema-7",
+              label: "Tema 8 – Quiz",
+              slug: "quiz/tema-8",
               badge: {
-                text: "Tema 7",
+                text: "Tema 8",
                 variant: "tip",
-                class: "badge-theme-7",
+                class: "badge-theme-8",
               },
             },
             {
