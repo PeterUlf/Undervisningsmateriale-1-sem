@@ -10,6 +10,10 @@ sidebar:
     class: badge-theme-7
 ---
 
+import Slide from "../../../components/Slide.astro";
+
+<Slide>
+
 ## Hvad er en komponent i Astro?
 
 En **komponent** er et lille, genbrugeligt stykke UI – fx en knap, et kort eller et helt layout.
@@ -19,18 +23,17 @@ I Astro er komponenter som regel filer med endelsen `.astro` i mappen `src/compo
 ```text
 src/
   components/
-    Card.astro
-    Layout.astro
+    Footer.astro
+    Header.astro
+    ServiceCard.astro
+
 ```
 
-> **Mac vs. PC:**
->
-> - På **Mac** vil du typisk have projektet i en mappe som `~/projekter/min-astro-side/`.
-> - På **Windows** kan det være `C:\\projekter\\min-astro-side\\`.
->
-> Filstrukturen inde i projektet er den samme – kun stien til projektmappen er forskellig.
+</Slide>
 
----
+<div class="page-break"></div>
+
+<Slide>
 
 ## Grundstruktur i en `.astro`-fil
 
@@ -39,21 +42,66 @@ En Astro-komponent består af:
 1. **Frontmatter** (mellem `---`), hvor du kan importere ting og definere props
 2. **Template** (HTML + JSX-lignende syntaks)
 
+Ensempel på en card komponent, som består af frontmatter, noget almindeligt html og nogle props som bliver sat ind:
+
+Card.astro
+
 ```astro
 ---
-const { title, children } = Astro.props;
+const { title, body } = Astro.props;
 ---
-
-<section class="card">
+<article class="card">
   <h2>{title}</h2>
-  <div>{children}</div>
-</section>
+  <p>{body}</p>
+</article>
+
+```
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+Her er så et eksempel hvor komponenten også indeholder styling i bunden af filen:
+
+Card.astro (her med styling)
+
+```astro
+---
+const { title, body } = Astro.props;
+---
+<article class="card">
+  <h2>{title}</h2>
+  <p>{body}</p>
+</article>
+
+<style>
+  .card {
+    background: #5000ca;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-block: 1rem;
+  }
+
+  h2 {
+    color: #fff;
+  }
+
+  p {
+    color: #cecece;
+  }
+</style>
 ```
 
 - `Astro.props` indeholder de værdier du sender ind, når du bruger komponenten.
-- `{children}` er alt det indhold, du putter mellem åbnings- og lukketagget.
+- `{her-står-navnet-på-en-prop}` er alt det indhold, du putter mellem åbnings- og lukketagget.
 
----
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
 
 ## Brug af en komponent
 
@@ -61,115 +109,89 @@ Hvis du har en `Card.astro`, kan du bruge den i en side eller en anden komponent
 
 ```astro
 ---
-import Card from "../components/Card.astro";
+import Card from "../components/Card.astro"
 ---
+--HER MANGLE EN MASSE STANDARD HTML KODE--
 
-<Card title="Velkommen">
-  Dette er indholdet inde i kortet.
-</Card>
+      <section>
+        <div class="cards">
+          <Card title="Kort 1 er her" body="Indhold for kort 1." />
+          <Card title="Også kort 2, men ikke 3" body="Indhold for kort 2." />
+        </div>
+
+--HER MANGLE EN MASSE STANDARD HTML KODE--
 ```
 
 Komponenten bliver oversat til almindelig HTML i det færdige build.
 
----
+</Slide>
 
-## Props (egenskaber)
+<div class="page-break"></div>
 
-Du kan give komponenten data via props:
-
-```astro
----
-const { title = "Standardtitel", highlight = false } = Astro.props;
----
-
-<h2 class={highlight ? "headline--highlight" : "headline"}>{title}</h2>
-```
-
-Og når du bruger den:
-
-```astro
-<Headline title="Astro er fedt" highlight={true} />
-```
-
-> Tip: Du kan bruge TypeScript i frontmatter til at dokumentere props, fx `type Props = { title: string }` og derefter `const { title } = Astro.props as Props`.
-
----
+<Slide>
 
 ## Slots – fleksible pladser til indhold
 
-Astro har også **slots**, som er lidt ligesom `children`, men med navne.
+I stedet for at bruge `body` som en prop, kan du bruge **slots** til at sende HTML-indhold ind i komponenten.
+
+Her er Card.astro revideret til at bruge slots:
 
 ```astro
 ---
+const { title } = Astro.props;
 ---
+<article class="card">
+  <h2>{title}</h2>
+  <slot />
+</article>
 
-<article class="panel">
-  <header>
-    <slot name="header" />
-  </header>
-  <section>
-    <slot />
-  </section>
-  <footer>
-    <slot name="footer" />
-  </footer>
+<style>
+  .card {
+    background: #5000ca;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-block: 1rem;
+  }
+
+  h2 {
+    color: #fff;
+  }
+</style>
+```
+
+### Sådan bruges slots
+
+```astro
+<Card title="Kort 1 er her">
+  <p>Her kan du skrive <strong>alt muligt HTML</strong>.</p>
+  <ul>
+    <li>Punkter</li>
+    <li>Billeder</li>
+    <li>Hvad som helst</li>
+  </ul>
+</Card>
+```
+
+**Hvordan virker det?**
+
+1. `title="Kort 1 er her"` bliver sendt til komponenten som en prop og indsættes i `<h2>{title}</h2>`
+2. Alt HTML mellem `<Card>` og `</Card>` (paragraffen og listen) bliver indsat hvor `<slot />` står i komponenten
+3. Resultatet bliver til almindelig HTML:
+
+```html
+<article class="card">
+  <h2>Kort 1 er her</h2>
+  <p>Her kan du skrive <strong>alt muligt HTML</strong>.</p>
+  <ul>
+    <li>Punkter</li>
+    <li>Billeder</li>
+    <li>Hvad som helst</li>
+  </ul>
 </article>
 ```
 
-Brug:
+**Fordelen ved slots:**
 
-```astro
-<Panel>
-  <h2 slot="header">Titel</h2>
-  <p>Indhold i midten.</p>
-  <small slot="footer">Lille note i bunden.</small>
-</Panel>
-```
+Med `<slot />` kan du indsætte komplekst HTML-indhold, andre komponenter, billeder, lister osv. – i stedet for kun simpel tekst via props.
 
-Slots gør det let at lave fleksible layouts til fx undervisningsmateriale.
-
----
-
-## Klient-side interaktivitet (client directives)
-
-Som udgangspunkt sender Astro **ingen** JavaScript til klienten.
-Hvis du vil have en interaktiv komponent (fx en React/Vue/Svelte-komponent), bruger du en **client directive**:
-
-```astro
----
-import Counter from "../components/Counter.jsx";
----
-
-<Counter client:load />
-```
-
-Typiske directives:
-
-- `client:load` – kør, når siden er loadet
-- `client:idle` – kør, når browseren er i ro
-- `client:visible` – kør, når komponenten scroller ind i viewport
-
-Til rene Astro-komponenter (uden React/Vue/Svelte) behøver du ofte slet ingen client-JS.
-
----
-
-## Eksempel: Simpel undervisningskomponent
-
-```astro
----
-const { question, answer } = Astro.props;
----
-
-<details class="faq">
-  <summary>{question}</summary>
-  <p>{answer}</p>
-</details>
-```
-
-Brug den i dit materiale:
-
-```astro
-<Faq question="Hvad er Astro?" answer="Et moderne framework til hurtige sites." />
-```
-
-Med relativt få linjer kan du bygge en god samling af genbrugelige byggesten til dine kurser.
+</Slide>

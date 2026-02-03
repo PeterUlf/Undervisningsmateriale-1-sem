@@ -10,12 +10,6 @@ sidebar:
     class: badge-theme-7
 ---
 
-<img
-  src="/billeder/peter_ulf.jpeg"
-  alt="Peter Ulf"
-  style="max-width: 200px; border-radius: 50%; margin-bottom: 2rem;"
-/>
-
 import Slide from "../../../components/Slide.astro";
 
 <Slide>
@@ -68,6 +62,12 @@ Vi arbejder i denne vejledning **altid inde i VS Code** og bruger kun terminalen
 
 Selve Astro-kommandoerne er de **samme** på Mac og PC. Forskellen er kun, hvordan du installerer Node første gang.
 
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
 ### Mac (macOS)
 
 1. Gå til [nodejs.org](https://nodejs.org/en) og download **Latest LTS** til macOS.
@@ -84,6 +84,12 @@ Selve Astro-kommandoerne er de **samme** på Mac og PC. Forskellen er kun, hvord
    Hvis du ser versionsnumre, er alt klart.
 
 > Alternativt kan du (hvis du kender Homebrew) bruge: `brew install node`.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
 
 ### PC (Windows)
 
@@ -107,24 +113,31 @@ Selve Astro-kommandoerne er de **samme** på Mac og PC. Forskellen er kun, hvord
 <Slide>
 ## 1. Opret et nyt Astro-projekt
 
-Uanset om du er på Mac eller PC, foregår resten i **VS Code-terminalen**.
+Uanset om du er på Mac eller PC, foregår det meste i **VS Code-terminalen**.
 
-1. Opret en mappe til dine projekter (fx `~/projekter` eller `C:\projekter`).
+1. Opret en mappe til dine projekter (fx `Users/peterulf/astroprojekter/tema7`).
 2. Åbn den mappe i **VS Code**.
 3. Åbn terminalen i VS Code: `View → Terminal` (eller genvej `Ctrl+\`` / `Cmd+\``).
 
 Kør derefter:
 
 ```bash
-npm create astro@latest
+npm create astro@latest .
 ```
 
+(Den sidste prik betyder "brug den aktuelle mappe".)
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
 Følg guiden i terminalen:
 
 - Vælg et projektnavn (fx `min-astro-side`)
-- Skabelon: fx **"Docs"** eller **"Blog"** – eller en tom skabelon
-- TypeScript: vælg det du foretrækker (begge virker)
-- `npm` som pakkehåndtering (medmindre du bruger pnpm/yarn)
+- Skabelon: brug en tom skabelon (vælges med piletasterne)
+- TypeScript: nej
+- `npm` som pakkehåndtering
 
 Når guiden er færdig, går du ind i den nye projektmappe og installerer afhængigheder (hvis create-kommandoen ikke allerede har gjort det):
 
@@ -193,7 +206,9 @@ npm run build
 - JavaScript bliver kun inkluderet hvis du har brugt client-direktiver.
 - Outputtet kommer (som standard) i mappen `dist/`.
 
-Du kan nu uploade indholdet af `dist/` til et webhotel eller hoste på fx Netlify, Vercel eller GitHub Pages.
+Du kan nu uploade indholdet af `dist/` til et webhotel.
+
+Vi benytter en anden metode, hvor vi pusher til GitHub, opretter en konto hos Netlify, som så automatisk deployer sitet for os.
 
 </Slide>
 
