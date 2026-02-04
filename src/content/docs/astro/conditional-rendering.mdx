@@ -16,8 +16,7 @@ import Slide from "../../../components/Slide.astro";
 
 1. Brug `{condition && <element />}` for at vise noget kun når betingelsen er sand
 2. Brug `{condition ? <a> : <b>}` for at vælge mellem to muligheder
-3. Brug JavaScript if/else i frontmatter til kompleks logik
-4. Kombinér med props for dynamisk rendering
+3. Kombiner betingelser for dynamisk indhold
 
 ---
 
@@ -25,49 +24,13 @@ import Slide from "../../../components/Slide.astro";
 
 ## Hvad er conditional rendering?
 
-**Conditional rendering** betyder at vise eller skjule indhold baseret på en betingelse – fx om en bruger er logget ind, om der er data, eller om en prop er sat.
+**Conditional rendering** betyder at vise eller skjule indhold baseret på en betingelse.
 
-I Astro bruger du almindelig JavaScript-logik til at styre hvad der renderes.
+**Eksempler:**
 
-</Slide>
-
-<div class="page-break"></div>
-
-<Slide>
-
-## Basic conditional rendering med &&
-
-Den enkleste måde at vise noget kun når en betingelse er sand:
-
-```astro
----
-const isLoggedIn = true;
-const userName = "Peter";
----
-
-<div>
-  {isLoggedIn && <p>Velkommen, {userName}!</p>}
-</div>
-```
-
-**Hvordan virker det?**
-
-- Hvis `isLoggedIn` er `true`, vises `<p>` elementet
-- Hvis `isLoggedIn` er `false`, vises intet
-
-**Resultat når true:**
-
-```html
-<div>
-  <p>Velkommen, Peter!</p>
-</div>
-```
-
-**Resultat når false:**
-
-```html
-<div></div>
-```
+- Vis en sang kun hvis den er liked
+- Vis "Premium" badge hvis kunstneren er verificeret
+- Vis play-knap kun hvis sangen er tilgængelig
 
 </Slide>
 
@@ -75,33 +38,63 @@ const userName = "Peter";
 
 <Slide>
 
-## Ternary operator – vælg mellem to muligheder
+## && operator – vis kun hvis sand
 
-Brug ternary operator `? :` til at vælge mellem to forskellige outputs:
+Brug `&&` til at vise noget kun når en betingelse er opfyldt:
 
 ```astro
 ---
-const hasAccess = false;
+// Song.astro
+const { title, artist, isLiked } = Astro.props;
 ---
 
-<div>
-  {hasAccess ? (
-    <p>Du har adgang til premium indhold</p>
+<div class="song">
+  <h3>{title}</h3>
+  <p>{artist}</p>
+  {isLiked && <span class="heart">❤️</span>}
+</div>
+```
+
+**Brug:**
+
+```astro
+<Song title="Bohemian Rhapsody" artist="Queen" isLiked={true} />
+```
+
+Hvis `isLiked` er `false`, vises hjertet ikke.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## ? : operator – vælg mellem to muligheder
+
+Brug ternary `? :` til at vælge mellem to forskellige ting:
+
+```astro
+---
+// Account.astro
+const { isPremium } = Astro.props;
+---
+
+<div class="account">
+  {isPremium ? (
+    <p>✓ Spotify Premium</p>
   ) : (
-    <p>Opgrader for at få adgang</p>
+    <p>Free Account - <a href="/upgrade">Opgrader</a></p>
   )}
 </div>
 ```
 
-**Resultat:**
+**Brug:**
 
-```html
-<div>
-  <p>Opgrader for at få adgang</p>
-</div>
+```astro
+<Account isPremium={false} />
 ```
 
-Dette svarer til: "Hvis `hasAccess` er sand, vis det første, ellers vis det andet."
+**Læses som:** "Hvis premium, vis det første, ellers vis det andet"
 
 </Slide>
 
@@ -109,90 +102,43 @@ Dette svarer til: "Hvis `hasAccess` er sand, vis det første, ellers vis det and
 
 <Slide>
 
-## If/else i frontmatter
+## Conditional class names
 
-For mere kompleks logik kan du bruge if/else statements i frontmatter:
-
-```astro
----
-const score = 85;
-let message;
-let className;
-
-if (score >= 90) {
-  message = "Fremragende!";
-  className = "excellent";
-} else if (score >= 70) {
-  message = "Godt klaret!";
-  className = "good";
-} else {
-  message = "Prøv igen";
-  className = "needs-improvement";
-}
----
-
-<div class={className}>
-  <p>{message}</p>
-  <p>Din score: {score}</p>
-</div>
-
-<style>
-  .excellent { background: green; color: white; }
-  .good { background: lightgreen; }
-  .needs-improvement { background: orange; }
-</style>
-```
-
-</Slide>
-
-<div class="page-break"></div>
-
-<Slide>
-
-## Conditional rendering med props
-
-Props er perfekte til conditional rendering:
+Tilføj CSS classes baseret på betingelser:
 
 ```astro
 ---
-// Alert.astro
-interface Props {
-  type: 'success' | 'warning' | 'error';
-  message: string;
-  showIcon?: boolean;
-}
-
-const { type, message, showIcon = true } = Astro.props;
+// PlayingSong.astro
+const { title, artist, isPlaying, isLiked } = Astro.props;
 ---
 
-<div class={`alert alert-${type}`}>
-  {showIcon && <span class="icon">{
-    type === 'success' ? '✓' :
-    type === 'warning' ? '⚠' : '✗'
-  }</span>}
-  <p>{message}</p>
+<div class={`song ${isPlaying ? 'playing' : ''}`}>
+  <h3>{title}</h3>
+  <button class={isLiked ? 'liked' : 'not-liked'}>
+    {isLiked ? '❤️' : '🤍'}
+  </button>
 </div>
 
 <style>
-  .alert {
-    padding: 1rem;
-    border-radius: 4px;
-    display: flex;
-    gap: 0.5rem;
+  .song.playing {
+    background: #1db954;
+    color: white;
   }
-  .alert-success { background: #d4edda; }
-  .alert-warning { background: #fff3cd; }
-  .alert-error { background: #f8d7da; }
-  .icon { font-size: 1.5rem; }
+  .liked {
+    color: #1db954;
+  }
 </style>
 ```
 
 **Brug:**
 
 ```astro
-<Alert type="success" message="Gemt!" />
-<Alert type="warning" message="Advarsel" showIcon={false} />
-<Alert type="error" message="Fejl opstod" />
+<PlayingSong
+  title="Blinding Lights"
+  artist="The Weeknd"
+  isPlaying={true}
+  isLiked={false}
+/>
 ```
 
 </Slide>
@@ -201,128 +147,36 @@ const { type, message, showIcon = true } = Astro.props;
 
 <Slide>
 
-## Conditional classes
+## Multiple betingelser
 
-Du kan dynamisk tilføje eller fjerne CSS classes:
-
-```astro
----
-const isActive = true;
-const isPrimary = true;
-const size = "large";
----
-
-<!-- Metode 1: Template literal -->
-<button class={`btn ${isActive ? 'active' : ''} ${isPrimary ? 'primary' : 'secondary'}`}>
-  Klik her
-</button>
-
-<!-- Metode 2: Array join -->
-<button class={[
-  'btn',
-  isActive && 'active',
-  isPrimary ? 'primary' : 'secondary',
-  `size-${size}`
-].filter(Boolean).join(' ')}>
-  Klik her
-</button>
-```
-
-**Resultat:**
-
-```html
-<button class="btn active primary">Klik her</button>
-<button class="btn active primary size-large">Klik her</button>
-```
-
-</Slide>
-
-<div class="page-break"></div>
-
-<Slide>
-
-## Liste med conditional items
-
-Vis kun elementer der opfylder en betingelse:
+Kombiner flere betingelser:
 
 ```astro
 ---
-const products = [
-  { name: "Laptop", price: 8000, inStock: true },
-  { name: "Mus", price: 200, inStock: true },
-  { name: "Skærm", price: 3000, inStock: false },
-  { name: "Tastatur", price: 500, inStock: true }
-];
-
-// Filtrer til kun produkter på lager
-const availableProducts = products.filter(p => p.inStock);
+// Artist.astro
+const { name, isVerified, followers } = Astro.props;
 ---
 
-<h2>Produkter på lager</h2>
-<ul>
-  {availableProducts.map(product => (
-    <li>
-      {product.name} - {product.price} kr
-      {product.price > 1000 && <span class="premium">⭐ Premium</span>}
-    </li>
-  ))}
-</ul>
-```
-
-**Resultat:**
-
-```html
-<h2>Produkter på lager</h2>
-<ul>
-  <li>Laptop - 8000 kr<span class="premium">⭐ Premium</span></li>
-  <li>Mus - 200 kr</li>
-  <li>Tastatur - 500 kr</li>
-</ul>
-```
-
-</Slide>
-
-<div class="page-break"></div>
-
-<Slide>
-
-## Conditional komponenter
-
-Du kan også vise forskellige komponenter baseret på betingelser:
-
-```astro
----
-import LoginForm from '../components/LoginForm.astro';
-import Dashboard from '../components/Dashboard.astro';
-
-const user = Astro.locals.user; // Fra middleware eller session
----
-
-<main>
-  {user ? (
-    <Dashboard userName={user.name} />
-  ) : (
-    <LoginForm />
+<div class="artist">
+  <h2>
+    {name}
+    {isVerified && <span class="badge">✓</span>}
+  </h2>
+  <p>{followers.toLocaleString('da-DK')} følgere</p>
+  {followers > 10000000 && (
+    <span class="popular">🔥 Mega populær</span>
   )}
-</main>
+</div>
 ```
 
-Eller med flere betingelser:
+**Brug:**
 
 ```astro
----
-import AdminPanel from '../components/AdminPanel.astro';
-import UserPanel from '../components/UserPanel.astro';
-import GuestPanel from '../components/GuestPanel.astro';
-
-const { role } = Astro.props;
----
-
-<main>
-  {role === 'admin' && <AdminPanel />}
-  {role === 'user' && <UserPanel />}
-  {!role && <GuestPanel />}
-</main>
+<Artist
+  name="Taylor Swift"
+  isVerified={true}
+  followers={95000000}
+/>
 ```
 
 </Slide>
@@ -331,101 +185,52 @@ const { role } = Astro.props;
 
 <Slide>
 
-## Conditional attributes
+## SongCard komponent eksempel
 
-Du kan også gøre HTML-attributter betingede:
-
-```astro
----
-const isDisabled = true;
-const isRequired = true;
-const link = "https://example.com";
----
-
-<!-- Disabled kun hvis isDisabled er true -->
-<button disabled={isDisabled}>Submit</button>
-
-<!-- Required kun hvis isRequired er true -->
-<input type="text" required={isRequired} />
-
-<!-- Href kun hvis link er sat -->
-{link ? (
-  <a href={link}>Besøg side</a>
-) : (
-  <span>Besøg side</span>
-)}
-```
-
-**Best practice:**
-For boolean attributes som `disabled`, `required`, `checked` osv., brug:
-
-- `disabled={true}` eller bare `disabled` for at aktivere
-- `disabled={false}` eller udelad attributten for at deaktivere
-
-</Slide>
-
-<div class="page-break"></div>
-
-<Slide>
-
-## Komplekst eksempel
-
-Her er et Card-komponent med mange conditional features:
+En komplet komponent med conditional rendering:
 
 ```astro
 ---
-interface Props {
-  title: string;
-  description?: string;
-  imageUrl?: string;
-  tags?: string[];
-  link?: string;
-  featured?: boolean;
-  author?: string;
-}
-
+// SongCard.astro
 const {
   title,
-  description,
-  imageUrl,
-  tags = [],
-  link,
-  featured = false,
-  author
+  artist,
+  coverUrl,
+  isLiked = false,
+  isPremium = false
 } = Astro.props;
-
-const TagComponent = link ? 'a' : 'div';
 ---
 
-<article class={`card ${featured ? 'featured' : ''}`}>
-  {imageUrl && (
-    <img src={imageUrl} alt={title} />
-  )}
+<div class="song-card">
+  {coverUrl && <img src={coverUrl} alt={title} />}
 
-  <div class="content">
-    <h2>{title}</h2>
-
-    {description && <p>{description}</p>}
-
-    {tags.length > 0 && (
-      <div class="tags">
-        {tags.map(tag => (
-          <span class="tag">{tag}</span>
-        ))}
-      </div>
-    )}
-
-    {author && (
-      <p class="author">Af {author}</p>
-    )}
-
-    {link && (
-      <a href={link} class="read-more">Læs mere →</a>
-    )}
+  <div class="info">
+    <h3>{title}</h3>
+    <p>{artist}</p>
   </div>
 
-  {featured && <span class="badge">Fremhævet</span>}
-</article>
+  <div class="actions">
+    {isLiked && <span>❤️</span>}
+    {isPremium && <span class="premium">Premium</span>}
+  </div>
+</div>
+
+<style>
+  .song-card {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    background: #181818;
+    border-radius: 8px;
+  }
+  .premium {
+    background: gold;
+    color: black;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+  }
+</style>
 ```
 
 </Slide>
@@ -434,14 +239,43 @@ const TagComponent = link ? 'a' : 'div';
 
 <Slide>
 
-## Best practices
+## Brug af SongCard
 
-1. **Hold det simpelt** – brug `&&` for simple betingelser
-2. **Ternary for to valg** – brug `? :` når du vælger mellem to outputs
-3. **If/else for kompleksitet** – brug if/else i frontmatter for avanceret logik
-4. **Filtrer data tidligt** – filtrer arrays i frontmatter, ikke i template
-5. **Default værdier** – brug default værdier på props: `showIcon = true`
-6. **Type safety** – definer interfaces for props med optional fields
-7. **Læsbarhed** – undgå dybt nestede ternary operators
+```astro
+---
+import SongCard from '../components/SongCard.astro';
+---
+
+<SongCard
+  title="Watermelon Sugar"
+  artist="Harry Styles"
+  isLiked={true}
+/>
+
+<SongCard
+  title="Anti-Hero"
+  artist="Taylor Swift"
+  coverUrl="/covers/anti-hero.jpg"
+  isPremium={true}
+/>
+```
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Husk
+
+1. **`&&`** – vis kun hvis betingelsen er sand
+2. **`? :`** – vælg mellem to muligheder
+3. **`.filter()`** – filtrer arrays før du viser dem
+4. Hold det simpelt og læsbart
+
+5. **Filtrer data tidligt** – filtrer arrays i frontmatter, ikke i template
+6. **Default værdier** – brug default værdier på props: `showIcon = true`
+7. **Type safety** – definer interfaces for props med optional fields
+8. **Læsbarhed** – undgå dybt nestede ternary operators
 
 </Slide>
