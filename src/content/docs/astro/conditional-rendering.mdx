@@ -1,0 +1,447 @@
+---
+title: Astro – Conditional Rendering
+description: Lær at vise indhold betinget i Astro-komponenter
+sidebar:
+  label: "5. Astro – Conditional Rendering"
+  order: 5
+  badge:
+    text: Tema 7
+    variant: tip
+    class: badge-theme-7
+---
+
+import Slide from "../../../components/Slide.astro";
+
+## TL;DR
+
+1. Brug `{condition && <element />}` for at vise noget kun når betingelsen er sand
+2. Brug `{condition ? <a> : <b>}` for at vælge mellem to muligheder
+3. Brug JavaScript if/else i frontmatter til kompleks logik
+4. Kombinér med props for dynamisk rendering
+
+---
+
+<Slide>
+
+## Hvad er conditional rendering?
+
+**Conditional rendering** betyder at vise eller skjule indhold baseret på en betingelse – fx om en bruger er logget ind, om der er data, eller om en prop er sat.
+
+I Astro bruger du almindelig JavaScript-logik til at styre hvad der renderes.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Basic conditional rendering med &&
+
+Den enkleste måde at vise noget kun når en betingelse er sand:
+
+```astro
+---
+const isLoggedIn = true;
+const userName = "Peter";
+---
+
+<div>
+  {isLoggedIn && <p>Velkommen, {userName}!</p>}
+</div>
+```
+
+**Hvordan virker det?**
+
+- Hvis `isLoggedIn` er `true`, vises `<p>` elementet
+- Hvis `isLoggedIn` er `false`, vises intet
+
+**Resultat når true:**
+
+```html
+<div>
+  <p>Velkommen, Peter!</p>
+</div>
+```
+
+**Resultat når false:**
+
+```html
+<div></div>
+```
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Ternary operator – vælg mellem to muligheder
+
+Brug ternary operator `? :` til at vælge mellem to forskellige outputs:
+
+```astro
+---
+const hasAccess = false;
+---
+
+<div>
+  {hasAccess ? (
+    <p>Du har adgang til premium indhold</p>
+  ) : (
+    <p>Opgrader for at få adgang</p>
+  )}
+</div>
+```
+
+**Resultat:**
+
+```html
+<div>
+  <p>Opgrader for at få adgang</p>
+</div>
+```
+
+Dette svarer til: "Hvis `hasAccess` er sand, vis det første, ellers vis det andet."
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## If/else i frontmatter
+
+For mere kompleks logik kan du bruge if/else statements i frontmatter:
+
+```astro
+---
+const score = 85;
+let message;
+let className;
+
+if (score >= 90) {
+  message = "Fremragende!";
+  className = "excellent";
+} else if (score >= 70) {
+  message = "Godt klaret!";
+  className = "good";
+} else {
+  message = "Prøv igen";
+  className = "needs-improvement";
+}
+---
+
+<div class={className}>
+  <p>{message}</p>
+  <p>Din score: {score}</p>
+</div>
+
+<style>
+  .excellent { background: green; color: white; }
+  .good { background: lightgreen; }
+  .needs-improvement { background: orange; }
+</style>
+```
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Conditional rendering med props
+
+Props er perfekte til conditional rendering:
+
+```astro
+---
+// Alert.astro
+interface Props {
+  type: 'success' | 'warning' | 'error';
+  message: string;
+  showIcon?: boolean;
+}
+
+const { type, message, showIcon = true } = Astro.props;
+---
+
+<div class={`alert alert-${type}`}>
+  {showIcon && <span class="icon">{
+    type === 'success' ? '✓' :
+    type === 'warning' ? '⚠' : '✗'
+  }</span>}
+  <p>{message}</p>
+</div>
+
+<style>
+  .alert {
+    padding: 1rem;
+    border-radius: 4px;
+    display: flex;
+    gap: 0.5rem;
+  }
+  .alert-success { background: #d4edda; }
+  .alert-warning { background: #fff3cd; }
+  .alert-error { background: #f8d7da; }
+  .icon { font-size: 1.5rem; }
+</style>
+```
+
+**Brug:**
+
+```astro
+<Alert type="success" message="Gemt!" />
+<Alert type="warning" message="Advarsel" showIcon={false} />
+<Alert type="error" message="Fejl opstod" />
+```
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Conditional classes
+
+Du kan dynamisk tilføje eller fjerne CSS classes:
+
+```astro
+---
+const isActive = true;
+const isPrimary = true;
+const size = "large";
+---
+
+<!-- Metode 1: Template literal -->
+<button class={`btn ${isActive ? 'active' : ''} ${isPrimary ? 'primary' : 'secondary'}`}>
+  Klik her
+</button>
+
+<!-- Metode 2: Array join -->
+<button class={[
+  'btn',
+  isActive && 'active',
+  isPrimary ? 'primary' : 'secondary',
+  `size-${size}`
+].filter(Boolean).join(' ')}>
+  Klik her
+</button>
+```
+
+**Resultat:**
+
+```html
+<button class="btn active primary">Klik her</button>
+<button class="btn active primary size-large">Klik her</button>
+```
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Liste med conditional items
+
+Vis kun elementer der opfylder en betingelse:
+
+```astro
+---
+const products = [
+  { name: "Laptop", price: 8000, inStock: true },
+  { name: "Mus", price: 200, inStock: true },
+  { name: "Skærm", price: 3000, inStock: false },
+  { name: "Tastatur", price: 500, inStock: true }
+];
+
+// Filtrer til kun produkter på lager
+const availableProducts = products.filter(p => p.inStock);
+---
+
+<h2>Produkter på lager</h2>
+<ul>
+  {availableProducts.map(product => (
+    <li>
+      {product.name} - {product.price} kr
+      {product.price > 1000 && <span class="premium">⭐ Premium</span>}
+    </li>
+  ))}
+</ul>
+```
+
+**Resultat:**
+
+```html
+<h2>Produkter på lager</h2>
+<ul>
+  <li>Laptop - 8000 kr<span class="premium">⭐ Premium</span></li>
+  <li>Mus - 200 kr</li>
+  <li>Tastatur - 500 kr</li>
+</ul>
+```
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Conditional komponenter
+
+Du kan også vise forskellige komponenter baseret på betingelser:
+
+```astro
+---
+import LoginForm from '../components/LoginForm.astro';
+import Dashboard from '../components/Dashboard.astro';
+
+const user = Astro.locals.user; // Fra middleware eller session
+---
+
+<main>
+  {user ? (
+    <Dashboard userName={user.name} />
+  ) : (
+    <LoginForm />
+  )}
+</main>
+```
+
+Eller med flere betingelser:
+
+```astro
+---
+import AdminPanel from '../components/AdminPanel.astro';
+import UserPanel from '../components/UserPanel.astro';
+import GuestPanel from '../components/GuestPanel.astro';
+
+const { role } = Astro.props;
+---
+
+<main>
+  {role === 'admin' && <AdminPanel />}
+  {role === 'user' && <UserPanel />}
+  {!role && <GuestPanel />}
+</main>
+```
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Conditional attributes
+
+Du kan også gøre HTML-attributter betingede:
+
+```astro
+---
+const isDisabled = true;
+const isRequired = true;
+const link = "https://example.com";
+---
+
+<!-- Disabled kun hvis isDisabled er true -->
+<button disabled={isDisabled}>Submit</button>
+
+<!-- Required kun hvis isRequired er true -->
+<input type="text" required={isRequired} />
+
+<!-- Href kun hvis link er sat -->
+{link ? (
+  <a href={link}>Besøg side</a>
+) : (
+  <span>Besøg side</span>
+)}
+```
+
+**Best practice:**
+For boolean attributes som `disabled`, `required`, `checked` osv., brug:
+
+- `disabled={true}` eller bare `disabled` for at aktivere
+- `disabled={false}` eller udelad attributten for at deaktivere
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Komplekst eksempel
+
+Her er et Card-komponent med mange conditional features:
+
+```astro
+---
+interface Props {
+  title: string;
+  description?: string;
+  imageUrl?: string;
+  tags?: string[];
+  link?: string;
+  featured?: boolean;
+  author?: string;
+}
+
+const {
+  title,
+  description,
+  imageUrl,
+  tags = [],
+  link,
+  featured = false,
+  author
+} = Astro.props;
+
+const TagComponent = link ? 'a' : 'div';
+---
+
+<article class={`card ${featured ? 'featured' : ''}`}>
+  {imageUrl && (
+    <img src={imageUrl} alt={title} />
+  )}
+
+  <div class="content">
+    <h2>{title}</h2>
+
+    {description && <p>{description}</p>}
+
+    {tags.length > 0 && (
+      <div class="tags">
+        {tags.map(tag => (
+          <span class="tag">{tag}</span>
+        ))}
+      </div>
+    )}
+
+    {author && (
+      <p class="author">Af {author}</p>
+    )}
+
+    {link && (
+      <a href={link} class="read-more">Læs mere →</a>
+    )}
+  </div>
+
+  {featured && <span class="badge">Fremhævet</span>}
+</article>
+```
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Best practices
+
+1. **Hold det simpelt** – brug `&&` for simple betingelser
+2. **Ternary for to valg** – brug `? :` når du vælger mellem to outputs
+3. **If/else for kompleksitet** – brug if/else i frontmatter for avanceret logik
+4. **Filtrer data tidligt** – filtrer arrays i frontmatter, ikke i template
+5. **Default værdier** – brug default værdier på props: `showIcon = true`
+6. **Type safety** – definer interfaces for props med optional fields
+7. **Læsbarhed** – undgå dybt nestede ternary operators
+
+</Slide>
