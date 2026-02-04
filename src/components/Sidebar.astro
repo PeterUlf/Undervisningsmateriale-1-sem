@@ -129,6 +129,16 @@ import Default from '@astrojs/starlight/components/Sidebar.astro';
           }
         });
       }
+
+      function updateThemeUrl(selectedTheme: string) {
+        const url = new URL(window.location.href);
+        if (selectedTheme === 'all') {
+          url.searchParams.delete('tema');
+        } else {
+          url.searchParams.set('tema', selectedTheme);
+        }
+        window.history.replaceState({}, '', url.toString());
+      }
       
       // Filtrer ved load
       filterMenuItems(savedTheme);
@@ -137,6 +147,7 @@ import Default from '@astrojs/starlight/components/Sidebar.astro';
       select.addEventListener('change', (e) => {
         const selectedTheme = (e.target as HTMLSelectElement).value;
         localStorage.setItem('selectedTheme', selectedTheme);
+        updateThemeUrl(selectedTheme);
         filterMenuItems(selectedTheme);
       });
     }
