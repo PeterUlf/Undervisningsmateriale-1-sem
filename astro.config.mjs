@@ -136,7 +136,7 @@ export default defineConfig({
               autogenerate: { directory: "photoshop" },
             },
             {
-              label: "Vintereventyr E2025",
+              label: "Vintereventyr F2026",
               slug: "premiere/07-vintereventyr",
               badge: {
                 text: "Tema 5",
