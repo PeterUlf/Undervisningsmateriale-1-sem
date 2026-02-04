@@ -52,6 +52,15 @@ export default defineConfig({
               autogenerate: { directory: "astro" },
             },
             {
+              label: "Figma – Astro startup",
+              link: "https://www.figma.com/design/7P0R8VUG83lw7kELo3kDtm/Astro-startup?node-id=0-1",
+              badge: {
+                text: "Tema 7",
+                variant: "tip",
+                class: "badge-theme-7",
+              },
+            },
+            {
               label: "HTML",
               autogenerate: { directory: "html" },
             },
