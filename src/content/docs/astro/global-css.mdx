@@ -1,0 +1,140 @@
+---
+title: Global CSS i Astro
+description: Sådan opsætter du global CSS i et Astro projekt
+---
+
+Global CSS er styles der gælder for hele dit website. I Astro kan du nemt tilføje globale stylesheets.
+
+## Oprettelse af global CSS fil
+
+1. **Opret en styles mappe** i `src/`:
+
+   ```
+   src/
+     styles/
+       global.css
+   ```
+
+2. **Tilføj dine globale styles** til `global.css`:
+
+   ```css
+   /* CSS Reset */
+   *,
+   *::before,
+   *::after {
+     box-sizing: border-box;
+   }
+
+   body {
+     margin: 0;
+     padding: 0;
+     font-family:
+       system-ui,
+       -apple-system,
+       sans-serif;
+     line-height: 1.6;
+   }
+
+   /* Dine globale styles */
+   h1,
+   h2,
+   h3,
+   h4,
+   h5,
+   h6 {
+     margin-top: 0;
+   }
+   ```
+
+## Importering af global CSS
+
+Der er flere måder at importere global CSS i Astro:
+
+### Metode 1: I Layout komponenter
+
+Importer CSS i dine layout filer (f.eks. `src/layouts/Layout.astro`):
+
+```astro
+---
+import '../styles/global.css';
+---
+
+<html>
+  <head>
+    <!-- ... -->
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
+```
+
+### Metode 2: I Astro pages
+
+Import CSS direkte i dine `.astro` sider:
+
+```astro
+---
+import '../styles/global.css';
+---
+
+<h1>Min side</h1>
+```
+
+### Metode 3: Via `<style is:global>`
+
+For mindre mængder global CSS kan du bruge `is:global` direktivet:
+
+```astro
+<style is:global>
+  body {
+    background-color: #f0f0f0;
+  }
+</style>
+```
+
+## Best Practices
+
+- **Importer kun én gang**: Import global CSS i dit hovedlayout for at undgå duplikering
+- **Brug CSS variabler**: Definer farver og spacing som CSS custom properties
+- **Organiser din CSS**: Overvej at opdele i flere filer (reset.css, variables.css, typography.css)
+- **Scoped vs Global**: Brug scoped styles i komponenter og global CSS kun til generelle ting
+
+## Eksempel på struktur
+
+```
+src/
+  styles/
+    global.css       # Hovedfil
+    reset.css        # CSS reset
+    variables.css    # CSS custom properties
+    typography.css   # Typografi styles
+```
+
+Importer dem derefter i din global.css:
+
+```css
+/* global.css */
+@import "./reset.css";
+@import "./variables.css";
+@import "./typography.css";
+
+/* Øvrige globale styles */
+```
+
+## CSS i Astro komponenter
+
+Husk at Astro automatisk scoper CSS i `.astro` filer:
+
+```astro
+<style>
+  /* Denne CSS er automatisk scoped til denne komponent */
+  h1 {
+    color: blue;
+  }
+</style>
+
+<h1>Overskrift</h1>
+```
+
+Dette påvirker kun `<h1>` i denne komponent, ikke globalt.
