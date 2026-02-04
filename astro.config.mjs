@@ -9,7 +9,7 @@ const isDev = process.env.NODE_ENV !== "production";
 export default defineConfig({
   integrations: [
     starlight({
-      title: "MMD undervisningsmateriale E2025 V  0.4",
+      title: "MMD undervisningsmateriale F2026 V  0.5",
       customCss: ["./src/styles/custom.css"],
       components: {
         PageTitle: "./src/components/PageTitleWrapper.astro",
