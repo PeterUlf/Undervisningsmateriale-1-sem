@@ -1,0 +1,336 @@
+---
+title: Astro – Layouts
+description: Lær at bygge og bruge layout-komponenter i Astro
+sidebar:
+  badge:
+    text: Tema 7
+    variant: tip
+    class: badge-theme-7
+---
+
+import Slide from "../../../components/Slide.astro";
+
+## TL;DR
+
+1. Opret en `src/layouts/` mappe
+2. Lav en `.astro` fil med `<html>`, `<head>` og `<body>`
+3. Brug `<slot />` hvor sidens indhold skal indsættes
+4. Importer og wrap dine sider i layout'et
+5. Gennemfør fælles struktur (header, footer, navigation) automatisk
+
+---
+
+<Slide>
+
+## Hvad er et layout?
+
+Et **layout** er en speciel Astro-komponent, der indeholder den fælles struktur for dine sider – typisk `<html>`, `<head>`, `<body>`, navigation, header og footer.
+
+I stedet for at gentage denne kode på hver side, bruger du et layout som en skabelon.
+
+**Fordele ved layouts:**
+
+- Undgå gentagelse af kode
+- Ensartet struktur på alle sider
+- Let at opdatere header, footer osv. ét sted
+- Bedre vedligeholdelse
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Opret et basic layout
+
+Opret en mappe `src/layouts/` og lav en fil `Layout.astro`:
+
+```astro
+---
+const { title } = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="da">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a href="/">Hjem</a>
+        <a href="/om/">Om</a>
+        <a href="/kontakt/">Kontakt</a>
+      </nav>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer>
+      <p>&copy; 2026 Min Hjemmeside</p>
+    </footer>
+  </body>
+</html>
+```
+
+**Forklaring:**
+
+- `{title}` kommer fra props når du bruger layout'et
+- `<slot />` er hvor sidens unikke indhold indsættes
+- Header og footer er fælles for alle sider
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Brug layout'et i en side
+
+I din side (fx `src/pages/index.astro`):
+
+```astro
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Forsiden">
+  <h1>Velkommen til min hjemmeside</h1>
+  <p>Dette er indholdet på forsiden.</p>
+</Layout>
+```
+
+**Resultatet:**
+
+Alt HTML fra `Layout.astro` wrapper automatisk dit indhold. `<slot />` bliver erstattet med `<h1>` og `<p>` fra siden.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Layout med global CSS
+
+Du kan importere global CSS direkte i dit layout:
+
+```astro
+---
+import '../styles/global.css';
+const { title } = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="da">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
+```
+
+Nu gælder `global.css` automatisk på alle sider der bruger dette layout.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Flere props til layout
+
+Du kan tilføje flere props for mere fleksibilitet:
+
+```astro
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  author?: string;
+}
+
+const {
+  title,
+  description = "Min hjemmeside",
+  author = "Mit Navn"
+} = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="da">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content={author} />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
+```
+
+**Brug:**
+
+```astro
+<Layout
+  title="Om os"
+  description="Lær mere om vores virksomhed"
+  author="Teamet"
+>
+  <h1>Om os</h1>
+  <p>Vi laver fede hjemmesider.</p>
+</Layout>
+```
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Multiple layouts
+
+Du kan have forskellige layouts til forskellige typer sider:
+
+```text
+src/
+  layouts/
+    Layout.astro          # Standard layout
+    BlogLayout.astro      # Layout til blogindlæg
+    ProductLayout.astro   # Layout til produktsider
+```
+
+**Eksempel på BlogLayout.astro:**
+
+```astro
+---
+import Layout from './Layout.astro';
+
+interface Props {
+  title: string;
+  date: string;
+  author: string;
+}
+
+const { title, date, author } = Astro.props;
+---
+
+<Layout title={title}>
+  <article>
+    <header>
+      <h1>{title}</h1>
+      <p>Af {author} • {date}</p>
+    </header>
+    <slot />
+  </article>
+</Layout>
+```
+
+Her wrapper `BlogLayout` det generelle `Layout` og tilføjer ekstra blogspecifik struktur.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Named slots
+
+Du kan bruge **named slots** til at indsætte indhold flere steder:
+
+```astro
+---
+const { title } = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="da">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{title}</title>
+    <slot name="head" />
+  </head>
+  <body>
+    <header>
+      <slot name="header" />
+    </header>
+    <main>
+      <slot />
+    </main>
+  </body>
+</html>
+```
+
+**Brug:**
+
+```astro
+<Layout title="Min side">
+  <link slot="head" rel="stylesheet" href="/special.css" />
+
+  <nav slot="header">
+    <a href="/">Hjem</a>
+  </nav>
+
+  <h1>Hovedindhold</h1>
+  <p>Dette går i main (default slot).</p>
+</Layout>
+```
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Best practices for layouts
+
+1. **Hold layouts simple** – kompleks logik hører hjemme i komponenter
+2. **Gennemfør én gang** – importer global CSS og scripts i layout'et
+3. **Brug TypeScript interfaces** – definer props tydeligt
+4. **Standard værdier** – giv props default værdier hvor det giver mening
+5. **SEO metadata** – inkluder meta tags i layout'ets `<head>`
+6. **Nested layouts** – byg specialiserede layouts oven på grundlæggende layouts
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Layout med komponenter
+
+Kombiner layouts med komponenter for maksimal genanvendelighed:
+
+```astro
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+const { title } = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="da">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <Header />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>
+```
+
+Nu kan du ændre header og footer uafhængigt i deres egne komponentfiler.
+
+</Slide>
