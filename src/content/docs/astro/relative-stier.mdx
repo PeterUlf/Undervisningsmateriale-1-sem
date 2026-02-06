@@ -1,0 +1,432 @@
+---
+title: Astro – Relative stier
+description: Forstå hvordan relative stier virker, når du arbejder med mapper i Astro.
+sidebar:
+  label: "Relative stier"
+  order: 3
+  badge:
+    text: Tema 7
+    variant: tip
+    class: badge-theme-7
+---
+
+import Slide from "../../../components/Slide.astro";
+
+<Slide>
+
+## Hvad er en sti (path)?
+
+En **sti** er adressen til en fil eller mappe på din computer. Når du arbejder i Astro (og alle andre udviklingsprojekter), skal du ofte referere til filer i andre mapper – f.eks. når du importerer komponenter, billeder eller CSS-filer.
+
+Der findes to typer stier:
+
+- **Absolutte stier**: Starter fra roden af dit projekt, f.eks. `/src/components/Header.astro`
+- **Relative stier**: Starter fra den fil, du står i lige nu, f.eks. `../components/Header.astro`
+
+</Slide>
+
+---
+
+<Slide>
+
+## Relative stier – sådan virker de
+
+Når du bruger **relative stier**, navigerer du ud fra den fil, du er i.
+
+### De vigtigste symboler
+
+| Symbol   | Betydning               | Eksempel                     |
+| -------- | ----------------------- | ---------------------------- |
+| `./`     | Den **nuværende** mappe | `./Header.astro`             |
+| `../`    | **En mappe op**         | `../components/Header.astro` |
+| `../../` | **To mapper op**        | `../../assets/logo.png`      |
+
+:::tip[Husk]
+Du kan kombinere flere `../` efter hinanden for at gå flere niveauer op i mappestrukturen!
+:::
+
+</Slide>
+
+---
+
+<Slide>
+
+## Eksempel: Projektstruktur
+
+Forestil dig denne mappestruktur i et Astro-projekt:
+
+```text
+src/
+├── pages/
+│   ├── index.astro
+│   └── om/
+│       └── historie.astro
+├── components/
+│   ├── Header.astro
+│   └── Footer.astro
+└── assets/
+    └── logo.png
+```
+
+</Slide>
+
+---
+
+<Slide>
+
+## Eksempel 1: Import fra samme niveau
+
+Hvis du er i `src/pages/index.astro` og vil importere `Header.astro`:
+
+```astro
+// Du er i: src/pages/index.astro
+// Du vil nå: src/components/Header.astro
+
+import Header from '../components/Header.astro';
+```
+
+**Forklaring:**
+
+1. `../` går **en mappe op** fra `pages/` til `src/`
+2. `components/` går **ind i** components-mappen
+3. `Header.astro` er filen
+
+</Slide>
+
+---
+
+<Slide>
+
+## Eksempel 2: Import fra dyb undermappe
+
+Hvis du er i `src/pages/om/historie.astro` og vil importere `Header.astro`:
+
+```astro
+// Du er i: src/pages/om/historie.astro
+// Du vil nå: src/components/Header.astro
+
+import Header from '../../components/Header.astro';
+```
+
+**Forklaring:**
+
+1. `../` går en mappe op fra `om/` til `pages/`
+2. `../` går endnu en mappe op fra `pages/` til `src/`
+3. `components/Header.astro` er stien fra `src/`
+
+</Slide>
+
+---
+
+<Slide>
+
+## Eksempel 3: Brug af billeder
+
+Hvis du er i `src/pages/index.astro` og vil bruge `logo.png`:
+
+```astro
+// Du er i: src/pages/index.astro
+// Du vil nå: src/assets/logo.png
+
+import logo from '../assets/logo.png';
+```
+
+```html
+<img src="{logo.src}" alt="Logo" />
+```
+
+:::note[Bemærk]
+I Astro skal du ofte importere billeder for at få den optimerede URL. Astro håndterer automatisk billedoptimering!
+:::
+
+</Slide>
+
+---
+
+<Slide>
+
+## Eksempel 4: CSS-filer
+
+Hvis du har en CSS-fil i en særskilt mappe:
+
+```text
+src/
+├── pages/
+│   └── index.astro
+└── styles/
+    └── global.css
+```
+
+Så kan du importere den sådan:
+
+```astro
+// Du er i: src/pages/index.astro
+// Du vil nå: src/styles/global.css
+
+import '../styles/global.css';
+```
+
+</Slide>
+
+---
+
+<Slide>
+
+## Trin-for-trin guide til relative stier
+
+1. **Find ud af, hvor du er**: Hvilken fil skriver du kode i?
+2. **Find ud af, hvor du skal hen**: Hvilken fil vil du importere?
+3. **Gå tilbage til fælles mappe**: Brug `../` for hver gang du skal en mappe op
+4. **Gå frem til destinationen**: Skriv mappenavne og filnavn
+
+### Eksempel i praksis
+
+Du er i: `src/pages/produkter/kategori/telte.astro`  
+Du skal bruge: `src/components/ProductCard.astro`
+
+```text
+telte.astro     (start)
+  ../           -> kategori/
+  ../           -> produkter/
+  ../           -> pages/
+  ../           -> src/
+  components/   -> src/components/
+  ProductCard.astro  -> src/components/ProductCard.astro
+```
+
+Resultat: `import ProductCard from '../../../components/ProductCard.astro';`
+
+</Slide>
+
+---
+
+<Slide>
+
+## Hvornår skal du bruge hvad?
+
+### Brug relative stier (`../`) når:
+
+- Du importerer **komponenter** i dine Astro-filer
+- Du importerer **billeder** fra assets-mappen
+- Du importerer **CSS-filer**
+- Du linker mellem sider (i nogle tilfælde)
+
+### Brug absolutte stier (`/`) når:
+
+- Du linker til **public-mappen** (f.eks. `/billeder/hero.jpg`)
+- Du definerer routes i config-filer
+- Du vil have en fast reference, der ikke ændrer sig
+
+:::caution[Vigtigt]
+Filer i `public/`-mappen skal **aldrig** importeres med `import`. De tilgås direkte via `/filnavn.ext` i din HTML/Astro-kode.
+:::
+
+</Slide>
+
+---
+
+<Slide>
+
+## Public vs. Assets – hvad er forskellen?
+
+### `src/assets/` – Til filer der skal **optimeres**
+
+- Billeder der skal komprimeres
+- Filer der skal importeres i komponenter
+- Brug **relative import-stier**
+
+```astro
+import logo from '../assets/logo.png';
+<img src={logo.src} alt="Logo" />
+```
+
+### `public/` – Til filer der skal bruges **direkte**
+
+- PDFer, videoer, favicon
+- Filer der skal have præcis samme navn
+- Brug **absolutte stier** (starter med `/`)
+
+```astro
+<a href="/pdf/brochure.pdf">Download brochure</a>
+<img src="/billeder/hero.jpg" alt="Hero" />
+```
+
+</Slide>
+
+---
+
+<Slide>
+
+## Almindelige fejl og løsninger
+
+### ❌ Fejl: "Cannot find module"
+
+```astro
+import Header from './Header.astro';
+```
+
+**Problem**: Du bruger `./` men filen ligger i en anden mappe.
+
+**Løsning**: Brug `../` til at gå op først:
+
+```astro
+import Header from '../components/Header.astro';
+```
+
+---
+
+### ❌ Fejl: For mange `../`
+
+```astro
+import Header from '../../../../components/Header.astro';
+```
+
+**Problem**: Du går for langt op i mappestrukturen.
+
+**Løsning**: Tæl mapperne nøje. Brug VS Code's autocomplete (Ctrl+Space) til at hjælpe!
+
+---
+
+### ❌ Fejl: Blanding af `\` og `/`
+
+```astro
+import Header from '..\components\Header.astro'; // Windows-stil
+```
+
+**Problem**: Du skal altid bruge `/` i JavaScript/Astro, også på Windows.
+
+**Løsning**:
+
+```astro
+import Header from '../components/Header.astro';
+```
+
+</Slide>
+
+---
+
+<Slide>
+
+## Pro tips 🚀
+
+### 1. Brug VS Code's autocomplete
+
+Når du skriver `import Header from '`, så tryk **Ctrl+Space** for at få forslag til stier.
+
+### 2. Hold din mappestruktur simpel
+
+Jo færre undermapper, jo færre `../` skal du skrive!
+
+### 3. Brug TypeScript path aliases (avanceret)
+
+I `tsconfig.json` kan du definere shortcuts:
+
+```json
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@components/*": ["src/components/*"],
+      "@assets/*": ["src/assets/*"]
+    }
+  }
+}
+```
+
+Så kan du skrive:
+
+```astro
+import Header from '@components/Header.astro';
+```
+
+</Slide>
+
+---
+
+<Slide>
+
+## Øvelse: Relative stier
+
+Givet denne struktur:
+
+```text
+src/
+├── pages/
+│   ├── index.astro
+│   └── blog/
+│       ├── index.astro
+│       └── posts/
+│           └── artikel.astro
+├── components/
+│   └── BlogCard.astro
+└── assets/
+    └── images/
+        └── thumbnail.jpg
+```
+
+**Opgave 1**: Skriv import-stien til `BlogCard.astro` fra `artikel.astro`
+
+**Opgave 2**: Skriv import-stien til `thumbnail.jpg` fra `blog/index.astro`
+
+**Opgave 3**: Skriv import-stien til `thumbnail.jpg` fra `artikel.astro`
+
+</Slide>
+
+---
+
+<Slide>
+
+## Løsninger
+
+### Opgave 1: Fra artikel.astro til BlogCard.astro
+
+```astro
+// Du er i: src/pages/blog/posts/artikel.astro
+// Du vil nå: src/components/BlogCard.astro
+
+import BlogCard from '../../../components/BlogCard.astro';
+```
+
+---
+
+### Opgave 2: Fra blog/index.astro til thumbnail.jpg
+
+```astro
+// Du er i: src/pages/blog/index.astro
+// Du vil nå: src/assets/images/thumbnail.jpg
+
+import thumbnail from '../../assets/images/thumbnail.jpg';
+```
+
+---
+
+### Opgave 3: Fra artikel.astro til thumbnail.jpg
+
+```astro
+// Du er i: src/pages/blog/posts/artikel.astro
+// Du vil nå: src/assets/images/thumbnail.jpg
+
+import thumbnail from '../../../assets/images/thumbnail.jpg';
+```
+
+</Slide>
+
+---
+
+<Slide>
+
+## Opsummering
+
+- **Relative stier** starter fra den fil, du er i
+- **`../`** betyder "gå en mappe op"
+- **`./`** betyder "nuværende mappe"
+- Tæl mappeniveauer for at finde den rigtige sti
+- Brug VS Code's autocomplete for at hjælpe
+- `public/`-filer bruger **absolutte stier** (`/filnavn`)
+- `src/assets/`-filer bruger **relative import-stier** (`../assets/filnavn`)
+
+:::tip[Huskeregel]
+Tæl hvor mange mapper du skal op, og brug lige så mange `../` – så er du hjemme! 🏠
+:::
+
+</Slide>

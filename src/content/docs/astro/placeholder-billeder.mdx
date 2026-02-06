@@ -1,0 +1,629 @@
+---
+title: Placeholder-billeder med via.assets.so
+description: Lær at bruge via.assets.so til at generere placeholder-billeder under udvikling.
+sidebar:
+  label: "Placeholder-billeder"
+  order: 10
+  badge:
+    text: Tema 7
+    variant: tip
+    class: badge-theme-7
+---
+
+import Slide from "../../../components/Slide.astro";
+
+## TL;DR (Til dem der ved hvad de laver)
+
+Brug via.assets.so til placeholder-billeder under udvikling:
+
+```html
+<!-- Basis -->
+<img src="https://via.assets.so/img.jpg?w=400&h=300" alt="Placeholder" />
+
+<!-- Med alle parametre -->
+<img
+  src="https://via.assets.so/album.png?id=1&w=360&h=360&q=95&fit=fill"
+  alt="Album"
+/>
+```
+
+**Parametre:**
+
+- `w=XXX` – Bredde i pixels
+- `h=XXX` – Højde i pixels
+- `q=XX` – Kvalitet (1-100)
+- `fit=fill|contain|cover` – Tilpasning
+- `id=XX` – Vælg specifikt billede
+
+**Typer:** `img.jpg`, `album.png`, `game.png`, `movie.png`, `device.png`
+
+:::caution[Husk]
+Erstat altid med rigtige billeder før produktion!
+:::
+
+---
+
+<Slide>
+
+## Hvad er via.assets.so?
+
+**via.assets.so** er en gratis online-service, der genererer placeholder-billeder til brug under udvikling.
+
+I stedet for at lede efter rigtige billeder eller lave dummy-filer, kan du linke direkte til via.assets.so og få et pænt placeholder-billede med den størrelse, du har brug for.
+
+:::tip[Perfekt til]
+
+- Prototype-udvikling
+- Når du venter på rigtige billeder fra kunden
+- Til at teste layouts og designs
+- Til demoprojekter og portfolios under udvikling
+  :::
+
+</Slide>
+
+---
+
+<Slide>
+
+## Grundlæggende brug
+
+Den simpleste måde at bruge via.assets.so på:
+
+```html
+<img src="https://via.assets.so/img.jpg" alt="Placeholder" />
+```
+
+Det giver dig et standard placeholder-billede.
+
+Men kraften ligger i at **tilpasse** billedet med parametre!
+
+</Slide>
+
+---
+
+<Slide>
+
+## Tilgængelige parametre
+
+via.assets.so understøtter en række parametre, du kan sætte i URL'en:
+
+| Parameter | Beskrivelse                | Eksempel   |
+| --------- | -------------------------- | ---------- |
+| `w`       | Bredde (width) i pixels    | `w=360`    |
+| `h`       | Højde (height) i pixels    | `h=360`    |
+| `q`       | Kvalitet (quality) 1-100   | `q=95`     |
+| `fit`     | Hvordan billedet tilpasses | `fit=fill` |
+| `id`      | Specifikt billede-ID       | `id=1`     |
+
+</Slide>
+
+---
+
+<Slide>
+
+## Eksempel: Albumomslag
+
+```html
+<img
+  src="https://via.assets.so/album.png?id=1&q=95&w=360&h=360&fit=fill"
+  alt="Album cover"
+/>
+```
+
+**Forklaring af parametrene:**
+
+- `album.png` – Billedtype (album cover)
+- `id=1` – Vælger billede nummer 1
+- `q=95` – Høj kvalitet (95%)
+- `w=360` – Bredde 360px
+- `h=360` – Højde 360px
+- `fit=fill` – Billedet fyldes til at passe størrelsen
+
+<div style="margin-top: 1rem;">
+  <img
+    src="https://via.assets.so/album.png?id=1&q=95&w=360&h=360&fit=fill"
+    alt="Album cover eksempel"
+    style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);"
+  />
+</div>
+
+</Slide>
+
+---
+
+<Slide>
+
+## Billedtyper
+
+via.assets.so tilbyder forskellige kategorier af billeder:
+
+```html
+<!-- Generelt billede -->
+<img src="https://via.assets.so/img.jpg?w=400&h=300" alt="Generelt" />
+
+<!-- Albumomslag -->
+<img src="https://via.assets.so/album.png?w=300&h=300" alt="Album" />
+
+<!-- Game cover -->
+<img src="https://via.assets.so/game.png?w=300&h=400" alt="Game" />
+
+<!-- Movie poster -->
+<img src="https://via.assets.so/movie.png?w=300&h=450" alt="Movie" />
+
+<!-- Device/tech -->
+<img src="https://via.assets.so/device.png?w=400&h=300" alt="Device" />
+```
+
+:::tip[Prøv forskellige typer]
+Eksperimenter med forskellige billedtyper for at finde den, der passer bedst til dit projekt!
+:::
+
+</Slide>
+
+---
+
+<Slide>
+
+## Størrelsesparametre
+
+### Kun bredde
+
+```html
+<img src="https://via.assets.so/img.jpg?w=500" alt="500px bred" />
+```
+
+Billedet får bredden 500px, højden tilpasses automatisk.
+
+### Kun højde
+
+```html
+<img src="https://via.assets.so/img.jpg?h=300" alt="300px høj" />
+```
+
+Billedet får højden 300px, bredden tilpasses automatisk.
+
+### Både bredde og højde
+
+```html
+<img src="https://via.assets.so/img.jpg?w=800&h=600" alt="800x600" />
+```
+
+Billedet får præcis de angivne dimensioner.
+
+</Slide>
+
+---
+
+<Slide>
+
+## Fit-parametre
+
+`fit`-parameteren styrer, hvordan billedet tilpasses de angivne dimensioner:
+
+### `fit=fill` (standard)
+
+```html
+<img src="https://via.assets.so/img.jpg?w=400&h=300&fit=fill" alt="Fill" />
+```
+
+Billedet fyldes til at dække hele området (kan beskære billedet).
+
+### `fit=contain`
+
+```html
+<img
+  src="https://via.assets.so/img.jpg?w=400&h=300&fit=contain"
+  alt="Contain"
+/>
+```
+
+Hele billedet vises inden for området (kan have tomme kanter).
+
+### `fit=cover`
+
+```html
+<img src="https://via.assets.so/img.jpg?w=400&h=300&fit=cover" alt="Cover" />
+```
+
+Billedet dækker hele området og bevarer proportioner.
+
+</Slide>
+
+---
+
+<Slide>
+
+## Kvalitetsparametre
+
+`q`-parameteren styrer billedkvaliteten (1-100):
+
+```html
+<!-- Lav kvalitet (mindre filstørrelse) -->
+<img src="https://via.assets.so/img.jpg?w=500&q=30" alt="Lav kvalitet" />
+
+<!-- Medium kvalitet -->
+<img src="https://via.assets.so/img.jpg?w=500&q=70" alt="Medium kvalitet" />
+
+<!-- Høj kvalitet (større filstørrelse) -->
+<img src="https://via.assets.so/img.jpg?w=500&q=95" alt="Høj kvalitet" />
+```
+
+:::note[Standard]
+Hvis du ikke angiver `q`, bruger via.assets.so en fornuftig standardværdi (typisk omkring 80).
+:::
+
+</Slide>
+
+---
+
+<Slide>
+
+## ID-parameter for variation
+
+Brug `id` til at vælge forskellige billeder:
+
+```html
+<img src="https://via.assets.so/album.png?id=1&w=200&h=200" alt="Album 1" />
+<img src="https://via.assets.so/album.png?id=2&w=200&h=200" alt="Album 2" />
+<img src="https://via.assets.so/album.png?id=3&w=200&h=200" alt="Album 3" />
+<img src="https://via.assets.so/album.png?id=4&w=200&h=200" alt="Album 4" />
+```
+
+<div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1rem;">
+  <img
+    src="https://via.assets.so/album.png?id=1&w=150&h=150&fit=fill"
+    alt="Album 1"
+    style="border-radius: 8px;"
+  />
+  <img
+    src="https://via.assets.so/album.png?id=2&w=150&h=150&fit=fill"
+    alt="Album 2"
+    style="border-radius: 8px;"
+  />
+  <img
+    src="https://via.assets.so/album.png?id=3&w=150&h=150&fit=fill"
+    alt="Album 3"
+    style="border-radius: 8px;"
+  />
+  <img
+    src="https://via.assets.so/album.png?id=4&w=150&h=150&fit=fill"
+    alt="Album 4"
+    style="border-radius: 8px;"
+  />
+</div>
+
+:::tip[Tip]
+Prøv forskellige ID-numre (1-100+) for at få variation i dine placeholder-billeder!
+:::
+
+</Slide>
+
+---
+
+<Slide>
+
+## Praktisk eksempel: Produktgalleri
+
+Her er et komplet eksempel på et produktgalleri med placeholder-billeder:
+
+```astro
+---
+// Produktgalleri.astro
+const products = [
+  { id: 1, name: "Produkt 1" },
+  { id: 2, name: "Produkt 2" },
+  { id: 3, name: "Produkt 3" },
+  { id: 4, name: "Produkt 4" },
+];
+---
+
+<div class="product-grid">
+  {products.map(product => (
+    <div class="product-card">
+      <img
+        src={`https://via.assets.so/img.jpg?id=${product.id}&w=300&h=300&q=85&fit=cover`}
+        alt={product.name}
+      />
+      <h3>{product.name}</h3>
+    </div>
+  ))}
+</div>
+
+<style>
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+  }
+
+  .product-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+</style>
+```
+
+</Slide>
+
+---
+
+<Slide>
+
+## Brug i Astro-komponenter
+
+### Eksempel: Hero-sektion
+
+```astro
+---
+// Hero.astro
+interface Props {
+  imageId?: number;
+}
+
+const { imageId = 1 } = Astro.props;
+const heroImage = `https://via.assets.so/img.jpg?id=${imageId}&w=1200&h=600&q=90&fit=cover`;
+---
+
+<section class="hero">
+  <img src={heroImage} alt="Hero billede" />
+  <div class="hero-content">
+    <h1>Velkommen til vores side</h1>
+    <p>Dette er en placeholder hero-sektion</p>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    width: 100%;
+    height: 600px;
+  }
+
+  .hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .hero-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+  }
+</style>
+```
+
+</Slide>
+
+---
+
+<Slide>
+
+## Responsive billeder
+
+Du kan bruge `srcset` sammen med via.assets.so for responsive billeder:
+
+```html
+<img
+  src="https://via.assets.so/img.jpg?w=800&h=600&q=85"
+  srcset="
+    https://via.assets.so/img.jpg?id=1&w=400&h=300&q=85   400w,
+    https://via.assets.so/img.jpg?id=1&w=800&h=600&q=85   800w,
+    https://via.assets.so/img.jpg?id=1&w=1200&h=900&q=85 1200w
+  "
+  sizes="(max-width: 600px) 400px, (max-width: 1200px) 800px, 1200px"
+  alt="Responsive billede"
+/>
+```
+
+Browseren vælger automatisk den rigtige størrelse baseret på skærmstørrelsen!
+
+</Slide>
+
+---
+
+<Slide>
+
+## Tips og tricks
+
+### 1. Brug konsistente ID'er
+
+```astro
+---
+// Hvis du bruger samme ID, får du samme billede hver gang
+const productImageId = 42;
+---
+<img src={`https://via.assets.so/img.jpg?id=${productImageId}&w=300&h=300`} alt="Produkt" />
+```
+
+### 2. Gem URLs som konstanter
+
+```astro
+---
+const PLACEHOLDER_AVATAR = "https://via.assets.so/img.jpg?w=100&h=100&fit=cover";
+const PLACEHOLDER_HERO = "https://via.assets.so/img.jpg?w=1200&h=600&q=90&fit=cover";
+---
+```
+
+### 3. Brug miljøvariabler til at skifte mellem placeholder og rigtige billeder
+
+```astro
+---
+const isDevelopment = import.meta.env.DEV;
+const imageUrl = isDevelopment
+  ? "https://via.assets.so/img.jpg?id=1&w=300&h=300"
+  : "/images/real-product.jpg";
+---
+```
+
+</Slide>
+
+---
+
+<Slide>
+
+## Alternative tjenester
+
+Hvis via.assets.so ikke opfylder dine behov, er her nogle alternativer:
+
+### Lorem Picsum
+
+```html
+<img src="https://picsum.photos/400/300" alt="Random billede" />
+```
+
+Generator tilfældige rigtige fotos.
+
+### Placeholder.com
+
+```html
+<img src="https://via.placeholder.com/400x300" alt="Placeholder" />
+```
+
+Enkel farveboks med tekst.
+
+### Unsplash Source
+
+```html
+<img src="https://source.unsplash.com/random/400x300" alt="Unsplash" />
+```
+
+Tilfældige Unsplash-fotos (kræver internet).
+
+</Slide>
+
+---
+
+<Slide>
+
+## Hvornår skal du bruge placeholders?
+
+### ✅ Godt at bruge placeholders til:
+
+- **Udvikling og prototyping** – Kom hurtigt i gang uden rigtige billeder
+- **Design-demos** – Vis layout og struktur til klienter
+- **Testing** – Test responsive designs og billedformater
+- **Læring** – Øv kode uden at skulle finde billeder
+
+### ❌ Brug IKKE placeholders til:
+
+- **Produktion** – Skift altid til rigtige billeder før launch
+- **SEO-kritiske sider** – Søgemaskiner foretrækker autentisk indhold
+- **Performance-kritiske sider** – Eksterne links er langsommere end lokale filer
+
+:::caution[Vigtigt]
+Husk altid at erstatte placeholder-billeder med rigtige billeder, før dit projekt går live!
+:::
+
+</Slide>
+
+---
+
+<Slide>
+
+## Komplet oversigt
+
+### Basis-URL struktur:
+
+```
+https://via.assets.so/[type]?[parameter1]=[værdi1]&[parameter2]=[værdi2]
+```
+
+### Alle parametre:
+
+```html
+<img
+  src="https://via.assets.so/album.png?id=5&w=800&h=600&q=95&fit=cover"
+  alt="Komplet"
+/>
+```
+
+### Hurtigt reference-cheat sheet:
+
+```text
+w=XXX      → Bredde i pixels
+h=XXX      → Højde i pixels
+q=XX       → Kvalitet (1-100)
+fit=XXX    → fill | contain | cover
+id=XX      → Specifikt billede-nummer
+```
+
+### Billedtyper:
+
+- `img.jpg` – Generelt billede
+- `album.png` – Albumcover
+- `game.png` – Spilcover
+- `movie.png` – Filmplakat
+- `device.png` – Teknologi/devices
+
+</Slide>
+
+---
+
+<Slide>
+
+## Øvelse
+
+Prøv selv at oprette disse billeder:
+
+1. **Et kvadratisk albumcover** på 400x400px med høj kvalitet
+2. **Et bredt hero-billede** på 1920x600px
+3. **Et lille profilbillede** på 80x80px
+4. **Fire forskellige billeder** med samme størrelse men forskellige ID'er
+
+<details>
+<summary>Se løsninger</summary>
+
+```html
+<!-- 1. Kvadratisk albumcover -->
+<img
+  src="https://via.assets.so/album.png?w=400&h=400&q=95&fit=fill"
+  alt="Album"
+/>
+
+<!-- 2. Bredt hero-billede -->
+<img
+  src="https://via.assets.so/img.jpg?w=1920&h=600&q=90&fit=cover"
+  alt="Hero"
+/>
+
+<!-- 3. Lille profilbillede -->
+<img
+  src="https://via.assets.so/img.jpg?w=80&h=80&q=85&fit=cover"
+  alt="Profil"
+/>
+
+<!-- 4. Fire forskellige billeder -->
+<img src="https://via.assets.so/img.jpg?id=1&w=300&h=200" alt="Billede 1" />
+<img src="https://via.assets.so/img.jpg?id=2&w=300&h=200" alt="Billede 2" />
+<img src="https://via.assets.so/img.jpg?id=3&w=300&h=200" alt="Billede 3" />
+<img src="https://via.assets.so/img.jpg?id=4&w=300&h=200" alt="Billede 4" />
+```
+
+</details>
+
+</Slide>
+
+---
+
+<Slide>
+
+## Opsummering
+
+- **via.assets.so** er perfekt til placeholder-billeder under udvikling
+- Tilpas størrelse med `w` og `h` parametre
+- Styr kvalitet med `q` (1-100)
+- Vælg tilpasning med `fit` (fill, contain, cover)
+- Få variation med `id` parameter
+- Vælg mellem forskellige typer (img, album, game, movie, device)
+- **Husk**: Erstat altid med rigtige billeder før produktion!
+
+:::tip[Næste skridt]
+Prøv at integrere via.assets.so i dit næste Astro-projekt og eksperimenter med de forskellige parametre!
+:::
+
+</Slide>
