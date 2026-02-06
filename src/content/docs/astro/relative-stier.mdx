@@ -132,7 +132,7 @@ import logo from '../assets/logo.png';
 ```
 
 ```html
-<img src="{logo.src}" alt="Logo" />
+<img src={logo.src} alt="Logo" />
 ```
 
 :::note[Bemærk]
@@ -160,10 +160,11 @@ src/
 Så kan du importere den sådan:
 
 ```astro
+---
 // Du er i: src/pages/index.astro
 // Du vil nå: src/styles/global.css
-
 import '../styles/global.css';
+---
 ```
 
 </Slide>

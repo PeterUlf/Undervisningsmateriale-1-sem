@@ -1,0 +1,852 @@
+---
+title: Astro – Billedoptimering
+description: Lær hvordan Astros indbyggede billedoptimering virker og hvordan du bruger Image-komponenten.
+sidebar:
+  label: "Billedoptimering"
+  order: 9
+  badge:
+    text: Tema 7
+    variant: tip
+    class: badge-theme-7
+---
+
+import Slide from "../../../components/Slide.astro";
+
+## TL;DR (Til dem der ved hvad de laver)
+
+Brug Astros `Image`-komponent til automatisk billedoptimering:
+
+```astro
+---
+import { Image } from 'astro:assets';
+import minBillede from '../assets/foto.jpg';
+---
+
+<!-- Optimeret billede -->
+<Image src={minBillede} alt="Beskrivelse" />
+
+<!-- Med tilpassede dimensioner -->
+<Image src={minBillede} alt="Beskrivelse" width={800} height={600} />
+```
+
+**Fordele:**
+
+- Automatisk komprimering og formatkonvertering (WebP)
+- Responsive images med `srcset`
+- Lazy loading som standard
+- Bevarer billedkvalitet mens filstørrelsen mindskes
+
+---
+
+<Slide>
+
+## Hvorfor billedoptimering?
+
+Billeder er ofte den tungeste del af en hjemmeside. **Uoptimerede billeder** kan:
+
+- 🐌 Gøre siden langsom at loade
+- 📱 Bruge unødvendigt meget data på mobil
+- 😞 Give dårlig brugeroplevelse
+- 📉 Skade din SEO-ranking
+
+**Astro løser dette automatisk** med indbygget billedoptimering!
+
+:::tip[Fun fact]
+Et 5MB-billede kan ofte komprimeres til under 200KB uden synligt kvalitetstab!
+:::
+
+</Slide>
+
+---
+
+<Slide>
+
+## Almindelig `<img>` vs Astros `<Image>`
+
+### ❌ Almindelig `<img>` tag (ingen optimering)
+
+```html
+<img src="/billeder/foto.jpg" alt="Foto" />
+```
+
+**Problemer:**
+
+- Ingen komprimering
+- Ingen formatkonvertering
+- Samme billede til alle skærmstørrelser
+- Ingen lazy loading som standard
+
+### ✅ Astros `<Image>` komponent (fuld optimering)
+
+```astro
+---
+import { Image } from 'astro:assets';
+import foto from '../assets/foto.jpg';
+---
+
+<Image src={foto} alt="Foto" />
+```
+
+**Fordele:**
+
+- Automatisk WebP/AVIF konvertering
+- Responsive images (flere størrelser)
+- Lazy loading indbygget
+- Optimeret kvalitet vs. filstørrelse
+
+</Slide>
+
+---
+
+<Slide>
+
+## Installation og setup
+
+### 1. Image-komponenten er indbygget
+
+Du behøver ikke at installere noget! `Image`-komponenten følger med Astro:
+
+```astro
+---
+import { Image } from 'astro:assets';
+---
+```
+
+### 2. Organiser dine billeder
+
+Læg billeder i `src/assets/` for at de kan optimeres:
+
+```text
+src/
+├── assets/
+│   ├── logo.png
+│   ├── hero.jpg
+│   └── produkter/
+│       ├── produkt-1.jpg
+│       └── produkt-2.jpg
+└── pages/
+    └── index.astro
+```
+
+:::note[Vigtigt]
+Billeder i `public/`-mappen optimeres **ikke** automatisk. Brug `src/assets/` til billeder der skal optimeres.
+:::
+
+</Slide>
+
+---
+
+<Slide>
+
+## Grundlæggende brug
+
+### Import og brug billede
+
+```astro
+---
+import { Image } from 'astro:assets';
+import heroImage from '../assets/hero.jpg';
+---
+
+<Image
+  src={heroImage}
+  alt="Vores fantastiske produkt"
+/>
+```
+
+Astro gør automatisk:
+
+- ✅ Komprimerer billedet
+- ✅ Konverterer til WebP (hvis browseren understøtter det)
+- ✅ Opretter flere størrelser til responsive images
+- ✅ Tilføjer lazy loading
+
+</Slide>
+
+---
+
+<Slide>
+
+## Specificer dimensioner
+
+### Med bredde og højde
+
+```astro
+---
+import { Image } from 'astro:assets';
+import produkt from '../assets/produkt.jpg';
+---
+
+<Image
+  src={produkt}
+  alt="Produkt"
+  width={800}
+  height={600}
+/>
+```
+
+### Kun bredde (højde skaleres proportionelt)
+
+```astro
+<Image
+  src={produkt}
+  alt="Produkt"
+  width={400}
+/>
+```
+
+:::tip[Best practice]
+Angiv altid `width` og `height` for at undgå layout shift når siden loader!
+:::
+
+</Slide>
+
+---
+
+<Slide>
+
+## Billedkvalitet
+
+Kontroller komprimeringsgraden med `quality`-parameteren (1-100):
+
+```astro
+---
+import { Image } from 'astro:assets';
+import highRes from '../assets/high-res.jpg';
+---
+
+<!-- Lav kvalitet, mindre filstørrelse (god til thumbnails) -->
+<Image src={highRes} alt="Thumbnail" width={200} quality={60} />
+
+<!-- Standard kvalitet (default: 80) -->
+<Image src={highRes} alt="Normal" width={800} />
+
+<!-- Høj kvalitet, større filstørrelse -->
+<Image src={highRes} alt="High quality" width={1200} quality={95} />
+```
+
+:::note[Standard]
+Hvis du ikke angiver `quality`, bruges 80 som standard – et godt kompromis mellem kvalitet og filstørrelse.
+:::
+
+</Slide>
+
+---
+
+<Slide>
+
+## Billedformater
+
+Astro konverterer automatisk til moderne formater:
+
+### Automatisk formatvalg
+
+```astro
+<Image src={foto} alt="Foto" />
+```
+
+Astro vælger det bedste format baseret på:
+
+- Browserens understøttelse (WebP, AVIF)
+- Billedtype (foto vs. grafik)
+- Filstørrelse
+
+### Specifikt format
+
+```astro
+<Image src={foto} alt="Foto" format="webp" />
+<Image src={logo} alt="Logo" format="png" />
+```
+
+**Tilgængelige formater:**
+
+- `webp` – Moderne, effektivt (anbefalet til fotos)
+- `avif` – Endnu bedre komprimering (nyere browsere)
+- `png` – Til billeder med gennemsigtighed
+- `jpg`/`jpeg` – Klassisk format
+
+</Slide>
+
+---
+
+<Slide>
+
+## Remote (eksterne) billeder
+
+Du kan også optimere billeder fra eksterne URLs:
+
+```astro
+---
+import { Image } from 'astro:assets';
+---
+
+<Image
+  src="https://example.com/remote-image.jpg"
+  alt="Eksternt billede"
+  width={800}
+  height={600}
+  inferSize
+/>
+```
+
+:::caution[Krav til remote images]
+Du skal tilføje domænet til `image.domains` i `astro.config.mjs`:
+
+```js
+export default defineConfig({
+  image: {
+    domains: ["example.com", "images.unsplash.com"],
+  },
+});
+```
+
+:::
+
+</Slide>
+
+---
+
+<Slide>
+
+## Responsive images
+
+Astro genererer automatisk multiple størrelser:
+
+```astro
+---
+import { Image } from 'astro:assets';
+import responsive from '../assets/hero.jpg';
+---
+
+<Image
+  src={responsive}
+  alt="Hero"
+  widths={[400, 800, 1200]}
+  sizes="(max-width: 600px) 400px, (max-width: 1200px) 800px, 1200px"
+/>
+```
+
+**Hvad sker der?**
+
+- Astro opretter 3 versioner: 400px, 800px og 1200px
+- Browseren vælger den rigtige størrelse baseret på skærmstørrelse
+- Sparer båndbredde på mobile enheder
+
+</Slide>
+
+---
+
+<Slide>
+
+## Lazy loading
+
+Lazy loading er aktiveret som standard:
+
+```astro
+<!-- Lazy loads automatisk -->
+<Image src={billede} alt="Billede" />
+
+<!-- Disable lazy loading -->
+<Image src={billede} alt="Above the fold" loading="eager" />
+```
+
+**Lazy loading betyder:**
+
+- Billeder loader kun når de er synlige i viewporten
+- Hurtigere initial page load
+- Mindre data-forbrug
+
+:::tip[Above the fold]
+Brug `loading="eager"` til billeder der er synlige ved første page load (hero-billeder).
+:::
+
+</Slide>
+
+---
+
+<Slide>
+
+## Praktisk eksempel: Produktgalleri
+
+```astro
+---
+import { Image } from 'astro:assets';
+import produkt1 from '../assets/produkter/produkt-1.jpg';
+import produkt2 from '../assets/produkter/produkt-2.jpg';
+import produkt3 from '../assets/produkter/produkt-3.jpg';
+
+const produkter = [
+  { billede: produkt1, navn: "Produkt 1", pris: "299 kr" },
+  { billede: produkt2, navn: "Produkt 2", pris: "399 kr" },
+  { billede: produkt3, navn: "Produkt 3", pris: "499 kr" },
+];
+---
+
+<div class="product-grid">
+  {produkter.map(produkt => (
+    <div class="product-card">
+      <Image
+        src={produkt.billede}
+        alt={produkt.navn}
+        width={400}
+        height={400}
+        quality={85}
+      />
+      <h3>{produkt.navn}</h3>
+      <p>{produkt.pris}</p>
+    </div>
+  ))}
+</div>
+
+<style>
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .product-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+</style>
+```
+
+</Slide>
+
+---
+
+<Slide>
+
+## Dynamiske billeder fra Collections
+
+Når du henter billeder fra Content Collections:
+
+```astro
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('blog');
+---
+
+{posts.map(post => (
+  <article>
+    <Image
+      src={post.data.coverImage}
+      alt={post.data.title}
+      width={800}
+      height={450}
+    />
+    <h2>{post.data.title}</h2>
+  </article>
+))}
+```
+
+**Content Collection schema:**
+
+```ts
+// src/content/config.ts
+import { defineCollection, z } from "astro:content";
+
+const blog = defineCollection({
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      coverImage: image(),
+    }),
+});
+```
+
+</Slide>
+
+---
+
+<Slide>
+
+## Picture-komponenten for avanceret kontrol
+
+Brug `Picture` når du vil have fuld kontrol over art direction:
+
+```astro
+---
+import { Picture } from 'astro:assets';
+import mobile from '../assets/hero-mobile.jpg';
+import desktop from '../assets/hero-desktop.jpg';
+---
+
+<Picture
+  src={desktop}
+  alt="Hero"
+  widths={[400, 800, 1200]}
+  formats={['webp', 'jpg']}
+  breakpoints={{
+    mobile: { src: mobile, media: '(max-width: 768px)' },
+    desktop: { src: desktop, media: '(min-width: 769px)' }
+  }}
+/>
+```
+
+**Use cases:**
+
+- Forskellige billedudsnit til mobile vs. desktop
+- Portrait vs. landscape orientering
+- Fokus på forskellige dele af billedet
+
+</Slide>
+
+---
+
+<Slide>
+
+## Background images med optimering
+
+Du kan ikke bruge `Image` direkte i CSS, men du kan gøre det sådan:
+
+```astro
+---
+import { Image } from 'astro:assets';
+import bgImage from '../assets/background.jpg';
+import { getImage } from 'astro:assets';
+
+const optimizedBg = await getImage({ src: bgImage });
+---
+
+<section style={`background-image: url(${optimizedBg.src})`}>
+  <h1>Indhold</h1>
+</section>
+
+<style>
+  section {
+    background-size: cover;
+    background-position: center;
+    min-height: 400px;
+  }
+</style>
+```
+
+</Slide>
+
+---
+
+<Slide>
+
+## Ofte brugte parametre
+
+Her er en komplet oversigt:
+
+```astro
+<Image
+  src={billede}              // Billede-reference (required)
+  alt="Beskrivelse"          // Alt-tekst (required)
+  width={800}                // Bredde i pixels
+  height={600}               // Højde i pixels
+  quality={85}               // Kvalitet 1-100 (default: 80)
+  format="webp"              // Format: webp, avif, png, jpg
+  loading="lazy"             // lazy | eager (default: lazy)
+  decoding="async"           // async | sync | auto
+  class="my-image"           // CSS-klasse
+  inferSize                  // Automatisk størrelse for remote images
+/>
+```
+
+</Slide>
+
+---
+
+<Slide>
+
+## Performance-metrics
+
+Så meget kan du spare med billedoptimering:
+
+### Før optimering
+
+```text
+Original JPEG:
+- Filstørrelse: 4.2 MB
+- Loadtid: ~8 sekunder (mobil 3G)
+- Layout shift: ⚠️  Ja (ingen dimensioner)
+```
+
+### Efter optimering med Astros Image
+
+```text
+Optimeret WebP:
+- Filstørrelse: 180 KB (96% mindre!)
+- Loadtid: ~0.3 sekunder (mobil 3G)
+- Layout shift: ✅ Nej (width/height defineret)
+- Responsive: ✅ 3 forskellige størrelser
+```
+
+**Resultat:** 📈 Hurtigere side, bedre SEO, gladere brugere!
+
+</Slide>
+
+---
+
+<Slide>
+
+## Almindelige fejl og løsninger
+
+### ❌ Fejl: "Image not found"
+
+```astro
+<Image src="/assets/foto.jpg" alt="Foto" />
+```
+
+**Problem:** Du kan ikke bruge en sti som string med `Image`.
+
+**Løsning:** Import billedet først
+
+```astro
+---
+import foto from '../assets/foto.jpg';
+---
+<Image src={foto} alt="Foto" />
+```
+
+---
+
+### ❌ Fejl: Billede i `public/` optimeres ikke
+
+```astro
+import billede from '../../public/foto.jpg'; // ❌ Virker ikke
+```
+
+**Løsning:** Flyt billedet til `src/assets/`
+
+```text
+src/assets/foto.jpg  ✅
+```
+
+</Slide>
+
+---
+
+<Slide>
+
+## Tip: Hvor skal billeder placeres?
+
+### `src/assets/` – Til optimering ✅
+
+Brug til:
+
+- Fotos og produktbilleder
+- Hero-billeder
+- Content-billeder
+- Alt der skal optimeres
+
+```astro
+import { Image } from 'astro:assets';
+import foto from '../assets/foto.jpg';
+```
+
+---
+
+### `public/` – Til direkte adgang 🔧
+
+Brug til:
+
+- Favicon
+- robots.txt, sitemap.xml
+- PDF-filer
+- Videoer
+- Filer der skal have samme URL
+
+```html
+<img src="/favicon.svg" alt="Logo" /> <a href="/brochure.pdf">Download</a>
+```
+
+</Slide>
+
+---
+
+<Slide>
+
+## Konfiguration i astro.config.mjs
+
+Tilpas billedoptimering globalt:
+
+```js
+// astro.config.mjs
+import { defineConfig } from "astro/config";
+
+export default defineConfig({
+  image: {
+    // Tillad eksterne domæner
+    domains: ["images.unsplash.com", "cdn.example.com"],
+
+    // Remote patterns (regex)
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**.amazonaws.com",
+      },
+    ],
+
+    // Standard service (sharp eller squoosh)
+    service: {
+      entrypoint: "astro/assets/services/sharp",
+    },
+  },
+});
+```
+
+</Slide>
+
+---
+
+<Slide>
+
+## Sharp vs Squoosh
+
+Astro bruger en af to billedprocessorer:
+
+### Sharp (anbefalet)
+
+```bash
+npm install sharp
+```
+
+**Fordele:**
+
+- ⚡ Hurtigere
+- 🎨 Bedre kvalitet
+- 🔧 Flere features
+
+### Squoosh (backup)
+
+Indbygget fallback hvis Sharp ikke er installeret.
+
+**Fordele:**
+
+- 📦 Ingen ekstra installation
+- 🌐 Virker i alle miljøer
+
+:::tip[Anbefaling]
+Installer Sharp for bedre performance: `npm install sharp`
+:::
+
+</Slide>
+
+---
+
+<Slide>
+
+## Best practices
+
+### ✅ Gør dette:
+
+- Import billeder fra `src/assets/` og brug `Image`-komponenten
+- Angiv altid `width` og `height` for at undgå layout shift
+- Brug `loading="eager"` til above-the-fold billeder
+- Komprimer kildebilleder før upload (men ikke for meget!)
+- Brug meningsfuld alt-tekst til tilgængelighed
+
+### ❌ Undgå dette:
+
+- Bruge almindelig `<img>` til billeder der kunne optimeres
+- Lægge store billeder i `public/`-mappen
+- Uploade 10MB-billeder uden at resize dem først
+- Glemme alt-tekst
+- Bruge for lav kvalitet (under 60)
+
+</Slide>
+
+---
+
+<Slide>
+
+## Øvelse: Optimer et galleri
+
+Lav et billede-galleri med optimering:
+
+**Opgave:**
+
+1. Opret 4-6 billeder i `src/assets/galleri/`
+2. Import dem i en side
+3. Vis dem i et responsive grid
+4. Brug forskellige `quality`-værdier
+5. Tilføj lazy loading
+
+<details>
+<summary>Se løsning</summary>
+
+```astro
+---
+import { Image } from 'astro:assets';
+import img1 from '../assets/galleri/foto1.jpg';
+import img2 from '../assets/galleri/foto2.jpg';
+import img3 from '../assets/galleri/foto3.jpg';
+
+const billeder = [
+  { src: img1, alt: "Solnedgang" },
+  { src: img2, alt: "Bjerg" },
+  { src: img3, alt: "Strand" },
+];
+---
+
+<div class="galleri">
+  {billeder.map(billede => (
+    <Image
+      src={billede.src}
+      alt={billede.alt}
+      width={400}
+      height={300}
+      quality={85}
+      loading="lazy"
+    />
+  ))}
+</div>
+
+<style>
+  .galleri {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem;
+  }
+</style>
+```
+
+</details>
+
+</Slide>
+
+---
+
+<Slide>
+
+## Ressourcer og videre læring
+
+- 📚 [Astro Images Docs](https://docs.astro.build/en/guides/images/)
+- 🖼️ [Web.dev: Image optimization](https://web.dev/fast/#optimize-your-images)
+- 🎨 [Sharp documentation](https://sharp.pixelplumbing.com/)
+- 📊 [WebP vs JPEG comparison](https://developers.google.com/speed/webp/docs/webp_study)
+
+:::tip[Protip]
+Brug Chrome DevTools' Network tab til at se hvor meget du sparer på billedoptimering!
+:::
+
+</Slide>
+
+---
+
+<Slide>
+
+## Opsummering
+
+- **Brug `Image`-komponenten** fra `astro:assets` til automatisk optimering
+- **Læg billeder i `src/assets/`** for at de kan optimeres
+- **Angiv width og height** for at undgå layout shift
+- **WebP/AVIF** genereres automatisk for bedre komprimering
+- **Lazy loading** er standard for bedre performance
+- **Responsive images** oprettes automatisk
+- **kvalitet=80** er en god standard, juster efter behov
+
+:::tip[Husk]
+Billedoptimering er en af de nemmeste måder at forbedre din hjemmesides performance og brugeroplevelse! 🚀
+:::
+
+</Slide>

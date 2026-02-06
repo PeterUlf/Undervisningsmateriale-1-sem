@@ -2,7 +2,7 @@
 title: CSS Reset
 description: Få browsere til at opføre sig ens med et simpelt CSS reset
 sidebar:
-  order: 1
+  order: 1.5
   badge:
     text: Tema 2
     variant: tip
