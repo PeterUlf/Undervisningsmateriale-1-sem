@@ -3,6 +3,7 @@ title: Scroll-driven Animation Properties
 description: Forklaring af nye CSS properties til scroll-baserede animationer
 draft: true
 sidebar:
+  label: Scroll-driven Animation Properties
   order: 6
   badge:
     text: Tema 5

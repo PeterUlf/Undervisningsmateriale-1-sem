@@ -1,0 +1,153 @@
+---
+title: Optimering af billeder og video
+description: Komprimer, beskær og eksportér billeder korrekt til web – med en kort video-del.
+sidebar:
+  label: Optimering af billeder og video
+  order: 1
+  badge:
+    text: Tema 7
+    variant: tip
+    class: badge-theme-7
+---
+
+import Slide from "../../../components/Slide.astro";
+
+<Slide>
+
+## Optimering af billeder
+
+8. april 2025
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Foto-del
+
+Fokus på billedfiler, formater og Photoshop-workflows.
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Grundprincipper
+
+Billeder (og video) skal være **så komprimerede som muligt** – men stadig i god kvalitet.
+
+- Beskær og tilpas, så billederne **ikke er større end nødvendigt**.
+- Gem i **det rigtige format** (fx WebP).
+- Brug "Save As" / "Save a Copy" til korrekt eksport.
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Photoshop: Generate Image Assets
+
+Generér billedaktiver direkte fra lag:
+
+1. Læg alle lag i en **mappe** og navngiv dem, fx:
+   `100x100 Delicious_2.jpg 90%`
+2. Slå **Generate > Image Assets** til.
+3. Photoshop opretter en mappe med dine eksporterede billeder.
+
+Læs mere i Adobe-guiden:
+- https://helpx.adobe.com/dk/photoshop/using/generate-assets-layers.html
+
+![Generate Image Assets i Photoshop](/illustrationer/optimering/foto-generate-assets.png)
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Photoshop: Actions (mange billeder på én gang)
+
+1. Åbn det første billede.
+2. Åbn panelet **Actions** og vælg **New Action**.
+3. Optag de handlinger du vil gentage, fx:
+   - Image Size
+   - Color correction
+   - Save As
+4. Stop recording.
+
+![Photoshop Actions](/illustrationer/optimering/foto-actions.png)
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Photoshop: Batch Processing
+
+1. Gå til **File > Automate > Batch**.
+2. Vælg den Action du lige har lavet.
+3. Vælg **Source**-mappe og **Destination**-mappe.
+4. Udfyld navngivningsfelter.
+5. Tryk OK – så kører det hele automatisk.
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Video-del
+
+Fokus på eksport, format og komprimering til web.
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Videooptimering (kort)
+
+Sørg for at videoen har den **rigtige størrelse og det rigtige format**.
+
+- Hvis du selv hoster: konvertér til **WebM**.
+- Online værktøj:
+  - https://www.online-convert.com/
+
+Flere værktøjer og guides:
+- https://inspireme.blog/how-to-export-webm-video-format-with-adobe-premiere-pro/
+- Plugin til Premiere Pro: https://www.fnordware.com/WebM/
+- MIRO (MP4 → WebM): http://www.mirovideoconverter.com
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Premiere Pro – komprimering
+
+**Export settings:**
+
+- Format: **H.264**
+- Preset: **Vimeo 720p**
+- Bitrate Settings: **VBR, 2 pass**
+- Target Bitrate: **ca. 2**
+- Maximum Bitrate: **ca. 5**
+- Lyd: vælg format, sample rate og channels – eller eksportér uden lyd
+
+TIP:
+- https://www.linkedin.com/learning/premiere-pro-guru-understanding-video-compression
+
+![Premiere Pro export settings](/illustrationer/optimering/video-compression.png)
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Video som baggrund
+
+Eksempel og kode:
+- https://github.com/PeterUlf/T9-F25-video-som-baggrund-i-grund
+
+![Video som baggrund eksempel](/illustrationer/optimering/video-background.png)
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Næste skridt
+
+Fortsæt i rækken:
+
+[Gå til Smartphone Foto →](/photo/smartphone-foto/)
+
+</Slide>

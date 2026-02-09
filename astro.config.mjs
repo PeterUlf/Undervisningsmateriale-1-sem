@@ -48,10 +48,6 @@ export default defineConfig({
               },
             },
             {
-              label: "Astro",
-              autogenerate: { directory: "astro" },
-            },
-            {
               label: "HTML",
               autogenerate: { directory: "html" },
             },
@@ -60,12 +56,12 @@ export default defineConfig({
               autogenerate: { directory: "css" },
             },
             {
-              label: "JavaScript",
-              autogenerate: { directory: "javascript" },
-            },
-            {
               label: "SVG",
               autogenerate: { directory: "svg" },
+            },
+            {
+              label: "JavaScript",
+              autogenerate: { directory: "javascript" },
             },
             {
               label: "Git & GitHub",
@@ -98,6 +94,10 @@ export default defineConfig({
                   },
                 },
               ],
+            },
+            {
+              label: "Astro",
+              autogenerate: { directory: "astro" },
             },
           ],
         },

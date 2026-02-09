@@ -2,6 +2,7 @@
 title: CSS Reset
 description: Få browsere til at opføre sig ens med et simpelt CSS reset
 sidebar:
+  label: CSS Reset
   order: 1.5
   badge:
     text: Tema 2
@@ -139,3 +140,9 @@ Hvis du vil have et mere omfattende reset, kan du kigge på:
 - **[Josh's Custom CSS Reset](https://www.joshwcomeau.com/css/custom-css-reset/)** - Moderne, gennemtænkt reset
 
 Men for de fleste projekter er det simple reset ovenfor mere end nok!
+
+## Næste skridt
+
+Fortsæt i rækken:
+
+[Gå til Flexbox →](/css/flexbox/)
