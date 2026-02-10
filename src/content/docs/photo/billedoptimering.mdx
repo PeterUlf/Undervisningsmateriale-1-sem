@@ -22,13 +22,301 @@ import Slide from "../../../components/Slide.astro";
 <div class="page-break"></div>
 <Slide>
 
-## Grundprincipper
+## Summeøvelse: Billedoptimering
 
-Billeder skal være **så komprimerede som muligt** – men stadig i god kvalitet.
+**I grupper på 3-4 personer:**
 
-- Beskær og tilpas, så billederne **ikke er større end nødvendigt**.
-- Gem i **det rigtige format** (fx WebP).
-- Brug "Save As" / "Save a Copy" til korrekt eksport.
+Diskutér i 5-10 minutter:
+
+- Hvilke parametre tror I er vigtige for billedoptimering til web?
+- Hvad skal man tænke på, når man gemmer billeder til en hjemmeside?
+- Hvilke problemer kan opstå, hvis billeder ikke er optimeret?
+
+Bliv klar til at dele jeres tanker med klassen.
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Tre hovedelementer i billedoptimering
+
+1. **Format** - Hvilket filformat bruger vi?
+2. **Komprimering** - Hvor meget komprimerer vi?
+3. **Størrelse** - Hvor mange pixels skal billedet være?
+
+Alle tre elementer påvirker:
+- Filstørrelse (bytes)
+- Indlæsningstid
+- Billedkvalitet
+- Brugeroplevelse
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## 1. Format – Hvilket filformat?
+
+**WebP** - Bedst til web (moderne browsere):
+- Bedre komprimering end JPEG og PNG
+- Understøtter både lossy og lossless komprimering
+- Understøtter gennemsigtighed
+
+**JPEG** - Til fotografier (fallback):
+- God komprimering til fotos
+- Ingen gennemsigtighed
+
+**PNG** - Til grafik med gennemsigtighed:
+- Lossless komprimering
+- Større filstørrelse
+
+**SVG** - Til vektorgrafik (logoer, ikoner):
+- Skalerer uden kvalitetstab
+- Ofte meget små filer
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Hvorfor er format vigtigt?
+
+**Filstørrelse eksempel:**
+- Original JPEG (1920x1080): 450 kB
+- Samme billede som WebP: 120 kB
+- Sparet: 73% mindre filstørrelse!
+
+**Konsekvenser:**
+- Hurtigere indlæsning
+- Mindre databrug for brugeren
+- Bedre SEO (Google belønner hurtige sites)
+- Bedre brugeroplevelse på mobile enheder
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## 2. Komprimering – Hvor meget?
+
+**Lossy komprimering** (med kvalitetstab):
+- JPEG quality: 60-85% er ofte ideelt
+- WebP quality: 75-90% anbefales
+- Mindre filer, men lidt kvalitetstab
+
+**Lossless komprimering** (uden kvalitetstab):
+- PNG og WebP (lossless mode)
+- Større filer, men perfekt kvalitet
+- Brug kun når nødvendigt
+
+**Balance:**
+- Find den laveste kvalitet hvor billedet stadig ser godt ud
+- Test på den faktiske skærmstørrelse det vises i
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Hvorfor er komprimering vigtig?
+
+**Eksempel - samme billede, forskellig kvalitet:**
+- JPEG 100%: 850 kB
+- JPEG 85%: 180 kB (næsten ingen synlig forskel)
+- JPEG 60%: 85 kB (stadig acceptabel kvalitet)
+- JPEG 30%: 35 kB (tydeligt kvalitetstab)
+
+**Find sweet spot:**
+- Ofte er 75-85% kvalitet ideelt
+- Mennesket kan sjældent se forskel mellem 85% og 100%
+- Vægt performance over perfektionisme
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## 3. Størrelse – Hvor mange pixels?
+
+**Tænk på brugsscenarie:**
+- Hero billede: 1920x1080 eller 2560x1440
+- Produktbillede: 800x800 eller 1200x1200
+- Thumbnail: 300x300 eller 400x400
+- Avatar: 100x100 eller 150x150
+
+**Vigtigste regel:**
+- Billeder skal **aldrig** være større (i pixels) end de vises
+- Undlad at skalere ned med CSS - skaler før upload!
+
+**Workflow:**
+1. Beslut hvilken størrelse billedet vises i
+2. Eksportér billedet i præcis den størrelse (eller lidt større for retina)
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Hvorfor er pixelstørrelse vigtig?
+
+**Eksempel:**
+- Billede vist som 400x300 px på skærmen
+- Uploadet i original størrelse: 4000x3000 px = 3.2 MB
+- Korrekt størrelse: 800x600 px = 95 kB
+
+**Problem med for store billeder:**
+- Spild af båndbredde
+- Langsom indlæsning
+- Dårlig brugeroplevelse på mobil
+- Unødvendig belastning på server
+
+**Husk:**
+- CSS kan skalere ned, men filen downloades stadig i fuld størrelse
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## CSS pixels vs. device pixels
+
+**CSS pixels** (logiske pixels):
+- Det vi bruger i CSS og design (fx `width: 320px`)
+- En fast referencestørrelse uafhængig af skærmopløsning
+
+**Device pixels** (fysiske pixels):
+- De faktiske pixels på skærmen
+- Moderne skærme har ofte 2x, 3x eller flere device pixels per CSS pixel
+
+**Device Pixel Ratio (DPR):**
+- iPhone 12: DPR 3 = 3 device pixels per CSS pixel
+- MacBook Pro (Retina): DPR 2 = 2 device pixels per CSS pixel
+- Standard desktop: DPR 1 = 1:1 forhold
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Hvorfor er DPR vigtigt?
+
+**Uden retina optimering:**
+- Billede: 400x300 pixels
+- På iPhone (DPR 3): Billedet ser sløret/pixeleret ud
+- Browseren strækker billedet 3x for at fylde skærmen
+
+**Med retina optimering:**
+- Billede 1x: 400x300 pixels (for DPR 1)
+- Billede 2x: 800x600 pixels (for DPR 2)
+- Billede 3x: 1200x900 pixels (for DPR 3)
+- Browseren vælger automatisk den rigtige version
+
+**Balance:**
+- 2x er ofte nok for de fleste use cases
+- 3x kun til meget vigtige billeder
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Hvor stort er stort nok?
+
+**Brug browser inspector til at tjekke:**
+
+1. Højreklik på billede → Inspect
+2. Hover over `<img>` i HTML
+3. Se i popup:
+   - **Rendered size**: Hvordan billedet vises (fx 360 x 170 px)
+   - **Intrinsic size**: Billedets faktiske størrelse (fx 1440 x 680 px)
+   - **File size**: Filstørrelsen (fx 456 kB)
+
+**Optimering:**
+- Hvis intrinsic size >> rendered size: Billedet er for stort!
+- Eksempel: Rendered 360px, intrinsic 1440px = 4x for stort
+- Skaler ned til 720px (2x for retina) og gem igen
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Responsive images
+
+**Problem:**
+- Samme billede bruges på desktop (1920px bred) og mobil (375px bred)
+- Mobile brugere downloader unødvendigt store filer
+
+**Løsning - srcset attribut:**
+
+```html
+<img
+  src="billede-800.webp"
+  srcset="
+    billede-400.webp 400w,
+    billede-800.webp 800w,
+    billede-1200.webp 1200w,
+    billede-1600.webp 1600w
+  "
+  sizes="(max-width: 600px) 100vw, 800px"
+  alt="Beskrivelse"
+>
+```
+
+Browseren vælger automatisk den rigtige størrelse!
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Performance – Hvorfor er det vigtigt?
+
+**Brugerstatistik:**
+- 53% af mobile brugere forlader site hvis det tager >3 sekunder
+- 1 sekunds forsinkelse = 7% færre conversions
+- Google bruger performance som ranking faktor
+
+**Billeder er typisk den største flaskehals:**
+- 50-70% af en hjemmesides samlede størrelse
+- Uoptimerede billeder = langsom side
+- Optimerede billeder = hurtigere side = gladere brugere
+
+**Mål:**
+- Total page size: Under 1-2 MB
+- Largest Contentful Paint (LCP): Under 2.5 sekunder
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Test med Slow 3G og cache
+
+**Chrome DevTools Network throttling:**
+
+1. Åbn DevTools (F12)
+2. Gå til Network tab
+3. Vælg "Slow 3G" i dropdown
+4. Genindlæs siden
+
+**Hvad skete der?**
+- Hvor lang tid tog det at loade billederne?
+- Føltes siden langsom?
+
+**Cache test:**
+- Første besøg: Alle filer downloads (cold cache)
+- Andet besøg: Filer hentes fra cache (warm cache)
+- Test begge scenarier!
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Værktøjer til billedoptimering
+
+**Online og desktop værktøjer:**
+- https://anywebp.com/software - Batch konvertering til WebP
+- https://squoosh.app/ - Visual kvalitets-sammenligning
+
+**Browser test værktøjer:**
+- Chrome DevTools (Inspect, Network tab)
+- Lighthouse (Performance audit)
+- PageSpeed Insights - https://pagespeed.web.dev/
+
+Brug disse værktøjer til at:
+- Konvertere til WebP
+- Komprimere billeder
+- Ændre opløsning
+- Sammenligne kvalitet vs. filstørrelse
 
 </Slide>
 <div class="page-break"></div>
@@ -44,7 +332,6 @@ Generér billedaktiver direkte fra lag:
 3. Photoshop opretter en mappe med dine eksporterede billeder.
 
 Læs mere i Adobe-guiden:
-
 - https://helpx.adobe.com/dk/photoshop/using/generate-assets-layers.html
 
 ![Generate Image Assets i Photoshop](/illustrationer/optimering/foto-generate-assets.png)
@@ -76,6 +363,26 @@ Læs mere i Adobe-guiden:
 3. Vælg **Source**-mappe og **Destination**-mappe.
 4. Udfyld navngivningsfelter.
 5. Tryk OK – så kører det hele automatisk.
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Opsummering
+
+**Husk de tre søjler:**
+
+1. **Format** - WebP først, JPEG/PNG som fallback
+2. **Komprimering** - Find balancen (75-85% kvalitet)
+3. **Størrelse** - Aldrig større end nødvendigt
+
+**Plus:**
+- Responsive images med srcset
+- Test med slow 3G
+- Brug inspector til at tjekke
+- Mål performance med Lighthouse
+
+**Resultat:** Hurtigere side = Gladere brugere!
 
 </Slide>
 <div class="page-break"></div>

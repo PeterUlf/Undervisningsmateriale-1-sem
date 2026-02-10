@@ -32,17 +32,15 @@ Sørg for at videoen har den **rigtige størrelse og det rigtige format**.
 <div class="page-break"></div>
 <Slide>
 
-## Videooptimering til web
+## Hvor stort er en digital video?
 
-- Hvis du selv hoster: konvertér til **WebM**.
-- Online værktøj:
-  - https://www.online-convert.com/
+Snak med din sideperson i et par minutter om:
 
-Flere værktøjer og guides:
-
-- https://inspireme.blog/how-to-export-webm-video-format-with-adobe-premiere-pro/
-- Plugin til Premiere Pro: https://www.fnordware.com/WebM/
-- MIRO (MP4 → WebM): http://www.mirovideoconverter.com
+- Hvilke videoformater findes der og hvad er bedst?
+- Hvordan måles en videos størrelse?
+- Hvilke måleenheder bruger vi?
+- Hvordan ændrer man en videos størrelse?
+- Hvad skal vi være opmærksomme på, når vi designer med video?
 
 </Slide>
 <div class="page-break"></div>
@@ -50,14 +48,15 @@ Flere værktøjer og guides:
 
 ## Premiere Pro – komprimering
 
-**Export settings:**
+**Compress video in Premiere > Export as video:**
 
-- Format: **H.264**
-- Preset: **Vimeo 720p**
-- Bitrate Settings: **VBR, 2 pass**
-- Target Bitrate: **ca. 2**
-- Maximum Bitrate: **ca. 5**
-- Lyd: vælg format, sample rate og channels – eller eksportér uden lyd
+- **Format:** H.264
+- **Preset:** Vimeo 720p
+- **Encoding:** Bitrate
+- **Settings:** VBR, 2 pass (analyserer videoen før komprimering - bedre kvalitet, men tager længere tid)
+- **Target Bitrate:** Sænk til fx 2
+- **Maximum Bitrate:** Sænk til fx 5
+- **Lyd:** Vælg format, sample rate og channels – eller eksportér uden lyd
 
 TIP:
 
@@ -69,9 +68,39 @@ TIP:
 <div class="page-break"></div>
 <Slide>
 
-## Video som baggrund
+## Videooptimering til web
 
-Eksempel og kode:
+Sørg først for at videoen har den størrelse og det format den skal bruges i.
+
+Hvis du selv skal hoste videoen, så konvertér den til **WebM:**
+
+- Online universal converter: https://www.online-convert.com/
+- MIRO (MP4 → WebM offline): http://www.mirovideoconverter.com
+- Eksportér WebM fra PP: https://inspireme.blog/how-to-export-webm-video-format-with-adobe-premiere-pro/
+- Plugin til PP: https://www.fnordware.com/WebM/
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Installation af Premiere Pro plugin (.pkg)
+
+1. **Luk Adobe Premiere Pro**
+2. **Dobbeltklik på .pkg filen**
+3. **Følg installationsvejledningen**
+   - Installeren placerer plugin-filerne i den korrekte Premiere Pro plugins-mappe
+4. **Genstart Adobe Premiere Pro**
+   - Pluginet er nu tilgængeligt under Effects-menuen
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Hero video eksempel
+
+Brug video som baggrundselement på din hjemmeside.
+
+Eksempel og kode på GitHub:
 
 - https://github.com/PeterUlf/T9-F25-video-som-baggrund-i-grund
 
