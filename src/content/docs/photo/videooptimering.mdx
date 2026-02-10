@@ -83,6 +83,29 @@ Hvis du selv skal hoste videoen, så konvertér den til **WebM:**
 <div class="page-break"></div>
 <Slide>
 
+## MP4 vs. WebM – hvad skal jeg vælge?
+
+| Format   | Fordele                                                                       | Ulemper                                     |
+| -------- | ----------------------------------------------------------------------------- | ------------------------------------------- |
+| **MP4**  | • Fungerer overalt (alle browsere/devices)<br>• Pålideligt                    | • Større filstørrelse                       |
+| **WebM** | • 20-50% mindre filstørrelse<br>• Samme kvalitet<br>• Åben kildekode (gratis) | • Ældre Safari/iOS har ingen/dårlig support |
+
+**Anbefalinger:**
+
+- **Kun MP4:** Hvis du vil være 100% sikker på kompatibilitet
+- **Både WebM + MP4:** For optimal filstørrelse med fallback
+
+```html
+<video controls width="100%">
+  <source src="video.webm" type="video/webm" />
+  <source src="video.mp4" type="video/mp4" />
+</video>
+```
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
 ## Installation af Premiere Pro plugin (.pkg)
 
 1. **Luk Adobe Premiere Pro**
