@@ -10,6 +10,10 @@ sidebar:
     class: badge-theme-7
 ---
 
+import Slide from "../../../components/Slide.astro";
+
+<Slide>
+
 ## TL;DR (Til dem der ved hvad de laver)
 
 1. Opret `src/styles/global.css`
@@ -19,6 +23,12 @@ sidebar:
 ---
 
 Global CSS er styles der gælder for hele dit website. I Astro kan du nemt tilføje globale stylesheets.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
 
 ## Oprettelse af global CSS fil
 
@@ -60,6 +70,12 @@ Global CSS er styles der gælder for hele dit website. I Astro kan du nemt tilf�
      margin-top: 0;
    }
    ```
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
 
 ## Importering af global CSS
 
@@ -108,6 +124,12 @@ For mindre mængder global CSS kan du bruge `is:global` direktivet:
 </style>
 ```
 
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
 ## Best Practices
 
 - **Importer kun én gang**: Import global CSS i dit hovedlayout for at undgå duplikering
@@ -137,6 +159,12 @@ Importer dem derefter i din global.css:
 /* Øvrige globale styles */
 ```
 
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
 ## CSS i Astro komponenter
 
 Husk at Astro automatisk scoper CSS i `.astro` filer:
@@ -159,3 +187,5 @@ Dette påvirker kun `<h1>` i denne komponent, ikke globalt.
 Fortsæt i rækken:
 
 [Gå til Astro – Conditional Rendering →](/astro/conditional-rendering/)
+
+</Slide>
