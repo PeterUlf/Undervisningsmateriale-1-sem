@@ -12,6 +12,51 @@ sidebar:
 
 import Slide from "../../../components/Slide.astro";
 
+<Slide>
+
+## Den nemme løsning – Billeder fra `public`-mappen
+
+Hvis du bare vil have et billede til at virke hurtigt uden optimering, kan du lægge det i `public`-mappen og bruge en almindelig `<img>`-tag.
+
+### Sådan gør du:
+
+1. **Læg billedet i `public`-mappen:**
+
+   ```text
+   public/
+     billeder/
+       mit-foto.jpg
+   ```
+
+2. **Brug en almindelig `<img>`-tag:**
+
+   ```html
+   <img src="/billeder/mit-foto.jpg" alt="Mit foto" />
+   ```
+
+:::caution[Vigtigt]
+Stien starter med `/` fordi `public`-mappen bliver til roden af dit website.
+:::
+
+**Dette er nemt, men...**
+
+- ❌ Ingen automatisk komprimering
+- ❌ Ingen formatkonvertering (WebP)
+- ❌ Ingen responsive images
+- ❌ Ikke optimeret for forskellige skærmstørrelser
+
+**Brug derfor kun denne metode til:**
+
+- Små ikoner eller simple grafiske elementer
+- Når du hurtigt skal teste noget
+- Når billedoptimering ikke er nødvendig
+
+For bedre performance, læs videre om Astros `<Image>`-komponent! 👇
+
+</Slide>
+
+---
+
 ## TL;DR (Til dem der ved hvad de laver)
 
 Brug Astros `Image`-komponent til automatisk billedoptimering:
@@ -860,4 +905,5 @@ Billedoptimering er en af de nemmeste måder at forbedre din hjemmesides perform
 Fortsæt i rækken:
 
 [Gå til Placeholder-billeder med via.assets.so →](/astro/placeholder-billeder/)
+
 </Slide>
