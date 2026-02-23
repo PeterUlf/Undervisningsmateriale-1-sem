@@ -1,0 +1,346 @@
+---
+title: Video hosting på eget site
+description: Lær hvordan du viser videoer i dit Astro projekt
+sidebar:
+  label: "Video hosting på eget site"
+  order: 5
+  badge:
+    text: Tema 5
+    variant: tip
+    class: badge-theme-5
+---
+
+import Slide from "../../../components/Slide.astro";
+
+<Slide>
+
+## Den nemme løsning – Videoer fra `public`-mappen
+
+Den nemmeste måde at vise en video i Astro er at lægge den i `public`-mappen og bruge HTML5's `<video>`-tag.
+
+:::note[God nyhed]
+Hvis du har brugt HTML5 video før, virker det præcis på samme måde i Astro!
+:::
+
+### Sådan gør du:
+
+1. **Læg videoen i `public`-mappen:**
+
+   ```text
+   public/
+     videoer/
+       min-video.mp4
+   ```
+
+2. **Brug `<video>`-tagget:**
+
+   ```html
+   <video controls width="100%">
+     <source src="/videoer/min-video.mp4" type="video/mp4" />
+     Din browser understøtter ikke video-afspilning.
+   </video>
+   ```
+
+:::caution[Vigtigt]
+Stien starter med `/` fordi `public`-mappen bliver til roden af dit website.
+:::
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## `<video>`-taggets vigtigste attributter
+
+### Controls
+
+Viser afspilningskontroller (play, pause, lydstyrke osv.):
+
+```html
+<video controls>
+  <source src="/videoer/min-video.mp4" type="video/mp4" />
+</video>
+```
+
+### Autoplay & Muted
+
+Video starter automatisk (fungerer kun med `muted`):
+
+```html
+<video autoplay muted loop>
+  <source src="/videoer/baggrund.mp4" type="video/mp4" />
+</video>
+```
+
+:::caution[Browserbegrænsninger]
+De fleste browsere kræver at video er `muted` for at `autoplay` virker.
+:::
+
+### Loop
+
+Gentager videoen når den er færdig:
+
+```html
+<video controls loop>
+  <source src="/videoer/min-video.mp4" type="video/mp4" />
+</video>
+```
+
+### Poster
+
+Viser et billede før videoen afspilles:
+
+```html
+<video controls poster="/billeder/video-thumbnail.jpg">
+  <source src="/videoer/min-video.mp4" type="video/mp4" />
+</video>
+```
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Flere videoformater for bedre kompatibilitet
+
+For bedst mulig browserkompatibilitet kan du tilbyde flere formater:
+
+```html
+<video controls width="100%">
+  <source src="/videoer/min-video.mp4" type="video/mp4" />
+  <source src="/videoer/min-video.webm" type="video/webm" />
+  <source src="/videoer/min-video.ogv" type="video/ogg" />
+  Din browser understøtter ikke video-afspilning.
+</video>
+```
+
+Browseren vælger automatisk det første format den kan afspille.
+
+### Anbefalede formater:
+
+- **MP4 (H.264)** – Bedst kompatibilitet, virker i alle moderne browsere
+- **WebM** – Mindre filstørrelse, god kvalitet
+- **OGG** – Open source alternativ (mindre udbredt)
+
+:::tip[Best practice]
+I de fleste tilfælde er MP4 nok. Det understøttes af alle moderne browsere.
+:::
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Responsive video
+
+For at gøre din video responsiv, kan du bruge CSS:
+
+```astro
+<video controls>
+  <source src="/videoer/min-video.mp4" type="video/mp4" />
+</video>
+
+<style>
+  video {
+    width: 100%;
+    height: auto;
+    max-width: 800px;
+    border-radius: 8px;
+  }
+</style>
+```
+
+### Container med aspect ratio:
+
+```astro
+<div class="video-container">
+  <video controls>
+    <source src="/videoer/min-video.mp4" type="video/mp4" />
+  </video>
+</div>
+
+<style>
+  .video-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  }
+
+  video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+  }
+</style>
+```
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Baggrundsvideo (hero section)
+
+Et populært design-element er en video som baggrund:
+
+```astro
+<section class="hero">
+  <video autoplay muted loop playsinline>
+    <source src="/videoer/hero-background.mp4" type="video/mp4" />
+  </video>
+  <div class="hero-content">
+    <h1>Velkommen</h1>
+    <p>Fantastisk indhold her</p>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    color: white;
+    text-align: center;
+    padding-top: 40vh;
+  }
+</style>
+```
+
+:::tip[Performance tip]
+Hold baggrundsvideo-filer små (under 5MB) og korte for bedre performance!
+:::
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Indlejring af YouTube/Vimeo videoer
+
+For lange videoer eller for at spare båndbredde kan du bruge tredjepartstjenester:
+
+### YouTube:
+
+```html
+<iframe
+  width="560"
+  height="315"
+  src="https://www.youtube.com/embed/VIDEO_ID"
+  title="YouTube video player"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowfullscreen
+></iframe>
+```
+
+### Vimeo:
+
+```html
+<iframe
+  src="https://player.vimeo.com/video/VIDEO_ID"
+  width="640"
+  height="360"
+  frameborder="0"
+  allow="autoplay; fullscreen; picture-in-picture"
+  allowfullscreen
+></iframe>
+```
+
+### Responsive iframe:
+
+```astro
+<div class="video-embed">
+  <iframe
+    src="https://www.youtube.com/embed/VIDEO_ID"
+    title="Video"
+    frameborder="0"
+    allowfullscreen
+  ></iframe>
+</div>
+
+<style>
+  .video-embed {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 */
+    height: 0;
+    overflow: hidden;
+  }
+
+  .video-embed iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+</style>
+```
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Best Practices for video
+
+### ✅ Gør dette:
+
+- Optimer videofiler før upload (komprimering)
+- Brug `loading="lazy"` for videoer under folder
+- Giv altid en fallback-tekst i `<video>`-tagget
+- Brug `poster`-attribut for at vise et thumbnail
+- Hold videofiler under 10MB når muligt
+- Overvej at hoste store videoer på YouTube/Vimeo
+
+### ❌ Undgå dette:
+
+- Meget store videofiler (slår performance)
+- Autoplay med lyd (irriterer brugere)
+- Manglende fallback-tekst
+- Videoer uden optimering
+- For mange autoplay-videoer på samme side
+
+:::tip[Videooptimering]
+Brug værktøjer som **HandBrake** eller **FFmpeg** til at komprimere videoer før upload!
+:::
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Næste skridt
+
+Fortsæt med at udforske Astro:
+
+- [Gå til Billedoptimering →](/astro/billedoptimering/)
+- [Gå til Layouts →](/astro/layouts/)
+
+</Slide>

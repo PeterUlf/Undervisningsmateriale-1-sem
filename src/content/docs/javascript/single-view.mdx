@@ -1,0 +1,604 @@
+---
+title: Single View - Product Details
+description: Byg en produktdetalje side med data fra API
+sidebar:
+  label: Single View
+  order: 5
+  badge:
+    text: Tema 8
+    variant: tip
+    class: badge-theme-8
+---
+
+import Slide from "../../../components/Slide.astro";
+
+<Slide>
+
+## Hvad er Single View?
+
+**Single View** er en side der viser detaljer om **ét specifikt element** - fx et produkt, en bruger, eller en artikel.
+
+### Typisk flow:
+
+1. **Liste-side** (products.html) - viser alle produkter
+2. **Klik på produkt** - går til productdetails.html?id=5
+3. **Detail-side** (productdetails.html) - viser ét produkt baseret på ID
+
+```
+products.html               productdetails.html?id=5
+┌──────────────┐           ┌──────────────────────┐
+│ Produkt 1    │ ───────>  │ Produkt 5 Detaljer   │
+│ Produkt 2    │           │ Billede              │
+│ Produkt 3    │           │ Beskrivelse          │
+│ Produkt 4    │           │ Pris                 │
+│ Produkt 5 ←──┘           │ Specifikationer      │
+└──────────────┘           └──────────────────────┘
+```
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Gennemgang: products.html (liste-siden)
+
+### HTML struktur
+
+```html
+<!DOCTYPE html>
+<html lang="da">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Produkter</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1>Vores Produkter</h1>
+
+    <!-- Container til produkter -->
+    <section id="product-list"></section>
+
+    <script src="products.js"></script>
+  </body>
+</html>
+```
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+### JavaScript: products.js
+
+```javascript
+const productList = document.querySelector("#product-list");
+
+async function loadProducts() {
+  try {
+    // Vis loading
+    productList.innerHTML = "<p>Henter produkter...</p>";
+
+    // Fetch alle produkter
+    const response = await fetch("https://api.example.com/products");
+    const products = await response.json();
+
+    // Ryd loading
+    productList.innerHTML = "";
+
+    // Vis hvert produkt
+    products.forEach((product) => {
+      productList.insertAdjacentHTML(
+        "beforeend",
+        `
+        <article class="product-card">
+          <img src="${product.image}" alt="${product.name}">
+          <h2>${product.name}</h2>
+          <p class="price">${product.price} kr</p>
+          <a href="productdetails.html?id=${product.id}">Se detaljer</a>
+        </article>
+      `,
+      );
+    });
+  } catch (error) {
+    productList.innerHTML = "<p>Kunne ikke hente produkter</p>";
+    console.error(error);
+  }
+}
+
+// Start når siden loader
+loadProducts();
+```
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Gennemgang: productdetails.html (detail-siden)
+
+### HTML struktur
+
+```html
+<!DOCTYPE html>
+<html lang="da">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Produkt Detaljer</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <a href="products.html">← Tilbage til produkter</a>
+
+    <article id="product-details">
+      <!-- Indhold indsættes med JavaScript -->
+    </article>
+
+    <script src="productdetails.js"></script>
+  </body>
+</html>
+```
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+### JavaScript: productdetails.js
+
+```javascript
+// 1. Hent produkt ID fra URL
+const params = new URLSearchParams(window.location.search);
+const productId = params.get("id");
+
+// 2. Reference til container
+const container = document.querySelector("#product-details");
+
+async function loadProduct() {
+  try {
+    // Vis loading
+    container.innerHTML = "<p>Henter produkt...</p>";
+
+    // Fetch produktet baseret på ID
+    const response = await fetch(
+      `https://api.example.com/products/${productId}`,
+    );
+
+    if (!response.ok) {
+      throw new Error("Produkt ikke fundet");
+    }
+
+    const product = await response.json();
+
+    // Vis produkt detaljer
+    displayProduct(product);
+  } catch (error) {
+    container.innerHTML = "<p>Kunne ikke hente produkt</p>";
+    console.error(error);
+  }
+}
+
+loadProduct();
+```
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+### Display funktion
+
+```javascript
+function displayProduct(product) {
+  // Opdater page title
+  document.title = product.name;
+
+  // Indsæt HTML
+  container.innerHTML = `
+    <div class="product-hero">
+      <img src="${product.image}" alt="${product.name}">
+    </div>
+    
+    <div class="product-info">
+      <h1>${product.name}</h1>
+      
+      <p class="price">${product.price} kr</p>
+      
+      <p class="description">${product.description}</p>
+      
+      <div class="specs">
+        <h2>Specifikationer</h2>
+        <ul>
+          <li><strong>Brand:</strong> ${product.brand}</li>
+          <li><strong>Kategori:</strong> ${product.category}</li>
+          <li><strong>På lager:</strong> ${product.inStock ? "Ja" : "Nej"}</li>
+        </ul>
+      </div>
+      
+      <button onclick="addToCart(${product.id})">Tilføj til kurv</button>
+    </div>
+  `;
+}
+```
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Håndter manglende ID
+
+Hvad hvis der ikke er noget ID i URL'en? (productdetails.html uden ?id=5)
+
+```javascript
+const params = new URLSearchParams(window.location.search);
+const productId = params.get("id");
+
+// Check om ID eksisterer
+if (!productId) {
+  document.querySelector("#product-details").innerHTML = `
+    <div class="error">
+      <h2>Produkt ikke fundet</h2>
+      <p>Intet produkt ID angivet.</p>
+      <a href="products.html">← Tilbage til produkter</a>
+    </div>
+  `;
+  // Stop funktionen
+  throw new Error("Ingen produkt ID");
+}
+
+// Fortsæt med at fetche
+async function loadProduct() {
+  // ...
+}
+```
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## CSS styling eksempel
+
+```css
+/* Product Details Layout */
+#product-details {
+  max-width: 1200px;
+  margin: 2rem auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+}
+
+.product-hero img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.product-info h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.price {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #2563eb;
+  margin: 1rem 0;
+}
+
+.description {
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+.specs {
+  background: #f3f4f6;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+}
+
+.specs ul {
+  list-style: none;
+  padding: 0;
+}
+
+.specs li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+button {
+  background: #2563eb;
+  color: white;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+button:hover {
+  background: #1d4ed8;
+}
+```
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Template Literal med conditionals
+
+Du kan bruge ternary operators i dine templates:
+
+```javascript
+container.innerHTML = `
+  <h1>${product.name}</h1>
+  
+  <!-- Vis discount badge hvis produktet er på tilbud -->
+  ${product.discount ? `<span class="badge">På tilbud!</span>` : ""}
+  
+  <!-- Vis forskellige beskeder baseret på lagerstatus -->
+  <p class="stock">
+    ${product.inStock ? "✓ På lager - Levering 1-2 dage" : "✗ Ikke på lager"}
+  </p>
+  
+  <!-- Conditional button -->
+  ${
+    product.inStock
+      ? `<button>Tilføj til kurv</button>`
+      : `<button disabled>Ikke tilgængelig</button>`
+  }
+  
+  <!-- Vis kun specifikationer hvis de findes -->
+  ${
+    product.specs
+      ? `
+    <div class="specs">
+      <h3>Specifikationer</h3>
+      <p>${product.specs}</p>
+    </div>
+  `
+      : ""
+  }
+`;
+```
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Loop gennem arrays i template
+
+```javascript
+function displayProduct(product) {
+  // Antag product har et images array og features array
+  container.innerHTML = `
+    <h1>${product.name}</h1>
+    
+    <!-- Vis flere billeder -->
+    <div class="image-gallery">
+      ${product.images
+        .map(
+          (img) => `
+        <img src="${img}" alt="${product.name}">
+      `,
+        )
+        .join("")}
+    </div>
+    
+    <!-- Vis features som liste -->
+    <div class="features">
+      <h3>Features:</h3>
+      <ul>
+        ${product.features
+          .map(
+            (feature) => `
+          <li>${feature}</li>
+        `,
+          )
+          .join("")}
+      </ul>
+    </div>
+    
+    <!-- Vis tags -->
+    <div class="tags">
+      ${product.tags
+        .map(
+          (tag) => `
+        <span class="tag">${tag}</span>
+      `,
+        )
+        .join("")}
+    </div>
+  `;
+}
+```
+
+:::tip[.join('')]
+Husk at bruge `.join('')` efter `.map()` for at fjerne kommaer mellem elementer!
+:::
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Relaterede produkter
+
+Vis relaterede produkter på detail-siden:
+
+```javascript
+async function loadRelatedProducts(category, currentProductId) {
+  const response = await fetch(
+    `https://api.example.com/products?category=${category}`,
+  );
+  const products = await response.json();
+
+  // Filtrer det nuværende produkt væk
+  const related = products.filter((p) => p.id !== currentProductId);
+
+  // Begræns til 3 produkter
+  const limited = related.slice(0, 3);
+
+  const html = `
+    <section class="related-products">
+      <h2>Relaterede Produkter</h2>
+      <div class="product-grid">
+        ${limited
+          .map(
+            (product) => `
+          <article class="product-card">
+            <img src="${product.image}" alt="${product.name}">
+            <h3>${product.name}</h3>
+            <p>${product.price} kr</p>
+            <a href="productdetails.html?id=${product.id}">Se mere</a>
+          </article>
+        `,
+          )
+          .join("")}
+      </div>
+    </section>
+  `;
+
+  container.insertAdjacentHTML("beforeend", html);
+}
+```
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Opgave 08.02.A: Byg Single View
+
+### Del 1: Setup
+
+1. Opret disse filer:
+   - `products.html`
+   - `products.js`
+   - `productdetails.html`
+   - `productdetails.js`
+   - `style.css`
+
+2. Brug denne API: `https://kea-alt-del.dk/t7/api/products`
+
+### Del 2: products.html
+
+1. Fetch alle produkter fra API'en
+2. Vis dem i et grid layout (3-4 kolonner)
+3. Hvert produkt skal vise:
+   - Billede
+   - Produktnavn
+   - Pris
+   - Link til detaljer
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+### Del 3: productdetails.html
+
+1. Hent produkt ID fra URL med `URLSearchParams`
+2. Fetch produktet: `https://kea-alt-del.dk/t7/api/products/{id}`
+3. Vis produktdetaljer:
+   - Stort billede
+   - Produktnavn som `<h1>`
+   - Pris
+   - Beskrivelse
+   - Alle andre data fra API'en
+4. Tilføj "Tilbage til produkter" link
+
+### Del 4: Styling
+
+1. Lav et pænt responsive layout
+2. Grid layout på detail-siden (billede til venstre, info til højre)
+3. Mobile-venlig (stablede kolonner på mobil)
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+### Del 5: Extra (valgfri)
+
+1. **Loading state**: Vis "Henter produkt..." mens data loades
+2. **Fejlhåndtering**: Hvis produkt ikke findes, vis fejlbesked
+3. **Breadcrumbs**: Vis navigationssti øverst
+4. **Discount badge**: Hvis `product.discount` > 0, vis badge
+5. **Relaterede produkter**: Vis 3 produkter fra samme kategori
+
+### Eksempel breadcrumbs:
+
+```html
+<nav class="breadcrumbs">
+  <a href="index.html">Forside</a> → <a href="products.html">Produkter</a> →
+  <span>{{ product.name }}</span>
+</nav>
+```
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Tips til opgaven
+
+### Debug tools
+
+```javascript
+// Log produktet for at se alle properties
+console.log(product);
+
+// Log ID fra URL
+console.log("Product ID:", productId);
+
+// Check om fetch virker
+console.log("Response:", response);
+console.log("Response OK?", response.ok);
+```
+
+### Fikse CORS fejl
+
+Hvis du får CORS fejl lokalt, brug Live Server i VS Code eller kør en lokal server.
+
+### Brug template literals
+
+Gør det nemmere at indsætte JavaScript variabler i HTML:
+
+```javascript
+const html = `<h1>${product.name}</h1>`;
+```
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Komplet eksempel struktur
+
+```
+project/
+├── index.html              (forside)
+├── products.html           (liste over produkter)
+├── products.js
+├── productdetails.html     (detaljer om ét produkt)
+├── productdetails.js
+└── style.css
+```
+
+**Data flow:**
+
+```
+API → products.js → products.html (vis alle)
+                          ↓
+                    [Klik på produkt]
+                          ↓
+API → productdetails.js → productdetails.html (vis ét)
+```
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Næste skridt
+
+God arbejdslyst med opgaven!
+
+**Relaterede emner:**
+
+[Fetch API →](/javascript/fetch/)
+
+[Objects & JSON →](/javascript/objects-json/)
+
+[Arrow Functions →](/javascript/arrow-functions/)
+
+</Slide>

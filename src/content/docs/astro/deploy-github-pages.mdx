@@ -1,0 +1,302 @@
+---
+title: Astro – Deploy med GitHub Pages & Actions
+description: Gratis hosting og automatisk deploy direkte fra GitHub.
+draft: true
+sidebar:
+  label: "7b. GitHub Pages & Actions"
+  order: 7.5
+  badge:
+    text: Draft
+    variant: caution
+---
+
+import Slide from "../../../components/Slide.astro";
+
+<Slide>
+## Overblik: GitHub Pages med GitHub Actions
+
+GitHub Pages er en **gratis hosting-løsning** indbygget i GitHub.
+
+**Fordele:**
+
+- ✅ Helt gratis (ubegrænsede builds)
+- ✅ Ingen separate konti (kun GitHub)
+- ✅ Automatisk HTTPS
+- ✅ Perfekt til statiske Astro-sites
+
+**Workflow:**
+
+> VS Code → Git push → GitHub Actions bygger → GitHub Pages viser sitet
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+## Forudsætninger
+
+Du skal have:
+
+- Et **Astro-projekt** der kører lokalt
+- Et **GitHub repository** med din kode
+- Repository skal være **public** (eller du skal have GitHub Pro for private repos)
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+## 1. Opdater Astro config
+
+I din `astro.config.mjs` skal du tilføje en `site` og muligvis `base`:
+
+```js
+// astro.config.mjs
+import { defineConfig } from "astro/config";
+
+export default defineConfig({
+  site: "https://dit-brugernavn.github.io",
+  base: "/dit-repo-navn",
+});
+```
+
+**Eksempel:**
+
+- Hvis dit GitHub brugernavn er `jensjen` og dit repo hedder `mit-astro-site`:
+  - `site: 'https://jensjen.github.io'`
+  - `base: '/mit-astro-site'`
+
+**Undtagelse:** Hvis dit repo hedder `brugernavn.github.io`, skal du **ikke** bruge `base`.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+## 2. Opret GitHub Actions workflow
+
+Opret denne mappestruktur i dit projekt:
+
+```text
+.github/
+  workflows/
+    deploy.yml
+```
+
+I terminalen:
+
+```bash
+mkdir -p .github/workflows
+touch .github/workflows/deploy.yml
+```
+
+På Windows (PowerShell):
+
+```powershell
+New-Item -ItemType Directory -Force -Path .github\workflows
+New-Item -ItemType File -Path .github\workflows\deploy.yml
+```
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+## 3. Workflow-fil indhold
+
+Åbn `.github/workflows/deploy.yml` og indsæt:
+
+```yaml
+name: Deploy til GitHub Pages
+
+on:
+  # Kør når der pushes til main branch
+  push:
+    branches: [main]
+  # Tillad manuel kørsel fra Actions-fanen
+  workflow_dispatch:
+
+# Giv GITHUB_TOKEN rettigheder til at deploye
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Tillad kun én deployment ad gangen
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Astro site
+        run: npm run build
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+```
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+## 4. Aktivér GitHub Pages
+
+1. Gå til dit repository på GitHub
+2. Klik på **Settings** (øverst til højre)
+3. Vælg **Pages** i venstre menu
+4. Under **Source**, vælg **GitHub Actions**
+
+Det er det! Du behøver ikke vælge en branch manuelt.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+## 5. Push og deploy
+
+Commit og push dine ændringer:
+
+```bash
+git add .
+git commit -m "Setup GitHub Pages deployment"
+git push
+```
+
+**Hvad sker der nu?**
+
+1. GitHub Actions ser din nye commit
+2. Den kører workflow'et (installerer, bygger, deployer)
+3. Sitet bliver live på `https://brugernavn.github.io/repo-navn`
+
+Se status under **Actions**-fanen i dit GitHub repo.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+## 6. Ved fremtidige ændringer
+
+Når du laver ændringer:
+
+1. Commit og push som normalt
+2. GitHub Actions bygger og deployer automatisk
+3. Sitet opdateres efter 1-2 minutter
+
+**Fordel vs. Netlify:**
+
+- Ubegrænsede builds
+- Ingen kvote-problemer
+- Perfekt til studerende-projekter
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+## 7. Ekstra: Miljøvariabler
+
+Hvis du bruger eksterne tjenester (fx Supabase):
+
+1. Gå til **Settings → Secrets and variables → Actions**
+2. Klik **New repository secret**
+3. Tilføj dine nøgler (fx `SUPABASE_URL`)
+
+Brug dem i workflow'et:
+
+```yaml
+- name: Build Astro site
+  run: npm run build
+  env:
+    SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+    SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+```
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+## Fejlfinding
+
+**"404 når jeg åbner sitet"**
+
+- Tjek at `base` i `astro.config.mjs` matcher dit repo-navn
+
+**"Builds fejler"**
+
+- Klik på fejlede workflow under Actions-fanen
+- Se logs for at finde fejlen
+- Ofte: manglende dependencies eller build-fejl
+
+**"CSS/billeder virker ikke"**
+
+- Tjek at alle stier er relative
+- Brug Astros `import` for billeder i `src/`
+
+**"Sitet opdaterer ikke"**
+
+- Se status under Actions-fanen
+- Workflow skal være grøn (✓)
+- Vent 1-2 minutter efter deploy er færdig
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+## Sammenligning: GitHub Pages vs Netlify
+
+| Feature        | GitHub Pages   | Netlify (gratis)     |
+| -------------- | -------------- | -------------------- |
+| Build minutter | ∞ ubegrænset   | 300/måned (~5 timer) |
+| Setup          | Lidt mere kode | Hurtigere UI         |
+| Hosting        | Gratis         | Gratis               |
+| Custom domæne  | ✅ Ja          | ✅ Ja                |
+| HTTPS          | ✅ Auto        | ✅ Auto              |
+| Pris           | 100% gratis    | Begrænsninger        |
+
+**Anbefaling til studerende:** Start med GitHub Pages for at undgå kvote-problemer.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Næste skridt
+
+Fortsæt i rækken:
+
+[Gå til Astro startup - Figma →](/astro/figma-astro-startup/)
+
+</Slide>

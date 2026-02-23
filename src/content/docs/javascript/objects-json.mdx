@@ -1,0 +1,306 @@
+---
+title: JavaScript Objects & JSON
+description: Lær om JavaScript objekter og JSON format
+sidebar:
+  label: Objects & JSON
+  order: 2
+  badge:
+    text: Tema 8
+    variant: tip
+    class: badge-theme-8
+---
+
+import Slide from "../../../components/Slide.astro";
+
+<Slide>
+
+## JavaScript Objects
+
+Et **object** er en samling af relaterede data og funktionalitet. Objekter består af **key-value pairs** (nøgle-værdi par).
+
+```javascript
+const product = {
+  name: "Laptop",
+  price: 8999,
+  inStock: true,
+  brand: "Dell",
+};
+```
+
+Her er `name`, `price`, `inStock` og `brand` **keys** (nøgler), og deres tilsvarende værdier er strengen "Laptop", tallet 8999, osv.
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Tilgå objektets properties
+
+Du kan tilgå værdierne i et objekt på to måder:
+
+<div class="columns-2">
+
+<div>
+
+### Dot notation
+
+```javascript
+const product = {
+  name: "Laptop",
+  price: 8999,
+};
+
+console.log(product.name); // "Laptop"
+console.log(product.price); // 8999
+```
+
+**Mest almindelig** - brug når du kender key-navnet.
+
+</div>
+
+<div>
+
+### Bracket notation
+
+```javascript
+const product = {
+  name: "Laptop",
+  price: 8999,
+};
+
+console.log(product["name"]); // "Laptop"
+console.log(product["price"]); // 8999
+```
+
+**Nyttigt når** key-navnet er i en variabel eller indeholder specialtegn.
+
+</div>
+
+</div>
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Nested Objects
+
+Objekter kan indeholde andre objekter:
+
+```javascript
+const product = {
+  name: "Laptop",
+  price: 8999,
+  specs: {
+    ram: "16GB",
+    storage: "512GB SSD",
+    screen: "15.6 tommer",
+  },
+  manufacturer: {
+    name: "Dell",
+    country: "USA",
+  },
+};
+
+// Tilgå nested properties
+console.log(product.specs.ram); // "16GB"
+console.log(product.manufacturer.name); // "Dell"
+```
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Hvad er JSON?
+
+**JSON** står for **JavaScript Object Notation**. Det er et tekstformat til at gemme og sende data.
+
+### JSON ser næsten ud som JavaScript objekter:
+
+<div class="columns-2">
+
+<div>
+
+**JavaScript Object:**
+
+```javascript
+const product = {
+  name: "Laptop",
+  price: 8999,
+  inStock: true,
+};
+```
+
+</div>
+
+<div>
+
+**JSON:**
+
+```json
+{
+  "name": "Laptop",
+  "price": 8999,
+  "inStock": true
+}
+```
+
+</div>
+
+</div>
+
+### Forskelle:
+
+- JSON keys skal være i **anførselstegn** (`"name"`)
+- JSON er **ren tekst** (string)
+- Kan sendes mellem server og browser
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Konverter mellem JSON og JavaScript
+
+### JSON til JavaScript (Parse)
+
+```javascript
+// JSON som tekst-string
+const jsonString = '{"name":"Laptop","price":8999}';
+
+// Konverter til JavaScript object
+const product = JSON.parse(jsonString);
+
+console.log(product.name); // "Laptop"
+console.log(product.price); // 8999
+```
+
+### JavaScript til JSON (Stringify)
+
+```javascript
+// JavaScript object
+const product = {
+  name: "Laptop",
+  price: 8999,
+};
+
+// Konverter til JSON string
+const jsonString = JSON.stringify(product);
+
+console.log(jsonString); // '{"name":"Laptop","price":8999}'
+```
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Arrays af Objects
+
+Ofte får du en liste (array) af objekter fra en API:
+
+```javascript
+const products = [
+  {
+    id: 1,
+    name: "Laptop",
+    price: 8999,
+  },
+  {
+    id: 2,
+    name: "Mouse",
+    price: 299,
+  },
+  {
+    id: 3,
+    name: "Keyboard",
+    price: 599,
+  },
+];
+
+// Loop gennem produkter
+products.forEach((product) => {
+  console.log(product.name + ": " + product.price + " kr");
+});
+```
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Praktisk eksempel
+
+```javascript
+// Simulerer data fra en API
+const apiResponse = `{
+  "products": [
+    {"id": 1, "name": "Laptop", "price": 8999, "image": "laptop.jpg"},
+    {"id": 2, "name": "Mouse", "price": 299, "image": "mouse.jpg"},
+    {"id": 3, "name": "Keyboard", "price": 599, "image": "keyboard.jpg"}
+  ]
+}`;
+
+// Parse JSON til JavaScript
+const data = JSON.parse(apiResponse);
+
+// Tilgå produkter
+data.products.forEach((product) => {
+  console.log(`${product.name} koster ${product.price} kr`);
+});
+
+// Output:
+// Laptop koster 8999 kr
+// Mouse koster 299 kr
+// Keyboard koster 599 kr
+```
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Opgaver
+
+### Opgave 1: Opret et produkt-objekt
+
+Opret et objekt der beskriver et produkt med følgende properties:
+
+- `name` (string)
+- `price` (number)
+- `description` (string)
+- `inStock` (boolean)
+- `categories` (array af strings)
+
+### Opgave 2: Parse JSON
+
+```javascript
+const jsonData = '{"title":"SuperPhone","price":6999,"brand":"Samsung"}';
+```
+
+1. Parse JSON-strengen til et JavaScript objekt
+2. Log produktets title og pris i konsollen
+3. Tilføj en ny property `discount: 10` til objektet
+4. Konverter objektet tilbage til JSON
+
+### Opgave 3: Loop gennem produkter
+
+Givet dette array:
+
+```javascript
+const products = [
+  { name: "Phone", price: 5999 },
+  { name: "Tablet", price: 3999 },
+  { name: "Laptop", price: 8999 },
+];
+```
+
+Loop gennem produkterne og udskriv navnet og prisen for hvert produkt.
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Næste skridt
+
+Nu hvor du forstår Objects og JSON, kan du lære:
+
+[Arrow Functions →](/javascript/arrow-functions/)
+
+[Fetch API →](/javascript/fetch/)
+
+</Slide>

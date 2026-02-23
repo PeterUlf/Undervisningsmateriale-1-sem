@@ -1,6 +1,6 @@
 ---
 title: Subgrid
-description: Del grid-strukturen med dine children – avanceret Grid-layout
+description: Del grid-strukturen med underliggende elementer - avanceret grid-layout
 sidebar:
   label: Subgrid
   order: 8.5
@@ -16,20 +16,39 @@ import Slide from "../../../components/Slide.astro";
 
 ## Hvad er subgrid?
 
-**Subgrid** er en funktion i CSS Grid, hvor et child-grid kan **arve** rækker og/eller kolonner fra sin parent-grid.
+**Subgrid** er en funktion i CSS Grid, hvor et indlejret grid kan **arve** rækker og/eller kolonner fra sin overordnede grid-container.
 
 Det er nyttigt, når:
 
 - du vil have overskrifter, tekst og billeder til at flugte på tværs af sektioner
 - du har komplekse layouts med gentagne strukturer
 
-> Bemærk: Subgrid er stadig relativt nyt – støtte kan variere mellem browsere, men moderne browsere er ved at være med.
+> Bemærk: Subgrid understøttes i moderne versioner af de store browsere. Tjek altid browser-kompatibilitet, hvis dit site skal virke på ældre enheder.
 
 </Slide>
 <div class="page-break"></div>
 <Slide>
 
 ## Grund-idé
+
+<div class="columns-2">
+
+<div>
+
+HTML:
+
+```html
+<div class="page">
+  <section class="section">
+    <h2>Overskrift</h2>
+    <p>Tekst her...</p>
+  </section>
+</div>
+```
+
+</div>
+
+<div>
 
 Du har en ydre grid-container:
 
@@ -46,11 +65,76 @@ Inde i den har du en sektion, der også er grid – men med `subgrid`:
 ```css
 .section {
   display: grid;
+  grid-column: 1 / -1; /* spænd over det overordnede grids kolonner */
   grid-template-columns: subgrid;
 }
 ```
 
+</div>
+
+</div>
+
 Så vil `.section` bruge **de samme kolonner** som `.page`.
+Hvis `.section` kun fylder én kolonne i det overordnede grid, arver den kun den kolonne.
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## NB! Span: Vigtigt ved subgrid
+
+For at subgrid virker, skal child-elementet **spænde over de rækker/kolonner** du vil arve.
+
+### Forskellige måder at spænde på:
+
+<div class="columns-2">
+
+<div>
+
+**Med span:**
+
+```css
+.card {
+  /* Spænd over 3 rækker */
+  grid-row: span 3;
+
+  /* Spænd over 2 kolonner */
+  grid-column: span 2;
+}
+```
+
+**Fordel:** Du behøver ikke at vide præcis hvilke linjer - bare hvor mange spor.
+
+</div>
+
+<div>
+
+**Med linjenumre:**
+
+```css
+.card {
+  /* Fra linje 1 til sidste linje */
+  grid-column: 1 / -1;
+
+  /* Fra linje 1 til linje 4 */
+  grid-row: 1 / 4;
+
+  /* Fra linje 2 til linje 5 */
+  grid-column: 2 / 5;
+}
+```
+
+**Fordel:** Præcis kontrol over placering.
+
+</div>
+
+</div>
+
+### Husk!
+
+- Subgrid arver **kun de rækker/kolonner elementet spænder over**
+- Uden `span` eller eksplicit placering = kun 1 række/kolonne arvet
+- Du skal bruge både `display: grid` OG `grid-template-columns: subgrid` (eller rows)
 
 </Slide>
 <div class="page-break"></div>
@@ -61,95 +145,321 @@ Så vil `.section` bruge **de samme kolonner** som `.page`.
 <div class="columns-2">
 
 <div>
+
 HTML:
 
 ```html
 <div class="page">
-  <section class="section">
-    <h2>Artikel 1</h2>
-    <p>Brødtekst...</p>
-  </section>
+  <article class="card">
+    <h3>Card 1</h3>
+    <img src="https://via.assets.so/img.jpg?w=400&h=300" alt="Placeholder" />
+    <p>Kort tekst</p>
+  </article>
 
-  <section class="section">
-    <h2>Artikel 2</h2>
-    <p>Brødtekst...</p>
-  </section>
+  <article class="card">
+    <h3>Card 2 med længere overskrift</h3>
+    <img src="https://via.assets.so/img.jpg?w=400&h=200" alt="Placeholder" />
+    <p>Lang tekst der fylder mere...</p>
+  </article>
+
+  <article class="card">
+    <h3>Card 3</h3>
+    <img src="https://via.assets.so/img.jpg?w=400&h=250" alt="Placeholder" />
+    <p>Medium tekst her</p>
+  </article>
 </div>
 ```
 
 </div>
 
 <div>
+
 CSS:
 
 ```css
 .page {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
-  gap: 1rem;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto auto 1fr;
+  gap: 2rem;
 }
 
-.section {
+.card {
   display: grid;
-  grid-column: 1 / -1; /* spænder over hele bredden */
-  grid-template-columns: subgrid;
-}
 
-.section h2 {
-  grid-column: 1 / 2;
-}
+  /* UDEN subgrid - laver sit eget grid */
+  /* Overskrifter, billeder og tekst flugter IKKE på tværs */
+  grid-template-rows: auto auto 1fr;
+  gap: 1rem;
 
-.section p {
-  grid-column: 2 / 4;
+  /* MED subgrid - fjern kommentarerne på linjerne herunder */
+  /* Alt vil flugte vandret på tværs af alle cards! */
+  /* grid-template-rows: subgrid; */
+  /* grid-row: span 3; */
 }
 ```
 
 </div>
 
 </div>
-
-Her flugter overskrifter og tekst på tværs af sektionerne, fordi de bruger samme grid-kolonner.
+**Opgave:** Fjern kommentarerne på de 2 subgrid-linjer for at se, hvordan overskrifter, billeder og tekst pludselig flugter perfekt på tværs af alle 3 cards.
 
 </Slide>
 <div class="page-break"></div>
 <Slide>
 
-## Subgrid på rækker
+## Opgaver med subgrid (løs i CodePen eller lignende)
 
-Du kan også bruge subgrid på rækker:
+### Opgave 1: Card Layout med Subgrid
+
+**Mål:** Lav 3 produktkort hvor overskrifter, billeder og priser flugter på tværs.
+
+<div class="columns-2">
+
+<div>
+
+**HTML:**
+
+```html
+<div class="product-grid">
+  <article class="product-card">
+    <h2>Produkt 1</h2>
+    <img src="https://via.assets.so/img.jpg?w=400&h=250" alt="Produkt 1" />
+    <p>199 kr</p>
+  </article>
+  <article class="product-card">
+    <h2>Produkt 2 med langt navn</h2>
+    <img src="https://via.assets.so/img.jpg?w=400&h=320" alt="Produkt 2" />
+    <p>299 kr</p>
+  </article>
+  <article class="product-card">
+    <h2>Produkt 3</h2>
+    <img src="https://via.assets.so/img.jpg?w=400&h=280" alt="Produkt 3" />
+    <p>149 kr</p>
+  </article>
+</div>
+```
+
+</div>
+
+<div>
+
+CSS:
 
 ```css
-.page {
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-}
+/* Lav .product-grid til et grid med 3 kolonner og 3 rækker (overskrift, billede, pris) */
 
-.section-wrapper {
-  display: grid;
-  grid-template-rows: subgrid;
-}
+/* Gør hvert .product-card til et grid der bruger subgrid til at arve rækker fra det overordnede grid */
+
+/* Sørg for at hvert card spænder over 3 rækker */
+
+/* Tilføj border og padding til cards */
+
+/* Resultat: Alle overskrifter flugter, alle billeder flugter, alle priser flugter! */
 ```
 
-Dette er især nyttigt, hvis du vil have
-sektioner med samme rækker (fx ens højder på tværs af flere områder).
+</div>
+
+</div>
 
 </Slide>
 <div class="page-break"></div>
 <Slide>
 
-## Opgaver (inspireret af exercssises)
+## NB! Display: contents
 
-1. Lav en side, hvor:
-   - du har et overordnet grid med 3 kolonner
-   - hver sektion (`section`) bruger `subgrid` til at flugte overskrifter og tekst
-2. Lav et layout, hvor billeder og billedtekster i flere sektioner flugter
-   - brug `figure` og `figcaption`
-   - brug `grid-template-columns: subgrid;` i sektionerne
-3. Eksperimenter med at bruge `subgrid` kun på rækker eller kun på kolonner.
+`display: contents` er en CSS-egenskab der gør at et element "forsvinder" fra layout-strukturen, mens dets **children** beholder deres plads.
+
+<div class="columns-2">
+
+<div>
+
+### Problem uden display: contents
+
+```html
+<div class="grid">
+  <figure>
+    <img src="..." />
+    <figcaption>Tekst</figcaption>
+  </figure>
+</div>
+```
+
+Her er `figure` et grid-item, mens `img` og `figcaption` er **children af figure** - de er ikke direkte grid-items.
+
+</div>
+
+<div>
+
+### Løsning med display: contents
+
+```css
+figure {
+  display: contents;
+}
+```
+
+Nu "forsvinder" `figure` fra layout-strukturen, og `img` og `figcaption` bliver direkte grid-items i `.grid` - som om `<figure>` slet ikke var der!
+
+</div>
+
+</div>
+
+**Nyttigt til:** Når du vil have children til at deltage i parent's grid/flexbox, uden at wrapper-elementet skal være i vejen.
+
+:::caution[Vigtigt]
+`display: contents` kan påvirke tilgængelighed (screenreaders) og semantik. Brug det bevidst og test med hjælpemidler.
+:::
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+### Opgave 2: Artikel-layout med Figure
+
+**Mål:** Lav 2 artikler hvor billeder og billedtekster flugter.
+
+<div class="columns-2">
+
+<div>
+
+**HTML:**
+
+```html
+<div class="article-grid">
+  <article class="article">
+    <h2>Artikel 1</h2>
+    <figure>
+      <img src="https://via.assets.so/img.jpg?w=400&h=300" alt="Artikel 1" />
+      <figcaption>Billedtekst til artikel 1</figcaption>
+    </figure>
+    <p>Brødtekst her...</p>
+  </article>
+  <article class="article">
+    <h2>Artikel 2 med længere overskrift</h2>
+    <figure>
+      <img src="https://via.assets.so/img.jpg?w=400&h=240" alt="Artikel 2" />
+      <figcaption>Kort tekst</figcaption>
+    </figure>
+    <p>Mere brødtekst her...</p>
+  </article>
+</div>
+```
+
+</div>
+
+<div>
+
+CSS:
+
+```css
+/* Lav .article-grid til et grid med 2 kolonner og 4 rækker (h2, img, figcaption, p) */
+
+/* Gør hver .article til et grid der bruger subgrid til at arve rækker fra det overordnede grid */
+
+/* Sørg for at hver artikel spænder over 4 rækker */
+
+/* TRICK: Brug display: contents på figure, så img og figcaption bliver selvstændige grid-items */
+
+/* Resultat: Alle overskrifter, billeder, billedtekster og tekster flugter vandret på tværs! */
+```
+
+> **Bemærk:** `display: contents` kan påvirke semantik og tilgængelighed i nogle tilfælde. Brug det bevidst og test med hjælpemidler.
 
 :::tip[Tip]
-Brug browserens Grid-inspektor til at se, hvordan subgrid arver kolonnerne.
+Brug browserens Grid-inspektor (F12 → Elements → vælg grid-element) til at se, hvordan subgrid arver rækker/kolonner fra det overordnede grid.
 :::
+
+</div>
+
+</div>
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+### Opgave 3: Responsive Card Grid med Subgrid
+
+**Mål:** Lav et responsivt produktgalleri hvor cards bryder til næste linje, men stadig flugter inden for hver række.
+
+<div class="columns-2">
+
+<div>
+
+**HTML:**
+
+```html
+<div class="container">
+  <div class="product-gallery">
+    <article class="product">
+      <h3>Produkt 1</h3>
+      <img src="https://via.assets.so/img.jpg?w=400&h=300" alt="Produkt 1" />
+      <p class="price">199 kr</p>
+      <button>Køb nu</button>
+    </article>
+    <article class="product">
+      <h3>Produkt 2 med meget langt produktnavn</h3>
+      <img src="https://via.assets.so/img.jpg?w=400&h=350" alt="Produkt 2" />
+      <p class="price">299 kr</p>
+      <button>Køb nu</button>
+    </article>
+    <article class="product">
+      <h3>Produkt 3</h3>
+      <img src="https://via.assets.so/img.jpg?w=400&h=280" alt="Produkt 3" />
+      <p class="price">149 kr</p>
+      <button>Køb nu</button>
+    </article>
+    <article class="product">
+      <h3>Produkt 4</h3>
+      <img src="https://via.assets.so/img.jpg?w=400&h=320" alt="Produkt 4" />
+      <p class="price">399 kr</p>
+      <button>Køb nu</button>
+    </article>
+    <article class="product">
+      <h3>Produkt 5</h3>
+      <img src="https://via.assets.so/img.jpg?w=400&h=290" alt="Produkt 5" />
+      <p class="price">249 kr</p>
+      <button>Køb nu</button>
+    </article>
+    <article class="product">
+      <h3>Produkt 6</h3>
+      <img src="https://via.assets.so/img.jpg?w=400&h=310" alt="Produkt 6" />
+      <p class="price">179 kr</p>
+      <button>Køb nu</button>
+    </article>
+  </div>
+</div>
+```
+
+</div>
+
+<div>
+
+**Din opgave med CSS:**
+
+```css
+/* Lav .container med en max-width (fx 1200px) og centrer den */
+
+/* Lav .product-gallery til et grid med:
+   - grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); (så cards bryder til næste linje)
+   - 4 rækker: h3, img, price, button
+   - Gap mellem cards
+*/
+
+/* Gør hver .product til et grid med subgrid på rækker */
+
+/* Sørg for at hvert produktkort spænder over 4 rækker */
+
+/* Tilføj border, padding og styling til cards */
+```
+
+**Test det:** Gør browseren smallere - cards skal bryde til næste linje, men elementer skal stadig flugte inden for hver række.
+
+**Udfordring:** Med `auto-fit` ændrer antal kolonner sig ved forskellige skærmbredder. Det betyder, at subgrid typisk flugter godt **inden for samme kort-række**, men ikke nødvendigvis på tværs af flere wrap-rækker. Derfor er subgrid mest forudsigeligt, når layoutets spor er tydeligt defineret.
+
+</div>
+
+</div>
 
 </Slide>
 <div class="page-break"></div>
@@ -160,4 +470,5 @@ Brug browserens Grid-inspektor til at se, hvordan subgrid arver kolonnerne.
 Fortsæt i rækken:
 
 [Gå til Tema 8 – Multiple Choice →](/quiz/tema-8/)
+
 </Slide>
