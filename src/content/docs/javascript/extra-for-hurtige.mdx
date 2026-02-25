@@ -1,0 +1,269 @@
+---
+title: "Tema 8 Ekstra: For Hurtige"
+description: Ekstra træning i objekter, arrays og fetch til studerende der vil videre
+sidebar:
+  label: Tema 8 Ekstra
+  order: 4.2
+  badge:
+    text: Tema 8
+    variant: tip
+    class: badge-theme-8
+---
+
+import Slide from "../../../components/Slide.astro";
+
+<Slide>
+
+## Ekstra spor for hurtige
+
+Hvis dine studerende er hurtigt videre, mangler de ofte disse næste trin:
+
+1. Mere sikker håndtering af data med manglende felter
+2. `filter` og `sort` på arrays af objekter
+3. Mere robust fetch med fejl-check
+
+## Øvelse 1 (CodePen)
+
+Lav i **CodePen**:
+
+```javascript
+const cafe = {
+  name: "Kyst Kaffe",
+  city: "Svendborg",
+  rating: 4.6,
+};
+```
+
+Opgave:
+
+1. Log alle tre værdier i konsollen
+2. Vis dem i en `<article id="cafeCard"></article>` med template string
+3. Husk backticks `` `...` `` i `innerHTML`
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Destructuring af objekt
+
+Du kan pakke værdier ud af et objekt i én linje:
+
+```javascript
+const book = {
+  title: "Klara og Solen",
+  author: "Kazuo Ishiguro",
+  year: 2021,
+};
+
+const { title, author } = book;
+console.log(title, author);
+```
+
+Det gør kode kortere, når du læser mange keys.
+
+## Øvelse 2 (CodePen)
+
+Brug disse data:
+
+```javascript
+const movie = {
+  name: "Arrival",
+  duration: 116,
+  ageLimit: 11,
+};
+```
+
+Opgave:
+
+1. Brug destructuring til at hente `name` og `duration`
+2. Log begge værdier
+3. Vis dem i `<article id="movieCard"></article>`
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Manglende data og fallback
+
+Fra API'er kan felter være `null` eller mangle.
+
+Brug fallback med `??`:
+
+```javascript
+const profile = {
+  username: "nora",
+  bio: null,
+};
+
+const bioText = profile.bio ?? "Ingen bio endnu";
+console.log(bioText);
+```
+
+## Øvelse 3 (CodePen)
+
+Brug disse data:
+
+```javascript
+const teacher = {
+  name: "Lars",
+  room: null,
+  email: "la@school.dk",
+};
+```
+
+Opgave:
+
+1. Lav en variabel, der viser lokale eller teksten `"Lokale ikke angivet"`
+2. Log resultatet
+3. Vis `name`, `email` og lokale i `<article id="teacherCard"></article>`
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Filter på array af objekter
+
+`filter` laver et nyt array med de elementer, der består en test.
+
+```javascript
+const workshops = [
+  { title: "HTML Basics", seats: 0 },
+  { title: "CSS Layout", seats: 6 },
+  { title: "JS DOM", seats: 2 },
+];
+
+const openWorkshops = workshops.filter((workshop) => workshop.seats > 0);
+console.log(openWorkshops);
+```
+
+## Øvelse 4 (CodePen)
+
+Brug disse data:
+
+```javascript
+const drinks = [
+  { name: "Matcha", sugar: 4, cold: false },
+  { name: "Ice Tea", sugar: 9, cold: true },
+  { name: "Sparkling Water", sugar: 0, cold: true },
+  { name: "Latte", sugar: 6, cold: false },
+];
+```
+
+Opgave:
+
+1. Filtrer kun de kolde drikke
+2. Log resultat-arrayet
+3. Vis navnene i `<section id="drinkList"></section>`
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Sortering før du viser data
+
+Du kan sortere data før rendering.
+
+```javascript
+const speakers = [
+  { name: "Mia", talks: 14 },
+  { name: "Ali", talks: 5 },
+  { name: "Jonas", talks: 9 },
+];
+
+const sortedByTalks = [...speakers].sort((a, b) => b.talks - a.talks);
+console.log(sortedByTalks);
+```
+
+`[...speakers]` laver en kopi, så original-arrayet bevares.
+
+## Øvelse 5 (CodePen)
+
+Brug disse data:
+
+```javascript
+const bikes = [
+  { model: "Road 100", price: 8200 },
+  { model: "City 2", price: 5400 },
+  { model: "Trail X", price: 9900 },
+  { model: "Mini 20", price: 4300 },
+];
+```
+
+Opgave:
+
+1. Sorter fra billigst til dyrest
+2. Log det sorterede array
+3. Vis alle modeller og priser i `<section id="bikeList"></section>`
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Fetch med `async/await` og fejl-check
+
+Det her er samme idé som `.then(...)`, men i en mere lineær stil:
+
+```javascript
+const endpoint = "https://kea-alt-del.dk/t7/api/products/1163";
+
+async function getProduct() {
+  try {
+    const response = await fetch(endpoint);
+    if (!response.ok) {
+      throw new Error("Kunne ikke hente produkt");
+    }
+
+    const data = await response.json();
+    console.log(data.productdisplayname, data.price);
+  } catch (error) {
+    console.error(error.message);
+  }
+}
+
+getProduct();
+```
+
+## Øvelse 6 (CodePen)
+
+Brug endpoint:
+
+`https://kea-alt-del.dk/t7/api/products/1528`
+
+Opgave:
+
+1. Hent data med `async/await`
+2. Check `response.ok`
+3. Vis `productdisplayname`, `brandname` og `price` i `<article id="apiCard"></article>`
+4. Hvis der opstår fejl, vis en fejltekst i samme article
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Øvelse 7: Mini challenge (CodePen)
+
+Brug endpoint:
+
+`https://kea-alt-del.dk/t7/api/products`
+
+Opgave:
+
+1. Hent listen fra API
+2. Tag kun produkter med `gender === "Women"`
+3. Sorter dem fra billigst til dyrest
+4. Vis de første 8 i `<section id="challengeList"></section>`
+5. Vis mindst: `productdisplayname`, `brandname`, `price`
+
+Målet er at kombinere: `fetch`, arrays, objekter, `filter`, `sort` og rendering.
+
+## Næste sider
+
+[Objects & JSON →](/javascript/objects-json/)
+
+[Arrow Functions →](/javascript/arrow-functions/)
+
+[Fetch Single Product →](/javascript/fetch/)
+
+[Fetch Product List →](/javascript/fetch-productlist/)
+
+</Slide>

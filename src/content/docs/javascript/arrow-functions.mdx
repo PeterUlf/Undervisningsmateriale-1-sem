@@ -1,6 +1,6 @@
 ---
 title: Arrow Functions
-description: Moderne JavaScript funktioner med arrow syntax
+description: Kort forklaring af arrow functions i forhold til traditionelle funktioner
 sidebar:
   label: Arrow Functions
   order: 3
@@ -14,55 +14,9 @@ import Slide from "../../../components/Slide.astro";
 
 <Slide>
 
-## Hvad er Arrow Functions?
+## Hvad er en arrow function?
 
-**Arrow functions** er en kortere syntaks til at skrive funktioner i JavaScript. De blev introduceret i ES6 (2015).
-
-<div class="columns-2">
-
-<div>
-
-### Traditionel funktion
-
-```javascript
-function greet(name) {
-  return "Hej " + name;
-}
-
-console.log(greet("Maria")); // "Hej Maria"
-```
-
-</div>
-
-<div>
-
-### Arrow function
-
-```javascript
-const greet = (name) => {
-  return "Hej " + name;
-};
-
-console.log(greet("Maria")); // "Hej Maria"
-```
-
-</div>
-
-</div>
-
-**Fordele:**
-
-- Kortere syntaks
-- Lettere at læse
-- Nyttig ved callbacks og loops
-
-</Slide>
-<div class="page-break"></div>
-<Slide>
-
-## Arrow Function Syntaks
-
-### Grundlæggende syntaks
+En arrow function er en kortere måde at skrive funktioner på.
 
 ```javascript
 // Traditionel funktion
@@ -71,288 +25,208 @@ function add(a, b) {
 }
 
 // Arrow function
-const add = (a, b) => {
-  return a + b;
-};
+const addArrow = (a, b) => a + b;
+
+// Sådan ser du resultatet i konsollen
+console.log(add(2, 3)); // 5
+console.log(addArrow(2, 3)); // 5
 ```
 
-### Implicit return (én linje)
-
-Hvis funktionen kun består af én linje, kan du udelade `{}` og `return`:
-
-```javascript
-// Kort version - returnerer automatisk
-const add = (a, b) => a + b;
-
-console.log(add(5, 3)); // 8
-```
-
-### Én parameter - skip parenteserne
-
-```javascript
-// Med parenteser
-const double = (x) => x * 2;
-
-// Uden parenteser (kun ved ÉN parameter)
-const double = (x) => x * 2;
-
-console.log(double(5)); // 10
-```
+Begge versioner gør det samme.
 
 </Slide>
 <div class="page-break"></div>
 <Slide>
 
-## Forskellige eksempler
+## Grundsyntaks
 
 ```javascript
-// Ingen parametre - brug tomme parenteser
-const sayHello = () => "Hello!";
-console.log(sayHello()); // "Hello!"
+// Ingen parametre
+const sayHi = () => "Hej";
 
-// Én parameter - parenteser valgfri
-const square = (x) => x * x;
-console.log(square(4)); // 16
+// Én parameter
+const double = (x) => x * 2;
 
-// Flere parametre - kræver parenteser
+// Flere parametre
 const multiply = (a, b) => a * b;
-console.log(multiply(3, 4)); // 12
+```
 
-// Multi-line body - kræver brackets og return
-const calculatePrice = (price, tax) => {
-  const total = price + price * tax;
-  return total;
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Kort og lang arrow function
+
+```javascript
+// Kort version (implicit return)
+const square = (x) => x * x;
+
+// Lang version (når du har flere linjer)
+const squareLong = (x) => {
+  const result = x * x;
+  return result;
 };
-console.log(calculatePrice(100, 0.25)); // 125
 ```
+
+Brug den lange version, når funktionen kræver flere trin.
 
 </Slide>
 <div class="page-break"></div>
 <Slide>
 
-## Arrow Functions med Arrays
-
-Arrow functions er **perfekte** til array metoder som `.map()`, `.filter()` og `.forEach()`:
-
-### forEach
+## Eksempel med arrays
 
 ```javascript
-const products = ["Laptop", "Mouse", "Keyboard"];
+const numbers = [1, 2, 3, 4];
 
-// Traditionel funktion
-products.forEach(function (product) {
-  console.log(product);
+// Loop gennem arrayet og log fordoblede tal
+numbers.forEach((number) => {
+  console.log(number * 2);
 });
 
-// Arrow function (kortere!)
-products.forEach((product) => {
-  console.log(product);
-});
-
-// Endnu kortere hvis kun én linje
-products.forEach((product) => console.log(product));
+// Output i konsollen:
+// 2
+// 4
+// 6
+// 8
 ```
+
+`forEach` betyder: "kør denne kode én gang for hvert element i arrayet".
+
+`number` er parameteren i arrow-funktionen.  
+Det er bare et variabelnavn for "det tal vi er på lige nu".
+
+Når koden kører, sker det sådan her:
+
+- 1. omgang: `number` er `1` -> logger `2`
+- 2. omgang: `number` er `2` -> logger `4`
+- 3. omgang: `number` er `3` -> logger `6`
+- 4. omgang: `number` er `4` -> logger `8`
+
+Arrow functions bruges ofte i `forEach`, `map` og `filter`.
 
 </Slide>
 <div class="page-break"></div>
 <Slide>
 
-## .map() med Arrow Functions
+## Øvelse 1: Skriv om til arrow
 
-`.map()` skaber et nyt array ved at transformere hvert element:
-
-```javascript
-const prices = [100, 200, 300];
-
-// Traditionel funktion
-const withTax = prices.map(function (price) {
-  return price * 1.25;
-});
-
-// Arrow function
-const withTax = prices.map((price) => price * 1.25);
-
-console.log(withTax); // [125, 250, 375]
-```
-
-### Mere komplekst eksempel
+Skriv disse to om til arrow functions:
 
 ```javascript
-const products = [
-  { name: "Laptop", price: 8999 },
-  { name: "Mouse", price: 299 },
-  { name: "Keyboard", price: 599 },
-];
+function greet(name) {
+  return "Hej " + name;
+}
 
-// Hent kun navnene
-const names = products.map((product) => product.name);
-console.log(names); // ["Laptop", "Mouse", "Keyboard"]
-
-// Tilføj moms til priser
-const withTax = products.map((product) => ({
-  name: product.name,
-  price: product.price * 1.25,
-}));
+function minus(a, b) {
+  return a - b;
+}
 ```
 
-:::tip[Bemærk]
-Ved arrow functions der returnerer objekter, skal du wrappe objektet i `()`: `=> ({...})`
+Log derefter resultaterne i konsollen.
+
+:::tip[Hint]
+Omskriv begge funktioner til arrow functions.
+Test derefter at de virker ved at køre dem og logge resultaterne i konsollen.
 :::
 
 </Slide>
 <div class="page-break"></div>
 <Slide>
 
-## .filter() med Arrow Functions
-
-`.filter()` skaber et nyt array med kun elementer der opfylder en betingelse:
+## Øvelse 2: Udfyld de tomme felter
 
 ```javascript
-const products = [
-  { name: "Laptop", price: 8999, inStock: true },
-  { name: "Mouse", price: 299, inStock: false },
-  { name: "Keyboard", price: 599, inStock: true },
-];
-
-// Find produkter under 1000 kr
-const affordable = products.filter((product) => product.price < 1000);
-console.log(affordable);
-// [{name: "Mouse", ...}, {name: "Keyboard", ...}]
-
-// Find produkter på lager
-const available = products.filter((product) => product.inStock);
-console.log(available);
-// [{name: "Laptop", ...}, {name: "Keyboard", ...}]
-
-// Kombiner flere betingelser
-const cheapAndAvailable = products.filter(
-  (product) => product.price < 1000 && product.inStock,
-);
+const triple = (x) => ________;
+const welcome = (name) => "Hej " + ________;
 ```
+
+:::tip[Hint]
+- `triple` skal gange med 3
+- `welcome` skal returnere navnet
+:::
 
 </Slide>
 <div class="page-break"></div>
 <Slide>
 
-## Praktisk eksempel: Produktliste
+## Øvelse 3: Brug arrow med forEach
+
+Givet arrayet:
 
 ```javascript
-const products = [
-  { id: 1, name: "Laptop", price: 8999, category: "Electronics" },
-  { id: 2, name: "Mouse", price: 299, category: "Electronics" },
-  { id: 3, name: "Desk", price: 2999, category: "Furniture" },
-  { id: 4, name: "Chair", price: 1999, category: "Furniture" },
-];
-
-// Find elektronik under 1000 kr
-const cheapElectronics = products
-  .filter((p) => p.category === "Electronics")
-  .filter((p) => p.price < 1000);
-
-console.log(cheapElectronics); // [{id: 2, name: "Mouse", ...}]
-
-// Få array af kun navne for alle møbler
-const furnitureNames = products
-  .filter((p) => p.category === "Furniture")
-  .map((p) => p.name);
-
-console.log(furnitureNames); // ["Desk", "Chair"]
-
-// Tilføj moms til alle priser
-const withTax = products.map((p) => ({
-  ...p, // Spread operator - kopier alle properties
-  priceWithTax: p.price * 1.25,
-}));
+const prices = [100, 250, 400];
 ```
 
-</Slide>
-<div class="page-break"></div>
-<Slide>
+Lav et nyt array `withMoms`, hvor hver pris ganges med 1.25.
+Brug `forEach` i stedet for `map`.
 
-## Almindelige mønstre
-
-### Event handlers
+:::tip[Hint]
+Brug en tom liste og tilføj én værdi ad gangen:
 
 ```javascript
-// Traditionel
-button.addEventListener("click", function () {
-  console.log("Clicked!");
-});
+const withMoms = [];
 
-// Arrow function
-button.addEventListener("click", () => {
-  console.log("Clicked!");
+prices.forEach((price) => {
+  withMoms.push(...);
 });
 ```
+:::
 
-### setTimeout / setInterval
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Hvad gør `.map`?
+
+`.map` gennemgår et array og returnerer et **nyt** array.
+
+Det betyder:
+
+1. Original-arrayet ændres ikke
+2. Hvert element bliver transformeret
+3. Resultatet samles i et nyt array
 
 ```javascript
-// Vent 2 sekunder, så udfør funktion
-setTimeout(() => {
-  console.log("Dette vises efter 2 sekunder");
-}, 2000);
+const prices = [100, 250, 400];
 
-// Gentag hvert sekund
-setInterval(() => {
-  console.log("Tick...");
-}, 1000);
+const withMoms = prices.map((price) => price * 1.25);
+
+console.log(prices); // [100, 250, 400]
+console.log(withMoms); // [125, 312.5, 500]
 ```
 
 </Slide>
 <div class="page-break"></div>
 <Slide>
 
-## Opgaver
+## Øvelse 4: Samme opgave med map
 
-### Opgave 1: Konverter til arrow functions
-
-Konverter disse traditionelle funktioner til arrow functions:
+Givet arrayet:
 
 ```javascript
-function double(x) {
-  return x * 2;
-}
-
-function greet(name) {
-  return "Hej " + name;
-}
-
-function calculateTotal(price, quantity) {
-  return price * quantity;
-}
+const pricesInclMoms = [125, 312.5, 500];
 ```
 
-### Opgave 2: Array manipulation
+Lav et nyt array `pricesExMoms`, hvor hver pris bliver uden moms.
+Løs denne version med `map` ved at dividere med `1.25`.
 
-Givet dette array:
+:::tip[Hint]
+`map` returnerer et nyt array.
 
 ```javascript
-const products = [
-  { name: "Phone", price: 5999, inStock: true },
-  { name: "Tablet", price: 3999, inStock: false },
-  { name: "Laptop", price: 8999, inStock: true },
-  { name: "Mouse", price: 299, inStock: true },
-];
+const pricesExMoms = pricesInclMoms.map((price) => ...);
 ```
-
-Brug arrow functions til at:
-
-1. Få et array med kun navnene
-2. Find produkter under 4000 kr
-3. Find produkter der er på lager
-4. Tilføj 25% moms til alle priser
+:::
 
 </Slide>
 <div class="page-break"></div>
 <Slide>
 
-## Næste skridt
+## Næste side
 
-Nu hvor du kan arrow functions, er du klar til:
+[Fetch Single Product →](/javascript/fetch/)
 
-[Fetch API →](/javascript/fetch/)
-
-[Objects & JSON →](/javascript/objects-json/)
+[Fetch Product List →](/javascript/fetch-productlist/)
 
 </Slide>

@@ -1,0 +1,139 @@
+---
+title: "Fetch API: Product List"
+description: Hent en liste af produkter og vis dem med arrays og objekter
+sidebar:
+  label: Fetch Product List
+  order: 4.1
+  badge:
+    text: Tema 8
+    variant: tip
+    class: badge-theme-8
+---
+
+import Slide from "../../../components/Slide.astro";
+
+<Slide>
+
+## Hvad lærer du her?
+
+På denne side arbejder du med en **produktliste**.
+
+1. Hent mange produkter fra API
+2. Forstå at svaret er et array af objekter
+3. Loop gennem produkter og vis dem i HTML
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## API-reference: Product List
+
+Endpoint til hele listen:
+
+`https://kea-alt-del.dk/t7/api/products`
+
+Her får du et **array** med mange produkt-objekter.
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Koden samlet
+
+```javascript
+const listURL = "https://kea-alt-del.dk/t7/api/products";
+const listContainer = document.querySelector("#productListContainer");
+
+function getProducts() {
+  fetch(listURL).then((res) => res.json().then((products) => showProducts(products)));
+}
+
+function showProducts(products) {
+  // Start med tom container
+  listContainer.innerHTML = "";
+
+  // products er et array af objekter
+  products.forEach((product) => {
+    listContainer.innerHTML += `
+      <article class="productCard">
+        <h3>${product.productdisplayname}</h3>
+        <p>Pris: ${product.price}</p>
+      </article>
+    `;
+  });
+}
+
+getProducts();
+```
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Array + objekt i samme kode
+
+```javascript
+products.forEach((product) => {
+  console.log(product.productdisplayname, product.price);
+});
+```
+
+- `products` = array
+- `product` = ét objekt i arrayet
+- `product.productdisplayname` = key i objektet
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Øvelse 1: Log de første produkter
+
+Efter du har hentet `products`, så log:
+
+1. `products.length`
+2. `products[0].productdisplayname`
+3. `products[0].price`
+
+:::tip[Hint]
+`products[0]` er første objekt i arrayet.
+:::
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Øvelse 2: Vis kun navn
+
+I `showProducts(products)` skal du kun vise navn:
+
+```html
+<h3>Produktnavn</h3>
+```
+
+for hvert produkt i arrayet.
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Øvelse 3: Begræns liste
+
+Vis kun de første 5 produkter.
+
+:::tip[Hint]
+Du kan bruge `slice(0, 5)` før `forEach(...)`.
+:::
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Næste sider
+
+[Fetch Single Product →](/javascript/fetch/)
+
+[Objects & JSON →](/javascript/objects-json/)
+
+[Tema 8 Ekstra (for hurtige) →](/javascript/extra-for-hurtige/)
+
+</Slide>
