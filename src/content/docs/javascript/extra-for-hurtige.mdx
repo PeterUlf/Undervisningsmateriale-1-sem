@@ -189,9 +189,15 @@ Opgave:
 
 ## Forklaring til øvelse 5
 
-I øvelse 5 bruger du `sort` til pris-rækkefølge.
+I øvelse 5 bruger du `sort` til pris-rækkefølge (billigst -> dyrest).
 
-Tip: lav en kopi først med `[...]`, så original-arrayet ikke ændres.
+Det vigtige er:
+
+1. `a` og `b` er to produkter, som `sort` sammenligner ad gangen
+2. `a.price - b.price` er sammenligningen
+3. Negativt tal: `a` kommer før `b`
+4. Positivt tal: `b` kommer før `a`
+5. `[...]` laver en kopi, så original-arrayet ikke ændres
 
 ```javascript
 const items = [
@@ -200,8 +206,16 @@ const items = [
   { name: "C", price: 60 },
 ];
 
+// sort sammenligner to elementer ad gangen: a og b
+// her sorterer vi stigende pris (billigst først)
 const sorted = [...items].sort((a, b) => a.price - b.price);
+
+// Eksempel på en sammenligning:
+// 90 - 30 = 60  -> positivt tal -> den billigste (30) placeres foran
+
+console.log(items); // original: [90, 30, 60]
 console.log(sorted);
+// sorteret: [30, 60, 90]
 ```
 
 </Slide>
