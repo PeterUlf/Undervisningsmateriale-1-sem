@@ -2,7 +2,7 @@
 title: "Tema 8 Ekstra: For Hurtige"
 description: Ekstra træning i objekter, arrays og fetch til studerende der vil videre
 sidebar:
-  label: Tema 8 Ekstra
+  label: Ekstra øvelser
   order: 4.2
   badge:
     text: Tema 8
@@ -16,11 +16,35 @@ import Slide from "../../../components/Slide.astro";
 
 ## Ekstra spor for hurtige
 
-Hvis dine studerende er hurtigt videre, mangler de ofte disse næste trin:
+På denne side får hver øvelse sit eget forklarings-slide lige før.
 
-1. Mere sikker håndtering af data med manglende felter
-2. `filter` og `sort` på arrays af objekter
-3. Mere robust fetch med fejl-check
+Fokus:
+
+1. Objekter og rendering i HTML
+2. Destructuring og fallback
+3. `filter`, `sort` og fetch med fejl-check
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Forklaring til øvelse 1
+
+I øvelse 1 bruger du:
+
+1. Et objekt med keys og values
+2. `querySelector` til at finde et HTML-element
+3. `innerHTML` med template string (backticks + `${...}`)
+
+```javascript
+const place = { name: "Nordhavn Kiosk", city: "Kobenhavn", rating: 4.2 };
+const card = document.querySelector("#card");
+card.innerHTML = `<h2>${place.name}</h2>`;
+```
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
 
 ## Øvelse 1 (CodePen)
 
@@ -37,29 +61,28 @@ const cafe = {
 Opgave:
 
 1. Log alle tre værdier i konsollen
-2. Vis dem i en `<article id="cafeCard"></article>` med template string
-3. Husk backticks `` `...` `` i `innerHTML`
+2. Vis dem i `<article id="cafeCard"></article>`
+3. Brug template string med backticks
 
 </Slide>
 <div class="page-break"></div>
 <Slide>
 
-## Destructuring af objekt
+## Forklaring til øvelse 2
 
-Du kan pakke værdier ud af et objekt i én linje:
+I øvelse 2 bruger du destructuring.
+
+Det betyder, at du henter keys fra et objekt og gemmer dem i variabler:
 
 ```javascript
-const book = {
-  title: "Klara og Solen",
-  author: "Kazuo Ishiguro",
-  year: 2021,
-};
-
-const { title, author } = book;
-console.log(title, author);
+const game = { title: "Portal", players: 1, year: 2007 };
+const { title, players } = game;
+console.log(title, players);
 ```
 
-Det gør kode kortere, når du læser mange keys.
+</Slide>
+<div class="page-break"></div>
+<Slide>
 
 ## Øvelse 2 (CodePen)
 
@@ -83,21 +106,21 @@ Opgave:
 <div class="page-break"></div>
 <Slide>
 
-## Manglende data og fallback
+## Forklaring til øvelse 3
 
-Fra API'er kan felter være `null` eller mangle.
+I øvelse 3 bruger du fallback med `??`.
 
-Brug fallback med `??`:
+`??` betyder: brug venstre side, medmindre den er `null` eller `undefined`.
 
 ```javascript
-const profile = {
-  username: "nora",
-  bio: null,
-};
-
-const bioText = profile.bio ?? "Ingen bio endnu";
-console.log(bioText);
+const user = { name: "Emma", phone: null };
+const phoneText = user.phone ?? "Telefon mangler";
+console.log(phoneText);
 ```
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
 
 ## Øvelse 3 (CodePen)
 
@@ -121,20 +144,25 @@ Opgave:
 <div class="page-break"></div>
 <Slide>
 
-## Filter på array af objekter
+## Forklaring til øvelse 4
 
-`filter` laver et nyt array med de elementer, der består en test.
+I øvelse 4 bruger du `filter`.
+
+`filter` gennemgår et array og returnerer kun de elementer, der opfylder en betingelse.
 
 ```javascript
-const workshops = [
-  { title: "HTML Basics", seats: 0 },
-  { title: "CSS Layout", seats: 6 },
-  { title: "JS DOM", seats: 2 },
+const events = [
+  { name: "Talk A", freeSeats: 0 },
+  { name: "Talk B", freeSeats: 3 },
 ];
 
-const openWorkshops = workshops.filter((workshop) => workshop.seats > 0);
-console.log(openWorkshops);
+const openEvents = events.filter((event) => event.freeSeats > 0);
+console.log(openEvents);
 ```
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
 
 ## Øvelse 4 (CodePen)
 
@@ -159,22 +187,26 @@ Opgave:
 <div class="page-break"></div>
 <Slide>
 
-## Sortering før du viser data
+## Forklaring til øvelse 5
 
-Du kan sortere data før rendering.
+I øvelse 5 bruger du `sort` til pris-rækkefølge.
+
+Tip: lav en kopi først med `[...]`, så original-arrayet ikke ændres.
 
 ```javascript
-const speakers = [
-  { name: "Mia", talks: 14 },
-  { name: "Ali", talks: 5 },
-  { name: "Jonas", talks: 9 },
+const items = [
+  { name: "A", price: 90 },
+  { name: "B", price: 30 },
+  { name: "C", price: 60 },
 ];
 
-const sortedByTalks = [...speakers].sort((a, b) => b.talks - a.talks);
-console.log(sortedByTalks);
+const sorted = [...items].sort((a, b) => a.price - b.price);
+console.log(sorted);
 ```
 
-`[...speakers]` laver en kopi, så original-arrayet bevares.
+</Slide>
+<div class="page-break"></div>
+<Slide>
 
 ## Øvelse 5 (CodePen)
 
@@ -199,29 +231,39 @@ Opgave:
 <div class="page-break"></div>
 <Slide>
 
-## Fetch med `async/await` og fejl-check
+## Forklaring til øvelse 6
 
-Det her er samme idé som `.then(...)`, men i en mere lineær stil:
+I øvelse 6 bruger du `async/await` og fejl-check.
+
+Flow:
+
+1. `await fetch(...)`
+2. Check `response.ok`
+3. `await response.json()`
+4. `catch` hvis noget fejler
 
 ```javascript
-const endpoint = "https://kea-alt-del.dk/t7/api/products/1163";
+const endpoint = "https://kea-alt-del.dk/t7/api/products/2050";
 
-async function getProduct() {
+async function getOne() {
   try {
     const response = await fetch(endpoint);
     if (!response.ok) {
-      throw new Error("Kunne ikke hente produkt");
+      throw new Error("Request fejlede");
     }
-
     const data = await response.json();
-    console.log(data.productdisplayname, data.price);
+    console.log(data.productdisplayname);
   } catch (error) {
     console.error(error.message);
   }
 }
 
-getProduct();
+getOne();
 ```
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
 
 ## Øvelse 6 (CodePen)
 
@@ -235,6 +277,29 @@ Opgave:
 2. Check `response.ok`
 3. Vis `productdisplayname`, `brandname` og `price` i `<article id="apiCard"></article>`
 4. Hvis der opstår fejl, vis en fejltekst i samme article
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Forklaring til øvelse 7
+
+I øvelse 7 kombinerer du flere metoder i rækkefølge:
+
+1. `fetch` -> hent produktliste
+2. `filter` -> vælg kun en del af data
+3. `sort` -> sorter pris
+4. `slice` -> begræns antal
+5. `forEach` -> vis i HTML
+
+Eksempel på kæde:
+
+```javascript
+const result = data
+  .filter((item) => item.active)
+  .sort((a, b) => a.price - b.price)
+  .slice(0, 5);
+```
 
 </Slide>
 <div class="page-break"></div>
@@ -255,6 +320,10 @@ Opgave:
 5. Vis mindst: `productdisplayname`, `brandname`, `price`
 
 Målet er at kombinere: `fetch`, arrays, objekter, `filter`, `sort` og rendering.
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
 
 ## Næste sider
 
