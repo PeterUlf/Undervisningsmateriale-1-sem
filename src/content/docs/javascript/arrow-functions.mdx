@@ -150,6 +150,25 @@ const welcome = (name) => "Hej " + ________;
 <div class="page-break"></div>
 <Slide>
 
+## Hvad gør `push`?
+
+`push` tilføjer en værdi bagerst i et array.
+
+```javascript
+const values = [];
+
+values.push(10); // [10]
+values.push(20); // [10, 20]
+
+console.log(values); // [10, 20]
+```
+
+I øvelse 3 bruger du `push` til at lægge hver ny pris med moms ind i `withMoms`.
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
 ## Øvelse 3: Brug arrow med forEach
 
 Givet arrayet:
@@ -228,5 +247,7 @@ const pricesExMoms = pricesInclMoms.map((price) => ...);
 [Fetch Single Product →](/javascript/fetch/)
 
 [Fetch Product List →](/javascript/fetch-productlist/)
+
+[FashionRUs API](https://kea-alt-del.dk/t7/api/)
 
 </Slide>
