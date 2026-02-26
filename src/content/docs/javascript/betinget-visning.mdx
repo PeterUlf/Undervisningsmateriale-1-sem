@@ -1,0 +1,234 @@
+---
+title: Betinget visning med soldout og discount
+description: Lær at sætte classes med if-sætninger og vise tilbudspris ud fra discount i procent
+draft: true
+sidebar:
+  label: Betinget visning
+  order: 4.17
+  badge:
+    text: Tema 8
+    variant: tip
+    class: badge-theme-8
+---
+
+import Slide from "../../../components/Slide.astro";
+
+<Slide>
+
+## Hvad lærer du her?
+
+Denne side bygger videre på:
+
+1. [forEach](/javascript/foreach/)
+2. [Fetch Product List](/javascript/fetch-productlist/)
+3. [Objects & JSON](/javascript/objects-json/)
+
+Du lærer at:
+
+1. vise at et produkt er udsolgt med en CSS-klasse
+2. vise en alternativ pris, når `discount` er over 0
+3. bruge simple `if`-sætninger til betinget visning i produktkort
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Datafelter fra API'et
+
+Eksempel på relevante felter:
+
+```json
+{
+  "id": 1164,
+  "productdisplayname": "Blue T20 Indian Cricket Jersey",
+  "price": 1595,
+  "discount": 28,
+  "soldout": 1
+}
+```
+
+Sådan læser vi felterne:
+
+1. `soldout: 1` betyder udsolgt, `soldout: 0` betyder ikke udsolgt
+2. `discount` antager vi er en procentsats (fx `28` = 28%)
+3. `price` er normalprisen
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Betinget visning: reglerne
+
+Vi vil have to regler i vores kort:
+
+```javascript
+const discountClass = Number(product.discount) > 0 ? "has-discount" : "";
+card.className = `productCard ${discountClass}`.trim();
+
+if (product.soldout === 1) {
+  // Tilføj klasse og vis "Udsolgt"
+}
+```
+
+Hvad sker der linje for linje?
+
+1. `Number(product.discount)` sikrer at værdien behandles som et tal.
+2. `> 0` tjekker om der faktisk er rabat.
+3. `? "has-discount" : ""` er en kort if/else:
+   - hvis rabat findes -> brug klassen `has-discount`
+   - ellers -> brug tom tekst (ingen ekstra klasse)
+4. ``card.className = `productCard ${discountClass}`.trim();`` sætter klasselisten på kortet.
+5. `.trim()` fjerner ekstra mellemrum, hvis `discountClass` er tom.
+6. `if (product.soldout === 1)` betyder: kun når API returnerer `1`, viser vi "Udsolgt" og kan tilføje soldout-klasse.
+
+Mini-eksempel:
+
+- `discount = 28` -> klasse bliver `productCard has-discount`
+- `discount = 0` eller `null` -> klasse bliver `productCard`
+
+Formel til ny pris:
+
+`nyPris = price * (1 - discount / 100)`
+
+Eksempel med tal:
+
+- `price = 1595`
+- `discount = 28`
+- `nyPris = 1595 * (1 - 28 / 100) = 1595 * 0.72 = 1148.4`
+- afrundet med `Math.round(...)` -> `1148`
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Beregn tilbudspris i en funktion
+
+```javascript
+function beregnTilbudspris(price, discountProcent) {
+  return Math.round(price * (1 - discountProcent / 100));
+}
+
+console.log(beregnTilbudspris(1000, 20)); // 800
+console.log(beregnTilbudspris(1595, 28)); // 1148
+```
+
+`Math.round(...)` runder til helt tal, så prisen er pænere at vise.
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Koden samlet: class + prisvisning
+
+```javascript
+function lavPrisHTML(product) {
+  const discount = Number(product.discount);
+
+  if (discount > 0) {
+    const nyPris = Math.round(product.price * (1 - discount / 100));
+    return `
+      <p class="price price--before">${product.price} kr</p>
+      <p class="price price--now">${nyPris} kr</p>
+      <p class="price price--discount">-${discount}%</p>
+    `;
+  }
+
+  return `<p class="price">${product.price} kr</p>`;
+}
+
+function showProducts(products) {
+  const list = document.querySelector("#productList");
+  list.innerHTML = "";
+
+  products.forEach((product) => {
+    const card = document.createElement("article");
+    const soldoutClass = product.soldout === 1 ? "is-soldout" : "";
+    const discountClass = Number(product.discount) > 0 ? "has-discount" : "";
+    card.className = `productCard ${soldoutClass} ${discountClass}`.trim();
+
+    const badgeHTML =
+      product.soldout === 1 ? `<p class="badge badge--soldout">Udsolgt</p>` : "";
+
+    card.innerHTML = `
+      <h3>${product.productdisplayname}</h3>
+      ${badgeHTML}
+      ${lavPrisHTML(product)}
+    `;
+
+    list.append(card);
+  });
+}
+```
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## CSS-klasser til visning
+
+```css
+.productCard.is-soldout {
+  opacity: 0.45;
+}
+
+.productCard.has-discount {
+  border: 2px solid #b30000;
+}
+
+.badge--soldout {
+  display: inline-block;
+  padding: 0.2rem 0.5rem;
+  background: #b30000;
+  color: white;
+  font-weight: 700;
+}
+
+.price--before {
+  text-decoration: line-through;
+  color: #666;
+}
+
+.price--now {
+  font-weight: 700;
+  color: #b30000;
+}
+```
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Brug det med fetch fra Tema 8
+
+```html
+<section id="productList"></section>
+```
+
+```javascript
+const listURL = "https://kea-alt-del.dk/t7/api/products?limit=12";
+
+fetch(listURL)
+  .then((res) => res.json())
+  .then((products) => {
+    showProducts(products);
+  });
+```
+
+Nu får du:
+
+1. udsolgte produkter markeret med en klasse
+2. tilbudspris vist automatisk, når `discount` er over 0
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Typiske fejl
+
+1. Du tjekker `if (product.soldout)` uden at kende datatypen.
+2. Du glemmer `Number(product.discount)`, hvis værdien kommer som tekst.
+3. Du overskriver `innerHTML` i stedet for at bruge `append(...)` eller `+=`.
+
+Tjek altid i `console.log(product)` hvordan felterne faktisk ser ud.
+
+</Slide>
