@@ -1,0 +1,480 @@
+---
+title: Query Strings - 20 URL-opgaver
+description: Intro + 20 opgaver hvor du kun udfylder sidste del af URL'en til T7 API
+sidebar:
+  label: Query Strings
+  order: 4.15
+  badge:
+    text: Tema 8
+    variant: tip
+    class: badge-theme-8
+---
+
+import Slide from "../../../components/Slide.astro";
+
+<Slide>
+
+## Intro: Sådan bruger du opgaverne
+
+API link:
+
+[https://kea-alt-del.dk/t7/api](https://kea-alt-del.dk/t7/api)
+
+Sådan gør du i hver opgave:
+
+1. Kopier JavaScript-koden ind i CodePen (JS-feltet).
+2. Ret **kun** delen med prikker i `const url`.
+3. Åbn Console og tjek om output matcher opgaven.
+
+Du skal altså kun skrive den sidste del af URL'en (path + eventuelle query-parametre).
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Opgave 1
+
+Hent produktlisten med standardindstillingerne (første 10 produkter).
+
+Tjek i console:
+
+- `Antal: 10`
+
+```javascript
+const url = "https://kea-alt-del.dk/t7/api/............."; /*skriv noget andet ved prikkerne*/
+
+fetch(url)
+  .then((res) => res.json())
+  .then((data) => {
+    console.log("Mine data i opgave 1 er: ", data);
+  });
+```
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Opgave 2
+
+Hent 12 produkter.
+
+Tjek i console:
+
+- `Antal: 12`
+
+```javascript
+const url = "https://kea-alt-del.dk/t7/api/............."; /*skriv noget andet ved prikkerne*/
+
+fetch(url)
+  .then((res) => res.json())
+  .then((data) => {
+    console.log("Mine data i opgave 2 er: ", data);
+  });
+```
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Opgave 3
+
+Hent produkter fra startposition 10.
+
+Tjek i console:
+
+- `Antal: 10`
+- Første produkt skal være anderledes end i opgave 1.
+
+```javascript
+const url = "https://kea-alt-del.dk/t7/api/............."; /*skriv noget andet ved prikkerne*/
+
+fetch(url)
+  .then((res) => res.json())
+  .then((data) => {
+    console.log("Mine data i opgave 3 er: ", data);
+  });
+```
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Opgave 4
+
+Hent 8 produkter fra startposition 20.
+
+Tjek i console:
+
+- `Antal: 8`
+
+```javascript
+const url = "https://kea-alt-del.dk/t7/api/............."; /*skriv noget andet ved prikkerne*/
+
+fetch(url)
+  .then((res) => res.json())
+  .then((data) => {
+    console.log("Mine data i opgave 4 er: ", data);
+  });
+```
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Opgave 5
+
+Hent kun produkter i kategorien `Footwear`.
+
+Tjek i console:
+
+- Første produkt skal have `category: Footwear`.
+
+```javascript
+const url = "https://kea-alt-del.dk/t7/api/............."; /*skriv noget andet ved prikkerne*/
+
+fetch(url)
+  .then((res) => res.json())
+  .then((data) => {
+    console.log("Mine data i opgave 5 er: ", data);
+  });
+```
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Opgave 6
+
+Hent kun produkter i subcategory `Gloves`.
+
+Tjek i console:
+
+- Første produkt skal have `subcategory: Gloves`.
+
+```javascript
+const url = "https://kea-alt-del.dk/t7/api/............."; /*skriv noget andet ved prikkerne*/
+
+fetch(url)
+  .then((res) => res.json())
+  .then((data) => {
+    console.log("Mine data i opgave 6 er: ", data);
+  });
+```
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Opgave 7
+
+Hent kun produkter med articletype `Backpacks`.
+
+Tjek i console:
+
+- Første produkt skal have `articletype: Backpacks`.
+
+```javascript
+const url = "https://kea-alt-del.dk/t7/api/............."; /*skriv noget andet ved prikkerne*/
+
+fetch(url)
+  .then((res) => res.json())
+  .then((data) => {
+    console.log("Mine data i opgave 7 er: ", data);
+  });
+```
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Opgave 8
+
+Hent kun produkter fra sæsonen `Summer`.
+
+Tjek i console:
+
+- Første produkt skal have `season: Summer`.
+
+```javascript
+const url = "https://kea-alt-del.dk/t7/api/............."; /*skriv noget andet ved prikkerne*/
+
+fetch(url)
+  .then((res) => res.json())
+  .then((data) => {
+    console.log("Mine data i opgave 8 er: ", data);
+  });
+```
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Opgave 9
+
+Hent kun produkter fra brand `Puma`.
+
+Tjek i console:
+
+- Første produkt skal have `brandname: Puma`.
+
+```javascript
+const url = "https://kea-alt-del.dk/t7/api/............."; /*skriv noget andet ved prikkerne*/
+
+fetch(url)
+  .then((res) => res.json())
+  .then((data) => {
+    console.log("Mine data i opgave 9 er: ", data);
+  });
+```
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Opgave 10
+
+Hent produkter i kategorien `Footwear` og sæsonen `Summer`.
+
+Tjek i console:
+
+- Første produkt skal have både `category: Footwear` og `season: Summer`.
+
+```javascript
+const url = "https://kea-alt-del.dk/t7/api/............."; /*skriv noget andet ved prikkerne*/
+
+fetch(url)
+  .then((res) => res.json())
+  .then((data) => {
+    console.log("Mine data i opgave 10 er: ", data);
+  });
+```
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Opgave 11
+
+Hent 6 produkter i kategorien `Footwear` fra brand `Puma`.
+
+Tjek i console:
+
+- `Antal` skal være maks 6.
+- Første produkt skal matche filtrene.
+
+```javascript
+const url = "https://kea-alt-del.dk/t7/api/............."; /*skriv noget andet ved prikkerne*/
+
+fetch(url)
+  .then((res) => res.json())
+  .then((data) => {
+    console.log("Mine data i opgave 11 er: ", data);
+  });
+```
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Opgave 12
+
+Hent 15 produkter i kategorien `Apparel`, startposition 30.
+
+Tjek i console:
+
+- `Antal` skal være maks 15.
+
+```javascript
+const url = "https://kea-alt-del.dk/t7/api/............."; /*skriv noget andet ved prikkerne*/
+
+fetch(url)
+  .then((res) => res.json())
+  .then((data) => {
+    console.log("Mine data i opgave 12 er: ", data);
+  });
+```
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Opgave 13
+
+Hent alle kategorier.
+
+Tjek i console:
+
+- Du får et array med kategorier.
+
+```javascript
+const url = "https://kea-alt-del.dk/t7/api/............."; /*skriv noget andet ved prikkerne*/
+
+fetch(url)
+  .then((res) => res.json())
+  .then((data) => {
+    console.log("Mine data i opgave 13 er: ", data);
+  });
+```
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Opgave 14
+
+Hent alle subcategories.
+
+Tjek i console:
+
+- Du får et array med subcategories.
+
+```javascript
+const url = "https://kea-alt-del.dk/t7/api/............."; /*skriv noget andet ved prikkerne*/
+
+fetch(url)
+  .then((res) => res.json())
+  .then((data) => {
+    console.log("Mine data i opgave 14 er: ", data);
+  });
+```
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Opgave 15
+
+Hent subcategories for kategorien `Apparel`.
+
+Tjek i console:
+
+- Du får et filtreret array.
+
+```javascript
+const url = "https://kea-alt-del.dk/t7/api/............."; /*skriv noget andet ved prikkerne*/
+
+fetch(url)
+  .then((res) => res.json())
+  .then((data) => {
+    console.log("Mine data i opgave 15 er: ", data);
+  });
+```
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Opgave 16
+
+Hent articletypes for subcategory `Shoes`.
+
+Tjek i console:
+
+- Du får et filtreret array.
+
+```javascript
+const url = "https://kea-alt-del.dk/t7/api/............."; /*skriv noget andet ved prikkerne*/
+
+fetch(url)
+  .then((res) => res.json())
+  .then((data) => {
+    console.log("Mine data i opgave 16 er: ", data);
+  });
+```
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Opgave 17
+
+Hent alle seasons.
+
+Tjek i console:
+
+- Du får et array med seasons.
+
+```javascript
+const url = "https://kea-alt-del.dk/t7/api/............."; /*skriv noget andet ved prikkerne*/
+
+fetch(url)
+  .then((res) => res.json())
+  .then((data) => {
+    console.log("Mine data i opgave 17 er: ", data);
+  });
+```
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Opgave 18
+
+Hent alle brands.
+
+Tjek i console:
+
+- Du får et array med brands.
+
+```javascript
+const url = "https://kea-alt-del.dk/t7/api/............."; /*skriv noget andet ved prikkerne*/
+
+fetch(url)
+  .then((res) => res.json())
+  .then((data) => {
+    console.log("Mine data i opgave 18 er: ", data);
+  });
+```
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Opgave 19
+
+Hent produktet med id `665`.
+
+Tjek i console:
+
+- Du får ét objekt.
+- Objektet skal have `id: 665`.
+
+```javascript
+const url = "https://kea-alt-del.dk/t7/api/............."; /*skriv noget andet ved prikkerne*/
+
+fetch(url)
+  .then((res) => res.json())
+  .then((data) => {
+    console.log("Mine data i opgave 19 er: ", data);
+  });
+```
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Opgave 20
+
+Hent produkter med disse filtre:
+
+1. `subcategory=Shoes`
+2. `season=Summer`
+3. `limit=4`
+4. `start=8`
+
+Tjek i console:
+
+- `Antal` skal være maks 4.
+- Første produkt skal passe til filtrene.
+
+```javascript
+const url = "https://kea-alt-del.dk/t7/api/............."; /*skriv noget andet ved prikkerne*/
+
+fetch(url)
+  .then((res) => res.json())
+  .then((data) => {
+    console.log("Mine data i opgave 20 er: ", data);
+  });
+```
+
+</Slide>

@@ -1,0 +1,128 @@
+---
+title: Referér JavaScript i HTML
+description: Forskellige måder at tilføje JavaScript til en side med fordele og ulemper
+sidebar:
+  label: Referér JavaScript
+  order: 1.6
+  badge:
+    text: Tema 8
+    variant: tip
+    class: badge-theme-8
+---
+
+import Slide from "../../../components/Slide.astro";
+
+<Slide>
+
+## Hvor kan JavaScript ligge i HTML?
+
+Du kan koble JavaScript på din side på flere måder.
+
+De mest brugte er:
+
+1. Ekstern fil lige før `</body>`
+2. Ekstern fil i `<head>` med `defer`
+3. Inline `<script> ... </script>`
+4. Eksternt script fra CDN
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## 1) Script lige før `</body>`
+
+```html
+<body>
+  <h1>Min side</h1>
+  <button id="klikMig">Klik mig</button>
+
+  <script src="script.js"></script>
+</body>
+```
+
+Fordel:
+
+- HTML er allerede indlæst, når scriptet kører
+- Nemt at komme i gang med i undervisning
+
+Ulempe:
+
+- Browseren henter scriptet sent i processen
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## 2) Script i `<head>` med `defer` (anbefalet)
+
+```html
+<head>
+  <meta charset="UTF-8" />
+  <title>Eksempel</title>
+  <script src="script.js" defer></script>
+</head>
+```
+
+Fordel:
+
+- Scriptet hentes tidligt
+- Det kører først, når HTML er parset
+- Rækkefølgen bevares, hvis du har flere scripts
+
+Dette er ofte den bedste standardløsning.
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## 3) Inline script
+
+```html
+<script>
+  console.log("Hej fra inline script");
+</script>
+```
+
+Godt til:
+
+- Små hurtige tests
+- Meget korte snippets
+
+Undgå det til større projekter, fordi koden bliver sværere at vedligeholde.
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## 4) Eksternt script fra CDN
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js" defer></script>
+```
+
+Bruges når du vil hente et bibliotek direkte fra nettet i stedet for at hoste filen selv.
+
+Tip:
+
+- Brug helst `defer` sammen med eksterne scripts
+- Vær opmærksom på stabilitet og versioner
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Hvad skal du vælge?
+
+| Metode | Brug den når | Vurdering |
+| --- | --- | --- |
+| `defer` i `<head>` | Du vil have en god standard | Bedste default |
+| Lige før `</body>` | Du vil holde det simpelt | Også fin løsning |
+| Inline script | Kun små snippets | Ikke til større kode |
+| CDN-script med `defer` | Du bruger et bibliotek fra nettet | Brug med versionskontrol |
+
+:::tip[Praktisk tommelfingerregel]
+Start med `defer` i `<head>`.  
+Hold resten så simpelt som muligt i starten.
+:::
+
+</Slide>

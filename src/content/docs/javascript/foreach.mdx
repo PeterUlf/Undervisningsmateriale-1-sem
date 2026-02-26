@@ -1,0 +1,182 @@
+---
+title: forEach i JavaScript
+description: Lær hvordan du gennemgår arrays med forEach og bruger data i HTML
+sidebar:
+  label: forEach
+  order: 3.5
+  badge:
+    text: Tema 8
+    variant: tip
+    class: badge-theme-8
+---
+
+import Slide from "../../../components/Slide.astro";
+
+<Slide>
+
+## Hvad lærer du her?
+
+Denne side bygger videre på:
+
+1. Arrays
+2. Objects & JSON
+3. Arrow Functions
+
+Her lærer du at bruge `forEach` til at gennemgå data og vise dem i HTML, præcis som i `fetch-productlist`.
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Grundidéen i `forEach`
+
+`forEach` kører en funktion én gang for hvert element i et array.
+
+```javascript
+const numbers = [10, 20, 30];
+
+numbers.forEach((number) => {
+  console.log(number);
+});
+```
+
+Output:
+
+- 10
+- 20
+- 30
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Eksempel med objekter
+
+`forEach` bruges ofte på arrays af objekter:
+
+```javascript
+const products = [
+  { name: "Tuborg Classic", price: 14 },
+  { name: "Faxe Kondi", price: 12 },
+  { name: "Cocio", price: 15 },
+];
+
+products.forEach((product) => {
+  console.log(product.name, product.price);
+});
+```
+
+Her er `products` arrayet, og `product` er ét objekt ad gangen.
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Brug `forEach` til HTML
+
+### HTML
+
+```html
+<section id="productList"></section>
+```
+
+### JavaScript
+
+```javascript
+const products = [
+  { name: "Tuborg Classic", price: 14 },
+  { name: "Faxe Kondi", price: 12 },
+  { name: "Cocio", price: 15 },
+];
+
+const list = document.querySelector("#productList");
+
+list.innerHTML = "";
+
+products.forEach((product) => {
+  list.innerHTML += `
+    <article class="productCard">
+      <h3>${product.name}</h3>
+      <p>Pris: ${product.price}</p>
+    </article>
+  `;
+});
+```
+
+Dette mønster er det samme, du bruger i `fetch-productlist`, når data kommer fra API.
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Typiske fejl
+
+1. Du bruger `=` i stedet for `+=` i `innerHTML`, så kun sidste element vises.
+2. Du prøver at bruge `forEach` på noget, der ikke er et array.
+3. Du forventer et nyt array som resultat.
+
+`forEach` returnerer ikke et nyt array.  
+Hvis du vil lave et nyt array, så brug `map`.
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Øvelse 1: Navn og index
+
+Givet:
+
+```javascript
+const students = ["Asta", "Mikkel", "Noah", "Ida"];
+```
+
+Brug `forEach` til at logge:
+
+- index
+- navn
+
+Eksempel på output:
+
+`0: Asta`
+
+:::tip[Hint]
+Brug to parametre i callbacken: `(student, index) => { ... }`.
+:::
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Øvelse 2: Samme mønster som fetch
+
+Lav et array `movies` med mindst 3 objekter:
+
+```javascript
+{ title: "...", year: 2024 }
+```
+
+Opgave:
+
+1. Find en container med `querySelector`
+2. Brug `forEach`
+3. Indsæt ét `<article>` pr. film med titel og år
+
+:::tip[Hint]
+Tøm containeren først med `container.innerHTML = ""`.
+:::
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Næste sider
+
+[Arrays I →](/javascript/arrays/)
+
+[Objects & JSON →](/javascript/objects-json/)
+
+[Arrow Functions →](/javascript/arrow-functions/)
+
+[Fetch Product List →](/javascript/fetch-productlist/)
+
+</Slide>
