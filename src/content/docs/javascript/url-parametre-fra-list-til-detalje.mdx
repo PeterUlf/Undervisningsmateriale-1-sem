@@ -1,0 +1,289 @@
+---
+title: URL-parametre fra liste til detalje
+description: Hent id og category fra URL, byg API-URL, og link fra productlist til product med id-parameter
+sidebar:
+  label: URL-parametre (liste -> detalje)
+  order: 4.16
+  badge:
+    text: Tema 8
+    variant: tip
+    class: badge-theme-8
+---
+
+import Slide from "../../../components/Slide.astro";
+
+<Slide>
+
+## Hvad lærer du her?
+
+1. Hente `id` og `category` fra URL'en
+2. Bruge `category` til at bygge URL til API'et
+3. Lave links fra `productlist.html` til `product.html?id=...`
+4. Bruge `id` på `product.html` til at hente ét produkt
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## 1) Start simpelt: én URL-parameter (`id`)
+
+Forestil dig at din URL er:
+
+<code class="url-split-example">
+  <span class="url-base">https&#58;//din-side.dk/product.html</span>
+  <span class="url-qmark">?</span>
+  <span class="url-query">id=1528</span>
+</code>
+
+```javascript
+const params = new URLSearchParams(window.location.search);
+const id = params.get("id");
+
+console.log("id:", id);
+```
+
+Hvad sker der i koden?
+
+1. `window.location.search` henter delen efter `?`
+2. `new URLSearchParams(...)` gør den del nem at læse
+3. `params.get("id")` finder værdien til `id`
+
+Hvis `id` mangler, bliver værdien `null`.
+
+Eksempel:
+
+- URL: `product.html`
+- `id` bliver `null`
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## 2) Flere URL-parametre adskildt af `&`-tegnet
+
+Forestil dig at din URL er:
+
+<code class="url-split-example">
+  <span class="url-base">https&#58;//din-side.dk/product.html</span>
+  <span class="url-qmark">?</span>
+  <span class="url-query">id=1528</span>
+  <span class="url-amp">&amp;</span>
+  <span class="url-query">category=Footwear</span>
+</code>
+
+```javascript
+const params = new URLSearchParams(window.location.search);
+
+const id = params.get("id");
+const category = params.get("category");
+
+console.log("id:", id);
+console.log("category:", category);
+```
+
+Hvad sker der i koden?
+
+1. `window.location.search` henter delen efter `?` i URL'en
+2. `new URLSearchParams(...)` gør parametrene nemme at læse
+3. `params.get("id")` finder værdien til `id`
+4. `params.get("category")` finder værdien til `category`
+
+Hvis en parameter mangler, får du `null`.
+
+Eksempel:
+
+- URL: `product.html?id=1528`
+- `id` bliver `"1528"`
+- `category` bliver `null`
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## 3) Byg API-URL med `category`
+
+Eksempel for `productlist.html?category=Footwear`:
+
+Simpel version:
+
+```javascript
+const params = new URLSearchParams(window.location.search);
+const category = params.get("category");
+
+const fetchUrl = `https://kea-alt-del.dk/t7/api/products?category=${category}`;
+
+fetch(fetchUrl)
+  .then((res) => res.json())
+  .then((data) => {
+    console.log("Produkter:", data);
+  });
+```
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## 4) Samme version med `encodeURIComponent(category)`
+
+```javascript
+const params = new URLSearchParams(window.location.search);
+const category = params.get("category");
+
+const fetchUrl = `https://kea-alt-del.dk/t7/api/products?category=${encodeURIComponent(
+  category,
+)}`;
+
+fetch(fetchUrl)
+  .then((res) => res.json())
+  .then((data) => {
+    console.log("Produkter:", data);
+  });
+```
+
+`encodeURIComponent(...)` gør værdien URL-sikker.
+
+Det er vigtigt, når værdien indeholder tegn som:
+
+- mellemrum
+- `&`
+- `?`
+- `#`
+
+Eksempel hvor det kan gå galt:
+
+```javascript
+const category = "T-shirts & Tops";
+
+// Uden encoding (kan bryde query string)
+const badUrl = `https://kea-alt-del.dk/t7/api/products?category=${category}`;
+console.log(badUrl);
+// ...?category=T-shirts & Tops
+// Her kan '&' blive tolket som start på en ny parameter
+
+// Med encoding (sikker URL)
+const goodUrl = `https://kea-alt-del.dk/t7/api/products?category=${encodeURIComponent(
+  category,
+)}`;
+console.log(goodUrl);
+// ...?category=T-shirts%20%26%20Tops
+```
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## 5) Med fallback URL (hvis `category` mangler)
+
+```javascript
+const params = new URLSearchParams(window.location.search);
+const category = params.get("category");
+
+const fetchUrl = category
+  ? `https://kea-alt-del.dk/t7/api/products?category=${encodeURIComponent(category)}`
+  : "https://kea-alt-del.dk/t7/api/products";
+
+fetch(fetchUrl)
+  .then((res) => res.json())
+  .then((data) => {
+    console.log("Produkter:", data);
+  });
+```
+
+Hvorfor er det en if-sætning?
+
+Det er en **ternary** (kort if/else):
+
+```javascript
+const resultat = condition ? valueIfTrue : valueIfFalse;
+```
+
+I din kode:
+
+1. `condition` er `category`
+2. Hvis `category` findes -> brug URL med `?category=...`
+3. Hvis `category` ikke findes -> brug basis-URL uden filter
+
+Samme logik skrevet som almindelig `if/else`:
+
+```javascript
+let fetchUrl = "";
+
+if (category) {
+  fetchUrl = `https://kea-alt-del.dk/t7/api/products?category=${encodeURIComponent(category)}`;
+} else {
+  fetchUrl = "https://kea-alt-del.dk/t7/api/products";
+}
+```
+
+Her får du:
+
+1. filtreret liste når `category` findes
+2. almindelig produktliste når `category` mangler
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## 6) Sæt `id` i link på productlist (siden med flere produkter)
+
+Når du renderer produktlisten:
+
+`productlist` er oversigtssiden med mange produkter, hvor hvert kort skal linke videre til ét bestemt produkt.
+
+```javascript
+products.forEach((product) => {
+  document.querySelector("#productList").innerHTML += `
+    <article>
+      <h3>${product.productdisplayname}</h3>
+      <a href="product.html?id=${product.id}">Se produkt</a>
+    </article>
+  `;
+});
+```
+
+`href="product.html?id=..."` er en **relativ sti**.
+Den virker direkte, når `productlist.html` og `product.html` ligger i samme mappe.
+
+Hvis siderne ligger i forskellige mapper, skal stien justeres (fx `../product.html?id=...`) eller laves som absolut sti.
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## 7) Brug `id` til at vise et bestemt produkt på product.html
+
+```javascript
+const params = new URLSearchParams(window.location.search);
+const id = params.get("id");
+
+// Vi tjekker først om id findes i URL'en.
+// Uden id kan vi ikke lave et korrekt API-kald til ét produkt.
+if (!id) {
+  console.error("Mangler id i URL");
+} else {
+  // Når id findes, bygger vi endpointet /products/:id
+  const url = `https://kea-alt-del.dk/t7/api/products/${id}`;
+
+  fetch(url)
+    .then((res) => res.json())
+    .then((data) => {
+      document.querySelector("#productContainer").innerHTML = `
+        <h2>${data.productdisplayname}</h2>
+        <p>Pris: ${data.price}</p>
+      `;
+    });
+}
+```
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Samlet flow
+
+1. Brugeren åbner fx `productlist.html?category=Footwear`
+2. Listen filtreres via `/products?category=Footwear`
+3. Hvert kort linker til `product.html?id=...`
+4. `product.html` læser `id` og kalder `/products/:id`
+
+</Slide>
