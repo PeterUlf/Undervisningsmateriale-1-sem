@@ -70,64 +70,6 @@ getProducts();
 <div class="page-break"></div>
 <Slide>
 
-## Array + objekt i samme kode
-
-```javascript
-products.forEach((product) => {
-  console.log(product.productdisplayname, product.price);
-});
-```
-
-- `products` = array
-- `product` = ét objekt i arrayet
-- `product.productdisplayname` = key i objektet
-
-</Slide>
-<div class="page-break"></div>
-<Slide>
-
-## Øvelse 1: Log de første produkter
-
-Efter du har hentet `products`, så log:
-
-1. `products.length`
-2. `products[0].productdisplayname`
-3. `products[0].price`
-
-:::tip[Hint]
-`products[0]` er første objekt i arrayet.
-:::
-
-</Slide>
-<div class="page-break"></div>
-<Slide>
-
-## Øvelse 2: Vis kun navn
-
-I `showProducts(products)` skal du kun vise navn:
-
-```html
-<h3>Produktnavn</h3>
-```
-
-for hvert produkt i arrayet.
-
-</Slide>
-<div class="page-break"></div>
-<Slide>
-
-## Øvelse 3: Begræns liste
-
-Vis kun de første 5 produkter.
-
-:::tip[Hint]
-Du kan bruge `slice(0, 5)` før `forEach(...)`.
-:::
-
-</Slide>
-<div class="page-break"></div>
-<Slide>
-
 ## Næste sider
 
 [forEach i JavaScript →](/javascript/foreach/)
