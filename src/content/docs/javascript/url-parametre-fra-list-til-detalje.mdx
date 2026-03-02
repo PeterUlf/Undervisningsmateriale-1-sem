@@ -46,7 +46,7 @@ Hvad sker der i koden?
 
 1. `window.location.search` henter delen efter `?`
 2. `new URLSearchParams(...)` gør den del nem at læse
-3. `params.get("id")` finder værdien til `id`
+3. <code>params.get("<span class="param-key-red">id</span>")</code> finder værdien til `id`
 
 Hvis `id` mangler, bliver værdien `null`.
 
@@ -54,6 +54,62 @@ Eksempel:
 
 - URL: `product.html`
 - `id` bliver `null`
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Øvelse: læs `category` fra URL og vis den i HTML
+
+Lav en ny mappe på din computer, fx `url-parametre-oevelse`, og åbn mappen i VS Code.
+
+Mappen skal indeholde:
+
+1. `index.html`
+2. `index.js`
+
+Sæt denne HTML i `index.html`:
+
+```html
+<!doctype html>
+<html lang="da">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>URL-parametre øvelse</title>
+  </head>
+  <body>
+    <h1>URL-parametre øvelse</h1>
+    <p id="resultat">Venter på kategori...</p>
+
+    <script src="index.js"></script>
+  </body>
+</html>
+```
+
+Sæt en **tom JavaScript-fil** i `index.js`, og byg løsningen selv ud fra disse trin:
+
+```javascript
+// 1) Læs query-delen fra URL'en (delen efter ?)
+// 2) Lav et URLSearchParams-objekt
+// 3) Hent værdien for "category"
+// 4) Find <p id="resultat"> i HTML
+// 5) Vis enten category-værdien eller en besked hvis den mangler
+```
+
+### Din opgave
+
+1. Start siden i browseren.
+2. Test først uden parameter: `index.html`
+3. Test derefter med parameter: `index.html?category=rumkatte`
+4. Få siden til at vise værdien fra URL'en på HTML-siden (ikke kun i `console.log`).
+
+Hint:
+
+- Brug `window.location.search`
+- Brug `new URLSearchParams(...)`
+- Brug `params.get("category")`
+- Tænk over hvad der skal ske, når `category` er `null`
 
 </Slide>
 <div class="page-break"></div>
@@ -85,7 +141,7 @@ Hvad sker der i koden?
 
 1. `window.location.search` henter delen efter `?` i URL'en
 2. `new URLSearchParams(...)` gør parametrene nemme at læse
-3. `params.get("id")` finder værdien til `id`
+3. <code>params.get("<span class="param-key-red">id</span>")</code> finder værdien til `id`
 4. `params.get("category")` finder værdien til `category`
 
 Hvis en parameter mangler, får du `null`.
@@ -95,6 +151,73 @@ Eksempel:
 - URL: `product.html?id=1528`
 - `id` bliver `"1528"`
 - `category` bliver `null`
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Øvelse: flere sjove URL-parametre
+
+Denne øvelse minder teknisk om den forrige: læs parametre fra URL'en og vis dem i HTML.
+
+Lav en ny mappe, fx `url-parametre-oevelse-2`, og åbn den i VS Code.
+
+Mappen skal indeholde:
+
+1. `index.html`
+2. `index.js`
+
+Sæt denne HTML i `index.html`:
+
+```html
+<!doctype html>
+<html lang="da">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sjove URL-parametre</title>
+  </head>
+  <body>
+    <h1>Min skøre profil fra URL</h1>
+    <p id="resultat">Venter på parametre...</p>
+
+    <ul>
+      <li>Kategori: <span id="categoryValue">-</span></li>
+      <li>Superkraft: <span id="superkraftValue">-</span></li>
+      <li>Snack: <span id="snackValue">-</span></li>
+    </ul>
+
+    <script src="index.js"></script>
+  </body>
+</html>
+```
+
+Sæt en **tom JavaScript-fil** i `index.js`, og byg løsningen selv ud fra disse trin:
+
+```javascript
+// 1) Læs query-delen fra URL'en
+// 2) Lav et URLSearchParams-objekt
+// 3) Hent "category", "superkraft" og "snack" med params.get(...)
+// 4) Find spans i HTML med querySelector(...)
+// 5) Vis værdierne i de rigtige spans
+// 6) Hvis en værdi mangler, vis fx "ukendt"
+```
+
+### Din opgave
+
+1. Start siden i browseren.
+2. Test uden parametre: `index.html`
+3. Test med parametre: `index.html?category=rumkatte&superkraft=usynlighed&snack=nachos`
+4. Vis alle tre parametre i hver deres felt på siden.
+5. Lav en samlet tekst i `#resultat`, fx en sjov sætning bygget fra parametrene.
+
+Hint:
+
+- Brug `new URLSearchParams(window.location.search)`
+- Brug `params.get("category")`
+- Brug `params.get("superkraft")`
+- Brug `params.get("snack")`
+- Husk at en manglende parameter giver `null`
 
 </Slide>
 <div class="page-break"></div>
@@ -285,5 +408,64 @@ if (!id) {
 2. Listen filtreres via `/products?category=Footwear`
 3. Hvert kort linker til `product.html?id=...`
 4. `product.html` læser `id` og kalder `/products/:id`
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Bonus: link til næste 10 produkter via URL-parametre
+
+Idé:
+
+1. Send `start` og `limit` i linket (fx `?start=10&limit=10`)
+2. Modtag dem på siden med `URLSearchParams`
+3. Brug dem i fetch-URL'en
+
+Eksempel på URL:
+
+`productlist.html?category=Footwear&start=10&limit=10`
+
+### Send parametre i "Næste 10"-link
+
+```javascript
+const params = new URLSearchParams(window.location.search);
+const start = Number(params.get("start") ?? 0);
+const limit = Number(params.get("limit") ?? 10);
+const category = params.get("category");
+const nextStart = start + limit;
+
+const nextHref = category
+  ? `productlist.html?category=${encodeURIComponent(category)}&start=${nextStart}&limit=${limit}`
+  : `productlist.html?start=${nextStart}&limit=${limit}`;
+
+document.querySelector("#nextLink").href = nextHref;
+```
+
+### Modtag parametre og brug dem i API-kaldet
+
+```javascript
+const params = new URLSearchParams(window.location.search);
+const start = Number(params.get("start") ?? 0);
+const limit = Number(params.get("limit") ?? 10);
+const category = params.get("category");
+
+let fetchUrl = `https://kea-alt-del.dk/t7/api/products?start=${start}&limit=${limit}`;
+
+if (category) {
+  fetchUrl += `&category=${encodeURIComponent(category)}`;
+}
+
+fetch(fetchUrl)
+  .then((res) => res.json())
+  .then((data) => {
+    console.log("Produkter:", data);
+  });
+```
+
+Simpel HTML til knappen:
+
+```html
+<a id="nextLink" href="#">Næste 10 produkter</a>
+```
 
 </Slide>

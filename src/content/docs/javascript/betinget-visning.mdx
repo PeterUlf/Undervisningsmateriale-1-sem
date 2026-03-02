@@ -1,6 +1,6 @@
 ---
-title: Betinget visning med soldout og discount
-description: Lær at sætte classes med if-sætninger og vise tilbudspris ud fra discount i procent
+title: Betinget visning med ternary i template literals
+description: Lær at bruge ternary i class og HTML, når du bygger productlist med category fra URL
 draft: true
 sidebar:
   label: Betinget visning
@@ -15,209 +15,62 @@ import Slide from "../../../components/Slide.astro";
 
 <Slide>
 
-## Hvad lærer du her?
-
-Denne side bygger videre på:
-
-1. [forEach](/javascript/foreach/)
-2. [Fetch Product List](/javascript/fetch-productlist/)
-3. [Objects & JSON](/javascript/objects-json/)
-
-Du lærer at:
-
-1. vise at et produkt er udsolgt med en CSS-klasse
-2. vise en alternativ pris, når `discount` er over 0
-3. bruge simple `if`-sætninger til betinget visning i produktkort
-
-</Slide>
-<div class="page-break"></div>
-<Slide>
-
-## Datafelter fra API'et
-
-Eksempel på relevante felter:
-
-```json
-{
-  "id": 1164,
-  "productdisplayname": "Blue T20 Indian Cricket Jersey",
-  "price": 1595,
-  "discount": 28,
-  "soldout": 1
-}
-```
-
-Sådan læser vi felterne:
-
-1. `soldout: 1` betyder udsolgt, `soldout: 0` betyder ikke udsolgt
-2. `discount` antager vi er en procentsats (fx `28` = 28%)
-3. `price` er normalprisen
-
-</Slide>
-<div class="page-break"></div>
-<Slide>
-
-## Betinget visning: reglerne
-
-Vi vil have to regler i vores kort:
+## Grundstruktur: `${condition ? "A" : "B"}`
 
 ```javascript
-const discountClass = Number(product.discount) > 0 ? "has-discount" : "";
-card.className = `productCard ${discountClass}`.trim();
-
-if (product.soldout === 1) {
-  // Tilføj klasse og vis "Udsolgt"
-}
+`${condition ? "A" : "B"}`;
 ```
 
-Hvad sker der linje for linje?
+Forklaring:
 
-1. `Number(product.discount)` sikrer at værdien behandles som et tal.
-2. `> 0` tjekker om der faktisk er rabat.
-3. `? "has-discount" : ""` er en kort if/else:
-   - hvis rabat findes -> brug klassen `has-discount`
-   - ellers -> brug tom tekst (ingen ekstra klasse)
-4. ``card.className = `productCard ${discountClass}`.trim();`` sætter klasselisten på kortet.
-5. `.trim()` fjerner ekstra mellemrum, hvis `discountClass` er tom.
-6. `if (product.soldout === 1)` betyder: kun når API returnerer `1`, viser vi "Udsolgt" og kan tilføje soldout-klasse.
+1. `${...}` betyder: indsæt JavaScript inde i en template literal.
+2. `condition ? "A" : "B"` er en ternary (kort if/else).
+3. Hvis `condition` er sand, indsættes `"A"`.
+4. `: "B"` betyder: hvis betingelsen er falsk, indsættes B.
+5. `: ""` bruges, når class eller HTML kun skal være der i nogle tilfælde.
 
-Mini-eksempel:
-
-- `discount = 28` -> klasse bliver `productCard has-discount`
-- `discount = 0` eller `null` -> klasse bliver `productCard`
-
-Formel til ny pris:
-
-`nyPris = price * (1 - discount / 100)`
-
-Eksempel med tal:
-
-- `price = 1595`
-- `discount = 28`
-- `nyPris = 1595 * (1 - 28 / 100) = 1595 * 0.72 = 1148.4`
-- afrundet med `Math.round(...)` -> `1148`
-
-</Slide>
-<div class="page-break"></div>
-<Slide>
-
-## Beregn tilbudspris i en funktion
+Eksempel med class:
 
 ```javascript
-function beregnTilbudspris(price, discountProcent) {
-  return Math.round(price * (1 - discountProcent / 100));
-}
-
-console.log(beregnTilbudspris(1000, 20)); // 800
-console.log(beregnTilbudspris(1595, 28)); // 1148
+`<article class="smallProduct ${product.discount > 0 ? "onSale" : ""}">`;
 ```
 
-`Math.round(...)` runder til helt tal, så prisen er pænere at vise.
+Her bruges ternary direkte i en class:
 
-</Slide>
-<div class="page-break"></div>
-<Slide>
+hvis product.discount > 0 er sand, bliver class onSale tilføjet
+ellers indsættes tom streng "" (ingen ekstra class)
+den class kan du bruge i CSS til styling, fx farve, badge eller kant på tilbudsvarer
 
-## Koden samlet: class + prisvisning
+Eksempel med HTML:
 
 ```javascript
-function lavPrisHTML(product) {
-  const discount = Number(product.discount);
-
-  if (discount > 0) {
-    const nyPris = Math.round(product.price * (1 - discount / 100));
-    return `
-      <p class="price price--before">${product.price} kr</p>
-      <p class="price price--now">${nyPris} kr</p>
-      <p class="price price--discount">-${discount}%</p>
-    `;
-  }
-
-  return `<p class="price">${product.price} kr</p>`;
-}
-
-function showProducts(products) {
-  const list = document.querySelector("#productList");
-  list.innerHTML = "";
-
-  products.forEach((product) => {
-    const card = document.createElement("article");
-    const soldoutClass = product.soldout === 1 ? "is-soldout" : "";
-    const discountClass = Number(product.discount) > 0 ? "has-discount" : "";
-    card.className = `productCard ${soldoutClass} ${discountClass}`.trim();
-
-    const badgeHTML =
-      product.soldout === 1 ? `<p class="badge badge--soldout">Udsolgt</p>` : "";
-
-    card.innerHTML = `
-      <h3>${product.productdisplayname}</h3>
-      ${badgeHTML}
-      ${lavPrisHTML(product)}
-    `;
-
-    list.append(card);
-  });
-}
+`${product.discount > 0 ? "<p>Tilbud</p>" : ""}`;
 ```
 
 </Slide>
 <div class="page-break"></div>
 <Slide>
 
-## CSS-klasser til visning
-
-```css
-.productCard.is-soldout {
-  opacity: 0.45;
-}
-
-.productCard.has-discount {
-  border: 2px solid #b30000;
-}
-
-.badge--soldout {
-  display: inline-block;
-  padding: 0.2rem 0.5rem;
-  background: #b30000;
-  color: white;
-  font-weight: 700;
-}
-
-.price--before {
-  text-decoration: line-through;
-  color: #666;
-}
-
-.price--now {
-  font-weight: 700;
-  color: #b30000;
-}
-```
-
-</Slide>
-<div class="page-break"></div>
-<Slide>
-
-## Brug det med fetch fra Tema 8
-
-```html
-<section id="productList"></section>
-```
+## Ternary inde i template literal
 
 ```javascript
-const listURL = "https://kea-alt-del.dk/t7/api/products?limit=12";
-
-fetch(listURL)
-  .then((res) => res.json())
-  .then((products) => {
-    showProducts(products);
-  });
+`<article class="smallProduct ${product.discount > 0 ? "onSale" : ""}">`;
 ```
 
-Nu får du:
+Her bruges ternary direkte i en class:
 
-1. udsolgte produkter markeret med en klasse
-2. tilbudspris vist automatisk, når `discount` er over 0
+1. samme idé bruges til at vise/skjule rabatboksen, så den kun vises når den er relevant (`discount > 0`)
+
+Samme mønster kan bruges til at udregne prisen:
+
+```javascript
+`${
+  product.discount > 0
+    ? `<p>Now DKK <span>${(product.price * (1 - product.discount / 100)).toFixed(2)}</span>,-</p>
+       <p><span>${product.discount}</span>%</p>`
+    : ""
+}`;
+```
 
 </Slide>
 <div class="page-break"></div>
@@ -225,10 +78,22 @@ Nu får du:
 
 ## Typiske fejl
 
-1. Du tjekker `if (product.soldout)` uden at kende datatypen.
-2. Du glemmer `Number(product.discount)`, hvis værdien kommer som tekst.
-3. Du overskriver `innerHTML` i stedet for at bruge `append(...)` eller `+=`.
+1. Du skriver `categori` i stedet for `category` i variabelnavne/logs.
+2. Du glemmer `productList.innerHTML = ""`, så listen bliver duplikeret.
+3. Du bruger ternary uden `: ""`, så du får `undefined` i markup.
+4. Du logger en variabel, der ikke findes, fx `console.log(markup)`.
+5. Du glemmer `Number(product.discount)`, hvis værdien kommer som tekst.
 
-Tjek altid i `console.log(product)` hvordan felterne faktisk ser ud.
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Øvelse
+
+Byg videre på koden:
+
+1. Tilføj class `isSoldOut`, når `product.soldout === 1`.
+2. Vis badge: `<p class="badge">Udsolgt</p>` kun når varen er udsolgt.
+3. Skjul linket `Read More`, hvis varen er udsolgt (brug ternary i template literal).
 
 </Slide>
