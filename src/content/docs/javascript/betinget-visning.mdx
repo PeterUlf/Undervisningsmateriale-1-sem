@@ -174,9 +174,13 @@ const product = {
 };
 ```
 
+Vigtigt før du starter:
+`#app` er kun en container. Du skal selv bygge cardet inde i `app.innerHTML` som:
+`<article class="card ..."> ... </article>`.
+
 Løs disse:
 
-1. Vis class `onSale` hvis `product.discount > 0`, ellers tom streng.
+1. Tilføj class `onSale` på `<article>` hvis `product.discount > 0`, ellers tom streng.
 2. Vis `<p class="badge">Tilbud</p>` hvis `discount > 0`, ellers ingenting.
 3. Vis `"Udsolgt"` hvis `soldout === 1`, ellers `"På lager"`.
 4. Vis brandnavn hvis `brandname` findes, ellers teksten `"Ukendt brand"`.
@@ -190,7 +194,7 @@ HTML-boks:
 
 ```html
 <main class="exercise-wrap">
-  <section id="app" class="card"></section>
+  <section id="app"></section>
 </main>
 ```
 
@@ -209,9 +213,12 @@ const product = {
 };
 
 // Byg selv markup med ternary i app.innerHTML
-// Hint: brug både class og tekst/HTML med ternary
+// #app er kun container - opret selv <article class="card ..."> i templaten
+// Hint: brug både class-attribut og tekst/HTML med ternary
 app.innerHTML = `
-  ...
+  <article class="card ...">
+    ...
+  </article>
 `;
 ```
 
