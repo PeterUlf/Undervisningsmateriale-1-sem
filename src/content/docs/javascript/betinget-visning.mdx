@@ -20,7 +20,7 @@ import Slide from "../../../components/Slide.astro";
 Du lærer de tre mest brugte måder at lave betinget visning i JavaScript:
 
 1. `\${condition ? "A" : "B"}`
-2. `\${condition && "A"}`
+2. `\${condition && "A"}` (i template literals: ofte `\${condition ? "A" : ""}`)
 3. `\${condition || "A"}`
 
 Strukturen på siden:
@@ -285,6 +285,19 @@ Grundstruktur:
 `${condition && "A"}`;
 ```
 
+Vigtigt i template literals:
+
+```javascript
+`${false && "A"}`; // "false"
+```
+
+`&&` returnerer selve venstre værdi, når den er falsy. Inde i `${...}` bliver den lavet om til tekst.
+Brug derfor typisk ternary i string-templates:
+
+```javascript
+`${condition ? "A" : ""}`;
+```
+
 Hvornår bruger du den?
 
 1. Når noget kun skal vises i true-tilfældet.
@@ -294,10 +307,10 @@ Hvornår bruger du den?
 Eksempel:
 
 ```javascript
-`<p>${isAdmin && "Admin-panel"}</p>`;
+`<p>${isAdmin ? "Admin-panel" : ""}</p>`;
 ```
 
-Hvis `isAdmin` er false, får du ikke et alternativ som i ternary.
+Hvis `isAdmin` er false, får du en tom streng i stedet for teksten `false`.
 
 </Slide>
 <div class="page-break"></div>
@@ -340,6 +353,7 @@ const isSelected = true;
 // 2) <span>Ny besked</span> skal kun vises når hasNotification er true
 // 3) teksten "Lærer" skal kun vises når isTeacher er true
 // 4) en <section> med hjælpetekst skal kun vises når showHelp er true
+// Tip: i ${...} skal false-tilfældet være "" (fx med ternary), ellers kan "false" blive vist
 
 app.innerHTML = `
   <div class="card ...">
@@ -439,8 +453,9 @@ const product = {
   soldout: 0,
 };
 
-// Byg selv markup med && i app.innerHTML
-// Krav: brug && til badges, ekstra tekst og class-navn
+// Byg selv markup med betingelser i app.innerHTML
+// Krav: vis/skjul badges, ekstra tekst og class-navn ud fra product-værdier
+// Tip: i ${...} skal false-tilfældet være "" (fx med ternary), ellers kan "false" blive vist
 app.innerHTML = `
   ...
 `;
@@ -498,9 +513,9 @@ Mini-eksempel:
 
 ```javascript
 `
-  <article class="smallProduct ${product.soldout === 1 && "isSoldOut"}">
-    ${product.discount > 0 && `<p class="badge">${product.discount}%</p>`}
-    ${product.soldout === 1 && `<p class="badge soldout">Udsolgt</p>`}
+  <article class="smallProduct ${product.soldout === 1 ? "isSoldOut" : ""}">
+    ${product.discount > 0 ? `<p class="badge">${product.discount}%</p>` : ""}
+    ${product.soldout === 1 ? `<p class="badge soldout">Udsolgt</p>` : ""}
   </article>
 `;
 ```
@@ -703,7 +718,7 @@ Mini-eksempel:
 ## Hurtig huskeregel
 
 1. `?:` når du skal vælge mellem to tydelige outputs.
-2. `&&` når noget kun skal vises i true-tilfældet.
+2. `&&` når noget kun skal vises i true-tilfældet (især i JSX).
 3. `||` når du vil have en fallback/default-værdi.
 
 Typisk kombination i samme template:
@@ -711,12 +726,12 @@ Typisk kombination i samme template:
 ```javascript
 `
   <article class="smallProduct ${product.discount > 0 ? "onSale" : ""}">
-    ${product.discount > 0 && `<p class="badge">${product.discount}%</p>`}
+    ${product.discount > 0 ? `<p class="badge">${product.discount}%</p>` : ""}
     <p>${product.brandname || "Ukendt brand"}</p>
   </article>
 `;
 ```
 
-Hvis du er i tvivl: start med ternary. Skift til `&&` kun når du ikke har en else.
+Hvis du er i tvivl: start med ternary. I template literals er `?: ""` ofte sikrere end rå `&&`.
 
 </Slide>
