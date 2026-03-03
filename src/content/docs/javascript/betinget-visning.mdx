@@ -75,9 +75,11 @@ Løs disse:
 1. Brug variablen `isMorning`. Vis `"Godmorgen"` eller `"Goddag"` med ternary.
 2. Skift værdien for isMonning til false
 3. Tjek resultatet
-4. Lav en variabel `points`. Vis `"Bestået"` hvis `points >= 50`, ellers `"Ikke bestået"`.
-5. Lav en `<button>` med class `"btn"` og tilføj class `"disabled"` med ternary, hvis `isDisabled` er true.
-6. Vis teksten `"Du har X beskeder"` hvis `messageCount > 0`, ellers `"Ingen nye beskeder"`.
+4. Brug variablen `points`. Vis `"Bestået"` hvis `points >= 50`, ellers `"Ikke bestået"`.
+5. Skift værdien for points til 20
+6. Tjek resultatet
+7. Lav en `<button>` med class `"btn"` og tilføj class `"disabled"` med ternary, hvis `isDisabled` er true.
+8. Vis teksten `"Du har X beskeder"` hvis `messageCount > 0`, ellers `"Ingen nye beskeder"`.
 
 Brug denne setup i CodePen.
 
@@ -88,7 +90,7 @@ HTML-boks:
 
 ```html
 <main class="exercise-wrap">
-  <section id="card_wrapper" class="card"></section>
+  <section id="app" class="card"></section>
 </main>
 ```
 
@@ -97,14 +99,14 @@ HTML-boks:
 JavaScript-boks:
 
 ```javascript
-const card_wrapper = document.querySelector("#card_wrapper");
+const app = document.querySelector("#app");
 const isMorning = true;
 const points = 72;
 const isDisabled = false;
 const messageCount = 0;
 
 // Byg selv resten af innerHTML med ternary
-card_wrapper.innerHTML = `
+app.innerHTML = `
   ...
 `;
 ```
@@ -179,18 +181,6 @@ Løs disse:
 3. Vis `"Udsolgt"` hvis `soldout === 1`, ellers `"På lager"`.
 4. Vis brandnavn hvis `brandname` findes, ellers teksten `"Ukendt brand"`.
 
-Skriftlige hints (uden facit):
-
-1. Start med at lave 4 små hjælpe-variabler før `innerHTML`:
-   `saleClass`, `badgeHtml`, `stockText`, `brandText`.
-2. Brug ternary i hver variabel, så du kun løser én betingelse ad gangen.
-3. `#card_wrapper` er kun en container.
-   Du skal selv oprette card-elementet inde i `card_wrapper.innerHTML`.
-4. Brug `saleClass` inde i class-attributten på dit card:
-   ``<article class="card ${...}">``.
-5. Brug `badgeHtml` som en separat linje i templaten (så den kan være tom eller indeholde `<p class="badge">...</p>`).
-6. `brandname` er en tom streng i startdata, så fallback-teksten skal vises i første test.
-
 Brug denne setup i CodePen.
 
 <div class="columns-2">
@@ -200,7 +190,7 @@ HTML-boks:
 
 ```html
 <main class="exercise-wrap">
-  <section id="card_wrapper"></section>
+  <section id="app" class="card"></section>
 </main>
 ```
 
@@ -209,7 +199,7 @@ HTML-boks:
 JavaScript-boks:
 
 ```javascript
-const card_wrapper = document.querySelector("#card_wrapper");
+const app = document.querySelector("#app");
 const product = {
   productdisplayname: "Trail Shoes",
   price: 799,
@@ -218,15 +208,10 @@ const product = {
   brandname: "",
 };
 
-// Byg selv markup med ternary i card_wrapper.innerHTML
-// #card_wrapper er kun container - opret selv <article class="card ..."> i templaten
-// Hint 1: lav først hjælpevariabler (saleClass, badgeHtml, stockText, brandText)
-// Hint 2: brug bagefter variablerne inde i templaten
-// Hint 3: brug både class-attribut + tekst/HTML med ternary
-card_wrapper.innerHTML = `
-  <article class="card ...">
-    ...
-  </article>
+// Byg selv markup med ternary i app.innerHTML
+// Hint: brug både class og tekst/HTML med ternary
+app.innerHTML = `
+  ...
 `;
 ```
 
@@ -285,70 +270,6 @@ Bonus:
 <div class="page-break"></div>
 <Slide>
 
-## Løsningsforslag: Ternary (med dit materiale)
-
-Her er én mulig løsning på opgaven ovenfor.
-
-<div class="columns-2">
-
-<div>
-HTML-boks:
-
-```html
-<main class="exercise-wrap">
-  <section id="card_wrapper"></section>
-</main>
-```
-
-</div>
-<div>
-JavaScript-boks (løsning):
-
-```javascript
-const card_wrapper = document.querySelector("#card_wrapper");
-const product = {
-  productdisplayname: "Trail Shoes",
-  price: 799,
-  discount: 20,
-  soldout: 0,
-  brandname: "",
-};
-
-const saleClass = product.discount > 0 ? "onSale" : "";
-const badgeHtml = product.discount > 0 ? `<p class="badge">Tilbud</p>` : "";
-const stockText = product.soldout === 1 ? "Udsolgt" : "På lager";
-const brandText = product.brandname ? product.brandname : "Ukendt brand";
-const priceText =
-  product.discount > 0
-    ? (product.price * (1 - product.discount / 100)).toFixed(2)
-    : product.price;
-
-card_wrapper.innerHTML = `
-  <article class="card ${saleClass}">
-    ${badgeHtml}
-    <h3>${product.productdisplayname}</h3>
-    <p>Status: ${stockText}</p>
-    <p>Brand: ${brandText}</p>
-    <p>Pris: ${priceText} kr.</p>
-  </article>
-`;
-```
-
-</div>
-
-</div>
-
-Tjekliste:
-
-1. `saleClass` giver `onSale` kun ved rabat.
-2. `badgeHtml` er tom streng når der ikke er rabat.
-3. `stockText` viser korrekt status fra `soldout`.
-4. `brandText` falder tilbage til `"Ukendt brand"`.
-
-</Slide>
-<div class="page-break"></div>
-<Slide>
-
 ## 2) `&&` (vis kun noget når betingelsen er sand)
 
 Grundstruktur:
@@ -391,7 +312,7 @@ HTML-boks:
 
 ```html
 <main class="exercise-wrap">
-  <section id="card_wrapper" class="card"></section>
+  <section id="app" class="card"></section>
 </main>
 ```
 
@@ -400,20 +321,20 @@ HTML-boks:
 JavaScript-boks:
 
 ```javascript
-const card_wrapper = document.querySelector("#card_wrapper");
+const app = document.querySelector("#app");
 const hasNotification = true;
 const isTeacher = false;
 const showHelp = true;
 const isSelected = true;
 
-// Byg din egen løsning i card_wrapper.innerHTML
+// Byg din egen løsning i app.innerHTML
 // Krav:
 // 1) class "highlight" skal kun tilføjes når isSelected er true
 // 2) <span>Ny besked</span> skal kun vises når hasNotification er true
 // 3) teksten "Lærer" skal kun vises når isTeacher er true
 // 4) en <section> med hjælpetekst skal kun vises når showHelp er true
 
-card_wrapper.innerHTML = `
+app.innerHTML = `
   <div class="card ...">
     ...
   </div>
@@ -494,7 +415,7 @@ HTML-boks:
 
 ```html
 <main class="exercise-wrap">
-  <section id="card_wrapper" class="card"></section>
+  <section id="app" class="card"></section>
 </main>
 ```
 
@@ -503,7 +424,7 @@ HTML-boks:
 JavaScript-boks:
 
 ```javascript
-const card_wrapper = document.querySelector("#card_wrapper");
+const app = document.querySelector("#app");
 const product = {
   productdisplayname: "Trail Shoes",
   price: 799,
@@ -511,9 +432,9 @@ const product = {
   soldout: 0,
 };
 
-// Byg selv markup med && i card_wrapper.innerHTML
+// Byg selv markup med && i app.innerHTML
 // Krav: brug && til badges, ekstra tekst og class-navn
-card_wrapper.innerHTML = `
+app.innerHTML = `
   ...
 `;
 ```
@@ -624,7 +545,7 @@ HTML-boks:
 
 ```html
 <main class="exercise-wrap">
-  <section id="card_wrapper" class="card"></section>
+  <section id="app" class="card"></section>
 </main>
 ```
 
@@ -633,14 +554,14 @@ HTML-boks:
 JavaScript-boks:
 
 ```javascript
-const card_wrapper = document.querySelector("#card_wrapper");
+const app = document.querySelector("#app");
 const username = "";
 const theme = null;
 const city = undefined;
 const avatarUrl = "";
 
 // Byg selv resten af innerHTML med || som fallback
-card_wrapper.innerHTML = `
+app.innerHTML = `
   ...
 `;
 ```
@@ -703,7 +624,7 @@ HTML-boks:
 
 ```html
 <main class="exercise-wrap">
-  <section id="card_wrapper" class="card"></section>
+  <section id="app" class="card"></section>
 </main>
 ```
 
@@ -712,7 +633,7 @@ HTML-boks:
 JavaScript-boks:
 
 ```javascript
-const card_wrapper = document.querySelector("#card_wrapper");
+const app = document.querySelector("#app");
 const product = {
   productdisplayname: "Trail Shoes",
   brandname: "",
@@ -721,7 +642,7 @@ const product = {
 };
 
 // Byg selv markup med || fallback-værdier
-card_wrapper.innerHTML = `
+app.innerHTML = `
   ...
 `;
 ```
