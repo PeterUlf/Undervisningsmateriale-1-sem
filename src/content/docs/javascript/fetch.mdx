@@ -24,6 +24,7 @@ På denne side arbejder du med **ét produkt ad gangen**.
 
 </Slide>
 <div class="page-break"></div>
+
 <Slide>
 
 ## API-reference: Single Product
@@ -216,7 +217,8 @@ const productData = {
   colour1: "NA",
   colour2: "NA",
   fashiontype: "Fashion",
-  materialcaredesc: "\\u003Cp\\u003E100% polyester\\u003Cbr\\u003EMachine wash\\u003C/p\\u003E",
+  materialcaredesc:
+    "\\u003Cp\\u003E100% polyester\\u003Cbr\\u003EMachine wash\\u003C/p\\u003E",
   sizefitdesc: null,
   description:
     "\\u003Cp\\u003EBlue round neck Sahara Team India jersey, has short sleeves, print on the chest and back chest\\u003Cbr\\u003E\\u003Cbr\\u003EWarranty for manufacturing defects: 6 months (not valid on products with more than 20% discount)\\u003Cbr\\u003E\\u003C/p\\u003E",
@@ -235,13 +237,15 @@ Opgave:
 
 1. Find article-elementet med `querySelector`
 2. Indsæt mindst disse felter i `innerHTML`:
-`productdisplayname`, `price`, `brandname`, `category`, `season`, `usagetype`
+   `productdisplayname`, `price`, `brandname`, `category`, `season`, `usagetype`
 3. Brug template string med backticks og `${...}`
 
 :::tip[Hint]
+
 ```javascript
 const card = document.querySelector("#productCardLarge");
 ```
+
 :::
 
 </Slide>
@@ -249,6 +253,8 @@ const card = document.querySelector("#productCardLarge");
 <Slide>
 
 ## Næste side
+
+[Fetch opsamling →](/javascript/fetch-opsamling/)
 
 [Fetch Product List →](/javascript/fetch-productlist/)
 

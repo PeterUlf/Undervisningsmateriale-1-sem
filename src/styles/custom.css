@@ -31,6 +31,51 @@ html {
   background-color: var(--sl-color-accent);
 }
 
+.frontpage-actions-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin: 1rem auto 2rem;
+}
+
+.frontpage-theme-selector {
+  display: grid;
+  gap: 0.45rem;
+  width: min(100%, 22rem);
+  margin: 0;
+  padding: 0.9rem 1rem;
+  border-radius: 0.75rem;
+  border: 1px solid var(--sl-color-gray-5);
+  background: color-mix(in srgb, var(--sl-color-bg-nav) 78%, var(--sl-color-accent-low));
+}
+
+.frontpage-theme-selector label {
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.frontpage-theme-selector select {
+  appearance: none;
+  width: 100%;
+  border: 1px solid var(--sl-color-gray-4);
+  border-radius: 0.6rem;
+  background: var(--sl-color-bg);
+  color: var(--sl-color-text);
+  padding: 0.65rem 0.8rem;
+  font-size: 0.95rem;
+}
+
+.frontpage-theme-selector select:focus {
+  outline: 2px solid color-mix(in srgb, var(--sl-color-accent) 55%, transparent);
+  outline-offset: 1px;
+}
+
+.frontpage-actions-row .presentation-ui {
+  margin: 0;
+}
+
 /* Flyt badge til venstre for titlen i menuen */
 
 /* Target links in the sidebar */

@@ -38,47 +38,75 @@ const sortedTemaer = Array.from(temaMap.entries()).sort((a, b) => {
     <label for="tema-filter" style="font-weight: bold; margin-right: 0.5rem;">Filtrer efter tema:</label>
     <select id="tema-filter" style="padding: 0.5rem; border-radius: 0.25rem; border: 1px solid var(--sl-color-gray-5);">
       <option value="all">Alle temaer</option>
-      {sortedTemaer.map(([tema]) => (
-        <option value={tema}>{tema}</option>
-      ))}
+      {sortedTemaer.map(([tema]) => {
+        const temaNumber = tema.match(/\d+/)?.[0] || tema;
+        return <option value={temaNumber}>{tema}</option>;
+      })}
     </select>
   </div>
 
-  {sortedTemaer.map(([tema, items]) => (
-    <div class="tema-section" data-tema={tema}>
-      <h2>{tema}</h2>
-      <div style="margin-bottom: 2rem;">
-        {items.map((doc: any) => {
-          const slug = doc.id.replace(/\.mdx?$/, '');
-          return (
-            <details style="border: 1px solid var(--sl-color-gray-5); border-radius: 0.5rem; padding: 0.75rem; margin-bottom: 0.5rem;">
-              <summary style="cursor: pointer; font-weight: bold; font-size: 1.05rem;">
-                {doc.data.title}
-              </summary>
-              <div style="margin-top: 0.75rem; padding-left: 1.25rem;">
-                <p style="margin: 0 0 0.5rem 0;">{doc.data.description || ''}</p>
-                <a href={`/${slug}`}>Læs mere →</a>
-              </div>
-            </details>
-          );
-        })}
+  {sortedTemaer.map(([tema, items]) => {
+    const temaNumber = tema.match(/\d+/)?.[0] || '';
+    return (
+      <div class="tema-section" data-tema={tema} data-tema-number={temaNumber}>
+        <h2>{tema}</h2>
+        <div style="margin-bottom: 2rem;">
+          {items.map((doc: any) => {
+            const slug = doc.id.replace(/\.mdx?$/, '');
+            return (
+              <details style="border: 1px solid var(--sl-color-gray-5); border-radius: 0.5rem; padding: 0.75rem; margin-bottom: 0.5rem;">
+                <summary style="cursor: pointer; font-weight: bold; font-size: 1.05rem;">
+                  {doc.data.title}
+                </summary>
+                <div style="margin-top: 0.75rem; padding-left: 1.25rem;">
+                  <p style="margin: 0 0 0.5rem 0;">{doc.data.description || ''}</p>
+                  <a href={`/${slug}`}>Læs mere →</a>
+                </div>
+              </details>
+            );
+          })}
+        </div>
       </div>
-    </div>
-  ))}
+    );
+  })}
 
   <script>
-    document.getElementById('tema-filter')?.addEventListener('change', (e) => {
-      const selectedTema = (e.target as HTMLSelectElement).value;
-      const sections = document.querySelectorAll('.tema-section');
-      
-      sections.forEach(section => {
-        const sectionTema = section.getAttribute('data-tema');
-        if (selectedTema === 'all' || selectedTema === sectionTema) {
+    const temaFilter = document.getElementById('tema-filter');
+    const sections = document.querySelectorAll('.tema-section');
+
+    const applyFilter = (selectedTema: string) => {
+      sections.forEach((section) => {
+        const sectionTemaNumber = section.getAttribute('data-tema-number');
+        if (selectedTema === 'all' || selectedTema === sectionTemaNumber) {
           (section as HTMLElement).style.display = 'block';
         } else {
           (section as HTMLElement).style.display = 'none';
         }
       });
-    });
+    };
+
+    if (temaFilter) {
+      const params = new URLSearchParams(window.location.search);
+      const temaFromUrl = params.get('tema');
+      if (temaFromUrl) {
+        const options = Array.from((temaFilter as HTMLSelectElement).options);
+        const normalizedTemaFromUrl = temaFromUrl.match(/\d+/)?.[0] || temaFromUrl;
+        const hasOption = options.some((option) => option.value === normalizedTemaFromUrl);
+        if (hasOption) {
+          (temaFilter as HTMLSelectElement).value = normalizedTemaFromUrl;
+        }
+      }
+
+      applyFilter((temaFilter as HTMLSelectElement).value);
+
+      temaFilter.addEventListener('change', (e) => {
+        const selectedTema = (e.target as HTMLSelectElement).value;
+        applyFilter(selectedTema);
+
+        const nextUrl = new URL(window.location.href);
+        nextUrl.searchParams.set('tema', selectedTema);
+        window.history.replaceState({}, '', nextUrl.toString());
+      });
+    }
   </script>
 </StarlightPage>

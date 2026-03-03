@@ -1,0 +1,80 @@
+---
+title: "Fetch opsamling"
+description: Opsamling på fetch-kæden med felter der skal udfyldes og forklares
+sidebar:
+  label: Fetch opsamling
+  order: 4.15
+  badge:
+    text: Tema 8
+    variant: tip
+    class: badge-theme-8
+---
+
+import Slide from "../../../components/Slide.astro";
+import { Code } from "astro/components";
+
+export const hintTransformer = {
+  name: "fetch-hint-transformer",
+  span(hast, _line, _col, _lineElement, token) {
+    if (typeof token.content === "string" && token.content.includes("HVAD")) {
+      this.addClassToHast(hast, "fetch-hint");
+    }
+  },
+};
+
+export const codeWithHints = String.raw`const productURL = "HVAD er denne URL??";
+const productcontainer = "HVAD er denne container, og hvor finder du den?";
+function getData() {
+fetch(productURL).then((res) => res.json().then((data) => show(data)));
+}
+function show(data) {
+productcontainer.innerHTML = \`
+HVAD bør der ske her og forklar første og anden del af \${Hvad.Hvorfor}.....
+\`;
+}
+getData(); 
+// HVAD sker der her?`;
+
+<style is:global>{`
+  .fetch-opsamling-code .astro-code {
+    counter-reset: fetch-line;
+  }
+
+  .fetch-opsamling-code .astro-code .line {
+    display: block;
+    position: relative;
+    padding-left: 2.75rem;
+  }
+
+  .fetch-opsamling-code .astro-code .line::before {
+    counter-increment: fetch-line;
+    content: counter(fetch-line);
+    position: absolute;
+    left: 0;
+    width: 2rem;
+    text-align: right;
+    color: #8b949e;
+    opacity: 0.8;
+    user-select: none;
+  }
+
+  .fetch-opsamling-code .fetch-hint {
+    color: #ff4d4f !important;
+    font-weight: 700;
+  }
+`}</style>
+
+<Slide>
+
+## Koden samlet
+
+<div class="fetch-opsamling-code">
+  <Code
+    code={codeWithHints}
+    lang="javascript"
+    transformers={[hintTransformer]}
+  />
+</div>
+
+</Slide>
+<div class="page-break"></div>
