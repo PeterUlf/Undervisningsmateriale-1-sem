@@ -1,0 +1,249 @@
+---
+title: Sortering i JavaScript
+description: Lær at sortere arrays med sort() og brug det i dit projekt
+sidebar:
+  label: Sortering
+  order: 4.18
+  badge:
+    text: Tema 8
+    variant: tip
+    class: badge-theme-8
+---
+
+import Slide from "../../../components/Slide.astro";
+
+<Slide>
+
+## Hvad lærer du her?
+
+Du lærer:
+
+1. Hvordan `sort()` virker
+2. Forskellen på tal-sortering og tekst-sortering
+3. Hvordan du bygger sortering ind i dit projekt (fx produktliste)
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Opgaver: Overblik
+
+1. Skriv med egne ord, hvad sortering betyder i en produktliste.
+2. Nævn to sorteringer, I vil have i jeres projekt (fx pris og navn).
+3. Beslut om listen skal starte usorteret eller med en standard-sortering.
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Grundidéen i `sort()`
+
+`sort()` sammenligner to elementer ad gangen.
+
+Med tal bruger du en sammenligningsfunktion:
+
+```javascript
+const prices = [799, 299, 1299, 499];
+
+const lowToHigh = [...prices].sort((a, b) => a - b);
+const highToLow = [...prices].sort((a, b) => b - a);
+
+console.log(lowToHigh); // [299, 499, 799, 1299]
+console.log(highToLow); // [1299, 799, 499, 299]
+```
+
+Vigtigt: `sort()` ændrer original-arrayet, så brug ofte en kopi: `[...array]`.
+
+Det betyder i praksis:
+
+1. Det er den nye variabel (fx `lowToHigh`), der er det nye array.
+2. Det nye array laves fra en kopi af originalen (`[...prices]`).
+3. Originalen (`prices`) beholder sin oprindelige rækkefølge.
+4. Objekter/værdier er de samme, men rækkefølgen ligger i et nyt array.
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Opgaver: `sort()` med tal
+
+Brug dette array:
+
+```javascript
+const prices = [1200, 450, 799, 250, 999];
+```
+
+1. Sorter fra billigst til dyrest.
+2. Sorter fra dyrest til billigst.
+3. Log både original-arrayet og det sorterede array.
+4. Forklar hvorfor `[...prices]` er en god idé.
+
+Udfyld koden her:
+
+```javascript
+const prices = [1200, 450, 799, 250, 999];
+
+const lowToHigh = ......UDFYLD HER........
+const highToLow = ..........UDFYLD HER............
+
+console.log("Original:", prices);
+console.log("Billigst -> dyrest:", lowToHigh);
+console.log("Dyrest -> billigst:", highToLow);
+```
+
+Tjek resultatet i DevTools -> Console.
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Sortering af tekst (A-Å)
+
+Når du sorterer tekst, er `localeCompare()` ofte den bedste løsning:
+
+```javascript
+const names = ["Zebra", "Abe", "Ørn", "And"];
+
+const az = [...names].sort((a, b) => a.localeCompare(b, "da"));
+const za = [...names].sort((a, b) => b.localeCompare(a, "da"));
+
+console.log(az); // A-Å
+console.log(za); // Å-A
+```
+
+`"da"` giver dansk sortering, så fx `Æ`, `Ø`, `Å` håndteres bedre.
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Opgaver: Tekstsortering
+
+Brug dette array:
+
+```javascript
+const brands = ["Zeta", "Alpha", "ØkoWear", "Basic", "Århus Style"];
+```
+
+1. Sorter brands A-Å med `localeCompare(..., "da")`.
+2. Sorter brands Å-A.
+3. Test forskellen på sortering med og uden `"da"`.
+4. Skriv en kort note om, hvilken version der virker bedst for dansk tekst.
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Brug sortering i dit projekt
+
+Typisk flow i en produktliste:
+
+1. Hent produkter én gang
+2. Gem dem i en variabel (`allProducts`)
+3. Sorter en kopi af data, når brugeren klikker på en sorteringsknap
+4. Render listen igen
+
+```javascript
+const allProducts = []; // fyldes efter fetch
+
+function sortByPriceAsc() {
+  const sorted = [...allProducts].sort((a, b) => a.price - b.price);
+  showProducts(sorted);
+}
+
+function sortByNameAZ() {
+  const sorted = [...allProducts].sort((a, b) =>
+    a.productdisplayname.localeCompare(b.productdisplayname, "da"),
+  );
+  showProducts(sorted);
+}
+```
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Opgaver: Sortering i projektet
+
+1. Lav en knap: "Billigst først" (`a.price - b.price`).
+2. Lav en knap: "Dyrest først" (`b.price - a.price`).
+3. Lav en knap: "Navn A-Å" (`localeCompare`).
+4. Sørg for at knapperne genbruger `showProducts(...)`.
+5. Test at original-arrayet stadig er intakt efter hver sortering.
+
+Ekstra: Kombinér med filtrering, så I kan sortere inden for den valgte kategori.
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Eksempel: Knap til sortering efter pris
+
+Hvis I allerede har en fetch-løsning som denne, kan I tilføje en knap der
+sorterer listen fra billigst til dyrest.
+
+HTML:
+
+```html
+<button id="sortByPriceBtn">Sorter efter pris</button>
+<section id="productListContainer"></section>
+```
+
+JavaScript:
+
+```javascript
+const listURL = "https://kea-alt-del.dk/t7/api/products";
+const listContainer = document.querySelector("#productListContainer");
+const sortByPriceBtn = document.querySelector("#sortByPriceBtn");
+
+let allProducts = [];
+
+function getProducts() {
+  fetch(listURL)
+    .then((res) => res.json())
+    .then((products) => {
+      allProducts = products; // gem originaldata
+      showProducts(allProducts);
+    });
+}
+
+function showProducts(products) {
+  listContainer.innerHTML = "";
+
+  products.forEach((product) => {
+    listContainer.innerHTML += `
+      <article class="productCard">
+        <h3>${product.productdisplayname}</h3>
+        <p>Pris: ${product.price}</p>
+      </article>
+    `;
+  });
+}
+
+function sortByPriceAsc() {
+  const sorted = [...allProducts].sort((a, b) => a.price - b.price);
+  showProducts(sorted);
+}
+
+sortByPriceBtn.addEventListener("click", sortByPriceAsc);
+getProducts();
+```
+
+Kort om `shallow copy`:
+
+1. `sorted` er et nyt array.
+2. `sorted` bliver lavet ud fra en kopi: `[...allProducts]`.
+3. Den kopi bliver sorteret med `.sort((a, b) => a.price - b.price)`.
+4. `allProducts` beholder sin oprindelige rækkefølge.
+5. Objekterne inde i arrayet er de samme objekter, men rækkefølgen ligger i et nyt array.
+
+Sådan forklarer du det til studerende:
+
+1. Vi gemmer API-data i `allProducts`.
+2. Knappen kalder `sortByPriceAsc()`.
+3. Vi sorterer en kopi med `[...allProducts]`.
+4. Vi viser den sorterede liste med `showProducts(...)`.
+
+[Filtrering i JavaScript →](/javascript/filtrering/)
+
+</Slide>

@@ -94,27 +94,6 @@ HTML-boks:
 </main>
 ```
 
-</div>
-<div>
-JavaScript-boks:
-
-```javascript
-const app = document.querySelector("#app");
-const isMorning = true;
-const points = 72;
-const isDisabled = false;
-const messageCount = 0;
-
-// Byg selv resten af innerHTML med ternary
-app.innerHTML = `
-  ...
-`;
-```
-
-</div>
-
-</div>
-
 CSS-boks:
 
 ```css
@@ -155,6 +134,27 @@ body {
   cursor: not-allowed;
 }
 ```
+
+</div>
+<div>
+JavaScript-boks:
+
+```javascript
+const app = document.querySelector("#app");
+const isMorning = true;
+const points = 72;
+const isDisabled = false;
+const messageCount = 0;
+
+// Byg selv resten af innerHTML med ternary
+app.innerHTML = `
+  ...
+`;
+```
+
+</div>
+
+</div>
 
 </Slide>
 <div class="page-break"></div>
@@ -198,34 +198,6 @@ HTML-boks:
 </main>
 ```
 
-</div>
-<div>
-JavaScript-boks:
-
-```javascript
-const app = document.querySelector("#app");
-const product = {
-  productdisplayname: "Trail Shoes",
-  price: 799,
-  discount: 20,
-  soldout: 0,
-  brandname: "",
-};
-
-// Byg selv markup med ternary i app.innerHTML
-// #app er kun container - opret selv <article class="card ..."> i templaten
-// Hint: brug både class-attribut og tekst/HTML med ternary
-app.innerHTML = `
-  <article class="card ...">
-    ...
-  </article>
-`;
-```
-
-</div>
-
-</div>
-
 CSS-boks:
 
 ```css
@@ -266,6 +238,34 @@ body {
   font-weight: 600;
 }
 ```
+
+</div>
+<div>
+JavaScript-boks:
+
+```javascript
+const app = document.querySelector("#app");
+const product = {
+  productdisplayname: "Trail Shoes",
+  price: 799,
+  discount: 20,
+  soldout: 0,
+  brandname: "",
+};
+
+// Byg selv markup med ternary i app.innerHTML
+// #app er kun container - opret selv <article class="card ..."> i templaten
+// Hint: brug både class-attribut og tekst/HTML med ternary
+app.innerHTML = `
+  <article class="card ...">
+    ...
+  </article>
+`;
+```
+
+</div>
+
+</div>
 
 Bonus:
 
@@ -311,214 +311,6 @@ Eksempel:
 ```
 
 Hvis `isAdmin` er false, får du en tom streng i stedet for teksten `false`.
-
-</Slide>
-<div class="page-break"></div>
-<Slide>
-
-## Opgaver: `&&` (uden API)
-
-1. Lav `hasNotification = true` og vis `<span>Ny besked</span>` kun når den er true.
-2. Lav `isTeacher = false` og vis teksten `"Lærer"` kun når den er true.
-3. Lav `showHelp = true` og vis en `<section>` med hjælpetekst kun i true-tilfældet.
-4. Lav en class-string der kun tilføjer `"highlight"` når `isSelected` er true.
-
-Brug denne setup i CodePen.
-
-<div class="columns-2">
-
-<div>
-HTML-boks:
-
-```html
-<main class="exercise-wrap">
-  <section id="app" class="card"></section>
-</main>
-```
-
-</div>
-<div>
-JavaScript-boks:
-
-```javascript
-const app = document.querySelector("#app");
-const hasNotification = true;
-const isTeacher = false;
-const showHelp = true;
-const isSelected = true;
-
-// Byg din egen løsning i app.innerHTML
-// Krav:
-// 1) class "highlight" skal kun tilføjes når isSelected er true
-// 2) <span>Ny besked</span> skal kun vises når hasNotification er true
-// 3) teksten "Lærer" skal kun vises når isTeacher er true
-// 4) en <section> med hjælpetekst skal kun vises når showHelp er true
-// Tip: i ${...} skal false-tilfældet være "" (fx med ternary), ellers kan "false" blive vist
-
-app.innerHTML = `
-  <div class="card ...">
-    ...
-  </div>
-`;
-```
-
-</div>
-
-</div>
-
-CSS-boks:
-
-```css
-body {
-  margin: 0;
-  font-family: system-ui, sans-serif;
-  background: #f4f6fb;
-}
-
-.exercise-wrap {
-  max-width: 640px;
-  margin: 2rem auto;
-  padding: 0 1rem;
-}
-
-.card {
-  background: #fff;
-  border: 1px solid #d9e2ef;
-  border-radius: 12px;
-  padding: 1.25rem;
-  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
-  display: grid;
-  gap: 0.75rem;
-}
-
-.card.highlight {
-  border-color: #1d4ed8;
-  background: #eff6ff;
-}
-
-.card span {
-  display: inline-block;
-  padding: 0.2rem 0.55rem;
-  border-radius: 999px;
-  background: #dcfce7;
-  color: #166534;
-  font-size: 0.875rem;
-  font-weight: 600;
-}
-
-.card section {
-  padding: 0.65rem 0.8rem;
-  border-radius: 8px;
-  background: #f8fafc;
-  color: #334155;
-}
-```
-
-</Slide>
-<div class="page-break"></div>
-<Slide>
-
-## Opgaver: `&&` (med dit materiale)
-
-Brug `product`-objektet eller data fra din fetch:
-
-1. Vis `<p class="badge">Tilbud</p>` kun når `product.discount > 0`.
-2. Vis `<p class="badge soldout">Udsolgt</p>` kun når `product.soldout === 1`.
-3. Vis `<p>Fri fragt</p>` kun når `product.price > 700`.
-4. Vis class `isSoldOut` kun når varen er udsolgt.
-
-Brug denne setup i CodePen.
-
-<div class="columns-2">
-
-<div>
-HTML-boks:
-
-```html
-<main class="exercise-wrap">
-  <section id="app" class="card"></section>
-</main>
-```
-
-</div>
-<div>
-JavaScript-boks:
-
-```javascript
-const app = document.querySelector("#app");
-const product = {
-  productdisplayname: "Trail Shoes",
-  price: 799,
-  discount: 20,
-  soldout: 0,
-};
-
-// Byg selv markup med betingelser i app.innerHTML
-// Krav: vis/skjul badges, ekstra tekst og class-navn ud fra product-værdier
-// Tip: i ${...} skal false-tilfældet være "" (fx med ternary), ellers kan "false" blive vist
-app.innerHTML = `
-  ...
-`;
-```
-
-</div>
-
-</div>
-
-CSS-boks:
-
-```css
-body {
-  margin: 0;
-  font-family: system-ui, sans-serif;
-  background: #f4f6fb;
-}
-
-.exercise-wrap {
-  max-width: 640px;
-  margin: 2rem auto;
-  padding: 0 1rem;
-}
-
-.card {
-  background: #fff;
-  border: 1px solid #d9e2ef;
-  border-radius: 12px;
-  padding: 1.25rem;
-  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
-  display: grid;
-  gap: 0.75rem;
-}
-
-.card.isSoldOut {
-  opacity: 0.75;
-}
-
-.badge {
-  display: inline-block;
-  padding: 0.25rem 0.55rem;
-  border-radius: 999px;
-  background: #ea580c;
-  color: #fff;
-  font-size: 0.85rem;
-  font-weight: 600;
-}
-
-.badge.soldout {
-  background: #475569;
-}
-```
-
-Mini-eksempel:
-
-```javascript
-`
-  <article class="smallProduct ${product.soldout === 1 ? "isSoldOut" : ""}">
-    ${product.discount > 0 ? `<p class="badge">${product.discount}%</p>` : ""}
-    ${product.soldout === 1 ? `<p class="badge soldout">Udsolgt</p>` : ""}
-  </article>
-`;
-```
 
 </Slide>
 <div class="page-break"></div>
@@ -571,27 +363,6 @@ HTML-boks:
 </main>
 ```
 
-</div>
-<div>
-JavaScript-boks:
-
-```javascript
-const app = document.querySelector("#app");
-const username = "";
-const theme = null;
-const city = undefined;
-const avatarUrl = "";
-
-// Byg selv resten af innerHTML med || som fallback
-app.innerHTML = `
-  ...
-`;
-```
-
-</div>
-
-</div>
-
 CSS-boks:
 
 ```css
@@ -626,44 +397,18 @@ body {
 }
 ```
 
-</Slide>
-<div class="page-break"></div>
-<Slide>
-
-## Opgaver: `||` (med dit materiale)
-
-1. Vis `product.brandname || "Ukendt brand"`.
-2. Vis `product.productdisplayname || "Produkt uden navn"`.
-3. Vis `product.price || "Pris mangler"` (test med en produkt-kopi hvor `price` er fjernet).
-4. Vis `product.articletype || "Ingen type"` i din card-template.
-
-Brug denne setup i CodePen.
-
-<div class="columns-2">
-
-<div>
-HTML-boks:
-
-```html
-<main class="exercise-wrap">
-  <section id="app" class="card"></section>
-</main>
-```
-
 </div>
 <div>
 JavaScript-boks:
 
 ```javascript
 const app = document.querySelector("#app");
-const product = {
-  productdisplayname: "Trail Shoes",
-  brandname: "",
-  articletype: null,
-  price: 799,
-};
+const username = "";
+const theme = null;
+const city = undefined;
+const avatarUrl = "";
 
-// Byg selv markup med || fallback-værdier
+// Byg selv resten af innerHTML med || som fallback
 app.innerHTML = `
   ...
 `;
@@ -672,44 +417,6 @@ app.innerHTML = `
 </div>
 
 </div>
-
-CSS-boks:
-
-```css
-body {
-  margin: 0;
-  font-family: system-ui, sans-serif;
-  background: #f4f6fb;
-}
-
-.exercise-wrap {
-  max-width: 640px;
-  margin: 2rem auto;
-  padding: 0 1rem;
-}
-
-.card {
-  background: #fff;
-  border: 1px solid #d9e2ef;
-  border-radius: 12px;
-  padding: 1.25rem;
-  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
-  display: grid;
-  gap: 0.75rem;
-}
-```
-
-Mini-eksempel:
-
-```javascript
-`
-  <article class="smallProduct">
-    <h3>${product.productdisplayname || "Produkt uden navn"}</h3>
-    <p>Brand: ${product.brandname || "Ukendt brand"}</p>
-    <p>Type: ${product.articletype || "Ingen type"}</p>
-  </article>
-`;
-```
 
 </Slide>
 <div class="page-break"></div>

@@ -1,0 +1,249 @@
+---
+title: Filtrering i JavaScript
+description: Lær at filtrere arrays med filter() og bruge det i dit projekt
+sidebar:
+  label: Filtrering
+  order: 4.19
+  badge:
+    text: Tema 8
+    variant: tip
+    class: badge-theme-8
+---
+
+import Slide from "../../../components/Slide.astro";
+
+<Slide>
+
+## Hvad lærer du her?
+
+Du lærer:
+
+1. Hvordan `filter()` virker
+2. Hvordan du filtrerer på kategori, pris og lagerstatus
+3. Hvordan filtrering bruges i dit projekt sammen med rendering
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Opgaver: Overblik
+
+1. Skriv med egne ord, hvad filtrering betyder i en produktliste.
+2. Nævn to filtre, I vil bruge i jeres projekt.
+3. Beslut om brugeren skal kunne vælge mere end ét filter ad gangen.
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Grundidéen i `filter()`
+
+`filter()` gennemgår et array og returnerer kun de elementer, hvor betingelsen er `true`.
+
+```javascript
+const numbers = [3, 8, 12, 15, 22];
+const evenNumbers = numbers.filter((num) => num % 2 === 0);
+
+console.log(evenNumbers); // [8, 12, 22]
+```
+
+Original-arrayet ændres ikke.
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Opgaver: `filter()`-basics
+
+Brug dette array:
+
+```javascript
+const numbers = [2, 7, 10, 13, 18, 21];
+```
+
+1. Filtrer alle lige tal.
+2. Filtrer alle tal over 10.
+3. Filtrer alle tal mellem 5 og 20.
+4. Log både original-arrayet og resultatet fra `filter()`.
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Filtrering af produkter
+
+Eksempel med produktdata:
+
+```javascript
+const products = [
+  { name: "Trail Shoes", category: "footwear", price: 799, soldout: 0 },
+  { name: "Rain Jacket", category: "outerwear", price: 1299, soldout: 1 },
+  { name: "Beanie", category: "accessories", price: 199, soldout: 0 },
+];
+
+const onlyInStock = products.filter((product) => product.soldout === 0);
+const onlyCheap = products.filter((product) => product.price < 800);
+const onlyFootwear = products.filter(
+  (product) => product.category === "footwear"
+);
+```
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Opgaver: Produktfiltrering
+
+Brug produkt-arrayet fra forrige slide.
+
+1. Filtrer produkter, der er på lager (`soldout === 0`).
+2. Filtrer produkter under 1000 kr.
+3. Filtrer kun `outerwear`.
+4. Vis resultatet i HTML med `forEach`.
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Brug filtrering i dit projekt
+
+Et simpelt setup:
+
+1. Gem alle produkter i `allProducts`
+2. Hold styr på valgt filter (fx `selectedCategory`)
+3. Filtrer data, og kald `showProducts(filtered)`
+
+```javascript
+const allProducts = []; // fyldes efter fetch
+let selectedCategory = "all";
+
+function applyFilter() {
+  const filteredProducts = allProducts.filter((product) => {
+    if (selectedCategory === "all") return true;
+    return product.category === selectedCategory;
+  });
+
+  showProducts(filteredProducts);
+}
+```
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Opgaver: Filtrering i projektet
+
+1. Lav knapper til kategorierne: `all`, `footwear`, `outerwear`.
+2. Tilføj et lagerfilter: "Kun på lager".
+3. Lav et prisfilter: "Under 500 kr.".
+4. Kombinér kategori + lager + pris i samme `applyFilter()`.
+5. Render altid resultatet med `showProducts(...)`.
+
+Tip: Filtrer først, sorter bagefter, og render til sidst.
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Kombinér med sortering
+
+Når I arbejder i projektet, kan I kæde metoderne:
+
+```javascript
+const result = allProducts
+  .filter((product) => product.soldout === 0)
+  .sort((a, b) => a.price - b.price);
+
+showProducts(result);
+```
+
+[Sortering i JavaScript →](/javascript/sortering/)
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Opgaver: Kombinér filter + sortering
+
+1. Filtrer først til produkter på lager.
+2. Sorter derefter resultatet fra billigst til dyrest.
+3. Lav en variant med "navn A-Å".
+4. Test at kæden virker: `filter(...).sort(...)`.
+
+[Sortering i JavaScript →](/javascript/sortering/)
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Eksempel: Knap til filtrering på `product.gender`
+
+Hvis I allerede har en fetch-løsning, kan I tilføje en knap som fx viser
+kun produkter til `"Women"`.
+
+HTML:
+
+```html
+<button id="filterWomenBtn">Vis kun Women</button>
+<button id="showAllBtn">Vis alle</button>
+<section id="productListContainer"></section>
+```
+
+JavaScript:
+
+```javascript
+const listURL = "https://kea-alt-del.dk/t7/api/products";
+const listContainer = document.querySelector("#productListContainer");
+const filterWomenBtn = document.querySelector("#filterWomenBtn");
+const showAllBtn = document.querySelector("#showAllBtn");
+
+let allProducts = [];
+
+function getProducts() {
+  fetch(listURL)
+    .then((res) => res.json())
+    .then((products) => {
+      allProducts = products; // gem originaldata
+      showProducts(allProducts);
+    });
+}
+
+function showProducts(products) {
+  listContainer.innerHTML = "";
+
+  products.forEach((product) => {
+    listContainer.innerHTML += `
+      <article class="productCard">
+        <h3>${product.productdisplayname}</h3>
+        <p>Gender: ${product.gender}</p>
+        <p>Pris: ${product.price}</p>
+      </article>
+    `;
+  });
+}
+
+function filterByGender(targetGender) {
+  const filtered = allProducts.filter(
+    (product) =>
+      (product.gender || "").toLowerCase() === targetGender.toLowerCase()
+  );
+
+  showProducts(filtered);
+}
+
+filterWomenBtn.addEventListener("click", () => filterByGender("Women"));
+showAllBtn.addEventListener("click", () => showProducts(allProducts));
+
+getProducts();
+```
+
+Sådan forklarer du det til studerende:
+
+1. Vi gemmer alle produkter i `allProducts`.
+2. Knappen kalder `filterByGender("Women")`.
+3. `filter()` returnerer kun produkter med matchende `product.gender`.
+4. Resultatet renderes med `showProducts(...)`.
+
+[Sortering i JavaScript →](/javascript/sortering/)
+
+</Slide>

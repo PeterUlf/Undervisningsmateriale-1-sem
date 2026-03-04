@@ -15,30 +15,17 @@ hero:
 import Slide from "../../components/Slide.astro";
 import PresentationMode from "../../components/PresentationMode.astro";
 import HeroFigureCaption from "../../components/HeroFigureCaption.astro";
+import HomeHeroThemeSelector from "../../components/HomeHeroThemeSelector.astro";
 import { Card, CardGrid } from "@astrojs/starlight/components";
 
 <HeroFigureCaption />
 
-<div id="presentation-trigger" class="frontpage-actions-row" style="scroll-margin-top: 2rem;">
-  <div class="frontpage-theme-selector">
-    <label for="home-theme-select">Vælg tema fra forsiden</label>
-    <select
-      id="home-theme-select"
-      onchange="if (this.value) window.location.assign(this.value)"
-    >
-      <option value="">Vælg et tema...</option>
-      <option value="/tema-oversigt/?tema=all">Alle temaer</option>
-      <option value="/tema-oversigt/?tema=1">Tema 1</option>
-      <option value="/tema-oversigt/?tema=2">Tema 2</option>
-      <option value="/tema-oversigt/?tema=3">Tema 3</option>
-      <option value="/tema-oversigt/?tema=4">Tema 4</option>
-      <option value="/tema-oversigt/?tema=5">Tema 5</option>
-      <option value="/tema-oversigt/?tema=7">Tema 7</option>
-      <option value="/tema-oversigt/?tema=8">Tema 8</option>
-      <option value="/tema-oversigt/?tema=9">Tema 9</option>
-    </select>
+<HomeHeroThemeSelector />
+
+<div id="presentation-trigger" style="scroll-margin-top: 2rem;">
+  <div class="frontpage-presentation-driver">
+    <PresentationMode buttonText="Om underviseren" />
   </div>
-  <PresentationMode buttonText="Om underviseren" />
 </div>
 
 <Slide>
