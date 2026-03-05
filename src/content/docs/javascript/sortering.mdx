@@ -223,6 +223,15 @@ sortByPriceBtn.addEventListener("click", sortByPriceAsc);
 getProducts();
 ```
 
+Forskellen fra den kode I kommer fra:
+
+1. Før hentede I data og viste dem direkte med `showProducts(products)`.
+2. Nu gemmer vi også data i `allProducts`, så vi kan bruge dem igen senere.
+3. Før havde I ingen brugerhandling efter fetch.
+4. Nu har I en knap (`sortByPriceBtn`), som kan ændre visningen uden at hente API-data igen.
+5. Den nye funktion `sortByPriceAsc()` laver en sorteret kopi og sender den til `showProducts(...)`.
+6. `showProducts(...)` er stadig den samme renderer. Forskellen er, at den nu kan få både usorterede og sorterede data.
+
 Kort om `shallow copy`:
 
 1. `sorted` er et nyt array.
