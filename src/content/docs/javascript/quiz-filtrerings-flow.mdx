@@ -49,3 +49,57 @@ Ekstra udfordring:
 [Tilbage til Filtrering →](/javascript/filtrering/)
 
 </Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Referencekode (JavaScript)
+
+```javascript
+const listURL = "https://kea-alt-del.dk/t7/api/products";
+const listContainer = document.querySelector("#productListContainer");
+const filterWomenBtn = document.querySelector("#filterWomenBtn");
+const showAllBtn = document.querySelector("#showAllBtn");
+
+let allProducts = [];
+
+function getProducts() {
+  fetch(listURL)
+    .then((res) => res.json())
+    .then((products) => {
+      allProducts = products; // gem originaldata
+      showProducts(allProducts);
+    });
+}
+
+function showProducts(products) {
+  listContainer.innerHTML = "";
+
+  products.forEach((product) => {
+    listContainer.innerHTML += `
+      <article class="productCard">
+        <h3>${product.productdisplayname}</h3>
+        <p>Gender: ${product.gender}</p>
+        <p>Pris: ${product.price}</p>
+      </article>
+    `;
+  });
+}
+
+function filterByGender(targetGender) {
+  const filtered = allProducts.filter(
+    (product) =>
+      (product.gender || "").toLowerCase() === targetGender.toLowerCase()
+  );
+
+  showProducts(filtered);
+}
+
+filterWomenBtn.addEventListener("click", () => filterByGender("Women"));
+showAllBtn.addEventListener("click", () => showProducts(allProducts));
+
+getProducts();
+```
+
+[Tilbage til Filtrering →](/javascript/filtrering/)
+
+</Slide>
