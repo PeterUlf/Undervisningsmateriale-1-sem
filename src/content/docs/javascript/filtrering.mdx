@@ -47,7 +47,31 @@ const evenNumbers = numbers.filter((num) => num % 2 === 0);
 console.log(evenNumbers); // [8, 12, 22]
 ```
 
-Original-arrayet ændres ikke.
+Grundig forklaring af linjen:
+
+`const evenNumbers = numbers.filter((num) => num % 2 === 0);`
+
+1. `numbers.filter(...)` betyder: "Gå alle tal i `numbers` igennem, og behold kun dem hvor betingelsen er `true`."
+2. `(num) => ...` er callback-funktionen, der kører én gang pr. tal i arrayet.
+3. `num % 2` finder resten, når tallet deles med 2.
+4. `=== 0` tjekker om resten er 0.
+5. Hvis resultatet er `true`, kommer tallet med i `evenNumbers`.
+6. Hvis resultatet er `false`, bliver tallet sorteret fra.
+
+Sådan evalueres eksemplet:
+
+1. `3 % 2 = 1` -> `1 === 0` er `false` -> `3` fjernes.
+2. `8 % 2 = 0` -> `0 === 0` er `true` -> `8` beholdes.
+3. `12 % 2 = 0` -> `true` -> `12` beholdes.
+4. `15 % 2 = 1` -> `false` -> `15` fjernes.
+5. `22 % 2 = 0` -> `true` -> `22` beholdes.
+
+Resultatet bliver derfor `[8, 12, 22]`.
+
+Vigtigt:
+
+1. `filter()` laver et nyt array.
+2. Original-arrayet `numbers` ændres ikke.
 
 </Slide>
 <div class="page-break"></div>
@@ -158,6 +182,7 @@ showProducts(result);
 ```
 
 [Sortering i JavaScript →](/javascript/sortering/)
+[Quiz: Filtrerings-flow →](/javascript/quiz-filtrerings-flow/)
 
 </Slide>
 <div class="page-break"></div>
@@ -176,10 +201,10 @@ showProducts(result);
 <div class="page-break"></div>
 <Slide>
 
-## Eksempel: Knap til filtrering på `product.gender`
+## Eksempel: Filtreringsknap + filtreringsfunktion
 
-Hvis I allerede har en fetch-løsning, kan I tilføje en knap som fx viser
-kun produkter til `"Women"`.
+Hvis I allerede har en fetch-løsning, kan I tilføje en filtreringsknap,
+som kalder en filtreringsfunktion og viser et udvalgt udsnit af produkterne.
 
 HTML:
 
@@ -240,8 +265,8 @@ getProducts();
 Sådan forklarer du det til studerende:
 
 1. Vi gemmer alle produkter i `allProducts`.
-2. Knappen kalder `filterByGender("Women")`.
-3. `filter()` returnerer kun produkter med matchende `product.gender`.
+2. Filtreringsknappen kalder filtreringsfunktionen.
+3. Filtreringsfunktionen bruger `filter()` og returnerer kun de produkter, der matcher kriteriet.
 4. Resultatet renderes med `showProducts(...)`.
 
 [Sortering i JavaScript →](/javascript/sortering/)

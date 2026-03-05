@@ -1,0 +1,51 @@
+---
+title: Quiz - Flow
+description: Quiz til at teste forståelse af dit flow og kodeansvar
+sidebar:
+  label: "Quiz: Flow"
+  order: 4.195
+  badge:
+    text: Tema 8
+    variant: tip
+    class: badge-theme-8
+---
+
+import Slide from "../../../components/Slide.astro";
+
+<Slide>
+
+## Quiz: Forstår du dit eget flow?
+
+Brug jeres egen kode i editoren (med linjenumre slået til).
+Udfyld tabellen med præcis det funktionsnavn og linjenummer, der passer i jeres version.
+
+| Trin | Hvad sker der?                                                              | Funktionsnavn | Linjenummer |
+| ---- | --------------------------------------------------------------------------- | ------------- | ----------- |
+| 1    | Programmet starter første gang                                              |               |             |
+| 2    | API-kaldet bliver startet                                                   |               |             |
+| 3    | JSON-data bliver gjort klar                                                 |               |             |
+| 4    | Alle produkter gemmes i en variabel                                         |               |             |
+| 5    | Hele listen vises første gang                                               |               |             |
+| 6    | Listen tømmes før ny rendering ved tryk på enten filtrering eller sortering |               |             |
+| 7    | Ét produkt bliver lavet som HTML i loop                                     |               |             |
+| 8    | Klik på filtreringsknappen håndteres                                        |               |             |
+| 9    | Selve filtreringsfunktionen kører                                           |               |             |
+| 10   | Klik på "Vis alle" viser original-listen igen                               |               |             |
+
+Fejlfinding og anvendelse:
+
+1. I klikker på filtreringsknappen, men listen ændrer sig ikke.
+   Skriv de to første steder i koden, I vil debugge, og hvorfor.
+2. Tilføj et nyt filter: "Kun produkter under 500 kr.".
+   Skriv navnet på den nye funktion og hvilke linjer/funktioner I genbruger.
+3. Forklar forskellen på at kalde `showProducts(filtered)` og `showProducts(allProducts)`.
+4. Forklar kort, hvorfor `allProducts` gør det muligt at filtrere flere gange uden nyt fetch-kald.
+
+Ekstra udfordring:
+
+1. Skitser hvordan I ville kombinere filtreringsfunktion + sorteringsfunktion i samme flow.
+2. Beskriv hvilken rækkefølge I ville bruge (filtrer først eller sorter først) og hvorfor.
+
+[Tilbage til Filtrering →](/javascript/filtrering/)
+
+</Slide>
