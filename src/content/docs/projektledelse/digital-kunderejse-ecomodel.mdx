@@ -1,0 +1,152 @@
+---
+title: Digital kunderejse med OMD's ECO-model
+description: Introduktion til den digitale kunderejse med OMD's ECO-model som reference
+draft: true
+sidebar:
+  label: Digital kunderejse (ECO)
+  order: 14
+  badge:
+    text: Tema 14
+    variant: tip
+    class: badge-theme-14
+---
+
+import Slide from "../../../components/Slide.astro";
+
+<style is:global>{`
+  .eco-model-wrap {
+    display: grid;
+    grid-template-columns: minmax(280px, 430px) 1fr;
+    gap: 1.25rem;
+    align-items: center;
+  }
+
+  .eco-rings {
+    position: relative;
+    width: min(80vw, 420px);
+    aspect-ratio: 1;
+    margin-inline: auto;
+  }
+
+  .eco-ring {
+    position: absolute;
+    border-radius: 999px;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    font-weight: 700;
+  }
+
+  .eco-ring.paid {
+    inset: 0;
+    border: 2px solid #f59e0b;
+    background: rgba(245, 158, 11, 0.12);
+    color: #f59e0b;
+  }
+
+  .eco-ring.earned {
+    inset: 12%;
+    border: 2px solid #38bdf8;
+    background: rgba(56, 189, 248, 0.12);
+    color: #38bdf8;
+  }
+
+  .eco-ring.owned {
+    inset: 24%;
+    border: 2px solid #22c55e;
+    background: rgba(34, 197, 94, 0.12);
+    color: #22c55e;
+  }
+
+  .eco-ring.eco {
+    inset: 38%;
+    border: 2px solid var(--sl-color-accent);
+    background: var(--sl-color-bg);
+    color: var(--sl-color-text);
+  }
+
+  .eco-label {
+    font-size: 0.95rem;
+    line-height: 1.2;
+  }
+
+  .eco-side ul {
+    margin: 0;
+    padding-left: 1.1rem;
+  }
+
+  @media (max-width: 900px) {
+    .eco-model-wrap {
+      grid-template-columns: 1fr;
+    }
+  }
+`}</style>
+
+<Slide>
+
+## Visualisering af ECO-modellen (OMD-reference)
+
+<div class="eco-model-wrap">
+  <div class="eco-rings">
+    <div class="eco-ring paid">
+      <span class="eco-label">Paid</span>
+    </div>
+    <div class="eco-ring earned">
+      <span class="eco-label">Earned</span>
+    </div>
+    <div class="eco-ring owned">
+      <span class="eco-label">Owned</span>
+    </div>
+    <div class="eco-ring eco">
+      <span class="eco-label">ECO<br />Målgruppe</span>
+    </div>
+  </div>
+
+  <div class="eco-side">
+    <p>
+      Forenklet visualisering: Kundens behov står i centrum, og
+      brandets kanalvalg planlægges rundt om kunden.
+    </p>
+    <ul>
+      <li>
+        <strong>Owned</strong>: egne kanaler tæt på relationen
+      </li>
+      <li>
+        <strong>Earned</strong>: omtale og anbefaling fra andre
+      </li>
+      <li>
+        <strong>Paid</strong>: købt rækkevidde og opmærksomhed
+      </li>
+    </ul>
+  </div>
+</div>
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Den digitale kunderejse (med OMD's ECO-model som reference)
+
+OMD's ECO-model bruges ofte som et planlægningsværktøj til at koble kunderejsen med tre medietyper:
+
+1. **Paid**: købt synlighed (annoncer, display, SoMe ads, search ads)
+2. **Owned**: egne kanaler (website, nyhedsbrev, app, egne SoMe-profiler)
+3. **Earned**: fortjent omtale (anbefalinger, delinger, anmeldelser, PR)
+
+Typisk digital kunderejse:
+
+1. **Awareness**: kunden opdager behovet eller brandet
+2. **Consideration**: kunden undersøger og sammenligner
+3. **Conversion**: kunden tager handling (køb, signup, booking)
+4. **Loyalty/Advocacy**: kunden vender tilbage og anbefaler videre
+
+Kobling til ECO-modellen:
+
+1. Awareness: primært `Paid + Earned`
+2. Consideration: primært `Owned + Earned`
+3. Conversion: primært `Owned + Paid` (fx remarketing)
+4. Loyalty/Advocacy: primært `Owned + Earned`
+
+Pointen: Brug ikke kanaler isoleret. Planlæg kunderejsen på tværs af `Paid`, `Owned` og `Earned`, så kunden møder et sammenhængende budskab i alle faser.
+
+</Slide>

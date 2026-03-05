@@ -65,6 +65,43 @@ Det betyder i praksis:
 <div class="page-break"></div>
 <Slide>
 
+## Hvad gør `.sort((a, b) => a - b)`?
+
+Når du skriver:
+
+```javascript
+const lowToHigh = [...prices].sort((a, b) => a - b);
+```
+
+sker der dette:
+
+1. `sort()` tager to tal ad gangen fra arrayet og kalder dem `a` og `b`.
+2. Funktionen returnerer resultatet af `a - b`.
+3. Det resultat fortæller `sort()`, hvem der skal stå først.
+
+Reglen er:
+
+1. Negativt resultat: `a` skal stå før `b`.
+2. Positivt resultat: `a` skal stå efter `b`.
+3. `0`: de er lige store, så rækkefølgen mellem dem er ligegyldig.
+
+Eksempler på sammenligninger:
+
+1. `a = 299`, `b = 799` -> `a - b = -500` -> `299` placeres før `799`.
+2. `a = 1299`, `b = 499` -> `a - b = 800` -> `1299` placeres efter `499`.
+3. `a = 450`, `b = 450` -> `a - b = 0` -> de er ens.
+
+Vigtigt at vide:
+
+1. `sort()` laver mange sammenligninger internt, indtil hele arrayet er i orden.
+2. Du styrer ikke rækkefølgen af sammenligningerne, kun reglen for sammenligning.
+3. `a - b` giver stigende sortering (billigst til dyrest).
+4. `b - a` vender den om (dyrest til billigst).
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
 ## Opgaver: `sort()` med tal
 
 Brug dette array:
@@ -129,49 +166,6 @@ const brands = ["Zeta", "Alpha", "ØkoWear", "Basic", "Århus Style"];
 2. Sorter brands Å-A.
 3. Test forskellen på sortering med og uden `"da"`.
 4. Skriv en kort note om, hvilken version der virker bedst for dansk tekst.
-
-</Slide>
-<div class="page-break"></div>
-<Slide>
-
-## Brug sortering i dit projekt
-
-Typisk flow i en produktliste:
-
-1. Hent produkter én gang
-2. Gem dem i en variabel (`allProducts`)
-3. Sorter en kopi af data, når brugeren klikker på en sorteringsknap
-4. Render listen igen
-
-```javascript
-const allProducts = []; // fyldes efter fetch
-
-function sortByPriceAsc() {
-  const sorted = [...allProducts].sort((a, b) => a.price - b.price);
-  showProducts(sorted);
-}
-
-function sortByNameAZ() {
-  const sorted = [...allProducts].sort((a, b) =>
-    a.productdisplayname.localeCompare(b.productdisplayname, "da"),
-  );
-  showProducts(sorted);
-}
-```
-
-</Slide>
-<div class="page-break"></div>
-<Slide>
-
-## Opgaver: Sortering i projektet
-
-1. Lav en knap: "Billigst først" (`a.price - b.price`).
-2. Lav en knap: "Dyrest først" (`b.price - a.price`).
-3. Lav en knap: "Navn A-Å" (`localeCompare`).
-4. Sørg for at knapperne genbruger `showProducts(...)`.
-5. Test at original-arrayet stadig er intakt efter hver sortering.
-
-Ekstra: Kombinér med filtrering, så I kan sortere inden for den valgte kategori.
 
 </Slide>
 <div class="page-break"></div>

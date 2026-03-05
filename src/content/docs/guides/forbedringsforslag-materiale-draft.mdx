@@ -1,0 +1,137 @@
+---
+title: "Internt: Forbedringsforslag til materialet"
+description: Intern evaluering af struktur, øvelsesmængde og sværhedsgrad
+draft: true
+sidebar:
+  label: Internt forbedringsforslag
+  order: 99
+---
+
+import Slide from "../../../components/Slide.astro";
+
+<Slide>
+
+## Formål med denne side
+
+Dette er en intern evalueringsside (draft), så forbedringsforslag kan samles ét sted.
+
+Fokus:
+
+1. Struktur på tværs af materialet
+2. Mængde og kvalitet af øvelser
+3. Risiko for at svarene er for tydelige
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Hvad fungerer rigtig godt
+
+1. Materialet er tydeligt modulopbygget i temaer og fagspor.
+2. JavaScript-delen har stærk progression (fra arrays/objects til fetch/filter/sort).
+3. Slides-formatet fungerer didaktisk godt til klasseundervisning.
+4. Mange konkrete kodeeksempler gør barrieren lav for studerende.
+5. I flere JS-emner er der allerede gode opgaveblokke med praksisnær kontekst.
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Strukturfund
+
+Overordnet vurdering: God struktur, men lidt ujævnhed mellem fagområder.
+
+Observationer:
+
+1. Nogle spor er meget øvelsestunge (især JavaScript), mens andre primært er forklaring.
+2. Nogle sider har næsten "tutorial/opskrift"-karakter, andre har åbne opgaver.
+3. Der er enkelte steder med gentagelser af forklaringer (kan give "scroll-træthed").
+
+Forslag:
+
+1. Brug samme side-ramme på tværs af fag:
+2. `Hvad lærer du? -> Eksempel -> Opgave A (styret) -> Opgave B (åben) -> Tjekliste`
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Er der øvelser nok?
+
+Kort svar: Ja i JavaScript, mindre tydeligt i flere andre spor.
+
+Vurdering:
+
+1. JS har mange øvelser og god repetition.
+2. HTML/CSS/Astro kan styrkes med flere tydeligt markerede "gør selv"-opgaver.
+3. Flere sider kunne have en kort "10-minutters mini-opgave" til aktiv træning.
+
+Forslag:
+
+1. Minimum 1 øvelse pr. læringsside i alle spor.
+2. Hver 3.-4. side: en "kombinationsøvelse" der genbruger tidligere stof.
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Er svarene for tydelige?
+
+Nogle steder ja.
+
+Mønstre hvor svaret næsten gives:
+
+1. Komplette "koden samlet"-blokke uden efterfølgende "fjern/fyld ud"-variant.
+2. Opgaver hvor template allerede indeholder næsten hele løsningen.
+3. For stærke hints lige ved siden af opgaven.
+
+Forslag til bedre balance:
+
+1. `Niveau 1`: stærkt stilladseret (som nu).
+2. `Niveau 2`: delvist udfyldte kodeskabeloner.
+3. `Niveau 3`: åbne opgaver uden facitkode i samme slide.
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Konkrete forbedringer (prioriteret)
+
+### P1 (hurtig effekt)
+
+1. Tilføj "Tjek i Console/DOM" under alle kodeopgaver.
+2. Tilføj vurderingskriterier under opgaver:
+   - "Bestået når: X vises, Y virker, Z er læsbart."
+3. Markér tydeligt forskel på eksempelkode vs. opgavekode.
+
+### P2 (mellem indsats)
+
+1. Indfør fast opgavetrio på centrale sider:
+   - Reproducer
+   - Modificér
+   - Overfør til eget projekt
+2. Saml "frekvente fejl" i små callouts pr. emne.
+
+### P3 (større løft)
+
+1. Lav små rubrics til mini-projekter (teknik, kvalitet, dokumentation).
+2. Lav progressionstests pr. tema (fx 15-min challenge uden facit).
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Skabelon til fremtidige opgaver
+
+Brug denne struktur:
+
+1. **Mål:** Hvad skal virke?
+2. **Startkode:** Min. nødvendig kode (ikke fuld løsning)
+3. **Krav:** 3-5 konkrete checkpoints
+4. **Hint (valgfri):** Foldbar eller nederst
+5. **Selvtjek:** Hvad skal de se i UI/Console?
+6. **Ekstra:** En åben variant til hurtige studerende
+
+Denne model holder både begyndere og stærke studerende i gang.
+
+</Slide>
