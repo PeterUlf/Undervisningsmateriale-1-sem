@@ -1,0 +1,104 @@
+---
+title: Tema 8 – Markdown grundregler
+description: Grundlæggende regler for at skrive tydelig og stabil Markdown.
+sidebar:
+  label: Tema 8 – Markdown grundregler
+  order: 8.2
+  badge:
+    text: Tema 8
+    variant: tip
+    class: badge-theme-8
+---
+
+## Hvad er Markdown?
+
+Markdown er et letvægtssprog til at formatere tekst, så den bliver læsbar uden kompliceret HTML. Du skriver i ren tekst, men browseren viser det som overskrifter, lister, links m.m.
+
+## Grundregler
+
+### 1) Enkelt linje og nyt afsnit
+
+- En tom linje adskiller to afsnit.
+- Markdown ignorerer ekstra mellemrum i starten og slutningen af en linje.
+
+```markdown
+Første afsnit.
+
+Andet afsnit begynder her.
+```
+
+### 2) Overskrifter
+
+Antallet af `#` bestemmer niveauet.
+
+```markdown
+# H1
+## H2
+### H3
+#### H4
+```
+
+Brug `#` konsekvent som `H1`, `H2`, `H3` osv.
+
+### 3) Tekst og typografi
+
+- **Fed**: `**teksten**`
+- *Kursiv*: `*teksten*`
+- ~~Gennemstregning~~: `~~teksten~~`
+- `inline-kode`: `` `kode` ``
+
+### 4) Lister
+
+Brug `-`, `*` eller `+` til punktlister og tal for nummererede lister.
+
+```markdown
+- Første punkt
+- Andet punkt
+  - Indrykket underpunkt
+
+1. Første trin
+2. Andet trin
+3. Tredje trin
+```
+
+### 5) Links og billeder
+
+```markdown
+[Åbn Google](https://google.com)
+
+![En beskrivelse af billedet](https://example.com/billede.jpg)
+```
+
+### 6) Citater og adskillelse
+
+- Citater starter med `>`
+- Horisontal linje laves typisk med `---`
+
+```markdown
+> Dette er et citat.
+
+---
+```
+
+### 7) Kodeblokke
+
+- Brug ` ``` ` til større kodestykker.
+- Angiv evt. sprog efter de tre backticks for farvehjælp.
+
+```javascript
+console.log("Hej, verden!");
+```
+
+## Typiske regler at huske
+
+1. Undgå at blande tabs/spatser ukontrolleret i begyndelsen af linjer.
+2. Brug tom linje før og efter lister, ellers kan formateringen bryde.
+3. Hold filnavn og sti simple, og brug understregning/`-` i filnavne.
+4. Én tom linje holder det meste visuelt ryddeligt.
+
+## Hurtigt tjek
+
+- H1 til Titel, H2 til kapitler, H3 til underkapitler.
+- Brug billeder og links med tydelige tekster.
+- Brug kodeblokke til eksempler og kommandoer.
+- Brug lister til trin, krav og tjeklister.

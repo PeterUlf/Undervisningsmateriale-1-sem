@@ -1,6 +1,6 @@
 ---
 title: Digital kunderejse med OMD's ECO-model
-description: Introduktion til den digitale kunderejse med OMD's ECO-model som reference
+description: En praktisk gennemgang af ECO-modellen til at planlægge den digitale kunderejse
 draft: true
 sidebar:
   label: Digital kunderejse (ECO)
@@ -14,139 +14,105 @@ sidebar:
 import Slide from "../../../components/Slide.astro";
 
 <style is:global>{`
-  .eco-model-wrap {
-    display: grid;
-    grid-template-columns: minmax(280px, 430px) 1fr;
-    gap: 1.25rem;
-    align-items: center;
+  .eco-diagram-wrap {
+    max-width: 860px;
+    margin: 0 auto 1.25rem;
   }
-
-  .eco-rings {
-    position: relative;
-    width: min(80vw, 420px);
-    aspect-ratio: 1;
-    margin-inline: auto;
+  .eco-diagram-img {
+    width: 100%;
+    height: auto;
+    display: block;
   }
-
-  .eco-ring {
-    position: absolute;
-    border-radius: 999px;
-    display: grid;
-    place-items: center;
-    text-align: center;
-    font-weight: 700;
-  }
-
-  .eco-ring.paid {
-    inset: 0;
-    border: 2px solid #f59e0b;
-    background: rgba(245, 158, 11, 0.12);
-    color: #f59e0b;
-  }
-
-  .eco-ring.earned {
-    inset: 12%;
-    border: 2px solid #38bdf8;
-    background: rgba(56, 189, 248, 0.12);
-    color: #38bdf8;
-  }
-
-  .eco-ring.owned {
-    inset: 24%;
-    border: 2px solid #22c55e;
-    background: rgba(34, 197, 94, 0.12);
-    color: #22c55e;
-  }
-
-  .eco-ring.eco {
-    inset: 38%;
-    border: 2px solid var(--sl-color-accent);
-    background: var(--sl-color-bg);
+  .eco-diagram-caption {
+    margin-top: 0.75rem;
     color: var(--sl-color-text);
+    opacity: 0.85;
   }
-
-  .eco-label {
-    font-size: 0.95rem;
-    line-height: 1.2;
-  }
-
-  .eco-side ul {
+  .eco-diagram-caption {
     margin: 0;
-    padding-left: 1.1rem;
-  }
-
-  @media (max-width: 900px) {
-    .eco-model-wrap {
-      grid-template-columns: 1fr;
-    }
+    text-align: center;
+    color: var(--sl-color-text);
+    opacity: 0.85;
+    font-size: 0.95rem;
   }
 `}</style>
 
 <Slide>
 
-## Visualisering af ECO-modellen (OMD-reference)
+## ECO-modellen i praksis
 
-<div class="eco-model-wrap">
-  <div class="eco-rings">
-    <div class="eco-ring paid">
-      <span class="eco-label">Paid</span>
-    </div>
-    <div class="eco-ring earned">
-      <span class="eco-label">Earned</span>
-    </div>
-    <div class="eco-ring owned">
-      <span class="eco-label">Owned</span>
-    </div>
-    <div class="eco-ring eco">
-      <span class="eco-label">ECO<br />Målgruppe</span>
-    </div>
-  </div>
-
-  <div class="eco-side">
-    <p>
-      Forenklet visualisering: Kundens behov står i centrum, og
-      brandets kanalvalg planlægges rundt om kunden.
-    </p>
-    <ul>
-      <li>
-        <strong>Owned</strong>: egne kanaler tæt på relationen
-      </li>
-      <li>
-        <strong>Earned</strong>: omtale og anbefaling fra andre
-      </li>
-      <li>
-        <strong>Paid</strong>: købt rækkevidde og opmærksomhed
-      </li>
-    </ul>
-  </div>
+<div class="eco-diagram-wrap">
+  <img
+    src="/illustrationer/eco-model.svg"
+    alt="ECO-modellen med tre kanaltyper (Paid, Earned, Owned) og kunderejsens faser"
+    class="eco-diagram-img"
+    loading="lazy"
+    decoding="async"
+  />
 </div>
+
+<p class="eco-diagram-caption">
+  Billedet viser modellen visuelt: hver fase i kunderejsen kræver en bevidst blanding af kanaler.
+</p>
+
+OMD's ECO-model er et strategisk rammeværk for **hvilke kanaler et brand bruger** i kunderejsen.
+
+Modellen består af tre kanaltyper:
+
+1. **Paid**  
+   Synlighed, I betaler for (fx annoncer på Google, Facebook/Instagram, display ads, podcast ads).
+2. **Owned**  
+   Jeres egne ejede kanaler, I kontrollerer fuldt ud (fx egen hjemmeside, webshop, nyhedsbrev, SMS/CRM, app, egne SoMe-profiler).
+3. **Earned**  
+   Synlighed I ikke kan købe direkte, men som opstår, når kunder anbefaler jer (fx omtale, anmeldelser, delinger, PR, influencere).
+
+Tænk på modellen som en beslutningsramme:  
+**Hvilke mål vil vi nå i denne fase, og hvilken kanal-type er bedst til det?**
+
+Det handler ikke om at vælge én af tre. Det handler om den rigtige **kombination** på tværs af faserne.
 
 </Slide>
 <div class="page-break"></div>
 <Slide>
 
-## Den digitale kunderejse (med OMD's ECO-model som reference)
+## Sådan bruger I den i den digitale kunderejse
 
-OMD's ECO-model bruges ofte som et planlægningsværktøj til at koble kunderejsen med tre medietyper:
+En simpel kunderejse kan i denne model beskrives sådan:
 
-1. **Paid**: købt synlighed (annoncer, display, SoMe ads, search ads)
-2. **Owned**: egne kanaler (website, nyhedsbrev, app, egne SoMe-profiler)
-3. **Earned**: fortjent omtale (anbefalinger, delinger, anmeldelser, PR)
+- **Trigger**: noget sætter forbrugeren i gang
+- **Sår**: indledende overvejelser og indsamling af de første signaler
+- **Høst**: informationssøgning og sammenligning
+- **Oplevelse**: kundens erfaring lige efter køb
+- **Loyalitet**: fastholdelse og anbefaling
 
-Typisk digital kunderejse:
+Der er også stadig et **købslinje-skifte** mellem høst og oplevelse (konvertering), hvor budskabet skal være entydigt.
 
-1. **Awareness**: kunden opdager behovet eller brandet
-2. **Consideration**: kunden undersøger og sammenligner
-3. **Conversion**: kunden tager handling (køb, signup, booking)
-4. **Loyalty/Advocacy**: kunden vender tilbage og anbefaler videre
+Nu kobler vi faserne til ECO:
 
-Kobling til ECO-modellen:
+| Fase | Hvad kunden har brug for | Typisk mix af kanaler |
+| --- | --- | --- |
+| Trigger | Opdage problemet/brandet | Primært **Paid + Earned** |
+| Sår | Få tryghed i de indledende overvejelser | Primært **Owned + Earned** |
+| Høst | Få dyb information og sammenligne | Primært **Owned + Earned** |
+| Oplevelse | Forstå, om løftet bliver holdt | Primært **Owned + Earned** |
+| Loyalitet | Have lyst til at sige deres egne erfaringer | Primært **Owned + Earned** |
 
-1. Awareness: primært `Paid + Earned`
-2. Consideration: primært `Owned + Earned`
-3. Conversion: primært `Owned + Paid` (fx remarketing)
-4. Loyalty/Advocacy: primært `Owned + Earned`
+Bemærkning: artiklen i Coma Stories peger også på, at **købsbeslutningen** placeres som overgang mellem høst og oplevelse, så fokus skifter fra overtalelse til bekræftelse.
 
-Pointen: Brug ikke kanaler isoleret. Planlæg kunderejsen på tværs af `Paid`, `Owned` og `Earned`, så kunden møder et sammenhængende budskab i alle faser.
+### Eksempel (kort, så eleverne kan bruge det)
+- **Trigger** ligner ofte en betalt annonce, artikelomtale eller deling, der giver første berøring.
+- **Sår** styrkes af eget indhold med gode forklaringer (fremhæver relevance).
+- **Høst** bliver vundet med cases, FAQ, anmeldelser og guides.
+- **Oplevelse** kræver en stærk onboarding, tydelig kommunikation efter køb og hurtig support.
+- **Loyalitet** afhænger af service, opfølgning og aktivt opsamlet anbefaling.
+
+### Hvad er det, I faktisk skal bruge ECO til?
+
+1. **Planlægning**: Fordel budskaberne fase for fase i stedet for at skyde kanaler ind tilfældigt.
+2. **Koordinering**: Sørg for at annoncemateriale, egne sider og anbefalinger siger det samme.
+3. **Optimering**: Justér budget og indsats dér, hvor en fase mangler stødpude.
+4. **Dokumentation**: Forklar tydeligt, hvorfor en bestemt kanal er valgt i en bestemt fase.
+
+Hvis I får det gjort korrekt, får I en samlet kunderejse, hvor alle kontaktpunkter trækker i samme retning i stedet for at modarbejde hinanden.
 
 </Slide>

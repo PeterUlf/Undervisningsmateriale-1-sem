@@ -256,6 +256,24 @@ export default defineConfig({
               },
             },
             {
+              label: "Tema 8 – Markdown grundregler",
+              slug: "quiz/tema-8-markdown-grundregler",
+              badge: {
+                text: "Tema 8",
+                variant: "tip",
+                class: "badge-theme-8",
+              },
+            },
+            {
+              label: "Tema 8 – Nye ord",
+              slug: "quiz/tema-8-nye-ord",
+              badge: {
+                text: "Tema 8",
+                variant: "tip",
+                class: "badge-theme-8",
+              },
+            },
+            {
               label: "Genvejstaster – Quiz",
               slug: "quiz/genvejstaster",
               badge: {

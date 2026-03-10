@@ -42,31 +42,30 @@ Du lærer:
 
 ```javascript
 const numbers = [3, 8, 12, 15, 22];
-const evenNumbers = numbers.filter((num) => num % 2 === 0);
+const numbersOver10 = numbers.filter((num) => num > 10);
 
-console.log(evenNumbers); // [8, 12, 22]
+console.log(numbersOver10); // [12, 15, 22]
 ```
 
 Grundig forklaring af linjen:
 
-`const evenNumbers = numbers.filter((num) => num % 2 === 0);`
+`const numbersOver10 = numbers.filter((num) => num > 10);`
 
 1. `numbers.filter(...)` betyder: "Gå alle tal i `numbers` igennem, og behold kun dem hvor betingelsen er `true`."
 2. `(num) => ...` er callback-funktionen, der kører én gang pr. tal i arrayet.
-3. `num % 2` finder resten, når tallet deles med 2.
-4. `=== 0` tjekker om resten er 0.
-5. Hvis resultatet er `true`, kommer tallet med i `evenNumbers`.
-6. Hvis resultatet er `false`, bliver tallet sorteret fra.
+3. `num > 10` tjekker, om tallet er større end 10.
+4. Hvis resultatet er `true`, kommer tallet med i `numbersOver10`.
+5. Hvis resultatet er `false`, bliver tallet sorteret fra.
 
 Sådan evalueres eksemplet:
 
-1. `3 % 2 = 1` -> `1 === 0` er `false` -> `3` fjernes.
-2. `8 % 2 = 0` -> `0 === 0` er `true` -> `8` beholdes.
-3. `12 % 2 = 0` -> `true` -> `12` beholdes.
-4. `15 % 2 = 1` -> `false` -> `15` fjernes.
-5. `22 % 2 = 0` -> `true` -> `22` beholdes.
+1. `3 > 10` er `false` -> `3` fjernes.
+2. `8 > 10` er `false` -> `8` fjernes.
+3. `12 > 10` er `true` -> `12` beholdes.
+4. `15 > 10` er `true` -> `15` beholdes.
+5. `22 > 10` er `true` -> `22` beholdes.
 
-Resultatet bliver derfor `[8, 12, 22]`.
+Resultatet bliver derfor `[12, 15, 22]`.
 
 Vigtigt:
 
