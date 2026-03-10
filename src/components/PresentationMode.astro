@@ -1,23 +1,26 @@
 ---
 // src/components/PresentationMode.astro
 const { buttonText = "📺 Slideshow" } = Astro.props;
+const hidePresentation = Astro.url.pathname === "/quiz/tema-8" || Astro.url.pathname === "/quiz/tema-8/";
 ---
 
-<div class="presentation-ui">
-  <button id="start-presentation-btn" class="start-btn">
-    {buttonText}
-  </button>
+{!hidePresentation && (
+  <div class="presentation-ui">
+    <button id="start-presentation-btn" class="start-btn">
+      {buttonText}
+    </button>
 
-  <dialog id="presentation-dialog">
-    <div class="controls">
-      <button id="prev-slide" disabled>←</button>
-      <span id="slide-counter">1 / 1</span>
-      <button id="next-slide">→</button>
-      <button id="close-presentation" class="close-btn">✕ Luk</button>
-    </div>
-    <div id="slide-container"></div>
-  </dialog>
-</div>
+    <dialog id="presentation-dialog">
+      <div class="controls">
+        <button id="prev-slide" disabled>←</button>
+        <span id="slide-counter">1 / 1</span>
+        <button id="next-slide">→</button>
+        <button id="close-presentation" class="close-btn">✕ Luk</button>
+      </div>
+      <div id="slide-container"></div>
+    </dialog>
+  </div>
+)}
 
 <style>
   .presentation-ui {
@@ -167,6 +170,10 @@ const { buttonText = "📺 Slideshow" } = Astro.props;
       
       this.slides = [];
       this.currentIndex = 0;
+
+      if (!this.startBtn || !this.dialog || !this.container) {
+        return;
+      }
 
       if (this.startBtn) {
         this.startBtn.addEventListener('click', () => this.start());

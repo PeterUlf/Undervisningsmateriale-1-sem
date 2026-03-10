@@ -11,13 +11,14 @@ type Question = {
 type Props = {
   title?: string;
   questions: Question[];
+  showSubmit?: boolean;
 };
 
-const { title, questions } = Astro.props as Props;
+const { title, questions, showSubmit = true } = Astro.props as Props;
 const visibleQuestions = questions.slice(0, 20);
 ---
 
-<section class="quiz">
+<section class="quiz" data-show-submit={showSubmit ? 'true' : 'false'}>
   <div class="quiz-timer-bar">
     <div class="quiz-timer-inner">
       {title && <h2 class="quiz-title">{title}</h2>}
@@ -54,12 +55,16 @@ const visibleQuestions = questions.slice(0, 20);
     </article>
   ))}
 
-  <div class="quiz-submit-wrapper">
-    <button type="button" class="quiz-submit-btn">
-      Aflever test
-    </button>
-    <p class="quiz-result" hidden></p>
-  </div>
+  {
+    showSubmit && (
+      <div class="quiz-submit-wrapper">
+        <button type="button" class="quiz-submit-btn">
+          Aflever test
+        </button>
+        <p class="quiz-result" hidden></p>
+      </div>
+    )
+  }
 </section>
 
 <style>
