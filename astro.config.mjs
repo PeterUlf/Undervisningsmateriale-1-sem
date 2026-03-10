@@ -56,6 +56,10 @@ export default defineConfig({
               autogenerate: { directory: "css" },
             },
             {
+              label: "Diverse",
+              autogenerate: { directory: "diverse" },
+            },
+            {
               label: "SVG",
               autogenerate: { directory: "svg" },
             },
@@ -249,24 +253,6 @@ export default defineConfig({
             {
               label: "Tema 8 – Quiz",
               slug: "quiz/tema-8",
-              badge: {
-                text: "Tema 8",
-                variant: "tip",
-                class: "badge-theme-8",
-              },
-            },
-            {
-              label: "Tema 8 – Markdown grundregler",
-              slug: "quiz/tema-8-markdown-grundregler",
-              badge: {
-                text: "Tema 8",
-                variant: "tip",
-                class: "badge-theme-8",
-              },
-            },
-            {
-              label: "Tema 8 – Nye ord",
-              slug: "quiz/tema-8-nye-ord",
               badge: {
                 text: "Tema 8",
                 variant: "tip",

@@ -10,6 +10,9 @@ sidebar:
     class: badge-theme-8
 ---
 
+import Slide from "../../../components/Slide.astro";
+
+<Slide>
 ## Hvad er Markdown?
 
 Markdown er et letvægtssprog til at formatere tekst, så den bliver læsbar uden kompliceret HTML. Du skriver i ren tekst, men browseren viser det som overskrifter, lister, links m.m.
@@ -27,25 +30,39 @@ Første afsnit.
 Andet afsnit begynder her.
 ```
 
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
 ### 2) Overskrifter
 
 Antallet af `#` bestemmer niveauet.
 
 ```markdown
 # H1
+
 ## H2
+
 ### H3
+
 #### H4
 ```
 
 Brug `#` konsekvent som `H1`, `H2`, `H3` osv.
 
+</Slide>
+<div class="page-break"></div>
+<Slide>
 ### 3) Tekst og typografi
 
 - **Fed**: `**teksten**`
-- *Kursiv*: `*teksten*`
+- _Kursiv_: `*teksten*`
 - ~~Gennemstregning~~: `~~teksten~~`
 - `inline-kode`: `` `kode` ``
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
 
 ### 4) Lister
 
@@ -61,6 +78,9 @@ Brug `-`, `*` eller `+` til punktlister og tal for nummererede lister.
 3. Tredje trin
 ```
 
+</Slide>
+<div class="page-break"></div>
+<Slide>
 ### 5) Links og billeder
 
 ```markdown
@@ -69,6 +89,9 @@ Brug `-`, `*` eller `+` til punktlister og tal for nummererede lister.
 ![En beskrivelse af billedet](https://example.com/billede.jpg)
 ```
 
+</Slide>
+<div class="page-break"></div>
+<Slide>
 ### 6) Citater og adskillelse
 
 - Citater starter med `>`
@@ -80,6 +103,9 @@ Brug `-`, `*` eller `+` til punktlister og tal for nummererede lister.
 ---
 ```
 
+</Slide>
+<div class="page-break"></div>
+<Slide>
 ### 7) Kodeblokke
 
 - Brug ` ``` ` til større kodestykker.
@@ -102,3 +128,5 @@ console.log("Hej, verden!");
 - Brug billeder og links med tydelige tekster.
 - Brug kodeblokke til eksempler og kommandoer.
 - Brug lister til trin, krav og tjeklister.
+
+</Slide>
