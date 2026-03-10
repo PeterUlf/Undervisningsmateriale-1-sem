@@ -87,7 +87,7 @@ import Default from '@astrojs/starlight/components/Sidebar.astro';
 
           // Hvis der ikke er noget badge, så skjul punktet når der filtreres på et specifikt tema
           if (!badge) {
-            liEl.style.display = isAll ? '' : 'none';
+            liEl.style.display = '';
             return;
           }
 

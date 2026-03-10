@@ -1,6 +1,6 @@
 ---
 title: Tema 8 – Multiple Choice
-description: Test din viden om subgrid og avancerede layout-teknikker i CSS.
+description: "Test din viden om Tema 8: Subgrid, Markdown og JavaScript/Fetch."
 sidebar:
   label: Tema 8 – Multiple Choice
   order: 8
@@ -13,324 +13,253 @@ sidebar:
 import Quiz from "../../../components/Quiz.astro";
 
 <Quiz
-  title="Tema 8 – Subgrid og avanceret layout"
+  title="Tema 8 – Subgrid, Markdown og JavaScript"
   questions={[
     {
-      question: "Hvad er formålet med CSS Grid?",
+      question: "Hvad bruges CSS Grid typisk til?",
       options: [
-        "At lave enkle liste-styles",
+        "At lave lister i tekst",
         "At lave todimensionelle layout med rækker og kolonner",
-        "At animere farver",
-        "At håndtere formularvalidering",
+        "At skrive data til API'er",
+        "At style links med farver",
       ],
       correctIndex: 1,
       explanation:
-        "Grid er et todimensionelt layout-system, der kan styre både rækker og kolonner.",
+        "CSS Grid er et 2D-layoutsystem til at styre både rækker og kolonner samtidigt.",
     },
     {
-      question: "Hvad er `subgrid` i CSS Grid?",
+      question: "Hvad betyder `subgrid` i CSS Grid?",
       options: [
-        "En type media query",
-        "En måde at lade et nested grid arve spor (tracks) fra sin parent",
-        "En speciel flexbox-variant",
-        "En preprocessor til CSS",
+        "Et grid der altid skal have egne rækker/kolonner",
+        "Et grid, der kan arve spor fra sin overordnede grid-container",
+        "Et værktøj til API-kald",
+        "Et JavaScript-array",
       ],
       correctIndex: 1,
       explanation:
-        "Med `subgrid` kan et underordnet grid justere sig efter forælderens kolonner/rækker.",
+        "Med `subgrid` kan et indlejret grid bruge parent-gridets definerede kolonner og/eller rækker.",
     },
     {
-      question:
-        "Hvilken værdi skal du typisk bruge på `grid-template-columns` i parent for at subgrid giver mening?",
+      question: "Hvad kræves ofte, for at et subgrid virker korrekt?",
       options: [
-        "`none`",
-        "Noget der definerer spor, fx `repeat(4, 1fr)`",
-        "Kun `auto`",
-        "Det er ligegyldigt",
+        "Et tomt HTML-dokument",
+        "Parent skal have definerede tracks (fx med `grid-template-columns` eller `grid-template-rows`)",
+        "Et `span` på alle children",
+        "Et script med `defer` i head",
       ],
       correctIndex: 1,
       explanation:
-        "Parent-gridet skal have definerede spor, som subgrid kan arve.",
+        "Parent-gridet skal definere tracks, som det underliggende grid kan arve.",
     },
     {
-      question: "Hvordan aktiverer du subgrid på et child-element?",
+      question: "Hvad bruges `grid-template-columns: subgrid;` til?",
       options: [
-        "`display: subgrid;`",
-        "`display: grid;` og fx `grid-template-columns: subgrid;`",
-        "`display: flex;`",
-        "`position: subgrid;`",
-      ],
-      correctIndex: 1,
-      explanation:
-        "Elementet er et grid, men dets spor defineres af parent via værdien `subgrid`.",
-    },
-    {
-      question: "Hvad er en fordel ved at bruge subgrid i et komplekst layout?",
-      options: [
-        "At hver komponent kan definere helt vilkårlige kolonner",
-        "At nested elementer kan flugte pænt på tværs af rækker og kolonner uden duplikering af grid-definitioner",
-        "At du helt slipper for media queries",
-        "At browseren bliver hurtigere",
-      ],
-      correctIndex: 1,
-      explanation:
-        "Subgrid gør det nemmere at holde kolonner/rytme ens, selv dybt nede i hierarkiet.",
-    },
-    {
-      question:
-        "Hvilken property kan sættes til `subgrid` ud over `grid-template-columns`?",
-      options: ["grid-template-rows", "justify-content", "gap", "align-items"],
-      correctIndex: 0,
-      explanation:
-        "Du kan arve rækker, kolonner – eller begge – fra parent-gridet.",
-    },
-    {
-      question:
-        "Hvad sker der, hvis du sætter `grid-template-columns: subgrid;` men parent ikke har definerede kolonner?",
-      options: [
-        "Det virker fint alligevel",
-        "Browseren gætter på kolonnerne",
-        "Subgrid kan ikke fungere, fordi der ikke er noget at arve",
-        "Det slår grid helt fra",
+        "At fjerne alle kolonner fra et grid",
+        "At give child-grid en tilfældig bredde",
+        "At gøre child-grid bruge samme kolonner som parent",
+        "At aktivere CSS-animation",
       ],
       correctIndex: 2,
       explanation:
-        "Subgrid er afhængig af at parent-gridet har definerede spor.",
+        "`subgrid` på `grid-template-columns` lader undergrid arve parentens kolonnedefinitioner.",
     },
     {
-      question: "Hvad er `gap` i CSS Grid?",
+      question: "Hvilket udsagn om `auto-fit` og `auto-fill` er korrekt?",
       options: [
-        "Afstand mellem border og indhold",
-        "Afstand mellem rækker og kolonner (gitterets mellemrum)",
-        "Margin mellem grid og viewport",
-        "Linjehøjden på tekst",
+        "De gør begge præcis det samme",
+        "`auto-fill` komprimerer kolonner, mens `auto-fit` holder tomme spor",
+        "`auto-fit` kan samle tomme spor ind, mens `auto-fill` holder tomme spor synlige",
+        "Ingen af delene virker i grid",
+      ],
+      correctIndex: 2,
+      explanation:
+        "Med `auto-fit` fylder rækker/kolonner sig ud ved tomme spor; `auto-fill` bevarer plads til tomme linjer.",
+    },
+    {
+      question: "Hvordan laver du en H2-overskrift i Markdown?",
+      options: [
+        "`# Overskrift`",
+        "`## Overskrift`",
+        "`---- Overskrift`",
+        "`[## Overskrift]`",
       ],
       correctIndex: 1,
-      explanation: "`gap` styrer mellemrummet mellem grid-cellerne.",
+      explanation: "To `#` i starten af en linje laver en H2-overskrift.",
     },
     {
-      question: "Hvad er forskellen på `gap` og `margin` i et grid-layout?",
+      question: "Hvilken syntaks er korrekt for et Markdown-link?",
       options: [
-        "`gap` påvirker kun mellemrum inde i gridet, `margin` påvirker ydre afstand til andre elementer",
+        "`[Tekst][url]`",
+        "`{Tekst}(url)`",
+        "`[Tekst](url)`",
+        "`<a href='url'>Tekst</a>`",
+      ],
+      correctIndex: 2,
+      explanation: "`[Tekst](url)` er standard Markdown-link-syntaks.",
+    },
+    {
+      question: "Hvilken skrivemåde kan bruges til punktlister i Markdown?",
+      options: [
+        '"-" / "*" / "+"',
+        '"1)" eller "1."',
+        "`1)` eller `a)`",
+        '"->"',
+      ],
+      correctIndex: 0,
+      explanation: "Punktlister kan startes med `-`, `*` eller `+`.",
+    },
+    {
+      question: "Hvad er et JavaScript-array?",
+      options: [
+        "Et tal",
+        "En liste af værdier i et variabelnavn med `[]`",
+        "Et HTML-element",
+        "En tekststreng mellem citationstegn",
+      ],
+      correctIndex: 1,
+      explanation:
+        "Et array samler flere værdier i en ordnet liste med indekserne 0, 1, 2...",
+    },
+    {
+      question: "Hvad bliver `fruits[0]` i arrayet `['Æble', 'Banan']`?",
+      options: ["Æble", "Banan", "undefined", "B"],
+      correctIndex: 0,
+      explanation: "Array-indeks starter altid ved 0 i JavaScript.",
+    },
+    {
+      question: "Hvad er et almindeligt udtryk for det sidste element i et array `fruits`?",
+      options: [
+        "fruits[-1]",
+        "fruits.length",
+        "fruits[fruits.length - 1]",
+        "fruits.last",
+      ],
+      correctIndex: 2,
+      explanation:
+        "`fruits.length - 1` giver sidst index i arrayet.",
+    },
+    {
+      question: "Hvad er en vigtig forskel på array og object?",
+      options: [
+        "Et array er nummererede værdier, mens object bruger navngivne keys",
+        "Et object kan ikke indeholde tal",
+        "Et array kan kun indeholde tekst",
         "Der er ingen forskel",
-        "`margin` er kun til flexbox",
-        "`gap` kan kun bruges vandret",
       ],
       correctIndex: 0,
       explanation:
-        "`gap` er indvendig spacing, mens `margin` er udvendig spacing.",
+        "Array bruger index (0,1,2...), object bruger key/value-par med navne.",
     },
     {
-      question: "Hvordan kan du kombinere CSS Grid og flexbox i samme layout?",
+      question: "Hvordan henter du typisk en værdi fra et objekt med navnet `product.display`?",
       options: [
-        "Det er ikke muligt",
-        "Ved at bruge grid til den overordnede struktur og flexbox til små komponenter inde i grid-celler",
-        "Kun ved at bruge JavaScript",
-        "Kun i Firefox",
+        "product(\"display\")",
+        "product[\"display\"]",
+        "product.display",
+        "display.product",
+      ],
+      correctIndex: 2,
+      explanation: "Dot-notation `obj.key` bruges normalt, når key-navnet er kendt.",
+    },
+    {
+      question: "Hvordan adskiller JSON sig fra et JavaScript-objekt?",
+      options: [
+        "JSON kan ikke indeholde arrays",
+        "I JSON skal keys stå i dobbelte citationstegn",
+        "JavaScript-objekter kan ikke bruge tal",
+        "JSON kan kun sendes med GraphQL",
+      ],
+      correctIndex: 1,
+      explanation: "JSON er tekstformat med fx dobbelte citationstegn omkring keys og strenge.",
+    },
+    {
+      question: "Hvad bruges `fetch()` til?",
+      options: [
+        "At sætte CSS-klasser på elementer",
+        "At hente data fra en URL/API",
+        "At sortere arrays lokalt",
+        "At læse filer fra brugerens computer",
       ],
       correctIndex: 1,
       explanation:
-        "Ofte bruges grid til det store layout og flexbox til justering inde i enkelte bokse.",
+        "`fetch()` er den moderne måde at hente data asynkront fra et endpoint.",
     },
     {
       question:
-        "Hvilket værktøj i browserens DevTools er særligt nyttigt til at forstå komplekse grids?",
+        "Hvad sker der i rækkefølgen i `fetch(url).then((res) => res.json()).then((data) => show(data))`?",
       options: [
-        "Netværks-inspektoren",
-        "Grid-inspektoren, der kan tegne linjer og numre oven på layoutet",
-        "Performance-profileren",
-        "Lyd-inspektoren",
+        "show() køres før fetch",
+        "Først hentes response, så konverteres til JSON, så sendes resultatet til show()",
+        "Data bliver sorteret før fetch",
+        "fetch virker kun uden .then",
       ],
       correctIndex: 1,
       explanation:
-        "Grid-inspektorer gør det nemmere at se spor, linjer og celler direkte i browseren.",
+        "Kæden gør tre trin: hentning, JSON-parsing, så viderebehandling i `show(data)`.",
     },
     {
       question:
-        "Hvad betyder det, hvis du sætter `minmax(200px, 1fr)` i en grid-definition?",
+        "Hvad bruges `URLSearchParams(window.location.search).get(\"id\")` typisk til?",
       options: [
-        "Cellerne bliver altid 200px",
-        "Cellerne kan blive mindre end 200px",
-        "Cellerne kan ikke blive større end 200px",
-        "Cellerne er mindst 200px brede og kan vokse op til at fylde den ledige plads (1fr)",
-      ],
-      correctIndex: 3,
-      explanation: "`minmax` er nyttig til responsive kolonner.",
-    },
-    {
-      question: "Hvad bruges `auto-fit` og `auto-fill` ofte til i `repeat()`?",
-      options: [
-        "At lave animationer",
-        "At udfylde rækken med så mange kolonner som muligt, afhængigt af bredden",
-        "At ændre typografien",
-        "At definere z-index",
+        "At åbne en ny fane",
+        "At læse et query-parameter fra URL'en",
+        "At sortere et array",
+        "At ændre `innerHTML`",
       ],
       correctIndex: 1,
       explanation:
-        "De hjælper med at lave responsive grid-layouts uden faste antal kolonner.",
+        "Det bruges til at læse værdier efter `?` i URL'en, fx `?id=1528`.",
     },
     {
-      question: "Hvad er forskellen på `auto-fit` og `auto-fill`?",
+      question: "Hvorfor placeres scripts ofte med `defer` i `<head>`?",
       options: [
-        "Der er ingen forskel",
-        '`auto-fit` kan trække kolonner sammen, så de fylder rummet, mens `auto-fill` reserverer plads til "tomme" spor',
-        "`auto-fit` er kun til rækker",
-        "`auto-fill` er kun til mobil",
+        "Det kører scriptet før HTML er bygget",
+        "Det udsætter eksekvering til efter HTML er parsed, og bevarer rækkefølgen",
+        "Det fjerner behovet for et script-element",
+        "Det gør `fetch` synkront",
       ],
       correctIndex: 1,
       explanation:
-        "Forskellen ses især når viewporten bliver større end den samlede minimumsbredde.",
+        "`defer` henter scriptet tidligt, men venter med at køre det til dokumentet er klar.",
     },
     {
       question:
-        "Hvordan kan du centrere et element både lodret og vandret i et grid?",
+        "Hvilket af følgende spørgsmål beskriver bedst, hvad `map()` gør?",
       options: [
-        "`align-self: center; justify-self: center;` på elementet",
-        "`text-align: center;`",
-        "`margin: auto 0;`",
-        "Det er umuligt",
+        "Det fjerner elementer fra et array",
+        "Det opdaterer arrayet på stedet uden tilbagevenden",
+        "Det returnerer et nyt array med transformerede værdier",
+        "Det finder et element med bestemte egenskaber",
       ],
-      correctIndex: 0,
+      correctIndex: 2,
       explanation:
-        "`align-self` styrer lodret justering, `justify-self` vandret inden for cellen.",
-    },
-    {
-      question: "Hvad gør `grid-template-areas`?",
-      options: [
-        'Definerer navngivne felter (områder) i gridet ved hjælp af et "tekst-lignende" mønster',
-        "Definerer farver på celler",
-        "Definerer animationer",
-        "Definerer kun antal rækker",
-      ],
-      correctIndex: 0,
-      explanation:
-        "`grid-template-areas` gør komplekse layouts mere læsbare og nemmere at vedligeholde.",
+        "`map` gennemgår alle elementer og bygger et nyt array med returnerede værdier.",
     },
     {
       question:
-        "Hvordan placerer du et element i et område defineret med `grid-template-areas`?",
+        "Hvilken metode bruges til at filtrere et array med en betingelse?",
       options: [
-        "Med `grid-area: navn;` på elementet",
-        "Med `position: absolute;`",
-        "Med `display: block;`",
-        "Med `float: left;`",
-      ],
-      correctIndex: 0,
-      explanation: "`grid-area` binder elementet til et navngivet område.",
-    },
-    {
-      question: "Hvad gør `align-content` i et grid-layout?",
-      options: [
-        "Justerer individuelle items i en celle",
-        "Justerer hele grid-blokken inden for containeren (når der er ekstra plads i cross-aksen)",
-        "Skifter skrifttype",
-        "Bestemmer responsive breakpoints",
+        "forEach",
+        "filter",
+        "sort",
+        "map",
       ],
       correctIndex: 1,
       explanation:
-        "`align-content` handler om hele gridets placering, ikke enkelte celler.",
-    },
-    {
-      question: "Hvad gør `justify-content` i et grid-layout?",
-      options: [
-        "Justerer gridet horisontalt i containeren",
-        "Justerer tekst i en celle",
-        "Skifter farven på baggrunden",
-        "Ændrer antal kolonner",
-      ],
-      correctIndex: 0,
-      explanation:
-        "`justify-content` handler om horisontal justering af hele gridet.",
-    },
-    {
-      question: 'Hvad er en "layout-ryggrad" i design af større sider?',
-      options: [
-        "En tilfældig opsætning",
-        "En konsekvent grid-struktur (kolonner, margins, gutter), som alle sider følger",
-        "Kun typografien",
-        "Kun farverne",
-      ],
-      correctIndex: 1,
-      explanation:
-        "En fælles layout-ryggrad gør designet sammenhængende og ensartet.",
+        "`filter()` returnerer kun de elementer, der opfylder betingelsen.",
     },
     {
       question:
-        "Hvordan kan subgrid hjælpe med at holde en fælles layout-ryggrad?",
+        "Hvilken sorteringsfunktion giver typisk stigende talrækkefølge i `sort()`?",
       options: [
-        "Ved at ignorere parent-layoutet",
-        "Ved at sørge for at indhold længere nede i DOM'en stadig flugter med overordnede kolonner",
-        "Ved at fjerne behovet for grid helt",
-        "Ved at tvinge alle elementer til fuld bredde",
+        "a + b",
+        "a > b",
+        "(a, b) => a - b",
+        "Math.max(a, b)",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
-        "Subgrid sikrer at selv nested komponenter respekterer hoved-gridets spor.",
-    },
-    {
-      question:
-        "Hvad er vigtigt at teste, når du laver avancerede layouts med subgrid?",
-      options: [
-        "Kun hvordan det ser ud i én browser",
-        "Hvordan layoutet opfører sig på forskellige skærmstørrelser og i flere browsere",
-        "Kun farverne",
-        "Kun skrifttypen",
-      ],
-      correctIndex: 1,
-      explanation:
-        "Tjek både responsivitet og browser-support – især når du bruger nyere features som subgrid.",
-    },
-    {
-      question:
-        "Hvordan kan du lave et simpelt fallback, hvis en browser ikke understøtter subgrid?",
-      options: [
-        "Ved at lade siden fejle",
-        "Ved at definere et mere simpelt layout uden subgrid, som stadig er brugbart",
-        "Ved at skjule alt indhold",
-        "Det er umuligt",
-      ],
-      correctIndex: 1,
-      explanation:
-        "Progressive enhancement: giv en god basisoplevelse og forbedr med subgrid hvor muligt.",
-    },
-    {
-      question:
-        "Hvad er en god måde at starte på, når du designer et komplekst grid-layout?",
-      options: [
-        "Kode det direkte uden plan",
-        "Lave en hurtig skitse eller wireframe med hovedområder og kolonner",
-        "Starte med farverne",
-        "Kun tænke på animationer",
-      ],
-      correctIndex: 1,
-      explanation:
-        "En skitse hjælper dig med at definere struktur og hierarki, før du koder.",
-    },
-    {
-      question:
-        "Hvorfor er konsistente spacing-værdier (fx 4/8/16/24px) vigtige i layouts?",
-      options: [
-        "Så designet ser tilfældigt ud",
-        "De gør layoutet mere harmonisk, forudsigeligt og lettere at ændre",
-        "For at bruge mere CSS",
-        "For at undgå grid",
-      ],
-      correctIndex: 1,
-      explanation:
-        "Et design-system med faste spacing-trin gør det lettere at holde styr på layoutet.",
-    },
-    {
-      question:
-        "Hvordan kan du beskrive layoutet til andre på holdet, før du koder det?",
-      options: [
-        "Ved at sende CSS-filer uden forklaring",
-        "Ved at bruge skitser, diagrammer eller simple bokse (wireframes)",
-        "Ved kun at tale om farver",
-        "Ved at nævne tilfældige pixel-tal",
-      ],
-      correctIndex: 1,
-      explanation:
-        "En fælles visuel reference sikrer, at alle forstår strukturen, før der kodes.",
+        "`a - b` i sorteringscallback giver stigende numerisk sortering (lavt til højt).",
     },
   ]}
 />
@@ -339,4 +268,7 @@ import Quiz from "../../../components/Quiz.astro";
 
 Fortsæt i rækken:
 
-[Gå til Astro + Supabase – data i dine sider →](/astro/supabase/)
+[Tema 8 – Nye ord →](/diverse/tema-8-nye-ord/)
+[Tema 8 – Markdown grundregler →](/diverse/tema-8-markdown-grundregler/)
+[Fetch Single Product →](/javascript/fetch/)
+[Fetch Product List →](/javascript/fetch-productlist/)

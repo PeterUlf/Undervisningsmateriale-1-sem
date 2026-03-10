@@ -10,9 +10,13 @@ sidebar:
     class: badge-theme-8
 ---
 
-Her er de vigtigste nye ord fra Tema 8 med hurtige henvisninger til, hvor de optræder i resten af materialet.
+import Slide from "../../../components/Slide.astro";
 
-## Ord i Tema 8
+Her er de vigtigste nye ord fra Tema 8, grupperet efter emneområde.
+
+<Slide>
+
+## Ord i Tema 8 – CSS Grid og layout
 
 | Ord | Forklaring | Bruges i |
 | --- | --- | --- |
@@ -35,22 +39,24 @@ Her er de vigtigste nye ord fra Tema 8 med hurtige henvisninger til, hvor de opt
 | `align-self` | Justerer et enkelt element lodret i en grid-celle. | [Tema 8 quiz](/quiz/tema-8/) |
 | `justify-self` | Justerer et enkelt element vandret i en grid-celle. | [Tema 8 quiz](/quiz/tema-8/) |
 | `display: subgrid` | CSS-regel der aktiverer subgrid-adfærd. | [Subgrid](/css/subgrid/) · [Tema 8 quiz](/quiz/tema-8/) |
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Ord i Tema 8 – Data og JavaScript
+
+| Ord | Forklaring | Bruges i |
+| --- | --- | --- |
 | `array` / `arrays` | Liste af værdier samlet i én variabel. | [Arrays](/javascript/arrays/) · [forEach](/javascript/foreach/) |
 | `object` | Struktur med navngivne felter (`key/value`) i stedet for kun nummer-index. | [Objects & JSON](/javascript/objects-json/) · [forEach](/javascript/foreach/) |
 | `key/value-par` | Et objekts feltnavn og tilhørende værdi. | [Objects & JSON](/javascript/objects-json/) |
 | `JSON` | Datapakkeformat, ofte brugt fra API-svar. | [Objects & JSON](/javascript/objects-json/) · [Fetch Single Product](/javascript/fetch/) |
 | `fetch()` | Henter data fra en ekstern URL (ofte et API). | [Fetch API: Single Product](/javascript/fetch/) · [Fetch API: Product List](/javascript/fetch-productlist/) · [Querystring opgaver](/javascript/query-strings-url-parametre/) |
-| `endpoint` | En konkret URL til en API. | [Fetch API: Product List](/javascript/fetch-productlist/) · [Fetch Single Product](/javascript/fetch/) |
-| `API` | Application Programming Interface – hvor data hentes fra. | [Fetch API: Product List](/javascript/fetch-productlist/) · [URL-parametre](/javascript/url-parametre-fra-list-til-detalje/) |
-| `URL` | Web-adressen der beskriver hvor ressourcen ligger. | [URL-parametre](/javascript/url-parametre-fra-list-til-detalje/) · [Referér JavaScript](/javascript/referer-javascript/) |
-| `URLSearchParams` | Hjælper med at læse parametre som `?id=` fra adressen. | [URL-parametre (liste → detalje)](/javascript/url-parametre-fra-list-til-detalje/) |
-| `query string` | Del af URL'en med `param=n`-par, fx `?category=rumkatte`. | [Querystrings og parametre](/javascript/query-strings-url-parametre/) · [URL-parametre (liste → detalje)](/javascript/url-parametre-fra-list-til-detalje/) |
-| `id` | Unikt identifikationsfelt brugt til at hente ét element (fx ét produkt). | [URL-parametre (liste → detalje)](/javascript/url-parametre-fra-list-til-detalje/) · [Fetch Single Product](/javascript/fetch/) |
 | `innerHTML` | Skriver HTML-markup direkte ind i et element. | [Fetch Product List](/javascript/fetch-productlist/) · [Objects & JSON](/javascript/objects-json/) |
 | `querySelector` | Finder det første element, der matcher en CSS-vælger. | [Referér JavaScript](/javascript/referer-javascript/) · [Fetch API: Product List](/javascript/fetch-productlist/) |
-| `defer` | Gør eksternt script i `<head>` ventende til dokumentet er klar. | [Referér JavaScript](/javascript/referer-javascript/) |
-| `script` | HTML-tag hvor JavaScript bliver indsat eller hentet. | [Referér JavaScript](/javascript/referer-javascript/) |
-| `CDN` | Eksternt script-bibliotek-hosting (uden eget script-filer). | [Referér JavaScript](/javascript/referer-javascript/) |
 | `forEach()` | Kører en funktion for hvert element i et array. | [forEach](/javascript/foreach/) · [Arrays](/javascript/arrays/) |
 | `filter()` | Filtrerer array-elementer efter betingelser. | [Filtrering](/javascript/filtrering/) · [Filtrer flow](/javascript/quiz-filtrerings-flow/) |
 | `sort()` | Sorterer array-elementer efter tal eller tekst. | [Sortering](/javascript/sortering/) |
@@ -63,3 +69,25 @@ Her er de vigtigste nye ord fra Tema 8 med hurtige henvisninger til, hvor de opt
 | `template literal` | Streng med backticks og `${...}` til indsatser i tekst. | [Betinget visning](/javascript/betinget-visning/) · [Objekter og arrays](/javascript/objects-json/) |
 | `fallback` | Standardværdi når en forventet parameter mangler. | [URL-parametre (liste → detalje)](/javascript/url-parametre-fra-list-til-detalje/) · [Betinget visning](/javascript/betinget-visning/) |
 | `fetch-kæde` (`then`) | Sekvens af asynkrone trin efter `fetch`, fx `.then(res => res.json())`. | [Fetch API: Single Product](/javascript/fetch/) · [Querystring opgaver](/javascript/query-strings-url-parametre/) |
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Ord i Tema 8 – URL, API og infrastruktur
+
+| Ord | Forklaring | Bruges i |
+| --- | --- | --- |
+| `endpoint` | En konkret URL til en API. | [Fetch API: Product List](/javascript/fetch-productlist/) · [Fetch Single Product](/javascript/fetch/) |
+| `API` | Application Programming Interface – hvor data hentes fra. | [Fetch API: Product List](/javascript/fetch-productlist/) · [URL-parametre](/javascript/url-parametre-fra-list-til-detalje/) |
+| `URL` | Web-adressen der beskriver hvor ressourcen ligger. | [URL-parametre](/javascript/url-parametre-fra-list-til-detalje/) · [Referér JavaScript](/javascript/referer-javascript/) |
+| `URLSearchParams` | Hjælper med at læse parametre som `?id=` fra adressen. | [URL-parametre (liste → detalje)](/javascript/url-parametre-fra-list-til-detalje/) |
+| `query string` | Del af URL'en med `param=n`-par, fx `?category=rumkatte`. | [Querystrings og parametre](/javascript/query-strings-url-parametre/) · [URL-parametre (liste → detalje)](/javascript/url-parametre-fra-list-til-detalje/) |
+| `id` | Unikt identifikationsfelt brugt til at hente ét element (fx ét produkt). | [URL-parametre (liste → detalje)](/javascript/url-parametre-fra-list-til-detalje/) · [Fetch Single Product](/javascript/fetch/) |
+| `defer` | Gør eksternt script i `<head>` ventende til dokumentet er klar. | [Referér JavaScript](/javascript/referer-javascript/) |
+| `script` | HTML-tag hvor JavaScript bliver indsat eller hentet. | [Referér JavaScript](/javascript/referer-javascript/) |
+| `CDN` | Eksternt script-bibliotek-hosting (uden eget script-filer). | [Referér JavaScript](/javascript/referer-javascript/) |
+
+</Slide>

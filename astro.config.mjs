@@ -57,7 +57,25 @@ export default defineConfig({
             },
             {
               label: "Diverse",
-              autogenerate: { directory: "diverse" },
+              items: [
+                {
+                  label: "Eksempel: Teknisk dokumentation (GitHub)",
+                  link: "https://github.com/PeterUlf/F26_T8_teknisk_dokumentation",
+                  badge: {
+                    text: "Tema 8",
+                    variant: "tip",
+                    class: "badge-theme-8",
+                  },
+                },
+                {
+                  label: "Tema 8 – Nye ord",
+                  slug: "diverse/tema-8-nye-ord",
+                },
+                {
+                  label: "Tema 8 – Markdown grundregler",
+                  slug: "diverse/tema-8-markdown-grundregler",
+                },
+              ],
             },
             {
               label: "SVG",
