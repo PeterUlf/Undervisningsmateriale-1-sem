@@ -188,23 +188,22 @@ const hidePresentation = Astro.url.pathname === "/quiz/tema-8" || Astro.url.path
 
       document.addEventListener('keydown', (e) => this.handleKey(e));
       
-      // Lyt til hash ændringer for at opdatere slide
-      window.addEventListener('hashchange', () => this.handleHashChange());
+      // Lyt til hash ændringer for at opdatere eller åbne præsentationen
+      window.addEventListener('hashchange', () => this.handleHashNavigation());
       
       // Intercept link clicks i præsentationstilstand
       document.addEventListener('click', (e) => this.handleLinkClick(e));
-      
-      // Auto-open hvis hash er #presentation-trigger
-      if (window.location.hash === '#presentation-trigger') {
-        setTimeout(() => this.start(), 100);
-      }
-      
-      // Lyt til hash changes også fra hero button
-      window.addEventListener('hashchange', () => {
-        if (window.location.hash === '#presentation-trigger') {
-          setTimeout(() => this.start(), 100);
-        }
-      });
+
+      this.handleHashNavigation();
+    }
+
+    getSlideIndexFromHash(hash = window.location.hash) {
+      if (!hash || !hash.startsWith('#slide-')) return null;
+
+      const slideNum = parseInt(hash.replace('#slide-', ''), 10);
+      if (isNaN(slideNum) || slideNum < 1) return null;
+
+      return slideNum - 1;
     }
     
     handleLinkClick(e) {
@@ -223,7 +222,27 @@ const hidePresentation = Astro.url.pathname === "/quiz/tema-8" || Astro.url.path
       }
     }
 
-    start() {
+    handleHashNavigation() {
+      const slideIndex = this.getSlideIndexFromHash();
+
+      if (slideIndex !== null) {
+        if (!this.dialog.open) {
+          this.start(slideIndex);
+          return;
+        }
+
+        if (slideIndex >= 0 && slideIndex < this.slides.length) {
+          this.showSlide(slideIndex);
+        }
+        return;
+      }
+
+      if (window.location.hash === '#presentation-trigger' && !this.dialog.open) {
+        this.start(0);
+      }
+    }
+
+    start(initialIndex = 0) {
       // Find indholdet - prøver flere selectors for sikkerheds skyld
       const content = document.querySelector('.sl-markdown-content') || document.querySelector('main');
       
@@ -233,21 +252,13 @@ const hidePresentation = Astro.url.pathname === "/quiz/tema-8" || Astro.url.path
       }
 
       this.generateSlides(content);
-      this.dialog.showModal();
+      if (!this.dialog.open) {
+        this.dialog.showModal();
+      }
       
-      // Når brugeren klikker på "Start Præsentation", start altid på første slide
-      this.showSlide(0);
-    }
-    
-    handleHashChange() {
-      if (!this.dialog.open) return;
-      
-      const hash = window.location.hash;
-      if (hash && hash.startsWith('#slide-')) {
-        const slideNum = parseInt(hash.replace('#slide-', ''));
-        if (!isNaN(slideNum) && slideNum > 0 && slideNum <= this.slides.length) {
-          this.showSlide(slideNum - 1);
-        }
+      if (this.slides.length > 0) {
+        const targetIndex = Math.max(0, Math.min(initialIndex, this.slides.length - 1));
+        this.showSlide(targetIndex);
       }
     }
 
