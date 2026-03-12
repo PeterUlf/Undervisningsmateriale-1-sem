@@ -1,0 +1,93 @@
+---
+title: "Tema 9 – Supabase-begrænsning og pause"
+description: "Forstå Supabase-begrænsninger, særligt hvordan inaktive gratis-projekter kan blive sat på pause."
+sidebar:
+  label: "Begrænsning og pause"
+  order: 6.3
+  badge:
+    text: Tema 9
+    variant: tip
+    class: badge-theme-9
+---
+
+import Slide from "../../../components/Slide.astro";
+
+<Slide>
+
+## Når et projekt ikke bruges
+
+I undervisning er det vigtigt at vide, hvad der sker med en Supabase-projekt i gratisplanen.
+
+Typisk adfærd (pr. nu):
+
+- Hvis et gratisprojekt er inaktivt i omkring 7 dage, kan det blive sat på pause.
+- Efter pause går det ikke ned med at tage data-tab, men kan tage lidt tid at vågne.
+
+Tal for inaktivitet kan ændre sig i Supabase; kontrolér derfor altid den seneste dokumentation.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Hvorfor pauser projekter?
+
+Pausing bruges til at spare ressourcer i gratislaget.
+
+Det betyder:
+
+- Mindre unødigt regneforbrug
+- Bedre styring af udnyttelse i forløb
+- Undgå at bruge API-tokens på tomme testsessioner
+
+For undervisere: det giver et godt “start-stop” flow, men kræver at de studerende husker at bruge projektet jævnligt.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Hvor længe kan et paused projekt bruges?
+
+Supabase kommunikerer begrænsningerne i dokumentationen/planbeskrivelserne.
+I praksis er det ofte nævnt, at:
+
+- et pausent project kan være utilgængeligt efter en periode med inaktivitet
+- paused project kan genstartes inden for en tidsramme (ofte nævnt omkring 90 dage)
+
+Du bør derfor planlægge:
+
+- backup af SQL og data, før længere fravær
+- hurtig genstart efter pause
+- bevidst test af endpoint efter længere tid
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Tjek projektstatus i Dashboard
+
+1. Åbn Supabase Dashboard → projekt.
+2. I oversigten kan du se om projektet er aktivt eller sat på pause.
+3. Når I åbner igen efter pause, test endpoint med `fetch()` i konsollen.
+
+Hvis I rammer en timeout eller et tomt svar:
+
+- vent kort tid (cold start),
+- tjek at projektets URL/API-nøgle stadig er korrekt,
+- prøv igen.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Hvor læser vi om det i dokumentationen?
+
+- [Supabase Pricing](https://supabase.com/pricing)
+- [Supabase Docs – Pause og restore (90-dages vindue)](https://supabase.com/docs/guides/platform/migrating-and-upgrading-projects)
+- [Supabase Docs – Abonnement og pauselogik](https://supabase.com/docs/guides/platform/billing-on-supabase)
+- [Supabase Changelog (afklar nuværende inaktivitet-regler)](https://github.com/supabase/supabase/blob/master/CHANGELOG.md)
+
+</Slide>

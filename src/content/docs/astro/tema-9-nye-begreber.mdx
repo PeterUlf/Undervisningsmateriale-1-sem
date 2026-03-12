@@ -1,0 +1,285 @@
+---
+title: "Tema 9 – Nye begreber"
+description: "En ord-side der forklarer de vigtigste nye koncepter i Tema 9 uden at fokusere på kode."
+sidebar:
+  label: "Nye begreber"
+  order: -1
+  badge:
+    text: Tema 9
+    variant: tip
+    class: badge-theme-9
+---
+
+import Slide from "../../../components/Slide.astro";
+
+Her er de vigtigste nye begreber i Tema 9 forklaret med ord. Siden er tænkt som en støtte, når du forstår idéerne bag koden.
+
+<Slide>
+
+## Hvad er nyt i Tema 9?
+
+I Tema 8 hentede du data fra åbne test-API'er. I Tema 9 arbejder du i stedet med din egen data.
+
+Det betyder, at du ikke kun lærer at hente data. Du lærer også:
+
+- hvor data bliver gemt
+- hvordan en database er bygget op
+- hvordan en webside får lov til at læse data
+- hvorfor nogle data ikke bare kan åbnes direkte i browseren
+
+Tema 9 handler derfor både om **data**, **adgang** og **visning**.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Database, tabel, række og kolonne
+
+En **database** er et sted, hvor data bliver gemt struktureret.
+
+I Supabase arbejder du især med en **tabel**. En tabel minder om et regneark:
+
+- **kolonner** beskriver hvilke typer oplysninger der findes
+- **rækker** er de konkrete data
+
+Hvis du fx har en tabel med studerende, kan kolonnerne være:
+
+- fornavn
+- efternavn
+- email
+- hold
+
+Hver studerende bliver så én række i tabellen.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Supabase
+
+**Supabase** er en platform, der giver dig database, API og værktøjer samlet ét sted.
+
+I Tema 9 bruger du Supabase som:
+
+- sted hvor dine data ligger
+- sted hvor du opretter tabeller
+- sted hvor du finder den URL og nøgle, som din kode skal bruge
+
+Det vigtige er, at Supabase ikke bare er "et sted med data". Det er også det system, der bestemmer, hvem der må få adgang til data.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Endpoint og REST API
+
+Et **endpoint** er den konkrete adresse, man sender en forespørgsel til for at hente data.
+
+Når du bruger Supabase i Tema 9, arbejder du med et **REST API**.
+
+Det betyder i praksis:
+
+- din kode sender en forespørgsel til en bestemt URL
+- Supabase svarer med data tilbage
+- svaret kommer typisk som JSON
+
+Man kan sige, at endpointet er døren til tabellen, og API'et er regelsættet for, hvordan man banker på døren.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## API-nøgle og headers
+
+En **API-nøgle** er en nøgle, der viser hvilket projekt der spørger om adgang.
+
+I Tema 9 møder du især:
+
+- **Publishable Key**
+- **headers**
+
+**Headers** er ekstra information, som sendes med en request. Her bruges de til at sende API-nøglen med.
+
+Pointen er:
+
+- uden nøgle ved Supabase ikke, hvem der spørger
+- uden header kommer nøglen ikke ordentligt med
+
+Det er derfor endpointet kan være rigtigt, men stadig afvise dig.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Miljøvariabler
+
+En **miljøvariabel** er en værdi, du gemmer uden for selve koden.
+
+I stedet for at skrive projekt-URL og nøgle direkte ind i filen, lægger du dem i en `.env`-fil.
+
+Det er smart fordi:
+
+- koden bliver mere ryddelig
+- du undgår at sprede nøgler rundt i projektet
+- det er lettere at ændre opsætning senere
+
+I Astro læses de som en del af projektets miljø, så siden kan bruge dem under opbygningen.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Frontmatter i Astro
+
+**Frontmatter** er den øverste del af en Astro-fil mellem `---` og `---`.
+
+Det er her du:
+
+- importerer komponenter
+- forbereder data
+- henter data med `fetch()`
+- gemmer resultatet i variabler
+
+En vigtig idé i Tema 9 er, at data kan blive hentet i frontmatter **før** HTML'en bliver bygget.
+
+Det betyder, at Astro kan bygge siden med dataene allerede klar, i stedet for først at hente dem bagefter ude i browseren.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Server-side rendering i denne sammenhæng
+
+Når Astro henter data i frontmatter, sker det på serversiden eller under build-processen.
+
+Det betyder:
+
+- data bliver hentet før siden vises
+- HTML kan blive bygget med det samme
+- browseren modtager en side, der allerede indeholder indholdet
+
+For de studerende er den vigtigste pointe:
+
+Du går fra "hent data bagefter med JavaScript i browseren" til også at kunne tænke "byg siden med data fra starten".
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Row Level Security og policy
+
+**Row Level Security** eller **RLS** er en sikkerhedsregel, der styrer hvilke rækker i en tabel man må få adgang til.
+
+En **policy** er den konkrete regel, der beskriver hvem der må hvad.
+
+Det betyder:
+
+- tabellen er ikke automatisk åben
+- adgang skal tillades bevidst
+- du lærer en mere rigtig måde at arbejde med data på
+
+RLS er derfor ikke bare en teknisk detalje. Det er en påmindelse om, at data altid bør have regler for adgang.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## JSON som datasprog
+
+Når du henter data fra Supabase, får du normalt svaret som **JSON**.
+
+JSON er en måde at beskrive data på, så programmer nemt kan læse dem.
+
+I Tema 9 er pointen ikke, at JSON er nyt i sig selv. Det nye er, at JSON nu kommer fra **din egen database**.
+
+Det ændrer forståelsen:
+
+- du læser ikke kun andres data
+- du arbejder med en datastruktur, du selv har været med til at bygge
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Mapping og rendering
+
+Når data er hentet, skal de vises.
+
+Her møder du igen idéen om at:
+
+- gå igennem et array
+- tage ét objekt ad gangen
+- vise værdierne i HTML
+
+Det nye i Tema 9 er ikke selve `map()`-tanken, men koblingen mellem:
+
+- data i database
+- data i JavaScript
+- data i HTML
+
+Det er den kæde, som gør databaser brugbare i et rigtigt webprojekt.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Pause, inaktivitet og drift
+
+Når man arbejder med en ekstern platform som Supabase, lærer man også et driftsbegreb:
+
+Et projekt kan være **inaktivt**, blive **sat på pause** og skulle **vågne op igen**.
+
+Det lærer dig, at et webprojekt ikke kun handler om kode. Det handler også om:
+
+- om tjenesten er aktiv
+- om databasen svarer
+- om der er forbindelse mellem projekt og platform
+
+Det er begyndelsen på at tænke som udvikler og ikke kun som studerende, der skriver kode.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Kort opsummering
+
+De vigtigste nye begreber i Tema 9 er:
+
+- database
+- tabel, rækker og kolonner
+- Supabase
+- endpoint
+- REST API
+- API-nøgle
+- headers
+- miljøvariabler
+- frontmatter
+- RLS og policy
+
+Hvis du forstår de ord, bliver koden i Tema 9 også meget lettere at læse.
+
+</Slide>

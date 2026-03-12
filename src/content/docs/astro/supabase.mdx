@@ -1,8 +1,8 @@
 ---
-title: Astro + Supabase – data i dine sider
-description: Sådan henter du data fra Supabase ind i Astro.
+title: "Tema 9 – Supabase: Opret tabel og find endpoint"
+description: "Lær at oprette en Supabase-tabel og finde korrekt REST-endpoint til datahentning."
 sidebar:
-  label: "6. Astro + Supabase – data i dine sider"
+  label: "Supabase: Tabel + endpoint"
   order: 6
   badge:
     text: Tema 9
@@ -10,131 +10,319 @@ sidebar:
     class: badge-theme-9
 ---
 
-## Hvad er Supabase?
+import Slide from "../../../components/Slide.astro";
 
-[Supabase](https://supabase.com/) er en backend-as-a-service bygget oven på PostgreSQL.
-Du får:
+<Slide>
 
-- Database
-- Autentifikation
-- Simple API'er
+## Fra Tema 8 til Tema 9
 
-… uden selv at skulle sætte en server op.
+Du har allerede arbejdet med:
 
-I Astro kan du bruge Supabase til fx:
+- `fetch()`
+- JSON
+- `URLSearchParams`
+- Arrays og objekter
 
-- at vise en liste af projekter/elever
-- at hente quiz-resultater
-- at gemme feedback fra studerende
+Tema 9 bruger de samme metoder, men med din **egen Supabase-database**.
 
----
+</Slide>
+<div class="page-break"></div>
 
-## 1. Installer Supabase-klienten
+<Slide>
 
-I et Astro-projekt:
+## 1) Log ind på Supabase med GitHub
 
-```bash
-npm install @supabase/supabase-js
+Inden du kan bygge videre, skal du logge ind i Supabase med din GitHub-konto.
+
+1. Gå til [Supabase Dashboard](https://supabase.com/dashboard).
+2. Klik **Continue with GitHub** og gennemfør login.
+3. Du står nu i Supabase med adgang til projekt og database.
+
+Når du er logget ind, kan du gå videre til at oprette tabellen.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## 2) Opret en tabel i Supabase
+
+Du kan oprette en tabel på to måder:
+
+1. I Supabase Dashboard:
+   1. Gå til `Table Editor`
+   2. Klik `Create a new table`
+   3. Navngiv tabellen fx `students`
+2. Via SQL (men det gør vi ikke nu)
+
+Efter oprettelse kan du tilføje testrækker i `Table Editor`.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## 2a) Datatyper i Supabase
+
+Når du laver en kolonne i en tabel, skal du vælge en datatype.
+
+### Datatypen bestemmer, hvilken slags værdi kolonnen må indeholde.
+
+| Datatype    | Bruges til         | Eksempel                                |
+| ----------- | ------------------ | --------------------------------------- |
+| `text`      | almindelig tekst   | `first_name`, `last_name`, `class_name` |
+| `uuid`      | unikt id           | `id`                                    |
+| `integer`   | hele tal           | `age`, `semester`                       |
+| `boolean`   | ja/nej             | `is_active`                             |
+| `date`      | dato               | `birth_date`                            |
+| `timestamp` | dato og klokkeslæt | `created_at`                            |
+
+### Til tabellen `students` vil du typisk vælge:
+
+| Kolonne      | Datatype |
+| ------------ | -------- |
+| `id`         | `uuid`   |
+| `first_name` | `text`   |
+| `last_name`  | `text`   |
+| `email`      | `text`   |
+| `class_name` | `text`   |
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## 2b) Data API og automatic RLS
+
+Når I opretter tabellen i undervisningen, så vælg:
+
+- **Enable Data API: ON**
+- **Enable automatic RLS: ON**
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Enable Data API
+
+Tænder for REST-adgang til tabellen via Supabase URL (`.../rest/v1/<tabel>`).
+Hvis den er slået fra:
+
+- findes endpointet ikke i API.
+- kan din `fetch()`-kode ikke hente data fra denne tabel.
+
+Det betyder altså, at tabellen kan bruges i de `fetch()`-eksempler, I arbejder med i Tema 9.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Enable automatic RLS
+
+Slår Row Level Security (RLS) til med en initial sikkerhedsopsætning.
+
+- Hvis RLS er ON, gælder politikker (policies), før data sendes tilbage.
+- Hvis der **ikke** findes en policy, kan anonyme eller loggede kald få afslag (`permission denied`).
+- Hvis RLS er OFF, kan tabellen være mere åbent tilgængelig — nemt til test, men mindre sikkert.
+
+Det betyder, at de studerende lærer den rigtige sikkerhedsmodel fra start:
+
+- data er ikke automatisk åbne
+- adgang styres med policies
+- I kan senere koble det sammen med login og brugerroller
+
+Kort anbefaling:
+
+- slå begge til
+- lav derefter en policy, hvis tabellen skal kunne læses i jeres øvelser
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## 3) Find den rette Supabase endpoint
+
+REST-endpointet for en tabel ser sådan ud:
+
+```text
+<Project URL>/rest/v1/<tabelnavn>
 ```
 
-> **Mac vs. PC:**
->
-> - Kommandoen er den **samme** på Mac og Windows.
-> - På Mac kører du den typisk i **Terminal** eller VS Code-terminalen.
-> - På Windows kører du den i **PowerShell**, **Command Prompt** eller VS Code-terminalen.
+Find værdierne i Supabase:
 
----
+- **Project URL**: `Settings → API → Project URL`
+- **Publishable Key**: `Connect → API Keys → Publishable Key`
 
-## 2. Opret en Supabase-klient (server-side)
+`Anon Key (legacy)` er den gamle nøgletype. I nyt undervisningsmateriale er det bedre at lære de studerende at bruge **Publishable Key** først.
 
-Lav fx en hjælper i `src/lib/supabase.ts` eller `src/lib/supabase.js`:
+Eksempel:
 
-```ts
-import { createClient } from "@supabase/supabase-js";
+- `https://abcdefgh.supabase.co/rest/v1/students`
 
-const SUPABASE_URL = import.meta.env.SUPABASE_URL;
-const SUPABASE_ANON_KEY = import.meta.env.SUPABASE_ANON_KEY;
+For at vælge felter og sortere:
 
-export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-```
+- `.../rest/v1/students?select=id,first_name,last_name,class_name&order=first_name.asc`
 
-> Vigtigt: Læg **ikke** nøgler direkte i koden. Brug miljøvariabler.
+</Slide>
+<div class="page-break"></div>
 
-I Astro lægger du dem typisk i en `.env`-fil i projektets rod:
+<Slide>
 
-```bash
-SUPABASE_URL=https://dit-projekt-id.supabase.co
-SUPABASE_ANON_KEY=public-anon-key-her
-```
+## Endpoint
 
-> **Mac vs. PC:**
->
-> - Filen hedder det samme (`.env`) på begge platforme.
-> - Sørg for, at den ligger i **roden** af projektet (samme mappe som `package.json`).
-> - Brug **ikke** filen i Git (tilføj den til `.gitignore`).
+### direkte i browseren, giver en fejl der minder om dette:
 
----
-
-## 3. Hent data i en Astro-side
-
-I en `.astro`-side kan du hente data i frontmatter (server-side):
-
-```astro
----
-import { supabase } from "../lib/supabase";
-
-const { data: projects, error } = await supabase
-  .from("projects")
-  .select("id, title, student_name")
-  .order("created_at", { ascending: false });
-
-if (error) {
-  console.error(error);
+```json
+{
+  "message": "No API key found in request",
+  "hint": "No `apikey` request header or url param was found."
 }
----
-
-<h1>Projekter</h1>
-
-{error && <p>Kunne ikke hente data lige nu.</p>}
-
-<ul>
-  {projects?.map((project) => (
-    <li>
-      <strong>{project.title}</strong> – {project.student_name}
-    </li>
-  ))}
-</ul>
 ```
 
-Her sker der:
+### Det betyder:
 
-- Koden i `---` kører på serveren, inden HTML'en genereres
-- Data fra Supabase bliver mappet direkte ud i HTML-listen
+- du har fundet den rigtige URL
+- men Supabase vil ikke vise data uden en API-nøgle
+- browserens adresselinje sender ikke automatisk en `apikey` header
 
----
+</Slide>
+<div class="page-break"></div>
 
-## 4. Statisk build vs. server-side rendering
+<Slide>
 
-Astro kan:
+## Endpoint
 
-- **Bygge statisk** (data hentes ved build-tid) – godt til sider, der sjældent ændrer sig
-- **Køre med server-side rendering (SSR)** – data hentes ved hver request
+### for at se data skal du
 
-Til undervisning/materialer er statisk typisk fint, fx `npm run build` + hosting.
-Hvis data ofte ændrer sig (fx live-resultater), kan SSR være en fordel.
+1.  Brug `fetch()` og send `apikey` i headers
 
-Se Astro-dokumentationen for at slå SSR til, hvis du vil bruge det.
+<div style="margin-top: 1.5rem;"></div>
 
----
+### Eller hvis du bare lige skal teste direkte i browseren:
 
-## 5. Simple øvelsesidéer
+Hvis du vil ha lov at se din JSON-data direkte skal du derfor gøre én af disse ting:
 
-- Lav en tabel i Supabase med **projekter** (titel, beskrivelse, navn på elev)
-- Hent dem ind på en Astro-side og vis dem pænt med et grid/kort-layout
-- Filtrer projekter på fx tema eller teknologier
+1. Giv tabellen en en `SELECT`-policy fordi RLS er slået til
+2. Læg `apikey` ind som URL-parameter
 
-Når eleverne først forstår sammenhængen:
+Eksempel til hurtig test i browseren:
 
-> Astro-side → helper-fil (`supabase`) → tabel i Supabase
+```text
+https://din-projekt-ref.supabase.co/rest/v1/students?select=*&apikey=din-publishable-key
+```
 
-… har de en realistisk fullstack-pipeline, men med relativt lav teknisk barriere.
+Når RLS er slået til, er det vigtigt at tabellen også har en `SELECT`-policy. Ellers får du stadig ikke adgang til rækkerne.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## 4) Brug altid headers
+
+Når du laver en enkel `fetch()` til Supabase Data API, skal du starte med:
+
+- `apikey: <SUPABASE_PUBLISHABLE_KEY>`
+
+Hvis du ikke sender den, svarer Supabase med:
+
+```json
+{
+  "message": "No API key found in request"
+}
+```
+
+Hvis I senere logger brugere ind med Supabase Auth, kan `Authorization` i stedet være brugerens access token.
+
+Vigtigt:
+
+- brug **ikke** `Publishable Key` som `Bearer` token
+- tænkt sådan:
+  - `apikey` svarer på: **hvilket projekt vil du hente data fra?**
+  - `Authorization: Bearer ...` svarer på: **hvem er brugeren, der er logget ind?**
+- `Publishable Key` er altså til projektet, ikke til en bruger-session
+- `Anon Key (legacy)` er den ældre nøgle, som mange gamle eksempler stadig viser
+- hvis RLS er aktiveret, skal der stadig være policyer, der tillader læsning
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## 4b) Lav en `SELECT`-policy
+
+Hvis RLS er slået til, er data ikke automatisk synlige.
+
+Det betyder:
+
+- du kan godt have den rigtige URL
+- du kan godt sende `apikey`
+- men du får stadig ikke lov at se rækkerne, hvis der ikke findes en læse-policy
+
+Til denne undervisning er den nemmeste løsning at give alle læseadgang til tabellen `students`, fordi sitet kun skal vise indholdet af tabellen.
+
+### Sådan gør du
+
+1. Åbn Supabase Dashboard.
+2. Gå til `Table Editor`.
+3. Åbn tabellen `students`.
+4. Klik på `RLS policies`.
+5. Klik `Create policy`.
+6. Vælg `Enable read access for all users`.
+7. Gem policyen.
+
+### Hvad betyder den?
+
+- policyen gælder læsning af tabellen
+- alle brugere må læse rækkerne
+- tabellen kan derfor bruges til at vise data på sitet
+
+Det er en god start til test og undervisning. Senere kan I lave mere præcise regler, hvis data ikke skal være offentligt synlige.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Videoplayliste der forklarer ovenstående kort
+
+<iframe
+  width="560"
+  height="315"
+  src="https://www.youtube.com/embed/videoseries?si=jhkvqR8L-aqwyjQp&amp;list=PLE-ztpkazxa2CvEyQX6dK9Ct1ibkG9n8L"
+  title="YouTube video player"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+  referrerpolicy="strict-origin-when-cross-origin"
+  allowfullscreen
+  style="width: 100%; max-width: 900px; aspect-ratio: 16 / 9; height: auto;"
+></iframe>
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## 5) Dokumentation (til undervisning)
+
+- [Supabase Docs – kom i gang](https://supabase.com/docs)
+- [Tabelguiden](https://supabase.com/docs/guides/database/tables)
+- [Supabase REST API](https://supabase.com/docs/guides/api)
+- [RLS (Row Level Security)](https://supabase.com/docs/guides/database/postgres/row-level-security)
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## 6) Næste skridt
+
+Næste sider bygger på det samme mønster:
+
+1. [Tema 9 – Fetch fra Supabase i Astro →](/astro/tema-9-fetch-fran-supabase/)
+2. [Tema 9 – Begrænsning og pause →](/astro/tema-9-begransning-og-pause/)
+
+</Slide>

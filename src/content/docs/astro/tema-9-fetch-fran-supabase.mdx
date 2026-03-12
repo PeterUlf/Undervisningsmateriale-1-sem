@@ -1,0 +1,411 @@
+---
+title: "Tema 9 – Fetch fra Supabase i Astro"
+description: "Hent data fra Supabase-tabeller med fetch i Astro-frontmatter og vis dem i HTML."
+sidebar:
+  label: "Fetch fra Supabase i Astro"
+  order: 6.1
+  badge:
+    text: Tema 9
+    variant: tip
+    class: badge-theme-9
+---
+
+import Slide from "../../../components/Slide.astro";
+
+<Slide>
+
+## Tema 9 – Fetch fra Supabase i Astro
+
+Vi bruger stadig de samme teknikker som Tema 8:
+
+- bygge en korrekt URL
+- kalde `fetch()`
+- parse JSON
+- vise resultatet i HTML
+
+Nu henter vi data fra Supabase i stedet for en åben test-API.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Hvis du gjorde præcis som i Tema 8
+
+Hvis vi først tænker helt som i Tema 8, kunne koden se sådan ud:
+
+<div class="columns-2">
+  <div>
+    
+```javascript
+const studentsURL =
+  "https://din-projekt-ref.supabase.co/rest/v1/students?select=*";
+const apiKey = "din-publishable-key";
+
+function getData() {
+fetch(studentsURL, {
+headers: {
+apikey: apiKey,
+},
+}).then((res) => res.json().then((data) => show(data)));
+}
+
+function show(data) {
+.......
+}
+
+getData();
+
+````
+
+  </div>
+
+  <div>
+    <h3>Hvad er nyt?</h3>
+    <p>Strukturen er næsten den samme som i Tema 8.</p>
+    <p>Det nye er kun:</p>
+    <ul>
+      <li>URL'en peger på Supabase</li>
+      <li>der sendes en <code>apikey</code> med i <code>headers</code></li>
+      <li>data kommer fra din egen tabel i stedet for DummyJSON</li>
+    </ul>
+  </div>
+</div>
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Når vi laver det i astro:
+### Gem Supabase-oplysninger i `.env`
+
+I dit Astro-projekt:
+
+```bash
+SUPABASE_URL=https://din-projekt-ref.supabase.co
+SUPABASE_PUBLISHABLE_KEY=din-publishable-key
+````
+
+Læg filen i projektets rod (`package.json` ligger også her), og husk at den ikke må i Git.
+
+Det betyder, at `.env` skal stå i `.gitignore`.
+
+Det kan fx se sådan ud:
+
+```gitignore
+# Miljøfiler
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# macOS-filer
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+.Spotlight-V100
+.Trashes
+```
+
+Her bruger vi almindelige miljøvariabler, fordi hentningen sker i Astro frontmatter.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Derefter:
+
+### Koden samlet i Astro (forklares på de næste slides)
+
+```astro
+---
+//@ts-nocheck
+import Layout from "../layouts/Layout.astro";
+
+const url =`${import.meta.env.SUPABASE_URL}/rest/v1/students?select=*`;
+const apiKey = import.meta.env.SUPABASE_PUBLISHABLE_KEY;
+
+const options = {
+  headers: {
+    apikey: apiKey,
+  },
+};
+
+const data = await fetch(url, options)
+  .then((res) => res.json())
+  .then((data) => data);
+
+console.log(data);
+---
+
+<Layout>
+  <h1>Studerende</h1>
+  {
+    data.map((student) => (
+      <article>
+        <h2>{student.first_name} {student.last_name}</h2>
+        <p>Klasse: {student.class_name}</p>
+      </article>
+    ))
+  }
+</Layout>
+```
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Hvad sker der i frontmatter?
+
+```javascript
+const url = `${import.meta.env.SUPABASE_URL}/rest/v1/students?select=id,first_name,last_name,class_name`;
+const apiKey = import.meta.env.SUPABASE_PUBLISHABLE_KEY;
+
+const options = {
+  headers: {
+    apikey: apiKey,
+  },
+};
+
+const data = await fetch(url, options)
+  .then((res) => res.json())
+  .then((data) => data);
+```
+
+Læs den sådan her:
+
+1. `url` er adressen til din Supabase-tabel.
+2. `apiKey` er din `SUPABASE_PUBLISHABLE_KEY`.
+3. `options` samler den header, der skal sendes med.
+4. `await fetch(url, options)` henter data, før siden bliver vist.
+5. `res.json()` laver svaret om til JavaScript-data.
+6. Resultatet bliver gemt i variablen `data`.
+
+Supabase dokumenterer, at API-nøglen skal sendes med i requestens `apikey`-header. Derfor ligger nøglen i `headers`.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Sammenhængen mellem `forEach()` og `map()`
+
+Begge metoder går igennem et array **én værdi ad gangen**.
+
+Hvis `data` indeholder studerende, så er `student` i begge tilfælde ét objekt ad gangen.
+
+<div class="columns-2">
+  <div>
+
+    <h3><code>.map()</code></h3>
+
+```javascript
+const studentCards = data.map((student) => {
+  return `<article>${student.first_name}</article>`;
+});
+```
+
+  </div>
+
+  <div>
+
+<h3>
+  <code>forEach()</code>
+</h3>
+
+```javascript
+data.forEach((student) => {
+  console.log(student.first_name);
+});
+```
+
+  </div>
+</div>
+
+Forskellen er:
+
+- `forEach()` bruges når du vil **gøre noget** for hvert element
+- `map()` bruges når du vil **lave et nyt array** ud fra hvert element
+
+I Astro vil vi gerne ende med en samling af HTML-elementer, som kan sættes direkte ind i templaten.
+
+### Derfor bruger vi `map()` her:
+
+- den returnerer et nyt array
+- hvert element i det nye array kan være et `<article>`
+- Astro kan vise det direkte i HTML
+
+`forEach()` er altså ikke forkert. Den er bare mindre praktisk, når målet er at **render** HTML direkte.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Lille øvelse med `map()` i CodePen
+
+**Lav denne øvelse i CodePen:**
+
+1. Opret en tom container i HTML-panelet.
+2. Brug `map()` til at lave et nyt array med HTML for hver studerende.
+3. Sæt resultatet ind på siden med `join("")` og `innerHTML`.
+
+### HTML
+
+```html
+<section id="app"></section>
+```
+
+### JavaScript
+
+```javascript
+const students = [
+  { first_name: "Asta", last_name: "Jensen", class_name: "A" },
+  { first_name: "Malik", last_name: "Ali", class_name: "B" },
+  { first_name: "Sofie", last_name: "Hansen", class_name: "C" },
+];
+
+const app = document.querySelector("#app");
+
+const studentCards = students.map((student) => {
+  return `
+    <article>
+      <h2>...</h2>
+      <p>Klasse: ...</p>
+    </article>
+  `;
+});
+
+app.innerHTML = studentCards.join("");
+```
+
+### Diskuter med sidemanden
+
+- hvad er students (flertal) er
+- hvad er student (ental) er
+- hvad er forskellen fra at bruge forEach
+
+### Din opgave
+
+- indsæt studerendes fornavn og efternavn i `<h2>`
+- indsæt holdet i `<p>`
+- tjek at der kommer 3 `<article>`-kort på siden
+
+:::tip[Hint]
+I CodePen bliver resultatet fra `map()` et array med HTML-strenge. Derfor bruger vi `join("")`, før vi sætter det ind med `innerHTML`.
+:::
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Hvordan viser Astro data i HTML?
+
+```astro
+<Layout>
+  <h1>Studerende</h1>
+  {
+    data.map((student) => (
+      <article>
+        <h2>{student.first_name} {student.last_name}</h2>
+        <p>Klasse: {student.class_name}</p>
+      </article>
+    ))
+  }
+</Layout>
+```
+
+- `data` er arrayet med rækker fra tabellen `students`
+- `data.map(...)` går igennem én række ad gangen
+- `student` er ét objekt ad gangen
+- `{student.first_name}` og `{student.last_name}` indsætter værdierne i HTML
+- Astro bygger HTML'en, før siden bliver sendt til browseren
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Test endpointet i browserkonsollen
+
+Det er vigtigt at kunne se JSON i konsollen før I bygger UI.
+
+```js
+const studentsURL =
+  "https://din-projekt-ref.supabase.co/rest/v1/students?select=id,first_name,last_name,class_name";
+const apiKey = "din-publishable-key";
+
+fetch(studentsURL, {
+  headers: {
+    apikey: apiKey,
+  },
+})
+  .then((res) => res.json())
+  .then((data) => console.log("Students JSON:", data))
+  .catch((error) => console.error("Fejl:", error));
+```
+
+Hvis du bare åbner endpointet direkte i browseren uden `apikey`, får du typisk:
+
+```json
+{
+  "message": "No API key found in request"
+}
+```
+
+---
+
+:::tip[Kun til testformål]
+Vil du se rå JSON i selve browserfanen, kan du lave en hurtig test sådan:
+
+```text
+https://din-projekt-ref.supabase.co/rest/v1/students?select=*&apikey=din-publishable-key
+```
+
+:::
+
+I rigtig kode bør du stadig bruge `fetch()` med headers.
+
+Hvis tabellen bruger RLS, skal du også have en `SELECT`-policy, ellers bliver rækkerne ikke vist.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Øvelse: Opret din første `students`-tabel og vis data i konsollen
+
+1. Gå tilbage til Supabase og opret tabellen `students` (hvis den ikke findes):
+   - `id` (`uuid`, primary key, default `gen_random_uuid()`)
+   - `first_name` (`text`, not null)
+   - `last_name` (`text`, not null)
+   - `email` (`text`, unique)
+   - `class_name` (`text`)
+
+2. Indsæt 2–3 testrækker i tabel-editoren.
+3. Brug din endpoint med det rigtige projekt-id i browserens konsol:
+   - Erstat `din-projekt-ref` og `din-publishable-key` med dine egne værdier.
+   - Du skal se et array i konsollen (`[]` hvis ingen rækker).
+
+4. Spørgsmål til refleksion:
+   - Hvad sker der med resultatet, hvis du ændrer `select=*`?
+   - Hvad sker der, hvis du laver `select=first_name`?
+   - Hvordan ændrer rækkefølgen sig med `order=first_name.asc`?
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Næste skridt
+
+[Tilbage til Tema 9 – Supabase tabel + endpoint](/astro/supabase/)
+
+</Slide>

@@ -1,0 +1,223 @@
+---
+title: "Array i et objekt"
+description: "Lær at hente et array ud af et objekt med eksempler fra DummyJSON products og recipes."
+sidebar:
+  label: "Array i et objekt"
+  order: 4.191
+  badge:
+    text: Tema 8
+    variant: tip
+    class: badge-theme-8
+---
+
+import Slide from "../../../components/Slide.astro";
+
+<Slide>
+
+## Hvad lærer du her?
+
+På denne side lærer du:
+
+1. hvordan du finder et array inde i et objekt
+2. hvordan du læser første element i arrayet
+3. hvordan du går videre ind i data med både key og index
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Grundideen
+
+Nogle JSON-svar starter ikke med et array.
+
+De starter med et **objekt**, som indeholder et array.
+
+Eksempel (der minder om https://dummyjson.com/products):
+
+```json
+{
+  "products": [
+    { "id": 1, "title": "Essence Mascara Lash Princess" },
+    { "id": 2, "title": "Eyeshadow Palette" }
+  ]
+}
+```
+
+Her er:
+
+- hele svaret et objekt
+- `products` en key i objektet
+- værdien på `products` et array
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Sådan henter du arrayet
+
+Først skal du hente data fra URL'en:
+
+```javascript
+fetch("https://dummyjson.com/products")
+  .then((res) => res.json())
+  .then((data) => {
+    console.log(data.products);
+  });
+```
+
+<div style="margin-top: 1.5rem;"></div>
+### Her sker der dette:
+
+- `fetch(...)` henter data fra URL'en
+- `res.json()` laver JSON om til et JavaScript-objekt
+- objektet bliver gemt i variablen `data`
+- `data.products` henter arrayet ud af objektet
+
+### Det betyder:
+
+- `data` er objektet
+- `.products` finder key'en `products`
+- resultatet er arrayet med alle produkter
+
+:::tip[Du kan gøre det samme med recipes]
+:::
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Products-eksempel fra DummyJSON
+
+```javascript
+fetch("https://dummyjson.com/products")
+  .then((res) => res.json())
+  .then((data) => {
+    console.log(data); // hele objektet
+    console.log(data.products); // arrayet
+    console.log(data.products[0]); // første produkt
+    console.log(data.products[0].title); // titel på første produkt
+  });
+```
+
+Huskereglen er:
+
+- først key: `data.products`
+- derefter index: `data.products[0]`
+- derefter ny key: `data.products[0].title`
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Recipes-eksempel fra DummyJSON
+
+```javascript
+fetch("https://dummyjson.com/recipes")
+  .then((res) => res.json())
+  .then((data) => {
+    console.log(data.recipes); // array med opskrifter
+    console.log(data.recipes[0]); // første opskrift
+    console.log(data.recipes[0].name); // navnet på første opskrift
+    console.log(data.recipes[0].ingredients); // ingredients-arrayet
+    console.log(data.recipes[0].ingredients[0]); // første ingredient
+  });
+```
+
+Her går du altså fra:
+
+- objekt
+- til array
+- til objekt
+- til array igen
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Et objekt kan indeholde flere arrays
+
+I `products`-eksemplet kan et enkelt produkt også indeholde arrays:
+
+```javascript
+console.log(data.products[0].tags);
+console.log(data.products[0].reviews);
+```
+
+Det viser:
+
+- `data.products` er et array
+- `data.products[0]` er et objekt
+- `data.products[0].reviews` er endnu et array
+
+Det samme mønster går igen:
+
+`objekt.key[index].nyKey`
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Typiske fejl
+
+```javascript
+console.log(data[0]);
+```
+
+Det er forkert, hvis `data` er et objekt.
+
+Du skal først finde den rigtige key:
+
+```javascript
+console.log(data.products[0]);
+console.log(data.recipes[0]);
+```
+
+Spørg dig selv:
+
+- starter svaret med et objekt?
+- hvad hedder key'en med arrayet?
+- hvad vil du hente inde i arrayet?
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Øvelse
+
+1. Hent `https://dummyjson.com/products`
+2. Log hele `data.products`
+3. Log titlen på første produkt
+4. Log `tags` på første produkt
+5. Hent derefter `https://dummyjson.com/recipes`
+6. Log navnet på første recipe
+7. Log første ingredient i første recipe
+
+Ekstra:
+
+Prøv selv at skrive disse:
+
+```javascript
+data.products[0].thumbnail;
+data.products[0].reviews[0].comment;
+data.recipes[0].mealType[0];
+```
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Næste skridt
+
+[Objects & JSON →](/javascript/objects-json/)
+
+[Fetch Single Product →](/javascript/fetch/)
+
+</Slide>

@@ -1,106 +1,150 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, type CollectionEntry } from 'astro:content';
 import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
-import { Card, CardGrid } from '@astrojs/starlight/components';
 
-const docs = await getCollection('docs');
+interface TemaLink {
+  title: string;
+  description: string;
+  href: string;
+}
 
-// Organiser efter tema
-const temaMap = new Map<string, any[]>();
-docs.forEach((doc: any) => {
-  const tema = doc.data.sidebar?.badge?.text;
-  if (tema && tema.startsWith('Tema')) {
-    if (!temaMap.has(tema)) {
-      temaMap.set(tema, []);
+interface TemaSection {
+  name: string;
+  number: string;
+  items: TemaLink[];
+}
+
+const extractTemaNumber = (value: string) => value.match(/\d+/)?.[0] || value;
+const getTemaOrder = (value: string) => Number.parseInt(extractTemaNumber(value), 10) || 0;
+
+const createTemaLink = (doc: CollectionEntry<'docs'>): TemaLink => {
+  const slug = doc.id.replace(/\.mdx?$/, '');
+
+  return {
+    title: doc.data.title,
+    description: doc.data.description || '',
+    href: `/${slug}`,
+  };
+};
+
+let temaSections: TemaSection[] = [];
+let loadError = '';
+
+try {
+  const docs = await getCollection('docs');
+  const temaMap = new Map<string, TemaLink[]>();
+
+  for (const doc of docs) {
+    const temaName = doc.data.sidebar?.badge?.text;
+
+    if (!temaName || !temaName.startsWith('Tema')) {
+      continue;
     }
-    temaMap.get(tema)!.push(doc);
-  }
-});
 
-// Sorter temaer efter nummer
-const sortedTemaer = Array.from(temaMap.entries()).sort((a, b) => {
-  const numA = parseInt(a[0].match(/\d+/)?.[0] || '0');
-  const numB = parseInt(b[0].match(/\d+/)?.[0] || '0');
-  return numA - numB;
-});
+    if (!temaMap.has(temaName)) {
+      temaMap.set(temaName, []);
+    }
+
+    temaMap.get(temaName)?.push(createTemaLink(doc));
+  }
+
+  temaSections = Array.from(temaMap.entries())
+    .sort((a, b) => getTemaOrder(a[0]) - getTemaOrder(b[0]))
+    .map(([name, items]) => ({
+      name,
+      number: extractTemaNumber(name),
+      items,
+    }));
+} catch (error) {
+  loadError =
+    error instanceof Error ? error.message : 'Kunne ikke bygge temaoversigten.';
+}
 ---
 
-<StarlightPage 
-  frontmatter={{ 
+<StarlightPage
+  frontmatter={{
     title: 'Tema Oversigt',
     description: 'Oversigt over alt indhold organiseret efter tema',
   }}
 >
   <h1>Tema Oversigt</h1>
-  <p>Find indhold organiseret efter tema. Denne oversigt opdateres automatisk baseret på badge-tags.</p>
+  <p class="intro">
+    Find indhold organiseret efter tema. Denne oversigt opdateres automatisk
+    baseret på badge-tags.
+  </p>
 
-  <div style="margin-bottom: 2rem;">
-    <label for="tema-filter" style="font-weight: bold; margin-right: 0.5rem;">Filtrer efter tema:</label>
-    <select id="tema-filter" style="padding: 0.5rem; border-radius: 0.25rem; border: 1px solid var(--sl-color-gray-5);">
-      <option value="all">Alle temaer</option>
-      {sortedTemaer.map(([tema]) => {
-        const temaNumber = tema.match(/\d+/)?.[0] || tema;
-        return <option value={temaNumber}>{tema}</option>;
-      })}
-    </select>
-  </div>
+  {loadError && (
+    <p class="status error">Kunne ikke hente temaoversigten: {loadError}</p>
+  )}
 
-  {sortedTemaer.map(([tema, items]) => {
-    const temaNumber = tema.match(/\d+/)?.[0] || '';
-    return (
-      <div class="tema-section" data-tema={tema} data-tema-number={temaNumber}>
-        <h2>{tema}</h2>
-        <div style="margin-bottom: 2rem;">
-          {items.map((doc: any) => {
-            const slug = doc.id.replace(/\.mdx?$/, '');
-            return (
-              <details style="border: 1px solid var(--sl-color-gray-5); border-radius: 0.5rem; padding: 0.75rem; margin-bottom: 0.5rem;">
-                <summary style="cursor: pointer; font-weight: bold; font-size: 1.05rem;">
-                  {doc.data.title}
-                </summary>
-                <div style="margin-top: 0.75rem; padding-left: 1.25rem;">
-                  <p style="margin: 0 0 0.5rem 0;">{doc.data.description || ''}</p>
-                  <a href={`/${slug}`}>Læs mere →</a>
-                </div>
-              </details>
-            );
-          })}
-        </div>
+  {!loadError && temaSections.length === 0 && (
+    <p class="status">Ingen temaer fundet.</p>
+  )}
+
+  {!loadError && temaSections.length > 0 && (
+    <div class="filter-bar">
+      <label for="tema-filter">Filtrer efter tema:</label>
+      <select id="tema-filter">
+        <option value="all">Alle temaer</option>
+        {temaSections.map((tema) => (
+          <option value={tema.number}>{tema.name}</option>
+        ))}
+      </select>
+    </div>
+  )}
+
+  {temaSections.map((tema) => (
+    <section class="tema-section" data-tema-number={tema.number}>
+      <h2>{tema.name}</h2>
+      <div class="tema-items">
+        {tema.items.map((item) => (
+          <article class="tema-card">
+            <h3>{item.title}</h3>
+            {item.description && <p>{item.description}</p>}
+            <a href={item.href}>Læs mere →</a>
+          </article>
+        ))}
       </div>
-    );
-  })}
+    </section>
+  ))}
 
   <script>
-    const temaFilter = document.getElementById('tema-filter');
-    const sections = document.querySelectorAll('.tema-section');
+    const temaFilter = document.querySelector('#tema-filter');
+    const sections = Array.from(document.querySelectorAll('.tema-section'));
 
-    const applyFilter = (selectedTema: string) => {
+    const applyFilter = (selectedTema) => {
       sections.forEach((section) => {
         const sectionTemaNumber = section.getAttribute('data-tema-number');
+
         if (selectedTema === 'all' || selectedTema === sectionTemaNumber) {
-          (section as HTMLElement).style.display = 'block';
+          section.removeAttribute('hidden');
         } else {
-          (section as HTMLElement).style.display = 'none';
+          section.setAttribute('hidden', '');
         }
       });
     };
 
-    if (temaFilter) {
+    if (temaFilter instanceof HTMLSelectElement) {
       const params = new URLSearchParams(window.location.search);
       const temaFromUrl = params.get('tema');
+
       if (temaFromUrl) {
-        const options = Array.from((temaFilter as HTMLSelectElement).options);
+        const options = Array.from(temaFilter.options);
         const normalizedTemaFromUrl = temaFromUrl.match(/\d+/)?.[0] || temaFromUrl;
         const hasOption = options.some((option) => option.value === normalizedTemaFromUrl);
+
         if (hasOption) {
-          (temaFilter as HTMLSelectElement).value = normalizedTemaFromUrl;
+          temaFilter.value = normalizedTemaFromUrl;
         }
       }
 
-      applyFilter((temaFilter as HTMLSelectElement).value);
+      applyFilter(temaFilter.value);
 
       temaFilter.addEventListener('change', (e) => {
-        const selectedTema = (e.target as HTMLSelectElement).value;
+        const selectedTema = e.currentTarget instanceof HTMLSelectElement
+          ? e.currentTarget.value
+          : 'all';
+
         applyFilter(selectedTema);
 
         const nextUrl = new URL(window.location.href);
@@ -110,3 +154,69 @@ const sortedTemaer = Array.from(temaMap.entries()).sort((a, b) => {
     }
   </script>
 </StarlightPage>
+
+<style>
+  .intro {
+    margin-bottom: 1.5rem;
+  }
+
+  .filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+  }
+
+  .filter-bar label {
+    font-weight: 700;
+  }
+
+  .filter-bar select {
+    min-width: 12rem;
+    padding: 0.65rem 0.85rem;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 0.75rem;
+    background: var(--sl-color-bg);
+    color: var(--sl-color-text);
+  }
+
+  .tema-section {
+    margin-bottom: 2rem;
+  }
+
+  .tema-items {
+    display: grid;
+    gap: 0.85rem;
+  }
+
+  .tema-card {
+    padding: 1rem 1.1rem;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 1rem;
+    background: color-mix(in srgb, var(--sl-color-gray-6) 18%, transparent);
+  }
+
+  .tema-card h3 {
+    margin: 0 0 0.35rem;
+    font-size: 1.05rem;
+  }
+
+  .tema-card p {
+    margin: 0 0 0.65rem;
+  }
+
+  .status {
+    margin: 0 0 1.5rem;
+    padding: 1rem 1.25rem;
+    border-radius: 1rem;
+    background: color-mix(in srgb, var(--sl-color-gray-6) 22%, transparent);
+    border: 1px solid var(--sl-color-gray-5);
+    color: var(--sl-color-text);
+  }
+
+  .error {
+    border-color: color-mix(in srgb, var(--sl-color-red) 35%, transparent);
+    background: color-mix(in srgb, var(--sl-color-red) 12%, transparent);
+  }
+</style>
