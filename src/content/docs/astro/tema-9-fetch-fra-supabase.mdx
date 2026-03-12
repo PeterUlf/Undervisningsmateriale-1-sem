@@ -78,20 +78,23 @@ getData();
 <Slide>
 
 ## Når vi laver det i astro:
-### Gem Supabase-oplysninger i `.env`
+### Gem Supabase-oplysninger i en fil der hedder `.env`
+(dvs. filnavnet starter med en punktum efterfulgt af env, på samme måde som .gitignore)
 
-I dit Astro-projekt:
+### .env-fil i dit Astro-projekt:
 
 ```bash
 SUPABASE_URL=https://din-projekt-ref.supabase.co
 SUPABASE_PUBLISHABLE_KEY=din-publishable-key
 ````
 
-Læg filen i projektets rod (`package.json` ligger også her), og husk at den ikke må i Git.
+- Læg filen i projektets rod (der hvor `package.json` også ligger)
+- Husk at den ikke må komme med i Git/GitHub.
+- Det betyder, at `.env` skal stå i `.gitignore`.
 
-Det betyder, at `.env` skal stå i `.gitignore`.
+<div style="margin-top: 1rem;">
 
-Det kan fx se sådan ud:
+### .gitignore skal derfor også indeholde:
 
 ```gitignore
 # Miljøfiler
@@ -105,6 +108,8 @@ Det kan fx se sådan ud:
 ```
 
 Her bruger vi almindelige miljøvariabler, fordi hentningen sker i Astro frontmatter.
+
+</div>
 
 </Slide>
 <div class="page-break"></div>
