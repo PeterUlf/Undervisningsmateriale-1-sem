@@ -1,0 +1,257 @@
+---
+title: "Tema 9 – Netlify + Supabase: .env og auto-build"
+description: "Sådan får du Supabase-variabler ind i Netlify og trigger en ny build, når data ændres i Supabase."
+sidebar:
+  label: "Netlify + Supabase"
+  order: 6.4
+  badge:
+    text: Tema 9
+    variant: tip
+    class: badge-theme-9
+---
+
+import Slide from "../../../components/Slide.astro";
+
+<Slide>
+
+## Når sitet virker lokalt, men ikke på Netlify
+
+Der er typisk to ting, der skal være på plads:
+
+1. Netlify skal kende dine miljøvariabler
+2. Netlify skal få besked, når data ændrer sig i Supabase
+
+Ellers sker der ofte dette:
+
+- lokalt virker `.env`
+- på Netlify mangler variablerne
+- og ændringer i Supabase udløser ikke automatisk en ny build
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## 1) Du sender ikke selve `.env`-filen til Netlify
+
+Lokalt læser Astro dine variabler fra `.env`.
+
+På Netlify er det anderledes:
+
+- Netlify læser ikke din lokale `.env`-fil direkte under build
+- i stedet skal værdierne oprettes eller importeres i Netlify
+- derfor er det normalt, at `.env` ikke ligger i GitHub
+
+Tænk sådan:
+
+> `.env` er til lokal udvikling.  
+> Netlify Environment Variables er til build i produktion.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## 2) Hvilke variabler skal normalt med?
+
+I dette forløb er det typisk disse:
+
+```text
+SUPABASE_URL=https://din-projekt-ref.supabase.co
+SUPABASE_PUBLISHABLE_KEY=din-publishable-key
+```
+
+Hvis din Astro-kode bruger:
+
+- `import.meta.env.SUPABASE_URL`
+- `import.meta.env.SUPABASE_PUBLISHABLE_KEY`
+
+...så skal de samme keys også findes i Netlify.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## 3) Sådan får du `.env`-værdier ind i Netlify
+
+I Netlify:
+
+1. Åbn dit site
+2. Gå til **Project configuration → Environment variables**
+3. Vælg **Add a variable**
+4. Opret variablerne enkeltvis eller vælg **Import from a .env file**
+5. Hvis du ser scope-indstillinger, skal **Builds** være med
+
+Det vigtige er ikke at uploade filen som fil.
+Det vigtige er at få **nøglerne og værdierne** ind i Netlifys environment variables.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## 4) Efter du har tilføjet variablerne
+
+Ændringer i environment variables slår ikke igennem, før der kommer en ny build.
+
+Du kan derfor:
+
+- lave en lille ændring og pushe til GitHub
+- eller trigge en ny deploy manuelt i Netlify
+
+Når builden kører igen, kan Astro læse variablerne under `astro build`.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## 5) Hvornår behøver du auto-build fra Supabase?
+
+Hvis din side henter data under build, fx i Astro frontmatter i en statisk build, bliver data bagt ind i den HTML Netlify uploader.
+
+Så gælder:
+
+- ændrer du kun data i Supabase, ændrer GitHub sig ikke
+- derfor starter Netlify ikke automatisk en ny build af sig selv
+- hvis de nye data skal vises på sitet, skal en ny build trigges
+
+Hvis du derimod henter data live i browseren eller server-side ved hver request, behøver du normalt ikke rebuild for hver databaseændring.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## 6) Løsningen: Netlify Build Hook + Supabase Database Webhook
+
+Kæden ser sådan ud:
+
+> ændring i Supabase tabel → Supabase webhook → Netlify build hook → ny build → opdateret site
+
+Det betyder i praksis:
+
+- Netlify giver dig en URL, der kan starte en build
+- Supabase kan sende et `POST`-kald, når en tabel ændres
+- når det kald rammer build hooken, bygger Netlify igen
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## 7) Opret build hook i Netlify
+
+I Netlify:
+
+1. Gå til **Project configuration → Build & deploy → Continuous deployment → Build hooks**
+2. Klik **Add build hook**
+3. Giv hooken et navn, fx `supabase-rebuild`
+4. Vælg den branche, der skal buildes, fx `main`
+5. Gem og kopiér build hook-URL'en
+
+Vigtigt:
+
+- build hooken udløses med et `POST` request
+- builds skal være aktive på sitet
+- behold URL'en privat, fordi den kan starte en deploy
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## 8) Opret database webhook i Supabase
+
+I Supabase Dashboard:
+
+1. Gå til **Database Webhooks**
+2. Opret en ny webhook
+3. Vælg den tabel, der skal udløse rebuild, fx `students`
+4. Vælg relevante events: `INSERT`, `UPDATE` og evt. `DELETE`
+5. Sæt method til `POST`
+6. Indsæt din Netlify build hook-URL som destination
+7. Gem
+
+Når den valgte tabel ændres, sender Supabase webhooken automatisk et HTTP-kald til Netlify.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## 9) Vælg kun de events du faktisk har brug for
+
+Det kan blive langsomt at bygge hele sitet ved hver lille databaseændring.
+
+Derfor er det bedre at:
+
+- kun koble webhook på de tabeller, der påvirker det færdige site
+- kun vælge de events, du faktisk har brug for
+- undgå at trigge build på rene testdata eller administrative tabeller
+
+Et godt udgangspunkt er ofte:
+
+- `UPDATE`, hvis indhold redigeres
+- `INSERT`, hvis nye poster skal vises
+- `DELETE`, kun hvis slettede data straks skal forsvinde fra sitet
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## 10) Typisk opsætning i dit projekt
+
+Lokalt:
+
+- `.env` ligger i projektets rod
+- Astro læser variablerne med `import.meta.env...`
+
+På Netlify:
+
+- samme keys oprettes som environment variables
+- build hook oprettes i Netlify
+- database webhook peger på build hook-URL'en
+
+Så bliver forskellen:
+
+- **Git-ændring** giver normal auto-deploy via GitHub
+- **Supabase-ændring** giver auto-build via webhook
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Husk
+
+- `.env`-filen som fil skal ikke med i GitHub
+- det er værdierne, der skal kopieres eller importeres til Netlify
+- hvis du ændrer environment variables, kræver det en ny build
+- hvis du henter data ved build-tid, kræver databaseændringer en ny build
+- hvis du henter data live ved runtime, er webhook-build ofte unødvendig
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Hvor kan du læse mere?
+
+- [Netlify Docs – Get started with environment variables](https://docs.netlify.com/build/environment-variables/get-started/)
+- [Netlify Docs – Build hooks](https://docs.netlify.com/build/configure-builds/build-hooks/)
+- [Supabase Docs – Database Webhooks](https://supabase.com/docs/guides/database/webhooks)
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Næste skridt
+
+- [Tilbage til Supabase: tabel + endpoint](/astro/supabase/)
+- [Tilbage til Deploy med GitHub og Netlify](/astro/deploy-netlify/)
+
+</Slide>

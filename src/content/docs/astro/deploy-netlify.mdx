@@ -138,9 +138,9 @@ Hvis du bruger eksterne tjenester (fx Supabase), skal du ofte sætte **environme
 
 I Netlify:
 
-1. Gå til dit site → **Site settings**
-2. Vælg **Environment variables** (Build & deploy)
-3. Tilføj de samme nøgler som i din lokale `.env` (fx `SUPABASE_URL`, `SUPABASE_ANON_KEY`)
+1. Gå til dit site → **Project configuration → Environment variables**
+2. Tilføj de samme nøgler som i din lokale `.env` (fx `SUPABASE_URL`, `SUPABASE_PUBLISHABLE_KEY`)
+3. Hvis du ser scope-indstillinger, så sørg for at **Builds** er valgt
 4. Gem og lav en ny deploy (fx ved at lave en lille ændring og pushe)
 
 På den måde kan dit Astro-site både lokalt **og** på Netlify få adgang til de samme hemmelige nøgler – uden at de ligger i GitHub-koden.
@@ -155,5 +155,6 @@ På den måde kan dit Astro-site både lokalt **og** på Netlify få adgang til 
 
 Fortsæt i rækken:
 
-[Gå til Astro startup - Figma →](/astro/figma-astro-startup/)
+1. [Netlify + Supabase: .env og auto-build →](/astro/netlify-supabase-env-og-auto-build/)
+2. [Gå til Astro startup - Figma →](/astro/figma-astro-startup/)
 </Slide>
