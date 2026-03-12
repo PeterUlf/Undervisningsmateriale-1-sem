@@ -38,12 +38,12 @@ html {
 }
 
 .hero-theme-selector {
+  position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 0.45rem;
 }
 
-.hero-theme-selector label {
+.hero-theme-selector-label {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -55,23 +55,155 @@ html {
   border: 0;
 }
 
-.hero-theme-selector select {
-  appearance: none;
-  min-width: 11rem;
-  border: 1px solid var(--sl-color-accent);
+.hero-theme-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.7rem;
+  min-width: 11.5rem;
+  max-width: min(17rem, calc(100vw - 2rem));
+  padding: 0.58rem 0.9rem 0.58rem 1rem;
+  border: 1px solid color-mix(in srgb, var(--sl-color-hairline) 65%, var(--sl-color-accent));
   border-radius: 999rem;
-  background: var(--sl-color-accent-low);
-  color: var(--sl-color-white);
-  font-size: var(--sl-text-sm);
+  background: color-mix(in srgb, var(--sl-color-bg) 92%, white 8%);
+  color: var(--sl-color-text);
+  box-shadow: 0 0.2rem 0.6rem color-mix(in srgb, black 9%, transparent);
+  font-size: 0.96rem;
   font-weight: 600;
   line-height: 1.2;
-  padding: 0.5rem 1.1rem;
   cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease,
+    transform 0.2s ease;
 }
 
-.hero-theme-selector select:focus {
+.hero-theme-trigger:hover {
+  border-color: color-mix(in srgb, var(--sl-color-accent) 55%, var(--sl-color-hairline));
+  background: color-mix(in srgb, var(--sl-color-bg) 88%, white 12%);
+}
+
+.hero-theme-trigger:focus-visible {
   outline: 2px solid color-mix(in srgb, var(--sl-color-accent) 70%, transparent);
-  outline-offset: 2px;
+  outline-offset: 3px;
+}
+
+.hero-theme-selector.is-open .hero-theme-trigger {
+  border-color: color-mix(in srgb, var(--sl-color-accent) 62%, var(--sl-color-hairline));
+  box-shadow: 0 0.55rem 1.2rem color-mix(in srgb, black 12%, transparent);
+  transform: translateY(-1px);
+}
+
+.hero-theme-current-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.hero-theme-chevron {
+  width: 0.7rem;
+  height: 0.7rem;
+  flex: 0 0 auto;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg) translateY(-2px);
+  transition: transform 0.2s ease;
+}
+
+.hero-theme-selector.is-open .hero-theme-chevron {
+  transform: rotate(-135deg) translate(-1px, -1px);
+}
+
+.hero-theme-popover {
+  position: absolute;
+  top: calc(100% + 0.9rem);
+  left: 50%;
+  z-index: 40;
+  width: clamp(16rem, 34vw, 28rem);
+  max-width: calc(100vw - 1.5rem);
+  transform: translateX(-50%);
+  padding: 0.5rem;
+  border: 1px solid color-mix(in srgb, var(--sl-color-hairline) 70%, white 30%);
+  border-radius: 1.45rem;
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--sl-color-bg) 90%, white 10%),
+      color-mix(in srgb, var(--sl-color-bg) 96%, white 4%)
+    );
+  box-shadow:
+    0 0.9rem 1.8rem color-mix(in srgb, black 12%, transparent),
+    0 0.15rem 0.45rem color-mix(in srgb, black 7%, transparent);
+  backdrop-filter: blur(10px);
+}
+
+.hero-theme-options {
+  display: grid;
+  gap: 0.08rem;
+}
+
+.hero-theme-option {
+  display: grid;
+  grid-template-columns: 1.1rem 1fr;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.55rem 0.85rem;
+  border-radius: 0.95rem;
+  color: var(--sl-color-text);
+  text-decoration: none;
+  font-size: 0.98rem;
+  line-height: 1.2;
+  transition: background-color 0.18s ease, transform 0.18s ease;
+}
+
+.hero-theme-option:hover,
+.hero-theme-option:focus-visible {
+  background: color-mix(in srgb, var(--sl-color-accent) 12%, transparent);
+  outline: none;
+}
+
+.hero-theme-option:active {
+  transform: translateY(1px);
+}
+
+.hero-theme-option-check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 1rem;
+  color: var(--sl-color-text);
+  font-size: 1rem;
+  opacity: 0;
+  transform: scale(0.7);
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+
+.hero-theme-option.is-selected {
+  background: color-mix(in srgb, var(--sl-color-accent) 14%, transparent);
+}
+
+.hero-theme-option.is-selected .hero-theme-option-check {
+  opacity: 1;
+  transform: scale(1);
+}
+
+@media (max-width: 50rem) {
+  .hero-theme-trigger {
+    min-width: min(14rem, calc(100vw - 2rem));
+    max-width: calc(100vw - 2rem);
+  }
+
+  .hero-theme-popover {
+    width: min(20rem, calc(100vw - 1rem));
+    padding: 0.45rem;
+    border-radius: 1.2rem;
+  }
+
+  .hero-theme-option {
+    padding: 0.55rem 0.75rem;
+    font-size: 0.94rem;
+  }
 }
 
 .frontpage-presentation-driver {

@@ -1,20 +1,47 @@
+---
+const themes = [
+  { value: "all", label: "Alle temaer", href: "/tema-oversigt/?tema=all" },
+  { value: "1", label: "Tema 1 - Introuge", href: "/tema-oversigt/?tema=1" },
+  { value: "2", label: "Tema 2 - Web I", href: "/tema-oversigt/?tema=2" },
+  { value: "3", label: "Tema 3 - UX I", href: "/tema-oversigt/?tema=3" },
+  { value: "4", label: "Tema 4 - Brugergrænseflade udvikling I", href: "/tema-oversigt/?tema=4" },
+  { value: "5", label: "Tema 5 - Indhold I", href: "/tema-oversigt/?tema=5" },
+  { value: "7", label: "Tema 7 - Indhold II", href: "/tema-oversigt/?tema=7" },
+  { value: "8", label: "Tema 8 - Web II", href: "/tema-oversigt/?tema=8" },
+  { value: "9", label: "Tema 9", href: "/tema-oversigt/?tema=9" },
+];
+---
+
 <div class="hero-theme-selector" aria-label="Temavælger på forsiden">
-  <label for="home-theme-select">Vælg tema</label>
-  <select
-    id="home-theme-select"
-    onchange="if (this.value) window.location.assign(this.value)"
+  <span class="hero-theme-selector-label">Vælg tema</span>
+
+  <button
+    type="button"
+    class="hero-theme-trigger"
+    aria-haspopup="listbox"
+    aria-expanded="false"
   >
-    <option value="">Vælg tema...</option>
-    <option value="/tema-oversigt/?tema=all">Alle temaer</option>
-    <option value="/tema-oversigt/?tema=1">Tema 1</option>
-    <option value="/tema-oversigt/?tema=2">Tema 2</option>
-    <option value="/tema-oversigt/?tema=3">Tema 3</option>
-    <option value="/tema-oversigt/?tema=4">Tema 4</option>
-    <option value="/tema-oversigt/?tema=5">Tema 5</option>
-    <option value="/tema-oversigt/?tema=7">Tema 7</option>
-    <option value="/tema-oversigt/?tema=8">Tema 8</option>
-    <option value="/tema-oversigt/?tema=9">Tema 9</option>
-  </select>
+    <span class="hero-theme-current-label">Alle temaer</span>
+    <span class="hero-theme-chevron" aria-hidden="true"></span>
+  </button>
+
+  <div class="hero-theme-popover" hidden>
+    <div class="hero-theme-options" role="listbox" aria-label="Temaer">
+      {themes.map((theme) => (
+        <a
+          class="hero-theme-option"
+          href={theme.href}
+          data-theme-value={theme.value}
+          data-theme-label={theme.label}
+          role="option"
+          aria-selected={theme.value === "all" ? "true" : "false"}
+        >
+          <span class="hero-theme-option-check" aria-hidden="true">&check;</span>
+          <span class="hero-theme-option-label">{theme.label}</span>
+        </a>
+      ))}
+    </div>
+  </div>
 </div>
 
 <script>
@@ -29,11 +56,114 @@
     heroActions.appendChild(themeSelector);
   }
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", placeThemeSelectorInHeroActions);
-  } else {
-    placeThemeSelectorInHeroActions();
+  function initThemeSelector() {
+    const themeSelector = document.querySelector(".hero-theme-selector");
+    if (!(themeSelector instanceof HTMLElement)) return;
+    if (themeSelector.dataset.ready === "true") return;
+
+    const trigger = themeSelector.querySelector(".hero-theme-trigger");
+    const popover = themeSelector.querySelector(".hero-theme-popover");
+    const currentLabel = themeSelector.querySelector(".hero-theme-current-label");
+    const options = Array.from(
+      themeSelector.querySelectorAll(".hero-theme-option"),
+    );
+
+    if (
+      !(trigger instanceof HTMLButtonElement) ||
+      !(popover instanceof HTMLElement) ||
+      !(currentLabel instanceof HTMLElement) ||
+      options.length === 0
+    ) {
+      return;
+    }
+
+    themeSelector.dataset.ready = "true";
+
+    const normalizeTheme = (value) => {
+      if (!value || value === "all") return "all";
+      return value.match(/\d+/)?.[0] || value;
+    };
+
+    const getSelectedTheme = () => {
+      const params = new URLSearchParams(window.location.search);
+      const urlTheme = params.get("tema");
+      return normalizeTheme(urlTheme || localStorage.getItem("selectedTheme") || "all");
+    };
+
+    const closeMenu = () => {
+      themeSelector.classList.remove("is-open");
+      trigger.setAttribute("aria-expanded", "false");
+      popover.hidden = true;
+    };
+
+    const openMenu = () => {
+      themeSelector.classList.add("is-open");
+      trigger.setAttribute("aria-expanded", "true");
+      popover.hidden = false;
+    };
+
+    const toggleMenu = () => {
+      if (themeSelector.classList.contains("is-open")) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    };
+
+    const updateSelection = (selectedTheme) => {
+      const normalizedTheme = normalizeTheme(selectedTheme);
+      const fallbackOption = options[0];
+      const activeOption =
+        options.find((option) => option.dataset.themeValue === normalizedTheme) ||
+        fallbackOption;
+
+      options.forEach((option) => {
+        const isSelected = option === activeOption;
+        option.classList.toggle("is-selected", isSelected);
+        option.setAttribute("aria-selected", String(isSelected));
+      });
+
+      currentLabel.textContent =
+        activeOption?.dataset.themeLabel || fallbackOption?.dataset.themeLabel || "Alle temaer";
+    };
+
+    trigger.addEventListener("click", toggleMenu);
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        const selectedTheme = option.dataset.themeValue || "all";
+        localStorage.setItem("selectedTheme", selectedTheme);
+        updateSelection(selectedTheme);
+        closeMenu();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!(event.target instanceof Node)) return;
+      if (themeSelector.contains(event.target)) return;
+      closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        closeMenu();
+      }
+    });
+
+    updateSelection(getSelectedTheme());
+    closeMenu();
   }
 
-  document.addEventListener("astro:page-load", placeThemeSelectorInHeroActions);
+  function setupThemeSelector() {
+    placeThemeSelectorInHeroActions();
+    initThemeSelector();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", setupThemeSelector);
+  } else {
+    setupThemeSelector();
+  }
+
+  document.addEventListener("astro:page-load", setupThemeSelector);
 </script>
