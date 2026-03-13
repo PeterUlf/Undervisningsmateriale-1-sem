@@ -1,0 +1,284 @@
+---
+title: Om dette site
+description: Hvordan sitet er bygget med Starlight, hvilke tilpasninger det har fået, og hvordan nye slides laves.
+sidebar:
+  label: Om dette site
+---
+
+import Slide from "../../components/Slide.astro";
+
+<Slide>
+
+## Sådan har jeg i praksis lavet nye slides
+
+Mit workflow har i praksis ofte været:
+
+1. Jeg har bedt en AI om at lave et første udkast til en slideside om et emne, fx **CSS Grid**, gerne med forklaringer, eksempler og øvelser.
+2. Jeg har derefter også bedt AI om at sætte indholdet ind i projektets MDX-struktur og fordele det i `<Slide>`-blokke.
+3. Så har jeg brugt AI igen til at **rette til**, gøre sproget tydeligere, tilføje eller ændre øvelser, stramme eksempler op og få nye versioner af enkelte slides.
+4. Til sidst har jeg selv vurderet, redigeret og tilpasset materialet didaktisk, så det passer til undervisningen.
+
+Det vil sige, at AI ikke bare har lavet en færdig side i ét hug. Jeg har brugt den **iterativt** som skrive- og redigeringsmakker, præcis som jeg gør nu.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Hvilken AI har jeg brugt i VS Code?
+
+Jeg startede med det, der i praksis var det **indbyggede Copilot/Copilot Chat i VS Code**.
+
+Det var godt til:
+
+- hurtige forslag til kode og tekst
+- første udkast til slides
+- små rettelser direkte i editoren
+
+Senere installerede jeg også et **ChatGPT-plugin/integration** til VS Code, så jeg kunne bruge ChatGPT tættere på de filer, jeg arbejdede i.
+
+Hvis man vil bruge OpenAI's egen integration på Mac, findes der pr. nu en VS Code-udvidelse med id'et `openai.chatgpt`, som ifølge OpenAI bruges sammen med ChatGPT-appens **Work with Apps**-funktion og kan arbejde med filer, der er åbne i VS Code.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Sådan får man Copilot som underviser
+
+For indeværende, dvs. **13. marts 2026**, er GitHubs model denne:
+
+- undervisere kan få **GitHub Copilot Pro gratis**
+- det kræver, at man bliver **verificeret som teacher i GitHub Education**
+
+For at søge skal man ifølge GitHub typisk have:
+
+- en personlig GitHub-konto
+- en verificerbar skolemail
+- dokumentation for tilknytning til uddannelsesinstitutionen
+
+Praktisk forløb:
+
+1. Opret eller brug din personlige GitHub-konto.
+2. Gå til GitHub Education og start en **teacher application**.
+3. Udfyld ansøgningen og upload dokumentation.
+4. Når du er godkendt, går du til dine **Copilot settings**.
+5. Hvis du er berettiget, kan du aktivere **GitHub Copilot Pro** gratis.
+
+Hvis man ikke er godkendt endnu, kan man stadig starte med **Copilot Free** direkte fra VS Code og få en mere begrænset version.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Om dette site
+
+Dette undervisningssite er bygget med:
+
+- `Astro`
+- `Starlight`
+- pluginet `starlight-theme-rapide`
+
+I dette projekt står versionerne lige nu i `package.json` som:
+
+- `astro`: `^5.6.1`
+- `@astrojs/starlight`: `^0.36.2`
+- `starlight-theme-rapide`: `^0.5.2`
+
+Kort sagt er det stadig et almindeligt Starlight-site, men med et ekstra slide-lag, en tilpasset forside, egne komponenter og en sidebar, der er bygget til undervisning.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Sådan installerer jeg et nyt Starlight-projekt
+
+### Forudsætninger
+
+- **Node.js** i en aktuel LTS-version
+- **npm** (følger normalt med Node)
+- **VS Code** eller en anden editor
+- **Git**, hvis projektet skal versionsstyres og deployes via GitHub/Netlify
+
+Tjek i terminalen:
+
+```bash
+node -v
+npm -v
+git --version
+```
+
+Opret derefter et nyt projekt med Starlight-skabelonen:
+
+```bash
+npm create astro@latest -- --template starlight
+```
+
+Gå ind i mappen og start udviklingsserveren:
+
+```bash
+cd mit-starlight-site
+npm install
+npm run dev
+```
+
+Åbn derefter adressen fra terminalen, normalt `http://localhost:4321`.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Standard Starlight vs. dette site
+
+Et nyt Starlight-projekt giver dig især:
+
+- `src/content/docs/` til indhold
+- `astro.config.mjs` til konfiguration
+- en standardforside og standardsidebar
+
+Jeg har derefter ændret det til dette site ved at tilføje:
+
+- **egen CSS** via `customCss` i `astro.config.mjs`
+- **egen sidebar-konfiguration** med temaer, badges og eksterne links
+- **egne komponenter** til slides, quizzer, video og specialvisninger
+- **egen forside** i `src/content/docs/index.mdx`
+- **egen præsentationstilstand**, så en side kan afspilles som slides
+
+Det betyder, at indholdet stadig er dokumentationsfiler i MDX, men oplevelsen er mere som et undervisningssite end som ren dokumentation.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## De vigtigste tilpasninger i dette projekt
+
+- `astro.config.mjs`
+  Her er titel, plugin, custom CSS, custom komponenter og hele sidebaren sat op.
+- `src/components/PageTitleWrapper.astro`
+  Denne wrapper sætter `PresentationMode` på alle docs-sider.
+- `src/components/PresentationMode.astro`
+  Finder `.slide`-blokke og viser dem som fullscreen-slides med navigation.
+- `src/components/Sidebar.astro`
+  Tilføjer tema-filter i menuen. Sider uden badge, som denne, står neutralt.
+- `src/content/docs/index.mdx`
+  Har fået splash-forside, hero, underviserintro og eget layout.
+- `src/components/Quiz.astro`, `YouTubeVideo.astro`, `YouTubePlaylist.astro`, `ScrollDemo.astro`
+  Gør det muligt at lægge mere end ren tekst ind i materialet.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Sådan laver jeg en ny slideside
+
+1. Opret en ny `.mdx`-fil i `src/content/docs/`.
+2. Giv siden frontmatter med `title`, `description` og evt. `sidebar.order`.
+3. Importér `Slide.astro`.
+4. Skriv hvert slide i sin egen `<Slide>...</Slide>`-blok.
+5. Sæt `<div class="page-break"></div>` mellem slides.
+6. Læg filen i en mappe, der allerede autogenereres i sidebaren, eller tilføj den manuelt i `astro.config.mjs`.
+
+Hvis filen ligger i en undermappe som fx `src/content/docs/astro/`, vil importen typisk være:
+
+```mdx
+import Slide from "../../../components/Slide.astro";
+```
+
+Ligger filen i roden af `src/content/docs/`, er importen:
+
+```mdx
+import Slide from "../../components/Slide.astro";
+```
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Skabelon til en ny slideside
+
+````mdx
+---
+title: Min nye slideside
+description: Kort beskrivelse
+sidebar:
+  label: Min nye slideside
+  order: 3
+---
+
+import Slide from "../../../components/Slide.astro";
+
+<Slide>
+
+## Første slide
+
+- Punkt 1
+- Punkt 2
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Andet slide
+
+```js
+console.log("Hej fra et slide");
+```
+
+</Slide>
+````
+
+Hvis du vil have en side, der ikke hører til et tema, så undlader du bare tema-badge og lægger den ind som et almindeligt menupunkt i `astro.config.mjs`, sådan som denne side er gjort.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Hvilke muligheder har et nyt slide?
+
+Et nyt slide kan bruge helt almindelig **Markdown**:
+
+- overskrifter
+- brødtekst
+- punktopstillinger
+- links
+- tabeller
+- kodeblokke med syntax highlighting
+
+Derudover kan du bruge:
+
+- **billeder** fra `public/`
+- **HTML** direkte i MDX, hvis layoutet skal styres mere præcist
+- **Astro-komponenter**, hvis de importeres øverst i filen
+- **Starlight-komponenter**, fx `Card` og `CardGrid`
+
+I dette site bruges bl.a. disse komponenter allerede:
+
+- `Quiz.astro`
+- `YouTubeVideo.astro`
+- `YouTubePlaylist.astro`
+- `PracticeTextBox.astro`
+- `ScrollDemo.astro`
+- `HorizontalScroll.astro`
+- `ParallaxHero.astro`
+
+Standardmønsteret her i projektet er at bruge eksplicitte `<Slide>`-blokke. Hvis du ikke gør det, kan præsentationstilstanden også falde tilbage til at splitte på `#` og `##`-overskrifter.
+
+</Slide>

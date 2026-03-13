@@ -483,6 +483,18 @@ html {
   --sl-color-text-badge: hsl(338, 80%, 20%);
 }
 
+.badge-theme-site {
+  --sl-color-bg-badge: hsla(210, 18%, 28%, 0.55);
+  --sl-color-border-badge: hsl(210, 24%, 56%);
+  --sl-color-text-badge: hsl(210, 45%, 94%);
+}
+
+:root[data-theme="light"] .badge-theme-site {
+  --sl-color-bg-badge: hsla(210, 35%, 92%, 0.9);
+  --sl-color-border-badge: hsl(210, 28%, 62%);
+  --sl-color-text-badge: hsl(210, 34%, 24%);
+}
+
 /* Mere luft over overskrifter */
 .sl-markdown-content h2 {
   margin-top: 3rem !important;

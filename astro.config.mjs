@@ -26,6 +26,15 @@ export default defineConfig({
       ],
       sidebar: [
         {
+          label: "Om dette site",
+          slug: "om-dette-site",
+          badge: {
+            text: "Tema",
+            variant: "tip",
+            class: "badge-theme-site",
+          },
+        },
+        {
           label: "Web Development",
           collapsed: true,
           items: [
