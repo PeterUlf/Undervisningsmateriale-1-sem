@@ -282,3 +282,110 @@ I dette site bruges bl.a. disse komponenter allerede:
 Standardmønsteret her i projektet er at bruge eksplicitte `<Slide>`-blokke. Hvis du ikke gør det, kan præsentationstilstanden også falde tilbage til at splitte på `#` og `##`-overskrifter.
 
 </Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Deployment til Netlify
+
+Dette undervisningssite er hostet på **Netlify** og forbundet til et Git-repository på GitHub.
+
+Setup er:
+
+1. **GitHub-repository** med projektet
+2. **Netlify** forbundet til repositoriet
+3. **Auto-deploy** hver gang der pushes til en branch
+
+Build settings i Netlify:
+
+- **Build command:** `npm run build`
+- **Publish directory:** `dist`
+- **Base directory:** (tomt, medmindre projektet ligger i en undermappe)
+
+Netlify bygger automatisk sitet ved hver push, så ændringer går live uden manuel upload.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Branch-strategi: Et site per semester
+
+For at kunne have **forskellige versioner** af undervisningsmaterialet til forskellige semestre bruger jeg en branch-baseret strategi:
+
+- **`main`** – aktuel udgave / produktion
+- **`foraar-2026`** – forårssemesteret 2026
+- **`efteraar-2025`** – efterårssemesteret 2025
+- osv.
+
+Hver branch kan deployes til sit eget Netlify-site eller som en **branch deploy** under samme projekt.
+
+### Fordele:
+
+- Studerende på forskellige hold får den version, der passer til deres semester
+- Jeg kan opdatere materiale løbende på `main` uden at ændre det, de studerende ser
+- Tidligere semestres materiale forbliver tilgængeligt
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Sådan opsættes branch deploys i Netlify
+
+I Netlify kan du deploye flere branches fra samme repository:
+
+### 1. Production branch
+
+I **Site configuration → Build & deploy → Continuous deployment**:
+
+- Vælg din **Production branch** (fx `foraar-2026`)
+- Dette bliver hovedsitet på din primære URL
+
+### 2. Branch deploys
+
+Under **Branch deploys**:
+
+- Aktivér **Deploy only these branches** eller **Deploy all branches**
+- Tilføj specifikke branch-navne (fx `foraar-2026`, `efteraar-2025`)
+
+Hver branch får derefter sin egen URL:
+
+- `foraar-2026` → `https://foraar-2026--dit-site.netlify.app`
+- `efteraar-2025` → `https://efteraar-2025--dit-site.netlify.app`
+
+På den måde kan du give forskellige studenterhold links til netop deres version.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Workflow: Opdatering til nyt semester
+
+Når et nyt semester starter:
+
+1. **Opret ny branch** fra `main` (eller den seneste semester-branch):
+
+   ```bash
+   git checkout main
+   git pull
+   git checkout -b foraar-2027
+   git push -u origin foraar-2027
+   ```
+
+2. **Test at Netlify bygger den nye branch** (check branch deploys i Netlify)
+
+3. **Opdatér indhold** på den nye branch efter behov
+
+4. **Del URL'en** med de nye studerende
+
+5. **Fortsæt med at arbejde på `main`** for næste semesters materiale
+
+Tidligere semestres branches forbliver urørt, så links fra tidligere undervisning virker stadig.
+
+</Slide>
