@@ -103,15 +103,13 @@ const data = {
   ],
 };
 
-const listContainer = document.querySelector("#recipeListContainer");
-
 function showRecipes(recipes) {
-  // Start med tom container
-  listContainer.innerHTML = "";
+  // Start med tom variabel
+  listContainer = "";
 
   // recipes er et array af objekter
   recipes.forEach((recipe) => {
-    listContainer.innerHTML += `
+    listContainer += `
       <article class="recipeCard">
         <h3>${recipe.name}</h3>
         <h4>Ingredienser:</h4>
@@ -120,6 +118,7 @@ function showRecipes(recipes) {
         </ul>
       </article>
     `;
+    console.log("Min listcontainer er nu", listContainer);
   });
 }
 
@@ -301,62 +300,7 @@ Besvar:
 
 <Slide>
 
-## Øvelse 2: Alternativ til map()
-
-Du kan også bruge `forEach()` til ingredienserne. Prøv denne version:
-
-```javascript
-function showRecipes(recipes) {
-  listContainer.innerHTML = "";
-
-  recipes.forEach((recipe) => {
-    // Start med basis HTML
-    let recipeHTML = `
-      <article class="recipeCard">
-        <h3>${recipe.name}</h3>
-        <h4>Ingredienser:</h4>
-        <ul>
-    `;
-
-    // Loop gennem ingredienserne
-    recipe.ingredients.forEach((ingredient) => {
-      recipeHTML += `<li>${ingredient}</li>`;
-    });
-
-    // Afslut HTML
-    recipeHTML += `
-        </ul>
-      </article>
-    `;
-
-    listContainer.innerHTML += recipeHTML;
-  });
-}
-```
-
-**Spørgsmål:** Hvilken version synes du er nemmest at læse?
-
-</Slide>
-<div class="page-break"></div>
-
-<Slide>
-
-## Øvelse 3: Tilføj flere oplysninger
-
-Udvid din kode til også at vise:
-
-- `recipe.cuisine` (f.eks. "Italian")
-- `recipe.difficulty` (f.eks. "Easy")
-- `recipe.prepTimeMinutes` (f.eks. 15)
-
-**Hint:** Du skal først tilføje disse properties til dine recipe-objekter i data.
-
-</Slide>
-<div class="page-break"></div>
-
-<Slide>
-
-## Øvelse 4: Vis antal ingredienser
+## Øvelse 2: Vis antal ingredienser
 
 Tilføj en linje der viser hvor mange ingredienser opskriften har:
 
@@ -365,33 +309,6 @@ Tilføj en linje der viser hvor mange ingredienser opskriften har:
 ```
 
 **Extra:** Kan du lave det så det står "1 ingrediens" hvis der kun er én, og "X ingredienser" hvis der er flere?
-
-</Slide>
-<div class="page-break"></div>
-
-<Slide>
-
-## Forskellen på products i team 7 og products i DummyJSON
-
-### Team 7 Products API:
-
-```javascript
-fetch("https://kea-alt-del.dk/t7/api/products")
-  .then((res) => res.json())
-  .then((products) => showProducts(products));
-```
-
-**Data er direkte et array**
-
-### DummyJSON Products API:
-
-```javascript
-fetch("https://dummyjson.com/products")
-  .then((res) => res.json())
-  .then((data) => showProducts(data.products));
-```
-
-**Data er et objekt med `products` key** (ligesom recipes)
 
 </Slide>
 <div class="page-break"></div>

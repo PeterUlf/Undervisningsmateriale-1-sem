@@ -127,7 +127,8 @@ import Quiz from "../../../components/Quiz.astro";
       explanation: "Array-indeks starter altid ved 0 i JavaScript.",
     },
     {
-      question: "Hvad er et almindeligt udtryk for det sidste element i et array `fruits`?",
+      question:
+        "Hvad er et almindeligt udtryk for det sidste element i et array `fruits`?",
       options: [
         "fruits[-1]",
         "fruits.length",
@@ -135,8 +136,7 @@ import Quiz from "../../../components/Quiz.astro";
         "fruits.last",
       ],
       correctIndex: 2,
-      explanation:
-        "`fruits.length - 1` giver sidst index i arrayet.",
+      explanation: "`fruits.length - 1` giver sidst index i arrayet.",
     },
     {
       question: "Hvad er en vigtig forskel på array og object?",
@@ -154,8 +154,8 @@ import Quiz from "../../../components/Quiz.astro";
       question:
         "Hvad er den mest brugte tilgang til at hente property `display` fra objektet `product`?",
       options: [
-        "product(\"display\")",
-        "product[\"display\"]",
+        'product("display")',
+        'product["display"]',
         "product.display",
         "display.product",
       ],
@@ -172,7 +172,8 @@ import Quiz from "../../../components/Quiz.astro";
         "JSON kan kun sendes med GraphQL",
       ],
       correctIndex: 1,
-      explanation: "JSON er tekstformat med fx dobbelte citationstegn omkring keys og strenge.",
+      explanation:
+        "JSON er tekstformat med fx dobbelte citationstegn omkring keys og strenge.",
     },
     {
       question: "Hvad bruges `fetch()` til?",
@@ -201,7 +202,7 @@ import Quiz from "../../../components/Quiz.astro";
     },
     {
       question:
-        "Hvad bruges `URLSearchParams(window.location.search).get(\"id\")` typisk til?",
+        'Hvad bruges `URLSearchParams(window.location.search).get("id")` typisk til?',
       options: [
         "At åbne en ny fane",
         "At læse et query-parameter fra URL'en",
@@ -240,12 +241,7 @@ import Quiz from "../../../components/Quiz.astro";
     {
       question:
         "Hvilken metode bruges til at filtrere et array med en betingelse?",
-      options: [
-        "forEach",
-        "filter",
-        "sort",
-        "map",
-      ],
+      options: ["forEach", "filter", "sort", "map"],
       correctIndex: 1,
       explanation:
         "`filter()` returnerer kun de elementer, der opfylder betingelsen.",
@@ -253,12 +249,7 @@ import Quiz from "../../../components/Quiz.astro";
     {
       question:
         "Hvilken sorteringsfunktion giver typisk stigende talrækkefølge i `sort()`?",
-      options: [
-        "a + b",
-        "a > b",
-        "(a, b) => a - b",
-        "Math.max(a, b)",
-      ],
+      options: ["a + b", "a > b", "(a, b) => a - b", "Math.max(a, b)"],
       correctIndex: 2,
       explanation:
         "`a - b` i sorteringscallback giver stigende numerisk sortering (lavt til højt).",
