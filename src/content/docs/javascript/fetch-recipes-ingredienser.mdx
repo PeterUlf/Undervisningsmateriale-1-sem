@@ -29,6 +29,10 @@ På denne side arbejder du med **recipes data** og lærer:
 
 ## Data-strukturen
 
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start;">
+
+<div>
+
 Vores recipes data ser sådan ud:
 
 ```json
@@ -50,7 +54,22 @@ Vores recipes data ser sådan ud:
 }
 ```
 
-**Vigtigt:** Data kommer som et objekt med en `recipes` key, som indeholder et array.
+</div>
+
+<div>
+
+### Sådan skal du læse strukturen:
+
+- `data` er et objekt med en `recipes` key
+- `recipes` indeholder et array af opskrifter
+- Hver opskrift har `id`, `name` og `ingredients`
+- Vi kalder `showRecipes(data.recipes)` for at vise opskrifterne
+
+**Vigtigt:** Vi sender `data.recipes` videre, fordi det er arrayet inde i objektet.
+
+</div>
+
+</div>
 
 </Slide>
 <div class="page-break"></div>
@@ -131,64 +150,9 @@ showRecipes(data.recipes);
 
 <Slide>
 
-## HTML: Til CodePen
-
-Brug denne HTML-struktur til at teste koden:
-
-```html
-<!DOCTYPE html>
-<html lang="da">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Opskrifter</title>
-  </head>
-  <body>
-    <h1>Opskrifter</h1>
-    <div id="recipeListContainer"></div>
-  </body>
-</html>
-```
-
-**Instruktion:** Kopier HTML'en til HTML-panelet og JavaScript-koden fra forrige slide til JS-panelet i CodePen.
-
-</Slide>
-<div class="page-break"></div>
-
-<Slide>
-
 ## Trin-for-trin forklaring
 
-### 1. Data-strukturen
-
-```javascript
-const data = {
-  recipes: [
-    {
-      id: 1,
-      name: "Classic Margherita Pizza",
-      ingredients: ["Pizza dough", "Tomato sauce", ...]
-    },
-    ...
-  ]
-};
-```
-
-- `data` er et objekt med en `recipes` key
-- `recipes` indeholder et array af opskrifter
-- Hver opskrift har `id`, `name` og `ingredients`
-- Vi kalder `showRecipes(data.recipes)` for at vise opskrifterne
-
-**Vigtigt:** Vi sender `data.recipes` videre, fordi det er arrayet inde i objektet.
-
-</Slide>
-<div class="page-break"></div>
-
-<Slide>
-
-## Trin-for-trin forklaring
-
-### 2. Loop gennem hver opskrift
+### 1. Loop gennem hver opskrift
 
 ```javascript
 recipes.forEach((recipe) => {
@@ -206,7 +170,7 @@ recipes.forEach((recipe) => {
 
 ## Trin-for-trin forklaring
 
-### 3. Vis ingredienserne med map()
+### 2. Vis ingredienserne med map()
 
 Hele linjen ser sådan ud:
 
@@ -244,34 +208,6 @@ recipe.ingredients;
 
 <Slide>
 
-## HTML-struktur du skal bruge
-
-Husk at oprette en container i din HTML:
-
-```html
-<!DOCTYPE html>
-<html lang="da">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Opskrifter</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <main>
-      <h1>Opskrifter</h1>
-      <div id="recipeListContainer"></div>
-    </main>
-    <script src="script.js"></script>
-  </body>
-</html>
-```
-
-</Slide>
-<div class="page-break"></div>
-
-<Slide>
-
 ## Øvelse 1: Forstå data-strukturen
 
 Se på denne data-struktur:
@@ -282,7 +218,12 @@ Se på denne data-struktur:
     {
       "id": 1,
       "name": "Classic Margherita Pizza",
-      "ingredients": ["Pizza dough", "Tomato sauce"]
+      "ingredients": ["Pizza dough", "Tomato sauce", "Fresh mozzarella cheese"]
+    },
+    {
+      "id": 2,
+      "name": "Spaghetti Carbonara",
+      "ingredients": ["Spaghetti", "Eggs", "Parmesan cheese"]
     }
   ]
 }
@@ -292,7 +233,7 @@ Besvar:
 
 1. Hvad er `data.recipes`?
 2. Hvad er `data.recipes[0]`?
-3. Hvad er `data.recipes[0].ingredients`?
+3. Hvad er `data.recipes[1].name`?
 4. Hvad er `data.recipes[0].ingredients[1]`?
 
 </Slide>

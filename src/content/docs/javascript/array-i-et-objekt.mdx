@@ -27,6 +27,35 @@ På denne side lærer du:
 
 <Slide>
 
+## Forskellen på Team 7 og DummyJSON API'er
+
+I tema 7 arbejdede vi med produkter fra kea-alt-del hvor data kom direkte som et array:
+
+### Team 7 Products API:
+
+```javascript
+fetch("https://kea-alt-del.dk/t7/api/products")
+  .then((res) => res.json())
+  .then((products) => showProducts(products));
+```
+
+**Data er direkte et array** ✓
+
+### DummyJSON Products API:
+
+```javascript
+fetch("https://dummyjson.com/products")
+  .then((res) => res.json())
+  .then((data) => showProducts(data.products));
+```
+
+**Data er et objekt med `products` key** - vi skal først hente arrayet ud!
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
 ## Grundideen
 
 Nogle JSON-svar starter ikke med et array.

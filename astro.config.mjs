@@ -92,7 +92,103 @@ export default defineConfig({
             },
             {
               label: "JavaScript",
-              autogenerate: { directory: "javascript" },
+              items: [
+                {
+                  label: "JavaScript",
+                  link: "/javascript/",
+                },
+                {
+                  label: "Referer JavaScript",
+                  link: "/javascript/referer-javascript/",
+                },
+                {
+                  label: "Metoder",
+                  collapsed: false,
+                  items: [
+                    {
+                      label: "Arrays I",
+                      link: "/javascript/arrays/",
+                    },
+                    {
+                      label: "Objects & JSON",
+                      link: "/javascript/objects-json/",
+                    },
+                    {
+                      label: "Arrow Functions",
+                      link: "/javascript/arrow-functions/",
+                    },
+                    {
+                      label: "forEach",
+                      link: "/javascript/foreach/",
+                    },
+                    {
+                      label: ".map() og .join()",
+                      link: "/javascript/map-og-join/",
+                    },
+                    {
+                      label: "Sortering",
+                      link: "/javascript/sortering/",
+                    },
+                    {
+                      label: "Filtrering",
+                      link: "/javascript/filtrering/",
+                    },
+                    {
+                      label: "Betinget visning med ternary, && og ||",
+                      link: "/javascript/betinget-visning/",
+                    },
+                  ],
+                },
+                {
+                  label: "FashionRUs",
+                  collapsed: false,
+                  items: [
+                    {
+                      label: "Query Strings & URL Parametre",
+                      link: "/javascript/query-strings-url-parametre/",
+                    },
+                    {
+                      label: "Fetch Single Product",
+                      link: "/javascript/fetch/",
+                    },
+                    {
+                      label: "Fetch Product List",
+                      link: "/javascript/fetch-productlist/",
+                    },
+                    {
+                      label: "URL Parametre: List til Detalje",
+                      link: "/javascript/url-parametre-fra-list-til-detalje/",
+                    },
+                  ],
+                },
+                {
+                  label: "DummyJSON",
+                  collapsed: false,
+                  items: [
+                    {
+                      label: "Recipes: Vis ingredienser",
+                      link: "/javascript/fetch-recipes-ingredienser/",
+                    },
+                    {
+                      label: "Array i et objekt",
+                      link: "/javascript/array-i-et-objekt/",
+                    },
+                  ],
+                },
+                {
+
+                  label: "Quiz: Filtrerings Flow",
+                  link: "/javascript/quiz-filtrerings-flow/",
+                },
+                {
+                  label: "Extra for hurtige",
+                  link: "/javascript/extra-for-hurtige/",
+                },
+                {
+                  label: "Recipes & Ingredienser",
+                  link: "/javascript/fetch-recipes-ingredienser/",
+                },
+              ],
             },
             {
               label: "Git & GitHub",
