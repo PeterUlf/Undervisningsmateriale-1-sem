@@ -1,0 +1,333 @@
+---
+title: "Array-metoder: .map() og .join()"
+description: "Lær at transformere arrays med .map() og sætte elementer sammen med .join()"
+sidebar:
+  label: ".map() og .join()"
+  order: 4.4
+  badge:
+    text: Tema 8
+    variant: tip
+    class: badge-theme-8
+---
+
+import Slide from "../../../components/Slide.astro";
+
+<Slide>
+
+## Hvad lærer du her?
+
+På denne side lærer du om to vigtige array-metoder:
+
+1. **`.map()`** - Lav om på hvert element i et array
+2. **`.join()`** - Sæt alle elementer sammen til én string
+
+Disse metoder bruges tit sammen, især når du skal lave HTML fra arrays!
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Hvad er .map()?
+
+`.map()` er en array-metode som laver om på **hvert element** i et array og returnerer et **nyt array**.
+
+### Simpelt eksempel:
+
+```javascript
+const prices = [10, 25, 50];
+const pricesWithKr = prices.map((price) => "kr: " + price);
+console.log(pricesWithKr); // ["kr: 10", "kr: 25", "kr: 50"]
+```
+
+### Hvordan det virker:
+
+1. `.map()` går gennem hvert element i arrayet
+2. For hvert element kører den funktionen `(price) => "kr: " + price`
+3. Den gemmer resultatet i et nyt array
+4. Det nye array returneres
+
+**Vigtigt:** Det originale array ændres ikke!
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## .map() visuelt forklaret
+
+```javascript
+const prices = [10, 25, 50];
+```
+
+Lad os se hvad der sker i hver gennemgang:
+
+**1. gang:** `price` er `10` → returnerer `"kr: 10"`  
+**2. gang:** `price` er `25` → returnerer `"kr: 25"`  
+**3. gang:** `price` er `50` → returnerer `"kr: 50"`
+
+**Resultat:** Et nyt array `["kr: 10", "kr: 25", "kr: 50"]`
+
+```javascript
+console.log(prices); // [10, 25, 50] - originalen er ikke ændret!
+```
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Flere .map() eksempler
+
+### Eksempel 1: Dobbelt værdier
+
+```javascript
+const numbers = [1, 2, 3, 4, 5];
+const doubled = numbers.map((num) => num * 2);
+console.log(doubled); // [2, 4, 6, 8, 10]
+```
+
+### Eksempel 2: Lav navne om til store bogstaver
+
+```javascript
+const names = ["anna", "ben", "clara"];
+const upperNames = names.map((name) => name.toUpperCase());
+console.log(upperNames); // ["ANNA", "BEN", "CLARA"]
+```
+
+### Eksempel 3: Lav HTML-tags
+
+```javascript
+const items = ["Æbler", "Bananer", "Appelsiner"];
+const listItems = items.map((item) => `<li>${item}</li>`);
+console.log(listItems); // ["<li>Æbler</li>", "<li>Bananer</li>", "<li>Appelsiner</li>"]
+```
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Hvad er .join()?
+
+`.join()` er en array-metode som **sætter alle elementer sammen** til én string.
+
+### Byg videre på forrige eksempel:
+
+```javascript
+const prices = [10, 25, 50];
+const pricesWithKr = prices.map((price) => "kr: " + price);
+// pricesWithKr er nu: ["kr: 10", "kr: 25", "kr: 50"]
+
+const priceString = pricesWithKr.join(" og ");
+console.log(priceString); // "kr: 10 og kr: 25 og kr: 50"
+```
+
+### Hvordan det virker:
+
+1. `.join()` går gennem alle elementer i arrayet
+2. Den sætter dem sammen til én lang string
+3. Mellem hvert element indsætter den det du skriver i parentesen
+4. Den returnerer den nye string
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## .join() med forskellige separatorer
+
+Samme array, forskellige resultater:
+
+```javascript
+const pricesWithKr = ["kr: 10", "kr: 25", "kr: 50"];
+```
+
+### Komma og mellemrum
+
+```javascript
+pricesWithKr.join(", "); // "kr: 10, kr: 25, kr: 50"
+```
+
+### Ingen separator
+
+```javascript
+pricesWithKr.join(""); // "kr: 10kr: 25kr: 50"
+```
+
+### Bindestreg
+
+```javascript
+pricesWithKr.join(" - "); // "kr: 10 - kr: 25 - kr: 50"
+```
+
+### Linjeskift
+
+```javascript
+pricesWithKr.join("\n"); // "kr: 10
+// kr: 25
+// kr: 50"
+```
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## .map() og .join() sammen
+
+Disse to metoder bruges ofte sammen i én linje:
+
+```javascript
+const fruits = ["æble", "banan", "pære"];
+
+const sentence = fruits.map((fruit) => fruit.toUpperCase()).join(" - ");
+console.log(sentence); // "ÆBLE - BANAN - PÆRE"
+```
+
+**Hvad sker der?**
+
+1. `.map()` laver om: `["æble", "banan", "pære"]` → `["ÆBLE", "BANAN", "PÆRE"]`
+2. `.join(" - ")` sætter sammen: `["ÆBLE", "BANAN", "PÆRE"]` → `"ÆBLE - BANAN - PÆRE"`
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Praktisk eksempel: Lav en liste
+
+Byg en komplet HTML-liste:
+
+```javascript
+const ingredients = ["Pizza dough", "Tomato sauce", "Mozzarella"];
+
+const htmlList = ingredients
+  .map((ingredient) => `<li>${ingredient}</li>`)
+  .join("");
+
+console.log(htmlList);
+// "<li>Pizza dough</li><li>Tomato sauce</li><li>Mozzarella</li>"
+```
+
+**Brug det i din HTML:**
+
+```javascript
+document.querySelector("#list").innerHTML = htmlList;
+```
+
+**Resultat i browseren:**
+
+- Pizza dough
+- Tomato sauce
+- Mozzarella
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Øvelse 1: Basic .map()
+
+Lav et array med tal og brug `.map()` til at gange hvert tal med 3:
+
+```javascript
+const numbers = [5, 10, 15, 20];
+// Din kode her
+```
+
+**Forventet resultat:** `[15, 30, 45, 60]`
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Øvelse 2: .map() med strings
+
+Du har et array med by-navne. Brug `.map()` til at tilføje "By: " foran hvert navn:
+
+```javascript
+const cities = ["København", "Aarhus", "Odense"];
+// Din kode her
+```
+
+**Forventet resultat:** `["By: København", "By: Aarhus", "By: Odense"]`
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Øvelse 3: .join() praksis
+
+Tag dit resultat fra øvelse 2 og brug `.join()` til at lave en sætning:
+
+```javascript
+const cities = ["København", "Aarhus", "Odense"];
+const citiesWithPrefix = cities.map((city) => "By: " + city);
+// Brug .join() til at lave: "By: København, By: Aarhus, By: Odense"
+```
+
+**Hint:** Hvilken separator skal du bruge?
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Øvelse 4: .map() og .join() sammen
+
+Lav en komplet løsning i én linje:
+
+```javascript
+const colors = ["rød", "grøn", "blå"];
+// Brug .map() til at sætte "Farve: " foran
+// Brug .join() til at sætte dem sammen med " | "
+// Forventet: "Farve: rød | Farve: grøn | Farve: blå"
+```
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Øvelse 5: HTML-tags
+
+Lav `<p>` tags omkring hvert element:
+
+```javascript
+const messages = ["Hej", "Goddag", "Hejsa"];
+// Lav hver besked til: <p>besked</p>
+// Sæt dem sammen uden separator
+// Forventet: "<p>Hej</p><p>Goddag</p><p>Hejsa</p>"
+```
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Sammenfatning
+
+### .map()
+
+- Transformerer hvert element i et array
+- Returnerer et **nyt array** med samme længde
+- Ændrer ikke det originale array
+
+### .join()
+
+- Sætter alle elementer sammen til **én string**
+- Du vælger selv separatoren mellem elementerne
+- Standard separator er komma hvis du ikke angiver noget
+
+### Sammen
+
+Perfekte til at bygge HTML fra arrays:
+
+```javascript
+array.map((item) => `<tag>${item}</tag>`).join("");
+```
+
+</Slide>

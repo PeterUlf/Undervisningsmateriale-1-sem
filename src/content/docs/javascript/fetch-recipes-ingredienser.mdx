@@ -1,0 +1,413 @@
+---
+title: "Recipes: Vis ingredienser"
+description: "Arbejd med opskrifter og vis ingredienserne i HTML med .map() og .join()"
+sidebar:
+  label: "Recipes & Ingredienser"
+  order: 4.5
+  badge:
+    text: Tema 8
+    variant: tip
+    class: badge-theme-8
+---
+
+import Slide from "../../../components/Slide.astro";
+
+<Slide>
+
+## Hvad lærer du her?
+
+På denne side arbejder du med **recipes data** og lærer:
+
+1. Hvordan du arbejder med et objekt der indeholder et array
+2. Hvordan du finder arrayet med opskrifter inde i objektet
+3. Hvordan du viser ingredienser fra et array inde i hvert recipe-objekt med `.map()` og `.join()`
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Data-strukturen
+
+Vores recipes data ser sådan ud:
+
+```json
+{
+  "recipes": [
+    {
+      "id": 1,
+      "name": "Classic Margherita Pizza",
+      "ingredients": [
+        "Pizza dough",
+        "Tomato sauce",
+        "Fresh mozzarella cheese",
+        "Fresh basil leaves",
+        "Olive oil",
+        "Salt and pepper to taste"
+      ]
+    }
+  ]
+}
+```
+
+**Vigtigt:** Data kommer som et objekt med en `recipes` key, som indeholder et array.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## JavaScript: Komplet kode
+
+```javascript
+// Data objekt med opskrifter
+const data = {
+  recipes: [
+    {
+      id: 1,
+      name: "Classic Margherita Pizza",
+      ingredients: [
+        "Pizza dough",
+        "Tomato sauce",
+        "Fresh mozzarella cheese",
+        "Fresh basil leaves",
+        "Olive oil",
+        "Salt and pepper to taste",
+      ],
+    },
+    {
+      id: 2,
+      name: "Spaghetti Carbonara",
+      ingredients: [
+        "Spaghetti",
+        "Eggs",
+        "Parmesan cheese",
+        "Pancetta",
+        "Black pepper",
+      ],
+    },
+    {
+      id: 3,
+      name: "Chocolate Chip Cookies",
+      ingredients: [
+        "Flour",
+        "Butter",
+        "Sugar",
+        "Brown sugar",
+        "Eggs",
+        "Chocolate chips",
+        "Vanilla extract",
+        "Baking soda",
+      ],
+    },
+  ],
+};
+
+const listContainer = document.querySelector("#recipeListContainer");
+
+function showRecipes(recipes) {
+  // Start med tom container
+  listContainer.innerHTML = "";
+
+  // recipes er et array af objekter
+  recipes.forEach((recipe) => {
+    listContainer.innerHTML += `
+      <article class="recipeCard">
+        <h3>${recipe.name}</h3>
+        <h4>Ingredienser:</h4>
+        <ul>
+          ${recipe.ingredients.map((ingredient) => `<li>${ingredient}</li>`).join("")}
+        </ul>
+      </article>
+    `;
+  });
+}
+
+// Kald funktionen med data
+showRecipes(data.recipes);
+```
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## HTML: Til CodePen
+
+Brug denne HTML-struktur til at teste koden:
+
+```html
+<!DOCTYPE html>
+<html lang="da">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Opskrifter</title>
+  </head>
+  <body>
+    <h1>Opskrifter</h1>
+    <div id="recipeListContainer"></div>
+  </body>
+</html>
+```
+
+**Instruktion:** Kopier HTML'en til HTML-panelet og JavaScript-koden fra forrige slide til JS-panelet i CodePen.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Trin-for-trin forklaring
+
+### 1. Data-strukturen
+
+```javascript
+const data = {
+  recipes: [
+    {
+      id: 1,
+      name: "Classic Margherita Pizza",
+      ingredients: ["Pizza dough", "Tomato sauce", ...]
+    },
+    ...
+  ]
+};
+```
+
+- `data` er et objekt med en `recipes` key
+- `recipes` indeholder et array af opskrifter
+- Hver opskrift har `id`, `name` og `ingredients`
+- Vi kalder `showRecipes(data.recipes)` for at vise opskrifterne
+
+**Vigtigt:** Vi sender `data.recipes` videre, fordi det er arrayet inde i objektet.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Trin-for-trin forklaring
+
+### 2. Loop gennem hver opskrift
+
+```javascript
+recipes.forEach((recipe) => {
+  // Gør noget med hver opskrift
+});
+```
+
+- `forEach()` går gennem hvert element i `recipes` arrayet
+- Vi kalder hvert element for `recipe`
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Trin-for-trin forklaring
+
+### 3. Vis ingredienserne med map()
+
+Hele linjen ser sådan ud:
+
+```javascript
+${recipe.ingredients.map((ingredient) => `<li>${ingredient}</li>`).join("")}
+```
+
+**Lad os dele den op i trin:**
+
+### Trin 1: Hent arrayet
+
+```javascript
+recipe.ingredients;
+// Resultat: ["Pizza dough", "Tomato sauce", "Fresh mozzarella cheese"]
+```
+
+### Trin 2: Brug .map() til at lave HTML
+
+```javascript
+.map((ingredient) => `<li>${ingredient}</li>`)
+// Resultat: ["<li>Pizza dough</li>", "<li>Tomato sauce</li>", "<li>Fresh mozzarella cheese</li>"]
+```
+
+### Trin 3: Brug .join("") til at sætte sammen
+
+```javascript
+.join("")
+// Resultat: "<li>Pizza dough</li><li>Tomato sauce</li><li>Fresh mozzarella cheese</li>"
+```
+
+**Finalresultat:** Én lang HTML-string med alle ingredienser som listeelementer!
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## HTML-struktur du skal bruge
+
+Husk at oprette en container i din HTML:
+
+```html
+<!DOCTYPE html>
+<html lang="da">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Opskrifter</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main>
+      <h1>Opskrifter</h1>
+      <div id="recipeListContainer"></div>
+    </main>
+    <script src="script.js"></script>
+  </body>
+</html>
+```
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Øvelse 1: Forstå data-strukturen
+
+Se på denne data-struktur:
+
+```json
+{
+  "recipes": [
+    {
+      "id": 1,
+      "name": "Classic Margherita Pizza",
+      "ingredients": ["Pizza dough", "Tomato sauce"]
+    }
+  ]
+}
+```
+
+Besvar:
+
+1. Hvad er `data.recipes`?
+2. Hvad er `data.recipes[0]`?
+3. Hvad er `data.recipes[0].ingredients`?
+4. Hvad er `data.recipes[0].ingredients[1]`?
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Øvelse 2: Alternativ til map()
+
+Du kan også bruge `forEach()` til ingredienserne. Prøv denne version:
+
+```javascript
+function showRecipes(recipes) {
+  listContainer.innerHTML = "";
+
+  recipes.forEach((recipe) => {
+    // Start med basis HTML
+    let recipeHTML = `
+      <article class="recipeCard">
+        <h3>${recipe.name}</h3>
+        <h4>Ingredienser:</h4>
+        <ul>
+    `;
+
+    // Loop gennem ingredienserne
+    recipe.ingredients.forEach((ingredient) => {
+      recipeHTML += `<li>${ingredient}</li>`;
+    });
+
+    // Afslut HTML
+    recipeHTML += `
+        </ul>
+      </article>
+    `;
+
+    listContainer.innerHTML += recipeHTML;
+  });
+}
+```
+
+**Spørgsmål:** Hvilken version synes du er nemmest at læse?
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Øvelse 3: Tilføj flere oplysninger
+
+Udvid din kode til også at vise:
+
+- `recipe.cuisine` (f.eks. "Italian")
+- `recipe.difficulty` (f.eks. "Easy")
+- `recipe.prepTimeMinutes` (f.eks. 15)
+
+**Hint:** Du skal først tilføje disse properties til dine recipe-objekter i data.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Øvelse 4: Vis antal ingredienser
+
+Tilføj en linje der viser hvor mange ingredienser opskriften har:
+
+```javascript
+<p>Antal ingredienser: ${recipe.ingredients.length}</p>
+```
+
+**Extra:** Kan du lave det så det står "1 ingrediens" hvis der kun er én, og "X ingredienser" hvis der er flere?
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Forskellen på products i team 7 og products i DummyJSON
+
+### Team 7 Products API:
+
+```javascript
+fetch("https://kea-alt-del.dk/t7/api/products")
+  .then((res) => res.json())
+  .then((products) => showProducts(products));
+```
+
+**Data er direkte et array**
+
+### DummyJSON Products API:
+
+```javascript
+fetch("https://dummyjson.com/products")
+  .then((res) => res.json())
+  .then((data) => showProducts(data.products));
+```
+
+**Data er et objekt med `products` key** (ligesom recipes)
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Sammenfatning
+
+**Husk:**
+
+1. Vores recipes data er et **objekt**, ikke et array direkte
+2. Du skal bruge `data.recipes` for at få fat i arrayet
+3. Ingredienser er et **array inde i hvert objekt**
+4. Brug `.map()` til at transformere hvert element
+5. Brug `.join("")` til at sætte array-elementer sammen til én string
+
+**Næste skridt:** Prøv at lave styling til dine opskrifter med CSS!
+
+</Slide>

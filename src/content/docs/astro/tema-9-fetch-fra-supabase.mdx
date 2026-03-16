@@ -77,26 +77,19 @@ getData();
 
 <Slide>
 
-## Når vi laver det i astro:
-### Gem Supabase-oplysninger i en fil der hedder `.env`
-(dvs. filnavnet starter med en punktum efterfulgt af env, på samme måde som .gitignore)
+## Når vi laver det i Astro
 
-### .env-fil i dit Astro-projekt:
+### Først: ret `.gitignore`
 
-```bash
-SUPABASE_URL=https://din-projekt-ref.supabase.co
-SUPABASE_PUBLISHABLE_KEY=din-publishable-key
-````
+::::caution[Vigtigt]
+Opret eller ret `.gitignore` **før** du laver en `.env`-fil.
 
-- Læg filen i projektets rod (der hvor `package.json` også ligger)
-- Husk at den ikke må komme med i Git/GitHub.
-- Det betyder, at `.env` skal stå i `.gitignore`.
+Ellers risikerer du, at `.env` bliver tracked af Git og i værste fald ender på GitHub sammen med dine nøgler.
 
-<div style="margin-top: 1rem;">
+Sørg derfor for, at `.env` står i `.gitignore`, inden du opretter filen.
+::::
 
-### .gitignore skal derfor også indeholde:
-
-```gitignore
+```text
 # Miljøfiler
 .env
 
@@ -104,12 +97,21 @@ SUPABASE_PUBLISHABLE_KEY=din-publishable-key
 .DS_Store
 
 # HUSK at disse skal lægges til dem du har i forvejen
-
 ```
 
-Her bruger vi almindelige miljøvariabler, fordi hentningen sker i Astro frontmatter.
+### Derefter: lav `.env`
 
-</div>
+Gem Supabase-oplysninger i en fil der hedder `.env`
+(dvs. filnavnet starter med et punktum efterfulgt af `env`, på samme måde som `.gitignore`)
+
+```bash
+SUPABASE_URL=https://din-projekt-ref.supabase.co
+SUPABASE_PUBLISHABLE_KEY=din-publishable-key
+```
+
+- Læg filen i projektets rod (der hvor `package.json` også ligger)
+- `.env` må ikke komme med i Git/GitHub
+- Her bruger vi almindelige miljøvariabler, fordi hentningen sker i Astro frontmatter
 
 </Slide>
 <div class="page-break"></div>
