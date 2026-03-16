@@ -1,6 +1,31 @@
 ---
+import { getCollection } from 'astro:content';
 import type { Props } from '@astrojs/starlight/props';
 import Default from '@astrojs/starlight/components/Sidebar.astro';
+
+const docs = await getCollection('docs');
+
+const extractTemaNumber = (value?: string) => value?.match(/\d+/)?.[0] || '';
+const normalizeDocPath = (value: string) => {
+  const withoutExtension = value.replace(/\.mdx?$/, '');
+  const withoutIndex = withoutExtension.replace(/\/index$/, '');
+  return withoutIndex === '' ? '/' : `${withoutIndex}/`;
+};
+
+const linkThemeMap = Object.fromEntries(
+  docs.flatMap((doc) => {
+    const temaNumber = extractTemaNumber(doc.data.sidebar?.badge?.text);
+
+    if (!temaNumber) {
+      return [];
+    }
+
+    return [[`/${normalizeDocPath(doc.id)}`, temaNumber]];
+  })
+);
+
+const availableThemes = Array.from(new Set(Object.values(linkThemeMap)))
+  .sort((a, b) => Number(a) - Number(b));
 ---
 
 <div id="theme-filter-container">
@@ -12,34 +37,17 @@ import Default from '@astrojs/starlight/components/Sidebar.astro';
 
 <Default {...Astro.props}><slot /></Default>
 
-<script>
+<script define:vars={{ availableThemes, linkThemeMap }}>
   // Rod-elementet for Starlight-sidebaren
   const sidebarRoot = document.getElementById('starlight__sidebar');
 
   if (sidebarRoot) {
-    // Find alle unikke tema-numre dynamisk
-    const badgeNodes = sidebarRoot.querySelectorAll('a .sl-badge');
-    const themeNumbers = new Set<number>();
-    
-    badgeNodes.forEach((badge) => {
-      const badgeText = badge.textContent?.trim();
-      if (badgeText?.startsWith('Tema')) {
-        const themeNumber = parseInt(badgeText.replace('Tema ', ''));
-        if (!isNaN(themeNumber)) {
-          themeNumbers.add(themeNumber);
-        }
-      }
-    });
-    
-    // Sorter tema-numre
-    const sortedThemes = Array.from(themeNumbers).sort((a, b) => a - b);
-    
     // Byg options dynamisk
-    const select = document.getElementById('theme-select') as HTMLSelectElement;
+    const select = document.getElementById('theme-select');
     
-    if (select && sortedThemes.length > 0) {
+    if (select && availableThemes.length > 0) {
       // Tema navne
-      const themeNames: { [key: number]: string } = {
+      const themeNames = {
         1: 'Introuge',
         2: 'Web I',
         3: 'UX I',
@@ -47,13 +55,14 @@ import Default from '@astrojs/starlight/components/Sidebar.astro';
         5: 'Indhold I',
         6: 'Eksamen',
         7: 'Indhold II',
-        8: 'Web II'
+        8: 'Web II',
+        9: 'Tema 9',
       };
       
       // Tilføj tema options (ét tema ad gangen)
-      sortedThemes.forEach(num => {
+      availableThemes.forEach((num) => {
         const option = document.createElement('option');
-        option.value = num.toString();
+        option.value = num;
         const themeName = themeNames[num] || '';
         option.textContent = themeName ? `Tema ${num} - ${themeName}` : `Tema ${num}`;
         select.appendChild(option);
@@ -71,66 +80,105 @@ import Default from '@astrojs/starlight/components/Sidebar.astro';
       }
       
       // Funktion til at filtrere
-      function filterMenuItems(selectedTheme: string) {
+      function filterMenuItems(selectedTheme) {
         const isAll = selectedTheme === 'all';
-        const selectedThemeNum = isAll ? null : parseInt(selectedTheme);
+
+        const normalizeLinkHref = (href) => {
+          if (!href) return '';
+
+          if (
+            href.startsWith('http://') ||
+            href.startsWith('https://') ||
+            href.startsWith('mailto:') ||
+            href.startsWith('#')
+          ) {
+            return href;
+          }
+
+          const [path] = href.split(/[?#]/);
+          if (!path.startsWith('/')) {
+            return '';
+          }
+
+          const normalizedPath = path.replace(/\/index\/?$/, '/').replace(/\/+$/, '');
+          return normalizedPath === '' ? '/' : `${normalizedPath}/`;
+        };
+
+        const getThemeForLink = (link) => {
+          const href = normalizeLinkHref(link.getAttribute('href'));
+          const mappedTheme = href ? linkThemeMap[href] : undefined;
+
+          if (mappedTheme) {
+            return mappedTheme;
+          }
+
+          const badge = link.querySelector('.sl-badge');
+          const badgeText = badge?.textContent?.trim();
+          const badgeTheme = badgeText?.match(/\d+/)?.[0];
+
+          return badgeTheme || '';
+        };
 
         // Filtrér alle links i den rigtige sidebar
-        const sidebarLinks = sidebarRoot!.querySelectorAll('a');
+        const sidebarLinks = sidebarRoot.querySelectorAll('a');
 
         sidebarLinks.forEach((link) => {
-          const badge = link.querySelector('.sl-badge');
           const listItem = link.closest('li');
           if (!listItem) return;
 
-          const liEl = listItem as HTMLElement;
+          const liEl = listItem;
+          const themeNumber = getThemeForLink(link);
 
-          // Hvis der ikke er noget badge, så skjul punktet når der filtreres på et specifikt tema
-          if (!badge) {
+          if (isAll) {
             liEl.style.display = '';
             return;
           }
 
-          const badgeText = badge.textContent?.trim();
-
-          // Kun badges med "Tema X" tæller som temamærker
-          if (badgeText?.startsWith('Tema ')) {
-            const themeNumber = parseInt(badgeText.replace('Tema ', ''));
-
-            if (isAll || isNaN(themeNumber) || selectedThemeNum === null) {
-              liEl.style.display = '';
-            } else {
-              // Vis KUN det valgte tema (ikke "op til")
-              liEl.style.display = themeNumber === selectedThemeNum ? '' : 'none';
-            }
-          } else {
-            // Andre badges (fx bare "Tema") skjules også ved filtrering
-            liEl.style.display = isAll ? '' : 'none';
-          }
+          liEl.style.display = themeNumber === selectedTheme ? '' : 'none';
         });
         
-        // Skjul tomme grupper: en gruppe er tom hvis den ingen SYNLIGE links har
-        const sidebarGroups = sidebarRoot!.querySelectorAll('details');
+        // Skjul tomme grupper nedefra, så forældre ikke tæller skjulte undergrupper med.
+        const sidebarGroups = Array.from(sidebarRoot.querySelectorAll('details')).reverse();
+
         sidebarGroups.forEach((group) => {
-          const links = Array.from(group.querySelectorAll('a'));
-          const visibleLinks = links.filter((link) => {
-            const li = link.closest('li');
-            return li && (li as HTMLElement).style.display !== 'none';
+          const detailsEl = group;
+          const childList = detailsEl.querySelector(':scope > ul');
+
+          if (!childList) return;
+
+          const childItems = Array.from(childList.children).filter(
+            (child) => child.tagName === 'LI'
+          );
+
+          const hasVisibleChildren = childItems.some((item) => {
+            const directLink = Array.from(item.children).find(
+              (child) => child.tagName === 'A'
+            );
+            const nestedGroup = Array.from(item.children).find(
+              (child) => child.tagName === 'DETAILS'
+            );
+
+            if (directLink) {
+              return item.style.display !== 'none';
+            }
+
+            if (nestedGroup) {
+              return nestedGroup.style.display !== 'none';
+            }
+
+            return item.style.display !== 'none';
           });
 
-          const detailsEl = group as HTMLDetailsElement;
-          detailsEl.style.display = visibleLinks.length === 0 ? 'none' : '';
-          
-          // Luk alle details når "Alle temaer" er valgt, åbn dem når et specifikt tema er valgt
-          if (isAll) {
-            detailsEl.open = false;
-          } else if (visibleLinks.length > 0) {
-            detailsEl.open = true;
+          detailsEl.style.display = hasVisibleChildren ? '' : 'none';
+
+          const detailsListItem = detailsEl.closest('li');
+          if (detailsListItem) {
+            detailsListItem.style.display = hasVisibleChildren ? '' : 'none';
           }
         });
       }
 
-      function updateThemeUrl(selectedTheme: string) {
+      function updateThemeUrl(selectedTheme) {
         const url = new URL(window.location.href);
         if (selectedTheme === 'all') {
           url.searchParams.delete('tema');
@@ -145,7 +193,10 @@ import Default from '@astrojs/starlight/components/Sidebar.astro';
       
       // Lyt efter ændringer
       select.addEventListener('change', (e) => {
-        const selectedTheme = (e.target as HTMLSelectElement).value;
+        const target = e.currentTarget;
+        if (!(target instanceof HTMLSelectElement)) return;
+
+        const selectedTheme = target.value;
         localStorage.setItem('selectedTheme', selectedTheme);
         updateThemeUrl(selectedTheme);
         filterMenuItems(selectedTheme);

@@ -95,11 +95,11 @@ export default defineConfig({
               items: [
                 {
                   label: "JavaScript",
-                  link: "/javascript/",
+                  slug: "javascript",
                 },
                 {
                   label: "Referer JavaScript",
-                  link: "/javascript/referer-javascript/",
+                  slug: "javascript/referer-javascript",
                 },
                 {
                   label: "Metoder",
@@ -107,35 +107,35 @@ export default defineConfig({
                   items: [
                     {
                       label: "Arrays I",
-                      link: "/javascript/arrays/",
+                      slug: "javascript/arrays",
                     },
                     {
                       label: "Objects & JSON",
-                      link: "/javascript/objects-json/",
+                      slug: "javascript/objects-json",
                     },
                     {
                       label: "Arrow Functions",
-                      link: "/javascript/arrow-functions/",
+                      slug: "javascript/arrow-functions",
                     },
                     {
                       label: "forEach",
-                      link: "/javascript/foreach/",
+                      slug: "javascript/foreach",
                     },
                     {
                       label: ".map() og .join()",
-                      link: "/javascript/map-og-join/",
+                      slug: "javascript/map-og-join",
                     },
                     {
                       label: "Sortering",
-                      link: "/javascript/sortering/",
+                      slug: "javascript/sortering",
                     },
                     {
                       label: "Filtrering",
-                      link: "/javascript/filtrering/",
+                      slug: "javascript/filtrering",
                     },
                     {
                       label: "Betinget visning med ternary, && og ||",
-                      link: "/javascript/betinget-visning/",
+                      slug: "javascript/betinget-visning",
                     },
                   ],
                 },
@@ -145,19 +145,23 @@ export default defineConfig({
                   items: [
                     {
                       label: "Query Strings & URL Parametre",
-                      link: "/javascript/query-strings-url-parametre/",
+                      slug: "javascript/query-strings-url-parametre",
                     },
                     {
                       label: "Fetch Single Product",
-                      link: "/javascript/fetch/",
+                      slug: "javascript/fetch",
                     },
                     {
                       label: "Fetch Product List",
-                      link: "/javascript/fetch-productlist/",
+                      slug: "javascript/fetch-productlist",
                     },
                     {
                       label: "URL Parametre: List til Detalje",
-                      link: "/javascript/url-parametre-fra-list-til-detalje/",
+                      slug: "javascript/url-parametre-fra-list-til-detalje",
+                    },
+                    {
+                      label: "Quiz: Filtrerings Flow",
+                      slug: "javascript/quiz-filtrerings-flow",
                     },
                   ],
                 },
@@ -167,25 +171,17 @@ export default defineConfig({
                   items: [
                     {
                       label: "Recipes: Vis ingredienser",
-                      link: "/javascript/fetch-recipes-ingredienser/",
+                      slug: "javascript/fetch-recipes-ingredienser",
                     },
                     {
                       label: "Array i et objekt",
-                      link: "/javascript/array-i-et-objekt/",
+                      slug: "javascript/array-i-et-objekt",
                     },
                   ],
                 },
                 {
-                  label: "Quiz: Filtrerings Flow",
-                  link: "/javascript/quiz-filtrerings-flow/",
-                },
-                {
                   label: "Extra for hurtige",
-                  link: "/javascript/extra-for-hurtige/",
-                },
-                {
-                  label: "Recipes & Ingredienser",
-                  link: "/javascript/fetch-recipes-ingredienser/",
+                  slug: "javascript/extra-for-hurtige",
                 },
               ],
             },
