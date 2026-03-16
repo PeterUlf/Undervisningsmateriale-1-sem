@@ -176,7 +176,6 @@ export default defineConfig({
                   ],
                 },
                 {
-
                   label: "Quiz: Filtrerings Flow",
                   link: "/javascript/quiz-filtrerings-flow/",
                 },
