@@ -1,0 +1,298 @@
+---
+title: "Tema 9 – Billeder i Supabase Storage bucket"
+description: "Lær hvordan du gemmer billeder i en Supabase bucket, og hvad der er smartest at gemme i databasen."
+sidebar:
+  label: "Billeder i bucket"
+  order: 6.25
+  badge:
+    text: Tema 9
+    variant: tip
+    class: badge-theme-9
+---
+
+import Slide from "../../../components/Slide.astro";
+
+<Slide>
+
+## Når billederne ikke ligger i `public/`
+
+En anden løsning i Tema 9 er:
+
+- tekst og øvrige data ligger i Supabase-tabeller
+- selve billedfilerne ligger i **Supabase Storage**
+- billederne organiseres i en **bucket**
+
+Det betyder, at du ikke gemmer billedfilerne i Astro-projektets `public/`-mappe.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Hvad er en bucket?
+
+En **bucket** er en mappe-lignende beholder i Supabase Storage.
+
+Det er her dine filer bliver lagt.
+
+En bucket bestemmer også:
+
+- om filer skal være **public** eller **private**
+- hvilke filtyper der må uploades
+- hvor store filer må være
+
+Supabase dokumenterer, at buckets kan være **public** eller **private**, og at buckets er **private som standard**.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Public eller private?
+
+Til et almindeligt undervisningssite er det typisk lettest at vælge en **public bucket**.
+
+Så gælder:
+
+- billederne kan vises direkte på sitet
+- du kan bruge en almindelig `<img>` med en billed-URL
+- brugeren behøver ikke være logget ind for at se billedet
+
+Hvis bucket'en er **private**, virker en almindelig offentlig billed-URL ikke.
+Så skal du i stedet arbejde med auth eller signed URLs.
+
+:::tip[Anbefaling til dette forløb]
+Hvis billederne bare skal vises offentligt på dit site, så vælg en **public bucket**.
+:::
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Opret bucket i Supabase
+
+I Supabase Dashboard:
+
+1. Gå til **Storage**
+2. Klik på at oprette en ny bucket
+3. Giv den et navn, fx `product-images`
+4. Vælg om bucket'en skal være **public**
+
+Du kan også begrænse uploads, fx:
+
+- kun billeder med `image/*`
+- en maksimum filstørrelse
+
+Det er smart, fordi du så undgår at få PDF'er eller alt for store filer ind i din billedbucket.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Upload billeder til bucket'en
+
+Når bucket'en er oprettet, kan du åbne den i Dashboard og uploade filer.
+
+Du kan fx organisere dem sådan:
+
+```text
+product-images/
+  produkter/
+    stol.jpg
+    lampe.jpg
+    bord.jpg
+```
+
+Her er:
+
+- `product-images` navnet på bucket'en
+- `produkter/stol.jpg` stien **inde i bucket'en**
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Hvordan ser billedets URL ud?
+
+Supabase dokumenterer denne offentlige URL-struktur for filer i en public bucket:
+
+```text
+https://[project_id].supabase.co/storage/v1/object/public/[bucket]/[asset-name]
+```
+
+Et konkret eksempel kunne derfor være:
+
+```text
+https://din-projekt-ref.supabase.co/storage/v1/object/public/product-images/produkter/stol.jpg
+```
+
+Det er altså denne adresse browseren skal have adgang til, hvis et billede skal vises med `<img>`.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Hvad skal der stå i databasen?
+
+Til dette forløb vil jeg anbefale, at databasen **ikke** gemmer hele URL'en.
+
+Gem i stedet kun stien **inde i bucket'en**, fx:
+
+```text
+produkter/stol.jpg
+```
+
+Det er smart fordi:
+
+- databasen bliver mere ryddelig
+- du undgår at gemme projekt-URL igen og igen
+- du kan ændre bucket-navn eller projektopsætning ét sted i koden
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Eksempel på tabeldata
+
+Forestil dig en tabel der hedder `products`:
+
+| title | price | image_path |
+| --- | --- | --- |
+| Stol | 799 | `produkter/stol.jpg` |
+| Lampe | 499 | `produkter/lampe.jpg` |
+| Bord | 1499 | `produkter/bord.jpg` |
+
+Her ligger selve billedfilerne i bucket'en `product-images`, mens databasen kun gemmer objektets sti.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Sådan bygger du URL'en i Astro
+
+```astro
+---
+const url = `${import.meta.env.SUPABASE_URL}/rest/v1/products?select=title,price,image_path`;
+const apiKey = import.meta.env.SUPABASE_PUBLISHABLE_KEY;
+const bucket = "product-images";
+
+const products = await fetch(url, {
+  headers: {
+    apikey: apiKey,
+  },
+}).then((res) => res.json());
+
+function getImageUrl(path) {
+  return `${import.meta.env.SUPABASE_URL}/storage/v1/object/public/${bucket}/${path}`;
+}
+---
+
+{
+  products.map((product) => (
+    <article>
+      <img src={getImageUrl(product.image_path)} alt={product.title} />
+      <h2>{product.title}</h2>
+      <p>{product.price} kr.</p>
+    </article>
+  ))
+}
+```
+
+Her er det kun `product.image_path`, der kommer fra databasen.
+Resten af URL'en bliver bygget i koden.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Rigtigt og forkert i databasen
+
+### Anbefalet værdi
+
+```text
+produkter/stol.jpg
+```
+
+### Også muligt, men mindre fleksibelt
+
+```text
+https://din-projekt-ref.supabase.co/storage/v1/object/public/product-images/produkter/stol.jpg
+```
+
+### Forkerte værdier
+
+```text
+public/billeder/stol.jpg
+src/assets/stol.jpg
+/storage/v1/object/public/product-images/produkter/stol.jpg
+product-images/produkter/stol.jpg
+```
+
+I dette setup gemmer vi kun **stien i bucket'en**.
+Derfor skal bucket-navn og projekt-URL ikke stå i databasefeltet.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Hvis du senere vil uploade med kode
+
+Hvis du uploader manuelt i Dashboard, behøver du ikke skrive upload-kode først.
+
+Men hvis du senere vil lade et site eller en app uploade filer direkte til Storage, er der en vigtig forskel:
+
+- Storage tillader ikke uploads uden policies
+- Supabase dokumenterer, at upload af nye filer kræver mindst en `INSERT`-policy på `storage.objects`
+
+Til dette forløb kan I derfor roligt starte med:
+
+1. oprette bucket i Dashboard
+2. uploade billeder manuelt
+3. gemme stien i databasen
+4. vise billederne på sitet
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Kort huskeregel
+
+Tænk sådan her:
+
+1. Filen ligger i en Supabase bucket
+2. Databasen gemmer kun stien i bucket'en
+3. Koden bygger den fulde public URL
+4. `<img>` viser billedet
+
+### Eksempel
+
+```text
+Bucket: product-images
+Fil i bucket: produkter/stol.jpg
+Værdi i databasen: produkter/stol.jpg
+Fuld URL i browseren: https://din-projekt-ref.supabase.co/storage/v1/object/public/product-images/produkter/stol.jpg
+```
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Officiel dokumentation
+
+- [Supabase Docs – Storage Buckets fundamentals](https://supabase.com/docs/guides/storage/buckets/fundamentals)
+- [Supabase Docs – Creating Buckets](https://supabase.com/docs/guides/storage/buckets/creating-buckets)
+- [Supabase Docs – Serving assets from Storage](https://supabase.com/docs/guides/storage/serving/downloads)
+- [Supabase Docs – Storage Access Control](https://supabase.com/docs/guides/storage/security/access-control)
+- [Supabase Docs – Standard Uploads](https://supabase.com/docs/guides/storage/uploads/standard-uploads)
+
+</Slide>

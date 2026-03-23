@@ -1,0 +1,363 @@
+---
+title: "Figma Varianter"
+description: "Et kort slide-deck til undervisning i varianter, component sets og variant properties i Figma."
+sidebar:
+  label: "Varianter"
+  order: 6.08
+  badge:
+    text: Tema 9
+    variant: tip
+    class: badge-theme-9
+---
+
+import Slide from "../../../../components/Slide.astro";
+
+Denne side er lavet som et kort slide-deck til gennemgang i klassen. Hav gerne Figma åbent, så du kan prøve trinnene undervejs.
+
+<Slide>
+
+## Hvad skal du kunne bagefter?
+
+- forstå hvad en **variant** er i Figma
+- samle beslægtede komponenter i et **component set**
+- bruge egenskaber som fx `Type`, `State` og `Size`
+- skifte variant på en instance uden at bygge knappen forfra
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Hvad er en variant?
+
+En variant er én version af en komponent i en **familie**.
+
+Eksempel:
+
+- samme knap
+- samme grundidé
+- men forskellig type, størrelse eller tilstand
+
+<div class="variant-family-grid">
+  <div class="variant-family-card">
+    <span class="variant-mini-tag">Type=Primary</span>
+    <button class="variant-demo-button primary">Køb nu</button>
+  </div>
+  <div class="variant-family-card">
+    <span class="variant-mini-tag">Type=Secondary</span>
+    <button class="variant-demo-button secondary">Læs mere</button>
+  </div>
+  <div class="variant-family-card">
+    <span class="variant-mini-tag">Type=Ghost</span>
+    <button class="variant-demo-button ghost">Gem</button>
+  </div>
+</div>
+
+Det er altså ikke tre helt forskellige komponenter, men tre versioner af samme mønster.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Hvorfor bruge varianter?
+
+Varianter hjælper, når noget er:
+
+- beslægtet
+- gentaget
+- bevidst forskelligt på få punkter
+
+I stedet for at have mange næsten ens komponenter kan du samle dem i ét system.
+
+Det gør det lettere at:
+
+- finde den rigtige komponent
+- holde styr på states
+- skifte mellem versioner i højre panel
+- bygge et mere ryddeligt designbibliotek
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Komponenter vs. varianter
+
+Tænk sådan her:
+
+| Situation | Bedste valg |
+| --- | --- |
+| Helt nyt UI-mønster | ny komponent |
+| Samme mønster med få bevidste forskelle | variant |
+| Kun lokal tekst eller billede ændres | instance override |
+
+<div class="columns-2">
+  <div class="variant-panel">
+    <h3>For mange separate komponenter</h3>
+    <ul>
+      <li>`Button Primary`</li>
+      <li>`Button Secondary`</li>
+      <li>`Button Ghost`</li>
+    </ul>
+  </div>
+
+  <div class="variant-panel">
+    <h3>Én familie med varianter</h3>
+    <ul>
+      <li>`Button`</li>
+      <li>`Type = Primary / Secondary / Ghost`</li>
+    </ul>
+  </div>
+</div>
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Sådan laver du varianter
+
+Et typisk workflow er:
+
+1. Lav først én komponent, fx en `Primary`-knap.
+2. Dupliker den til de andre versioner.
+3. Giv dem de forskelle, du vil have, fx farve eller størrelse.
+4. Marker dem alle.
+5. Vælg **Combine as variants**.
+
+Nu får du et **component set**, hvor Figma samler dem som én familie.
+
+:::tip[Husk]
+Lav helst varianter af elementer, der allerede er tydeligt beslægtede.
+:::
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Gode variant properties
+
+De mest nyttige properties er ofte:
+
+| Property | Typiske værdier | Bruges til |
+| --- | --- | --- |
+| `Type` | `Primary`, `Secondary`, `Ghost` | visuel stil |
+| `State` | `Default`, `Hover`, `Disabled` | interaktionstilstand |
+| `Size` | `Small`, `Medium`, `Large` | størrelse |
+
+Et godt system kunne derfor hedde:
+
+```text
+Button
+Type = Primary / Secondary
+State = Default / Hover
+Size = Small / Large
+```
+
+Jo tydeligere navnene er, jo lettere er de at bruge senere.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Sådan bruger du en variant
+
+Når du har lavet et component set, kan du:
+
+1. Trække en instance ind fra **Assets**.
+2. Markere instancen i dit layout.
+3. Skifte `Type`, `State` eller `Size` i højre panel.
+
+<div class="variant-switch-demo">
+  <div class="variant-switch-card">
+    <h3>Samme instance</h3>
+    <div class="variant-switch-flow">
+      <button class="variant-demo-button primary">Primary</button>
+      <span>→</span>
+      <button class="variant-demo-button secondary">Secondary</button>
+      <span>→</span>
+      <button class="variant-demo-button ghost">Ghost</button>
+    </div>
+    <p>Du skifter version uden at bygge komponenten på ny.</p>
+  </div>
+</div>
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Hvornår skal du ikke bruge varianter?
+
+Lav ikke nødvendigvis en variant hvis:
+
+- forskellen kun findes ét sted
+- komponenterne reelt har forskellig struktur
+- det er hurtigere og tydeligere med en ny komponent
+
+Et product card og en topmenu-knap er fx ikke varianter af hinanden.
+
+De er forskellige mønstre og bør normalt være forskellige komponenter.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Typiske fejl
+
+- Du laver varianter af ting, der ikke hører sammen.
+- Du bruger uklare property-navne som `Variant 1` og `Variant 2`.
+- Du blander størrelse, state og type sammen uden system.
+- Du laver mange næsten ens komponenter i stedet for ét component set.
+- Du glemmer at teste om en instance faktisk kan skiftes let i højre panel.
+
+Et godt første tjek er derfor:
+
+1. Er dette samme komponentfamilie?
+2. Hvilken property beskriver forskellen bedst?
+3. Vil en anden kunne forstå navnene uden forklaring?
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Miniøvelse: Lav et button set
+
+Lav i Figma:
+
+- en `Primary`-knap
+- en `Secondary`-knap
+- en `Ghost`-knap
+
+### Krav
+
+1. Saml dem i ét component set.
+2. Giv dem property'en `Type`.
+3. Lav mindst én ekstra property, fx `Size` eller `State`.
+4. Indsæt en instance og skift variant i layoutet.
+
+### Når øvelsen virker
+
+- du kan ændre variant uden at erstatte komponenten
+- navnene er tydelige
+- alle versioner føles som samme familie
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Næste skridt
+
+- [Se Figma-filen igen](/astro/figma/)
+- [Genbesøg Figma – Komponenter](/astro/figma/komponenter/)
+- [Gå til Astro – Komponenter](/astro/komponenter/)
+
+</Slide>
+
+<style is:global>{`
+  .variant-family-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .variant-family-card,
+  .variant-panel,
+  .variant-switch-card {
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 0.9rem;
+    padding: 1rem;
+    background: color-mix(in srgb, var(--sl-color-bg) 94%, var(--sl-color-accent-low) 6%);
+  }
+
+  .variant-family-card {
+    display: grid;
+    gap: 0.75rem;
+    align-content: start;
+  }
+
+  .variant-mini-tag {
+    display: inline-flex;
+    width: fit-content;
+    padding: 0.28rem 0.65rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    background: color-mix(in srgb, var(--sl-color-accent) 16%, white);
+  }
+
+  .variant-demo-button {
+    border: none;
+    border-radius: 0.85rem;
+    padding: 0.85rem 1rem;
+    font: inherit;
+    font-weight: 700;
+  }
+
+  .variant-demo-button.primary {
+    background: var(--sl-color-accent);
+    color: var(--sl-color-white);
+  }
+
+  .variant-demo-button.secondary {
+    background: color-mix(in srgb, var(--sl-color-accent) 12%, white);
+    color: var(--sl-color-text);
+    border: 1px solid color-mix(in srgb, var(--sl-color-accent) 35%, var(--sl-color-gray-4));
+  }
+
+  .variant-demo-button.ghost {
+    background: transparent;
+    color: var(--sl-color-text-accent);
+    border: 1px dashed color-mix(in srgb, var(--sl-color-accent) 52%, var(--sl-color-gray-4));
+  }
+
+  .variant-panel h3,
+  .variant-switch-card h3 {
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+    font-size: 1rem;
+  }
+
+  .variant-panel ul {
+    margin-bottom: 0;
+  }
+
+  .variant-switch-demo {
+    margin-top: 1rem;
+  }
+
+  .variant-switch-flow {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: center;
+    margin-block: 1rem 0.75rem;
+  }
+
+  .variant-switch-flow span {
+    font-weight: 700;
+    color: var(--sl-color-text-accent);
+  }
+
+  .variant-switch-card p {
+    margin-bottom: 0;
+    font-size: 0.95rem;
+  }
+`}</style>

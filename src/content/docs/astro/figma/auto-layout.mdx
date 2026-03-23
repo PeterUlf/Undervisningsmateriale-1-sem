@@ -1,0 +1,480 @@
+---
+title: "Figma Auto Layout"
+description: "Et kort slide-deck til undervisning i Auto Layout i Figma."
+sidebar:
+  label: "Auto Layout"
+  order: 6.06
+  badge:
+    text: Tema 9
+    variant: tip
+    class: badge-theme-9
+---
+
+import Slide from "../../../../components/Slide.astro";
+
+Denne side er lavet som et kort slide-deck til gennemgang i klassen. Hav Figma åbent ved siden af, og prøv trinnene undervejs.
+
+<Slide>
+
+## Hvad skal du kunne bagefter?
+
+- lave Auto Layout med `Shift + A`
+- styre `Direction`, `Spacing` og `Padding`
+- vælge mellem `Hug`, `Fill` og `Fixed`
+- bygge en knap, en liste og et card uden at flytte ting manuelt
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Hvad er Auto Layout?
+
+Auto Layout betyder, at en **frame** selv kan holde styr på:
+
+- rækkefølgen af elementer
+- afstanden mellem dem
+- luft rundt om indholdet
+- hvordan layoutet reagerer, når indholdet ændrer sig
+
+Tænk på det som Figma-versionen af `display: flex` i CSS.
+
+<div class="auto-demo-grid">
+  <div class="auto-demo-panel">
+    <h3>Uden Auto Layout</h3>
+    <div class="auto-freeform">
+      <span class="auto-item auto-floating auto-one">Logo</span>
+      <span class="auto-item auto-floating auto-two">Produkter</span>
+      <span class="auto-item auto-floating auto-three">Kontakt</span>
+    </div>
+    <p>Du flytter hvert element manuelt.</p>
+  </div>
+
+  <div class="auto-demo-panel">
+    <h3>Med Auto Layout</h3>
+    <div class="auto-frame">
+      <div class="auto-stack row">
+        <span class="auto-item">Logo</span>
+        <span class="auto-item">Produkter</span>
+        <span class="auto-item">Kontakt</span>
+      </div>
+    </div>
+    <p>Framen holder retning og afstand for dig.</p>
+  </div>
+</div>
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Sådan starter du
+
+1. Marker et tekstlag eller flere lag.
+2. Tryk `Shift + A`.
+3. Kig i højre panel efter indstillingerne for Auto Layout.
+
+Det smarte er:
+
+- markerer du **kun tekst**, får du hurtigt starten på en knap
+- markerer du **flere lag**, kan du lave fx en menu, en liste eller et card
+
+:::tip[Husk]
+Hvis du er i tvivl, så kig efter om Figma nu viser en **frame med Auto Layout** i lag-panelet.
+:::
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Direction og spacing
+
+`Direction` bestemmer om elementerne ligger:
+
+- vandret
+- lodret
+
+`Spacing` bestemmer afstanden **mellem children** i framen.
+
+<div class="columns-2">
+  <div class="auto-demo-panel">
+    <h3>Horizontal</h3>
+    <div class="auto-frame">
+      <div class="auto-stack row">
+        <span class="auto-item">Kort</span>
+        <span class="auto-item">Om os</span>
+        <span class="auto-item">Kontakt</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="auto-demo-panel">
+    <h3>Vertical</h3>
+    <div class="auto-frame">
+      <div class="auto-stack column">
+        <span class="auto-item">Titel</span>
+        <span class="auto-item">Beskrivelse</span>
+        <span class="auto-item">Knap</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+Det er altså **parent-framen**, du justerer, ikke hvert element for sig.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Padding og alignment
+
+`Padding` er luften mellem kanten af framen og indholdet.
+
+`Alignment` bestemmer, hvordan indholdet placerer sig inde i framen.
+
+<div class="auto-demo-grid">
+  <div class="auto-demo-panel">
+    <h3>Lille padding</h3>
+    <div class="auto-frame tight">
+      <span class="auto-item">Button</span>
+    </div>
+  </div>
+
+  <div class="auto-demo-panel">
+    <h3>Stor padding</h3>
+    <div class="auto-frame roomy">
+      <span class="auto-item">Button</span>
+    </div>
+  </div>
+</div>
+
+Hvis en knap eller et card føles klemt, er det ofte `Padding`, du skal ændre først.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## `Hug`, `Fill` og `Fixed`
+
+I Figma skal du tit vælge, hvordan bredde og højde skal opføre sig.
+
+| Indstilling | Betydning | Typisk brug |
+| --- | --- | --- |
+| `Hug` | Følger indholdet | knapper, labels, små chips |
+| `Fill` | Fylder den plads parent giver | kortindhold, inputfelter, lister |
+| `Fixed` | Holder en fast størrelse | billeder, faste bokse, bestemte UI-flader |
+
+<div class="auto-demo-grid auto-demo-grid-3">
+  <div class="auto-demo-panel">
+    <h3>Hug</h3>
+    <div class="auto-frame">
+      <span class="auto-item">Køb nu</span>
+    </div>
+  </div>
+
+  <div class="auto-demo-panel">
+    <h3>Fill</h3>
+    <div class="auto-frame">
+      <span class="auto-item auto-fill">Køb nu</span>
+    </div>
+  </div>
+
+  <div class="auto-demo-panel">
+    <h3>Fixed</h3>
+    <div class="auto-frame">
+      <span class="auto-item auto-fixed">Køb nu</span>
+    </div>
+  </div>
+</div>
+
+Huskeregel:
+
+- `Hug` følger indholdet
+- `Fill` følger parenten
+- `Fixed` følger tallet du har sat
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Tænk i parent og children
+
+Det er her mange bliver forvirrede i starten.
+
+<div class="columns-2">
+  <div>
+    <h3>Parent styrer typisk</h3>
+    <ul>
+      <li>retning</li>
+      <li>spacing</li>
+      <li>padding</li>
+      <li>overordnet alignment</li>
+    </ul>
+  </div>
+
+  <div>
+    <h3>Child styrer typisk</h3>
+    <ul>
+      <li>eget indhold</li>
+      <li>egen bredde og højde</li>
+      <li>om det skal være <code>Hug</code>, <code>Fill</code> eller <code>Fixed</code></li>
+    </ul>
+  </div>
+</div>
+
+Hvis Figma føles stædig, er det tit fordi du står på **det forkerte lag**.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Nested Auto Layout
+
+Det rigtig smarte sker, når du lægger Auto Layout **inde i Auto Layout**.
+
+Eksempel: et simpelt product card.
+
+<div class="auto-card">
+  <div class="auto-image">Billede</div>
+  <div class="auto-text-stack">
+    <strong>Produktnavn</strong>
+    <p>Kort beskrivelse af produktet, som gerne må fylde flere linjer.</p>
+  </div>
+  <div class="auto-stack row">
+    <span class="auto-item">Læs mere</span>
+    <span class="auto-item auto-secondary">Køb</span>
+  </div>
+</div>
+
+Her kan du tænke sådan:
+
+- hele cardet er en **vertical** Auto Layout-frame
+- tekstblokken er også en lille **vertical** struktur
+- knapperne ligger i en **horizontal** Auto Layout-frame
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Typiske fejl
+
+- Du prøver at flytte hvert element manuelt i stedet for at ændre `Spacing` eller `Padding`.
+- En knap bliver alt for bred, fordi den står til `Fill` i stedet for `Hug`.
+- Du ændrer på et child, men problemet ligger egentlig i parent-framen.
+- Elementer ligger ikke pænt, fordi de slet ikke er samlet i samme Auto Layout-frame endnu.
+
+Et godt første tjek er altid:
+
+1. Hvilket lag har jeg valgt?
+2. Er det parent eller child?
+3. Skal jeg ændre retning, padding eller størrelse?
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Miniøvelse: Lav et card i Figma
+
+Byg et kort med:
+
+- et billede
+- en titel
+- en kort tekst
+- en knap
+
+### Krav
+
+1. Giv hele cardet **vertical Auto Layout**.
+2. Giv knappen eller knaprækken **horizontal Auto Layout**.
+3. Brug både `Padding` og `Spacing`.
+4. Vælg bevidst mellem `Hug`, `Fill` og `Fixed`.
+
+### Når øvelsen virker
+
+- cardet holder afstande uden manuel flytning
+- teksten må gerne blive længere uden at layoutet bryder sammen
+- knappen ser stadig ud som en knap
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Næste skridt
+
+- [Se Figma-filen igen](/astro/figma/)
+- [Fortsæt til Figma – Komponenter](/astro/figma/komponenter/)
+- [Genbesøg Flexbox](/css/flexbox/)
+- [Fortsæt til Astro – Billedoptimering](/astro/billedoptimering/)
+
+</Slide>
+
+<style is:global>{`
+  .auto-demo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .auto-demo-grid-3 {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  }
+
+  .auto-demo-panel {
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 0.9rem;
+    padding: 1rem;
+    background: color-mix(in srgb, var(--sl-color-bg) 94%, var(--sl-color-accent-low) 6%);
+  }
+
+  .auto-demo-panel h3 {
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+    font-size: 1rem;
+  }
+
+  .auto-demo-panel p {
+    margin-bottom: 0;
+    font-size: 0.95rem;
+  }
+
+  .auto-frame {
+    border: 2px dashed color-mix(in srgb, var(--sl-color-accent) 58%, var(--sl-color-gray-4));
+    border-radius: 0.9rem;
+    padding: 0.9rem;
+    background: color-mix(in srgb, var(--sl-color-bg) 97%, white 3%);
+    min-height: 5.5rem;
+  }
+
+  .auto-frame.tight {
+    padding: 0.35rem;
+  }
+
+  .auto-frame.roomy {
+    padding: 1.4rem;
+  }
+
+  .auto-stack {
+    display: flex;
+    gap: 0.65rem;
+  }
+
+  .auto-stack.row {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .auto-stack.column {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .auto-item {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.4rem;
+    padding: 0.55rem 0.9rem;
+    border-radius: 0.7rem;
+    background: color-mix(in srgb, var(--sl-color-accent-low) 72%, white 28%);
+    border: 1px solid color-mix(in srgb, var(--sl-color-accent) 65%, var(--sl-color-gray-5));
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+
+  .auto-item.auto-fill {
+    display: flex;
+    width: 100%;
+  }
+
+  .auto-item.auto-fixed {
+    width: 9rem;
+  }
+
+  .auto-item.auto-secondary {
+    background: color-mix(in srgb, var(--sl-color-gray-6) 86%, white 14%);
+    border-color: var(--sl-color-gray-4);
+  }
+
+  .auto-freeform {
+    position: relative;
+    min-height: 6.5rem;
+    border: 1px dashed var(--sl-color-gray-4);
+    border-radius: 0.9rem;
+    background: color-mix(in srgb, var(--sl-color-bg) 98%, white 2%);
+  }
+
+  .auto-floating {
+    position: absolute;
+  }
+
+  .auto-one {
+    top: 0.7rem;
+    left: 0.65rem;
+  }
+
+  .auto-two {
+    top: 2.5rem;
+    right: 1rem;
+  }
+
+  .auto-three {
+    bottom: 0.7rem;
+    left: 2.3rem;
+  }
+
+  .auto-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    max-width: 24rem;
+    margin-top: 1rem;
+    padding: 1rem;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 1rem;
+    background: var(--sl-color-bg);
+    box-shadow: 0 0.5rem 1.5rem color-mix(in srgb, black 8%, transparent);
+  }
+
+  .auto-image {
+    display: grid;
+    place-items: center;
+    min-height: 10rem;
+    border-radius: 0.9rem;
+    background:
+      linear-gradient(
+        135deg,
+        color-mix(in srgb, var(--sl-color-accent-low) 80%, white 20%),
+        color-mix(in srgb, var(--sl-color-accent) 22%, var(--sl-color-bg) 78%)
+      );
+    font-weight: 700;
+  }
+
+  .auto-text-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+
+  .auto-text-stack p {
+    margin: 0;
+  }
+`}</style>

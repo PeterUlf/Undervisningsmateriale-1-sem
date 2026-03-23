@@ -1,0 +1,221 @@
+---
+title: "Tema 9 – Billeder fra public og links i databasen"
+description: "Forstå hvordan billeder i public bruges sammen med Supabase-data, og hvordan billedstier skal gemmes i databasen."
+sidebar:
+  label: "Billeder fra public"
+  order: 6.2
+  badge:
+    text: Tema 9
+    variant: tip
+    class: badge-theme-9
+---
+
+import Slide from "../../../components/Slide.astro";
+
+<Slide>
+
+## Når billederne ligger i `public/`
+
+I Tema 9 kan det sagtens være sådan, at:
+
+- tekst, priser og titler ligger i Supabase
+- men selve billedfilerne ligger i Astro-projektets `public/`-mappe
+
+Det betyder, at databasen **ikke** skal gemme selve billedfilen.
+
+Databasen skal bare gemme **stien til billedet** som tekst.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Hvad sker der med `public/` i Astro?
+
+Hvis du har denne mappe:
+
+```text
+public/
+  billeder/
+    produkter/
+      stol.jpg
+```
+
+så bliver billedet tilgængeligt på denne webadresse:
+
+```text
+/billeder/produkter/stol.jpg
+```
+
+Det er derfor vigtigt at forstå:
+
+- `public/` bliver til roden af sitet
+- ordet `public` skal **ikke** med i URL'en
+- stien skal starte med `/`
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Hvad skal der stå i databasen?
+
+Hvis du har en kolonne som fx hedder `image`, `image_url` eller `thumbnail`, så anbefales det i dette forløb at gemme hele webstien:
+
+```text
+/billeder/produkter/stol.jpg
+```
+
+Det gør det nemt senere, fordi du kan bruge værdien direkte i din HTML.
+
+:::tip[Anbefaling]
+Selv hvis kolonnen hedder `image_url`, må værdien godt være en sti som `/billeder/produkter/stol.jpg`.
+Den behøver altså ikke være et fuldt `https://...`-link.
+:::
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Rigtigt og forkert
+
+### God værdi i databasen
+
+```text
+/billeder/produkter/stol.jpg
+```
+
+### Forkerte værdier
+
+```text
+public/billeder/produkter/stol.jpg
+../public/billeder/produkter/stol.jpg
+src/assets/stol.jpg
+/public/billeder/produkter/stol.jpg
+/src/assets/stol.jpg
+```
+
+De virker ikke, fordi browseren kun kender den **offentlige websti** og ikke din interne projektstruktur.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Eksempel på tabeldata
+
+Forestil dig en tabel der hedder `products`:
+
+| title | price | image_url |
+| --- | --- | --- |
+| Stol | 799 | `/billeder/produkter/stol.jpg` |
+| Lampe | 499 | `/billeder/produkter/lampe.jpg` |
+| Bord | 1499 | `/billeder/produkter/bord.jpg` |
+
+Her ligger selve billedfilerne i `public/billeder/produkter/`, mens Supabase kun gemmer stien som tekst.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Sådan bruges værdien i Astro
+
+Hvis din database allerede gemmer hele stien, kan du bruge den direkte:
+
+```astro
+---
+const url = `${import.meta.env.SUPABASE_URL}/rest/v1/products?select=title,price,image_url`;
+const apiKey = import.meta.env.SUPABASE_PUBLISHABLE_KEY;
+
+const products = await fetch(url, {
+  headers: {
+    apikey: apiKey,
+  },
+}).then((res) => res.json());
+---
+
+{
+  products.map((product) => (
+    <article>
+      <img src={product.image_url} alt={product.title} />
+      <h2>{product.title}</h2>
+      <p>{product.price} kr.</p>
+    </article>
+  ))
+}
+```
+
+Det smarte er, at `product.image_url` allerede indeholder:
+
+```text
+/billeder/produkter/stol.jpg
+```
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Alternativ: Gem kun filnavnet
+
+Du **kan** også nøjes med at gemme:
+
+```text
+stol.jpg
+```
+
+Så skal du selv bygge stien i koden:
+
+```astro
+<img src={`/billeder/produkter/${product.image}`} alt={product.title} />
+```
+
+Det virker fint, men for begyndere er det ofte lettere at gemme hele stien i databasen:
+
+```text
+/billeder/produkter/stol.jpg
+```
+
+Så slipper du for ekstra sammensætning i koden.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Kort huskeregel
+
+Tænk sådan her:
+
+1. Filen ligger fysisk i `public/`
+2. Databasen gemmer webstien uden `public`
+3. HTML bruger værdien direkte i `src`
+
+### Eksempel
+
+```text
+Fil i projektet: public/billeder/produkter/stol.jpg
+Værdi i databasen: /billeder/produkter/stol.jpg
+Brug i HTML: <img src={product.image_url} alt={product.title} />
+```
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Hvis du vil udnytte Astros muligheder for billedbehandling
+
+Det vi har gennemgået her, er den enkle løsning:
+
+- billederne ligger i `public/`
+- databasen gemmer en sti som tekst
+- du viser billedet med en almindelig `<img>`
+
+Hvis du vil videre til Astros mere avancerede billedworkflow med optimering og `Image`-komponenten, så hop videre til dette slide:
+
+- [Astro – Billedoptimering, slide 2](/astro/billedoptimering/#slide-2)
+
+</Slide>

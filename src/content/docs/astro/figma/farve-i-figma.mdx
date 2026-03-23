@@ -1,0 +1,182 @@
+---
+title: "Farver i Figma med 6:3:1-reglen"
+description: Lær hvordan du bruger tints.dev til at generere farvepaletter efter 6:3:1-reglen og importerer dem i Figma.
+sidebar:
+  label: "Farver i Figma"
+  order: 6.1
+  badge:
+    text: Tema 9
+    variant: tip
+    class: badge-theme-9
+---
+
+import Slide from "../../../../components/Slide.astro";
+
+Når du designer i Figma, er det vigtigt at arbejde med en sammenhængende farvepalette. I denne guide lærer du at bruge **tints.dev** til at generere farver efter 6:3:1-reglen og importere dem i Figma.
+
+<Slide>
+
+## Hvad er 6:3:1-reglen?
+
+6:3:1-reglen er en designprincip, der hjælper med at skabe balance i dit farveskema:
+
+- **60%** – Dominerende farve (primær farve)
+- **30%** – Sekundær farve (understøttende farve)
+- **10%** – Accent farve (fremhæver vigtige elementer)
+
+Denne opdeling sikrer, at dit design ikke bliver for overvældende, men stadig har tilstrækkelig visuel interesse.
+
+</Slide>
+
+<Slide>
+
+## Brug tints.dev til at generere farvepaletter
+
+[tints.dev](https://www.tints.dev/) er et gratis værktøj, der genererer hele farvepaletter baseret på én enkelt farve.
+
+### Trin 1: Vælg din primære farve
+
+1. Gå til [tints.dev](https://www.tints.dev/)
+2. Indtast din primære HEX-farve i inputfeltet (f.eks. `#3B82F6`)
+3. Værktøjet genererer automatisk en komplet pallet med forskellige nuancer
+
+### Trin 2: Tilpas paletten
+
+- Du kan justere antallet af nuancer
+- Ændre lysstyrke og mætning
+- Tilføje flere base-farver for et komplet farvesystem
+
+### Trin 3: Eksportér farverne
+
+1. Klik på **"Export"**-knappen i højre hjørne
+2. Vælg formatet **"DRP (Design Resource Plugin)"**
+3. Kopier den genererede kode – den ser sådan ud:
+
+```json
+{
+  "colors": {
+    "blue-50": "#eff6ff",
+    "blue-100": "#dbeafe",
+    "blue-200": "#bfdbfe",
+    ...
+  }
+}
+```
+
+:::tip[Gem dine farver]
+Du kan også gemme farverne som en JSON-fil ved at højreklikke og vælge "Gem som..." – det gør det nemmere at dele med dit team.
+:::
+
+</Slide>
+
+<Slide>
+
+## Installér DRP Palette Importer i Figma
+
+**DRP Palette Importer** er et Figma-plugin, der automatisk opretter farvestile fra den JSON-fil, du har genereret.
+
+### Trin 1: Åbn plugin-menuen
+
+1. Åbn Figma
+2. Højreklik på canvas eller gå til menuen
+3. Vælg **Plugins** → **Find more plugins**
+
+### Trin 2: Søg efter pluginet
+
+1. Søg efter **"DRP Palette Importer"**
+2. Klik på pluginet i søgeresultaterne
+3. Klik på **"Install"** (eller **"Run"** hvis det allerede er installeret)
+
+:::caution[Første gang]
+Hvis det er første gang du bruger plugins i Figma, skal du muligvis give tilladelse til at anvende tredjeparts-plugins.
+:::
+
+</Slide>
+
+<Slide>
+
+## Importér dine farver i Figma
+
+Nu er du klar til at importere de farver, du har genereret fra tints.dev.
+
+### Trin 1: Åbn pluginet
+
+1. Højreklik på canvas
+2. Vælg **Plugins** → **DRP Palette Importer**
+
+### Trin 2: Indsæt din farve-JSON
+
+1. Kopier JSON-koden fra tints.dev (som du eksporterede tidligere)
+2. Indsæt den i tekstfeltet i pluginet
+3. Klik på **"Import"**
+
+### Trin 3: Tjek dine farvestile
+
+1. Åbn **"Local styles"** i højre sidepanel (ikonet med fire prikker)
+2. Du skulle nu kunne se alle dine importerede farver som farvestile
+3. Navnene følger strukturen fra tints.dev (f.eks. `blue-50`, `blue-100`, osv.)
+
+:::tip[Organiser dine farver]
+Du kan omdøbe farvestilene efter import for at matche dit eget navngivningssystem. F.eks. kan `blue-500` blive til `primary` eller `brand-blue`.
+:::
+
+</Slide>
+
+<Slide>
+
+## Brug dine farver i designet
+
+Nu hvor dine farvestile er importeret, kan du bruge dem i hele dit design:
+
+1. **Vælg et element** i Figma
+2. Klik på farvefeltet under **Fill** eller **Stroke**
+3. Vælg **"Local styles"** i farvevælgeren
+4. Vælg den ønskede farve fra din palette
+
+### Fordele ved farvestile
+
+- **Konsistens** – samme farver gennem hele projektet
+- **Nem opdatering** – ændre én farve opdaterer alle steder
+- **Deling** – let at dele farvepaletter med dit team
+- **Dokumentation** – alle kan se hvilke farver der er godkendte
+
+</Slide>
+
+<Slide>
+
+## Praktisk eksempel: 6:3:1 i praksis
+
+Sådan kunne du anvende 6:3:1-reglen i en landing page:
+
+### 60% – Primær farve (Baggrund)
+
+- Brug neutrale nuancer fra din palette (f.eks. `gray-50`, `gray-100`)
+- Store områder som baggrund, kort, sektioner
+
+### 30% – Sekundær farve (Indhold)
+
+- Tekst, overskrifter, ikoner
+- Brug mørkere nuancer fra din primære farve (f.eks. `blue-700`, `blue-800`)
+
+### 10% – Accent farve (Call-to-action)
+
+- Knapper, links, vigtige highlights
+- Brug kontrast-farver fra din palette (f.eks. `orange-500`)
+
+:::note[Eksperimenter]
+6:3:1-reglen er en rettesnor, ikke en lov. Du kan justere proportionerne baseret på dit specifikke design og brand.
+:::
+
+</Slide>
+
+<Slide>
+
+## Næste skridt
+
+Nu hvor du har dine farver på plads, kan du:
+
+- Oprette komponenter med dine farvestile
+- Eksportere assets til dit Astro-projekt
+- Konvertere farvestilene til CSS-variabler
+
+</Slide>

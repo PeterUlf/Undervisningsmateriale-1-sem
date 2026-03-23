@@ -1,0 +1,439 @@
+---
+title: "Figma Komponenter"
+description: "Et kort slide-deck til undervisning i komponenter, instances og varianter i Figma."
+sidebar:
+  label: "Komponenter"
+  order: 6.07
+  badge:
+    text: Tema 9
+    variant: tip
+    class: badge-theme-9
+---
+
+import Slide from "../../../../components/Slide.astro";
+
+Denne side er lavet som et kort slide-deck til gennemgang i klassen. Hav gerne Figma åbent, så du kan prøve hvert trin med det samme.
+
+<Slide>
+
+## Hvad skal du kunne bagefter?
+
+- forstå forskellen på en **komponent** og en **instance**
+- lave en komponent af fx en knap eller et card
+- indsætte og genbruge komponenter flere steder
+- forstå idéen i **varianter** som fx primary/secondary
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Hvad er en komponent?
+
+En komponent er et element, du vil kunne **genbruge** igen og igen.
+
+Det kan fx være:
+
+- en knap
+- et kort
+- en menu-item
+- et inputfelt
+
+Tænk på det som en slags **master**.
+
+Når du bruger den ude i dit design, arbejder du typisk med en **instance**.
+
+<div class="component-hero">
+  <div class="component-master">
+    <span class="component-tag">Main component</span>
+    <button>Button</button>
+  </div>
+  <div class="component-arrow">→</div>
+  <div class="component-instances">
+    <div class="instance-chip">Button</div>
+    <div class="instance-chip">Button</div>
+    <div class="instance-chip">Button</div>
+  </div>
+</div>
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Hvorfor bruge komponenter?
+
+Hvis du tegner den samme knap manuelt 12 gange, skal du rette den 12 gange.
+
+Med komponenter kan du i stedet:
+
+- genbruge samme løsning
+- skabe mere ens design
+- ændre ét sted og få ændringen flere steder
+- arbejde hurtigere i større layouts
+
+Komponenter er derfor gode, når noget **skal gentages**.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Sådan laver du en komponent
+
+Et typisk workflow er:
+
+1. Byg først elementet færdigt, fx en knap.
+2. Marker hele elementet.
+3. Vælg **Create component** i toolbaren eller brug genvejen.
+4. Giv komponenten et tydeligt navn.
+
+Eksempel på gode navne:
+
+- `Button / Primary`
+- `Button / Secondary`
+- `Card / Product`
+
+:::tip[Husk]
+Lav helst komponenten af en **færdig lille UI-del** og ikke af tilfældige løse lag.
+:::
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Komponent og instance
+
+Det er vigtigt at kende forskellen:
+
+| Type | Hvad er det? | Typisk brug |
+| --- | --- | --- |
+| **Main component** | Originalen | den du bygger og vedligeholder |
+| **Instance** | En kopi med forbindelse til originalen | den du placerer i dit layout |
+
+<div class="columns-2">
+  <div class="component-panel">
+    <h3>Main component</h3>
+    <div class="component-box master-box">
+      <span>Button</span>
+    </div>
+    <p>Her ændrer du grunddesignet.</p>
+  </div>
+
+  <div class="component-panel">
+    <h3>Instance</h3>
+    <div class="component-box instance-box">
+      <span>Button</span>
+    </div>
+    <p>Den bruges ude i dine skærme og frames.</p>
+  </div>
+</div>
+
+Hvis du ændrer fx padding eller farve på main component, følger instances ofte med.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Sådan bruger du en komponent
+
+Når komponenten er lavet, kan du bruge den igen via:
+
+- **Assets-panelet**
+- copy/paste af en eksisterende instance
+- duplikering med `Alt`-træk eller almindelig duplicate
+
+Det normale er:
+
+1. Lav komponenten ét sted.
+2. Træk en instance ind i dit layout.
+3. Brug flere instances de steder, hvor det samme mønster går igen.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Hvad må du ændre på en instance?
+
+En instance må ofte godt have små lokale ændringer, fx:
+
+- tekst
+- billede
+- ikon
+- enkelte farver eller størrelser
+
+Men pas på:
+
+- hvis du ændrer for meget, mister du idéen med komponenten
+- hvis alle instances bliver forskellige, burde det måske være flere komponenter eller varianter i stedet
+
+En god tommelfingerregel er:
+
+> Delene skal stadig føles som samme UI-mønster.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Hvad er varianter?
+
+Varianter er flere versioner af **samme komponentfamilie**.
+
+Eksempler:
+
+- `Button / Primary`
+- `Button / Secondary`
+- `Button / Small`
+- `Button / Large`
+- `Button / Default`
+- `Button / Hover`
+
+<div class="variant-grid">
+  <div class="variant-card">
+    <h3>Primary</h3>
+    <button class="demo-button primary">Køb nu</button>
+  </div>
+  <div class="variant-card">
+    <h3>Secondary</h3>
+    <button class="demo-button secondary">Læs mere</button>
+  </div>
+  <div class="variant-card">
+    <h3>Ghost</h3>
+    <button class="demo-button ghost">Gem</button>
+  </div>
+</div>
+
+Tænk på varianter som en ryddelig måde at samle beslægtede versioner på.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Hvornår er noget en variant?
+
+Brug typisk en variant når forskellen er **planlagt og tilbagevendende**.
+
+Eksempel:
+
+- samme knap
+- samme opbygning
+- men forskellig stil eller størrelse
+
+Lav derimod ikke nødvendigvis en variant hvis:
+
+- forskellen kun findes ét sted
+- elementet reelt er et helt andet mønster
+- du stadig ikke ved, hvordan komponenten skal bruges
+
+Start hellere enkelt og udvid senere.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Typiske fejl
+
+- Du laver komponenter for tidligt, før elementet overhovedet er tænkt færdigt.
+- Du kan ikke finde rundt, fordi navnene er uklare.
+- Du redigerer en instance og tror, du redigerer main component.
+- Du detach'er en instance alt for hurtigt og mister forbindelsen.
+- Du laver for mange næsten ens komponenter i stedet for varianter.
+
+Et godt første tjek er derfor:
+
+1. Står jeg på main component eller en instance?
+2. Er dette egentlig samme mønster?
+3. Skal det løses med override, variant eller en ny komponent?
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Miniøvelse: Byg en komponentpakke
+
+Lav dette i Figma:
+
+- en `Primary`-knap
+- en `Secondary`-knap
+- en lille card-komponent
+
+### Krav
+
+1. Brug Auto Layout i selve komponenten.
+2. Gør knappen til en komponent.
+3. Lav mindst to instances i en frame.
+4. Lav mindst to varianter af knappen.
+
+### Når øvelsen virker
+
+- ændrer du main component, opdateres instances
+- du kan se forskel på component og instance
+- varianterne føles som samme familie
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Næste skridt
+
+- [Se Figma-filen igen](/astro/figma/)
+- [Fortsæt til Figma – Varianter](/astro/figma/varianter/)
+- [Fortsæt til Figma – Auto Layout](/astro/figma/auto-layout/)
+- [Gå til Astro – Komponenter](/astro/komponenter/)
+
+</Slide>
+
+<style is:global>{`
+  .component-hero {
+    display: grid;
+    grid-template-columns: 1fr auto 1.2fr;
+    gap: 1rem;
+    align-items: center;
+    margin-top: 1rem;
+  }
+
+  .component-master,
+  .component-instances,
+  .component-panel,
+  .variant-card {
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 0.9rem;
+    padding: 1rem;
+    background: color-mix(in srgb, var(--sl-color-bg) 94%, var(--sl-color-accent-low) 6%);
+  }
+
+  .component-master {
+    display: grid;
+    gap: 0.75rem;
+    justify-items: start;
+  }
+
+  .component-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.25rem 0.65rem;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    background: color-mix(in srgb, var(--sl-color-accent) 18%, white);
+    color: var(--sl-color-text);
+  }
+
+  .component-master button,
+  .demo-button,
+  .component-box {
+    border: none;
+    border-radius: 0.85rem;
+    padding: 0.85rem 1rem;
+    font: inherit;
+    font-weight: 700;
+  }
+
+  .component-master button,
+  .demo-button.primary,
+  .master-box {
+    background: var(--sl-color-accent);
+    color: var(--sl-color-white);
+  }
+
+  .component-arrow {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--sl-color-text-accent);
+  }
+
+  .component-instances {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: center;
+  }
+
+  .instance-chip,
+  .instance-box {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1rem;
+    border-radius: 0.85rem;
+    background: color-mix(in srgb, var(--sl-color-accent) 14%, white);
+    border: 1px solid color-mix(in srgb, var(--sl-color-accent) 32%, var(--sl-color-gray-4));
+    font-weight: 700;
+  }
+
+  .component-panel h3,
+  .variant-card h3 {
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+    font-size: 1rem;
+  }
+
+  .component-panel p {
+    margin-bottom: 0;
+    font-size: 0.95rem;
+  }
+
+  .component-box {
+    min-height: 3.25rem;
+  }
+
+  .instance-box {
+    background: color-mix(in srgb, var(--sl-color-accent) 10%, white);
+    color: var(--sl-color-text);
+  }
+
+  .variant-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .variant-card {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .demo-button.secondary {
+    background: color-mix(in srgb, var(--sl-color-accent) 12%, white);
+    color: var(--sl-color-text);
+    border: 1px solid color-mix(in srgb, var(--sl-color-accent) 35%, var(--sl-color-gray-4));
+  }
+
+  .demo-button.ghost {
+    background: transparent;
+    color: var(--sl-color-text-accent);
+    border: 1px dashed color-mix(in srgb, var(--sl-color-accent) 52%, var(--sl-color-gray-4));
+  }
+
+  @media (max-width: 720px) {
+    .component-hero {
+      grid-template-columns: 1fr;
+    }
+
+    .component-arrow {
+      justify-self: center;
+      transform: rotate(90deg);
+    }
+  }
+`}</style>
