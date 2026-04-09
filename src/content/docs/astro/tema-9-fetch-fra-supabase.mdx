@@ -161,6 +161,182 @@ console.log(data);
 
 <Slide>
 
+## Kode-puslespil: Match hver linje med forklaring
+
+<table style="width: 100%; border-collapse: collapse; margin: 2rem 0;">
+  <tbody>
+    <tr>
+      <td><code>---</code></td>
+    </tr>
+    <tr>
+      <td style="padding-left: 2rem; font-style: italic;">Start på Astro frontmatter (kode der kører på serveren)</td>
+    </tr>
+    <tr>
+      <td><code>//@ts-nocheck</code></td>
+    </tr>
+    <tr>
+      <td style="padding-left: 2rem; font-style: italic;">Slår TypeScript-tjek fra for denne fil</td>
+    </tr>
+    <tr>
+      <td><code>import Layout from "../layouts/Layout.astro";</code></td>
+    </tr>
+    <tr>
+      <td style="padding-left: 2rem; font-style: italic;">Importerer Layout-komponenten</td>
+    </tr>
+    <tr>
+      <td><pre>const url = `$\{import.meta.env.SUPABASE_URL}/rest/v1/students?select=*`;</pre></td>
+    </tr>
+    <tr>
+      <td style="padding-left: 2rem; font-style: italic;">Bygger URL'en til Supabase-tabellen students ved at hente SUPABASE_URL fra miljøvariabler</td>
+    </tr>
+    <tr>
+      <td><pre>const apiKey = import.meta.env.SUPABASE_PUBLISHABLE_KEY;</pre></td>
+    </tr>
+    <tr>
+      <td style="padding-left: 2rem; font-style: italic;">Henter Supabase API-nøglen fra miljøvariabler</td>
+    </tr>
+    <tr>
+      <td><pre>const options = \{</pre></td>
+    </tr>
+    <tr>
+      <td style="padding-left: 2rem; font-style: italic;">Start på et options-objekt til fetch-kaldet</td>
+    </tr>
+    <tr>
+      <td><pre>  headers: \{</pre></td>
+    </tr>
+    <tr>
+      <td style="padding-left: 2rem; font-style: italic;">Definerer headers der skal sendes med request</td>
+    </tr>
+    <tr>
+      <td><pre>    apikey: apiKey,</pre></td>
+    </tr>
+    <tr>
+      <td style="padding-left: 2rem; font-style: italic;">Sender API-nøglen med i headeren (krævet af Supabase)</td>
+    </tr>
+    <tr>
+      <td><pre>  },</pre></td>
+    </tr>
+    <tr>
+      <td style="padding-left: 2rem; font-style: italic;">Afslutter headers-objektet</td>
+    </tr>
+    <tr>
+      <td><pre>};</pre></td>
+    </tr>
+    <tr>
+      <td style="padding-left: 2rem; font-style: italic;">Afslutter options-objektet</td>
+    </tr>
+    <tr>
+      <td><code>const data = await fetch(url, options)</code></td>
+    </tr>
+    <tr>
+      <td style="padding-left: 2rem; font-style: italic;">Starter fetch-kald til Supabase med URL og options. await venter på svaret</td>
+    </tr>
+    <tr>
+      <td><code>  .then((res) => res.json())</code></td>
+    </tr>
+    <tr>
+      <td style="padding-left: 2rem; font-style: italic;">Når data er hentet, konverteres det fra JSON til JavaScript</td>
+    </tr>
+    <tr>
+      <td><code>  .then((data) => data);</code></td>
+    </tr>
+    <tr>
+      <td style="padding-left: 2rem; font-style: italic;">Returnerer data så det kan gemmes i data-variablen</td>
+    </tr>
+    <tr>
+      <td><code>console.log(data);</code></td>
+    </tr>
+    <tr>
+      <td style="padding-left: 2rem; font-style: italic;">Udskriver data til konsollen (til debugging)</td>
+    </tr>
+    <tr>
+      <td><code>---</code></td>
+    </tr>
+    <tr>
+      <td style="padding-left: 2rem; font-style: italic;">Afslutter frontmatter – nu starter HTML-delen</td>
+    </tr>
+    <tr>
+      <td><code>&lt;Layout&gt;</code></td>
+    </tr>
+    <tr>
+      <td style="padding-left: 2rem; font-style: italic;">Starter Layout-komponenten der wrapper siden</td>
+    </tr>
+    <tr>
+      <td><code>  &lt;h1&gt;Studerende&lt;/h1&gt;</code></td>
+    </tr>
+    <tr>
+      <td style="padding-left: 2rem; font-style: italic;">Viser overskriften "Studerende"</td>
+    </tr>
+    <tr>
+      <td><pre>  \{</pre></td>
+    </tr>
+    <tr>
+      <td style="padding-left: 2rem; font-style: italic;">Starter JavaScript-udtryk i HTML</td>
+    </tr>
+    <tr>
+      <td><pre>    data.map((student) => (</pre></td>
+    </tr>
+    <tr>
+      <td style="padding-left: 2rem; font-style: italic;">Går igennem data-arrayet og laver et nyt element for hver student</td>
+    </tr>
+    <tr>
+      <td><pre>      &lt;article&gt;</pre></td>
+    </tr>
+    <tr>
+      <td style="padding-left: 2rem; font-style: italic;">Starter en article for hver studerende</td>
+    </tr>
+    <tr>
+      <td><pre>        &lt;h2&gt;\{student.first_name} \{student.last_name}&lt;/h2&gt;</pre></td>
+    </tr>
+    <tr>
+      <td style="padding-left: 2rem; font-style: italic;">Viser studerendes fornavn og efternavn</td>
+    </tr>
+    <tr>
+      <td><pre>        &lt;p&gt;Klasse: \{student.class_name}&lt;/p&gt;</pre></td>
+    </tr>
+    <tr>
+      <td style="padding-left: 2rem; font-style: italic;">Viser studerendes klasse</td>
+    </tr>
+    <tr>
+      <td><pre>      &lt;/article&gt;</pre></td>
+    </tr>
+    <tr>
+      <td style="padding-left: 2rem; font-style: italic;">Afslutter article-elementet</td>
+    </tr>
+    <tr>
+      <td><pre>    ))</pre></td>
+    </tr>
+    <tr>
+      <td style="padding-left: 2rem; font-style: italic;">Afslutter map-funktionen</td>
+    </tr>
+    <tr>
+      <td><pre>  }</pre></td>
+    </tr>
+    <tr>
+      <td style="padding-left: 2rem; font-style: italic;">Afslutter JavaScript-udtrykket</td>
+    </tr>
+    <tr>
+      <td><code>&lt;/Layout&gt;</code></td>
+    </tr>
+    <tr>
+      <td style="padding-left: 2rem; font-style: italic;">Afslutter Layout-komponenten</td>
+    </tr>
+  </tbody>
+</table>
+
+:::tip[Sådan bruges puslespillet]
+1. Print dette slide
+2. Klip hver celle ud med saks
+3. Bland cellerne
+4. Lad de studerende samle kodelinjer med deres forklaringer
+5. Derefter skal de lægge dem i den rigtige rækkefølge
+:::
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
 ## Hvad sker der i frontmatter?
 
 ```javascript
@@ -411,3 +587,4 @@ Hvis tabellen bruger RLS, skal du også have en `SELECT`-policy, ellers bliver r
 - [Tilbage til Tema 9 – Supabase tabel + endpoint](/astro/supabase/)
 
 </Slide>
+````

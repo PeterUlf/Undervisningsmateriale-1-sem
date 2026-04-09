@@ -14,6 +14,9 @@ import Slide from "../../../../components/Slide.astro";
 
 Denne side er lavet som et kort slide-deck til gennemgang i klassen. Hav Figma åbent ved siden af, og prøv trinnene undervejs.
 
+Læs evt mere her:
+https://help.figma.com/hc/en-us/articles/360040451373-Guide-to-auto-layout
+
 <Slide>
 
 ## Hvad skal du kunne bagefter?
@@ -21,6 +24,7 @@ Denne side er lavet som et kort slide-deck til gennemgang i klassen. Hav Figma �
 - lave Auto Layout med `Shift + A`
 - styre `Direction`, `Spacing` og `Padding`
 - vælge mellem `Hug`, `Fill` og `Fixed`
+- kende forskellen på `Auto Layout` og `Grid (beta)`
 - bygge en knap, en liste og et card uden at flytte ting manuelt
 
 </Slide>
@@ -63,6 +67,49 @@ Tænk på det som Figma-versionen af `display: flex` i CSS.
     <p>Framen holder retning og afstand for dig.</p>
   </div>
 </div>
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Auto Layout eller Grid?
+
+Figma har nu også `Grid` i beta.
+
+- Brug `Auto Layout`, når indholdet skal flyde i **én retning**.
+- Brug `Grid`, når du arbejder i **rækker og kolonner** samtidig.
+- Tænk: `Auto Layout` svarer ofte til CSS `flex`, mens `Grid` svarer mere til CSS `grid`.
+
+<div class="auto-demo-grid">
+  <div class="auto-demo-panel">
+    <h3>Auto Layout</h3>
+    <div class="auto-frame">
+      <div class="auto-stack row">
+        <span class="auto-item">Card 1</span>
+        <span class="auto-item">Card 2</span>
+        <span class="auto-item">Card 3</span>
+      </div>
+    </div>
+    <p>Godt til menuer, knapper, cards og indhold der vokser med teksten.</p>
+  </div>
+
+  <div class="auto-demo-panel">
+    <h3>Grid (beta)</h3>
+    <div class="auto-frame">
+      <div class="figma-grid-preview">
+        <span class="auto-item auto-grid-item">1</span>
+        <span class="auto-item auto-grid-item">2</span>
+        <span class="auto-item auto-grid-item">3</span>
+        <span class="auto-item auto-grid-item">4</span>
+      </div>
+    </div>
+    <p>Godt til galleri, kortoversigter og layouts med både rækker og kolonner.</p>
+  </div>
+</div>
+
+Hvis du er i tvivl: start ofte med `Auto Layout`, og skift til `Grid`, når layoutet bliver tydeligt todimensionelt.
 
 </Slide>
 
@@ -166,11 +213,11 @@ Hvis en knap eller et card føles klemt, er det ofte `Padding`, du skal ændre f
 
 I Figma skal du tit vælge, hvordan bredde og højde skal opføre sig.
 
-| Indstilling | Betydning | Typisk brug |
-| --- | --- | --- |
-| `Hug` | Følger indholdet | knapper, labels, små chips |
-| `Fill` | Fylder den plads parent giver | kortindhold, inputfelter, lister |
-| `Fixed` | Holder en fast størrelse | billeder, faste bokse, bestemte UI-flader |
+| Indstilling | Betydning                     | Typisk brug                               |
+| ----------- | ----------------------------- | ----------------------------------------- |
+| `Hug`       | Følger indholdet              | knapper, labels, små chips                |
+| `Fill`      | Fylder den plads parent giver | kortindhold, inputfelter, lister          |
+| `Fixed`     | Holder en fast størrelse      | billeder, faste bokse, bestemte UI-flader |
 
 <div class="auto-demo-grid auto-demo-grid-3">
   <div class="auto-demo-panel">
@@ -180,12 +227,12 @@ I Figma skal du tit vælge, hvordan bredde og højde skal opføre sig.
     </div>
   </div>
 
-  <div class="auto-demo-panel">
-    <h3>Fill</h3>
-    <div class="auto-frame">
-      <span class="auto-item auto-fill">Køb nu</span>
-    </div>
+<div class="auto-demo-panel">
+  <h3>Fill</h3>
+  <div class="auto-frame">
+    <span class="auto-item auto-fill">Køb nu</span>
   </div>
+</div>
 
   <div class="auto-demo-panel">
     <h3>Fixed</h3>
@@ -414,6 +461,11 @@ Byg et kort med:
     border-color: var(--sl-color-gray-4);
   }
 
+  .auto-grid-item {
+    width: 100%;
+    min-width: 0;
+  }
+
   .auto-freeform {
     position: relative;
     min-height: 6.5rem;
@@ -476,5 +528,11 @@ Byg et kort med:
 
   .auto-text-stack p {
     margin: 0;
+  }
+
+  .figma-grid-preview {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.65rem;
   }
 `}</style>

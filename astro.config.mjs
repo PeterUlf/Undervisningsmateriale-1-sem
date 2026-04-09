@@ -35,6 +35,10 @@ export default defineConfig({
           },
         },
         {
+          label: "⏰ Pause",
+          slug: "pause-ur",
+        },
+        {
           label: "Web Development",
           collapsed: true,
           items: [

@@ -1,0 +1,236 @@
+---
+title: "A11y i Figma og UI-design"
+description: "Et kort slide-deck om tilgængelighed i Tema 9: kontrast, læsbarhed, labels, fokus og test."
+sidebar:
+  label: "A11y / tilgængelighed"
+  order: 6.095
+  badge:
+    text: Tema 9
+    variant: tip
+    class: badge-theme-9
+---
+
+import Slide from "../../../../components/Slide.astro";
+
+Denne side er et kort slide-deck om tilgængelighed i design og UI. Brug det som en hurtig huskeliste, når I arbejder i Figma og bagefter bygger løsningen i Astro.
+
+<Slide>
+
+## TL;DR
+
+`a11y` betyder **accessibility** eller **tilgængelighed**.
+
+Målet er ikke "specialfunktioner til få brugere". Målet er, at flere kan bruge det samme interface.
+
+Start her:
+
+- sørg for god kontrast mellem tekst og baggrund
+- skriv tydelige labels på knapper, links og formularfelter
+- brug tekststørrelser og afstande, der er lette at læse
+- vis tydelige `hover`- og `focus`-states
+- lad ikke vigtig information være afhængig af farve alene
+
+Hvis noget kun virker med mus, perfekt syn eller stor erfaring, er det ofte et a11y-problem.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Anbefalede plugins og værktøjer
+
+Hvis I kun skal vælge ét ekstra værktøj i Figma, så er **Stark** et godt sted at starte.
+
+Det er især nyttigt til:
+
+- kontrasttjek direkte i designet
+- simulering af forskellige synssituationer
+- fokusrækkefølge og annotations til handoff
+- hurtige forslag til mere tilgængelige farvekombinationer
+
+Supplér gerne med Figma's egne værktøjer:
+
+- brug den indbyggede **contrast checker** i color picker'en
+- test prototyper med **accessible prototypes**, hvis I vil prøve skærmlæser-flow
+
+Vigtigt:
+Plugins finder ikke alt. Brug dem som støtte, ikke som facit.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Værktøjer til kode og test
+
+Når I tester den byggede side i browseren, er denne kombination et godt undervisnings-setup:
+
+- [axe DevTools](https://www.deque.com/axe/devtools/extension/chrome) = hurtige, konkrete fejl og forslag til fixes
+- [WAVE](https://wave.webaim.org/extension/) = visuelt overblik over struktur, labels, landmarks og alt-tekster
+- [Lighthouse](https://developer.chrome.com/docs/devtools/lighthouse) = hurtig ekstra kontrol direkte i Chrome DevTools
+- [Accessibility Insights for Web](https://accessibilityinsights.io/docs/web/overview/) = mere systematiske gennemgange med `FastPass` og assessment
+
+Min korte anbefaling:
+
+- brug **axe DevTools + WAVE** som standard
+- brug **Lighthouse** som hurtig ekstra kontrol
+- brug **Accessibility Insights** hvis I vil arbejde mere formelt og systematisk
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Hvad betyder `a11y`?
+
+Ordet er en forkortelse for **accessibility**:
+
+- `a` er første bogstav
+- `y` er sidste bogstav
+- `11` er antallet af bogstaver imellem
+
+I praksis handler a11y om, at dit design også fungerer for fx brugere som:
+
+- navigerer med tastatur
+- bruger skærmlæser
+- har nedsat syn eller farveblindhed
+- læser langsommere eller har brug for tydelig struktur
+
+Det er derfor både et designvalg og et kodevalg.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## A11y-check i Tema 9
+
+Når du designer cards, navigation og knapper i Figma, så tjek især:
+
+- **kontrast**: kan teksten læses tydeligt på baggrunden?
+- **hierarki**: er overskrifter, brødtekst og call-to-action nemme at skelne?
+- **states**: har knapper tydelige `default`, `hover`, `focus` og evt. `disabled` states?
+- **labels**: siger knappen hvad den gør, fx `Se detaljer` i stedet for bare `Klik her`?
+- **farvebrug**: er fejl, status og vigtige valg forståelige uden kun at bruge farve?
+
+En god tommelfingerregel er:
+Hvis du kan forklare elementets funktion uden at pege på farven, er du ofte på rette vej.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Fra design til kode
+
+Når designet flytter fra Figma til Astro/HTML/CSS, bliver a11y til konkrete valg:
+
+- brug semantisk HTML som `button`, `nav`, `main` og overskrifter i rigtig rækkefølge
+- giv billeder meningsfuld `alt`-tekst, hvis billedet bærer information
+- brug `label` til formularfelter
+- behold synlig tastaturfokus i CSS
+- test siden uden mus og med Lighthouse
+
+A11y er altså ikke noget, der kun hører til i slutningen. Det skal tænkes ind hele vejen fra skitse til færdig kode.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Lovgivning i Danmark
+
+Der er to spor, som er gode at kende:
+
+- **Offentlige websteder og apps**: webtilgængelighedsloven trådte i kraft den **23. september 2018** og gælder som udgangspunkt for myndigheder og offentligretlige organer.
+- **Produkter og tjenester til forbrugere**: den danske tilgængelighedslov trådte i kraft den **28. juni 2022**, men reglerne skal anvendes fra **28. juni 2025**.
+
+For offentlige løsninger arbejder man i praksis op mod den tekniske standard **EN 301 549**, som bl.a. peger videre til relevante WCAG-krav for web og apps.
+
+For Tema 9 er den vigtigste pointe:
+
+- laver du noget til det offentlige, er tilgængelighed klart et lovkrav
+- laver du fx en webshop eller anden forbrugerrettet digital tjeneste, kan tilgængelighed også være et lovkrav
+- laver du en øvelse eller portfolio, er det stadig god praksis at arbejde, som om det gjaldt
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Hvad betyder det for webshops?
+
+Sikkerhedsstyrelsen skriver, at **e-handelstjenester** skal være tilgængelige fra **28. juni 2025**.
+
+Det betyder i praksis, at en webshop ikke bare skal se pæn ud. Den skal også kunne bruges.
+
+Vær især opmærksom på:
+
+- læsbar tekst og tilstrækkelig kontrast
+- tydelige labels og fejlbeskeder i formularer
+- tastaturnavigation
+- forståelig checkout og betaling
+- tekstalternativer til billeder, når billederne bærer information
+
+Indtil der kommer mere specifikke harmoniserede standarder for e-handel, peger Sikkerhedsstyrelsen på **WCAG 2.1** som et godt praktisk udgangspunkt.
+
+Bemærk:
+Sikkerhedsstyrelsen skriver også, at mikrovirksomheder, der leverer e-handelstjenester til forbrugere, ikke er forpligtede til at opfylde tilgængelighedskravene. Det er en specifik undtagelse, ikke en generel regel for alle digitale løsninger.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Praktisk huskeregel
+
+Når du designer, så tænk sådan her:
+
+1. Kan brugeren se det?
+2. Kan brugeren forstå det?
+3. Kan brugeren betjene det med tastatur eller hjælpemidler?
+4. Kan løsningen stadig bruges, hvis farver, syn eller motorik er anderledes end dine egne?
+
+Hvis svaret er nej til noget af det, så er det et godt sted at forbedre designet.
+
+:::note[Kort juridisk note]
+Dette slide er en forenklet undervisningsoversigt, ikke juridisk rådgivning. Ved konkrete krav bør du altid tjekke de officielle vejledninger hos Digitaliseringsstyrelsen og Sikkerhedsstyrelsen.
+:::
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Officielle steder at starte
+
+- [Digitaliseringsstyrelsen: Lovgivning om webtilgængelighed](https://digst.dk/tilsyn/webtilgaengelighed/lovgivning/)
+- [Sikkerhedsstyrelsen: Krav om tilgængelighed for produkter og tjenester](https://www.sik.dk/privat/tilgaengelighed/krav-om-tilgaengelighed-produkter-og-tjenester)
+- [Sikkerhedsstyrelsen: E-handelstjenester](https://www.sik.dk/erhverv/tilgaengelighed-produkter-og-tjenester/vejledninger/e-handelstjenester)
+- [Stark for Figma](https://www.getstark.co/figma/)
+- [Figma: Color Contrast Checker](https://www.figma.com/color-contrast-checker/)
+- [Figma: Accessible prototypes](https://help.figma.com/hc/en-us/articles/7810391964695-Accessible-prototypes-in-Figma)
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Næste skridt
+
+- [Gå til Figma – Variables →](/astro/figma/variables/)
+- [Gå til Farver i Figma →](/astro/figma/farve-i-figma/)
+- [Gå til Semantisk HTML →](/html/semantisk/)
+- [Gå til Lighthouse test →](/test/lighthouse-test/)
+
+</Slide>

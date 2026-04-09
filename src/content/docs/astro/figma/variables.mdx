@@ -1,0 +1,316 @@
+---
+title: "Figma Variables"
+description: "Et kort slide-deck til undervisning i variables, collections og modes i Figma."
+sidebar:
+  label: "Variables"
+  order: 6.09
+  badge:
+    text: Tema 9
+    variant: tip
+    class: badge-theme-9
+---
+
+import Slide from "../../../../components/Slide.astro";
+
+Denne side er lavet som et kort slide-deck til gennemgang i klassen. Hav gerne Figma åbent, så du kan prøve hvert trin med det samme.
+
+Læs evt. mere her:
+
+- https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes
+- https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections
+- https://help.figma.com/hc/en-us/articles/15343107263511-Apply-variables-to-designs
+- https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables
+
+<Slide>
+
+## Hvad skal du kunne bagefter?
+
+- forstå hvad en **variable** er i Figma
+- kende forskel på `Color`, `Number`, `String` og `Boolean`
+- oprette variables i en collection
+- bruge variables på fx farver, spacing og tekst
+- forstå idéen i **modes** som fx `Light` og `Dark`
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Hvad er en variable?
+
+En variable er en **genbrugelig værdi**.
+
+Det kan fx være:
+
+- en farve: `#2563eb`
+- en spacing-værdi: `16`
+- en tekst: `Køb nu`
+- en synlig/skjult-værdi: `true` eller `false`
+
+Tænk på det som Figma-versionen af en CSS custom property:
+
+```css
+:root {
+  --color-primary: #2563eb;
+  --space-md: 16px;
+}
+```
+
+Hvis du ændrer værdien ét sted, kan designet opdatere flere steder.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Fire typer variables
+
+| Type | Gemmer typisk | Bruges fx til |
+| --- | --- | --- |
+| `Color` | farver | fills, strokes, tekstfarve, shadows |
+| `Number` | tal | padding, gap, radius, width, font size |
+| `String` | tekst | tekstindhold, font family, font style |
+| `Boolean` | `true` / `false` | visibility og nogle variant-valg |
+
+Start simpelt:
+
+- brug `Color` til designets farver
+- brug `Number` til spacing og radius
+- vent med `String` og `Boolean`, til du har et konkret behov
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Collections, groups og modes
+
+Variables organiseres typisk sådan:
+
+| Begreb | Hvad betyder det? | Eksempel |
+| --- | --- | --- |
+| **Collection** | en samling variables | `Theme`, `Spacing`, `Text` |
+| **Group** | en mappe inde i en collection | `color/text`, `color/surface` |
+| **Mode** | en anden værdi for samme variable | `Light`, `Dark`, `Mobile`, `Desktop` |
+
+En collection kan fx hedde `Theme`.
+
+Den kan indeholde:
+
+- `color/background`
+- `color/text`
+- `color/accent`
+
+Og have modes:
+
+- `Light`
+- `Dark`
+
+:::note[Planer]
+Variables kan bruges på alle Figma-planer, men hvor mange modes du kan oprette i en collection afhænger af planen.
+:::
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Sådan opretter du en variable
+
+Et typisk workflow er:
+
+1. Klik på canvas, så intet er markeret.
+2. Find **Local variables** i højre panel.
+3. Klik **Open variables**.
+4. Klik **Create variable**.
+5. Vælg type, fx `Color` eller `Number`.
+6. Giv variablen et tydeligt navn og en værdi.
+
+:::note[Figma ændrer adgangsvejen]
+Figma er ved at flytte adgang til variables ind i en ny venstre navigation hos nogle brugere. Hvis du ikke kan finde **Local variables**, så kig efter **Variables** i navigationen eller fravælg alle lag først.
+:::
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Gode navne
+
+Navne skal hjælpe dig med at vælge den rigtige variable senere.
+
+Gode navne:
+
+- `color/background`
+- `color/text`
+- `color/accent`
+- `space/s`
+- `space/m`
+- `radius/card`
+
+Mindre gode navne:
+
+- `blue`
+- `gray 1`
+- `padding`
+- `new variable`
+
+:::tip[Husk]
+Brug navne efter **funktion** i designet, ikke kun efter farvens udseende. `color/accent` er ofte mere brugbart end `blue-500`.
+:::
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Sådan bruger du variables
+
+Når en variable er oprettet, kan du anvende den fra højre panel.
+
+| Du vil styre | Typisk metode |
+| --- | --- |
+| Farve | vælg Fill/Stroke og vælg variable fra Libraries |
+| Padding eller gap | klik i feltet og vælg **Apply variable** |
+| Width, height eller radius | klik i feltet og vælg **Apply variable** |
+| Tekstindhold | marker tekstlaget og vælg **Apply variable** i Text |
+| Visibility | højreklik på visibility-ikonet og vælg variable |
+
+For mange number-felter kan du også klikke i feltet og trykke `=`, så åbner Figma picker'en.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Modes: samme design, flere kontekster
+
+Modes lader samme variable have flere værdier.
+
+Eksempel:
+
+| Variable | `Light` | `Dark` |
+| --- | --- | --- |
+| `color/background` | `#ffffff` | `#111827` |
+| `color/text` | `#111827` | `#f9fafb` |
+| `color/accent` | `#2563eb` | `#60a5fa` |
+
+Så kan du skifte mode på fx en frame eller page og teste designet i flere temaer.
+
+Andre gode modes:
+
+- `Mobile` / `Desktop` til spacing
+- `Dansk` / `Engelsk` til tekst
+- `Default` / `High contrast` til tilgængelighed
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Styles eller variables?
+
+Begge dele kan være nyttige.
+
+| Brug | Når du vil |
+| --- | --- |
+| **Styles** | gemme en samlet stil, fx en tekststil eller farvestil |
+| **Variables** | gemme værdier, der kan bruges flere steder og skifte via modes |
+
+En praktisk måde at tænke på:
+
+- Styles er gode til færdige valg: `Heading / H1`
+- Variables er gode til rå værdier: `font/size/h1`, `color/text`
+- Variables kan bruges inde i styles
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Til kode og CSS
+
+Variables kan også få **code syntax**, så Dev Mode lettere kan vise et navn, der passer til kode.
+
+Eksempel:
+
+| Figma variable | CSS-navn |
+| --- | --- |
+| `color/accent` | `var(--color-accent)` |
+| `space/m` | `var(--space-m)` |
+| `radius/card` | `var(--radius-card)` |
+
+Det gør overgangen til Astro/CSS lettere, fordi designets navne og kodens navne begynder at ligne hinanden.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Typiske fejl
+
+- Du laver variables for tidligt, før designets mønstre er tydelige.
+- Du navngiver efter udseende i stedet for funktion.
+- Du blander farver, spacing og tekst i én rodet collection.
+- Du glemmer at bruge modes og ender med at duplikere hele frames.
+- Du ændrer manuelt på en værdi, der burde komme fra en variable.
+
+Et godt første tjek er:
+
+1. Er dette en værdi, jeg skal genbruge?
+2. Skal værdien kunne skifte mellem modes?
+3. Vil navnet give mening for en anden person?
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Miniøvelse: Byg et lille token set
+
+Lav dette i Figma:
+
+- en collection der hedder `Theme`
+- tre color variables: `color/background`, `color/text`, `color/accent`
+- to modes: `Light` og `Dark`
+- en knap eller et card der bruger dine variables
+
+### Ekstra, hvis du er hurtig
+
+1. Lav en collection der hedder `Spacing`.
+2. Opret `space/s`, `space/m` og `space/l`.
+3. Brug dem til padding eller gap i Auto Layout.
+4. Tilføj code syntax som CSS-variabler.
+
+### Når øvelsen virker
+
+- du kan ændre `color/accent` ét sted
+- du kan skifte mellem `Light` og `Dark`
+- dit card eller din knap bruger variables i stedet for løse værdier
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Næste skridt
+
+- [Se Figma-filen igen](/astro/figma/)
+- [Genbesøg Figma – Varianter](/astro/figma/varianter/)
+- [Gå til A11y / tilgængelighed](/astro/figma/a11y/)
+- [Fortsæt til Farver i Figma](/astro/figma/farve-i-figma/)
+- [Gå til Astro – Global CSS](/astro/global-css/)
+
+</Slide>

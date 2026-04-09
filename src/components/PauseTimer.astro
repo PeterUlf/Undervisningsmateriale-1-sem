@@ -1,0 +1,45 @@
+---
+// Pause Timer Component
+---
+
+<div class="pause-timer">
+  <h2>Vi starter igen kl:</h2>
+  <div id="resume-time">13:27</div>
+</div>
+
+<style>
+  .pause-timer {
+    text-align: center;
+    padding: 2rem;
+  }
+  
+  .pause-timer h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  #resume-time {
+    font-size: 5em;
+    color: var(--sl-color-accent);
+    font-weight: bold;
+    font-family: 'Courier New', monospace;
+  }
+</style>
+
+<script>
+  function updateTime() {
+    const now = new Date();
+    now.setMinutes(now.getMinutes() + 5);
+    
+    const hours = now.getHours().toString().padStart(2, '0');
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+    
+    const timeElement = document.getElementById('resume-time');
+    if (timeElement) {
+      timeElement.textContent = `${hours}:${minutes}`;
+    }
+  }
+  
+  updateTime();
+  setInterval(updateTime, 1000);
+</script>

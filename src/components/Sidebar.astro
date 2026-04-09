@@ -38,171 +38,270 @@ const availableThemes = Array.from(new Set(Object.values(linkThemeMap)))
 <Default {...Astro.props}><slot /></Default>
 
 <script define:vars={{ availableThemes, linkThemeMap }}>
-  // Rod-elementet for Starlight-sidebaren
-  const sidebarRoot = document.getElementById('starlight__sidebar');
+  const themeNames = {
+    1: 'Introuge',
+    2: 'Web I',
+    3: 'UX I',
+    4: 'Brugergrænseflade udvikling I',
+    5: 'Indhold I',
+    6: 'Eksamen',
+    7: 'Indhold II',
+    8: 'Web II',
+    9: 'UX/UI II',
+  };
 
-  if (sidebarRoot) {
-    // Byg options dynamisk
-    const select = document.getElementById('theme-select');
-    
-    if (select && availableThemes.length > 0) {
-      // Tema navne
-      const themeNames = {
-        1: 'Introuge',
-        2: 'Web I',
-        3: 'UX I',
-        4: 'Brugergrænseflade udvikling I',
-        5: 'Indhold I',
-        6: 'Eksamen',
-        7: 'Indhold II',
-        8: 'Web II',
-        9: 'UX/UI II',
-      };
-      
-      // Tilføj tema options (ét tema ad gangen)
-      availableThemes.forEach((num) => {
-        const option = document.createElement('option');
-        option.value = num;
-        const themeName = themeNames[num] || '';
-        option.textContent = themeName ? `Tema ${num} - ${themeName}` : `Tema ${num}`;
-        select.appendChild(option);
-      });
-      
-      // Hent gemt valg eller check for URL parameter
-      const urlParams = new URLSearchParams(window.location.search);
-      const urlTheme = urlParams.get('tema');
-      const savedTheme = urlTheme || localStorage.getItem('selectedTheme') || 'all';
-      select.value = savedTheme;
-      
-      // Gem tema fra URL til localStorage
-      if (urlTheme) {
-        localStorage.setItem('selectedTheme', urlTheme);
-      }
-      
-      // Funktion til at filtrere
-      function filterMenuItems(selectedTheme) {
-        const isAll = selectedTheme === 'all';
+  const normalizeTheme = (value) => {
+    if (!value || value === 'all') return 'all';
+    return value.match(/\d+/)?.[0] || value;
+  };
 
-        const normalizeLinkHref = (href) => {
-          if (!href) return '';
+  const normalizeLinkHref = (href) => {
+    if (!href) return '';
 
-          if (
-            href.startsWith('http://') ||
-            href.startsWith('https://') ||
-            href.startsWith('mailto:') ||
-            href.startsWith('#')
-          ) {
-            return href;
-          }
+    if (
+      href.startsWith('http://') ||
+      href.startsWith('https://') ||
+      href.startsWith('mailto:') ||
+      href.startsWith('#')
+    ) {
+      return href;
+    }
 
-          const [path] = href.split(/[?#]/);
-          if (!path.startsWith('/')) {
-            return '';
-          }
+    const [path] = href.split(/[?#]/);
+    if (!path.startsWith('/')) {
+      return '';
+    }
 
-          const normalizedPath = path.replace(/\/index\/?$/, '/').replace(/\/+$/, '');
-          return normalizedPath === '' ? '/' : `${normalizedPath}/`;
-        };
+    const normalizedPath = path.replace(/\/index\/?$/, '/').replace(/\/+$/, '');
+    return normalizedPath === '' ? '/' : `${normalizedPath}/`;
+  };
 
-        const getThemeForLink = (link) => {
-          const href = normalizeLinkHref(link.getAttribute('href'));
-          const mappedTheme = href ? linkThemeMap[href] : undefined;
+  const getThemeForLink = (link) => {
+    const href = normalizeLinkHref(link.getAttribute('href'));
+    const mappedTheme = href ? linkThemeMap[href] : undefined;
 
-          if (mappedTheme) {
-            return mappedTheme;
-          }
+    if (mappedTheme) {
+      return mappedTheme;
+    }
 
-          const badge = link.querySelector('.sl-badge');
-          const badgeText = badge?.textContent?.trim();
-          const badgeTheme = badgeText?.match(/\d+/)?.[0];
+    const badge = link.querySelector('.sl-badge');
+    const badgeText = badge?.textContent?.trim();
+    const badgeTheme = badgeText?.match(/\d+/)?.[0];
 
-          return badgeTheme || '';
-        };
+    return badgeTheme || '';
+  };
 
-        // Filtrér alle links i den rigtige sidebar
-        const sidebarLinks = sidebarRoot.querySelectorAll('a');
+  function buildThemeOptions(select) {
+    if (select.dataset.optionsReady === 'true') return;
 
-        sidebarLinks.forEach((link) => {
-          const listItem = link.closest('li');
-          if (!listItem) return;
+    availableThemes.forEach((num) => {
+      const option = document.createElement('option');
+      option.value = num;
+      const themeName = themeNames[num] || '';
+      option.textContent = themeName ? `Tema ${num} - ${themeName}` : `Tema ${num}`;
+      select.appendChild(option);
+    });
 
-          const liEl = listItem;
-          const themeNumber = getThemeForLink(link);
+    select.dataset.optionsReady = 'true';
+  }
 
-          if (isAll) {
-            liEl.style.display = '';
-            return;
-          }
+  function rememberInitialGroupState(sidebarRoot) {
+    const groups = sidebarRoot.querySelectorAll('details');
 
-          liEl.style.display = themeNumber === selectedTheme ? '' : 'none';
-        });
-        
-        // Skjul tomme grupper nedefra, så forældre ikke tæller skjulte undergrupper med.
-        const sidebarGroups = Array.from(sidebarRoot.querySelectorAll('details')).reverse();
+    groups.forEach((group) => {
+      if (group.dataset.initialOpen) return;
+      group.dataset.initialOpen = group.open ? 'true' : 'false';
+    });
+  }
 
-        sidebarGroups.forEach((group) => {
-          const detailsEl = group;
-          const childList = detailsEl.querySelector(':scope > ul');
+  function restoreInitialGroupState(sidebarRoot) {
+    const groups = sidebarRoot.querySelectorAll('details');
 
-          if (!childList) return;
+    groups.forEach((group) => {
+      group.open = group.dataset.initialOpen === 'true';
+    });
+  }
 
-          const childItems = Array.from(childList.children).filter(
-            (child) => child.tagName === 'LI'
-          );
+  function openGroupsForCurrentPage(sidebarRoot) {
+    const currentPath = normalizeLinkHref(window.location.pathname);
+    const sidebarLinks = Array.from(sidebarRoot.querySelectorAll('a'));
+    const currentLink = sidebarLinks.find((link) => {
+      const href = normalizeLinkHref(link.getAttribute('href'));
+      const ariaCurrent = link.getAttribute('aria-current');
 
-          const hasVisibleChildren = childItems.some((item) => {
-            const directLink = Array.from(item.children).find(
-              (child) => child.tagName === 'A'
-            );
-            const nestedGroup = Array.from(item.children).find(
-              (child) => child.tagName === 'DETAILS'
-            );
+      return href === currentPath || ariaCurrent === 'page' || ariaCurrent === 'true';
+    });
 
-            if (directLink) {
-              return item.style.display !== 'none';
-            }
+    if (!currentLink) return;
 
-            if (nestedGroup) {
-              return nestedGroup.style.display !== 'none';
-            }
+    const currentListItem = currentLink.closest('li');
+    if (currentListItem && currentListItem.style.display === 'none') {
+      return;
+    }
 
-            return item.style.display !== 'none';
-          });
+    let parent = currentLink.parentElement;
 
-          detailsEl.style.display = hasVisibleChildren ? '' : 'none';
+    while (parent) {
+      if (parent.tagName === 'DETAILS') {
+        parent.open = true;
+        parent.style.display = '';
 
-          const detailsListItem = detailsEl.closest('li');
-          if (detailsListItem) {
-            detailsListItem.style.display = hasVisibleChildren ? '' : 'none';
-          }
-        });
-      }
-
-      function updateThemeUrl(selectedTheme) {
-        const url = new URL(window.location.href);
-        if (selectedTheme === 'all') {
-          url.searchParams.delete('tema');
-        } else {
-          url.searchParams.set('tema', selectedTheme);
+        const listItem = parent.closest('li');
+        if (listItem) {
+          listItem.style.display = '';
         }
-        window.history.replaceState({}, '', url.toString());
       }
-      
-      // Filtrer ved load
-      filterMenuItems(savedTheme);
-      
-      // Lyt efter ændringer
-      select.addEventListener('change', (e) => {
-        const target = e.currentTarget;
-        if (!(target instanceof HTMLSelectElement)) return;
 
-        const selectedTheme = target.value;
-        localStorage.setItem('selectedTheme', selectedTheme);
-        updateThemeUrl(selectedTheme);
-        filterMenuItems(selectedTheme);
-      });
+      parent = parent.parentElement;
     }
   }
+
+  function getSelectedTheme() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const rawUrlTheme = urlParams.get('tema');
+    const urlTheme = normalizeTheme(rawUrlTheme);
+    const storedTheme = normalizeTheme(localStorage.getItem('selectedTheme') || 'all');
+
+    if (rawUrlTheme) {
+      return availableThemes.includes(urlTheme) ? urlTheme : 'all';
+    }
+
+    if (storedTheme === 'all') return 'all';
+    return availableThemes.includes(storedTheme) ? storedTheme : 'all';
+  }
+
+  function filterMenuItems(sidebarRoot, selectedTheme) {
+    const normalizedTheme = normalizeTheme(selectedTheme);
+    const isAll = normalizedTheme === 'all';
+    const sidebarLinks = sidebarRoot.querySelectorAll('a');
+
+    sidebarLinks.forEach((link) => {
+      const listItem = link.closest('li');
+      if (!listItem) return;
+
+      const themeNumber = getThemeForLink(link);
+
+      if (isAll) {
+        listItem.style.display = '';
+        return;
+      }
+
+      listItem.style.display = themeNumber === normalizedTheme ? '' : 'none';
+    });
+
+    const sidebarGroups = Array.from(sidebarRoot.querySelectorAll('details')).reverse();
+
+    sidebarGroups.forEach((group) => {
+      const childList = group.querySelector(':scope > ul');
+
+      if (!childList) return;
+
+      const childItems = Array.from(childList.children).filter(
+        (child) => child.tagName === 'LI'
+      );
+
+      const hasVisibleChildren = childItems.some((item) => {
+        const directLink = Array.from(item.children).find(
+          (child) => child.tagName === 'A'
+        );
+        const nestedGroup = Array.from(item.children).find(
+          (child) => child.tagName === 'DETAILS'
+        );
+
+        if (directLink) {
+          return item.style.display !== 'none';
+        }
+
+        if (nestedGroup) {
+          return nestedGroup.style.display !== 'none';
+        }
+
+        return item.style.display !== 'none';
+      });
+
+      group.style.display = hasVisibleChildren ? '' : 'none';
+
+      const detailsListItem = group.closest('li');
+      if (detailsListItem) {
+        detailsListItem.style.display = hasVisibleChildren ? '' : 'none';
+      }
+
+      if (!isAll) {
+        group.open = hasVisibleChildren;
+      }
+    });
+
+    if (isAll) {
+      restoreInitialGroupState(sidebarRoot);
+    }
+
+    openGroupsForCurrentPage(sidebarRoot);
+  }
+
+  function updateThemeUrl(selectedTheme) {
+    const url = new URL(window.location.href);
+
+    if (selectedTheme === 'all') {
+      url.searchParams.delete('tema');
+    } else {
+      url.searchParams.set('tema', selectedTheme);
+    }
+
+    window.history.replaceState({}, '', url.toString());
+  }
+
+  function syncSidebarThemeFilter() {
+    const sidebarRoot = document.getElementById('starlight__sidebar');
+    const select = document.getElementById('theme-select');
+
+    if (!sidebarRoot || !(select instanceof HTMLSelectElement) || availableThemes.length === 0) {
+      return;
+    }
+
+    buildThemeOptions(select);
+    rememberInitialGroupState(sidebarRoot);
+
+    const selectedTheme = getSelectedTheme();
+    select.value = selectedTheme;
+
+    if (selectedTheme === 'all') {
+      localStorage.removeItem('selectedTheme');
+    } else {
+      localStorage.setItem('selectedTheme', selectedTheme);
+    }
+
+    window.requestAnimationFrame(() => {
+      filterMenuItems(sidebarRoot, selectedTheme);
+    });
+
+    if (select.dataset.listenerAttached === 'true') return;
+
+    select.addEventListener('change', (e) => {
+      const target = e.currentTarget;
+      if (!(target instanceof HTMLSelectElement)) return;
+
+      const nextTheme = normalizeTheme(target.value);
+
+      if (nextTheme === 'all') {
+        localStorage.removeItem('selectedTheme');
+      } else {
+        localStorage.setItem('selectedTheme', nextTheme);
+      }
+
+      updateThemeUrl(nextTheme);
+      filterMenuItems(sidebarRoot, nextTheme);
+    });
+
+    select.dataset.listenerAttached = 'true';
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', syncSidebarThemeFilter);
+  } else {
+    syncSidebarThemeFilter();
+  }
+
+  document.addEventListener('astro:page-load', syncSidebarThemeFilter);
 </script>
 
 <style>

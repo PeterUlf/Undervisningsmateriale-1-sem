@@ -111,6 +111,10 @@ try {
   <script>
     const temaFilter = document.querySelector('#tema-filter');
     const sections = Array.from(document.querySelectorAll('.tema-section'));
+    const normalizeTema = (value) => {
+      if (!value || value === 'all') return 'all';
+      return value.match(/\d+/)?.[0] || value;
+    };
 
     const applyFilter = (selectedTema) => {
       sections.forEach((section) => {
@@ -126,29 +130,47 @@ try {
 
     if (temaFilter instanceof HTMLSelectElement) {
       const params = new URLSearchParams(window.location.search);
-      const temaFromUrl = params.get('tema');
+      const hasTemaParam = params.has('tema');
+      const temaFromUrl = normalizeTema(params.get('tema'));
+      const savedTema = normalizeTema(localStorage.getItem('selectedTheme') || 'all');
+      const initialTema = hasTemaParam ? temaFromUrl : savedTema;
 
-      if (temaFromUrl) {
+      if (initialTema) {
         const options = Array.from(temaFilter.options);
-        const normalizedTemaFromUrl = temaFromUrl.match(/\d+/)?.[0] || temaFromUrl;
-        const hasOption = options.some((option) => option.value === normalizedTemaFromUrl);
+        const hasOption = options.some((option) => option.value === initialTema);
 
         if (hasOption) {
-          temaFilter.value = normalizedTemaFromUrl;
+          temaFilter.value = initialTema;
         }
       }
 
       applyFilter(temaFilter.value);
 
+      if (temaFilter.value === 'all') {
+        localStorage.removeItem('selectedTheme');
+      } else {
+        localStorage.setItem('selectedTheme', temaFilter.value);
+      }
+
       temaFilter.addEventListener('change', (e) => {
         const selectedTema = e.currentTarget instanceof HTMLSelectElement
-          ? e.currentTarget.value
+          ? normalizeTema(e.currentTarget.value)
           : 'all';
 
         applyFilter(selectedTema);
 
+        if (selectedTema === 'all') {
+          localStorage.removeItem('selectedTheme');
+        } else {
+          localStorage.setItem('selectedTheme', selectedTema);
+        }
+
         const nextUrl = new URL(window.location.href);
-        nextUrl.searchParams.set('tema', selectedTema);
+        if (selectedTema === 'all') {
+          nextUrl.searchParams.delete('tema');
+        } else {
+          nextUrl.searchParams.set('tema', selectedTema);
+        }
         window.history.replaceState({}, '', nextUrl.toString());
       });
     }

@@ -14,12 +14,16 @@ import Slide from "../../../../components/Slide.astro";
 
 Denne side er lavet som et kort slide-deck til gennemgang i klassen. Hav gerne Figma åbent, så du kan prøve hvert trin med det samme.
 
+Læs evt. mere her:
+https://help.figma.com/hc/en-us/articles/360038662654-Guide-to-components-in-Figma
+
 <Slide>
 
 ## Hvad skal du kunne bagefter?
 
 - forstå forskellen på en **komponent** og en **instance**
 - lave en komponent af fx en knap eller et card
+- kende de vigtigste genveje til komponenter og instances
 - indsætte og genbruge komponenter flere steder
 - forstå idéen i **varianter** som fx primary/secondary
 
@@ -88,8 +92,14 @@ Et typisk workflow er:
 
 1. Byg først elementet færdigt, fx en knap.
 2. Marker hele elementet.
-3. Vælg **Create component** i toolbaren eller brug genvejen.
+3. Vælg **Create component** i højre panel, højreklik og vælg **Create component**, eller brug genvejen.
 4. Giv komponenten et tydeligt navn.
+
+Genvej til **Create component**:
+
+| Mac              | PC               |
+| ---------------- | ---------------- |
+| `Option + ⌘ + K` | `Ctrl + Alt + K` |
 
 Eksempel på gode navne:
 
@@ -107,14 +117,34 @@ Lav helst komponenten af en **færdig lille UI-del** og ikke af tilfældige løs
 
 <Slide>
 
+## Komponent-genveje du bør kende
+
+| Handling              | Mac                        | PC                       |
+| --------------------- | -------------------------- | ------------------------ |
+| Lav komponent         | `Option + ⌘ + K`           | `Ctrl + Alt + K`         |
+| Åbn Assets-panelet    | `Option + 2`               | `Alt + 2`                |
+| Quick insert          | `Shift + I`                | `Shift + I`              |
+| Duplicate instance    | `⌘ + D`                    | `Ctrl + D`               |
+| Drag-copy instance    | `Option + træk`            | `Alt + træk`             |
+| Gå til main component | `Control + Option + ⌘ + K` | `Ctrl + Alt + Shift + K` |
+| Detach instance       | `Option + ⌘ + B`           | `Ctrl + Alt + B`         |
+
+Brug især **Gå til main component**, før du detach'er. Ofte er det originalen, du skal rette.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
 ## Komponent og instance
 
 Det er vigtigt at kende forskellen:
 
-| Type | Hvad er det? | Typisk brug |
-| --- | --- | --- |
-| **Main component** | Originalen | den du bygger og vedligeholder |
-| **Instance** | En kopi med forbindelse til originalen | den du placerer i dit layout |
+| Type               | Hvad er det?                           | Typisk brug                    |
+| ------------------ | -------------------------------------- | ------------------------------ |
+| **Main component** | Originalen                             | den du bygger og vedligeholder |
+| **Instance**       | En kopi med forbindelse til originalen | den du placerer i dit layout   |
 
 <div class="columns-2">
   <div class="component-panel">
@@ -146,9 +176,10 @@ Hvis du ændrer fx padding eller farve på main component, følger instances oft
 
 Når komponenten er lavet, kan du bruge den igen via:
 
-- **Assets-panelet**
+- **Assets-panelet** (`Option + 2` på Mac / `Alt + 2` på PC)
+- **Quick insert** med `Shift + I`
 - copy/paste af en eksisterende instance
-- duplikering med `Alt`-træk eller almindelig duplicate
+- duplikering med `Option/Alt`-træk eller `⌘/Ctrl + D`
 
 Det normale er:
 
@@ -179,6 +210,28 @@ Men pas på:
 En god tommelfingerregel er:
 
 > Delene skal stadig føles som samme UI-mønster.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Når en instance driller
+
+Prøv i denne rækkefølge:
+
+1. Tjek om du har markeret selve instancen eller et lag inde i den.
+2. Brug **Go to main component**, hvis ændringen egentlig skal ske i originalen.
+3. Brug **Reset all changes**, hvis en lokal override bare skal tilbage til standarden.
+4. Brug **Push changes to main component**, hvis en lokal ændring skal være den nye standard.
+5. Brug **Detach instance** som sidste udvej, hvis forbindelsen skal brydes.
+
+:::caution[Pas på]
+Når du detach'er en instance, får den ikke længere opdateringer fra main component.
+:::
+
+**Push changes to main component** virker kun, når main component ligger i samme fil som instancen.
 
 </Slide>
 
@@ -277,7 +330,7 @@ Lav dette i Figma:
 ### Krav
 
 1. Brug Auto Layout i selve komponenten.
-2. Gør knappen til en komponent.
+2. Gør knappen til en komponent med genvejen.
 3. Lav mindst to instances i en frame.
 4. Lav mindst to varianter af knappen.
 
@@ -297,6 +350,7 @@ Lav dette i Figma:
 
 - [Se Figma-filen igen](/astro/figma/)
 - [Fortsæt til Figma – Varianter](/astro/figma/varianter/)
+- [Fortsæt til Figma – Variables](/astro/figma/variables/)
 - [Fortsæt til Figma – Auto Layout](/astro/figma/auto-layout/)
 - [Gå til Astro – Komponenter](/astro/komponenter/)
 
