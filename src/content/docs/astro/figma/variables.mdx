@@ -12,6 +12,8 @@ sidebar:
 
 import Slide from "../../../../components/Slide.astro";
 
+# Figma variable / styles
+
 Denne side er lavet som et kort slide-deck til gennemgang i klassen. Hav gerne Figma åbent, så du kan prøve hvert trin med det samme.
 
 Læs evt. mere her:
@@ -67,12 +69,12 @@ Hvis du ændrer værdien ét sted, kan designet opdatere flere steder.
 
 ## Fire typer variables
 
-| Type | Gemmer typisk | Bruges fx til |
-| --- | --- | --- |
-| `Color` | farver | fills, strokes, tekstfarve, shadows |
-| `Number` | tal | padding, gap, radius, width, font size |
-| `String` | tekst | tekstindhold, font family, font style |
-| `Boolean` | `true` / `false` | visibility og nogle variant-valg |
+| Type      | Gemmer typisk    | Bruges fx til                          |
+| --------- | ---------------- | -------------------------------------- |
+| `Color`   | farver           | fills, strokes, tekstfarve, shadows    |
+| `Number`  | tal              | padding, gap, radius, width, font size |
+| `String`  | tekst            | tekstindhold, font family, font style  |
+| `Boolean` | `true` / `false` | visibility og nogle variant-valg       |
 
 Start simpelt:
 
@@ -90,11 +92,11 @@ Start simpelt:
 
 Variables organiseres typisk sådan:
 
-| Begreb | Hvad betyder det? | Eksempel |
-| --- | --- | --- |
-| **Collection** | en samling variables | `Theme`, `Spacing`, `Text` |
-| **Group** | en mappe inde i en collection | `color/text`, `color/surface` |
-| **Mode** | en anden værdi for samme variable | `Light`, `Dark`, `Mobile`, `Desktop` |
+| Begreb         | Hvad betyder det?                 | Eksempel                             |
+| -------------- | --------------------------------- | ------------------------------------ |
+| **Collection** | en samling variables              | `Theme`, `Spacing`, `Text`           |
+| **Group**      | en mappe inde i en collection     | `color/text`, `color/surface`        |
+| **Mode**       | en anden værdi for samme variable | `Light`, `Dark`, `Mobile`, `Desktop` |
 
 En collection kan fx hedde `Theme`.
 
@@ -174,13 +176,13 @@ Brug navne efter **funktion** i designet, ikke kun efter farvens udseende. `colo
 
 Når en variable er oprettet, kan du anvende den fra højre panel.
 
-| Du vil styre | Typisk metode |
-| --- | --- |
-| Farve | vælg Fill/Stroke og vælg variable fra Libraries |
-| Padding eller gap | klik i feltet og vælg **Apply variable** |
-| Width, height eller radius | klik i feltet og vælg **Apply variable** |
-| Tekstindhold | marker tekstlaget og vælg **Apply variable** i Text |
-| Visibility | højreklik på visibility-ikonet og vælg variable |
+| Du vil styre               | Typisk metode                                       |
+| -------------------------- | --------------------------------------------------- |
+| Farve                      | vælg Fill/Stroke og vælg variable fra Libraries     |
+| Padding eller gap          | klik i feltet og vælg **Apply variable**            |
+| Width, height eller radius | klik i feltet og vælg **Apply variable**            |
+| Tekstindhold               | marker tekstlaget og vælg **Apply variable** i Text |
+| Visibility                 | højreklik på visibility-ikonet og vælg variable     |
 
 For mange number-felter kan du også klikke i feltet og trykke `=`, så åbner Figma picker'en.
 
@@ -196,11 +198,11 @@ Modes lader samme variable have flere værdier.
 
 Eksempel:
 
-| Variable | `Light` | `Dark` |
-| --- | --- | --- |
+| Variable           | `Light`   | `Dark`    |
+| ------------------ | --------- | --------- |
 | `color/background` | `#ffffff` | `#111827` |
-| `color/text` | `#111827` | `#f9fafb` |
-| `color/accent` | `#2563eb` | `#60a5fa` |
+| `color/text`       | `#111827` | `#f9fafb` |
+| `color/accent`     | `#2563eb` | `#60a5fa` |
 
 Så kan du skifte mode på fx en frame eller page og teste designet i flere temaer.
 
@@ -273,12 +275,12 @@ Hvis du senere ændrer variablen `brand/primary`, kan alle steder der bruger den
 
 Og hvis du arbejder med modes, kan den samme variable have én farve i `Light` og en anden i `Dark`.
 
-| Hvis du vil... | Brug |
-| --- | --- |
-| genbruge en hel tekstopsætning | **Style** |
+| Hvis du vil...                                   | Brug         |
+| ------------------------------------------------ | ------------ |
+| genbruge en hel tekstopsætning                   | **Style**    |
 | genbruge én farve, én spacing eller én størrelse | **Variable** |
-| kunne skifte mellem fx `Light` og `Dark` | **Variable** |
-| lave et færdigt H1-, button- eller body-setup | **Style** |
+| kunne skifte mellem fx `Light` og `Dark`         | **Variable** |
+| lave et færdigt H1-, button- eller body-setup    | **Style**    |
 
 Huskeregel:
 
@@ -298,11 +300,11 @@ Variables kan også få **code syntax**, så Dev Mode lettere kan vise et navn, 
 
 Eksempel:
 
-| Figma variable | CSS-navn |
-| --- | --- |
+| Figma variable | CSS-navn              |
+| -------------- | --------------------- |
 | `color/accent` | `var(--color-accent)` |
-| `space/m` | `var(--space-m)` |
-| `radius/card` | `var(--radius-card)` |
+| `space/m`      | `var(--space-m)`      |
+| `radius/card`  | `var(--radius-card)`  |
 
 Det gør overgangen til Astro/CSS lettere, fordi designets navne og kodens navne begynder at ligne hinanden.
 
