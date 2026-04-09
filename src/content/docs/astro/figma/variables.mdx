@@ -2,8 +2,8 @@
 title: "Figma Variables"
 description: "Et kort slide-deck til undervisning i variables, collections og modes i Figma."
 sidebar:
-  label: "Variables"
-  order: 6.09
+  label: "Variables/Styles"
+  order: 6.055
   badge:
     text: Tema 9
     variant: tip
@@ -218,18 +218,73 @@ Andre gode modes:
 
 ## Styles eller variables?
 
-Begge dele kan være nyttige.
+Den korte version:
 
-| Brug | Når du vil |
+- En **style** er en **færdig pakke**, du kan lægge på noget
+- En **variable** er **én værdi**, du kan genbruge mange steder
+
+Tænk sådan her:
+
+- **Style = opskrift**
+- **Variable = ingrediens**
+
+### Eksempel med tekst
+
+En style med navnet: **"Heading / H1"** kan indeholde:
+
+- font family
+- font weight
+- font size
+- line height
+
+En variable med navnet: **"font/size/h1"** indeholder kun et tal, og navnet betyder bare:
+
+- `font` = det handler om tekst/font
+- `size` = det handler om størrelsen
+- `h1` = det er størrelsen til en H1-overskrift
+
+Så variablenavnet betyder i praksis: **"fontstørrelsen til H1"**.
+
+Hvis værdien fx er `32`, betyder det bare, at dine H1-overskrifter skal være `32px` eller tilsvarende i designet.
+
+Kort sagt:
+
+- variablen med navnet: **"font/size/h1"** indeholder kun **størrelsen**
+- stylen med navnet: **"Heading / H1"** kan indeholde **hele tekstopsætningen**
+
+### Eksempel med farver
+
+Forestil dig, at du har en blå farve, som bruges mange steder i designet.
+
+- En **color style** er en **gemt farve, du kan lægge direkte på et lag**
+- En **color variable** er **selve den navngivne farveværdi bagved**
+
+Eksempel:
+
+- color style: `Primær knapfarve`
+- color variable: `brand/primary`
+
+Så:
+
+- style siger: **"brug denne gemte farve på laget"**
+- variable siger: **"hent farven fra denne navngivne værdi"**
+
+Hvis du senere ændrer variablen `brand/primary`, kan alle steder der bruger den, opdatere sig.
+
+Og hvis du arbejder med modes, kan den samme variable have én farve i `Light` og en anden i `Dark`.
+
+| Hvis du vil... | Brug |
 | --- | --- |
-| **Styles** | gemme en samlet stil, fx en tekststil eller farvestil |
-| **Variables** | gemme værdier, der kan bruges flere steder og skifte via modes |
+| genbruge en hel tekstopsætning | **Style** |
+| genbruge én farve, én spacing eller én størrelse | **Variable** |
+| kunne skifte mellem fx `Light` og `Dark` | **Variable** |
+| lave et færdigt H1-, button- eller body-setup | **Style** |
 
-En praktisk måde at tænke på:
+Huskeregel:
 
-- Styles er gode til færdige valg: `Heading / H1`
-- Variables er gode til rå værdier: `font/size/h1`, `color/text`
-- Variables kan bruges inde i styles
+- **Styles = færdige valg**
+- **Variables = byggesten**
+- Ofte bruger man **variables inde i styles**
 
 </Slide>
 

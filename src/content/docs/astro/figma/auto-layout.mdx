@@ -22,7 +22,7 @@ https://help.figma.com/hc/en-us/articles/360040451373-Guide-to-auto-layout
 ## Hvad skal du kunne bagefter?
 
 - lave Auto Layout med `Shift + A`
-- styre `Direction`, `Spacing` og `Padding`
+- styre `Direction`, `gap` og `Padding`
 - vælge mellem `Hug`, `Fill` og `Fixed`
 - kende forskellen på `Auto Layout` og `Grid (beta)`
 - bygge en knap, en liste og et card uden at flytte ting manuelt
@@ -138,14 +138,14 @@ Hvis du er i tvivl, så kig efter om Figma nu viser en **frame med Auto Layout**
 
 <Slide>
 
-## Direction og spacing
+## Direction og gap
 
 `Direction` bestemmer om elementerne ligger:
 
 - vandret
 - lodret
 
-`Spacing` bestemmer afstanden **mellem children** i framen.
+`gap` bestemmer afstanden **mellem children** i framen.
 
 <div class="columns-2">
   <div class="auto-demo-panel">
@@ -263,7 +263,7 @@ Det er her mange bliver forvirrede i starten.
     <h3>Parent styrer typisk</h3>
     <ul>
       <li>retning</li>
-      <li>spacing</li>
+      <li>gap</li>
       <li>padding</li>
       <li>overordnet alignment</li>
     </ul>
@@ -319,7 +319,7 @@ Her kan du tænke sådan:
 
 ## Typiske fejl
 
-- Du prøver at flytte hvert element manuelt i stedet for at ændre `Spacing` eller `Padding`.
+- Du prøver at flytte hvert element manuelt i stedet for at ændre `gap` eller `Padding`.
 - En knap bliver alt for bred, fordi den står til `Fill` i stedet for `Hug`.
 - Du ændrer på et child, men problemet ligger egentlig i parent-framen.
 - Elementer ligger ikke pænt, fordi de slet ikke er samlet i samme Auto Layout-frame endnu.
@@ -349,7 +349,7 @@ Byg et kort med:
 
 1. Giv hele cardet **vertical Auto Layout**.
 2. Giv knappen eller knaprækken **horizontal Auto Layout**.
-3. Brug både `Padding` og `Spacing`.
+3. Brug både `Padding` og `gap`.
 4. Vælg bevidst mellem `Hug`, `Fill` og `Fixed`.
 
 ### Når øvelsen virker
