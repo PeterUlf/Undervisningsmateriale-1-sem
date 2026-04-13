@@ -1,0 +1,502 @@
+---
+title: "Tema 9 – getStaticPaths() i Astro"
+description: "Lav dynamiske detaljesider i Astro med getStaticPaths(), Supabase-data, params og props."
+sidebar:
+  label: "getStaticPaths()"
+  order: 6.15
+  badge:
+    text: Tema 9
+    variant: tip
+    class: badge-theme-9
+---
+
+import Slide from "../../../components/Slide.astro";
+
+<Slide>
+
+## `getStaticPaths()` kort fortalt
+
+Brug `getStaticPaths()`, når én Astro-fil skal blive til **mange sider**.
+
+Typisk eksempel i Tema 9:
+
+- en oversigtsside viser alle produkter
+- hvert produkt linker til sin egen detaljeside
+- detaljesiden hedder fx `src/pages/products/[id].astro`
+- `getStaticPaths()` fortæller Astro, hvilke `id`-sider der skal bygges
+
+:::caution[Navnet er vigtigt]
+Funktionen hedder `getStaticPaths()` med **s** til sidst.
+`getStaticPath()` virker ikke.
+:::
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Problemet: én fil, mange URL'er
+
+I Astro laver en almindelig fil normalt én side:
+
+```text
+src/pages/about.astro  ->  /about/
+```
+
+Men nogle gange kender du ikke alle siderne på forhånd som filer.
+
+Hvis du har produkter i Supabase, vil du måske have:
+
+```text
+/products/1/
+/products/2/
+/products/3/
+```
+
+I stedet for at oprette tre filer, laver du én dynamisk fil:
+
+```text
+src/pages/products/[id].astro
+```
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Filnavnet bestemmer parameteren
+
+Når filen hedder:
+
+```text
+src/pages/products/[id].astro
+```
+
+så hedder parameteren `id`.
+
+Derfor skal `getStaticPaths()` returnere objekter med:
+
+```js
+{ params: { id: "1" } }
+{ params: { id: "2" } }
+{ params: { id: "3" } }
+```
+
+Astro bygger så:
+
+```text
+/products/1/
+/products/2/
+/products/3/
+```
+
+Huskereglen er:
+
+```text
+[id].astro  ->  params: { id: "..." }
+```
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Minimal version uden Supabase
+
+Her er den mindste idé:
+
+```astro
+---
+export function getStaticPaths() {
+  return [
+    { params: { id: "1" } },
+    { params: { id: "2" } },
+    { params: { id: "3" } },
+  ];
+}
+
+const { id } = Astro.params;
+---
+
+<h1>Produkt {id}</h1>
+```
+
+Hvis filen ligger her:
+
+```text
+src/pages/products/[id].astro
+```
+
+så bygger Astro tre sider: `/products/1/`, `/products/2/` og `/products/3/`.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Med Supabase: hent rækker og byg paths
+
+I Tema 9 er `id`-erne typisk ikke skrevet i hånden.
+De kommer fra Supabase.
+
+```astro
+---
+// @ts-nocheck
+import Layout from "../../layouts/Layout.astro";
+
+export async function getStaticPaths() {
+  const url = `${import.meta.env.SUPABASE_URL}/rest/v1/products?select=id,title,price,description`;
+  const apiKey = import.meta.env.SUPABASE_PUBLISHABLE_KEY;
+
+  const response = await fetch(url, {
+    headers: {
+      apikey: apiKey,
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error("Kunne ikke hente produkter fra Supabase");
+  }
+
+  const products = await response.json();
+
+  return products.map((product) => ({
+    params: { id: String(product.id) },
+    props: { product },
+  }));
+}
+
+const { product } = Astro.props;
+---
+
+<Layout title={product.title}>
+  <article>
+    <h1>{product.title}</h1>
+    <p>{product.price} kr.</p>
+    {product.description && <p>{product.description}</p>}
+  </article>
+</Layout>
+```
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Hvad sker der i koden?
+
+```js
+return products.map((product) => ({
+  params: { id: String(product.id) },
+  props: { product },
+}));
+```
+
+For hvert produkt laver vi et objekt til Astro.
+
+`params` bestemmer URL'en:
+
+```js
+params: { id: String(product.id) }
+```
+
+`props` sender data videre til siden:
+
+```js
+props: { product }
+```
+
+Så kan selve siden læse produktet sådan:
+
+```js
+const { product } = Astro.props;
+```
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Hvorfor bruger vi `String(product.id)`?
+
+Astro bruger `params` til at bygge URL'er.
+
+Derfor skal værdierne i `params` være tekst.
+
+Hvis din Supabase-tabel bruger `uuid`, er `product.id` allerede tekst:
+
+```text
+8b4f3f2c-5a13-4c6a-90a2-...
+```
+
+Hvis din tabel bruger tal som `1`, `2`, `3`, er det mere sikkert at skrive:
+
+```js
+params: { id: String(product.id) }
+```
+
+Så bliver tallet lavet om til en tekstværdi, som Astro kan bruge i URL'en.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Liste-siden linker til detaljesiden
+
+Din oversigtsside kan fx ligge her:
+
+```text
+src/pages/products/index.astro
+```
+
+Den kan linke videre til detaljesiderne sådan:
+
+```astro
+---
+// @ts-nocheck
+import Layout from "../../layouts/Layout.astro";
+
+const url = `${import.meta.env.SUPABASE_URL}/rest/v1/products?select=id,title,price`;
+const apiKey = import.meta.env.SUPABASE_PUBLISHABLE_KEY;
+
+const products = await fetch(url, {
+  headers: {
+    apikey: apiKey,
+  },
+}).then((res) => res.json());
+---
+
+<Layout title="Produkter">
+  <h1>Produkter</h1>
+
+  {
+    products.map((product) => (
+      <article>
+        <h2>{product.title}</h2>
+        <p>{product.price} kr.</p>
+        <a href={`/products/${product.id}/`}>Læs mere</a>
+      </article>
+    ))
+  }
+</Layout>
+```
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Sammenhængen mellem de to filer
+
+Oversigtssiden:
+
+```text
+src/pages/products/index.astro
+```
+
+laver links som:
+
+```astro
+<a href={`/products/${product.id}/`}>Læs mere</a>
+```
+
+Detaljesiden:
+
+```text
+src/pages/products/[id].astro
+```
+
+bygger de sider, som linkene peger på:
+
+```js
+params: { id: String(product.id) }
+```
+
+Hvis linket peger på `/products/abc/`, skal `getStaticPaths()` altså have bygget en side med:
+
+```js
+params: { id: "abc" }
+```
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## `params` eller `props`?
+
+| Begreb | Bruges til | Eksempel |
+| --- | --- | --- |
+| `params` | URL'en | `/products/42/` |
+| `props` | data inde på siden | titel, pris, beskrivelse |
+
+Tænk sådan:
+
+- `params` er adressen til siden
+- `props` er indholdet på siden
+
+Du kan godt hente produktet igen ud fra `Astro.params.id`, men i dette forløb er det ofte nemmest at sende hele produktet med som `props`.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Hvis du bruger slug i stedet for id
+
+En slug er en URL-venlig tekst:
+
+```text
+stol-i-egetrae
+sort-lampe
+kaffebord
+```
+
+Hvis din fil hedder:
+
+```text
+src/pages/products/[slug].astro
+```
+
+så skal `params` også hedde `slug`:
+
+```js
+return products.map((product) => ({
+  params: { slug: product.slug },
+  props: { product },
+}));
+```
+
+Og linket på oversigtssiden bliver:
+
+```astro
+<a href={`/products/${product.slug}/`}>Læs mere</a>
+```
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Byggetid: hvorfor ændringer kan kræve ny build
+
+`getStaticPaths()` kører, når Astro bygger sitet.
+
+Det betyder:
+
+1. Astro henter data fra Supabase.
+2. Astro laver en liste over sider, der skal bygges.
+3. Astro bygger HTML-filerne.
+4. Netlify eller en anden host viser de færdige filer.
+
+Hvis du ændrer data i Supabase bagefter, ændrer de færdige HTML-filer sig ikke automatisk.
+
+Derfor skal sitet bygges igen, hvis nye produkter eller ændrede detaljer skal med i en statisk build.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Almindelige fejl
+
+### 1. Forkert funktionsnavn
+
+```js
+// Forkert
+export function getStaticPath() {}
+
+// Rigtigt
+export function getStaticPaths() {}
+```
+
+### 2. Parameteren matcher ikke filnavnet
+
+```text
+src/pages/products/[id].astro
+```
+
+```js
+// Forkert
+params: { slug: product.slug }
+
+// Rigtigt
+params: { id: String(product.id) }
+```
+
+### 3. Man forventer live-data uden rebuild
+
+Hvis siden er statisk bygget, skal den bygges igen for at få nye Supabase-data med.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## En lidt skjult regel
+
+`getStaticPaths()` kører i sit eget scope.
+
+Det betyder, at du ikke bør skrive sådan her:
+
+```astro
+---
+const products = await getProducts();
+
+export function getStaticPaths() {
+  return products.map((product) => ({
+    params: { id: String(product.id) },
+  }));
+}
+---
+```
+
+Skriv i stedet hentningen **inde i** `getStaticPaths()`, eller lav en helper-funktion i en anden fil og importér den.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Øvelse
+
+Lav en detaljeside for en tabel i Supabase.
+
+1. Opret filen `src/pages/products/[id].astro`
+2. Kopiér Supabase-fetch ind i `getStaticPaths()`
+3. Returnér `params` med produktets `id`
+4. Send hele produktet med som `props`
+5. Vis titel, pris og mindst én ekstra kolonne på siden
+6. Lav et link fra `src/pages/products/index.astro` til detaljesiden
+
+### Tjekspørgsmål
+
+- Hvad hedder parameteren i filnavnet?
+- Hvad skal nøglen i `params` hedde?
+- Hvorfor bruger vi `String(product.id)`?
+- Hvornår skal Netlify bygge sitet igen?
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Dokumentation
+
+- [Astro Docs – Dynamic routes](https://docs.astro.build/en/guides/routing/#dynamic-routes)
+- [Astro Docs – `getStaticPaths()`](https://docs.astro.build/en/reference/routing-reference/#getstaticpaths)
+- [Tema 9 – Netlify + Supabase: .env og auto-build](/astro/netlify-supabase-env-og-auto-build/)
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Næste skridt
+
+- [Tema 9 – Billeder fra public og links i databasen](/astro/tema-9-billeder-fra-public/)
+- [Tema 9 – Billeder i Supabase Storage bucket](/astro/tema-9-billeder-i-supabase-bucket/)
+- [Tilbage til Tema 9 – Fetch fra Supabase i Astro](/astro/tema-9-fetch-fra-supabase/)
+
+</Slide>

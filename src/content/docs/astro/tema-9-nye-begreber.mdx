@@ -247,6 +247,32 @@ Det er den kæde, som gør databaser brugbare i et rigtigt webprojekt.
 
 <Slide>
 
+## Dynamiske routes og `getStaticPaths()` - Astro
+
+En **dynamisk route** er en side, hvor en del af URL'en kan skifte.
+
+Eksempel:
+
+```text
+src/pages/products/[id].astro
+```
+
+Her betyder `[id]`, at siden kan bygges for mange forskellige produkter.
+
+`getStaticPaths()` er funktionen, der fortæller Astro, hvilke sider der skal bygges:
+
+- hvilke `id`-værdier findes der?
+- hvilke URL'er skal oprettes?
+- hvilke data skal sendes med til hver detaljeside?
+
+Det er især nyttigt, når data kommer fra Supabase, og én sidefil skal blive til mange produktsider.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
 ## Pause, inaktivitet og drift - Supabase
 
 Når man arbejder med en ekstern platform som Supabase, lærer man også et driftsbegreb:
@@ -280,6 +306,9 @@ De vigtigste nye begreber i Tema 9 er:
 - headers
 - miljøvariabler
 - frontmatter
+- dynamiske routes
+- `params` og `props`
+- `getStaticPaths()`
 - RLS og policy
 
 Hvis du forstår de ord, bliver koden i Tema 9 også meget lettere at læse.
