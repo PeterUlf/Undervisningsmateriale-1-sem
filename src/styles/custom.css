@@ -652,3 +652,20 @@ body td {
 .generated-slide tbody tr:hover {
   background-color: var(--sl-color-gray-6) !important;
 }
+
+/* FashionRUs PowerPoint screenshots */
+.sl-markdown-content img[src^="/illustrationer/fashionrus-astro/"],
+.slide img[src^="/illustrationer/fashionrus-astro/"],
+.generated-slide img[src^="/illustrationer/fashionrus-astro/"] {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  margin: 1rem auto;
+  border-radius: 8px;
+}
+
+.generated-slide img[src^="/illustrationer/fashionrus-astro/"] {
+  max-height: 42vh;
+}

@@ -1,6 +1,6 @@
 ---
 title: "FashionRUs med Astro"
-description: "Videoplayliste til FashionRUs-forløbet i Astro."
+description: "Slides til FashionRUs-forløbet i Astro: components, fetch, dynamiske routes og conditional rendering."
 sidebar:
   label: "FashionRUs med Astro"
   order: 99
@@ -15,7 +15,379 @@ import YouTubePlaylist from "../../../components/YouTubePlaylist.astro";
 
 <Slide>
 
-## FashionRUs med Astro
+## Øvelse: FashionRUs
+
+Byg FashionRus i Astro.
+
+Du kan eventuelt kigge på [den statiske HTML-version](https://github.com/PeterUlf/FashionRus_2025_statisk_version).
+
+Du skal ikke clone den statiske version.
+
+### Husk
+
+- På Mac: opret gerne en mappe der slutter med `.nosync`.
+- Start Astro i den mappe projektet skal ligge i.
+
+```bash
+npm create astro@latest .
+```
+
+Det sidste punktum betyder, at projektet lægges i den aktuelle mappe.
+
+Installer Prettier til Astro:
+
+```bash
+npm i --save-dev prettier prettier-plugin-astro
+```
+
+Opret `.prettierrc.mjs`, indsæt ["Recommended configuration"](https://github.com/withastro/prettier-plugin-astro#recommended-configuration) fra readme-filen og genstart VS Code.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Dynamisk Astro
+
+Man kan godt bruge almindelig JavaScript i Astro.
+
+Det vi skal lære her er noget andet:
+
+- hente data fra en database/API
+- bygge statiske sider ud fra data
+- sende data videre til components
+- lave dynamiske URL'er med `getStaticPaths()`
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Listeview: Dynamisk Astro med fetch - hent data
+
+I `productlist.astro` henter vi først produktdata i frontmatter.
+
+```astro
+---
+// @ts-nocheck
+import ProductCard from "../components/ProductCard.astro";
+
+const fashionUrl = "https://kea-alt-del.dk/t7/api/products";
+const data = await fetch(fashionUrl).then((res) => res.json());
+
+console.log(data);
+---
+```
+
+Vær opmærksom på `console.log()` oppe i frontmatter:
+
+- den virker kun i VS Code - ikke i inspect i browseren som vi plejer
+- den vises i terminalen
+- serveren skal køre med `npm run dev`
+- den kommer først, når du går ind på siden hvor den står
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## `// @ts-nocheck`
+
+Brug dette øverst i Astro-frontmatter, hvis TypeScript giver fejlbeskeder, som forstyrrer mens vi arbejder:
+
+```astro
+---
+// @ts-nocheck
+---
+```
+
+Det slår TypeScript-tjek fra i den aktuelle fil.
+
+Det er en støtte i øvelsen, ikke en magisk løsning på al kode.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## `console.log()` i frontmatter
+
+Når `console.log(data)` ligger i frontmatter, bliver resultatet vist i terminalen.
+
+Det er fordi frontmatter-koden kører på serveren, ikke i browserens DevTools-console.
+
+![Terminalen viser et array med FashionRUs produktobjekter](/illustrationer/fashionrus-astro/terminal-console-log.png)
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Hvad betyder fetch-linjen?
+
+```js
+const fashionUrl = "https://kea-alt-del.dk/t7/api/products";
+const data = await fetch(fashionUrl).then((res) => res.json());
+```
+
+![Fetch-linje hvor res.json() er markeret](/illustrationer/fashionrus-astro/fetch-json-line.png)
+
+`fetch(fashionUrl)` laver en HTTP-anmodning til URL'en i `fashionUrl`.
+
+`.then((res) => res.json())` konverterer serverens JSON-svar til JavaScript-data.
+
+`await` venter på, at både hentningen og konverteringen bliver færdig.
+
+`const data` gemmer resultatet, så vi kan bruge det i HTML-delen af Astro-filen.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Productlist
+
+Når `data` er et array, kan vi bruge [`.map()`](http://localhost:4322/javascript/map-og-join/) til at lave en component pr. produkt.
+
+`Productlist.astro`
+
+```astro
+<Layout>
+  <h1>Produktliste</h1>
+  <p>Her er en liste over produkter</p>
+  <main>
+    {data.map((product) => <ProductCard product={product} />)}
+  </main>
+</Layout>
+```
+
+I Productlist bruger vi .map til at sende hvert product videre til ProductCard
+
+## ProductCard
+
+I `ProductCard.astro` modtager vi produktet via `Astro.props`:
+
+```astro
+---
+const { product } = Astro.props;
+---
+
+<article>
+  <h2>{product.productdisplayname}</h2>
+  <p>{product.articletype}</p>
+</article>
+```
+
+## console.log(data)
+
+Når du kigger i `console.log(data)`, kan du se de felter, som `ProductCard` kan bruge:
+
+![Et FashionRUs product-objekt i terminalen med id, category, productdisplayname og price](/illustrationer/fashionrus-astro/product-object-console.png)
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Singleview: Dynamisk Astro med `[id].astro`
+
+![Sammenhængen i filerne](/illustrationer/fashionrus-astro/astrosammenhaeng.jpg)
+
+Et listeview viser mange produkter på én side.
+
+Et singleview viser ét produkt på én side.
+
+I Astro laver vi det typisk med en dynamisk fil:
+
+```text
+src/pages/product/[myProductId].astro
+```
+
+Firkantede parenteser betyder:
+
+```text
+denne del af URL'en er dynamisk
+```
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Data passing med props
+
+`getStaticPaths()` fortæller Astro hvilke dynamiske sider der skal bygges.
+
+Hvert objekt i arrayet kan sende data videre med `props`.
+
+NB!! fra DOKUMENTATIONEN - kan kopieres men SKAL rettes til!!
+
+```astro
+---
+export async function getStaticPaths() {
+  const data = await fetch("...").then((response) => response.json());
+
+  return data.map((post) => {
+    return {
+      params: { id: post.id },
+      props: { post },
+    };
+  });
+}
+
+const { id } = Astro.params;
+const { post } = Astro.props;
+---
+
+<h1>{id}: {post.name}</h1>
+```
+
+Docs-eksempel: [Data passing with props](https://docs.astro.build/en/reference/routing-reference/#data-passing-with-props).
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Singleview: byg sider ud fra FashionRUs-data
+
+src > pages > product > [myProductId].astro (den tilrettede version)
+
+```astro
+---
+// @ts-nocheck
+
+export async function getStaticPaths() {
+  const fashionUrl = "https://kea-alt-del.dk/t7/api/products";
+  const data = await fetch(fashionUrl).then((response) => response.json());
+
+  return data.map((product) => {
+    return {
+      params: { myProductId: String(product.id) },
+      props: { myProduct: product },
+    };
+  });
+}
+
+const { myProduct } = Astro.props;
+---
+
+<h1>Her er overskriften</h1>
+<p>{myProduct.productdisplayname}</p>
+```
+
+I Astro F2026 skal `id` sendes som en string:
+
+![params bruger String(product.id)](/illustrationer/fashionrus-astro/params-string-product-id.png)
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Hvad sker der ved `npm run build`?
+
+Når du kører:
+
+```bash
+npm run build
+```
+
+bygger Astro alle singlepage-siderne ud fra `getStaticPaths()`.
+
+I dette eksempel bliver der lavet en mappe for hvert produkt-id.
+
+![Build-output med produktmapper for flere id'er](/illustrationer/fashionrus-astro/product-output-folder.png)
+
+Hvis filen hedder:
+
+```text
+src/pages/product/[myProductId].astro
+```
+
+så skal `params` også bruge `myProductId`:
+
+```js
+params: {
+  myProductId: String(product.id);
+}
+```
+
+![Filstrukturen viser product/[myProductId].astro](/illustrationer/fashionrus-astro/dynamic-route-folder.png)
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Conditional rendering: IF
+
+Når noget kun skal vises, hvis en betingelse er opfyldt, kan vi bruge `&&`.
+
+```astro
+{product.soldout == 1 && <p class="soldout">Udsolgt</p>}
+```
+
+Læs den sådan:
+
+- hvis `product.soldout == 1` er sand
+- så vis `<p class="soldout">Udsolgt</p>`
+
+![Conditional rendering med && viser Udsolgt når soldout er 1](/illustrationer/fashionrus-astro/conditional-soldout-if.png)
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Conditional rendering: IF ELSE
+
+Når der skal være to muligheder, kan vi bruge en ternary operator.
+
+```astro
+{product.discount == null ? "" : <p class="discount">Rabat</p>}
+```
+
+Læs den sådan:
+
+- hvis `product.discount == null` er sand, så vis ingenting
+- ellers vis `<p class="discount">Rabat</p>`
+
+![Conditional rendering med ternary viser Rabat hvis discount ikke er null](/illustrationer/fashionrus-astro/conditional-discount-if-else.png)
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Skulle URL'en have været noget andet?
+
+Overvej URL-designet for singleviewet:
+
+```text
+/product/1532/
+```
+
+Kunne det have været mere læsbart?
+
+```text
+/product/grey-leaping-cat-t-shirt/
+```
+
+Eller mere struktureret?
+
+```text
+/men/apparel/tshirts/1532/
+```
+
+Pointen er, at filnavnet i `src/pages` og værdierne i `params` tilsammen bestemmer URL'en.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Videoplayliste
 
 Her er playlisten til FashionRUs-forløbet i Astro.
 
