@@ -45,17 +45,18 @@ const url = `${import.meta.env.SUPABASE_URL}/rest/v1/studerende?select=*`;
 const apiKey = import.meta.env.SUPABASE_PUBLISHABLE_KEY;
 
 const options = {
-headers: {
-apikey: apiKey,
-},
+  headers: {
+    apikey: apiKey,
+  },
 };
 
 const data = await fetch(url, options)
-.then((res) => res.json());
+  .then((res) => res.json());
 
-## console.log(data);
+console.log(data);
+---
 
-````
+```
 
   </div>
 
@@ -98,7 +99,7 @@ Sørg derfor for, at `.env` står i `.gitignore`, inden du opretter filen.
 .DS_Store
 
 # HUSK at disse skal lægges til dem du har i forvejen
-````
+```
 
 ### Derefter: lav `.env`
 
