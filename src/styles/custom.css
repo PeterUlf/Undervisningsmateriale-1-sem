@@ -653,6 +653,145 @@ body td {
   background-color: var(--sl-color-gray-6) !important;
 }
 
+/* Compact printable puzzle for Tema 9 Supabase slide */
+.print-slide-button {
+  display: inline-flex;
+  align-items: center;
+  margin: 0.25rem 0 0.75rem;
+  padding: 0.5rem 0.85rem;
+  border: 1px solid var(--sl-color-accent);
+  border-radius: 4px;
+  background-color: var(--sl-color-accent-low);
+  color: var(--sl-color-white);
+  font: inherit;
+  font-size: var(--sl-text-sm);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.print-slide-button:hover {
+  background-color: var(--sl-color-accent);
+}
+
+.single-slide-print {
+  display: none;
+}
+
+.a4-puzzle {
+  margin-top: 1rem;
+}
+
+.a4-puzzle__instructions {
+  margin: 0 0 0.65rem;
+  font-size: 0.95rem;
+}
+
+.a4-puzzle__grid {
+  display: grid;
+  grid-template-columns: minmax(17rem, 1.15fr) minmax(14rem, 0.85fr);
+  gap: 0.28rem;
+  align-items: stretch;
+}
+
+.a4-puzzle__piece {
+  min-width: 0;
+  padding: 0.32rem 0.42rem;
+  border: 1px solid var(--sl-color-gray-5);
+  border-radius: 4px;
+  line-height: 1.22;
+  background-color: var(--sl-color-gray-7);
+  break-inside: avoid;
+}
+
+.a4-puzzle__piece--code {
+  background-color: var(--sl-color-gray-6);
+}
+
+.a4-puzzle__piece--code pre {
+  margin: 0;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+  font-size: 0.74rem;
+  line-height: 1.18;
+}
+
+.a4-puzzle__piece--comment {
+  font-size: 0.8rem;
+  font-style: italic;
+}
+
+.a4-puzzle__piece code {
+  padding: 0;
+  background: transparent;
+  white-space: normal;
+}
+
+@media (max-width: 50rem) {
+  .a4-puzzle__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media print {
+  .print-slide-button {
+    display: none !important;
+  }
+
+  body.is-printing-single-slide > :not(.single-slide-print) {
+    display: none !important;
+  }
+
+  body.is-printing-single-slide {
+    background: #fff !important;
+  }
+
+  body.is-printing-single-slide .single-slide-print {
+    display: block !important;
+    max-width: 190mm;
+    margin: 0 auto;
+    color: #000;
+  }
+
+  body.is-printing-single-slide .single-slide-print h1 {
+    margin: 0 0 5pt;
+    color: #000;
+    font-size: 13pt;
+    line-height: 1.1;
+  }
+
+  .a4-puzzle {
+    margin-top: 0.35rem;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .a4-puzzle__instructions {
+    margin-bottom: 4pt;
+    font-size: 8pt;
+  }
+
+  .a4-puzzle__grid {
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 2.5pt;
+  }
+
+  .a4-puzzle__piece {
+    padding: 2pt 3pt;
+    border-radius: 2pt;
+    line-height: 1.08;
+  }
+
+  .a4-puzzle__piece--code pre {
+    font-size: 6.6pt;
+    line-height: 1.08;
+  }
+
+  .a4-puzzle__piece--comment {
+    font-size: 6.9pt;
+    line-height: 1.08;
+  }
+}
+
 /* FashionRUs PowerPoint screenshots */
 .sl-markdown-content img[src^="/illustrationer/fashionrus-astro/"],
 .slide img[src^="/illustrationer/fashionrus-astro/"],

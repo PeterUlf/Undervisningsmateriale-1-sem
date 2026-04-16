@@ -30,31 +30,30 @@ Nu henter vi data fra Supabase i stedet for en åben test-API.
 
 <Slide>
 
-## Hvis du gjorde præcis som i Tema 8
+## Fra Tema 8-metoden til Astro-metoden
 
-Hvis vi først tænker helt som i Tema 8, kunne koden se sådan ud:
+Grundideen er stadig den samme som i Tema 8: byg en URL, hent data, lav JSON om til JavaScript-data.
+
+I Astro gør vi det i frontmatter, før HTML'en bliver bygget:
 
 <div class="columns-2">
   <div>
     
-```javascript
-const studentsURL =
-  "https://din-projekt-ref.supabase.co/rest/v1/students?select=*";
-const apiKey = "din-publishable-key";
+```astro
+---
+const url = `${import.meta.env.SUPABASE_URL}/rest/v1/studerende?select=*`;
+const apiKey = import.meta.env.SUPABASE_PUBLISHABLE_KEY;
 
-function getData() {
-fetch(studentsURL, {
+const options = {
 headers: {
 apikey: apiKey,
 },
-}).then((res) => res.json().then((data) => show(data)));
-}
+};
 
-function show(data) {
-.......
-}
+const data = await fetch(url, options)
+.then((res) => res.json());
 
-getData();
+## console.log(data);
 
 ````
 
@@ -62,13 +61,15 @@ getData();
 
   <div>
     <h3>Hvad er nyt?</h3>
-    <p>Strukturen er næsten den samme som i Tema 8.</p>
-    <p>Det nye er kun:</p>
+    <p>Metoden er den samme, men stedet er anderledes.</p>
     <ul>
-      <li>URL'en peger på Supabase</li>
-      <li>der sendes en <code>apikey</code> med i <code>headers</code></li>
-      <li>data kommer fra din egen tabel i stedet for DummyJSON</li>
+      <li>Koden kører i Astro frontmatter</li>
+      <li><code>await fetch()</code> erstatter <code>getData()</code></li>
+      <li>Supabase-oplysninger hentes fra <code>import.meta.env</code></li>
+      <li>API-nøglen sendes med i <code>headers</code></li>
+      <li><code>data</code> kan bagefter bruges direkte i HTML-delen</li>
     </ul>
+    <p>På slide 4 bliver samme metode sat sammen med <code>Layout</code> og <code>Student</code>-komponenten.</p>
   </div>
 </div>
 
@@ -97,12 +98,14 @@ Sørg derfor for, at `.env` står i `.gitignore`, inden du opretter filen.
 .DS_Store
 
 # HUSK at disse skal lægges til dem du har i forvejen
-```
+````
 
 ### Derefter: lav `.env`
 
 Gem Supabase-oplysninger i en fil der hedder `.env`
 (dvs. filnavnet starter med et punktum efterfulgt af `env`, på samme måde som `.gitignore`)
+
+.env
 
 ```bash
 SUPABASE_URL=https://din-projekt-ref.supabase.co
@@ -122,12 +125,15 @@ SUPABASE_PUBLISHABLE_KEY=din-publishable-key
 
 ### Koden samlet i Astro (forklares på de næste slides)
 
+src > pages > index.astro
+
 ```astro
 ---
 //@ts-nocheck
 import Layout from "../layouts/Layout.astro";
+import Student from "../components/Student.astro";
 
-const url =`${import.meta.env.SUPABASE_URL}/rest/v1/students?select=*`;
+const url =`${import.meta.env.SUPABASE_URL}/rest/v1/studerende?select=*`;
 const apiKey = import.meta.env.SUPABASE_PUBLISHABLE_KEY;
 
 const options = {
@@ -137,233 +143,32 @@ const options = {
 };
 
 const data = await fetch(url, options)
-  .then((res) => res.json())
-  .then((data) => data);
+  .then((res) => res.json());
 
 console.log(data);
 ---
 
 <Layout>
   <h1>Studerende</h1>
-  {
-    data.map((student) => (
-      <article>
-        <h2>{student.first_name} {student.last_name}</h2>
-        <p>Klasse: {student.class_name}</p>
-      </article>
-    ))
-  }
+
+  {data.map((student) => <Student student={student} />)}
+
 </Layout>
 ```
 
-</Slide>
-<div class="page-break"></div>
+src > components > Student.astro
 
-<Slide>
+```astro
+---
+//@ts-nocheck
+const { student } = Astro.props;
+---
 
-## Kode-puslespil: Match hver linje med forklaring
-
-<table style="width: 100%; border-collapse: collapse; margin: 2rem 0;">
-  <tbody>
-    <tr>
-      <td><code>---</code></td>
-    </tr>
-    <tr>
-      <td style="padding-left: 2rem; font-style: italic;">Start på Astro frontmatter (kode der kører på serveren)</td>
-    </tr>
-    <tr>
-      <td><code>//@ts-nocheck</code></td>
-    </tr>
-    <tr>
-      <td style="padding-left: 2rem; font-style: italic;">Slår TypeScript-tjek fra for denne fil</td>
-    </tr>
-    <tr>
-      <td><code>import Layout from "../layouts/Layout.astro";</code></td>
-    </tr>
-    <tr>
-      <td style="padding-left: 2rem; font-style: italic;">Importerer Layout-komponenten</td>
-    </tr>
-    <tr>
-      <td><pre>const url = `$\{import.meta.env.SUPABASE_URL}/rest/v1/students?select=*`;</pre></td>
-    </tr>
-    <tr>
-      <td style="padding-left: 2rem; font-style: italic;">Bygger URL'en til Supabase-tabellen students ved at hente SUPABASE_URL fra miljøvariabler</td>
-    </tr>
-    <tr>
-      <td><pre>const apiKey = import.meta.env.SUPABASE_PUBLISHABLE_KEY;</pre></td>
-    </tr>
-    <tr>
-      <td style="padding-left: 2rem; font-style: italic;">Henter Supabase API-nøglen fra miljøvariabler</td>
-    </tr>
-    <tr>
-      <td><pre>const options = \{</pre></td>
-    </tr>
-    <tr>
-      <td style="padding-left: 2rem; font-style: italic;">Start på et options-objekt til fetch-kaldet</td>
-    </tr>
-    <tr>
-      <td><pre>  headers: \{</pre></td>
-    </tr>
-    <tr>
-      <td style="padding-left: 2rem; font-style: italic;">Definerer headers der skal sendes med request</td>
-    </tr>
-    <tr>
-      <td><pre>    apikey: apiKey,</pre></td>
-    </tr>
-    <tr>
-      <td style="padding-left: 2rem; font-style: italic;">Sender API-nøglen med i headeren (krævet af Supabase)</td>
-    </tr>
-    <tr>
-      <td><pre>  },</pre></td>
-    </tr>
-    <tr>
-      <td style="padding-left: 2rem; font-style: italic;">Afslutter headers-objektet</td>
-    </tr>
-    <tr>
-      <td><pre>};</pre></td>
-    </tr>
-    <tr>
-      <td style="padding-left: 2rem; font-style: italic;">Afslutter options-objektet</td>
-    </tr>
-    <tr>
-      <td><code>const data = await fetch(url, options)</code></td>
-    </tr>
-    <tr>
-      <td style="padding-left: 2rem; font-style: italic;">Starter fetch-kald til Supabase med URL og options. await venter på svaret</td>
-    </tr>
-    <tr>
-      <td><code>  .then((res) => res.json())</code></td>
-    </tr>
-    <tr>
-      <td style="padding-left: 2rem; font-style: italic;">Når data er hentet, konverteres det fra JSON til JavaScript</td>
-    </tr>
-    <tr>
-      <td><code>  .then((data) => data);</code></td>
-    </tr>
-    <tr>
-      <td style="padding-left: 2rem; font-style: italic;">Returnerer data så det kan gemmes i data-variablen</td>
-    </tr>
-    <tr>
-      <td><code>console.log(data);</code></td>
-    </tr>
-    <tr>
-      <td style="padding-left: 2rem; font-style: italic;">Udskriver data til konsollen (til debugging)</td>
-    </tr>
-    <tr>
-      <td><code>---</code></td>
-    </tr>
-    <tr>
-      <td style="padding-left: 2rem; font-style: italic;">Afslutter frontmatter – nu starter HTML-delen</td>
-    </tr>
-    <tr>
-      <td><code>&lt;Layout&gt;</code></td>
-    </tr>
-    <tr>
-      <td style="padding-left: 2rem; font-style: italic;">Starter Layout-komponenten der wrapper siden</td>
-    </tr>
-    <tr>
-      <td><code>  &lt;h1&gt;Studerende&lt;/h1&gt;</code></td>
-    </tr>
-    <tr>
-      <td style="padding-left: 2rem; font-style: italic;">Viser overskriften "Studerende"</td>
-    </tr>
-    <tr>
-      <td><pre>  \{</pre></td>
-    </tr>
-    <tr>
-      <td style="padding-left: 2rem; font-style: italic;">Starter JavaScript-udtryk i HTML</td>
-    </tr>
-    <tr>
-      <td><pre>    data.map((student) => (</pre></td>
-    </tr>
-    <tr>
-      <td style="padding-left: 2rem; font-style: italic;">Går igennem data-arrayet og laver et nyt element for hver student</td>
-    </tr>
-    <tr>
-      <td><pre>      &lt;article&gt;</pre></td>
-    </tr>
-    <tr>
-      <td style="padding-left: 2rem; font-style: italic;">Starter en article for hver studerende</td>
-    </tr>
-    <tr>
-      <td><pre>        &lt;h2&gt;\{student.first_name} \{student.last_name}&lt;/h2&gt;</pre></td>
-    </tr>
-    <tr>
-      <td style="padding-left: 2rem; font-style: italic;">Viser studerendes fornavn og efternavn</td>
-    </tr>
-    <tr>
-      <td><pre>        &lt;p&gt;Klasse: \{student.class_name}&lt;/p&gt;</pre></td>
-    </tr>
-    <tr>
-      <td style="padding-left: 2rem; font-style: italic;">Viser studerendes klasse</td>
-    </tr>
-    <tr>
-      <td><pre>      &lt;/article&gt;</pre></td>
-    </tr>
-    <tr>
-      <td style="padding-left: 2rem; font-style: italic;">Afslutter article-elementet</td>
-    </tr>
-    <tr>
-      <td><pre>    ))</pre></td>
-    </tr>
-    <tr>
-      <td style="padding-left: 2rem; font-style: italic;">Afslutter map-funktionen</td>
-    </tr>
-    <tr>
-      <td><pre>  }</pre></td>
-    </tr>
-    <tr>
-      <td style="padding-left: 2rem; font-style: italic;">Afslutter JavaScript-udtrykket</td>
-    </tr>
-    <tr>
-      <td><code>&lt;/Layout&gt;</code></td>
-    </tr>
-    <tr>
-      <td style="padding-left: 2rem; font-style: italic;">Afslutter Layout-komponenten</td>
-    </tr>
-  </tbody>
-</table>
-
-:::tip[Sådan bruges puslespillet]
-1. Print dette slide
-2. Klip hver celle ud med saks
-3. Bland cellerne
-4. Lad de studerende samle kodelinjer med deres forklaringer
-5. Derefter skal de lægge dem i den rigtige rækkefølge
-:::
-
-</Slide>
-<div class="page-break"></div>
-
-<Slide>
-
-## Hvad sker der i frontmatter?
-
-```javascript
-const url = `${import.meta.env.SUPABASE_URL}/rest/v1/students?select=id,first_name,last_name,class_name`;
-const apiKey = import.meta.env.SUPABASE_PUBLISHABLE_KEY;
-
-const options = {
-  headers: {
-    apikey: apiKey,
-  },
-};
-
-const data = await fetch(url, options)
-  .then((res) => res.json())
-  .then((data) => data);
+<article>
+  <h2>{student.navn}</h2>
+  <p>Klasse: {student.hold}</p>
+</article>
 ```
-
-Læs den sådan her:
-
-1. `url` er adressen til din Supabase-tabel.
-2. `apiKey` er din `SUPABASE_PUBLISHABLE_KEY`.
-3. `options` samler den header, der skal sendes med.
-4. `await fetch(url, options)` henter data, før siden bliver vist.
-5. `res.json()` laver svaret om til JavaScript-data.
-6. Resultatet bliver gemt i variablen `data`.
-
-Supabase dokumenterer, at API-nøglen skal sendes med i requestens `apikey`-header. Derfor ligger nøglen i `headers`.
 
 </Slide>
 <div class="page-break"></div>
@@ -374,17 +179,17 @@ Supabase dokumenterer, at API-nøglen skal sendes med i requestens `apikey`-head
 
 Begge metoder går igennem et array **én værdi ad gangen**.
 
-Hvis `data` indeholder studerende, så er `student` i begge tilfælde ét objekt ad gangen.
+Hvis `data` indeholder rækker fra tabellen `studerende`, så er `student` i begge tilfælde ét objekt ad gangen.
+
+I koden fra slide 4 sender vi hvert `student`-objekt videre til `Student`-komponenten.
 
 <div class="columns-2">
   <div>
 
     <h3><code>.map()</code></h3>
 
-```javascript
-const studentCards = data.map((student) => {
-  return `<article>${student.first_name}</article>`;
-});
+```astro
+{data.map((student) => <Student student={student} />)}
 ```
 
   </div>
@@ -397,7 +202,7 @@ const studentCards = data.map((student) => {
 
 ```javascript
 data.forEach((student) => {
-  console.log(student.first_name);
+  console.log(student.navn);
 });
 ```
 
@@ -409,73 +214,15 @@ Forskellen er:
 - `forEach()` bruges når du vil **gøre noget** for hvert element
 - `map()` bruges når du vil **lave et nyt array** ud fra hvert element
 
-I Astro vil vi gerne ende med en samling af HTML-elementer, som kan sættes direkte ind i templaten.
+I Astro vil vi gerne ende med en samling af komponenter, som kan sættes direkte ind i templaten.
 
 ### Derfor bruger vi `map()` her:
 
 - den returnerer et nyt array
-- hvert element i det nye array kan være et `<article>`
+- hvert element i det nye array kan være en `<Student />`-komponent
 - Astro kan vise det direkte i HTML
 
-`forEach()` er altså ikke forkert. Den er bare mindre praktisk, når målet er at **render** HTML direkte.
-
-</Slide>
-<div class="page-break"></div>
-
-<Slide>
-
-## Lille øvelse med `map()` i CodePen
-
-**Lav denne øvelse i CodePen:**
-
-1. Opret en tom container i HTML-panelet.
-2. Brug `map()` til at lave et nyt array med HTML for hver studerende.
-3. Sæt resultatet ind på siden med `join("")` og `innerHTML`.
-
-### HTML
-
-```html
-<section id="app"></section>
-```
-
-### JavaScript
-
-```javascript
-const students = [
-  { first_name: "Asta", last_name: "Jensen", class_name: "A" },
-  { first_name: "Malik", last_name: "Ali", class_name: "B" },
-  { first_name: "Sofie", last_name: "Hansen", class_name: "C" },
-];
-
-const app = document.querySelector("#app");
-
-const studentCards = students.map((student) => {
-  return `
-    <article>
-      <h2>...</h2>
-      <p>Klasse: ...</p>
-    </article>
-  `;
-});
-
-app.innerHTML = studentCards.join("");
-```
-
-### Diskuter med sidemanden
-
-- hvad er students (flertal) er
-- hvad er student (ental) er
-- hvad er forskellen fra at bruge forEach
-
-### Din opgave
-
-- indsæt studerendes fornavn og efternavn i `<h2>`
-- indsæt holdet i `<p>`
-- tjek at der kommer 3 `<article>`-kort på siden
-
-:::tip[Hint]
-I CodePen bliver resultatet fra `map()` et array med HTML-strenge. Derfor bruger vi `join("")`, før vi sætter det ind med `innerHTML`.
-:::
+`forEach()` er altså ikke forkert. Den er bare mindre praktisk, når målet er at **render** komponenter direkte.
 
 </Slide>
 <div class="page-break"></div>
@@ -484,24 +231,39 @@ I CodePen bliver resultatet fra `map()` et array med HTML-strenge. Derfor bruger
 
 ## Hvordan viser Astro data i HTML?
 
+Vi laver en komponent til at vise hver studerende:
+
+`StudentCard.astro`
+
 ```astro
+---
+const { student } = Astro.props;
+---
+
+<article>
+  <h2>{student.first_name} {student.last_name}</h2>
+  <p>Klasse: {student.class_name}</p>
+</article>
+```
+
+Så bruger vi komponenten i vores side:
+
+```astro
+---
+import StudentCard from "../components/StudentCard.astro";
+// ... fetch-kode her
+---
+
 <Layout>
   <h1>Studerende</h1>
-  {
-    data.map((student) => (
-      <article>
-        <h2>{student.first_name} {student.last_name}</h2>
-        <p>Klasse: {student.class_name}</p>
-      </article>
-    ))
-  }
+  {data.map((student) => <StudentCard student={student} />)}
 </Layout>
 ```
 
 - `data` er arrayet med rækker fra tabellen `students`
 - `data.map(...)` går igennem én række ad gangen
 - `student` er ét objekt ad gangen
-- `{student.first_name}` og `{student.last_name}` indsætter værdierne i HTML
+- `StudentCard` modtager `student` via `Astro.props`
 - Astro bygger HTML'en, før siden bliver sendt til browseren
 
 </Slide>
@@ -536,14 +298,16 @@ Hvis du bare åbner endpointet direkte i browseren uden `apikey`, får du typisk
 }
 ```
 
----
-
 :::tip[Kun til testformål]
 Vil du se rå JSON i selve browserfanen, kan du lave en hurtig test sådan:
 
-```text
-https://din-projekt-ref.supabase.co/rest/v1/students?select=*&apikey=din-publishable-key
-```
+<p style="white-space: nowrap; overflow-x: auto;"><code>https://<span style="color: #15803d; font-weight: 700;">din-projekt-ref</span>.supabase.co/rest/v1/<span style="color: #15803d; font-weight: 700;">din-tabel</span>?select=*&amp;apikey=<span style="color: #15803d; font-weight: 700;">din-publishable-key</span></code></p>
+
+Her finder du oplysningerne i Supabase under dit projekt:
+
+- <code style="color: #15803d; font-weight: 700;">din-projekt-ref</code>: `Project Settings → Data API → API URL`
+- <code style="color: #15803d; font-weight: 700;">din-tabel</code>: `Table Editor → vælg din tabel` og brug tabellens navn
+- <code style="color: #15803d; font-weight: 700;">din-publishable-key</code>: `Project Settings → API Keys → Publishable Key`
 
 :::
 
@@ -552,6 +316,114 @@ I rigtig kode bør du stadig bruge `fetch()` med headers.
 Hvis tabellen bruger RLS, skal du også have en `SELECT`-policy, ellers bliver rækkerne ikke vist.
 
 </Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Kode-puslespil: Match hver linje med forklaring
+
+<button
+  type="button"
+  class="print-slide-button"
+  data-print-slide="tema-9-fetch-puzzle"
+>
+  {"Print dette slide"}
+</button>
+
+<div class="a4-puzzle">
+  <div class="a4-puzzle__instructions">
+    {'Print siden, klip cellerne ud, bland dem, og lad de studerende matche kodelinjer med forklaringer.'}
+  </div>
+
+  <div class="a4-puzzle__grid">
+    <div class="a4-puzzle__piece a4-puzzle__piece--code"><pre>{'---'}</pre></div>
+    <div class="a4-puzzle__piece a4-puzzle__piece--comment">Start på Astro frontmatter: kode der kører på serveren.</div>
+
+    <div class="a4-puzzle__piece a4-puzzle__piece--code"><pre>{'//@ts-nocheck'}</pre></div>
+    <div class="a4-puzzle__piece a4-puzzle__piece--comment">Slår TypeScript-tjek fra for denne fil.</div>
+
+    <div class="a4-puzzle__piece a4-puzzle__piece--code"><pre>{'import Layout from "../layouts/Layout.astro";'}</pre></div>
+    <div class="a4-puzzle__piece a4-puzzle__piece--comment">Importerer Layout-komponenten.</div>
+
+    <div class="a4-puzzle__piece a4-puzzle__piece--code"><pre>{'import Student from "../components/Student.astro";'}</pre></div>
+    <div class="a4-puzzle__piece a4-puzzle__piece--comment">Importerer Student-komponenten, som viser én studerende.</div>
+
+    <div class="a4-puzzle__piece a4-puzzle__piece--code"><pre>{'const url =`${import.meta.env.SUPABASE_URL}/rest/v1/studerende?select=*`;'}</pre></div>
+    <div class="a4-puzzle__piece a4-puzzle__piece--comment">Bygger URL'en til Supabase-tabellen <code>studerende</code>.</div>
+
+    <div class="a4-puzzle__piece a4-puzzle__piece--code"><pre>{'const apiKey = import.meta.env.SUPABASE_PUBLISHABLE_KEY;'}</pre></div>
+    <div class="a4-puzzle__piece a4-puzzle__piece--comment">Henter Supabase API-nøglen fra miljøvariabler.</div>
+
+    <div class="a4-puzzle__piece a4-puzzle__piece--code"><pre>{'const options = {'}</pre></div>
+    <div class="a4-puzzle__piece a4-puzzle__piece--comment">Starter et options-objekt til fetch-kaldet.</div>
+
+    <div class="a4-puzzle__piece a4-puzzle__piece--code"><pre>{'  headers: {'}</pre></div>
+    <div class="a4-puzzle__piece a4-puzzle__piece--comment">Definerer headers der sendes med requesten.</div>
+
+    <div class="a4-puzzle__piece a4-puzzle__piece--code"><pre>{'    apikey: apiKey,'}</pre></div>
+    <div class="a4-puzzle__piece a4-puzzle__piece--comment">Sender API-nøglen med i headeren.</div>
+
+    <div class="a4-puzzle__piece a4-puzzle__piece--code"><pre>{'  },'}</pre></div>
+    <div class="a4-puzzle__piece a4-puzzle__piece--comment">Afslutter headers-objektet.</div>
+
+    <div class="a4-puzzle__piece a4-puzzle__piece--code"><pre>{'};'}</pre></div>
+    <div class="a4-puzzle__piece a4-puzzle__piece--comment">Afslutter options-objektet.</div>
+
+    <div class="a4-puzzle__piece a4-puzzle__piece--code"><pre>{'const data = await fetch(url, options)'}</pre></div>
+    <div class="a4-puzzle__piece a4-puzzle__piece--comment">Starter fetch-kaldet og venter på svaret.</div>
+
+    <div class="a4-puzzle__piece a4-puzzle__piece--code"><pre>{'  .then((res) => res.json());'}</pre></div>
+    <div class="a4-puzzle__piece a4-puzzle__piece--comment">Laver svaret om fra JSON til JavaScript-data.</div>
+
+    <div class="a4-puzzle__piece a4-puzzle__piece--code"><pre>{'console.log(data);'}</pre></div>
+    <div class="a4-puzzle__piece a4-puzzle__piece--comment">Udskriver data til konsollen.</div>
+
+    <div class="a4-puzzle__piece a4-puzzle__piece--code"><pre>{'---'}</pre></div>
+    <div class="a4-puzzle__piece a4-puzzle__piece--comment">Afslutter frontmatter, så HTML-delen kan begynde.</div>
+
+    <div class="a4-puzzle__piece a4-puzzle__piece--code"><pre>{'<Layout>'}</pre></div>
+    <div class="a4-puzzle__piece a4-puzzle__piece--comment">Starter Layout-komponenten der wrapper siden.</div>
+
+    <div class="a4-puzzle__piece a4-puzzle__piece--code"><pre>{'  <h1>Studerende</h1>'}</pre></div>
+    <div class="a4-puzzle__piece a4-puzzle__piece--comment">Viser overskriften <code>Studerende</code>.</div>
+
+    <div class="a4-puzzle__piece a4-puzzle__piece--code"><pre>{'  {data.map((student) => <Student student={student} />)}'}</pre></div>
+    <div class="a4-puzzle__piece a4-puzzle__piece--comment">Går igennem data-arrayet og sender hver studerende videre til Student-komponenten.</div>
+
+    <div class="a4-puzzle__piece a4-puzzle__piece--code"><pre>{'</Layout>'}</pre></div>
+    <div class="a4-puzzle__piece a4-puzzle__piece--comment">Afslutter Layout-komponenten.</div>
+
+    <div class="a4-puzzle__piece a4-puzzle__piece--code"><pre>{'---'}</pre></div>
+    <div class="a4-puzzle__piece a4-puzzle__piece--comment">Starter frontmatter i <code>Student.astro</code>.</div>
+
+    <div class="a4-puzzle__piece a4-puzzle__piece--code"><pre>{'//@ts-nocheck'}</pre></div>
+    <div class="a4-puzzle__piece a4-puzzle__piece--comment">Slår TypeScript-tjek fra for komponent-filen.</div>
+
+    <div class="a4-puzzle__piece a4-puzzle__piece--code"><pre>{'const { student } = Astro.props;'}</pre></div>
+    <div class="a4-puzzle__piece a4-puzzle__piece--comment">Henter den studerende, som blev sendt ind som prop.</div>
+
+    <div class="a4-puzzle__piece a4-puzzle__piece--code"><pre>{'---'}</pre></div>
+    <div class="a4-puzzle__piece a4-puzzle__piece--comment">Afslutter komponentens frontmatter, så HTML-delen kan begynde.</div>
+
+    <div class="a4-puzzle__piece a4-puzzle__piece--code"><pre>{'<article>'}</pre></div>
+    <div class="a4-puzzle__piece a4-puzzle__piece--comment">Starter et article-element for én studerende.</div>
+
+    <div class="a4-puzzle__piece a4-puzzle__piece--code"><pre>{'  <h2>{student.navn}</h2>'}</pre></div>
+    <div class="a4-puzzle__piece a4-puzzle__piece--comment">Viser den studerendes navn.</div>
+
+    <div class="a4-puzzle__piece a4-puzzle__piece--code"><pre>{'  <p>Klasse: {student.hold}</p>'}</pre></div>
+    <div class="a4-puzzle__piece a4-puzzle__piece--comment">Viser den studerendes hold.</div>
+
+    <div class="a4-puzzle__piece a4-puzzle__piece--code"><pre>{'</article>'}</pre></div>
+    <div class="a4-puzzle__piece a4-puzzle__piece--comment">Afslutter article-elementet.</div>
+
+  </div>
+</div>
+
+</Slide>
+
+<script src="/js/print-single-slide.js" defer></script>
+
 <div class="page-break"></div>
 
 <Slide>
@@ -588,4 +460,3 @@ Hvis tabellen bruger RLS, skal du også have en `SELECT`-policy, ellers bliver r
 - [Tilbage til Tema 9 – Supabase tabel + endpoint](/astro/supabase/)
 
 </Slide>
-````

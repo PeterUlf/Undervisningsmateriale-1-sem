@@ -108,6 +108,38 @@ console.log(listItems); // ["<li>Æbler</li>", "<li>Bananer</li>", "<li>Appelsin
 
 <Slide>
 
+## Øvelse 1: Basic .map()
+
+Lav et array med tal og brug `.map()` til at gange hvert tal med 3:
+
+```javascript
+const numbers = [5, 10, 15, 20];
+// Din kode her
+```
+
+**Forventet resultat:** `[15, 30, 45, 60]`
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Øvelse 2: .map() med strings
+
+Du har et array med by-navne. Brug `.map()` til at tilføje "By: " foran hvert navn:
+
+```javascript
+const cities = ["København", "Aarhus", "Odense"];
+// Din kode her
+```
+
+**Forventet resultat:** `["By: København", "By: Aarhus", "By: Odense"]`
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
 ## Hvad er .join()?
 
 `.join()` er en array-metode som **sætter alle elementer sammen** til én string.
@@ -174,6 +206,23 @@ pricesWithKr.join("\n"); // "kr: 10
 
 <Slide>
 
+## Øvelse 3: .join() praksis
+
+Tag dit resultat fra øvelse 2 og brug `.join()` til at lave en sætning:
+
+```javascript
+const cities = ["København", "Aarhus", "Odense"];
+const citiesWithPrefix = cities.map((city) => "By: " + city);
+// Brug .join() til at lave: "By: København, By: Aarhus, By: Odense"
+```
+
+**Hint:** Hvilken separator skal du bruge?
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
 ## .map() og .join() sammen
 
 Disse to metoder bruges ofte sammen i én linje:
@@ -189,6 +238,22 @@ console.log(sentence); // "ÆBLE - BANAN - PÆRE"
 
 1. `.map()` laver om: `["æble", "banan", "pære"]` → `["ÆBLE", "BANAN", "PÆRE"]`
 2. `.join(" - ")` sætter sammen: `["ÆBLE", "BANAN", "PÆRE"]` → `"ÆBLE - BANAN - PÆRE"`
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Øvelse 4: .map() og .join() sammen
+
+Lav en komplet løsning i én linje:
+
+```javascript
+const colors = ["rød", "grøn", "blå"];
+// Brug .map() til at sætte "Farve: " foran
+// Brug .join() til at sætte dem sammen med " | "
+// Forventet: "Farve: rød | Farve: grøn | Farve: blå"
+```
 
 </Slide>
 <div class="page-break"></div>
@@ -227,71 +292,6 @@ document.querySelector("#list").innerHTML = htmlList;
 
 <Slide>
 
-## Øvelse 1: Basic .map()
-
-Lav et array med tal og brug `.map()` til at gange hvert tal med 3:
-
-```javascript
-const numbers = [5, 10, 15, 20];
-// Din kode her
-```
-
-**Forventet resultat:** `[15, 30, 45, 60]`
-
-</Slide>
-<div class="page-break"></div>
-
-<Slide>
-
-## Øvelse 2: .map() med strings
-
-Du har et array med by-navne. Brug `.map()` til at tilføje "By: " foran hvert navn:
-
-```javascript
-const cities = ["København", "Aarhus", "Odense"];
-// Din kode her
-```
-
-**Forventet resultat:** `["By: København", "By: Aarhus", "By: Odense"]`
-
-</Slide>
-<div class="page-break"></div>
-
-<Slide>
-
-## Øvelse 3: .join() praksis
-
-Tag dit resultat fra øvelse 2 og brug `.join()` til at lave en sætning:
-
-```javascript
-const cities = ["København", "Aarhus", "Odense"];
-const citiesWithPrefix = cities.map((city) => "By: " + city);
-// Brug .join() til at lave: "By: København, By: Aarhus, By: Odense"
-```
-
-**Hint:** Hvilken separator skal du bruge?
-
-</Slide>
-<div class="page-break"></div>
-
-<Slide>
-
-## Øvelse 4: .map() og .join() sammen
-
-Lav en komplet løsning i én linje:
-
-```javascript
-const colors = ["rød", "grøn", "blå"];
-// Brug .map() til at sætte "Farve: " foran
-// Brug .join() til at sætte dem sammen med " | "
-// Forventet: "Farve: rød | Farve: grøn | Farve: blå"
-```
-
-</Slide>
-<div class="page-break"></div>
-
-<Slide>
-
 ## Øvelse 5: HTML-tags
 
 Lav `<p>` tags omkring hvert element:
@@ -302,6 +302,64 @@ const messages = ["Hej", "Goddag", "Hejsa"];
 // Sæt dem sammen uden separator
 // Forventet: "<p>Hej</p><p>Goddag</p><p>Hejsa</p>"
 ```
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Lille øvelse med `map()` i CodePen
+
+**Lav denne øvelse i CodePen:**
+
+1. Opret en tom container i HTML-panelet.
+2. Brug `map()` til at lave et nyt array med HTML for hver studerende.
+3. Sæt resultatet ind på siden med `join("")` og `innerHTML`.
+
+### HTML
+
+```html
+<section id="app"></section>
+```
+
+### JavaScript
+
+```javascript
+const students = [
+  { first_name: "Asta", last_name: "Jensen", class_name: "A" },
+  { first_name: "Malik", last_name: "Ali", class_name: "B" },
+  { first_name: "Sofie", last_name: "Hansen", class_name: "C" },
+];
+
+const app = document.querySelector("#app");
+
+const studentCards = students.map((student) => {
+  return `
+    <article>
+      <h2>...</h2>
+      <p>Klasse: ...</p>
+    </article>
+  `;
+});
+
+app.innerHTML = studentCards.join("");
+```
+
+### Diskuter med sidemanden
+
+- hvad er students (flertal) er
+- hvad er student (ental) er
+- hvad er forskellen fra at bruge forEach
+
+### Din opgave
+
+- indsæt studerendes fornavn og efternavn i `<h2>`
+- indsæt holdet i `<p>`
+- tjek at der kommer 3 `<article>`-kort på siden
+
+:::tip[Hint]
+I CodePen bliver resultatet fra `map()` et array med HTML-strenge. Derfor bruger vi `join("")`, før vi sætter det ind med `innerHTML`.
+:::
 
 </Slide>
 <div class="page-break"></div>
