@@ -45,18 +45,17 @@ const url = `${import.meta.env.SUPABASE_URL}/rest/v1/studerende?select=*`;
 const apiKey = import.meta.env.SUPABASE_PUBLISHABLE_KEY;
 
 const options = {
-  headers: {
-    apikey: apiKey,
-  },
+headers: {
+apikey: apiKey,
+},
 };
 
 const data = await fetch(url, options)
-  .then((res) => res.json());
+.then((res) => res.json());
 
-console.log(data);
----
+## console.log(data);
 
-```
+````
 
   </div>
 
@@ -99,7 +98,7 @@ Sørg derfor for, at `.env` står i `.gitignore`, inden du opretter filen.
 .DS_Store
 
 # HUSK at disse skal lægges til dem du har i forvejen
-```
+````
 
 ### Derefter: lav `.env`
 
@@ -184,13 +183,25 @@ Hvis `data` indeholder rækker fra tabellen `studerende`, så er `student` i beg
 
 I koden fra slide 4 sender vi hvert `student`-objekt videre til `Student`-komponenten.
 
+Det vigtige er, hvad metoderne giver tilbage:
+
+- `map()` **returnerer et nyt array**
+- `forEach()` **returnerer ikke noget, vi kan bruge direkte**
+
+Når vi skriver `<Student student={student} />` inde i `map()`, bliver hver komponent lagt ind i det nye array.
+Astro kan derefter vise arrayet direkte i HTML'en.
+
 <div class="columns-2">
   <div>
 
     <h3><code>.map()</code></h3>
 
-```astro
-{data.map((student) => <Student student={student} />)}
+```js
+const studentNames = data.map((student) => {
+  return student.navn;
+});
+
+console.log(studentNames);
 ```
 
   </div>
@@ -201,29 +212,55 @@ I koden fra slide 4 sender vi hvert `student`-objekt videre til `Student`-kompon
   <code>forEach()</code>
 </h3>
 
-```javascript
+```js
+const studentNames = [];
+
 data.forEach((student) => {
-  console.log(student.navn);
+  studentNames.push(student.navn);
 });
+
+console.log(studentNames);
 ```
 
   </div>
 </div>
 
-Forskellen er:
+Koden i de to bokse ender altså med det samme resultat:
 
-- `forEach()` bruges når du vil **gøre noget** for hvert element
-- `map()` bruges når du vil **lave et nyt array** ud fra hvert element
+```js
+["Amina", "Jonas", "Sofia"];
+```
+
+Forskellen er vejen derhen:
+
+- `map()` bygger og returnerer det nye array for os
+- `forEach()` kører bare koden for hvert element, så vi skal selv lave arrayet og bruge `.push()`
 
 I Astro vil vi gerne ende med en samling af komponenter, som kan sættes direkte ind i templaten.
 
 ### Derfor bruger vi `map()` her:
 
-- den returnerer et nyt array
+- den returnerer et nyt array direkte
 - hvert element i det nye array kan være en `<Student />`-komponent
 - Astro kan vise det direkte i HTML
 
-`forEach()` er altså ikke forkert. Den er bare mindre praktisk, når målet er at **render** komponenter direkte.
+I Astro skifter vi bare `student.navn` ud med en komponent:
+
+```astro
+{data.map((student) => {
+  return <Student student={student} />;
+})}
+```
+
+Derfor kan den korte Astro-version skrives sådan:
+
+```astro
+{data.map((student) => <Student student={student} />)}
+```
+
+Pilen `=>` returnerer komponenten direkte her. Det er samme idé som at skrive `return <Student student={student} />;` inde i en `{ ... }`-blok.
+
+`forEach()` er altså ikke forkert. Den er bare mindre praktisk, når målet er at **rendere** komponenter direkte.
 
 </Slide>
 <div class="page-break"></div>
@@ -302,13 +339,24 @@ Hvis du bare åbner endpointet direkte i browseren uden `apikey`, får du typisk
 :::tip[Kun til testformål]
 Vil du se rå JSON i selve browserfanen, kan du lave en hurtig test sådan:
 
-<p style="white-space: nowrap; overflow-x: auto;"><code>https://<span style="color: #15803d; font-weight: 700;">din-projekt-ref</span>.supabase.co/rest/v1/<span style="color: #15803d; font-weight: 700;">din-tabel</span>?select=*&amp;apikey=<span style="color: #15803d; font-weight: 700;">din-publishable-key</span></code></p>
-
+<p style="white-space: nowrap; overflow-x: auto;">
+  <code>
+    https://
+    <span style="color: #15803d; font-weight: 700;">din-projekt-ref</span>
+    .supabase.co/rest/v1/
+    <span style="color: #15803d; font-weight: 700;">din-tabel</span>
+    ?select=*&amp;apikey=
+    <span style="color: #15803d; font-weight: 700;">din-publishable-key</span>
+  </code>
+</p>
 Her finder du oplysningerne i Supabase under dit projekt:
 
-- <code style="color: #15803d; font-weight: 700;">din-projekt-ref</code>: `Project Settings → Data API → API URL`
-- <code style="color: #15803d; font-weight: 700;">din-tabel</code>: `Table Editor → vælg din tabel` og brug tabellens navn
-- <code style="color: #15803d; font-weight: 700;">din-publishable-key</code>: `Project Settings → API Keys → Publishable Key`
+- <code style="color: #15803d; font-weight: 700;">din-projekt-ref</code>:
+  `Project Settings → Data API → API URL`
+- <code style="color: #15803d; font-weight: 700;">din-tabel</code>: `Table
+  Editor → vælg din tabel` og brug tabellens navn
+- <code style="color: #15803d; font-weight: 700;">din-publishable-key</code>:
+  `Project Settings → API Keys → Publishable Key`
 
 :::
 
