@@ -688,7 +688,7 @@ body td {
 
 .a4-puzzle__grid {
   display: grid;
-  grid-template-columns: minmax(17rem, 1.15fr) minmax(14rem, 0.85fr);
+  grid-template-columns: 2.5rem minmax(17rem, 1.15fr) minmax(14rem, 0.85fr);
   gap: 0.28rem;
   align-items: stretch;
 }
@@ -704,6 +704,15 @@ body td {
 }
 
 .a4-puzzle__piece--code {
+  background-color: var(--sl-color-gray-6);
+}
+
+.a4-puzzle__piece--number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  text-align: center;
   background-color: var(--sl-color-gray-6);
 }
 
@@ -771,7 +780,7 @@ body td {
   }
 
   .a4-puzzle__grid {
-    grid-template-columns: 1.15fr 0.85fr;
+    grid-template-columns: 7mm 1.15fr 0.85fr;
     gap: 2.5pt;
   }
 
@@ -779,6 +788,19 @@ body td {
     padding: 2pt 3pt;
     border-radius: 2pt;
     line-height: 1.08;
+  }
+
+  .a4-puzzle__piece--code {
+    background-color: #e5e7eb !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .a4-puzzle__piece--number {
+    background-color: #e5e7eb !important;
+    font-size: 7pt;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
 
   .a4-puzzle__piece--code pre {

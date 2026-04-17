@@ -143,91 +143,26 @@ Kort anbefaling:
 
 <Slide>
 
-## 3) Find den rette Supabase endpoint
+## Test endpointet i browserkonsollen
 
-REST-endpointet for en tabel ser sådan ud:
+Det er vigtigt at kunne se JSON i konsollen før I bygger UI.
 
-```text
-<Project URL>/rest/v1/<tabelnavn>
+```js
+const studentsURL =
+  "https://din-projekt-ref.supabase.co/rest/v1/students?select=id,first_name,last_name,class_name";
+const apiKey = "din-publishable-key";
+
+fetch(studentsURL, {
+  headers: {
+    apikey: apiKey,
+  },
+})
+  .then((res) => res.json())
+  .then((data) => console.log("Students JSON:", data))
+  .catch((error) => console.error("Fejl:", error));
 ```
 
-Find værdierne i Supabase:
-
-- **Project URL**: `Settings → API → Project URL`
-- **Publishable Key**: `Connect → API Keys → Publishable Key`
-
-`Anon Key (legacy)` er den gamle nøgletype. I nyt undervisningsmateriale er det bedre at lære de studerende at bruge **Publishable Key** først.
-
-Eksempel:
-
-- `https://abcdefgh.supabase.co/rest/v1/students`
-
-For at vælge felter og sortere:
-
-- `.../rest/v1/students?select=id,first_name,last_name,class_name&order=first_name.asc`
-
-</Slide>
-<div class="page-break"></div>
-
-<Slide>
-
-## Endpoint
-
-### direkte i browseren, giver en fejl der minder om dette:
-
-```json
-{
-  "message": "No API key found in request",
-  "hint": "No `apikey` request header or url param was found."
-}
-```
-
-### Det betyder:
-
-- du har fundet den rigtige URL
-- men Supabase vil ikke vise data uden en API-nøgle
-- browserens adresselinje sender ikke automatisk en `apikey` header
-
-</Slide>
-<div class="page-break"></div>
-
-<Slide>
-
-## Endpoint
-
-### for at se data skal du
-
-1.  Brug `fetch()` og send `apikey` i headers
-
-<div style="margin-top: 1.5rem;"></div>
-
-### Eller hvis du bare lige skal teste direkte i browseren:
-
-Hvis du vil ha lov at se din JSON-data direkte skal du derfor gøre én af disse ting:
-
-1. Giv tabellen en en `SELECT`-policy fordi RLS er slået til
-2. Læg `apikey` ind som URL-parameter
-
-Eksempel til hurtig test i browseren:
-
-```text
-https://din-projekt-ref.supabase.co/rest/v1/students?select=*&apikey=din-publishable-key
-```
-
-Når RLS er slået til, er det vigtigt at tabellen også har en `SELECT`-policy. Ellers får du stadig ikke adgang til rækkerne.
-
-</Slide>
-<div class="page-break"></div>
-
-<Slide>
-
-## 4) Brug altid headers
-
-Når du laver en enkel `fetch()` til Supabase Data API, skal du starte med:
-
-- `apikey: <SUPABASE_PUBLISHABLE_KEY>`
-
-Hvis du ikke sender den, svarer Supabase med:
+Hvis du bare åbner endpointet direkte i browseren uden `apikey`, får du typisk:
 
 ```json
 {
@@ -235,24 +170,39 @@ Hvis du ikke sender den, svarer Supabase med:
 }
 ```
 
-Hvis I senere logger brugere ind med Supabase Auth, kan `Authorization` i stedet være brugerens access token.
+:::tip[Kun til testformål]
+Vil du se rå JSON i selve browserfanen, kan du lave en hurtig test sådan:
 
-Vigtigt:
+<div style="max-width: 100%; overflow-x: auto; white-space: nowrap;">
+  <code style="white-space: nowrap; word-break: normal; overflow-wrap: normal;">
+    https://
+    <span style="color: #15803d; font-weight: 700;">din-projekt-ref</span>
+    .supabase.co/rest/v1/
+    <span style="color: #15803d; font-weight: 700;">din-tabel</span>
+    ?select=*&amp;apikey=
+    <span style="color: #15803d; font-weight: 700;">din-publishable-key</span>
+  </code>
+</div>
+Her finder du oplysningerne i Supabase under dit projekt:
 
-- brug **ikke** `Publishable Key` som `Bearer` token
-- tænkt sådan:
-  - `apikey` svarer på: **hvilket projekt vil du hente data fra?**
-  - `Authorization: Bearer ...` svarer på: **hvem er brugeren, der er logget ind?**
-- `Publishable Key` er altså til projektet, ikke til en bruger-session
-- `Anon Key (legacy)` er den ældre nøgle, som mange gamle eksempler stadig viser
-- hvis RLS er aktiveret, skal der stadig være policyer, der tillader læsning
+- <code style="color: #15803d; font-weight: 700;">din-projekt-ref</code>:
+  `Project Settings → Data API → API URL`
+- <code style="color: #15803d; font-weight: 700;">din-tabel</code>: `Table
+  Editor → vælg din tabel` og brug tabellens navn
+- <code style="color: #15803d; font-weight: 700;">din-publishable-key</code>:
+  `Project Settings → API Keys → Publishable Key`
+
+:::
+
+I rigtig kode bør du stadig bruge `fetch()` med headers.
+
+Hvis tabellen bruger RLS, skal du også have en `SELECT`-policy, ellers bliver rækkerne ikke vist.
 
 </Slide>
 <div class="page-break"></div>
-
 <Slide>
 
-## 4b) Lav en `SELECT`-policy
+## 4 Lav en `SELECT`-policy
 
 Hvis RLS er slået til, er data ikke automatisk synlige.
 

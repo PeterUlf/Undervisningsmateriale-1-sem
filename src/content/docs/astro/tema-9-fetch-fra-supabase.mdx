@@ -27,6 +27,65 @@ Nu henter vi data fra Supabase i stedet for en åben test-API.
 
 </Slide>
 <div class="page-break"></div>
+<Slide>
+
+## Test endpointet i browserkonsollen
+
+Det er vigtigt at kunne se JSON i konsollen før I bygger UI.
+
+```js
+const studentsURL =
+  "https://din-projekt-ref.supabase.co/rest/v1/students?select=id,first_name,last_name,class_name";
+const apiKey = "din-publishable-key";
+
+fetch(studentsURL, {
+  headers: {
+    apikey: apiKey,
+  },
+})
+  .then((res) => res.json())
+  .then((data) => console.log("Students JSON:", data))
+  .catch((error) => console.error("Fejl:", error));
+```
+
+Hvis du bare åbner endpointet direkte i browseren uden `apikey`, får du typisk:
+
+```json
+{
+  "message": "No API key found in request"
+}
+```
+
+:::tip[Kun til testformål]
+Vil du se rå JSON i selve browserfanen, kan du lave en hurtig test sådan:
+
+<div style="max-width: 100%; overflow-x: auto; white-space: nowrap;">
+  <code style="white-space: nowrap; word-break: normal; overflow-wrap: normal;">
+    https://
+    <span style="color: #15803d; font-weight: 700;">din-projekt-ref</span>
+    .supabase.co/rest/v1/
+    <span style="color: #15803d; font-weight: 700;">din-tabel</span>
+    ?select=*&amp;apikey=
+    <span style="color: #15803d; font-weight: 700;">din-publishable-key</span>
+  </code>
+</div>
+Her finder du oplysningerne i Supabase under dit projekt:
+
+- <code style="color: #15803d; font-weight: 700;">din-projekt-ref</code>:
+  `Project Settings → Data API → API URL`
+- <code style="color: #15803d; font-weight: 700;">din-tabel</code>: `Table
+  Editor → vælg din tabel` og brug tabellens navn
+- <code style="color: #15803d; font-weight: 700;">din-publishable-key</code>:
+  `Project Settings → API Keys → Publishable Key`
+
+:::
+
+I rigtig kode bør du stadig bruge `fetch()` med headers.
+
+Hvis tabellen bruger RLS, skal du også have en `SELECT`-policy, ellers bliver rækkerne ikke vist.
+
+</Slide>
+<div class="page-break"></div>
 
 <Slide>
 
@@ -100,30 +159,27 @@ Sørg derfor for, at `.env` står i `.gitignore`, inden du opretter filen.
 # HUSK at disse skal lægges til dem du har i forvejen
 ````
 
-### Derefter: lav `.env`
-
-Gem Supabase-oplysninger i en fil der hedder `.env`
-(dvs. filnavnet starter med et punktum efterfulgt af `env`, på samme måde som `.gitignore`)
-
-.env
-
-```bash
-SUPABASE_URL=https://din-projekt-ref.supabase.co
-SUPABASE_PUBLISHABLE_KEY=din-publishable-key
-```
-
-- Læg filen i projektets rod (der hvor `package.json` også ligger)
-- `.env` må ikke komme med i Git/GitHub
-- Her bruger vi almindelige miljøvariabler, fordi hentningen sker i Astro frontmatter
-
 </Slide>
 <div class="page-break"></div>
 
 <Slide>
 
-## Derefter:
+## .env - her gemmes nøgle og database link
 
-### Koden samlet i Astro (forklares på de næste slides)
+Gem Supabase-oplysninger i en fil der hedder `.env`
+(dvs. filnavnet starter med et punktum efterfulgt af `env`, på samme måde som `.gitignore`)
+
+.env i roden af sitet
+
+```
+SUPABASE_URL=https://din-projekt-ref.supabase.co
+SUPABASE_PUBLISHABLE_KEY=din-publishable-key
+```
+
+- Læg filen i projektets rod (der hvor `package.json` også ligger)
+- HUSK!! .env må ikke komme med i Git/GitHub
+
+## Nu kan nøglen hentes ind hvor du skal bruge den
 
 src > pages > index.astro
 
@@ -156,6 +212,8 @@ console.log(data);
 </Layout>
 ```
 
+## Komponenten `Student`
+
 src > components > Student.astro
 
 ```astro
@@ -175,187 +233,27 @@ const { student } = Astro.props;
 
 <Slide>
 
-## Sammenhængen mellem `forEach()` og `map()`
+## Hvad sker der i `data.map(...)`?
 
-Begge metoder går igennem et array **én værdi ad gangen**.
-
-Hvis `data` indeholder rækker fra tabellen `studerende`, så er `student` i begge tilfælde ét objekt ad gangen.
-
-I koden fra slide 4 sender vi hvert `student`-objekt videre til `Student`-komponenten.
-
-Det vigtige er, hvad metoderne giver tilbage:
-
-- `map()` **returnerer et nyt array**
-- `forEach()` **returnerer ikke noget, vi kan bruge direkte**
-
-Når vi skriver `<Student student={student} />` inde i `map()`, bliver hver komponent lagt ind i det nye array.
-Astro kan derefter vise arrayet direkte i HTML'en.
-
-<div class="columns-2">
-  <div>
-
-    <h3><code>.map()</code></h3>
-
-```js
-const studentNames = data.map((student) => {
-  return student.navn;
-});
-
-console.log(studentNames);
-```
-
-  </div>
-
-  <div>
-
-<h3>
-  <code>forEach()</code>
-</h3>
-
-```js
-const studentNames = [];
-
-data.forEach((student) => {
-  studentNames.push(student.navn);
-});
-
-console.log(studentNames);
-```
-
-  </div>
-</div>
-
-Koden i de to bokse ender altså med det samme resultat:
-
-```js
-["Amina", "Jonas", "Sofia"];
-```
-
-Forskellen er vejen derhen:
-
-- `map()` bygger og returnerer det nye array for os
-- `forEach()` kører bare koden for hvert element, så vi skal selv lave arrayet og bruge `.push()`
-
-I Astro vil vi gerne ende med en samling af komponenter, som kan sættes direkte ind i templaten.
-
-### Derfor bruger vi `map()` her:
-
-- den returnerer et nyt array direkte
-- hvert element i det nye array kan være en `<Student />`-komponent
-- Astro kan vise det direkte i HTML
-
-I Astro skifter vi bare `student.navn` ud med en komponent:
-
-```astro
-{data.map((student) => {
-  return <Student student={student} />;
-})}
-```
-
-Derfor kan den korte Astro-version skrives sådan:
+Linjen laver én `Student`-komponent for hver række i `data`.
 
 ```astro
 {data.map((student) => <Student student={student} />)}
 ```
 
-Pilen `=>` returnerer komponenten direkte her. Det er samme idé som at skrive `return <Student student={student} />;` inde i en `{ ... }`-blok.
+### Del for del
 
-`forEach()` er altså ikke forkert. Den er bare mindre praktisk, når målet er at **rendere** komponenter direkte.
+- `data` er arrayet fra Supabase
+- `.map(...)` går igennem arrayet én række ad gangen
+- `student` er navnet på den aktuelle række
+- `<Student />` er komponenten, der skal vises
+- `student={student}` sender rækken ind i komponenten som en prop
 
-</Slide>
-<div class="page-break"></div>
-
-<Slide>
-
-## Hvordan viser Astro data i HTML?
-
-Vi laver en komponent til at vise hver studerende:
-
-`StudentCard.astro`
+I `Student.astro` kan komponenten derfor hente én studerende med:
 
 ```astro
----
 const { student } = Astro.props;
----
-
-<article>
-  <h2>{student.first_name} {student.last_name}</h2>
-  <p>Klasse: {student.class_name}</p>
-</article>
 ```
-
-Så bruger vi komponenten i vores side:
-
-```astro
----
-import StudentCard from "../components/StudentCard.astro";
-// ... fetch-kode her
----
-
-<Layout>
-  <h1>Studerende</h1>
-  {data.map((student) => <StudentCard student={student} />)}
-</Layout>
-```
-
-- `data` er arrayet med rækker fra tabellen `students`
-- `data.map(...)` går igennem én række ad gangen
-- `student` er ét objekt ad gangen
-- `StudentCard` modtager `student` via `Astro.props`
-- Astro bygger HTML'en, før siden bliver sendt til browseren
-
-</Slide>
-<div class="page-break"></div>
-
-<Slide>
-
-## Test endpointet i browserkonsollen
-
-Det er vigtigt at kunne se JSON i konsollen før I bygger UI.
-
-```js
-const studentsURL =
-  "https://din-projekt-ref.supabase.co/rest/v1/students?select=id,first_name,last_name,class_name";
-const apiKey = "din-publishable-key";
-
-fetch(studentsURL, {
-  headers: {
-    apikey: apiKey,
-  },
-})
-  .then((res) => res.json())
-  .then((data) => console.log("Students JSON:", data))
-  .catch((error) => console.error("Fejl:", error));
-```
-
-Hvis du bare åbner endpointet direkte i browseren uden `apikey`, får du typisk:
-
-```json
-{
-  "message": "No API key found in request"
-}
-```
-
-:::tip[Kun til testformål]
-Vil du se rå JSON i selve browserfanen, kan du lave en hurtig test sådan:
-
-<div style="max-width: 100%; overflow-x: auto; white-space: nowrap;">
-  <code style="white-space: nowrap; word-break: normal; overflow-wrap: normal;">https://<span style="color: #15803d; font-weight: 700;">din-projekt-ref</span>.supabase.co/rest/v1/<span style="color: #15803d; font-weight: 700;">din-tabel</span>?select=*&amp;apikey=<span style="color: #15803d; font-weight: 700;">din-publishable-key</span></code>
-</div>
-Her finder du oplysningerne i Supabase under dit projekt:
-
-- <code style="color: #15803d; font-weight: 700;">din-projekt-ref</code>:
-  `Project Settings → Data API → API URL`
-- <code style="color: #15803d; font-weight: 700;">din-tabel</code>: `Table
-  Editor → vælg din tabel` og brug tabellens navn
-- <code style="color: #15803d; font-weight: 700;">din-publishable-key</code>:
-  `Project Settings → API Keys → Publishable Key`
-
-:::
-
-I rigtig kode bør du stadig bruge `fetch()` med headers.
-
-Hvis tabellen bruger RLS, skal du også have en `SELECT`-policy, ellers bliver rækkerne ikke vist.
 
 </Slide>
 <div class="page-break"></div>
@@ -378,84 +276,111 @@ Hvis tabellen bruger RLS, skal du også have en `SELECT`-policy, ellers bliver r
   </div>
 
   <div class="a4-puzzle__grid">
+    <div class="a4-puzzle__piece a4-puzzle__piece--number">1</div>
     <div class="a4-puzzle__piece a4-puzzle__piece--code"><pre>{'---'}</pre></div>
     <div class="a4-puzzle__piece a4-puzzle__piece--comment">Start på Astro frontmatter: kode der kører på serveren.</div>
 
+    <div class="a4-puzzle__piece a4-puzzle__piece--number">2</div>
     <div class="a4-puzzle__piece a4-puzzle__piece--code"><pre>{'//@ts-nocheck'}</pre></div>
     <div class="a4-puzzle__piece a4-puzzle__piece--comment">Slår TypeScript-tjek fra for denne fil.</div>
 
+    <div class="a4-puzzle__piece a4-puzzle__piece--number">3</div>
     <div class="a4-puzzle__piece a4-puzzle__piece--code"><pre>{'import Layout from "../layouts/Layout.astro";'}</pre></div>
     <div class="a4-puzzle__piece a4-puzzle__piece--comment">Importerer Layout-komponenten.</div>
 
+    <div class="a4-puzzle__piece a4-puzzle__piece--number">4</div>
     <div class="a4-puzzle__piece a4-puzzle__piece--code"><pre>{'import Student from "../components/Student.astro";'}</pre></div>
     <div class="a4-puzzle__piece a4-puzzle__piece--comment">Importerer Student-komponenten, som viser én studerende.</div>
 
+    <div class="a4-puzzle__piece a4-puzzle__piece--number">5</div>
     <div class="a4-puzzle__piece a4-puzzle__piece--code"><pre>{'const url =`${import.meta.env.SUPABASE_URL}/rest/v1/studerende?select=*`;'}</pre></div>
     <div class="a4-puzzle__piece a4-puzzle__piece--comment">Bygger URL'en til Supabase-tabellen <code>studerende</code>.</div>
 
+    <div class="a4-puzzle__piece a4-puzzle__piece--number">6</div>
     <div class="a4-puzzle__piece a4-puzzle__piece--code"><pre>{'const apiKey = import.meta.env.SUPABASE_PUBLISHABLE_KEY;'}</pre></div>
     <div class="a4-puzzle__piece a4-puzzle__piece--comment">Henter Supabase API-nøglen fra miljøvariabler.</div>
 
+    <div class="a4-puzzle__piece a4-puzzle__piece--number">7</div>
     <div class="a4-puzzle__piece a4-puzzle__piece--code"><pre>{'const options = {'}</pre></div>
     <div class="a4-puzzle__piece a4-puzzle__piece--comment">Starter et options-objekt til fetch-kaldet.</div>
 
+    <div class="a4-puzzle__piece a4-puzzle__piece--number">8</div>
     <div class="a4-puzzle__piece a4-puzzle__piece--code"><pre>{'  headers: {'}</pre></div>
     <div class="a4-puzzle__piece a4-puzzle__piece--comment">Definerer headers der sendes med requesten.</div>
 
+    <div class="a4-puzzle__piece a4-puzzle__piece--number">9</div>
     <div class="a4-puzzle__piece a4-puzzle__piece--code"><pre>{'    apikey: apiKey,'}</pre></div>
     <div class="a4-puzzle__piece a4-puzzle__piece--comment">Sender API-nøglen med i headeren.</div>
 
+    <div class="a4-puzzle__piece a4-puzzle__piece--number">10</div>
     <div class="a4-puzzle__piece a4-puzzle__piece--code"><pre>{'  },'}</pre></div>
     <div class="a4-puzzle__piece a4-puzzle__piece--comment">Afslutter headers-objektet.</div>
 
+    <div class="a4-puzzle__piece a4-puzzle__piece--number">11</div>
     <div class="a4-puzzle__piece a4-puzzle__piece--code"><pre>{'};'}</pre></div>
     <div class="a4-puzzle__piece a4-puzzle__piece--comment">Afslutter options-objektet.</div>
 
+    <div class="a4-puzzle__piece a4-puzzle__piece--number">12</div>
     <div class="a4-puzzle__piece a4-puzzle__piece--code"><pre>{'const data = await fetch(url, options)'}</pre></div>
     <div class="a4-puzzle__piece a4-puzzle__piece--comment">Starter fetch-kaldet og venter på svaret.</div>
 
+    <div class="a4-puzzle__piece a4-puzzle__piece--number">13</div>
     <div class="a4-puzzle__piece a4-puzzle__piece--code"><pre>{'  .then((res) => res.json());'}</pre></div>
     <div class="a4-puzzle__piece a4-puzzle__piece--comment">Laver svaret om fra JSON til JavaScript-data.</div>
 
+    <div class="a4-puzzle__piece a4-puzzle__piece--number">14</div>
     <div class="a4-puzzle__piece a4-puzzle__piece--code"><pre>{'console.log(data);'}</pre></div>
     <div class="a4-puzzle__piece a4-puzzle__piece--comment">Udskriver data til konsollen.</div>
 
+    <div class="a4-puzzle__piece a4-puzzle__piece--number">15</div>
     <div class="a4-puzzle__piece a4-puzzle__piece--code"><pre>{'---'}</pre></div>
     <div class="a4-puzzle__piece a4-puzzle__piece--comment">Afslutter frontmatter, så HTML-delen kan begynde.</div>
 
+    <div class="a4-puzzle__piece a4-puzzle__piece--number">16</div>
     <div class="a4-puzzle__piece a4-puzzle__piece--code"><pre>{'<Layout>'}</pre></div>
     <div class="a4-puzzle__piece a4-puzzle__piece--comment">Starter Layout-komponenten der wrapper siden.</div>
 
+    <div class="a4-puzzle__piece a4-puzzle__piece--number">17</div>
     <div class="a4-puzzle__piece a4-puzzle__piece--code"><pre>{'  <h1>Studerende</h1>'}</pre></div>
     <div class="a4-puzzle__piece a4-puzzle__piece--comment">Viser overskriften <code>Studerende</code>.</div>
 
+    <div class="a4-puzzle__piece a4-puzzle__piece--number">18</div>
     <div class="a4-puzzle__piece a4-puzzle__piece--code"><pre>{'  {data.map((student) => <Student student={student} />)}'}</pre></div>
     <div class="a4-puzzle__piece a4-puzzle__piece--comment">Går igennem data-arrayet og sender hver studerende videre til Student-komponenten.</div>
 
+    <div class="a4-puzzle__piece a4-puzzle__piece--number">19</div>
     <div class="a4-puzzle__piece a4-puzzle__piece--code"><pre>{'</Layout>'}</pre></div>
     <div class="a4-puzzle__piece a4-puzzle__piece--comment">Afslutter Layout-komponenten.</div>
 
+    <div class="a4-puzzle__piece a4-puzzle__piece--number">20</div>
     <div class="a4-puzzle__piece a4-puzzle__piece--code"><pre>{'---'}</pre></div>
     <div class="a4-puzzle__piece a4-puzzle__piece--comment">Starter frontmatter i <code>Student.astro</code>.</div>
 
+    <div class="a4-puzzle__piece a4-puzzle__piece--number">21</div>
     <div class="a4-puzzle__piece a4-puzzle__piece--code"><pre>{'//@ts-nocheck'}</pre></div>
     <div class="a4-puzzle__piece a4-puzzle__piece--comment">Slår TypeScript-tjek fra for komponent-filen.</div>
 
+    <div class="a4-puzzle__piece a4-puzzle__piece--number">22</div>
     <div class="a4-puzzle__piece a4-puzzle__piece--code"><pre>{'const { student } = Astro.props;'}</pre></div>
     <div class="a4-puzzle__piece a4-puzzle__piece--comment">Henter den studerende, som blev sendt ind som prop.</div>
 
+    <div class="a4-puzzle__piece a4-puzzle__piece--number">23</div>
     <div class="a4-puzzle__piece a4-puzzle__piece--code"><pre>{'---'}</pre></div>
     <div class="a4-puzzle__piece a4-puzzle__piece--comment">Afslutter komponentens frontmatter, så HTML-delen kan begynde.</div>
 
+    <div class="a4-puzzle__piece a4-puzzle__piece--number">24</div>
     <div class="a4-puzzle__piece a4-puzzle__piece--code"><pre>{'<article>'}</pre></div>
     <div class="a4-puzzle__piece a4-puzzle__piece--comment">Starter et article-element for én studerende.</div>
 
+    <div class="a4-puzzle__piece a4-puzzle__piece--number">25</div>
     <div class="a4-puzzle__piece a4-puzzle__piece--code"><pre>{'  <h2>{student.navn}</h2>'}</pre></div>
     <div class="a4-puzzle__piece a4-puzzle__piece--comment">Viser den studerendes navn.</div>
 
+    <div class="a4-puzzle__piece a4-puzzle__piece--number">26</div>
     <div class="a4-puzzle__piece a4-puzzle__piece--code"><pre>{'  <p>Klasse: {student.hold}</p>'}</pre></div>
     <div class="a4-puzzle__piece a4-puzzle__piece--comment">Viser den studerendes hold.</div>
 
+    <div class="a4-puzzle__piece a4-puzzle__piece--number">27</div>
     <div class="a4-puzzle__piece a4-puzzle__piece--code"><pre>{'</article>'}</pre></div>
     <div class="a4-puzzle__piece a4-puzzle__piece--comment">Afslutter article-elementet.</div>
 
