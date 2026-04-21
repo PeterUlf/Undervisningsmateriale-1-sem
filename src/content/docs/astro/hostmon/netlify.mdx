@@ -1,0 +1,98 @@
+---
+title: "Hostmon – Netlify"
+description: "Sådan sætter du miljøvariabler til Hostmon på Netlify."
+sidebar:
+  label: "Netlify"
+  order: 6.13
+  badge:
+    text: Tema 9
+    variant: tip
+    class: badge-theme-9
+---
+
+import Slide from "../../../../components/Slide.astro";
+
+<Slide>
+
+## Netlify
+
+Når du deployer `hostmon` på Netlify, læser Netlify ikke bare din lokale `.env` fil automatisk under builden.
+
+Du skal derfor lægge værdierne ind i Netlify, så de findes i build-miljøet.
+
+I `hostmon` bruger du fx:
+
+```env
+SUPABASE_URL=https://dit-projekt.supabase.co
+SUPABASE_PUBLISHABLE_KEY=din-noegle
+```
+
+De variabelnavne skal være stavet helt ens i:
+
+- din lokale `.env`
+- Netlify
+- din kode med `import.meta.env.SUPABASE_URL`
+- din kode med `import.meta.env.SUPABASE_PUBLISHABLE_KEY`
+
+Officiel dokumentation:
+[Netlify Docs – Get started with environment variables](https://docs.netlify.com/build/environment-variables/get-started/)
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Sådan gør du
+
+På Netlify gør du sådan:
+
+1. Åbn dit site i Netlify.
+2. Gå til `Project configuration > Environment variables`.
+3. Vælg enten:
+   `Add a variable` hvis du vil oprette dem én for én.
+4. Eller vælg:
+   `Add a variable > Import from a .env file` hvis du vil indsætte hele indholdet fra din `.env`.
+5. Indsæt fx:
+
+```env
+SUPABASE_URL=https://dit-projekt.supabase.co
+SUPABASE_PUBLISHABLE_KEY=din-noegle
+```
+
+6. Hvis Netlify spørger om scope, skal variablerne være tilgængelige for `Builds`.
+7. Gem ændringerne.
+8. Lav en ny deploy, så værdierne kommer med i builden.
+
+Vigtigt:
+
+- ændringer i environment variables virker først efter en ny build/deploy
+- lad være med at committe hemmelige værdier til Git
+- i dette Hostmon-eksempel bliver værdierne brugt i Astro frontmatter under build, så de behøver ikke `PUBLIC_`-prefix
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Hvorfor virker det?
+
+I `hostmon` bliver variablerne brugt her:
+
+```astro
+const url = `${import.meta.env.SUPABASE_URL}/rest/v1/kunstnere?select=*`;
+const apiKey = import.meta.env.SUPABASE_PUBLISHABLE_KEY;
+```
+
+Det betyder:
+
+- Netlify skal kende værdierne allerede under builden
+- Astro bruger værdierne til at hente data fra Supabase
+- hvis variablerne mangler på Netlify, kan builden eller datahentningen fejle
+
+Hvis noget ikke virker, så tjek først:
+
+- er variabelnavnet stavet korrekt?
+- ligger værdien i `Project configuration > Environment variables`?
+- har du lavet en ny deploy efter ændringen?
+
+</Slide>

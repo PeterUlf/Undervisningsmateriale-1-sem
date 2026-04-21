@@ -262,6 +262,7 @@ export default defineConfig({
                     "astro/hostmon/tema-9-data-attributter-og-dataset",
                     "astro/hostmon/tema-9-sortering-pa-siden",
                     "astro/hostmon/tema-9-filtrering-pa-siden",
+                    "astro/hostmon/netlify",
                   ],
                 },
               ],
