@@ -1,0 +1,219 @@
+---
+title: "Tema 9 – Filtrering på siden"
+description: "Filtrer allerede viste Supabase-data i browseren med data-attributter, knapper og en hidden-klasse."
+sidebar:
+  label: "Filtrering på siden"
+  order: 6.12
+  badge:
+    text: Tema 9
+    variant: tip
+    class: badge-theme-9
+---
+
+import Slide from "../../../../components/Slide.astro";
+
+<Slide>
+
+## Filtrering på siden
+
+Her henter Astro alle bands og renderer listen som HTML.
+
+Hvert band får en `data-day` attribut, så JavaScript bagefter kan skjule eller vise de HTML-elementer, der allerede ligger på siden.
+
+Eksemplet her matcher siden i `hostmon` og bruger tabellen `kunstnere`
+med felterne `navn`, `spilledag` og `spilletidspunkt`:
+
+```astro
+---
+//@ts-nocheck
+
+const url = `${import.meta.env.SUPABASE_URL}/rest/v1/kunstnere?select=*`; // URL til Supabase API med kunstnere tabellen
+const apiKey = import.meta.env.SUPABASE_PUBLISHABLE_KEY; // API nøgle til autentificering
+
+const bands = await fetch(url, { // Henter alle bands fra databasen
+  headers: {
+    apikey: apiKey, // Sender API nøgle med i headeren
+  },
+}).then((res) => res.json()); // Konverterer response til JSON
+---
+
+<html lang="da">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Filtrering</title>
+  </head>
+  <body>
+    <main>
+      <nav>
+        <a href="/">Forside</a>
+        <a href="/samlet">Samlet</a>
+        <a href="/filtrering">Filtrering</a>
+        <a href="/sortering">Sortering</a>
+      </nav>
+
+      <h1>Filtrering</h1>
+      <p>Her kan du kun filtrere bands efter spilledag.</p>
+
+      <div id="filter-controls"> <!-- Kontrolpanel til filtrering -->
+        <button type="button" data-filter-day="all">Alle bands</button> <!-- Vis alle bands -->
+        <button type="button" data-filter-day="fredag">Fredag</button> <!-- Filtrer kun fredagens bands -->
+        <button type="button" data-filter-day="lørdag">Lørdag</button> <!-- Filtrer kun lørdagens bands -->
+      </div>
+
+      <section id="band-list" aria-live="polite"> <!-- Liste over alle bands med tilgængelighed -->
+        {bands.map((band) => ( // Løber igennem alle bands og opretter kort
+          <article
+            data-band // Markerer elementet som et band-kort
+            data-day={band.spilledag} // Gemmer spilledag til filtrering (læses i JS som dataset.day)
+          >
+            <h2>{band.navn}</h2>
+            <p>{band.spilledag} kl. {band.spilletidspunkt}</p>
+          </article>
+        ))}
+      </section>
+    </main>
+  </body>
+</html>
+
+<script>
+  //@ts-nocheck
+  const filterButtons = document.querySelectorAll("[data-filter-day]"); // Finder alle filter knapper
+  const cards = document.querySelectorAll("[data-band]"); // Finder alle band kort
+
+  filterButtons.forEach((button) => { // Tilføjer click event til hver filter knap
+    button.addEventListener("click", () => {
+      const selectedDay = button.dataset.filterDay; // Henter værdien fra data-filter-day attributten fra den knap brugeren klikkede på
+
+      cards.forEach((card) => { // Løber igennem alle kort et af gangen
+        const shouldShow = // shouldShow bliver enten sand eller falsk ud fra betingelserne nedenunder
+
+          // Næste linje tjekker to betingelser med OR (||):
+          // Første betingelse (selectedDay === "all") er sand hvis brugeren har valgt "Alle bands" knappen.
+          // Anden betingelse (card.dataset.day === selectedDay) sammenligner kortets spilledag med den valgte dag.
+          // Hvis mindst én af de to betingelser er opfyldt, bliver shouldShow sat til true, og kortet vil blive vist.
+          selectedDay === "all" || card.dataset.day === selectedDay;
+
+        card.classList.toggle("hidden", !shouldShow); // Tilføjer hidden når kortet ikke skal vises
+      });
+    });
+  });
+</script>
+
+<style>
+  :root {
+    font-family: Arial, sans-serif;
+  }
+
+  body {
+    margin: 0;
+    padding: 2rem 1rem 4rem;
+    background: #f7f7f7;
+    color: #111;
+  }
+
+  main {
+    max-width: 60rem;
+    margin: 0 auto;
+  }
+
+  nav {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+  }
+
+  nav a {
+    color: #111;
+  }
+
+  #filter-controls {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin: 1.5rem 0;
+  }
+
+  button {
+    padding: 0.75rem 1rem;
+    border: 1px solid #111;
+    background: #fff;
+    cursor: pointer;
+  }
+
+  #band-list {
+    display: grid;
+    gap: 1rem;
+  }
+
+  article {
+    padding: 1rem;
+    border: 1px solid #d7d7d7;
+    background: #fff;
+  }
+
+  .hidden {
+    display: none; /* Skjuler elementer med hidden klassen */
+  }
+ </style>
+```
+
+Pointen:
+
+- Astro henter data fra `kunstnere` og laver HTML-listen først
+- hvert `<article>` får `data-day={band.spilledag}`, så JavaScript kan læse dagen senere
+- knapperne har `data-filter-day`, så de fortæller hvilket filter der er valgt
+- JavaScript tilføjer eller fjerner klassen `.hidden` i stedet for at hente data igen
+- CSS-klassen `.hidden { display: none; }` er det, der faktisk skjuler kortene
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Filtrering: hvad sker der?
+
+Først finder vi filterknapperne og band-kortene:
+
+```js
+const filterButtons = document.querySelectorAll("[data-filter-day]");
+const cards = document.querySelectorAll("[data-band]");
+```
+
+Når brugeren klikker, læser vi knappens værdi:
+
+```js
+const selectedDay = button.dataset.filterDay;
+```
+
+Så går vi igennem alle band-kort og undersøger,
+om kortet skal vises eller skjules:
+
+```js
+cards.forEach((card) => {
+  const shouldShow =
+    selectedDay === "all" || card.dataset.day === selectedDay;
+
+  card.classList.toggle("hidden", !shouldShow);
+});
+```
+
+Det betyder:
+
+- hvis brugeren vælger `Alle bands`, bliver alle kort vist
+- hvis brugeren vælger `fredag`, vises kun kort med `data-day="fredag"`
+- `classList.toggle("hidden", true)` skjuler kortet
+- `classList.toggle("hidden", false)` viser kortet igen
+
+:::tip[Husk at værdierne skal passe sammen]
+Hvis jeres data indeholder `Fredag`, men knappen hedder `fredag`,
+så matcher filteret ikke.
+
+Værdierne i databasen og i `data-filter-day` skal derfor være skrevet ens.
+:::
+
+</Slide>

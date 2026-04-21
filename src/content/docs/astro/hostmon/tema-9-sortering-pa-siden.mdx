@@ -1,0 +1,273 @@
+---
+title: "Tema 9 – Sortering på siden"
+description: "Sorter allerede viste Supabase-data i browseren med data-attributter, knapper og en enkel sorteringsfunktion."
+sidebar:
+  label: "Sortering på siden"
+  order: 6.11
+  badge:
+    text: Tema 9
+    variant: tip
+    class: badge-theme-9
+---
+
+import Slide from "../../../../components/Slide.astro";
+
+<Slide>
+
+## Sortering på siden
+
+Her henter Astro alle bands og renderer listen som HTML.
+
+Hvert band får `data-*` attributter, så JavaScript bagefter kan sortere de HTML-elementer, der allerede ligger på siden.
+
+Projektet kan også ses her:
+[hostmon på GitHub](https://github.com/PeterUlf/hostmon)
+
+Eksemplet her matcher siden i `hostmon` og bruger tabellen `kunstnere`
+med felterne `navn`, `spilledag` og `spilletidspunkt`:
+
+Komponenten kan fx se sådan her ud:
+
+```astro
+---
+// BandCard.astro
+const { band } = Astro.props;
+---
+
+<article
+  data-band // Markerer elementet som et band-kort
+  data-time={band.spilletidspunkt} // Gemmer tidspunkt til sortering (læses i JS som dataset.time)
+>
+  <h2>{band.navn}</h2>
+  <p>{band.spilledag} kl. {band.spilletidspunkt}</p>
+</article>
+```
+
+Selve siden kan så bruge komponenten sådan her:
+
+```astro
+---
+//@ts-nocheck
+import BandCard from "../components/BandCard.astro"; // Importerer komponenten med band-kortet
+
+const url = `${import.meta.env.SUPABASE_URL}/rest/v1/kunstnere?select=*`; // URL til Supabase API med kunstnere tabellen
+const apiKey = import.meta.env.SUPABASE_PUBLISHABLE_KEY; // API nøgle til autentificering
+
+const bands = await fetch(url, { // Henter alle bands fra databasen
+  headers: {
+    apikey: apiKey, // Sender API nøgle med i headeren
+  },
+}).then((res) => res.json()); // Konverterer response til JSON
+---
+
+<html lang="da">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Sortering</title>
+  </head>
+  <body>
+    <main>
+      <nav>
+        <a href="/">Forside</a>
+        <a href="/samlet">Samlet</a>
+        <a href="/filtrering">Filtrering</a>
+        <a href="/sortering">Sortering</a>
+      </nav>
+
+      <h1>Sortering</h1>
+      <p>Her kan du kun sortere bands efter tidspunkt.</p>
+
+      <div id="sort-controls"> <!-- Kontrolpanel til sortering -->
+        <button type="button" data-sort-time="asc">Tidspunkt stigende</button> <!-- Sorter tidligst først -->
+        <button type="button" data-sort-time="desc">Tidspunkt faldende</button> <!-- Sorter senest først -->
+      </div>
+
+      <section id="band-list" aria-live="polite"> <!-- Liste over alle bands med tilgængelighed -->
+        {bands.map((band) => ( // Løber igennem alle bands og renderer et kort via komponenten
+          <BandCard band={band} />
+        ))}
+      </section>
+    </main>
+  </body>
+</html>
+
+<script>
+  //@ts-nocheck
+  const sortButtons = document.querySelectorAll("[data-sort-time]"); // Finder alle sorterings knapper
+  const bandList = document.querySelector("#band-list"); // Finder band listen container
+  const cards = document.querySelectorAll("[data-band]"); // Finder alle band kort
+
+  sortButtons.forEach((button) => { // Tilføjer click event til hver sorterings knap
+    button.addEventListener("click", () => {
+      sorterEfterTid(button.dataset.sortTime); // Kalder sorteringsfunktionen med "asc" eller "desc"
+    });
+  });
+
+  // Funktion til at sortere bands efter tidspunkt
+  function sorterEfterTid(direction) { // direction er enten "asc" (stigende) eller "desc" (faldende)
+    const sortedCards = [...cards].sort((cardA, cardB) => { // Laver kopi af kort array og sorterer
+      // localeCompare sammenligner to tekst-strenge og returnerer: negativt tal (A før B), 0 (ens), eller positivt tal (A efter B)
+      if (direction === "desc") { // Hvis faldende sortering
+        return cardB.dataset.time.localeCompare(cardA.dataset.time); // Sorterer med senest først
+      } else { // Hvis stigende sortering
+        return cardA.dataset.time.localeCompare(cardB.dataset.time); // Sorterer med tidligst først
+      }
+    });
+
+    sortedCards.forEach((card) => { // Løber igennem sorterede kort
+      bandList.appendChild(card); // Tilføjer kort i ny rækkefølge
+    });
+  }
+</script>
+
+<style>
+  :root {
+    font-family: Arial, sans-serif;
+  }
+
+  body {
+    margin: 0;
+    padding: 2rem 1rem 4rem;
+    background: #f7f7f7;
+    color: #111;
+  }
+
+  main {
+    max-width: 60rem;
+    margin: 0 auto;
+  }
+
+  nav {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+  }
+
+  nav a {
+    color: #111;
+  }
+
+  #sort-controls {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin: 1.5rem 0;
+  }
+
+  button {
+    padding: 0.75rem 1rem;
+    border: 1px solid #111;
+    background: #fff;
+    cursor: pointer;
+  }
+
+  #band-list {
+    display: grid;
+    gap: 1rem;
+  }
+
+  article {
+    padding: 1rem;
+    border: 1px solid #d7d7d7;
+    background: #fff;
+  }
+</style>
+```
+
+Pointen:
+
+- Astro henter data fra `kunstnere` og laver HTML-listen først
+- `data-time` bruges til sortering efter spilletidspunkt
+- `data-band` og `data-time` ligger på `<article>` inde i komponenten
+- JavaScript flytter eksisterende `<article>`-elementer i stedet for at hente data igen
+- samme sorteringsfunktion kan bruges til både stigende og faldende rækkefølge
+
+:::tip[Formatet på tidspunktet er vigtigt]
+`data-time` er lettest at sortere, hvis tiden er gemt som fx `12:30`, `19:45` eller en rigtig dato/tid.
+
+Hvis nogle tider står som `9:30` og andre som `19:30`, kan tekstsortering give mærkelige resultater.
+Brug derfor helst `09:30` med nul foran.
+:::
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Sortering: hvad sker der?
+
+Først finder vi sorteringsknapperne, listen og alle band-kortene:
+
+```js
+const sortButtons = document.querySelectorAll("[data-sort-time]");
+const bandList = document.querySelector("#band-list");
+const cards = document.querySelectorAll("[data-band]");
+```
+
+Når brugeren klikker på en knap, kalder vi sorteringsfunktionen:
+
+```js
+sorterEfterTid(button.dataset.sortTime);
+```
+
+Her kommer `sortTime` fra knappens HTML-attribut:
+
+```html
+<button type="button" data-sort-time="asc">Tidspunkt stigende</button>
+<button type="button" data-sort-time="desc">Tidspunkt faldende</button>
+```
+
+Det betyder:
+
+- `data-sort-time="asc"` bliver til `button.dataset.sortTime === "asc"`
+- `data-sort-time="desc"` bliver til `button.dataset.sortTime === "desc"`
+- `data-sort-time` i HTML bliver altså til `dataset.sortTime` i JavaScript
+
+Så sorterer vi en kopi af kortene efter tidspunkt:
+
+```js
+function sorterEfterTid(direction) {
+  const sortedCards = [...cards].sort((cardA, cardB) => {
+    if (direction === "desc") {
+      return cardB.dataset.time.localeCompare(cardA.dataset.time);
+    } else {
+      return cardA.dataset.time.localeCompare(cardB.dataset.time);
+    }
+  });
+
+  sortedCards.forEach((card) => {
+    bandList.appendChild(card);
+  });
+}
+```
+
+Til sidst sker det her:
+
+```js
+sortedCards.forEach((card) => {
+  bandList.appendChild(card);
+});
+```
+
+Det betyder:
+
+- `sortedCards.forEach(...)` går igennem de sorterede kort ét ad gangen
+- `card` er det aktuelle band-kort i den nye rækkefølge
+- `bandList.appendChild(card)` lægger kortet ind nederst i `#band-list`
+- fordi kortene allerede findes på siden, bliver de ikke kopieret men flyttet
+- resultatet er, at de samme `<article>`-elementer får en ny rækkefølge i HTML'en
+
+Det betyder:
+
+- vi henter ikke data igen
+- vi ændrer ikke selve Supabase-dataene
+- vi ændrer kun rækkefølgen af HTML-elementerne på siden
+- `desc` giver faldende sortering og `asc` giver stigende sortering
+- vi holder løsningen enkel ved kun at sortere på tidspunkt
+
+</Slide>

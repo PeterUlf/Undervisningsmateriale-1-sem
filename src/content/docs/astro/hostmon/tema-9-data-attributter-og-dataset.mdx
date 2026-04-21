@@ -1,0 +1,145 @@
+---
+title: "Tema 9 – data-attributter og dataset"
+description: "Lær hvordan data-* attributter og dataset bruges til at gemme og læse små værdier direkte på HTML-elementer."
+sidebar:
+  label: "data-* og dataset"
+  order: 6.10
+  badge:
+    text: Tema 9
+    variant: tip
+    class: badge-theme-9
+---
+
+import Slide from "../../../../components/Slide.astro";
+
+<Slide>
+
+## `data-*` og `dataset`
+
+Før vi sorterer noget, skal vi have en måde at gemme ekstra information direkte i HTML'en.
+
+Det gør vi med `data-*` attributter.
+
+Eksempel:
+
+```html
+<article data-band data-time="19:30"></article>
+<button data-sort-time="asc">Tidspunkt stigende</button>
+```
+
+Her betyder det:
+
+- `data-band` markerer elementet som et band-kort
+- `data-time="19:30"` gemmer bandets tidspunkt på selve HTML-elementet
+- `data-sort-time="asc"` gemmer hvilken sortering knappen skal bruge
+
+I JavaScript kan vi læse de værdier med `dataset`:
+
+```js
+card.dataset.time
+button.dataset.sortTime
+```
+
+Det er vigtigt at forstå, hvad `card` og `button` er:
+
+- `card` er en variabel, der peger på et HTML-element, fx et `<article>`
+- `button` er en variabel, der peger på en HTML-knap
+- `dataset` er en lille samling af elementets `data-*` værdier
+
+Det betyder helt konkret:
+
+- `data-time` i HTML bliver til `dataset.time` i JavaScript
+- `data-sort-time` i HTML bliver til `dataset.sortTime` i JavaScript
+- bindestreger i HTML bliver lavet om til camelCase i JavaScript
+
+Eksempel med et band-kort:
+
+```html
+<article data-band data-time="19:30"></article>
+```
+
+```js
+const card = document.querySelector("[data-band]");
+console.log(card.dataset.time); // "19:30"
+```
+
+Her betyder `card.dataset.time` altså:
+"Læs værdien fra `data-time` på det her kort."
+
+Eksempel med en knap:
+
+```html
+<button data-sort-time="asc">Tidspunkt stigende</button>
+```
+
+```js
+const button = document.querySelector("[data-sort-time]");
+console.log(button.dataset.sortTime); // "asc"
+```
+
+Her betyder `button.dataset.sortTime` altså:
+"Læs værdien fra `data-sort-time` på den her knap."
+
+Begge værdier bliver læst som tekst.
+Det er derfor `button.dataset.sortTime` bliver enten `"asc"` eller `"desc"`.
+
+Det er smart, fordi vi kan gemme små oplysninger direkte på elementerne,
+så JavaScript bagefter kan bruge dem til filtrering og sortering.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Hvorfor bruger vi det?
+
+Hvis vi bruger en komponent, kan komponenten se sådan her ud:
+
+```astro
+---
+// BandCard.astro
+const { band } = Astro.props;
+---
+
+<article
+  data-band
+  data-time={band.spilletidspunkt}
+>
+  <h2>{band.navn}</h2>
+  <p>{band.spilledag} kl. {band.spilletidspunkt}</p>
+</article>
+```
+
+Så kan vi bruge komponenten i en liste sådan her:
+
+```astro
+{bands.map((band) => (
+  <BandCard band={band} />
+))}
+```
+
+Det virker fint, fordi komponenten til sidst renderer et rigtigt HTML-element:
+et `<article>` med `data-band` og `data-time`.
+
+Det vigtige er altså ikke, om du bruger en komponent.
+Det vigtige er, at `data-*` ender på et rigtigt HTML-element i det færdige output.
+
+Så kan JavaScript senere læse de samme værdier uden at hente data igen:
+
+```js
+const cards = document.querySelectorAll("[data-band]");
+
+cards.forEach((card) => {
+  console.log(card.dataset.time);
+});
+```
+
+Det betyder:
+
+- Astro laver HTML'en først
+- `data-*` gemmer små værdier på elementerne
+- det virker også fint med komponenter, hvis komponenten renderer `data-*` videre til et HTML-element
+- JavaScript kan bagefter bruge de værdier til fx sortering og filtrering
+- vi slipper for at bygge hele listen op igen fra bunden
+
+</Slide>

@@ -256,6 +256,14 @@ export default defineConfig({
                 "astro/placeholder-billeder",
                 "astro/relative-stier",
                 "astro/fashionrus-med-astro",
+                {
+                  label: "Hostmon",
+                  items: [
+                    "astro/hostmon/tema-9-data-attributter-og-dataset",
+                    "astro/hostmon/tema-9-sortering-pa-siden",
+                    "astro/hostmon/tema-9-filtrering-pa-siden",
+                  ],
+                },
               ],
             },
           ],
