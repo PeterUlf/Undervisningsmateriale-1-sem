@@ -23,9 +23,29 @@ Hvert band får en `data-day` attribut, så JavaScript bagefter kan skjule eller
 Eksemplet her matcher siden i `hostmon` og bruger tabellen `kunstnere`
 med felterne `navn`, `spilledag` og `spilletidspunkt`:
 
+Komponenten kan fx se sådan her ud:
+
+```astro
+---
+// BandCard.astro
+const { band } = Astro.props;
+---
+
+<article
+  data-band // Markerer elementet som et band-kort
+  data-day={band.spilledag} // Gemmer spilledag til filtrering (læses i JS som dataset.day)
+>
+  <h2>{band.navn}</h2>
+  <p>{band.spilledag} kl. {band.spilletidspunkt}</p>
+</article>
+```
+
+Selve siden kan så bruge komponenten sådan her:
+
 ```astro
 ---
 //@ts-nocheck
+import BandCard from "../components/BandCard.astro"; // Importerer komponenten med band-kortet
 
 const url = `${import.meta.env.SUPABASE_URL}/rest/v1/kunstnere?select=*`; // URL til Supabase API med kunstnere tabellen
 const apiKey = import.meta.env.SUPABASE_PUBLISHABLE_KEY; // API nøgle til autentificering
@@ -65,14 +85,8 @@ const bands = await fetch(url, { // Henter alle bands fra databasen
       </div>
 
       <section id="band-list" aria-live="polite"> <!-- Liste over alle bands med tilgængelighed -->
-        {bands.map((band) => ( // Løber igennem alle bands og opretter kort
-          <article
-            data-band // Markerer elementet som et band-kort
-            data-day={band.spilledag} // Gemmer spilledag til filtrering (læses i JS som dataset.day)
-          >
-            <h2>{band.navn}</h2>
-            <p>{band.spilledag} kl. {band.spilletidspunkt}</p>
-          </article>
+        {bands.map((band) => ( // Løber igennem alle bands og renderer et kort via komponenten
+          <BandCard band={band} />
         ))}
       </section>
     </main>
@@ -97,7 +111,12 @@ const bands = await fetch(url, { // Henter alle bands fra databasen
           // Hvis mindst én af de to betingelser er opfyldt, bliver shouldShow sat til true, og kortet vil blive vist.
           selectedDay === "all" || card.dataset.day === selectedDay;
 
-        card.classList.toggle("hidden", !shouldShow); // Tilføjer hidden når kortet ikke skal vises
+        console.log("Skal vises?", shouldShow); // Debug: viser om kortet skal vises
+        if (shouldShow) {
+          card.classList.remove("hidden"); // Viser kortet hvis shouldShow er TRUE
+        } else {
+          card.classList.add("hidden"); // Ellers skjules kortet hvis shouldShow ikke er true
+        }
       });
     });
   });
@@ -165,7 +184,7 @@ const bands = await fetch(url, { // Henter alle bands fra databasen
 Pointen:
 
 - Astro henter data fra `kunstnere` og laver HTML-listen først
-- hvert `<article>` får `data-day={band.spilledag}`, så JavaScript kan læse dagen senere
+- `data-day` ligger på `<article>` inde i komponenten, så JavaScript kan læse dagen senere
 - knapperne har `data-filter-day`, så de fortæller hvilket filter der er valgt
 - JavaScript tilføjer eller fjerner klassen `.hidden` i stedet for at hente data igen
 - CSS-klassen `.hidden { display: none; }` er det, der faktisk skjuler kortene
@@ -198,7 +217,11 @@ cards.forEach((card) => {
   const shouldShow =
     selectedDay === "all" || card.dataset.day === selectedDay;
 
-  card.classList.toggle("hidden", !shouldShow);
+  if (shouldShow) {
+    card.classList.remove("hidden");
+  } else {
+    card.classList.add("hidden");
+  }
 });
 ```
 
@@ -206,8 +229,8 @@ Det betyder:
 
 - hvis brugeren vælger `Alle bands`, bliver alle kort vist
 - hvis brugeren vælger `fredag`, vises kun kort med `data-day="fredag"`
-- `classList.toggle("hidden", true)` skjuler kortet
-- `classList.toggle("hidden", false)` viser kortet igen
+- `classList.remove("hidden")` viser kortet
+- `classList.add("hidden")` skjuler kortet
 
 :::tip[Husk at værdierne skal passe sammen]
 Hvis jeres data indeholder `Fredag`, men knappen hedder `fredag`,
