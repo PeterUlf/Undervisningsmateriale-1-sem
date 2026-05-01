@@ -275,6 +275,21 @@ export default defineConfig({
           autogenerate: { directory: "projektledelse" },
         },
         {
+          label: "Tema 10 – Eksamensprojekt",
+          collapsed: false,
+          items: [
+            {
+              label: "Tjekliste: Første uge",
+              slug: "tema-10/tjekliste-foerste-uge",
+              badge: {
+                text: "Tema 10",
+                variant: "tip",
+                class: "badge-theme-10",
+              },
+            },
+          ],
+        },
+        {
           label: "Video / Foto",
           collapsed: true,
           items: [
