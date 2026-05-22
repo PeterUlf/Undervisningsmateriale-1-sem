@@ -287,6 +287,15 @@ export default defineConfig({
                 class: "badge-theme-10",
               },
             },
+            {
+              label: "Tjekliste: Sidste uge",
+              slug: "tema-10/tjekliste-sidste-uge",
+              badge: {
+                text: "Tema 10",
+                variant: "tip",
+                class: "badge-theme-10",
+              },
+            },
           ],
         },
         {
