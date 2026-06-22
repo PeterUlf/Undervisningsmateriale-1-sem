@@ -1,0 +1,327 @@
+---
+title: "Tema 11 - A11y på web"
+description: "Et undervisningsforløb på cirka en time om webtilgængelighed med korte øvelser om semantik, formularer, fokus, kontrast og test."
+sidebar:
+  label: "A11y på web"
+  order: 1
+  badge:
+    text: Tema 11
+    variant: tip
+    class: badge-theme-11
+---
+
+import Slide from "../../../components/Slide.astro";
+
+<Slide>
+
+# Tema 11: A11y på web
+
+Målet i dag er, at I kan spotte og rette de mest almindelige problemer med tilgængelighed.
+
+Vi arbejder med:
+
+- semantik og struktur
+- links, knapper og formularer
+- fokus, tastatur og kontrast
+- hurtige test i browseren
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Plan for timen
+
+Ca. 60 minutter:
+
+- **0-10 min:** Hvad er a11y, og hvorfor er det en del af god webudvikling?
+- **10-20 min:** Semantik, overskrifter, links og billeder
+- **20-27 min:** Øvelse 1 - spot fejlene
+- **27-38 min:** Formularer, fokus og tastaturnavigation
+- **38-48 min:** Øvelse 2 - ret en dårlig formular
+- **48-60 min:** Test med tastatur, Lighthouse og axe + fælles opsamling
+
+Brug gerne øvelserne som små stop, hvor I arbejder 2 og 2 og samler op i plenum.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Hvad betyder a11y?
+
+`a11y` er en forkortelse for **accessibility** eller **tilgængelighed**.
+
+- `a` er første bogstav
+- `y` er sidste bogstav
+- `11` er antallet af bogstaver imellem
+
+I praksis betyder det, at flere kan bruge den samme løsning, også hvis de:
+
+- navigerer med tastatur i stedet for mus
+- bruger skærmlæser
+- har nedsat syn eller farveblindhed
+- har brug for tydeligere struktur, sprog eller feedback
+
+A11y er ikke et ekstra lag til sidst. Det er en del af god HTML, CSS, design og indhold.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Den hurtige checkliste
+
+Start med de ting, der giver mest værdi hurtigt:
+
+- brug semantiske elementer som `button`, `nav`, `main`, `form` og rigtige overskrifter
+- skriv link- og knaptekster, der fortæller hvad der sker
+- giv informative billeder meningsfuld `alt`-tekst
+- brug rigtige `label`-elementer til formularfelter
+- behold synlig `focus` i CSS
+- sørg for læsbar kontrast mellem tekst og baggrund
+- lad ikke vigtig information afhænge af farve alene
+- test siden uden mus
+
+Hvis en bruger ikke kan se, forstå eller betjene noget, er det et godt sted at starte forbedringen.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Semantik i praksis
+
+En stor del af a11y starter i HTML.
+
+```html
+<div onclick="save()">Gem</div>
+```
+
+Det virker måske med mus, men elementet er ikke automatisk en knap.
+
+```html
+<button type="button">Gem</button>
+```
+
+Det er bedre, fordi browseren allerede forstår:
+
+- at elementet kan aktiveres
+- at det skal kunne få fokus
+- at `Enter` eller `Space` skal virke
+- at hjælpemidler kan læse det som en knap
+
+Samme princip gælder for `a`, `label`, `main`, `nav`, `header` og overskrifter i logisk rækkefølge.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Øvelse 1: Spot fejlene
+
+Arbejd sammen 2 og 2 i 5-7 minutter.
+
+```html
+<div class="product-card">
+  <h1>Cool Sneakers</h1>
+  <img src="/billeder/sneakers.jpg" />
+  <div onclick="addToCart()">Læg i kurv</div>
+  <a href="#">Læs mere</a>
+</div>
+```
+
+Find mindst 4 problemer.
+
+1. Hvad er svært for tastaturbrugere?
+2. Hvad mangler for skærmlæsere?
+3. Hvilken tekst er for vag?
+4. Hvilket element burde være noget andet?
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Opsamling på øvelse 1
+
+Mulige svar:
+
+- `img` mangler `alt`, hvis billedet bærer information
+- `Læg i kurv` burde være en rigtig `button`
+- `Læs mere` er for vag linktekst uden kontekst
+- `href="#"` giver ikke en reel destination
+- `h1` kan være forkert, hvis der allerede er en sideoverskrift over cardet
+
+Et mere robust udgangspunkt kunne være:
+
+```html
+<article class="product-card">
+  <h2>Cool Sneakers</h2>
+  <img
+    src="/billeder/sneakers.jpg"
+    alt="Cool Sneakers i hvid med blå detaljer"
+  />
+  <button type="button">Læg i kurv</button>
+  <a href="/produkter/cool-sneakers">Læs mere om Cool Sneakers</a>
+</article>
+```
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Formularer, fokus og tastatur
+
+Formularer går ofte galt på tre klassiske måder:
+
+- man bruger `placeholder` i stedet for rigtig `label`
+- fokus er skjult eller svært at se
+- fejlbeskeder er uklare eller kommer for sent
+
+Et godt minimum er:
+
+```html
+<label for="email">E-mail</label>
+<input id="email" name="email" type="email" required />
+```
+
+Husk også:
+
+- `Tab` skal følge en logisk rækkefølge
+- knapper skal kunne aktiveres med tastatur
+- fokusmarkering skal være tydelig i CSS
+- instruktioner og fejl skal kunne forstås uden farve alene
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Øvelse 2: Gør formularen brugbar
+
+Brug 8-10 minutter. Ret koden, så den bliver mere tilgængelig.
+
+```html
+<form>
+  <input type="text" placeholder="Navn" />
+  <input type="email" placeholder="Email" />
+  <button>Klik her</button>
+</form>
+```
+
+Ret mindst disse ting:
+
+1. Tilføj tydelige labels
+2. Giv knappen en tekst, der beskriver handlingen
+3. Overvej hvilke felter der er påkrævet
+4. Test med kun tastaturet
+
+Ekstra: Hvordan ville du vise en fejlbesked, hvis e-mail mangler?
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Kontrast, farver og feedback
+
+Ikke alle a11y-problemer ligger i HTML. Mange ligger i det visuelle lag.
+
+Vær især opmærksom på:
+
+- lav kontrast mellem tekst og baggrund
+- status der kun vises med farve, fx rød = fejl og grøn = succes
+- links der ligner almindelig tekst
+- hover-states uden tilsvarende `focus`-states
+- for meget animation eller bevægelse uden hensyn til brugere, der bliver påvirket af motion
+
+Tommelfingerregel: Hvis du fjerner farverne eller musen, skal løsningen stadig kunne forstås og bruges.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Test hurtigt i browseren
+
+En hurtig undervisningsrutine kan være:
+
+1. Brug `Tab` og `Shift + Tab` gennem siden
+2. Tjek om fokus er synligt overalt
+3. Kør **Lighthouse** i Chrome DevTools
+4. Kør **axe DevTools** eller **WAVE** for konkrete fejl
+5. Prøv eventuelt med skærmlæser for at høre struktur og labels
+
+Hvis I sidder på Mac, kan **VoiceOver** ofte startes med `Cmd + F5`.
+
+Vigtigt:
+Værktøjer finder ikke alt. De hjælper jer med at opdage noget hurtigt, men I skal stadig bruge egen vurdering.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Øvelse 3: Mini-audit af jeres eget site
+
+Brug 10-12 minutter på et projekt, I allerede har.
+
+Opgave:
+
+1. Tab gennem forsiden eller en underside uden mus
+2. Noter hvor fokus forsvinder eller bliver uklart
+3. Kør Lighthouse eller axe og skriv 3 fund ned
+4. Vælg det ene fund, der giver størst forbedring hurtigst
+
+Opsamling i plenum:
+
+- Hvad fandt I?
+- Hvad var lettest at rette?
+- Hvad overraskede jer?
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Hvad skal I huske efter i dag?
+
+Før I afleverer eller viser et site frem, så tjek mindst dette:
+
+- giver HTML mening semantisk?
+- har billeder, links og knapper tydelige tekster?
+- kan siden bruges med tastatur?
+- er fokus synligt?
+- er formularer og fejlbeskeder tydelige?
+- er kontrast og læsbarhed gode nok?
+- har I testet med mindst et browserværktøj?
+
+A11y handler ofte om mange små valg. Men de små valg lægger sig oven i hinanden og afgør, om løsningen faktisk kan bruges.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Næste skridt
+
+- [Gå til Semantisk HTML →](/html/semantisk/)
+- [Gå til Lighthouse test →](/test/lighthouse-test/)
+- [Gå til A11y i Figma →](/astro/figma/a11y/)
+
+</Slide>
