@@ -9,7 +9,7 @@ const isDev = process.env.NODE_ENV !== "production";
 export default defineConfig({
   integrations: [
     starlight({
-      title: "MMD undervisningsmateriale F2026 V  0.5",
+      title: "MMD undervisningsmateriale E2026 V 0.6",
       customCss: ["./src/styles/custom.css"],
       components: {
         PageTitle: "./src/components/PageTitleWrapper.astro",
@@ -328,7 +328,7 @@ export default defineConfig({
               autogenerate: { directory: "photoshop" },
             },
             {
-              label: "Vintereventyr F2026",
+              label: "Vintereventyr E2026",
               slug: "premiere/07-vintereventyr",
               badge: {
                 text: "Tema 5",
