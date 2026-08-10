@@ -11,6 +11,10 @@ const normalizeDocPath = (value: string) => {
   const withoutIndex = withoutExtension.replace(/\/index$/, '');
   return withoutIndex === '' ? '/' : `${withoutIndex}/`;
 };
+const docHref = (doc: { id: string }) => {
+  const path = normalizeDocPath(doc.id);
+  return path === '/' ? '/' : `/${path}`;
+};
 
 const linkThemeMap = Object.fromEntries(
   docs.flatMap((doc) => {
@@ -20,8 +24,12 @@ const linkThemeMap = Object.fromEntries(
       return [];
     }
 
-    return [[`/${normalizeDocPath(doc.id)}`, temaNumber]];
+    return [[docHref(doc), temaNumber]];
   })
+);
+
+const draftLinkMap = Object.fromEntries(
+  docs.filter((doc) => doc.data.draft).map((doc) => [docHref(doc), true])
 );
 
 const availableThemes = Array.from(new Set(Object.values(linkThemeMap)))
@@ -37,7 +45,7 @@ const availableThemes = Array.from(new Set(Object.values(linkThemeMap)))
 
 <Default {...Astro.props}><slot /></Default>
 
-<script define:vars={{ availableThemes, linkThemeMap }}>
+<script define:vars={{ availableThemes, linkThemeMap, draftLinkMap }}>
   const themeNames = {
     1: 'Introuge',
     2: 'Web I',
@@ -91,6 +99,24 @@ const availableThemes = Array.from(new Set(Object.values(linkThemeMap)))
 
     return badgeTheme || '';
   };
+
+  function addDraftBadges(sidebarRoot) {
+    const sidebarLinks = sidebarRoot.querySelectorAll('a');
+
+    sidebarLinks.forEach((link) => {
+      const href = normalizeLinkHref(link.getAttribute('href'));
+
+      if (!draftLinkMap[href] || link.querySelector('.sidebar-draft-badge')) {
+        return;
+      }
+
+      const badge = document.createElement('span');
+      badge.className = 'sl-badge sidebar-draft-badge';
+      badge.textContent = 'Draft';
+      badge.title = 'Kladde - ikke publiceret i production';
+      link.appendChild(badge);
+    });
+  }
 
   function buildThemeOptions(select) {
     if (select.dataset.optionsReady === 'true') return;
@@ -260,6 +286,7 @@ const availableThemes = Array.from(new Set(Object.values(linkThemeMap)))
     }
 
     buildThemeOptions(select);
+    addDraftBadges(sidebarRoot);
     rememberInitialGroupState(sidebarRoot);
 
     const selectedTheme = getSelectedTheme();
@@ -338,5 +365,14 @@ const availableThemes = Array.from(new Set(Object.values(linkThemeMap)))
   #theme-select:focus {
     outline: 2px solid var(--sl-color-accent);
     outline-offset: 2px;
+  }
+
+  #starlight__sidebar .sidebar-draft-badge {
+    --sl-color-bg-badge: color-mix(in srgb, var(--sl-color-orange-low) 72%, transparent);
+    --sl-color-border-badge: var(--sl-color-orange);
+    --sl-color-text-badge: var(--sl-color-orange-high);
+    font-size: 0.62rem;
+    letter-spacing: 0;
+    text-transform: uppercase;
   }
 </style>

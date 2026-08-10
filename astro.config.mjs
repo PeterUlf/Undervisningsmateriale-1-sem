@@ -1,9 +1,72 @@
 // @ts-check
+import { readdirSync, readFileSync } from "node:fs";
 import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
 import starlightThemeRapide from "starlight-theme-rapide";
 
 const isDev = process.env.NODE_ENV !== "production";
+const docsDir = new URL("./src/content/docs/", import.meta.url);
+
+function getDraftSlugs(dir = docsDir, base = "") {
+  const slugs = new Set();
+
+  for (const entry of readdirSync(dir, { withFileTypes: true })) {
+    const entryUrl = new URL(entry.name, dir);
+    const relativePath = `${base}${entry.name}`;
+
+    if (entry.isDirectory()) {
+      for (const slug of getDraftSlugs(new URL(`${entry.name}/`, dir), `${relativePath}/`)) {
+        slugs.add(slug);
+      }
+      continue;
+    }
+
+    if (!/\.(mdx|md)$/.test(entry.name)) continue;
+
+    const source = readFileSync(entryUrl, "utf8");
+    const frontmatterEnd = source.startsWith("---\n") ? source.indexOf("\n---", 4) : -1;
+    const frontmatter = frontmatterEnd > -1 ? source.slice(4, frontmatterEnd) : "";
+
+    if (/^draft:\s*true\s*$/m.test(frontmatter)) {
+      slugs.add(
+        relativePath
+          .replace(/\.(mdx|md)$/, "")
+          .replace(/\/index$/, "")
+          .replace(/^index$/, "")
+      );
+    }
+  }
+
+  return slugs;
+}
+
+const draftSlugs = isDev ? new Set() : getDraftSlugs();
+
+function linkToSlug(link) {
+  if (!link || /^[a-z]+:\/\//i.test(link)) return undefined;
+  return link.replace(/[?#].*$/, "").replace(/^\/|\/$/g, "");
+}
+
+function filterDraftSidebar(items) {
+  if (isDev) return items;
+
+  return items
+    .map((item) => {
+      if (typeof item === "string") return draftSlugs.has(item) ? undefined : item;
+
+      const itemSlug = item.slug ?? linkToSlug(item.link);
+      if (itemSlug !== undefined && draftSlugs.has(itemSlug)) return undefined;
+
+      if ("items" in item && Array.isArray(item.items)) {
+        const filteredItems = filterDraftSidebar(item.items);
+        if (filteredItems.length === 0 && !("autogenerate" in item)) return undefined;
+        return { ...item, items: filteredItems };
+      }
+
+      return item;
+    })
+    .filter(Boolean);
+}
 
 // https://astro.build/config
 export default defineConfig({
@@ -24,7 +87,7 @@ export default defineConfig({
           href: "https://github.com/withastro/starlight",
         },
       ],
-      sidebar: [
+      sidebar: filterDraftSidebar([
         {
           label: "Om dette site",
           slug: "om-dette-site",
@@ -494,7 +557,7 @@ export default defineConfig({
             },
           ],
         },
-      ],
+      ]),
     }),
   ],
 });

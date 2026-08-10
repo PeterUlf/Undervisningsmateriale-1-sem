@@ -1,5 +1,6 @@
 ---
 title: CSS Reset
+draft: true
 description: Få browsere til at opføre sig ens med et simpelt CSS reset
 sidebar:
   label: CSS Reset
