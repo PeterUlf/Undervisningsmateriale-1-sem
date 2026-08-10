@@ -1,16 +1,41 @@
 ---
+import { getCollection } from "astro:content";
+
+const themeNames: Record<string, string> = {
+  1: "Introuge",
+  2: "Web I",
+  3: "UX I",
+  4: "Brugergrænseflade udvikling I",
+  5: "Indhold I",
+  6: "Eksamen",
+  7: "Indhold II",
+  8: "Web II",
+  9: "UX/UI II",
+  10: "Eksamensprojekt",
+  11: "A11y",
+};
+
+const extractTemaNumber = (value?: string) => value?.match(/\d+/)?.[0] || "";
+const docs = await getCollection("docs");
+const availableThemes = Array.from(
+  new Set(
+    docs
+      .filter((doc) => !doc.data.draft)
+      .map((doc) => extractTemaNumber(doc.data.sidebar?.badge?.text))
+      .filter(Boolean)
+  )
+).sort((a, b) => Number(a) - Number(b));
+
 const themes = [
   { value: "all", label: "Alle temaer", href: "/tema-oversigt/?tema=all" },
-  { value: "1", label: "Tema 1 - Introuge", href: "/tema-oversigt/?tema=1" },
-  { value: "2", label: "Tema 2 - Web I", href: "/tema-oversigt/?tema=2" },
-  { value: "3", label: "Tema 3 - UX I", href: "/tema-oversigt/?tema=3" },
-  { value: "4", label: "Tema 4 - Brugergrænseflade udvikling I", href: "/tema-oversigt/?tema=4" },
-  { value: "5", label: "Tema 5 - Indhold I", href: "/tema-oversigt/?tema=5" },
-  { value: "7", label: "Tema 7 - Indhold II", href: "/tema-oversigt/?tema=7" },
-  { value: "8", label: "Tema 8 - Web II", href: "/tema-oversigt/?tema=8" },
-  { value: "9", label: "Tema 9 - UX/UI II", href: "/tema-oversigt/?tema=9" },
-  { value: "10", label: "Tema 10 - Eksamensprojekt", href: "/tema-oversigt/?tema=10" },
-  { value: "11", label: "Tema 11 - A11y", href: "/tema-oversigt/?tema=11" },
+  ...availableThemes.map((value) => {
+    const themeName = themeNames[value] || "";
+    return {
+      value,
+      label: themeName ? `Tema ${value} - ${themeName}` : `Tema ${value}`,
+      href: `/tema-oversigt/?tema=${value}`,
+    };
+  }),
 ];
 ---
 

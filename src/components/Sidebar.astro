@@ -28,11 +28,23 @@ const linkThemeMap = Object.fromEntries(
   })
 );
 
+const publishedLinkThemeMap = Object.fromEntries(
+  docs.flatMap((doc) => {
+    const temaNumber = extractTemaNumber(doc.data.sidebar?.badge?.text);
+
+    if (doc.data.draft || !temaNumber) {
+      return [];
+    }
+
+    return [[docHref(doc), temaNumber]];
+  })
+);
+
 const draftLinkMap = Object.fromEntries(
   docs.filter((doc) => doc.data.draft).map((doc) => [docHref(doc), true])
 );
 
-const availableThemes = Array.from(new Set(Object.values(linkThemeMap)))
+const availableThemes = Array.from(new Set(Object.values(publishedLinkThemeMap)))
   .sort((a, b) => Number(a) - Number(b));
 ---
 
@@ -45,7 +57,7 @@ const availableThemes = Array.from(new Set(Object.values(linkThemeMap)))
 
 <Default {...Astro.props}><slot /></Default>
 
-<script define:vars={{ availableThemes, linkThemeMap, draftLinkMap }}>
+<script define:vars={{ availableThemes, linkThemeMap, publishedLinkThemeMap, draftLinkMap }}>
   const themeNames = {
     1: 'Introuge',
     2: 'Web I',
@@ -98,6 +110,11 @@ const availableThemes = Array.from(new Set(Object.values(linkThemeMap)))
     const badgeTheme = badgeText?.match(/\d+/)?.[0];
 
     return badgeTheme || '';
+  };
+
+  const getPublishedThemeForLink = (link) => {
+    const href = normalizeLinkHref(link.getAttribute('href'));
+    return href ? publishedLinkThemeMap[href] || '' : '';
   };
 
   function addDraftBadges(sidebarRoot) {
@@ -206,7 +223,7 @@ const availableThemes = Array.from(new Set(Object.values(linkThemeMap)))
       const listItem = link.closest('li');
       if (!listItem) return;
 
-      const themeNumber = getThemeForLink(link);
+      const themeNumber = isAll ? getThemeForLink(link) : getPublishedThemeForLink(link);
 
       if (isAll) {
         listItem.style.display = '';
@@ -281,7 +298,7 @@ const availableThemes = Array.from(new Set(Object.values(linkThemeMap)))
     const sidebarRoot = document.getElementById('starlight__sidebar');
     const select = document.getElementById('theme-select');
 
-    if (!sidebarRoot || !(select instanceof HTMLSelectElement) || availableThemes.length === 0) {
+    if (!sidebarRoot || !(select instanceof HTMLSelectElement)) {
       return;
     }
 

@@ -35,6 +35,10 @@ try {
   const temaMap = new Map<string, TemaLink[]>();
 
   for (const doc of docs) {
+    if (doc.data.draft) {
+      continue;
+    }
+
     const temaName = doc.data.sidebar?.badge?.text;
 
     if (!temaName || !temaName.startsWith('Tema')) {
