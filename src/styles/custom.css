@@ -830,3 +830,171 @@ body td {
 .generated-slide img[src^="/illustrationer/fashionrus-astro/"] {
   max-height: 42vh;
 }
+
+/* GitHub intro illustrations */
+.sl-markdown-content img[src^="/illustrationer/github-intro/"],
+.slide img[src^="/illustrationer/github-intro/"],
+.generated-slide img[src^="/illustrationer/github-intro/"] {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  margin: 1rem auto;
+  border-radius: 8px;
+}
+
+.github-intro-overview,
+.github-intro-two-column,
+.github-intro-pages-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.8fr);
+  gap: clamp(1rem, 4vw, 3rem);
+  align-items: start;
+}
+
+.github-intro-overview {
+  grid-template-columns: minmax(0, 1fr) minmax(12rem, 0.45fr);
+  align-items: center;
+}
+
+.github-intro-overview > *,
+.github-intro-two-column > *,
+.github-intro-pages-layout > *,
+.github-intro-rename-images > * {
+  min-width: 0;
+}
+
+.github-intro-logo {
+  width: min(100%, 15rem);
+  justify-self: center;
+}
+
+.github-intro-centered-step {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+}
+
+.github-intro-centered-step p {
+  margin-block: 0.25rem;
+}
+
+.github-intro-html-logo {
+  width: min(100%, 12rem);
+  margin-top: 2rem !important;
+}
+
+.github-intro-rename-images {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1rem, 4vw, 3rem);
+  align-items: center;
+  margin: 1.5rem 0;
+}
+
+.github-intro-rename-images img {
+  width: 100%;
+  margin: 0 !important;
+}
+
+.github-intro-two-column > ol,
+.github-intro-pages-layout > ol {
+  margin: 0;
+}
+
+.github-intro-repository-visual,
+.github-intro-upload-visual,
+.github-intro-pages-visual {
+  display: grid;
+  gap: 1.5rem;
+  min-width: 0;
+}
+
+.github-intro-repository-visual > *,
+.github-intro-upload-visual > *,
+.github-intro-pages-visual > * {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.github-intro-signup,
+.github-intro-commit {
+  width: 100%;
+}
+
+.github-intro-annotated-image {
+  position: relative;
+  margin: 0;
+  overflow: clip;
+}
+
+.github-intro-annotated-image > img:first-child {
+  width: 100%;
+  max-width: 100% !important;
+  margin: 0 !important;
+}
+
+.github-intro-arrow {
+  position: absolute;
+  z-index: 1;
+  max-width: none !important;
+  margin: 0 !important;
+  pointer-events: none;
+}
+
+/* Each arrow is placed with its point directly on the relevant GitHub control. */
+.github-intro-arrow--new {
+  top: 28%;
+  left: 82%;
+  width: 35%;
+}
+
+.github-intro-arrow--upload {
+  top: 32%;
+  left: 64%;
+  width: 24%;
+}
+
+.github-intro-pages-branch {
+  width: min(100%, 32rem);
+}
+
+.github-intro-arrow--branch {
+  top: 52%;
+  left: 20%;
+  width: 18%;
+}
+
+.github-intro-arrow--save {
+  top: 38%;
+  left: 24%;
+  width: 18%;
+}
+
+.github-intro-visit-site {
+  width: min(100%, 42rem);
+}
+
+.github-intro-arrow--visit {
+  top: -27%;
+  left: 74%;
+  width: 16%;
+}
+
+.github-intro-live-site {
+  width: min(100%, 48rem);
+  margin: 2rem auto !important;
+}
+
+@media (max-width: 50rem) {
+  .github-intro-overview,
+  .github-intro-two-column,
+  .github-intro-pages-layout,
+  .github-intro-rename-images {
+    grid-template-columns: 1fr;
+  }
+
+  .github-intro-logo {
+    margin-top: 1rem !important;
+  }
+}

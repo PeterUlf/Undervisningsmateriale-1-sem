@@ -115,6 +115,15 @@ export default defineConfig({
               },
             },
             {
+              label: "Intro til GitHub",
+              slug: "git/intro-til-github",
+              badge: {
+                text: "Tema 1",
+                variant: "tip",
+                class: "badge-theme-1",
+              },
+            },
+            {
               label: "Kom i gang",
               slug: "guides/kom-i-gang",
               badge: {
