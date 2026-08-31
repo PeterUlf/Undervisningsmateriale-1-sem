@@ -124,6 +124,15 @@ export default defineConfig({
               },
             },
             {
+              label: "Apple Adgangskoder og passkeys",
+              slug: "guides/apple-adgangskoder-passkeys",
+              badge: {
+                text: "Tema 2",
+                variant: "tip",
+                class: "badge-theme-2",
+              },
+            },
+            {
               label: "HTML",
               autogenerate: { directory: "html" },
             },

@@ -1,0 +1,321 @@
+---
+title: Apple Adgangskoder og passkeys
+draft: false
+description: Brug Apples adgangskode-manager til sikre passwords, passkeys og totrinskoder.
+sidebar:
+  label: Apple Adgangskoder og passkeys
+  order: 2
+  badge:
+    text: Tema 2
+    variant: tip
+    class: badge-theme-2
+---
+
+import Slide from "../../../components/Slide.astro";
+
+<Slide>
+
+# Apple Adgangskoder og passkeys
+
+Apple har en indbygget adgangskode-manager, som kan gemme:
+
+- passwords til websites og apps
+- passkeys
+- totrinskoder
+- Wi-Fi-adgangskoder
+- login med "Log ind med Apple"
+
+På nyere Apple-enheder ligger det i appen **Adgangskoder**. På ældre iPhone/iPad-versioner ligger det under **Indstillinger > Adgangskoder**.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Hvorfor bruge en password manager?
+
+De fleste dårlige login-vaner kommer af, at mennesker prøver at huske for meget selv.
+
+En password manager hjælper dig med at:
+
+- bruge en unik adgangskode til hver konto
+- undgå genbrug af samme kode flere steder
+- lave lange og tilfældige adgangskoder
+- få advarsler om svage eller lækkede adgangskoder
+- logge ind hurtigere med autofyld
+
+:::tip[Grundregel]
+Du skal ikke kunne huske alle dine adgangskoder. Du skal kunne komme sikkert ind i din password manager.
+:::
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Før du går i gang
+
+Tjek disse ting først:
+
+1. Din iPhone, iPad eller Mac er opdateret.
+2. Du er logget ind med din Apple Account.
+3. Tofaktorgodkendelse er slået til for din Apple Account.
+4. Din enhed har en stærk kode, Touch ID eller Face ID.
+5. iCloud-nøglering er slået til, hvis adgangskoderne skal synkroniseres.
+
+:::note[Apple Account]
+Apple bruger i dag navnet **Apple Account**. Mange kalder det stadig Apple-id.
+:::
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Find dine adgangskoder
+
+På nyere systemer:
+
+- iPhone/iPad: Åbn appen **Adgangskoder**
+- Mac: Åbn appen **Adgangskoder**
+
+På ældre iPhone/iPad-versioner:
+
+- Åbn **Indstillinger**
+- Vælg **Adgangskoder**
+
+Du skal typisk låse op med Face ID, Touch ID eller enhedens kode, før du kan se eller ændre gemte logins.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Slå autofyld til
+
+Autofyld betyder, at din enhed selv foreslår det rigtige login, når du står på en login-side.
+
+På iPhone/iPad:
+
+1. Åbn **Indstillinger**
+2. Gå til **Generelt**
+3. Vælg **Autofyld og adgangskoder**
+4. Slå **Autofyld adgangskoder og passkeys** til
+
+På Mac:
+
+1. Åbn **Systemindstillinger**
+2. Gå til **Generelt**
+3. Vælg **Autofyld og adgangskoder**
+4. Slå autofyld til
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Slå iCloud-nøglering til
+
+iCloud-nøglering synkroniserer adgangskoder og passkeys mellem dine Apple-enheder.
+
+På iPhone/iPad:
+
+1. Åbn **Indstillinger**
+2. Tryk på dit navn
+3. Vælg **iCloud**
+4. Vælg **Adgangskoder og nøglering**
+5. Slå synkronisering til
+
+På Mac:
+
+1. Åbn **Systemindstillinger**
+2. Klik på din Apple Account
+3. Vælg **iCloud**
+4. Slå **Adgangskoder og nøglering** til
+
+:::tip[Sikkerhed]
+Apple beskriver iCloud-nøglering som end-to-end-krypteret. Det betyder, at dine adgangskoder ikke bare ligger læsbart hos Apple.
+:::
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Lav en stærk adgangskode
+
+Når du opretter en ny konto i Safari eller en app, kan Apple foreslå en stærk adgangskode.
+
+Brug den foreslåede adgangskode, når du kan.
+
+Det er bedre end at finde på en selv, fordi den:
+
+- er lang
+- er svær at gætte
+- kun bruges til den ene konto
+- bliver gemt automatisk
+
+:::caution[Undgå genbrug]
+Hvis samme adgangskode bruges flere steder, kan et læk fra én tjeneste give adgang til andre konti.
+:::
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Hvad er en passkey?
+
+En passkey er en login-metode, der kan erstatte en adgangskode.
+
+I stedet for at skrive en hemmelig kode bruger din enhed et kryptografisk nøglepar:
+
+- en offentlig nøgle, som websitet eller appen må kende
+- en privat nøgle, som bliver på din enhed
+
+Når du logger ind, godkender du typisk med Face ID, Touch ID eller enhedens kode.
+
+Passkeys er sværere at phishe end almindelige adgangskoder, fordi du ikke skriver en hemmelig kode ind på en side.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Passwords vs. passkeys
+
+| Type | Du skriver selv noget? | Kan phishes? | God brug |
+| --- | --- | --- | --- |
+| Password | Ja | Ja | Når tjenesten ikke understøtter passkey |
+| Passkey | Nej, normalt ikke | Meget sværere | Når tjenesten tilbyder det |
+| Totrinskode | Kun ekstra kode | Hjælper, men stopper ikke alt | Som ekstra beskyttelse |
+
+:::note[Vælg passkey når du kan]
+Hvis en tjeneste tilbyder passkey, er det normalt et bedre valg end en almindelig adgangskode.
+:::
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Tjek sikkerhedsanbefalinger
+
+Appen **Adgangskoder** kan advare dig om:
+
+- genbrugte adgangskoder
+- svage adgangskoder
+- adgangskoder, der er fundet i kendte datalæk
+
+Gør sådan:
+
+1. Åbn **Adgangskoder**
+2. Vælg **Sikkerhed**
+3. Gennemgå listen
+4. Start med vigtige konti: mail, Apple Account, MitID, sociale medier og bank
+
+Skift en adgangskode direkte hos den tjeneste, den hører til. Password manageren skal derefter gemme den nye version.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Totrinskoder i Adgangskoder
+
+Mange tjenester tilbyder totrinsgodkendelse, hvor du ud over adgangskoden skal bruge en kort kode.
+
+I Apples password manager kan du ofte gemme disse koder sammen med kontoen.
+
+Fordele:
+
+- du behøver ikke altid en ekstra kode-app
+- koden kan autofyldes
+- kontoen og totrinskoden ligger samlet
+
+:::caution[Backup]
+Gem altid backup-koder fra vigtige tjenester et sikkert sted. Ellers kan du låse dig selv ude, hvis noget går galt.
+:::
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Del adgangskoder sikkert
+
+Hvis du skal dele adgangskoder med familie eller en projektgruppe, skal du ikke sende dem i chat eller mail.
+
+Brug i stedet:
+
+- delte grupper i **Adgangskoder**
+- AirDrop til enkelte adgangskoder eller passkeys
+- en aftalt password manager for gruppen
+
+Del kun med personer, der faktisk skal have adgang. Fjern adgang igen, når samarbejdet slutter.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Øvelse
+
+Lav dette på din egen enhed:
+
+1. Åbn **Adgangskoder** eller **Indstillinger > Adgangskoder**.
+2. Find en konto, hvor du ikke afslører private oplysninger for andre.
+3. Se om den er markeret som svag, genbrugt eller lækket.
+4. Find menuen til at oprette en ny adgangskode.
+5. Find området for passkeys.
+6. Tjek om autofyld er slået til.
+7. Tjek om iCloud-nøglering er slået til.
+
+:::caution[Privatliv i undervisningen]
+Vis aldrig dine rigtige adgangskoder på projektor eller for sidemanden.
+:::
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Tjekliste
+
+Efter siden her bør du kunne forklare:
+
+- hvorfor genbrug af adgangskoder er farligt
+- hvorfor en password manager er bedre end hukommelsen
+- hvordan du finder Apples adgangskode-manager
+- hvad autofyld gør
+- hvad iCloud-nøglering gør
+- hvad en passkey er
+- hvorfor passkeys beskytter bedre mod phishing
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Kilder
+
+- [Apple Support: Use the Passwords app](https://support.apple.com/en-gb/120758)
+- [Apple Support: Use passwords on your Mac](https://support.apple.com/guide/passwords/the-passwords-app-mchl901b1b95/mac)
+- [Apple Support: iCloud Keychain on iPhone](https://support.apple.com/en-ie/guide/iphone/-iph82d6721b2/ios)
+- [Apple Support: About the security of passkeys](https://support.apple.com/en-us/102195)
+
+</Slide>
