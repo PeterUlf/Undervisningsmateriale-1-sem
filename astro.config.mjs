@@ -191,6 +191,15 @@ export default defineConfig({
                 class: "badge-theme-2",
               },
             },
+            {
+              label: "Genvejstaster – Quiz",
+              slug: "quiz/genvejstaster",
+              badge: {
+                text: "Tema 2",
+                variant: "tip",
+                class: "badge-theme-2",
+              },
+            },
           ],
         },
         {
@@ -203,6 +212,24 @@ export default defineConfig({
                 text: "Tema",
                 variant: "tip",
                 class: "badge-theme-1",
+              },
+            },
+            {
+              label: "Genvejstaster",
+              link: "/reference/genvejstaster/",
+              badge: {
+                text: "Tema 2",
+                variant: "tip",
+                class: "badge-theme-2",
+              },
+            },
+            {
+              label: "Genvejstaster – Øvelser",
+              link: "/reference/genvejstaster-oevelser/",
+              badge: {
+                text: "Tema 2",
+                variant: "tip",
+                class: "badge-theme-2",
               },
             },
           ],
