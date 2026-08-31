@@ -115,24 +115,6 @@ export default defineConfig({
               },
             },
             {
-              label: "Intro til GitHub",
-              slug: "git/intro-til-github",
-              badge: {
-                text: "Tema 1",
-                variant: "tip",
-                class: "badge-theme-1",
-              },
-            },
-            {
-              label: "Strukturen i Figma",
-              slug: "astro/figma/strukturen-i-figma",
-              badge: {
-                text: "Tema 1",
-                variant: "tip",
-                class: "badge-theme-1",
-              },
-            },
-            {
               label: "Kom i gang",
               slug: "guides/kom-i-gang",
               badge: {
@@ -274,6 +256,15 @@ export default defineConfig({
               label: "Git & GitHub",
               items: [
                 {
+                  label: "Intro til GitHub",
+                  slug: "git/intro-til-github",
+                  badge: {
+                    text: "Tema 1",
+                    variant: "tip",
+                    class: "badge-theme-1",
+                  },
+                },
+                {
                   label: "Git & GitHub",
                   link: "/git/",
                   badge: {
@@ -305,6 +296,15 @@ export default defineConfig({
             {
               label: "Figma",
               items: [
+                {
+                  label: "Strukturen i Figma",
+                  slug: "astro/figma/strukturen-i-figma",
+                  badge: {
+                    text: "Tema 1",
+                    variant: "tip",
+                    class: "badge-theme-1",
+                  },
+                },
                 "astro/figma/variables",
                 "astro/figma/auto-layout",
                 "astro/figma/komponenter",
