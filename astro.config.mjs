@@ -124,6 +124,15 @@ export default defineConfig({
               },
             },
             {
+              label: "Strukturen i Figma",
+              slug: "astro/figma/strukturen-i-figma",
+              badge: {
+                text: "Tema 1",
+                variant: "tip",
+                class: "badge-theme-1",
+              },
+            },
+            {
               label: "Kom i gang",
               slug: "guides/kom-i-gang",
               badge: {
