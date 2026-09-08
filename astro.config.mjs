@@ -133,6 +133,15 @@ export default defineConfig({
               },
             },
             {
+              label: "Filplacering og stier",
+              slug: "guides/filplacering-og-stier",
+              badge: {
+                text: "Tema 2",
+                variant: "tip",
+                class: "badge-theme-2",
+              },
+            },
+            {
               label: "HTML",
               items: [
                 "html/grundlaeggende",

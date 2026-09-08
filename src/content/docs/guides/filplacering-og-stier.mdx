@@ -1,0 +1,494 @@
+---
+title: Filplacering og stier
+draft: false
+description: Forstå ./, ../ og /, så billeder, CSS og links peger på de rigtige filer.
+sidebar:
+  label: Filplacering og stier
+  order: 3
+  badge:
+    text: Tema 2
+    variant: tip
+    class: badge-theme-2
+---
+
+import Slide from "../../../components/Slide.astro";
+
+<Slide>
+
+## Hvorfor er filplacering vigtigt?
+
+Når du laver websites, skal filer kunne finde hinanden:
+
+- HTML skal kunne finde CSS
+- HTML skal kunne finde billeder
+- links skal kunne finde andre HTML-sider
+- JavaScript skal kunne finde data eller scripts
+
+Hvis stien er forkert, ser browseren ikke "næsten rigtigt". Den ser bare en fil, den ikke kan finde.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Analogi: Et skolebyggeri
+
+Forestil dig dit website som en skole:
+
+- **Projektmappen** er hele skolen
+- **Mapper** er gange og lokaler
+- **Filer** er ting i lokalerne
+- **En sti** er en vejbeskrivelse til en bestemt ting
+
+Når du skriver en sti, svarer du på:
+
+> Hvor står jeg lige nu, og hvor skal jeg hen?
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Eksempel på projektstruktur
+
+```text
+mit-site/
+├── index.html
+├── about.html
+├── css/
+│   └── style.css
+├── img/
+│   └── logo.png
+└── projekter/
+    └── galleri.html
+```
+
+`mit-site/` er projektets rod. Det er "hovedindgangen" til dit website.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Hvad betyder `./`?
+
+`./` betyder **den mappe, jeg står i lige nu**.
+
+Hvis du står i `index.html`, og `about.html` ligger i samme mappe:
+
+```html
+<a href="./about.html">Om siden</a>
+```
+
+Det betyder:
+
+```text
+Start her -> find about.html i samme lokale
+```
+
+Du kan ofte skrive det kortere:
+
+```html
+<a href="about.html">Om siden</a>
+```
+
+`./about.html` og `about.html` betyder normalt det samme.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Hvad betyder `../`?
+
+`../` betyder **gå en mappe op**.
+
+Hvis du står i:
+
+```text
+projekter/galleri.html
+```
+
+og vil finde:
+
+```text
+img/logo.png
+```
+
+skal du først op til projektets rod og derefter ind i `img/`:
+
+```html
+<img src="../img/logo.png" alt="Logo" />
+```
+
+Det svarer til:
+
+```text
+Gå ud på gangen -> gå ind i img-lokalet -> find logo.png
+```
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Hvad betyder `/`?
+
+`/` betyder **start fra sitets rod**.
+
+Hvis websitet ligger på et domæne, betyder:
+
+```html
+<img src="/img/logo.png" alt="Logo" />
+```
+
+at browseren leder efter:
+
+```text
+https://dinside.dk/img/logo.png
+```
+
+I den fysiske analogi svarer `/` til:
+
+```text
+Start ved skolens hovedindgang, uanset hvilket lokale du står i
+```
+
+:::caution[Vigtigt]
+I HTML og CSS betyder `/` normalt roden af websitet, ikke roden af din computer.
+:::
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## `./` vs `/`
+
+De ligner hinanden, men de starter forskellige steder.
+
+| Sti | Starter fra | Fysisk analogi |
+| --- | --- | --- |
+| `./img/logo.png` | mappen du står i | "kig i dette lokale" |
+| `../img/logo.png` | en mappe op | "gå ud på gangen først" |
+| `/img/logo.png` | sitets rod | "start ved hovedindgangen" |
+
+Hvis du flytter en HTML-fil ind i en undermappe, ændrer `./` og `../` ofte betydning. `/` peger stadig fra sitets rod.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## CSS fra HTML
+
+Hvis `index.html` ligger i roden, og CSS ligger i `css/style.css`:
+
+```text
+mit-site/
+├── index.html
+└── css/
+    └── style.css
+```
+
+Så linker du sådan:
+
+```html
+<link rel="stylesheet" href="./css/style.css" />
+```
+
+eller bare:
+
+```html
+<link rel="stylesheet" href="css/style.css" />
+```
+
+Begge starter fra samme mappe som `index.html`.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Billeder fra HTML
+
+Hvis billedet ligger i `img/`, og HTML-filen ligger i roden:
+
+```html
+<img src="img/logo.png" alt="Logo" />
+```
+
+Hvis HTML-filen ligger i `projekter/`, skal du en mappe op først:
+
+```html
+<img src="../img/logo.png" alt="Logo" />
+```
+
+Samme billede, men forskellig startposition.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Billeder fra CSS
+
+I CSS starter relative stier fra **CSS-filen**, ikke fra HTML-filen.
+
+```text
+mit-site/
+├── index.html
+├── css/
+│   └── style.css
+└── img/
+    └── hero.jpg
+```
+
+Fra `css/style.css` skal du en mappe op og derefter ind i `img/`:
+
+```css
+.hero {
+  background-image: url("../img/hero.jpg");
+}
+```
+
+Det er en klassisk fejl at tænke ud fra HTML-filen her.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Links mellem sider
+
+Hvis to sider ligger i samme mappe:
+
+```html
+<a href="about.html">Om</a>
+```
+
+Hvis du står i `projekter/galleri.html` og vil til forsiden:
+
+```html
+<a href="../index.html">Forside</a>
+```
+
+Hvis du vil starte fra sitets rod:
+
+```html
+<a href="/index.html">Forside</a>
+```
+
+På mange webservere kan `/` også pege på forsiden, fordi serveren automatisk finder `index.html`.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## `index.html` er standardfilen
+
+Webservere leder ofte efter `index.html`, hvis du kun skriver mappen.
+
+Disse kan derfor pege på samme side:
+
+```text
+/
+/index.html
+/projekter/
+/projekter/index.html
+```
+
+Det betyder, at denne struktur:
+
+```text
+projekter/
+└── index.html
+```
+
+typisk bliver til adressen:
+
+```text
+https://dinside.dk/projekter/
+```
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Almindelige fejl
+
+### Fejl 1: CSS virker ikke
+
+```html
+<link rel="stylesheet" href="/css/style.css" />
+```
+
+Hvis du åbner filen direkte fra computeren uden en lokal server, kan `/` give problemer.
+
+Prøv i stedet:
+
+```html
+<link rel="stylesheet" href="css/style.css" />
+```
+
+eller brug en lokal server, når projektet skal ligne et rigtigt website.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Flere almindelige fejl
+
+### Fejl 2: Forkert skråstreg
+
+Brug `/` i webstier:
+
+```html
+<img src="img/logo.png" alt="Logo" />
+```
+
+Undgå Windows-stier i HTML, CSS og JavaScript:
+
+```html
+<img src="img\logo.png" alt="Logo" />
+```
+
+### Fejl 3: Store og små bogstaver
+
+`Logo.png` og `logo.png` kan være to forskellige filer på en server.
+
+Skriv filnavne præcist.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Gode vaner
+
+- brug små bogstaver i filnavne
+- brug bindestreg i stedet for mellemrum: `min-side.html`
+- undgå æ, ø og å i filnavne: brug `oe`, `ae`, `aa`
+- hold mapper simple: `css/`, `img/`, `js/`
+- flyt ikke filer uden at rette de stier, der peger på dem
+- brug browserens DevTools, hvis noget ikke loader
+
+En god sti er ikke smart. Den er bare let at læse og svær at misforstå.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Sådan finder du den rigtige sti
+
+1. Find filen du skriver i.
+2. Find filen du vil pege på.
+3. Spørg: ligger de i samme mappe?
+4. Hvis nej: hvor mange mapper skal du op?
+5. Skriv resten af vejen ned til filen.
+
+Eksempel:
+
+```text
+Du står i: projekter/galleri.html
+Du skal til: css/style.css
+```
+
+Svar:
+
+```html
+<link rel="stylesheet" href="../css/style.css" />
+```
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Øvelse
+
+Brug denne struktur:
+
+```text
+mit-site/
+├── index.html
+├── css/
+│   └── style.css
+├── img/
+│   └── logo.png
+└── sider/
+    ├── kontakt.html
+    └── projekter/
+        └── case.html
+```
+
+Skriv stierne:
+
+1. Fra `index.html` til `css/style.css`
+2. Fra `kontakt.html` til `img/logo.png`
+3. Fra `case.html` til `img/logo.png`
+4. Fra `case.html` til `kontakt.html`
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Løsninger
+
+### 1. Fra `index.html` til `css/style.css`
+
+```html
+<link rel="stylesheet" href="css/style.css" />
+```
+
+### 2. Fra `kontakt.html` til `img/logo.png`
+
+```html
+<img src="../img/logo.png" alt="Logo" />
+```
+
+### 3. Fra `case.html` til `img/logo.png`
+
+```html
+<img src="../../img/logo.png" alt="Logo" />
+```
+
+### 4. Fra `case.html` til `kontakt.html`
+
+```html
+<a href="../kontakt.html">Kontakt</a>
+```
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Opsummering
+
+- `./` betyder den nuværende mappe
+- `../` betyder en mappe op
+- `/` betyder sitets rod
+- relative stier afhænger af, hvor filen ligger
+- i CSS starter relative stier fra CSS-filen
+- filnavne skal matche præcist
+
+Når en sti driller, så tegn bygningen: Hvor står du, og hvor skal du hen?
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Næste skridt
+
+Fortsæt i rækken:
+
+[Gå til HTML Grundlæggende →](/html/grundlaeggende/)
+
+</Slide>
