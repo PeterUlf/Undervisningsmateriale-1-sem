@@ -270,10 +270,12 @@ Så vil både `h2` og `p` som udgangspunkt arve farven blå.
 :::note[Box-sizing]
 En vigtig detalje i CSS er `box-sizing: border-box`. Det sikrer, at padding og border tælles _med_ i elementets bredde, så det ikke bliver bredere end du forventer.
 
-Man sætter det typisk på **alle** elementer i starten af sin CSS-fil:
+Man sætter det typisk på alle elementer og deres pseudo-elementer i starten af sin CSS-fil:
 
 ```css
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 ```
@@ -307,45 +309,21 @@ border-color: red;
 </Slide>
 <div class="page-break"></div>
 <Slide> 
-## Enheder i CSS
-
-Du kommer til at møde mange forskellige enheder. Nogle af de vigtigste er:
-
-- `px` – pixels
-- `em` – relativ til den nuværende font-størrelse
-- `rem` – relativ til dokumentets root-font-størrelse
-- `%` – procent (f.eks. af bredde eller font-størrelse)
-- `vw` / `vh` – procent af viewportens bredde/højde
-
-Eksempel:
-
-```css
-h1 {
-  font-size: 2rem; /* 2 gange root-font-størrelsen */
-}
-
-p {
-  font-size: 1rem;
-}
-```
-
-</Slide>
-<div class="page-break"></div>
-<Slide> 
 ## CSS-enheder
 
 Du kommer til at møde mange forskellige enheder i CSS:
 
-- **`px`** – pixels (fast størrelse)
+- **`px`** – CSS-pixels
 - **`rem`** – relativ til root font-størrelse (anbefalet til font og afstande)
-- **`em`** – relativ til nuværende font-størrelse
-- **`%`** – procent af forældreelementets størrelse
+- **`em`** – relativ til elementets font-størrelse; på `font-size` er den relativ til forælderen
+- **`%`** – relativ til noget andet, som afhænger af den property du bruger
 - **`vw` / `vh`** – procent af viewportens bredde/højde
+- **`dvw` / `dvh`** – procent af den synlige viewport, som kan ændre sig på mobil
 
 Eksempel:
 
 ```css
-body {
+html {
   font-size: 16px; /* root font-størrelse */
 }
 

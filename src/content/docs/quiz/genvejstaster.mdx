@@ -116,13 +116,13 @@ import Quiz from "../../../components/Quiz.astro";
       question: "Hvordan navigerer du til en specifik linje?",
       options: [
         "⌘ + L",
-        "⌘ + G",
+        "Ctrl + G",
         "⌘ + N",
         "⌘ + J",
       ],
       correctIndex: 1,
       explanation:
-        "⌘ + G åbner 'Go to Line', hvor du kan indtaste et linjenummer og hoppe direkte dertil.",
+        "Ctrl + G åbner 'Go to Line' på både Mac og PC, så du kan hoppe direkte til et bestemt linjenummer.",
     },
     {
       question: "Hvad gør Option + pil op/ned?",
@@ -192,9 +192,9 @@ import Quiz from "../../../components/Quiz.astro";
         "⌘ + Option + S",
         "⌘ + Shift + S",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
-        "⌘ + K efterfulgt af S gemmer alle åbne filer samtidig.",
+        "⌘ + Option + S gemmer alle åbne filer på Mac. På Windows er genvejen Ctrl + K efterfulgt af S.",
     },
     {
       question: "Hvad gør ⌘ + Shift + O?",
@@ -212,16 +212,16 @@ import Quiz from "../../../components/Quiz.astro";
       question: "Hvordan folder du kodeblokke sammen/ud?",
       options: [
         "⌘ + K + ⌘ + 0",
-        "⌘ + Shift + [",
+        "⌘ + Option + [",
         "Option + Z",
         "⌘ + F",
       ],
       correctIndex: 1,
       explanation:
-        "⌘ + Shift + [ folder koden sammen, og ⌘ + Shift + ] folder den ud igen.",
+        "⌘ + Option + [ folder området sammen på Mac, og ⌘ + Option + ] folder det ud igen.",
     },
     {
-      question: "Hvad gør ⌘ + Space?",
+      question: "Hvad gør Ctrl + Space i VS Code?",
       options: [
         "Indsætter et mellemrum",
         "Aktiverer Copilot",
@@ -230,19 +230,19 @@ import Quiz from "../../../components/Quiz.astro";
       ],
       correctIndex: 2,
       explanation:
-        "⌘ + Space trigger IntelliSense/autofuldførelse manuelt, så du kan se forslag til kode.",
+        "Ctrl + Space åbner IntelliSense/autofuldførelse manuelt, så du kan se forslag til kode.",
     },
     {
       question: "Hvordan åbner du den integrerede terminal?",
       options: [
-        "⌘ + T",
+        "Ctrl + `",
         "⌘ + `",
         "⌘ + J",
-        "Både B og C",
+        "⌘ + T",
       ],
-      correctIndex: 3,
+      correctIndex: 0,
       explanation:
-        "Både ⌘ + ` (backtick) og ⌘ + J toggler den integrerede terminal i VS Code.",
+        "Ctrl + ` (backtick) viser eller skjuler den integrerede terminal på både Mac og PC. ⌘ + J viser eller skjuler hele panelet.",
     },
     {
       question: "Hvad bruges Shift + Option + F til?",

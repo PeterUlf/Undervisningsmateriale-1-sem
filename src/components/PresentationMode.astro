@@ -15,6 +15,7 @@ const hidePresentation = Astro.url.pathname === "/quiz/tema-8" || Astro.url.path
         <button id="prev-slide" disabled>←</button>
         <span id="slide-counter">1 / 1</span>
         <button id="next-slide">→</button>
+        <button id="print-presentation" class="print-btn">Print slides</button>
         <button id="close-presentation" class="close-btn">✕ Luk</button>
       </div>
       <div id="slide-container"></div>
@@ -94,7 +95,15 @@ const hidePresentation = Astro.url.pathname === "/quiz/tema-8" || Astro.url.path
   .close-btn {
     background-color: var(--sl-color-red-low) !important;
     color: var(--sl-color-red-high) !important;
+  }
+
+  .print-btn {
     margin-left: auto;
+  }
+
+  @media (max-width: 480px) {
+    .controls { gap: 0.4rem; padding: 0.5rem; }
+    .controls button { padding: 0.5rem; }
   }
 
   #slide-container {
@@ -166,6 +175,7 @@ const hidePresentation = Astro.url.pathname === "/quiz/tema-8" || Astro.url.path
       this.prevBtn = document.getElementById('prev-slide');
       this.nextBtn = document.getElementById('next-slide');
       this.closeBtn = document.getElementById('close-presentation');
+      this.printBtn = document.getElementById('print-presentation');
       this.counter = document.getElementById('slide-counter');
       
       this.slides = [];
@@ -174,6 +184,9 @@ const hidePresentation = Astro.url.pathname === "/quiz/tema-8" || Astro.url.path
       if (!this.startBtn || !this.dialog || !this.container) {
         return;
       }
+      // Initialization can run through both DOMContentLoaded and astro:page-load.
+      if (this.dialog.dataset.initialized) return;
+      this.dialog.dataset.initialized = 'true';
 
       if (this.startBtn) {
         this.startBtn.addEventListener('click', () => this.start());
@@ -185,6 +198,9 @@ const hidePresentation = Astro.url.pathname === "/quiz/tema-8" || Astro.url.path
 
       if (this.prevBtn) this.prevBtn.addEventListener('click', () => this.prev());
       if (this.nextBtn) this.nextBtn.addEventListener('click', () => this.next());
+      if (this.printBtn) this.printBtn.addEventListener('click', () => window.print());
+      window.addEventListener('beforeprint', () => this.preparePrint());
+      window.addEventListener('afterprint', () => this.finishPrint());
 
       document.addEventListener('keydown', (e) => this.handleKey(e));
       
@@ -195,6 +211,38 @@ const hidePresentation = Astro.url.pathname === "/quiz/tema-8" || Astro.url.path
       document.addEventListener('click', (e) => this.handleLinkClick(e));
 
       this.handleHashNavigation();
+    }
+
+    preparePrint() {
+      if (!this.dialog.isConnected || !this.dialog.open || this.printRoot) return;
+      if (document.body.classList.contains('is-printing-single-slide')) return;
+
+      this.printFocus = document.activeElement;
+      this.printRoot = document.createElement('section');
+      this.printRoot.className = 'presentation-print sl-markdown-content';
+      this.printRoot.setAttribute('aria-hidden', 'true');
+      this.slides.forEach((slide) => {
+        const clone = slide.cloneNode(true);
+        // Avoid duplicate anchor IDs and controls in the printed copy.
+        clone.querySelectorAll('[id]').forEach((element) => element.removeAttribute('id'));
+        clone.querySelectorAll('button, .sl-anchor-link, script').forEach((element) => element.remove());
+        this.printRoot.appendChild(clone);
+      });
+      document.body.appendChild(this.printRoot);
+      document.body.classList.add('is-printing-presentation');
+      // A modal in the top layer may repeat on every printed page.
+      this.dialog.close();
+    }
+
+    finishPrint() {
+      if (!this.printRoot) return;
+      this.printRoot.remove();
+      this.printRoot = null;
+      document.body.classList.remove('is-printing-presentation');
+      if (this.dialog.isConnected) {
+        this.dialog.showModal();
+        this.printFocus?.focus({ preventScroll: true });
+      }
     }
 
     getSlideIndexFromHash(hash = window.location.hash) {
@@ -405,6 +453,7 @@ const hidePresentation = Astro.url.pathname === "/quiz/tema-8" || Astro.url.path
 
     handleKey(e) {
       if (!this.dialog.open) return;
+      if (e.target.closest('button, a, input, textarea, select, summary, [contenteditable]')) return;
       
       if (e.key === 'ArrowRight' || e.key === ' ') {
         e.preventDefault();

@@ -155,6 +155,7 @@ export default defineConfig({
                 "css/reset",
                 "css/flexbox",
                 "css/grid",
+                "css/tekst-paa-billede",
               ],
             },
             {

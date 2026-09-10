@@ -554,7 +554,72 @@ starlight-toc nav > ul > li:not(:first-child) > a::before {
 }
 
 /* Print styles */
+.presentation-print {
+  display: none;
+}
+
 @media print {
+  body.is-printing-presentation > :not(.presentation-print) {
+    display: none !important;
+  }
+
+  body.is-printing-presentation {
+    display: block !important;
+    overflow: visible !important;
+    background: white !important;
+  }
+
+  body.is-printing-presentation .presentation-print {
+    display: block !important;
+    margin: 0;
+    padding: 0;
+    color: black;
+    background: white;
+    --sl-color-white: #000;
+    --sl-color-text: #000;
+    --sl-color-accent: #222;
+    --sl-color-text-accent: #222;
+  }
+
+  .presentation-print .slide-wrapper,
+  .presentation-print .generated-slide {
+    display: block !important;
+    position: static !important;
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    max-width: none;
+    max-height: none;
+    overflow: visible;
+    margin: 0;
+    padding: 0;
+    animation: none;
+    transform: none;
+  }
+
+  .presentation-print .slide-wrapper + .slide-wrapper {
+    break-before: page;
+  }
+
+  .presentation-print .generated-slide > * {
+    font-size: 11pt;
+  }
+
+  .presentation-print .generated-slide h2 {
+    font-size: 20pt;
+    margin-top: 0;
+  }
+
+  .presentation-print pre {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    overflow: visible;
+  }
+
+  .presentation-print .page-break {
+    display: none;
+  }
+
   .page-break {
     page-break-before: always;
   }

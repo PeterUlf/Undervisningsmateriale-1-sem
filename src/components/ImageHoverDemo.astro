@@ -1,0 +1,40 @@
+---
+const examples = [
+  { variant: 'text', title: '1. Teksten flytter sig' },
+  { variant: 'image', title: '2. Billedet får farve' },
+  { variant: 'both', title: '3. Begge ændrer sig' },
+];
+---
+
+<div class="examples">
+  {examples.map(({ variant, title }) => (
+    <div class="example">
+      <p>{title}</p>
+      <div class:list={['container', variant]} tabindex="0" role="group" aria-label={title}>
+        <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=1000&auto=format&fit=crop&q=80" alt="Bjerge og huse spejler sig i en sø" loading="lazy" width="1000" height="750" />
+        <div class="tekst"><strong>Ud i naturen</strong><span>Find ro ved søen</span></div>
+      </div>
+    </div>
+  ))}
+</div>
+
+<style>
+  .examples { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr)); gap: 1rem; }
+  .example, .example p { margin: 0; }
+  .example p { margin-bottom: .5rem; font-size: .9rem; }
+  .container { display: grid; overflow: hidden; border-radius: .75rem; isolation: isolate; }
+  .container > img, .tekst { grid-column: 1; grid-row: 1; }
+  .container > img { width: 100%; height: 100%; min-height: 240px; object-fit: cover; margin: 0; transition: filter .4s ease, transform .4s ease; }
+  .tekst { align-self: end; z-index: 1; margin: 1rem; padding: .75rem; background: rgb(0 0 0 / 75%); color: white; transform: translateY(0); transition: transform .4s ease; }
+  .tekst strong, .tekst span { display: block; margin: 0; }
+  .tekst span { font-size: .85rem; }
+  .image > img { filter: grayscale(1); }
+  .image:is(:hover, :focus-visible) > img { filter: grayscale(0); }
+  .text:is(:hover, :focus-visible) .tekst, .both:is(:hover, :focus-visible) .tekst { transform: translateY(-12px); }
+  .both:is(:hover, :focus-visible) > img { transform: scale(1.08); }
+  .container:focus-visible { outline: 3px solid var(--sl-color-text-accent); outline-offset: 4px; }
+  @media (prefers-reduced-motion: reduce) {
+    .container > img, .tekst { transition: none; }
+    .container:is(:hover, :focus-visible) > img, .container:is(:hover, :focus-visible) .tekst { transform: none; }
+  }
+</style>

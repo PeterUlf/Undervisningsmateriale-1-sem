@@ -134,7 +134,7 @@ Gå ud på gangen -> gå ind i img-lokalet -> find logo.png
 
 ## Hvad betyder `/`?
 
-`/` betyder **start fra sitets rod**.
+`/` betyder **start fra domænets rod**.
 
 Hvis websitet ligger på et domæne, betyder:
 
@@ -151,11 +151,21 @@ https://dinside.dk/img/logo.png
 I den fysiske analogi svarer `/` til:
 
 ```text
-Start ved skolens hovedindgang, uanset hvilket lokale du står i
+Start ved hele områdets hovedindgang, uanset hvilken bygning du står i
 ```
 
 :::caution[Vigtigt]
-I HTML og CSS betyder `/` normalt roden af websitet, ikke roden af din computer.
+I HTML og CSS betyder `/` domænets rod, ikke roden af din computer eller nødvendigvis projektmappen.
+:::
+
+:::caution[GitHub Pages]
+Et projektsite på GitHub Pages ligger typisk i en undermappe:
+
+```text
+https://navn.github.io/mit-site/
+```
+
+Her peger `/img/logo.png` på `https://navn.github.io/img/logo.png` og springer altså `mit-site/` over. Brug derfor normalt den relative sti `img/logo.png` i de første GitHub Pages-projekter.
 :::
 
 </Slide>
@@ -171,9 +181,9 @@ De ligner hinanden, men de starter forskellige steder.
 | --- | --- | --- |
 | `./img/logo.png` | mappen du står i | "kig i dette lokale" |
 | `../img/logo.png` | en mappe op | "gå ud på gangen først" |
-| `/img/logo.png` | sitets rod | "start ved hovedindgangen" |
+| `/img/logo.png` | domænets rod | "start ved områdets hovedindgang" |
 
-Hvis du flytter en HTML-fil ind i en undermappe, ændrer `./` og `../` ofte betydning. `/` peger stadig fra sitets rod.
+Hvis du flytter en HTML-fil ind i en undermappe, ændrer `./` og `../` ofte betydning. `/` peger stadig fra domænets rod.
 
 </Slide>
 <div class="page-break"></div>
@@ -473,7 +483,7 @@ Skriv stierne:
 
 - `./` betyder den nuværende mappe
 - `../` betyder en mappe op
-- `/` betyder sitets rod
+- `/` betyder domænets rod
 - relative stier afhænger af, hvor filen ligger
 - i CSS starter relative stier fra CSS-filen
 - filnavne skal matche præcist

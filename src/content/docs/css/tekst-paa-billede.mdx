@@ -1,0 +1,314 @@
+---
+title: Tekst på billede og hover
+draft: false
+description: Læg tekst oven på et billede med CSS Grid, og lav hover-effekter med transition. Tre CodePen-øvelser på 60 minutter.
+sidebar:
+  label: Tekst på billede og hover
+  order: 4
+  badge:
+    text: Tema 2
+    variant: tip
+    class: badge-theme-2
+---
+
+import Slide from "../../../components/Slide.astro";
+import ImageHoverDemo from "../../../components/ImageHoverDemo.astro";
+
+<Slide>
+
+## I dag: tekst på billede
+
+Du skal kunne placere et billede og en tekst i **samme grid-felt** og bruge **`:hover` og `transition`** til at ændre deres udseende glidende.
+
+Du skal kende HTML-klasser og simple CSS-selectors. Vi arbejder med HTML og CSS i CodePen.
+
+| Tid | Aktivitet |
+| --- | --- |
+| 0–5 min. | Se og undersøg hover-effekterne |
+| 5–15 min. | Fælles gennemgang: tekst på billede med Grid |
+| 15–20 min. | Fælles gennemgang: hover og transition |
+| 20–30 min. | Øvelse 1: teksten ændrer sig |
+| 30–40 min. | Øvelse 2: billedet ændrer sig |
+| 40–55 min. | Øvelse 3: begge ændrer sig |
+| 55–60 min. | Vis og forklar dit resultat til en makker |
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Se effekten først · 5 min.
+
+Hold musen over hvert kort. Du kan også bruge **Tab** til at sætte fokus på kortene.
+
+<ImageHoverDemo />
+
+Hvad ændrer sig? Hvad sker der, når du flytter musen væk?
+
+Vi tager visuel inspiration fra [Mahesh Ambures hover-eksempler på CodePen](https://codepen.io/maheshambure21/pen/GgVbVW). Her bygger vi vores egen, enkle udgave med Grid.
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Fælles start i CodePen · 10 min.
+
+Åbn [en tom CodePen](https://codepen.io/pen/). Kopiér HTML i **HTML-panelet** og CSS fra næste afsnit i **CSS-panelet**. JavaScript-panelet skal være tomt. Brug almindelig CSS uden preprocessor.
+
+```html
+<div class="container">
+  <img
+    src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=1000&auto=format&fit=crop&q=80"
+    alt="Bjerge og huse spejler sig i en sø"
+  >
+  <div class="tekst">
+    <h2>Ud i naturen</h2>
+    <p>Find ro ved søen</p>
+  </div>
+</div>
+```
+
+Billedet og `.tekst` er **direkte børn af samme `.container`**. Derfor kan begge placeres i containerens grid.
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Start-CSS: to elementer i samme felt
+
+```css
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 24px;
+  font-family: system-ui, sans-serif;
+  background: #edf0f2;
+}
+
+.container {
+  display: grid;
+  max-width: 560px;
+  margin-inline: auto;
+  overflow: hidden;
+  border-radius: 16px;
+  isolation: isolate;
+}
+
+.container img,
+.tekst {
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+}
+
+.container img {
+  width: 100%;
+  height: 360px;
+  object-fit: cover;
+  display: block;
+}
+
+.tekst {
+  z-index: 1;
+  align-self: end;
+  margin: 24px;
+  padding: 16px;
+  color: white;
+  background: rgb(0 0 0 / 75%);
+}
+
+.tekst h2,
+.tekst p {
+  margin: 0;
+}
+```
+
+**Nøglen:** Begge elementer ligger mellem kolonnelinje 1 og 2 og rækkelinje 1 og 2. Derfor ligger de oven på hinanden.
+
+- `z-index: 1` holder teksten foran billedet, også når billedet senere får `transform` eller `filter`.
+- `align-self: end` placerer tekstboksen nederst i feltet.
+- `object-fit: cover` fylder billedets boks og beskærer efter behov.
+- `overflow: hidden` klipper det væk, der senere zoomes uden for kortet.
+- `isolation: isolate` holder kortets lag samlet.
+
+Prøv sammen: Fjern `grid-row` kortvarigt. Nu placerer Grid elementerne i hver sin række. Sæt reglen tilbage, og prøv `align-self: center`.
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Hover og transition · 5 min.
+
+**`:hover`** beskriver tilstanden, når musen er over et element. **`transition`** bestemmer, hvordan en CSS-værdi ændrer sig over tid.
+
+```css
+.tekst {
+  transform: translateY(0);
+  transition: transform 0.4s ease;
+}
+
+.container:hover .tekst {
+  transform: translateY(-12px);
+}
+```
+
+Læs selectoren: **Når musen er over `.container`, ændres `.tekst` inde i den.** Hele kortet aktiverer effekten, også når musen er over teksten.
+
+`transform 0.4s ease` betyder: animér `transform`, brug 0,4 sekunder, og lad hastigheden starte og slutte blødt. `translateY(-12px)` flytter teksten 12 pixels op.
+
+Sæt `transition` på **grundtilstanden**. Så bliver bevægelsen glidende både ind og ud. `transition` skaber ikke ændringen alene — der skal også være en anden værdi ved hover.
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Øvelse 1: kun teksten · 10 min.
+
+Brug startkoden. Gem din Pen som **01 – Tekst på billede**. Her ændrer vi tekstens udseende og placering; ordene er de samme.
+
+1. Giv `.tekst` en startværdi for `transform` og en `transition`.
+2. Lad teksten glide op, når musen er over `.container`.
+3. Sammenlign `0.2s` med `1s`, og vælg en varighed.
+4. Flyt musen ind og ud flere gange. Billedet skal stå stille, og teksten skal bevæge sig glidende begge veje.
+
+<details>
+<summary>Løsningsforslag – prøv selv først</summary>
+
+Tilføj nederst i din start-CSS:
+
+```css
+.tekst {
+  transform: translateY(0);
+  transition: transform 0.4s ease;
+}
+
+.container:hover .tekst {
+  transform: translateY(-12px);
+}
+```
+
+</details>
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Øvelse 2: kun billedet · 10 min.
+
+Opret en ny Pen med **den oprindelige startkode**, så tekst-effekten fra øvelse 1 ikke følger med. Gem som **02 – Billede med hover**.
+
+1. Vælg **én** billedeffekt fra tabellen.
+2. Sæt startværdien på `.container img`.
+3. Tilføj en `transition` for den property, du ændrer.
+4. Sæt hover-værdien på `.container:hover img`.
+5. Kontrollér, at teksten er skarp og står stille, også når musen er direkte over den.
+
+| Effekt | Property | Startværdi | Hover-værdi |
+| --- | --- | --- | --- |
+| Sorthvid → farve | `filter` | `grayscale(1)` | `grayscale(0)` |
+| Skarpt → sløret | `filter` | `blur(0)` | `blur(3px)` |
+| Zoom lidt ind | `transform` | `scale(1)` | `scale(1.08)` |
+
+Sæt effekten på **billedet**. Hvis du slører `.container`, bliver teksten også sløret.
+
+<details>
+<summary>Løsningsforslag – sorthvid til farve</summary>
+
+Tilføj nederst i din start-CSS:
+
+```css
+.container img {
+  filter: grayscale(1);
+  transition: filter 0.4s ease;
+}
+
+.container:hover img {
+  filter: grayscale(0);
+}
+```
+
+Ved blur erstatter du filterværdierne med `blur(0)` og `blur(3px)`. Ved zoom bruger du `transform: scale(1)` og `transform: scale(1.08)` samt `transition: transform 0.4s ease`.
+
+</details>
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Øvelse 3: billede og tekst · 15 min.
+
+Opret en ny Pen med **den oprindelige startkode**. Gem som **03 – Billede og tekst med hover**.
+
+1. Lad billedet zoome lidt ind ved hover.
+2. Lad samtidig teksten glide op.
+3. Giv begge elementer en `transition`, og afprøv forskellige varigheder.
+4. Tilpas overskrift og undertekst til dit eget kort.
+5. Kontrollér, at billedet bliver inden for kortets kanter, og at teksten fortsat er læsbar.
+
+**Færdig?** Brug de sidste minutter på at erstatte zoom med blur eller sorthvid → farve. Forklar en makker, hvilke selectors du ændrede.
+
+<details>
+<summary>Løsningsforslag – zoom og tekstbevægelse</summary>
+
+Tilføj nederst i din start-CSS:
+
+```css
+.container img {
+  transform: scale(1);
+  transition: transform 0.4s ease;
+}
+
+.tekst {
+  transform: translateY(0);
+  transition: transform 0.4s ease;
+}
+
+.container:hover img {
+  transform: scale(1.08);
+}
+
+.container:hover .tekst {
+  transform: translateY(-12px);
+}
+```
+
+De to hover-regler aktiveres af **samme container**, men ændrer hvert sit barn.
+
+</details>
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Opsamling · 5 min.
+
+Vis din tredje Pen til en makker, og forklar:
+
+1. Hvilke to CSS-regler placerer tekst og billede i samme grid-felt?
+2. Hvorfor står `:hover` på containeren?
+3. Hvorfor står `transition` på elementets grundtilstand?
+
+**Hvis noget driller:** Tjek, at begge elementer er direkte børn af `.container`, at begge har samme `grid-column` og `grid-row`, og at transitionens property matcher det, du ændrer.
+
+**Tag med videre:** Hover er en ekstra visuel effekt. Bevar vigtig tekst synlig fra start, så kortet også giver mening på touchskærme. Hvis kortet senere bliver et link, så giv det samme effekt ved `:focus-visible`, så tastaturbrugere også får den.
+
+Ved brug på en rigtig side kan bevægelse slås fra for brugere, der har valgt reduceret bevægelse. Placér dette efter effektreglerne:
+
+```css
+@media (prefers-reduced-motion: reduce) {
+  .container img,
+  .tekst {
+    transition: none;
+  }
+
+  .container:hover img,
+  .container:hover .tekst {
+    transform: none;
+  }
+}
+```
+
+[Gå til Tema 2 – Multiple Choice →](/quiz/tema-2/)
+
+</Slide>

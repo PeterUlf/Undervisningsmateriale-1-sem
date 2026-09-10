@@ -63,7 +63,7 @@ Tjek disse ting først:
 2. Du er logget ind med din Apple Account.
 3. Tofaktorgodkendelse er slået til for din Apple Account.
 4. Din enhed har en stærk kode, Touch ID eller Face ID.
-5. iCloud-nøglering er slået til, hvis adgangskoderne skal synkroniseres.
+5. Adgangskoder i iCloud er slået til, hvis adgangskoderne skal synkroniseres.
 
 :::note[Apple Account]
 Apple bruger i dag navnet **Apple Account**. Mange kalder det stadig Apple-id.
@@ -128,15 +128,17 @@ På iPhone/iPad:
 1. Åbn **Indstillinger**
 2. Tryk på dit navn
 3. Vælg **iCloud**
-4. Vælg **Adgangskoder og nøglering**
-5. Slå synkronisering til
+4. Tryk på **Se alle** ud for det, der er gemt i iCloud
+5. Vælg **Adgangskoder**
+6. Slå **Synkroniser denne iPhone/iPad** til
 
 På Mac:
 
 1. Åbn **Systemindstillinger**
 2. Klik på din Apple Account
 3. Vælg **iCloud**
-4. Slå **Adgangskoder og nøglering** til
+4. Vælg **Adgangskoder**
+5. Slå **Synkroniser denne Mac** til
 
 :::tip[Sikkerhed]
 Apple beskriver iCloud-nøglering som end-to-end-krypteret. Det betyder, at dine adgangskoder ikke bare ligger læsbart hos Apple.
@@ -178,9 +180,11 @@ En passkey er en login-metode, der kan erstatte en adgangskode.
 I stedet for at skrive en hemmelig kode bruger din enhed et kryptografisk nøglepar:
 
 - en offentlig nøgle, som websitet eller appen må kende
-- en privat nøgle, som bliver på din enhed
+- en privat nøgle, som tjenesten aldrig får adgang til
 
 Når du logger ind, godkender du typisk med Face ID, Touch ID eller enhedens kode.
+
+Hvis iCloud-nøglering er slået til, kan passkeyen synkroniseres ende-til-ende-krypteret mellem dine godkendte Apple-enheder. Apple og tjenesten kan ikke læse den private nøgle.
 
 Passkeys er sværere at phishe end almindelige adgangskoder, fordi du ikke skriver en hemmelig kode ind på en side.
 
@@ -315,7 +319,7 @@ Efter siden her bør du kunne forklare:
 
 - [Apple Support: Use the Passwords app](https://support.apple.com/en-gb/120758)
 - [Apple Support: Use passwords on your Mac](https://support.apple.com/guide/passwords/the-passwords-app-mchl901b1b95/mac)
-- [Apple Support: iCloud Keychain on iPhone](https://support.apple.com/en-ie/guide/iphone/-iph82d6721b2/ios)
+- [Apple Support: Set up iCloud Keychain](https://support.apple.com/en-ie/109016)
 - [Apple Support: About the security of passkeys](https://support.apple.com/en-us/102195)
 
 </Slide>

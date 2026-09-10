@@ -161,7 +161,8 @@ CSS:
   display: grid;
   grid-template-columns: 200px 1fr;
   grid-template-rows: auto 1fr auto;
-  min-height: 100vh;
+  min-height: 100vh; /* fallback til ældre browsere */
+  min-height: 100dvh; /* følger den synlige højde på mobil */
 }
 
 .header {
@@ -189,7 +190,7 @@ CSS:
 <div class="page-break"></div>
 <Slide>
 
-## Opgaver (inspireret af exercssises)
+## Opgaver (inspireret af ExerCSSises)
 
 1. Lav et 3x3-grid med ni bokse, der alle har samme størrelse.
 2. Lav et layout med:
@@ -214,6 +215,6 @@ Prøv at åbne udviklerværktøjerne i browseren (Firefox/Chrome) – de har god
 
 Fortsæt i rækken:
 
-[Gå til Tema 2 – Multiple Choice →](/quiz/tema-2/)
+[Gå til Tekst på billede og hover →](/css/tekst-paa-billede/)
 
 </Slide>

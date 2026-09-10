@@ -67,19 +67,19 @@ Læg mærke til `<html lang="da">`. Det fortæller browseren, at sidens indhold 
 
 ### Overskrifter
 
-HTML har 6 niveauer af overskrifter, fra `<h1>` (størst) til `<h6>` (mindst):
+HTML har seks niveauer af overskrifter, fra `<h1>` (højeste niveau) til `<h6>` (laveste niveau). Niveauet beskriver indholdets struktur, ikke hvor stor teksten skal se ud:
 
 ```html
-<h1>Hovedoverskrift</h1>
-<h2>Underoverskrift</h2>
-<h3>Mindre overskrift</h3>
-<h4>Endnu mindre</h4>
-<h5>Meget lille</h5>
-<h6>Mindst</h6>
+<h1>Sidens hovedoverskrift</h1>
+<h2>Overskrift på niveau 2</h2>
+<h3>Overskrift på niveau 3</h3>
+<h4>Overskrift på niveau 4</h4>
+<h5>Overskrift på niveau 5</h5>
+<h6>Overskrift på niveau 6</h6>
 ```
 
-:::tip[Vigtig regel]
-Brug kun én `<h1>` per side - det er din hovedoverskrift!
+:::tip[God praksis]
+Brug som udgangspunkt én `<h1>` per side, og brug CSS til at styre overskrifternes størrelse.
 :::
 
 </Slide>
@@ -187,11 +187,11 @@ Det er vigtigt, at tags altid bliver lukket i samme rækkefølge, som de er åbn
 <h2>Underoverskrift</h2>
 <h3>Under-underoverskrift</h3>
 ...
-<h6>Mindste overskrift</h6>
+<h6>Overskrift på niveau 6</h6>
 ```
 
-:::tip[Vigtig regel]
-Brug kun én `<h1>` pr. side. Det er sidens hovedoverskrift.
+:::tip[God praksis]
+Brug som udgangspunkt én `<h1>` pr. side. Det er sidens hovedoverskrift.
 :::
 
 </Slide>
@@ -351,7 +351,7 @@ Ud over tekst-tags findes der også tags til at beskrive **strukturen** på en s
   </main>
 
   <footer>
-    <p>&copy; 2025 Mig selv</p>
+    <p>&copy; Mit navn</p>
   </footer>
 </body>
 ```
