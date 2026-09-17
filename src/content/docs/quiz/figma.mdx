@@ -1,0 +1,123 @@
+---
+title: Strukturen i Figma – Quiz
+draft: false
+description: Test din forståelse af teams, mapper, filer, pages, frames og layers i Figma.
+sidebar:
+  label: Figma – Quiz
+  order: 1
+  badge:
+    text: Tema 1
+    variant: tip
+    class: badge-theme-1
+---
+
+import Quiz from "../../../components/Quiz.astro";
+
+Læs [Strukturen i Figma](/astro/figma/strukturen-i-figma/), før du begynder.
+Alle 16 spørgsmål kan besvares ud fra teksten. Vælg ét svar til hvert spørgsmål.
+
+Du har 20 minutter fra dit første svar. Tryk på **Aflever test** for at se dit resultat og forklaringerne.
+
+<Quiz
+  title="Figma – Test din forståelse"
+  questions={[
+    {
+      question: "Hvilken rækkefølge går fra det overordnede niveau til indholdet inde i en fil?",
+      options: ["Team → mappe → fil → page", "Mappe → team → page → fil", "Fil → team → mappe → page", "Team → fil → page → mappe"],
+      correctIndex: 0,
+      explanation: "Et team indeholder mapper med filer. Inde i en designfil kan arbejdet fordeles på pages.",
+    },
+    {
+      question: "Hvad bruger du file browser til?",
+      options: ["At ændre Auto Layout på en frame", "At tegne og placere lag på canvas", "At finde og organisere teams, mapper og filer", "At oprette en prototype mellem to frames"],
+      correctIndex: 2,
+      explanation: "File browser er oversigten, hvor du finder og organiserer arbejdet, før du åbner selve designfilen.",
+    },
+    {
+      question: "Hvad er et team i Figma?",
+      options: ["En samling lag inde i en frame", "Et fælles arbejdsrum med personer, mapper, filer og rettigheder", "En underside med wireframes", "En privat fil, som kun ejeren kan åbne"],
+      correctIndex: 1,
+      explanation: "Et team samler personer og deres fælles arbejde. I undervisningen kan et team fx være et hold eller en projektgruppe.",
+    },
+    {
+      question: "Gruppen har flere relaterede Figma-filer. Hvad bruges til at samle dem i teamet?",
+      options: ["En frame", "Et layer", "En page", "En mappe"],
+      correctIndex: 3,
+      explanation: "En mappe samler relaterede filer og ligger i et team.",
+    },
+    {
+      question: "Hvad er Drafts især beregnet til?",
+      options: ["Personlige forsøg og idéer, der endnu ikke har en fast placering", "Fælles mapper, som alle i teamet automatisk kan se", "Arkivering af alle teamets færdige projekter", "Opdeling af en designfil i pages"],
+      correctIndex: 0,
+      explanation: "Drafts er dit personlige arbejdsområde til hurtige tests og ufærdige idéer. Vigtige gruppefiler bør flyttes til den rigtige team-mappe.",
+    },
+    {
+      question: "Hvilken filtype arbejder I ifølge teksten typisk i under designundervisningen?",
+      options: ["Figma Slides", "Figma Buzz", "Figma Design", "Figma Sites"],
+      correctIndex: 2,
+      explanation: "Teksten beskriver Figma Design som den filtype, I typisk bruger i designundervisningen.",
+    },
+    {
+      question: "Du vil adskille wireframes, design og prototype inde i samme fil. Hvad kan du bruge?",
+      options: ["Tre teams", "Tre pages", "Tre organisationer", "Tre mapper uden for filen"],
+      correctIndex: 1,
+      explanation: "Pages er organisatoriske undersider i en Figma-fil. De kan fx hedde Wireframes, Design og Prototype.",
+    },
+    {
+      question: "Hvilket udsagn om en page er korrekt?",
+      options: ["Den er altid en færdig webside på internettet", "Den kan kun indeholde én frame", "Den er en mappe med flere Figma-filer", "Den organiserer indhold inde i en Figma-fil"],
+      correctIndex: 3,
+      explanation: "En Figma-page er en organisatorisk side i filen. Den er ikke det samme som en webside.",
+    },
+    {
+      question: "Hvad kaldes arbejdsfladen, du arbejder på, når du åbner en page?",
+      options: ["Canvas", "Drafts", "File browser", "Team"],
+      correctIndex: 0,
+      explanation: "Canvas er arbejdsfladen på en page. Her organiserer du blandt andet sections, frames og layers.",
+    },
+    {
+      question: "Du vil samle og navngive et område på canvas med flere dele af dit design. Hvad passer til det?",
+      options: ["En organisation", "En mappe", "En section", "En filrettighed"],
+      correctIndex: 2,
+      explanation: "En section bruges til at samle og navngive et område på canvas.",
+    },
+    {
+      question: "Du skal lave en mobilskærm med bestemt størrelse og Auto Layout. Hvad bør du oprette?",
+      options: ["Et team", "En frame", "En mappe", "En ny organisation"],
+      correctIndex: 1,
+      explanation: "En frame kan repræsentere en skærm eller en layout-container og kan have størrelse, farve, Auto Layout og constraints.",
+    },
+    {
+      question: "Et logo og en navigation ligger på samme niveau inde i Header. Hvad kaldes deres relation?",
+      options: ["Logoet er parent til navigationen", "Navigationen er parent til logoet", "De er to teams", "De er siblings"],
+      correctIndex: 3,
+      explanation: "Siblings er lag på samme niveau. Header er parent, mens logoet og navigationen er children inde i Header.",
+    },
+    {
+      question: "Hvilken adgang skal et gruppemedlem have for at kunne ændre designet?",
+      options: ["can edit", "can view", "can comment", "Adgang til linket er altid nok"],
+      correctIndex: 0,
+      explanation: "Personer, der skal ændre designet, skal have can edit. At kunne åbne eller kommentere filen er ikke det samme som at kunne redigere den.",
+    },
+    {
+      question: "Du vil kigge rundt i en fil uden at flytte lag ved en fejl. Hvad anbefaler teksten?",
+      options: ["At flytte filen til Drafts", "At samle alle lag i en gruppe", "At bruge hand tool med genvejen H", "At oprette en ny page"],
+      correctIndex: 2,
+      explanation: "Hand tool, som aktiveres med H, gør det lettere at navigere uden at flytte lag ved en fejl.",
+    },
+    {
+      question: "Hvilket filnavn fortæller tydeligst gruppen, hvad filen indeholder?",
+      options: ["design", "Gruppe 4 - redesign - prototype", "test", "ny fil"],
+      correctIndex: 1,
+      explanation: "Et navn med gruppe, projekt og formål gør filen lettere at finde og forstå for andre.",
+    },
+    {
+      question: "Gruppens vigtige projektfil ligger i dine Drafts. Hvad er god praksis ifølge teksten?",
+      options: ["At lade den ligge og kun omdøbe dens layers", "At oprette flere pages, så gruppen automatisk får adgang", "At give alle frames samme navn", "At flytte den til den rigtige team-mappe og kontrollere gruppens adgang"],
+      correctIndex: 3,
+      explanation: "Vigtige projektfiler bør ligge i den rigtige team-mappe, så gruppen lettere kan finde dem. Kontrollér også, at de personer, der skal designe, har can edit.",
+    },
+  ]}
+/>
+
+[Læs Strukturen i Figma igen →](/astro/figma/strukturen-i-figma/)

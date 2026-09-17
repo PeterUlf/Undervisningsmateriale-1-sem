@@ -162,6 +162,15 @@ export default defineConfig({
               label: "Git & GitHub",
               items: [
                 {
+                  label: "Git & GitHub",
+                  slug: "git",
+                  badge: {
+                    text: "Tema 2",
+                    variant: "tip",
+                    class: "badge-theme-2",
+                  },
+                },
+                {
                   label: "Intro til GitHub",
                   slug: "git/intro-til-github",
                   badge: {
@@ -192,6 +201,15 @@ export default defineConfig({
           label: "Quizzer",
           collapsed: true,
           items: [
+            {
+              label: "Figma – Quiz",
+              slug: "quiz/figma",
+              badge: {
+                text: "Tema 1",
+                variant: "tip",
+                class: "badge-theme-1",
+              },
+            },
             {
               label: "Tema 2 – Quiz",
               slug: "quiz/tema-2",
