@@ -142,13 +142,11 @@ export default defineConfig({
               },
             },
             {
-              label: "Billeder, brugsrettigheder og metadata",
-              slug: "photo/billeders-brugsrettigheder-metadata",
-              badge: {
-                text: "Tema 2",
-                variant: "tip",
-                class: "badge-theme-2",
-              },
+              label: "Billeder",
+              items: [
+                "photo/billeders-brugsrettigheder-metadata",
+                "css/tekst-paa-billede",
+              ],
             },
             {
               label: "HTML",
@@ -164,7 +162,6 @@ export default defineConfig({
                 "css/reset",
                 "css/flexbox",
                 "css/grid",
-                "css/tekst-paa-billede",
               ],
             },
             {
