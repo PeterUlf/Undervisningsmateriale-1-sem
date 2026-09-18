@@ -1,0 +1,496 @@
+---
+title: Billeder, brugsrettigheder og metadata
+draft: false
+description: Læs billeders metadata, forstå licenser, og brug og krediter billeder korrekt på dit website.
+sidebar:
+  label: Billeder, brugsrettigheder og metadata
+  order: 4
+  badge:
+    text: Tema 2
+    variant: tip
+    class: badge-theme-2
+---
+
+import Slide from "../../../components/Slide.astro";
+import metadataExercise from "../../../assets/billeder til at afprøve META.zip?url";
+
+<Slide>
+
+## Gruppeøvelse: Hvad gemmer billederne?
+
+**I grupper på 2–3: Undersøg billederne i 5 minutter.**
+
+<p>
+  <a href={metadataExercise} download="billeder-til-at-afproeve-metadata.zip">
+    Hent de tre øvelsesbilleder (ZIP, ca. 9 MB)
+  </a>
+</p>
+
+1. Pak zipfilen ud, og fordel de tre billeder mellem jer.
+2. Undersøg filernes oplysninger: Hvad kan I finde ud af **uden kun at kigge på motivet**?
+3. Sammenlign jeres fund. Hvilke oplysninger overrasker jer? Hvad ville I selv være opmærksomme på, før I delte billederne?
+
+**Kom i gang:** På Windows: højreklik på filen → **Egenskaber → Detaljer**. På Mac: åbn i **Billedfremviser → Info**. I kan også bruge [XnView MP](https://www.xnview.com/en/xnview/).
+
+Pakken indeholder **to HEIC-filer og én JPG-fil**. Hvis Windows ikke viser HEIC-oplysningerne, så prøv XnView MP eller undersøg filen sammen på en Mac. Brug originalfilerne; konvertering kan ændre metadata.
+
+**Efter 5 minutter:** Hver gruppe fortæller kort om **to fund og ét spørgsmål**, som undersøgelsen gav anledning til.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Opsamling: Det fandt vi i filerne
+
+| Fil og kamera                                | Tid i filen                   | Skjulte spor                                                                                                                 |
+| -------------------------------------------- | ----------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| **IMG_3186.HEIC**<br />iPhone 17 Pro         | 17.09.2026<br />kl. **19:45** | GPS: **København**; usikkerhed ca. **14 m**. Kameraretning ca. **328°** fra nord; hastighed **0 km/t**.                      |
+| **IMG_7213.HEIC**<br />iPhone 13 Pro         | 16.10.2025<br />kl. **17:36** | GPS: **Sicilien**; usikkerhed ca. **4 m**. Højde ca. **316 m over havet**; kameraretning ca. **231°**; hastighed **0 km/t**. |
+| **IMG_7319.JPG**<br />Olympus E-M10 Mark III | 13.10.2025<br />kl. **17:01** | **Fotografens navn, e-mail og kameraets serienummer**. Ingen GPS-koordinater; kun en GPS-versionsangivelse.                  |
+
+**Et billede kan afsløre mere end motivet: hvor, hvornår, med hvad – og nogle gange hvem.**
+
+**Læs tallene med omtanke:** GPS-usikkerheden er et estimat. `0 km/t` er en gemt værdi, ikke et sikkert bevis på stilstand. Metadata kan ændres. Se [forklaringen af GPS-felterne](https://exiftool.org/TagNames/GPS.html).
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## TL;DR – det vigtigste på ét slide
+
+**Undersøg filen. Find tilladelsen. Kreditér. Tjek, hvad du deler.**
+
+1. **Metadata fortæller om billedet:** fx kamera, tidspunkt, GPS og fotograf. Oplysningerne kan mangle eller være ændret.
+2. **En licens fortæller, hvad du må:** fx om du må offentliggøre og bearbejde billedet, og på hvilke vilkår.
+3. **Find licensen på den oprindelige billedside.** Den kan også være gemt i filens metadata, men følger ikke automatisk med en download.
+4. **Gem kilde og tilladelse, og kreditér efter loven og licensen.** Et navn eller et ©-mærke er ikke i sig selv en brugslicens.
+5. **Tjek private oplysninger før deling:** Både personer i motivet og GPS eller kontaktoplysninger i filen kan være relevante.
+
+**Ingen metadata betyder ikke fri brug.** Ingen tydelig tilladelse? Spørg rettighedshaveren, eller vælg et andet billede.
+
+Herfra går vi fra **filens oplysninger → billedets licens → kreditering og offentliggørelse**.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Hvor står oplysningerne: i filen eller på hjemmesiden?
+
+| Sted                        | Hvad kan du finde?                                              | Sådan undersøger du det                                           |
+| --------------------------- | --------------------------------------------------------------- | ----------------------------------------------------------------- |
+| **Inde i billedfilen**      | Kamera, dato, GPS og eventuelt fotograf, copyright eller licens | Åbn filens metadata i fx XnView MP                                |
+| **På billedets hjemmeside** | Tekst om ophaver, kilde, licens og brugsvilkår                  | Find oplysningerne ved det konkrete billede, fx under “Licensing” |
+
+**En licens kan stå begge steder.** Fotografen kan have gemt fx `CC BY-SA 4.0` eller et licenslink i metadata. Det sker ikke automatisk, og hjemmesidens tekst bliver ikke automatisk en del af billedfilen, når du downloader.
+
+Hvis metadata kun viser **“Foto: Anna”** eller **“© Anna”**, har du fundet en oplysning om ophaveren. Du mangler stadig at finde ud af, **hvad du må bruge billedet til**.
+
+**Brug derfor begge spor:** Undersøg filens metadata, og kontrollér tilladelsen på den oprindelige billedside.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Eksempel: Find licensen til billedet af Nyhavn
+
+<div class="columns-2">
+  <figure style={{ margin: 0 }}>
+    <img
+      src="/illustrationer/billedrettigheder/nyhavn-2023.jpg"
+      alt="Farverige huse og fortøjede både langs kanalen i Nyhavn"
+      width="4032"
+      height="2268"
+      loading="lazy"
+      style={{ width: "100%", height: "auto" }}
+    />
+    <figcaption>
+      <a href="https://commons.wikimedia.org/wiki/File:Nyhavn-2023.jpg">Nyhavn-2023</a>
+      {" – foto: "}<a href="https://commons.wikimedia.org/wiki/User:Mahendra">Mahendra</a>
+      {" – "}<a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+      {". Uændret."}
+    </figcaption>
+  </figure>
+  <div>
+
+Åbn [billedsiden på Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Nyhavn-2023.jpg), og find:
+
+1. **Summary → Author:** Fotografen er **Mahendra**.
+2. **Licensing:** Der står **CC BY-SA 4.0**. Klik på licensnavnet for vilkårene.
+3. **Metadata:** Et separat afsnit viser fx **iPhone 13 Pro Max**, optagetidspunkt og GPS.
+
+  </div>
+</div>
+
+**Her står licensen i hjemmesidens tekst.** I den undersøgte originalfil fandt vi kamera- og GPS-data, men ingen CC-licens i EXIF-, IPTC- eller XMP-felterne. En billedfil og dens billedside kan altså give forskellige oplysninger.
+
+**Gem dokumentationen:** Kildelink, ophaver, licens/version, hentningsdato og fx et skærmbillede af billedets licens. Brug licensafsnittet ved fotoet; sidens generelle footer kan handle om andet indhold.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Metadata er data om data
+
+Et billede består af mere end de pixels, du ser. Filen kan også indeholde oplysninger om billedet.
+
+| Type                        | Eksempler                                                                 | Hvad kan du bruge det til?          |
+| --------------------------- | ------------------------------------------------------------------------- | ----------------------------------- |
+| **Tekniske oplysninger**    | Kamera, pixelmål, optagetidspunkt, farveprofil                            | Forstå, hvordan billedet er lavet   |
+| **Beskrivende oplysninger** | Titel, motiv, nøgleord, sted                                              | Finde og forstå billedet            |
+| **Rettighedsoplysninger**   | Fotograf og copyright; eventuelt licens og brugsvilkår, hvis de er indsat | Finde spor om ophaver og tilladelse |
+
+**Et tomt felt betyder, at oplysningen mangler – ikke at billedet er frit.**
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Sådan undersøger du en billedfil
+
+Vælg et billede, du selv har taget, eller en fil, du har lov til at hente. Begynd gerne med en **JPEG-fil**.
+
+<div class="columns-2">
+  <div>
+
+### På en Windows-PC
+
+**Stifinder → Egenskaber → Detaljer**
+
+1. Find billedfilen i **Stifinder**.
+2. Højreklik på filen, og vælg **Egenskaber** (_Properties_).
+3. Vælg fanen **Detaljer** (_Details_), og rul gennem oplysningerne.
+
+Se [Microsofts eksempel med billedoplysninger](https://learn.microsoft.com/en-us/answers/questions/3925471/window-11-file-explorer-missing-meta-data-fields).
+
+  </div>
+  <div>
+
+### På en Mac
+
+**Billedfremviser → Info → Flere oplysninger**
+
+1. Åbn billedfilen i **Billedfremviser** (_Preview_).
+2. Klik på **infoknappen** i værktøjslinjen.
+3. Undersøg de tilgængelige faner i infovinduet.
+
+Se [Apples vejledning til infovinduet](https://support.apple.com/da-dk/guide/preview/prvw9c94f0a4/mac).
+
+  </div>
+</div>
+
+**På begge systemer:** Kig efter pixelmål, kamera, fotograf/copyright og eventuel placering. Notér, hvad du finder, og hvad du ikke kan se. Filformat og program afgør, hvilke felter der vises; et manglende felt er ikke en tilladelse til at bruge billedet.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Anbefalet program: XnView MP
+
+**XnView MP** er et godt fælles værktøj til øvelsen på **Windows og Mac**. Det kan vise EXIF-, IPTC- og XMP-metadata, så I kan undersøge flere oplysninger end i computerens enkle filoversigt.
+
+1. Hent **XnView MP** fra [XnViews officielle hjemmeside](https://www.xnview.com/en/xnview/).
+2. Find billedets mappe i programmets filbrowser, og markér billedet.
+3. Undersøg de tilgængelige metadatafaner, fx **EXIF**, **IPTC** og **XMP**.
+4. Sammenlign oplysningerne med dem, du kunne se i Stifinder eller Billedfremviser.
+
+Programmet læser filen **lokalt på din computer**. Det er gratis til privat brug og undervisning; kommerciel brug i en virksomhed kræver en betalt licens. Se [XnViews licensoplysninger](https://www.xnview.com/en/faq/).
+
+**Alternativ:** [Metadata2Go](https://www.metadata2go.com/) kan læse metadata via upload. Brug et ufølsomt øvelsesbillede; undersøg private billeder lokalt på computeren.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## EXIF, IPTC og XMP
+
+Du møder ofte disse navne, når du undersøger en billedfil:
+
+- **EXIF:** ofte kameraoplysninger, optagetidspunkt og eventuelt GPS-position.
+- **IPTC:** felter til fx beskrivelse, fotograf og rettigheder.
+- **XMP:** en måde at gemme metadata på, herunder mange IPTC-felter.
+
+Se især efter `Creator` eller `Artist`, `CopyrightNotice` eller `Rights` og `UsageTerms`. Navnene varierer mellem programmer.
+
+Metadata kan ændres eller forsvinde ved eksport. **Kontrollér derfor også billedets oprindelige kilde.** Se [IPTC's vejledning til billedmetadata](https://www.iptc.org/std/photometadata/documentation/userguide/).
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Hvem tilhører copyright-linjen?
+
+Et tænkt metadataudtræk viser:
+
+```text
+ImageWidth:         2400
+ImageHeight:        1600
+ProfileDescription: sRGB IEC61966-2.1
+ProfileCopyright:   Copyright (c) 1998 Hewlett-Packard Company
+Creator:            [ikke udfyldt]
+CopyrightNotice:    [ikke udfyldt]
+UsageTerms:         [ikke udfyldt]
+```
+
+**Kan vi konkludere, at Hewlett-Packard ejer fotografiet?**
+
+Nej. `ProfileCopyright` handler om **farveprofilen**, som hjælper med at gengive farver. Her mangler vi stadig oplysninger om fotografen og billedets brugsrettigheder.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Ophavsret og brugsret er to forskellige ting
+
+**Ophavsret** er rettighederne til værket. Billeder beskyttes som udgangspunkt automatisk; et ©-mærke eller udfyldte metadata er ikke en forudsætning. Fotografen er normalt udgangspunktet, men rettigheder kan være overdraget.
+
+**Brugsret** er en tilladelse til en bestemt anvendelse. En licens kan fx tillade brug på et website og samtidig stille krav om kreditering.
+
+- Et Google-resultat giver dig ikke i sig selv en tilladelse.
+- Kreditering kan være et krav efter både loven og licensen, men erstatter ikke en tilladelse.
+- Et offentligt studieprojekt på GitHub Pages er også en offentliggørelse.
+
+Der findes lovbestemte undtagelser, men undervisningsformål er ikke en generel tilladelse til at lægge andres billeder på nettet. Se [Kulturministeriets vejledning om ophavsret på internettet](https://kum.dk/kulturomraader/ophavsret/ophavsret-paa-internettet).
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Hvilken tilladelse har du?
+
+| Angivelse                                      | Hvad gør du?                                                         |
+| ---------------------------------------------- | -------------------------------------------------------------------- |
+| **All rights reserved / ingen tydelig licens** | Indhent tilladelse, eller vælg et andet billede                      |
+| **Creative Commons (CC)**                      | Læs den konkrete licens, og følg alle dens vilkår                    |
+| **CC0 / Public Domain**                        | Kontrollér grundlaget for angivelsen og eventuelle andre rettigheder |
+| **Billedbankens egen licens**                  | Læs platformens vilkår for netop billedet og din brug                |
+
+**Public Domain** bruges om materiale uden ophavsretlige enerettigheder, fx fordi beskyttelsestiden er udløbet. **CC0** er et værktøj, hvor rettighedshaveren fraskriver sig rettigheder i det omfang, loven tillader.
+
+**CC0 stiller ikke selv et krediteringskrav, men dansk lov kan stadig kræve navngivning.** Rettigheder, der ikke gyldigt kan fraskrives, forsvinder ikke med CC0. Se [Creative Commons' forklaring af CC0 og ideelle rettigheder](https://wiki.creativecommons.org/wiki/CC0_FAQ).
+
+Andre hensyn, fx personers privatliv, kan også være relevante.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Læs bogstaverne i en CC-licens
+
+| Del    | Betydning                          | Det skal du huske                                        |
+| ------ | ---------------------------------- | -------------------------------------------------------- |
+| **BY** | Kreditering                        | Oplys ophaver, kilde, licens og ændringer                |
+| **SA** | ShareAlike / DelPåSammeVilkår      | Del bearbejdelser under samme eller en kompatibel licens |
+| **NC** | NonCommercial / IkkeKommerciel     | Licensen tillader kun ikke-kommerciel brug               |
+| **ND** | NoDerivatives / IngenBearbejdelser | Licensen tillader ikke deling af bearbejdede versioner   |
+
+**CC BY-NC** kombinerer fx kreditering med kravet om ikke-kommerciel brug. Et website uden betaling er ikke automatisk ikke-kommercielt; formålet med brugen tæller.
+
+Læs altid den fulde kombination og version. Se [Creative Commons' licensoversigt](https://creativecommons.org/cc-licenses/).
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Nyhavn: Hvad betyder CC BY-SA 4.0?
+
+På [billedsiden for Nyhavn-2023.jpg](https://commons.wikimedia.org/wiki/File:Nyhavn-2023.jpg#Licensing) har **Mahendra** angivet **CC BY-SA 4.0**. Det er den tilladelse, vi læser her:
+
+1. **Du må dele og bearbejde billedet**, også til kommercielle formål.
+2. **BY:** Kreditér ophaveren, link til kilden og licensen, og oplys ændringer.
+3. **SA:** Hvis du deler en bearbejdelse, skal den have samme eller en kompatibel licens.
+4. **4.0** er licensens version.
+
+Bruger du fotoet uændret, beholder det sin licens. At vise det som et selvstændigt billede på en side betyder ikke automatisk, at sidens HTML og CSS skal have samme licens.
+
+Se [CC BY-SA 4.0 på dansk](https://creativecommons.org/licenses/by-sa/4.0/deed.da) og [Creative Commons' forklaring af bearbejdelser og samlinger](https://creativecommons.org/faq/).
+
+**Ved andre billeder med ND:** En kreativ beskæring eller et filter kan være en bearbejdelse. Vælg en licens, der passer til din redigering.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Navngivning efter dansk ret
+
+**At kreditere ophaveren er som udgangspunkt et lovkrav – ikke kun god praksis.**
+
+- **§ 3, stk. 1:** Ophaveren har ret til at blive navngivet, når værket kopieres eller offentliggøres, i det omfang **god skik kræver det**.
+- **§ 3, stk. 3:** Retten kan kun fraviges for en brug, der er **afgrænset i art og omfang**. Den kan ikke generelt fraskrives for enhver fremtidig brug.
+- **Fotografier:** Reglen gælder også fotografiske billeder gennem **§ 70, stk. 3**.
+- **Efter beskyttelsestidens udløb:** For værker kan **§ 75** stadig beskytte navngivningen, hvis kulturelle interesser krænkes.
+
+Se [ophavsretslovens §§ 3, 70 og 75 på Retsinformation](https://www.retsinformation.dk/eli/lta/2023/1093).
+
+**I jeres projekt:** Angiv den oplyste ophaver eller det angivne pseudonym, og gem kilden. Brug ikke en CC0- eller Public Domain-markering som en automatisk begrundelse for at udelade navnet.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Kreditér Nyhavn-billedet: TASL
+
+Brug huskereglen **TASL**, når du samler oplysningerne fra billedsiden:
+
+| Bogstav         | I vores eksempel                          |
+| --------------- | ----------------------------------------- |
+| **T – Title**   | Nyhavn-2023                               |
+| **A – Author**  | Mahendra                                  |
+| **S – Source**  | Link til billedsiden på Wikimedia Commons |
+| **L – License** | CC BY-SA 4.0 med link til licensen        |
+
+**Ved brug uden ændringer kan krediteringen se sådan ud:**
+
+Foto: [Mahendra – Nyhavn-2023](https://commons.wikimedia.org/wiki/File:Nyhavn-2023.jpg), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). Uændret.
+
+Har du ændret billedet, oplyser du ændringen i stedet, fx “Beskåret”. Bevar eventuelle yderligere påkrævede meddelelser fra kilden. TASL er en huskeregel; titel er fx ikke et krav i CC 4.0. Se [Creative Commons' vejledning til kreditering](https://wiki.creativecommons.org/wiki/Best_practices_for_attribution).
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Kreditering i HTML
+
+<p>
+  Hent{" "}
+  <a
+    href="/illustrationer/billedrettigheder/nyhavn-2023.jpg"
+    download="nyhavn-2023.jpg"
+  >
+    Nyhavn-billedet
+  </a>
+  , og gem det som <code>nyhavn-2023.jpg</code> i din <code>img</code>-mappe. Så
+  kan du bruge samme eksempel i HTML:
+</p>
+
+```html
+<figure>
+  <img
+    src="img/nyhavn-2023.jpg"
+    alt="Farverige huse og både langs kanalen i Nyhavn"
+  />
+  <figcaption>
+    <a href="https://commons.wikimedia.org/wiki/File:Nyhavn-2023.jpg">
+      Foto: Mahendra – Nyhavn-2023
+    </a>
+    –
+    <a href="https://creativecommons.org/licenses/by-sa/4.0/"> CC BY-SA 4.0 </a
+    >. Uændret.
+  </figcaption>
+</figure>
+```
+
+**`alt` beskriver billedets funktion eller indhold i sammenhængen.** Krediteringen står synligt i `figcaption`. Metadata i billedfilen udfylder ikke automatisk HTML-attributten `alt`. Rent dekorative billeder har normalt `alt=""`. Se [W3C's guide til alt-tekst](https://www.w3.org/WAI/tutorials/images/decision-tree/).
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Personer på billedet og GPS i filen
+
+En tilladelse fra fotografen afgør ikke alene, om du må offentliggøre billeder af andre mennesker.
+
+- Genkendelige personer kan være personoplysninger. Hvor databeskyttelsesreglerne gælder, skal der være et gyldigt behandlingsgrundlag.
+- Der er ikke en generel regel om, at alle situationsbilleder frit må offentliggøres. Billede, formål og sammenhæng skal vurderes.
+- **I jeres projekt:** Aftal brugen med dem, I fotograferer, og fortæl, hvor billederne skal vises.
+
+Se [Datatilsynets forklaring om offentliggørelse af billeder](https://www.datatilsynet.dk/presse-og-nyheder/nyhedsarkiv/2019/sep/aendret-praksis-i-forhold-til-billeder-paa-internettet).
+
+**Tjek også dine egne filer:** GPS-data kan afsløre, hvor et billede er taget. Fjern unødvendig placering fra den kopi, du vil offentliggøre, og kontrollér resultatet.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Fra original til billede på dit website
+
+**Find → undersøg → dokumentér → tilpas → kreditér → kontrollér**
+
+1. Gem originalfilen og en note om kilde og tilladelse.
+2. Lav en separat webkopi i passende pixelmål og filformat.
+3. Bevar relevante oplysninger om ophaver og rettigheder. Undgå ukritisk at fjerne alle metadata.
+4. Tjek webkopien: Hvilke metadata er bevaret? Er unødvendige private oplysninger fjernet?
+5. Tilføj passende `alt`-tekst og den krævede kreditering på siden.
+
+Eksport og komprimering kan ændre metadata. En manglende copyright-oplysning efter eksport ændrer ikke rettighederne. Se [IPTC's anbefalinger om at bevare metadata](https://www.iptc.org/std/photometadata/documentation/userguide/#_fundamental_guidelines_for_the_preservation_of_embedded_metadata).
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Brug det i jeres eget projekt
+
+**Arbejd i par i 12–15 minutter.** Brug ét billede, I selv har taget, og ét billede med en tydelig licens fra fx [Wikimedia Commons](https://commons.wikimedia.org/). I kan bruge Nyhavn-eksemplet som hjælp.
+
+1. **I filen:** Find tre oplysninger. Er der GPS eller kontaktoplysninger, I bør tage stilling til?
+2. **På billedsiden:** Find ophaver, licens og vilkår for billedet fra nettet. Notér særskilt, hvad I fandt i filen og på hjemmesiden.
+3. **Beslut:** Må I offentliggøre og redigere billederne? Tjek også hensynet til personer på dem.
+4. **Brug:** Skriv krediteringen, og indsæt billedet i HTML med passende `alt`-tekst.
+
+**Lav en billedlog:** Filnavn · kilde · fotograf · licens/version · hentningsdato · ændringer.
+
+Hvis oplysninger mangler, skriver I **“ukendt”** og forklarer, hvordan I vil undersøge det. Metadata behøver ikke være komplette, selv om der findes en gyldig licens på kildesiden.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Tre hurtige situationer
+
+Diskutér jeres svar, før I går videre:
+
+1. **Ingen metadata:** Et billede fra en Google-søgning har ingen copyright-felter. Må I bruge det?
+2. **CC BY-NC:** En café vil bruge billedet på sin hjemmeside. Siden har ingen webshop. Er NC-licensen tilstrækkelig?
+3. **CC BY-SA:** I laver en collage med et CC BY-SA-billede. Hvad skal I undersøge, før I offentliggør den?
+
+**Begrund svarene:** Hvilken oplysning eller tilladelse mangler I?
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Forslag til svar
+
+1. **Ingen metadata er ikke en tilladelse.** Find den oprindelige kilde og en licens, få tilladelse, eller vælg et andet billede.
+2. **En caféhjemmeside fremmer normalt en forretning.** Manglende webshop gør ikke brugen ikke-kommerciel. Få særskilt tilladelse, eller brug et billede med en licens, der tillader kommerciel brug.
+3. **En collage kan være en bearbejdelse.** Undersøg SA-kravet og licenserne på de øvrige dele. En bearbejdelse skal kunne deles under samme eller en kompatibel licens, med kreditering og oplysning om ændringer.
+
+Se vilkårene i [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/deed.da) og [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.da).
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Før I offentliggør: Kan I svare på det her?
+
+1. **Hvor fandt vi tilladelsen?** Kan vi finde kilden og dokumentationen igen?
+2. **Passer vilkårene til vores brug?** Fx offentliggørelse, bearbejdelse og et eventuelt kommercielt formål.
+3. **Er ophaver og licens angivet korrekt?** Har vi oplyst vores ændringer?
+4. **Hvad følger med filen?** Har vi tjekket webkopiens metadata og hensynet til personer i billedet?
+
+**Et navn i metadata og en licens på en hjemmeside er forskellige oplysninger. I skal kunne forklare, hvor jeres tilladelse kommer fra.**
+
+Materialet bygger på **billeders_brugsrettigheder_metadata.pptx** og er udvidet med eksempler, øvelser og links til kilder. Kilderne er kontrolleret i september 2026.
+
+</Slide>

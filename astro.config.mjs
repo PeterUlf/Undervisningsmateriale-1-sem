@@ -142,6 +142,15 @@ export default defineConfig({
               },
             },
             {
+              label: "Billeder, brugsrettigheder og metadata",
+              slug: "photo/billeders-brugsrettigheder-metadata",
+              badge: {
+                text: "Tema 2",
+                variant: "tip",
+                class: "badge-theme-2",
+              },
+            },
+            {
               label: "HTML",
               items: [
                 "html/grundlaeggende",
