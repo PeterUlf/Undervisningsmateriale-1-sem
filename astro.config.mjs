@@ -204,6 +204,11 @@ export default defineConfig({
           ],
         },
         {
+          label: "UX",
+          collapsed: true,
+          items: ["ux/indhold-billeder-og-tekst"],
+        },
+        {
           label: "Quizzer",
           collapsed: true,
           items: [

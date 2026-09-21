@@ -1,0 +1,21 @@
+/* Keep these adjustments local to the lesson containing the content example. */
+body:has(.content-example) .sl-markdown-content td code {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+@media screen {
+  body:has(.content-example) #presentation-dialog .generated-slide {
+    min-height: 0;
+    padding: 2rem;
+  }
+
+  body:has(.content-example) #presentation-dialog .generated-slide h2 {
+    margin-top: 0;
+  }
+
+  /* Rapide's notice styles otherwise add padding to paragraphs in the dialog. */
+  body:has(.content-example) #presentation-dialog .generated-slide p {
+    padding: 0;
+  }
+}

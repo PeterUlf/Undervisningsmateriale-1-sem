@@ -1,0 +1,246 @@
+---
+title: Indhold – billeder og tekst
+draft: false
+description: Videooplæg på cirka 15 minutter til tema 3 om billedvalg, brugsrettigheder, copy og microcopy på dit emnesite.
+sidebar:
+  label: Indhold – billeder og tekst
+  order: 10
+  badge:
+    text: Tema 3
+    variant: tip
+    class: badge-theme-3
+---
+
+import Slide from "../../../components/Slide.astro";
+import ContentExample from "../../../components/ContentExample.astro";
+import "../../../styles/content-lesson.css";
+
+<Slide>
+
+## Indhold – billeder og tekst
+
+**Tema 3 · UX I · Videooplæg · ca. 15 min.**
+
+Godt indhold hjælper brugeren med at forstå siden og komme videre:
+
+- **Billeder** viser noget relevant og understøtter budskabet.
+- **Copy** forklarer, hvad siden handler om, og hvad brugeren får ud af den.
+- **Microcopy** viser næste skridt og giver brugbar hjælp og feedback.
+
+Vi følger et eksempel på et emnesite om **gåture i København**.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Samme billede – tydeligere budskab
+
+Brugeren vil finde en gåtur i København. Billede og layout er ens; **ordene ændrer, hvad brugeren forstår**.
+
+<ContentExample />
+
+**B fortæller både, hvad siden tilbyder, og hvor linket fører hen.**
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Start med brugerens behov
+
+**Hvem besøger siden? Hvad vil personen vide eller gøre?** Brug jeres research, og markér det, I endnu kun antager.
+
+> Som besøgende i København vil jeg finde en gåtur ved havnen, så jeg kan planlægge min eftermiddag.
+
+| Brugeren spørger | Indholdet skal hjælpe med |
+| --- | --- |
+| Hvad kan jeg opleve? | Et relevant foto og en konkret overskrift |
+| Passer turen til mig? | Tekst om længde, underlag, startsted og stop |
+| Hvor skal jeg gå hen? | Et rutekort eller en illustration af forløbet |
+| Hvordan kommer jeg videre? | Et tydeligt link: “Se ruten på kort” |
+
+**Indhold er også illustrationer, grafik og små hjælpetekster.** Vælg formen efter behovet.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Giv billedet en opgave
+
+Et billede kan fx vise **et sted, en stemning, en proces eller en vigtig detalje**.
+
+- **Relevans:** Understøtter motivet sidens budskab?
+- **Troværdighed:** Viser det det sted, produkt eller den situation, du omtaler?
+- **Sammenhæng:** Passer farver, lys og stil til sidens øvrige billeder?
+- **Udsnit:** Er det vigtige stadig synligt, når billedet vises på mobil?
+
+**I vores eksempel:** Fotoet af Nyhavn viser et miljø ved havnen. Det fortæller ikke, hvor ruten starter, eller om der er trapper. Det kræver andet indhold.
+
+Spørg: **Hvad mister brugeren, hvis jeg fjerner billedet?**
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Find billeder med en plan
+
+1. **Skriv behovet:** “Billedet skal vise det sted, turen foregår.”
+2. **Find søgeord:** motiv, sted, aktivitet, stemning og format. Fx `Nyhavn waterfront walking daylight`.
+3. **Sammenlign 2–3 muligheder** i dit layout, også på mobil.
+4. **Gem kilde og brugsgrundlag**, når du vælger billedet.
+
+**Egne fotos:** Lav en lille optageliste: ét oversigtsbillede, én detalje og ét billede af en relevant aktivitet.
+
+**Billedbanker:** [Unsplash](https://unsplash.com/license/) og [Pexels](https://www.pexels.com/license/) har licenser med vilkår. På [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Nyhavn-2023.jpg) finder du licensen på den enkelte billedside.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Brug billeder med dokumenteret tilladelse
+
+**Et billede på nettet er ikke automatisk frit at bruge.** Du kan godt bruge en anden fotografs billede, når du har den nødvendige tilladelse, fx gennem en licens.
+
+- **Google Billeder er en søgemaskine.** Find billedets oprindelige side og vilkår.
+- **Gratis download er ikke det samme som brug uden betingelser.** Kontrollér, at licensen dækker din brug og eventuelle ændringer.
+- **Gem:** billedlink, fotograf, licens eller tilladelse og hentningsdato. Kreditér efter reglerne og licensen.
+- **Tjek motivet:** En billedlicens afklarer ikke nødvendigvis andre hensyn, fx brug af genkendelige personer.
+
+Læs [Kulturministeriets vejledning om ophavsret på nettet](https://kum.dk/kulturomraader/ophavsret/ophavsret-paa-internettet) og [Creative Commons' licensforklaring](https://creativecommons.org/licenses/by-sa/4.0/).
+
+**Fra tema 2:** [Billeder, brugsrettigheder og metadata](/photo/billeders-brugsrettigheder-metadata/).
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Alt-tekst afhænger af billedets funktion
+
+**Hvilken information skal brugeren have, hvis billedet ikke kan ses?**
+
+| Billedets rolle | Eksempel på tekstalternativ |
+| --- | --- |
+| Foto, der viser Nyhavn | `alt="Farverige huse og fortøjede både langs kanalen i Nyhavn"` |
+| Ren dekoration uden ekstra information | `alt=""` – behold attributten, men lad den være tom |
+| Et kortikon som eneste indhold i et link | `alt="Se ruten på kort"` – beskriv linkets formål |
+
+Et **rutekort** kan kræve en rutebeskrivelse i tekst ved siden af. En kort alt-tekst kan ikke altid rumme hele informationen.
+
+**Billedtekst og kreditering er separate oplysninger.** Alt-teksten skal formidle billedets relevante indhold eller funktion.
+
+Kilde: [W3C's vejledning om billeder og tekstalternativer](https://www.w3.org/WAI/tutorials/images/).
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Copy og microcopy
+
+**Copy** er sidens tekster: fx overskrifter, introduktioner og beskrivelser. De formidler indhold, værdi og budskaber.
+
+**Microcopy** er de små tekster i brugergrænsefladen: fx menupunkter, knaptekster, feltlabels, hjælpetekster og fejlbeskeder.
+
+| Copy | Microcopy |
+| --- | --- |
+| “Oplev København til fods” | “Se ruter ved havnen” |
+| “Find en gåtur ved havnen. Se rutens længde og startsted …” | “Vælg område” |
+
+**Funktionen er vigtigere end længden.** En kort overskrift er stadig copy.
+
+Copywriting bruges ofte til at motivere en handling. På et emnesite skal teksten også hjælpe brugeren med at **forstå, vælge og finde svar**.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Gør teksten let at skimme
+
+1. **Sæt det vigtigste først.** Hvad skal brugeren vide, før detaljerne giver mening?
+2. **Brug beskrivende overskrifter.** Fx “Her starter turen” frem for “Information”.
+3. **Skriv korte afsnit med én pointe.** Del forskellige emner op.
+4. **Brug velkendte ord og aktive sætninger.** Fx “Vælg en rute”.
+5. **Hold en genkendelig tone.** Venlig og konkret kan godt være personlig.
+
+**“Her starter turen” siger mere end “Information”.** Overskriften skal give mening, også når man skimmer.
+
+Find inspiration i andres struktur og tone, og skriv din egen tekst. Brug kun fakta som “2 km” eller “uden trapper”, hvis du har kontrolleret dem.
+
+Inspiration: [GOV.UK om at skrive til brugergrænseflader](https://www.gov.uk/service-manual/design/writing-for-user-interfaces).
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Microcopy hjælper før, under og efter
+
+**Et tænkt eksempel: tilmelding til mails om nye gåture.**
+
+| Situation | Upræcist | Mere hjælpsomt |
+| --- | --- | --- |
+| Før: Hvad får jeg? | “Tilmeld dig” | “Få en mail, når der er nye gåture” |
+| Under: Hvad skal jeg skrive? | “Udfyld feltet” | “Din e-mailadresse” |
+| Ved fejl: Hvad skal jeg rette? | “Ugyldigt input” | “Skriv en e-mailadresse som navn@eksempel.dk” |
+| Efter: Hvad skete der? | “Succes!” | “Du er tilmeldt. Vi sender en mail, når der er en ny tur” |
+
+**Teksten skal passe til funktionen.** Hvis brugeren først skal bekræfte via en mail, skal beskeden fortælle det.
+
+Inspiration: GOV.UK om [knaptekster](https://design-system.service.gov.uk/components/button/) og [fejlbeskeder](https://design-system.service.gov.uk/components/error-message/).
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Brug AI til udkast og variationer
+
+**Giv et tekstværktøj målgruppe, formål, tone og kendte fakta.**
+
+> Skriv tre overskrifter til et emnesite om gåture i København for nye besøgende. Siden viser ruter ved havnen med længde og startsted. Skriv venligt og konkret. Tilføj ikke nye fakta.
+
+**Til et billedværktøj:** Beskriv motiv, komposition, stil og format. Fx: “En enkel illustration af en person på byvandring, liggende format, plads til en overskrift til venstre.”
+
+- Vælg og omskriv: Hvad passer faktisk til dit site og din målgruppe?
+- Kontrollér fakta, billeddetaljer og vilkår før brug.
+- Brug fotos fra stedet, når billedet skal dokumentere en virkelig rute. Markér AI-illustrationer tydeligt, hvis de kan forveksles med dokumentation.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Det vigtigste til dit emnesite
+
+- **Start med behovet:** Hvem skal indholdet hjælpe, og med hvad?
+- **Vælg billedet med en grund:** Det skal passe til budskabet og fungere i layoutet.
+- **Hav styr på brugen:** Tilladelse, kreditering og et passende tekstalternativ.
+- **Skriv konkret:** En tydelig overskrift, en kort introduktion og kontrollerede fakta.
+- **Vis næste skridt:** Microcopy skal passe til det, der faktisk sker.
+
+**Billede, tekst og handling skal hænge sammen.** Lav et første udkast tidligt, og forbedr det, når du lærer mere om brugerne.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Kilder og videre arbejde
+
+Oplægget bygger på **“10_Indhold billeder og tekst”**, PDF med 13 slides i mappen med powerpoints. Eksemplet med byvandring er lavet til dette oplæg.
+
+- [Kulturministeriet: Ophavsret på internettet](https://kum.dk/kulturomraader/ophavsret/ophavsret-paa-internettet).
+- [Unsplash-licensen](https://unsplash.com/license/), [Pexels-licensen](https://www.pexels.com/license/) og [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
+- [W3C: Billeder og tekstalternativer](https://www.w3.org/WAI/tutorials/images/).
+- [GOV.UK: Skriv til brugergrænseflader](https://www.gov.uk/service-manual/design/writing-for-user-interfaces), [knapper](https://design-system.service.gov.uk/components/button/) og [fejlbeskeder](https://design-system.service.gov.uk/components/error-message/).
+- [GOV.UK: Tag udgangspunkt i brugerbehov](https://guidance.publishing.service.gov.uk/writing-to-gov-uk-standards/plan-manage-content/identify-user-needs/).
+
+**Her i materialet:** [Billedrettigheder og metadata](/photo/billeders-brugsrettigheder-metadata/) · [Tekst på billede og hover](/css/tekst-paa-billede/).
+
+</Slide>

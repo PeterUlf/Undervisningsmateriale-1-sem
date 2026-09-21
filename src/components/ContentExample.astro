@@ -1,0 +1,76 @@
+---
+const examples = [
+  {
+    label: 'A',
+    heading: 'Velkommen til vores univers',
+    body: 'Vi brænder for spændende oplevelser og masser af inspiration. Gå på opdagelse i vores mange muligheder.',
+    action: 'Læs mere',
+  },
+  {
+    label: 'B',
+    heading: 'Oplev København til fods',
+    body: 'Find en gåtur ved havnen. Se rutens længde og startsted, og vælg de stop, du vil opleve undervejs.',
+    action: 'Se ruter ved havnen',
+  },
+];
+---
+
+<figure class="content-example">
+  <div class="examples">
+    {examples.map((example) => (
+      <div class="example-card">
+        <div class="example-bar">
+          <span>Forside {example.label}</span>
+          <span class="example-brand">Byvandring</span>
+        </div>
+        <img
+          src="/illustrationer/billedrettigheder/nyhavn-2023.jpg"
+          alt="Farverige huse og fortøjede både langs kanalen i Nyhavn"
+          width="4032"
+          height="2268"
+          loading="lazy"
+        />
+        <div class="example-copy">
+          <p class="example-heading">{example.heading}</p>
+          <p class="example-body">{example.body}</p>
+          <span class="example-action">{example.action} <span aria-hidden="true">→</span></span>
+        </div>
+      </div>
+    ))}
+  </div>
+  <figcaption>
+    Fiktivt emnesite; knapperne er vist som illustration.
+    Foto: <a href="https://commons.wikimedia.org/wiki/File:Nyhavn-2023.jpg">Nyhavn-2023</a>
+    af <a href="https://commons.wikimedia.org/wiki/User:Mahendra">Mahendra</a>,
+    <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>. Beskåret i slideshowet; samme licens.
+  </figcaption>
+</figure>
+
+<style>
+  .content-example { margin: 1rem 0; }
+  .examples { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+  .example-card { overflow: hidden; border: 1px solid #bdcfc8; border-radius: .8rem; background: #f7f8f2; color: #17382f; margin: 0; }
+  .example-bar { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem; padding: .55rem 1rem; background: #e5ece6; font-size: .8rem; font-weight: 700; }
+  .example-brand { font-weight: 400; }
+  .example-card img { display: block; width: 100%; height: auto; margin: 0; }
+  .example-copy { display: flex; flex-direction: column; align-items: start; gap: .75rem; padding: 1rem; margin: 0; }
+  .example-heading { font-size: clamp(1.15rem, 2vw, 1.6rem); font-weight: 750; line-height: 1.15; letter-spacing: -.025em; }
+  .example-body { font-size: 1rem; line-height: 1.5; }
+  .example-copy p { margin: 0; padding: 0; color: #17382f; }
+  .example-action { display: inline-flex; align-items: center; gap: .8rem; padding: .6rem .85rem; border-radius: .3rem; background: #17382f; color: #fff; font-size: .9rem; font-weight: 650; }
+  .content-example figcaption { margin-top: .65rem; font-size: .75rem; line-height: 1.45; color: var(--sl-color-gray-2); }
+  @media screen {
+    :global(.generated-slide) .example-card img { height: clamp(150px, 20vh, 220px); object-fit: cover; }
+  }
+  @media (max-width: 40rem) {
+    .examples { grid-template-columns: minmax(0, 1fr); }
+  }
+  @media print {
+    .content-example { break-inside: avoid; }
+    .examples { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .example-heading { font-size: 15pt; }
+    .example-body { font-size: 10pt; }
+    .example-action { border: 1px solid #17382f; background: white; color: #17382f; font-size: 10pt; }
+    .content-example figcaption { color: #333; font-size: 8pt; }
+  }
+</style>
