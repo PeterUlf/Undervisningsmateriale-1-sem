@@ -1,0 +1,13 @@
+Eksempel til tema 3: Lav billeder med AI
+
+Fil: byvandring-ai.png
+Dato: 21. september 2026
+Værktøj: OpenAI's indbyggede billedværktøj (imagegen i Codex).
+Metode: Tekst til billede. Ingen referencebilleder eller efterfølgende billedredigering.
+Formål: Vise en komposition med plads til en HTML-overskrift.
+Motivet er fiktivt. Billedet er ikke en sammenligning af Gemini, Bing og Firefly.
+HTML-overskriften i eksemplet er lagt oven på billedet i komponenten, ikke genereret i billedfilen.
+
+Fuld prompt:
+
+Skab en enkel redaktionel illustration til forsiden af et emnesite om byvandringer. To voksne personer går langs en fiktiv dansk havnefront med lave, farverige huse og en enkelt sejlbåd. Brug flade farvefelter, let papirstruktur og en begrænset palette af mørkegrøn, terrakotta og creme. Liggende format 16:9. Placér personerne og husene i højre halvdel. Lad venstre halvdel være rolig, lys creme med meget få detaljer, så der senere kan lægges en mørk HTML-overskrift ovenpå. Stemningen er venlig og rolig. Ingen tekst, bogstaver, logoer eller vandmærker. Det skal tydeligt ligne en illustration, ikke et fotografi.

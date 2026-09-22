@@ -206,7 +206,7 @@ export default defineConfig({
         {
           label: "UX",
           collapsed: true,
-          items: ["ux/indhold-billeder-og-tekst"],
+          items: ["ux/indhold-billeder-og-tekst", "ux/billeder-med-ai"],
         },
         {
           label: "Quizzer",
