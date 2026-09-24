@@ -1,7 +1,7 @@
 ---
 title: Struktur og planlægning af design
 draft: false
-description: Oplæg på 15–20 minutter om informationsarkitektur, navigation, sitemap, brugerflow og wireframes. Med en valgfri wireframeøvelse til dit emnesite.
+description: Kort oplæg på 15–20 minutter om informationsarkitektur, tydelig navigation, sitemap, brugerflow og wireframes. Byg videre på din solution sketch frem mod en klikbar prototype.
 sidebar:
   label: Struktur og planlægning af design
   order: 30
@@ -21,7 +21,7 @@ import "../../../styles/design-structure-lesson.css";
 
 **Tema 3 · UX I · Oplæg · 15–20 min.**
 
-Hvordan hjælper du brugeren med at finde det rigtige indhold og komme videre?
+Hvordan gør du din eksisterende **solution sketch** klar til at blive en sammenhængende prototype?
 
 Efter oplægget kan du:
 
@@ -29,7 +29,7 @@ Efter oplægget kan du:
 - vælge tydelige **kategorier, menupunkter og veje gennem indholdet**.
 - skelne mellem **sitemap, brugerflow og wireframe**.
 
-Vi følger et emnesite om **gåture i København** fra indhold til skitse. Til sidst er der en **valgfri øvelse på 20 min.**, som ligger ud over oplægget.
+Du arbejder videre med **din egen solution sketch** og din research. Gennemgangen bruger et fiktivt site om **gåture i København** som eksempel.
 
 </Slide>
 <div class="page-break"></div>
@@ -37,6 +37,8 @@ Vi følger et emnesite om **gåture i København** fra indhold til skitse. Til s
 <Slide>
 
 ## Start med en opgave, brugeren vil løse
+
+Indholdet skal hjælpe med den brugeropgave, du har valgt. Fx:
 
 > Jeg vil finde en kort gåtur ved havnen og se, hvor den starter.
 
@@ -48,7 +50,7 @@ Vi følger et emnesite om **gåture i København** fra indhold til skitse. Til s
 | Passer turen til mig? | Længde, varighed, underlag og beskrivelse |
 | Hvor starter jeg? | Startsted og kort |
 
-Brug jeres research til at vælge en vigtig opgave. Markér det, I endnu kun antager om målgruppen.
+Brug din research til at vælge en vigtig opgave. Markér det, du endnu kun antager om målgruppen.
 
 **Eksemplet er fiktivt.** Vi arbejder med struktur; rutens oplysninger skal undersøges, før et rigtigt site udgives.
 
@@ -113,17 +115,15 @@ Du kan gruppere efter fx **emne, geografi, opgave eller målgruppe** og ordne in
 
 <Slide>
 
-## Navngivning: Kan brugeren gætte destinationen?
+## Gør navigationen tydelig
 
-**En label er fx et menupunkt, en overskrift eller teksten på et link.** Brug ord, målgruppen kender.
+**Brugeren skal kunne forstå, hvor et link fører hen, før de klikker.**
 
 <DesignStructureExample kind="labels" />
 
-**“Mystery meat navigation”** er navigation, hvor brugeren må gætte, hvad et link betyder eller fører til. Det kan fx være ukendte ikoner uden synlig tekst.
-
-Vis betydningen med det samme. Forklaringer, der kun dukker op ved hover, hjælper ikke en bruger på en touchskærm.
-
-**Spørg før et klik:** Hvad forventer du at finde bag “Ruter”?
+- Brug konkrete ord, fx **“Se alle kortspil”**.
+- Sæt synlig tekst ved ikoner, som kan være svære at forstå.
+- Brug de samme betegnelser i menuen og på siderne.
 
 </Slide>
 <div class="page-break"></div>
@@ -177,28 +177,9 @@ Brugeren kan også lande direkte på en underside. Prøv derfor senere flowet me
 
 <Slide>
 
-## Tre tegninger – tre forskellige spørgsmål
-
-| Redskab | Spørgsmål | Det viser du |
-| --- | --- | --- |
-| **Sitemap** | Hvilke sider findes, og hvor hører de til? | Sider og hierarki |
-| **Brugerflow** | Hvordan kommer brugeren i mål? | Trin, handlinger og valg |
-| **Wireframe** | Hvad skal være hvor på en side? | Indhold, placering og prioritet |
-
-**På vores emnesite:**
-
-- Sitemap placerer **Havneruten** under **Ruter**.
-- Flowet viser vejen fra **valg af rute til startstedet på kortet**.
-- Wireframen giver **længde, startsted og kort** en plads på rutesiden.
-
-De tre redskaber hjælper dig med at opdage forskellige problemer.
-
-</Slide>
-<div class="page-break"></div>
-
-<Slide>
-
 ## Wireframes: Gør indholdets prioritet synlig
+
+**Byg videre på din solution sketch:** Gør indhold, prioritet og handlinger mere præcise.
 
 En **wireframe** er en enkel skitse af en sides opbygning. **Low fidelity / lo-fi** betyder, at detaljeniveauet er lavt, så skitsen er hurtig at ændre.
 
@@ -231,72 +212,46 @@ Længde, startsted og link til kortet har stadig høj prioritet. Et stort stemni
 
 <Slide>
 
-## Fra solution sketch til noget, du kan afprøve
+## Tre tegninger – tre forskellige spørgsmål
 
-Din **solution sketch** viser din idé til en løsning. Wireframes gør idéen konkret på de sider, brugeren skal igennem.
+| Redskab | Spørgsmål | Det viser du |
+| --- | --- | --- |
+| **Sitemap** | Hvilke sider findes, og hvor hører de til? | Sider og hierarki |
+| **Brugerflow** | Hvordan kommer brugeren i mål? | Trin, handlinger og valg |
+| **Wireframe** | Hvad skal være hvor på en side? | Indhold, placering og prioritet |
 
-1. **Vælg en brugeropgave**, og find det nødvendige indhold.
-2. **Lav et lille sitemap og et flow**, så du ved, hvilke sider du skal skitsere.
-3. **Tegn wireframes på papir eller i Figma.** Brug kasser, tekst og noter; i Figma kan hver side være en frame.
-4. **Afprøv og ret til.** Gå tilbage til både struktur, ord og layout, når du finder et problem.
+**På vores emnesite:**
 
-Papir er hurtigt til de første idéer. I Figma kan du lettere genbruge elementer og arbejde videre mod en prototype. Et wireframe-kit er valgfrit.
+- Sitemap placerer **Havneruten** under **Ruter**.
+- Flowet viser vejen fra **valg af rute til startstedet på kortet**.
+- Wireframen giver **længde, startsted og kort** en plads på rutesiden.
 
-**Start med struktur, men forvent at ændre den undervejs.**
-
-</Slide>
-<div class="page-break"></div>
-
-<Slide>
-
-## Hurtigt tjek: Hvad vil du ændre?
-
-**Brug 30–60 sekunder på at vælge et redskab til hvert problem.**
-
-1. Ingen ved, under hvilket menupunkt ruterne findes.
-2. Brugeren vælger en rute, men kan ikke komme videre til startstedet.
-3. Startstedet står langt nede under et stort billede.
-
-<details>
-<summary>Vis forslag til svar</summary>
-
-1. **Organisering og labels:** Undersøg gruppering og navngivning i dit sitemap og din menu.
-2. **Brugerflow:** Find det manglende trin eller link på vej mod målet.
-3. **Wireframe:** Flyt den vigtige information frem i sidens hierarki.
-
-Et problem kan kræve ændringer i flere redskaber. Forklar, hvorfor du vil starte dér.
-
-</details>
-
-**Tag med:** Organisér indholdet → gør vejen tydelig → prioritér indholdet på siden → afprøv.
+Brug de tre redskaber til at præcisere din eksisterende solution sketch.
 
 </Slide>
 <div class="page-break"></div>
 
 <Slide>
 
-## Valgfri øvelse: Wireframes til dit emnesite
+## Fra solution sketch til klikbar prototype
 
-**20 min. · Individuelt · Efter oplægget**
+Din **solution sketch** viser allerede dit løsningsforslag og kan have mange af de samme elementer som en wireframe. Byg videre på den ved at præcisere indhold, forbindelser og layout.
 
-Tag udgangspunkt i din **solution sketch**. Har du endnu ikke en, så brug eksemplet med gåture.
+1. **Afklar sider og forbindelser:** En forside med mindst ét flow gennem minimum tre sider.
+2. **Præcisér dine wireframes** på papir eller i Figma til både mobil og desktop.
+3. **Tilføj relevant tekst, billeder og dine visuelle valg.**
+4. **Gør prototypen klikbar, og afprøv den med brugere.**
 
-1. **2 min.:** Skriv én brugeropgave, og vælg 3–4 sider, der hjælper med at løse den.
-2. **14 min.:** Tegn en lo-fi wireframe for hver side på papir. Vis menu, overskrift, vigtigt indhold, billedfelter og næste handling.
-3. **4 min.:** Tegn pile mellem siderne. Følg opgaven selv, og ret mindst ét sted, hvor indhold eller vej videre er uklart.
-
-**Du skal stå med:** 3–4 skitser, et sammenhængende forløb og en kort begrundelse for, hvad der har fået høj prioritet.
-
-**Hvis du når mere:** Tegn den vigtigste side til både mobil og desktop.
+**Dokumentér dine egne valg:** Gem skitser og respons i Figma/FigJam, og skriv i din logbog, hvad du ændrede og hvorfor.
 
 </Slide>
 <div class="page-break"></div>
 
 <Slide>
 
-## Brug skitserne til at få feedback
+## Afprøv, om brugeren kan finde vej
 
-**Som videre arbejde:** Giv en medstuderende en opgave uden at fortælle, hvor der skal klikkes.
+Giv en testperson fra din målgruppe en opgave uden at fortælle, hvor der skal klikkes. For gåture kunne den lyde:
 
 > Find en tur ved havnen, og vis mig, hvor du vil finde turens startsted.
 
@@ -304,7 +259,7 @@ Tag udgangspunkt i din **solution sketch**. Har du endnu ikke en, så brug eksem
 - Notér **uklare ord, manglende indhold og steder, hvor personen går i stå**.
 - Ret én ting, og prøv opgaven igen.
 
-En medstuderende kan finde tidlige problemer. Afprøv også med personer fra målgruppen, når du har mulighed for det.
+Dokumentér brugertesten, resultaterne og dine ændringer.
 
 **Næste skridt:** Arbejd videre med visuelt design og prototype. Brug [Indhold – billeder og tekst](/ux/indhold-billeder-og-tekst/) til at gøre indhold og handlinger konkrete.
 
