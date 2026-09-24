@@ -1,0 +1,359 @@
+---
+title: Obsidian på iPhone med GitSync
+draft: false
+description: Synkroniser et GitHub-repository med Obsidian på iPhone trin for trin, og automatiser synkroniseringen med Genveje.
+sidebar:
+  label: Obsidian på iPhone med GitSync
+  order: 3
+  badge:
+    text: Tema 2
+    variant: tip
+    class: badge-theme-2
+---
+
+import Slide from "../../../components/Slide.astro";
+
+<Slide>
+
+# GitHub → GitSync → Obsidian
+
+Her lærer du at hente et eksisterende GitHub-repository ind i **Obsidian på din iPhone** og sende dine ændringer tilbage til GitHub.
+
+| Del | Opgave |
+| --- | --- |
+| GitHub | Gemmer de fælles filer og deres versionshistorik. |
+| GitSync | Henter og sender ændringer mellem GitHub og din iPhone. |
+| Obsidian | Åbner og redigerer noterne i den lokale mappe, din **vault**. |
+
+Vi bruger appen **GitSync fra ViscousPotential**. Almindelig synkronisering af ét repository og automatisering med Genveje er gratis. Flere repositories og Git LFS kræver Premium. Se [GitSyncs FAQ](https://gitsync.viscouspotenti.al/wiki/faq).
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Før du går i gang
+
+Du skal have:
+
+- En GitHub-konto og et repository med dine noter. Du skal have **skriveadgang**, hvis du også vil sende ændringer tilbage.
+- [Obsidian](https://obsidian.md/download) og [GitSync](https://apps.apple.com/dk/app/gitsync/id6744980427) installeret på din iPhone.
+- Apples app **Genveje**, hvis du vil automatisere synkroniseringen.
+
+Åbn dit repository på GitHub, og kontrollér, at dine seneste noter er uploadet. Er repositoryet helt tomt, så tilføj først en `README.md`. Brug et privat repository til personlige noter.
+
+:::note[Hvilke filer kan Obsidian åbne?]
+Obsidian bruger almindelige Markdown-noter med endelsen **`.md`**. Et Astro-repository med `.mdx`-filer kan godt hentes med GitSync, men MDX-sider og Astro-komponenter bliver ikke automatisk til Obsidian-noter. Se [Obsidian: understøttede filformater](https://obsidian.md/help/file-formats).
+:::
+
+Guiden bruger `Mine noter` som eksempel på navnet på din vault. Vælg gerne dit eget navn, og brug det samme gennem alle trinnene.
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## 1. Opret en tom vault på din iPhone
+
+1. Åbn **Obsidian**, og gå til oversigten over dine vaults.
+2. Vælg **Create new vault** / opret ny vault.
+3. Giv den navnet `Mine noter`.
+4. Slå **Store in iCloud** fra, hvis valget vises. Spring opsætning af Obsidian Sync over.
+5. Opret vaulten, og lad den være uden egne noter.
+
+Åbn appen **Arkiver**, og kontrollér, at mappen ligger her:
+
+```text
+På min iPhone
+└── Obsidian
+    └── Mine noter
+```
+
+Denne guide bruger en lokal vault, hvor GitSync står for synkroniseringen. Se også [Obsidian om synkroniseringsmetoder](https://obsidian.md/help/sync-notes).
+
+:::caution[Har du allerede noter på telefonen?]
+Opret en **ny, separat vault** til guiden. Kopiér dine eksisterende noter til en backup, før du senere flytter dem ind i den nye vault. I trin 3 kan indholdet i den valgte mappe blive erstattet.
+:::
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## 2. Log ind på GitHub i GitSync
+
+**Vælg GITHUB (SCOPED)** på skærmen **Authenticate**. Det lader dig begrænse GitSyncs adgang til det repository, du vil bruge til dine noter.
+
+Det er loginmetoden i hovedforløbet. Vil du bruge en SSH-nøgle, kan du i stedet følge [SSH-alternativet](#alternativ-log-ind-med-ssh) og derefter fortsætte fra trin 4.
+
+| Valg i GitSync | Hvad betyder det? |
+| --- | --- |
+| **GITHUB (SCOPED)** | Du kan give adgang til udvalgte repositories. Det er valget i denne guide. |
+| **GITHUB (ALL REPOS)** | Giver bred adgang til de repositories, din konto kan give appen adgang til. Vælg det kun, hvis du ønsker den bredere adgang. |
+
+Valget handler om **adgang til GitHub**. Du vælger bagefter, hvilket repository der skal hentes til telefonen.
+
+1. Åbn **GitSync**, og gennemfør introduktionen.
+2. Vælg **Sync mode**, når du bliver spurgt. Spring tilbud om Premium over.
+3. Tryk på **GITHUB (SCOPED)**. Hvis din version derefter viser en OAuth-knap, skal du trykke på den.
+4. Log ind på GitHub i browseren, og gennemfør godkendelsen for **GitSync (ViscousPotential)**.
+5. På GitHubs installationsside skal du vælge den konto, der ejer repositoryet, og derefter **Only select repositories**.
+6. Under **Select repositories** skal du vælge dit noterepository og godkende med **Install** eller **Install & Authorize**, afhængigt af skærmen.
+7. Gå tilbage til GitSync. Hvis installationssiden ikke blev vist under login, kan du åbne [GitSyncs GitHub App](https://github.com/apps/gitsync-viscouspotential) og installere eller konfigurere adgangen der.
+8. Udfyld **Author Name** og **Author Email**, hvis appen spørger. De angiver afsenderen på dine commits.
+
+GitHub beskriver valget af repositories i [vejledningen til installation af GitHub Apps](https://docs.github.com/en/apps/using-github-apps/installing-a-github-app-from-a-third-party). Tilhører repositoryet en organisation, kan en ejer skulle godkende installationen. Forfatteroplysningerne kan senere ændres i [repositoryets indstillinger](https://gitsync.viscouspotenti.al/wiki/repository-settings).
+
+**Tjek:** Dit noterepository skal være valgt under **Only select repositories**. Du behøver kun at give adgang til det repository, du vil synkronisere.
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## 3. Hent repositoryet ind i din vault
+
+At **clone** betyder at hente repositoryet til telefonen første gang.
+
+På skærmen **Clone Remote Repository** skal du beholde disse indstillinger under **Advanced Options**:
+
+| Indstilling | Vælg | Hvorfor? |
+| --- | --- | --- |
+| **Shallow Clone (Depth)** | Lad feltet stå på **full**. | Henter hele versionshistorikken. Du behøver ikke indtaste et tal. |
+| **Bare Clone** | **Slået fra**. | Obsidian skal bruge de almindelige filer. En bare clone indeholder Git-data uden en arbejdsmappe med noterne. |
+
+Se [Gits forklaring af kloning](https://git-scm.com/docs/git-clone) for betydningen af historikdybde og bare clone.
+
+1. Brug **Search…** til at finde repositoryet med dine noter, og tryk på den **grønne pil ned** ud for det. Vælg det repository, hvis filer du vil åbne i Obsidian.
+2. Vælg **Direct clone**, når du vælger, hvordan filerne skal placeres.
+3. I mappevælgeren skal du gå til **På min iPhone → Obsidian → Mine noter**.
+4. Vælg selve mappen **Mine noter**, og giv GitSync adgang til den.
+5. Hvis appen spørger om at erstatte indhold, skal du først kontrollere, at du har valgt den **nye, tomme vault fra trin 1**. Derefter kan du godkende.
+6. Lad GitSync være åben, til kloningen er færdig.
+
+**Direct clone** lægger repositoryets indhold direkte i vaulten. **Nested clone** opretter en ekstra undermappe og bruges ikke i denne guide. Fremgangsmåden følger [udviklerens iPhone-vejledning](https://viscouspotenti.al/posts/gitsync-all-devices-tutorial#android--ios-gitsync).
+
+**Tjek:** Åbn mappen i Arkiver. Du skal kunne genkende filerne fra dit repository.
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Hvis repositoryet mangler på listen
+
+Kontrollér først, at GitSync er logget ind med den rigtige GitHub-konto og har adgang til repositoryet. Med **GITHUB (SCOPED)** skal repositoryet være omfattet af GitHub-appens installation. Følg [kontrollen af adgang nedenfor](#kontrollér-adgang-hvis-kloning-afvises), især hvis en direkte kloning også giver **403**.
+
+Søgebegrænsningen er en anden mulig årsag: GitSyncs hjælpetekst siger, at søgningen kun undersøger de første **100 repositories**, som API'et returnerer. Grænsen forklarer ikke i sig selv et manglende repository eller en **403**-fejl. Har du færre repositories, skal du ikke antage, at antallet er problemet. Se [GitSyncs hjælpetekst om søgebegrænsningen](https://github.com/ViscousPot/GitSync/blob/main/lib/l10n/app_en.arb#L407-L408).
+
+### Klon med den direkte HTTPS-adresse
+
+:::note[Skal jeg vælge HTTPS eller SSH på GitHub?]
+**Har du valgt GITHUB (SCOPED), skal du vælge HTTPS på GitHub.** Behold **GITHUB (SCOPED)** som loginmetode i GitSync; HTTPS er her fanen under den grønne **Code**-knap på GitHub. Du skal ikke skifte GitSyncs loginmetode til den separate **HTTPS**-mulighed.
+
+GitHub-login via OAuth bruger en adresse, der begynder med `https://github.com/`. En SSH-adresse begynder typisk med `git@github.com:` og kræver, at du vælger **SSH** i GitSync, opsætter en SSH-nøgle og registrerer dens offentlige del på GitHub. Begge metoder kan bruges, når login og adresse passer sammen. Se [GitSyncs loginmetoder](https://gitsync.viscouspotenti.al/wiki/authentication-methods) og [GitHubs forklaring af HTTPS og SSH](https://docs.github.com/en/get-started/git-basics/about-remote-repositories).
+
+Du kan godt bruge SSH på computeren og GitHub-login med HTTPS på telefonen til det samme repository.
+
+Vil du skifte telefonen til SSH, skal du følge [SSH-alternativet](#alternativ-log-ind-med-ssh) og bruge SSH-adressen ved kloning.
+:::
+
+1. Åbn det ønskede repository på **github.com** i Safari.
+2. Tryk på **Code → HTTPS**, og kopiér kloningsadressen. Den ligner `https://github.com/BRUGERNAVN/REPOSITORY.git`.
+3. Gå tilbage til **Clone Remote Repository** i GitSync. Fold **Advanced Options** sammen, hvis du mangler plads på skærmen.
+4. Indsæt adressen i **URL-feltet under repositorylisten**, og tryk på **Clone** ved siden af feltet. Søgefeltet **Search…** bruges til navnesøgning.
+5. Fortsæt med **Direct clone** og den tomme vault som beskrevet i trin 3.
+
+### Kontrollér adgang, hvis kloning afvises
+
+Hvis du ser **Failed to clone repository** og **http status code: 403**, afviser serveren adgangen. Kontrollér først login og repositoryadgang. Fejlen alene fortæller ikke, om årsagen er manglende rettigheder eller et problem med login. Se [GitHubs hjælp til kloningsfejl](https://docs.github.com/en/repositories/creating-and-managing-repositories/troubleshooting-cloning-errors).
+
+En direkte adresse kræver stadig adgang til repositoryet. GitHub skelner mellem at **godkende login** og at **installere appen med adgang til repositories**. Login kan derfor lykkes, uden at appen har adgang til dine noter. Se [GitHubs forklaring af godkendelse og installation](https://docs.github.com/en/apps/using-github-apps/authorizing-github-apps).
+
+Med **GITHUB (SCOPED)** kan du kontrollere adgangen sådan:
+
+1. Åbn [dine installerede GitHub Apps](https://github.com/settings/installations) i Safari, og kontrollér, at du er logget ind på den rigtige konto.
+2. Vælg **Configure** ud for **GitSync (ViscousPotential)**.
+3. Under **Repository access → Only select repositories** skal du tilføje det manglende repository via **Select repositories**.
+4. Tryk på **Save**, og prøv kloningen igen i GitSync.
+
+Hvis appen ikke er installeret, kan du starte fra [GitSyncs GitHub App](https://github.com/apps/gitsync-viscouspotential). Tilhører repositoryet en organisation, skal adgangen sættes op hos organisationen og kan kræve ejerens godkendelse. Se [GitHub: ændring af appadgang](https://docs.github.com/en/apps/using-github-apps/reviewing-and-modifying-installed-github-apps).
+
+Er repositoryet allerede valgt, og får du stadig **403**, kan du prøve at gennemføre **GITHUB (SCOPED)**-login igen i GitSync med den samme konto. Behold HTTPS-adressen. Kontrollér derefter, om fejlen stadig opstår, før du ændrer flere indstillinger.
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Alternativ: Log ind med SSH
+
+SSH kan bruges til både private og offentlige repositories. Her bruger GitSync en nøgle til din GitHub-konto. GitHub-appens **Only select repositories** bestemmer ikke adgangen for denne SSH-nøgle; den følger kontoens rettigheder.
+
+### Opret en nøgle til telefonen
+
+1. Gå tilbage til **Authenticate** i GitSync, og vælg **SSH**.
+2. Tryk på **Generate Keys** for at oprette et nyt nøglepar til telefonen. Vælg **Ed25519**, hvis du får et valg af nøgletype.
+3. Kopiér **Pub Key / Public Key**, den offentlige nøgle. En Ed25519-nøgle begynder med `ssh-ed25519`.
+4. Åbn [GitHubs SSH-nøgler](https://github.com/settings/keys) i Safari, og log ind på den konto, der har adgang til repositoryet.
+5. Vælg **New SSH key**. Brug fx titlen `GitSync på iPhone`, vælg **Authentication Key**, og indsæt den offentlige nøgle i **Key**.
+6. Tryk på **Add SSH key**. Gå tilbage til GitSync, og bekræft, at den offentlige nøgle er tilføjet, hvis appen spørger.
+
+**Private Key** skal blive i GitSync. Det er kun **Public Key**, du indsætter på GitHub. Se [GitSyncs SSH-understøttelse](https://gitsync.viscouspotenti.al/wiki/authentication-methods) og [GitHubs vejledning til SSH-nøgler](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account).
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Klon med SSH-nøglen
+
+1. Åbn dit repository på GitHub, og kopiér adressen fra **Code → SSH**.
+2. Indsæt adressen i GitSyncs URL-felt til kloning. Den har denne form:
+
+```text
+git@github.com:BRUGERNAVN/REPOSITORY.git
+```
+
+3. Behold **Shallow Clone (Depth): full** og **Bare Clone: slået fra**.
+4. Vælg **Direct Clone**, og vælg den **tomme vault**, du oprettede i trin 1, under **På min iPhone → Obsidian**.
+5. Vent, til kloningen er færdig. Fortsæt derefter med **trin 4** nedenfor og test synkronisering i begge retninger.
+
+Hvis det tidligere kloningsforsøg har efterladt filer i mappen, så kontrollér indholdet, før du godkender overskrivning. Brug kun den nye vault uden egne noter til denne opsætning.
+
+Med SSH bruger du samme nøgle til at hente og sende ændringer. Kontoen skal have skriveadgang for at kunne pushe. Se [GitHub om SSH-adresser](https://docs.github.com/en/get-started/git-basics/about-remote-repositories#cloning-with-ssh-urls).
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## 4. Åbn noterne i Obsidian
+
+1. Gå tilbage til **Obsidian**.
+2. Åbn vaulten **Mine noter**. Hvis den allerede er åben, kan du lukke og åbne vaulten igen for at genindlæse den.
+3. Find en af dine `.md`-filer i filoversigten, og åbn den.
+
+**Tjek:** Indholdet skal svare til filen på GitHub. Ligger dine noter i en undermappe i repositoryet, skal du åbne den undermappe i Obsidian.
+
+:::note[Hvis Obsidian Git følger med dine indstillinger]
+Bruger du allerede pluginet **Git** på computeren, kan det være kommet med i vaulten. På iPhone skal du åbne pluginets indstillinger og aktivere **Disable on this device**. GitSync skal være den eneste Git-klient, der synkroniserer denne mappe på telefonen. Se [GitSync: samtidig adgang](https://gitsync.viscouspotenti.al/wiki/troubleshooting#concurrent-repository-access).
+:::
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## 5. Test fra iPhone til GitHub
+
+Lav først en lille test uden automatisering:
+
+1. Opret en ny note i **Mine noter**, og kald den `sync-test`.
+2. Skriv: `Denne linje er skrevet på min iPhone.`
+3. Skift til **GitSync**, og tryk på **Sync Changes**.
+4. Vent, til synkroniseringen er færdig.
+5. Åbn dit repository på **github.com**, og opdatér siden.
+6. Åbn `sync-test.md`, og kontrollér, at linjen er kommet med.
+
+**Sync Changes** kører den almindelige synkronisering. Se [GitSync: Sync mode](https://gitsync.viscouspotenti.al/wiki/sync-options/in-app/sync-mode).
+
+**Tjek:** Testen er først lykkedes, når noten kan ses på GitHub. At noten findes i Obsidian, viser kun, at den er gemt på telefonen.
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## 6. Test fra GitHub til iPhone
+
+1. Åbn `sync-test.md` på GitHub i browseren eller i repositoryet på din computer.
+2. Tilføj linjen: `Denne linje kommer fra GitHub.`
+3. Gem ændringen som et **commit** på samme branch, som telefonen bruger. På computeren skal du også **pushe** den til GitHub.
+4. Åbn **GitSync** på iPhone, og tryk på **Sync Changes**.
+5. Vent, og åbn derefter noten i **Obsidian**.
+
+**Tjek:** Begge linjer skal nu stå i noten. Så har du afprøvet synkronisering i begge retninger.
+
+| Git-ord | Betydning |
+| --- | --- |
+| Commit | Gemmer en version af ændringerne i Git. |
+| Push | Sender commits til GitHub. |
+| Pull | Henter og indarbejder ændringer fra GitHub. |
+
+Læs mere i vores [introduktion til Git og GitHub](/git/).
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## 7. Lav en genvej til synkronisering
+
+Når begge tests virker, kan du automatisere den daglige synkronisering.
+
+1. Åbn **Genveje** på din iPhone.
+2. Gå til fanen med dine genveje, og tryk på **+**.
+3. Søg efter **GitSync**, og tilføj handlingen **Sync Now**.
+4. Navngiv genvejen `Synkroniser noter`.
+5. Kør genvejen én gang, og godkend eventuelle adgangsanmodninger.
+
+Handlingen bruger det valgte repository i GitSync. Kontrollér, at det er dit noterepository. Se [GitSyncs vejledning til Genveje](https://gitsync.viscouspotenti.al/wiki/sync-options/background/app-based).
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## 8. Kør genvejen, når Obsidian åbnes og lukkes
+
+1. Gå til **Automatisering** i Genveje, og tryk på **+**.
+2. Vælg udløseren **App**, og vælg **Obsidian**.
+3. Markér både **Åbnes / Is Opened** og **Lukkes / Is Closed**.
+4. Vælg **Kør med det samme / Run Immediately**.
+5. Vælg genvejen **Synkroniser noter** fra trin 7. Hvis du bygger handlingerne manuelt, skal du tilføje **Kør genvej** og vælge den.
+6. Gem automatiseringen.
+
+Test ved at skrive en ekstra linje i `sync-test`, forlade Obsidian og kontrollere GitHub efter synkroniseringen. Trinnene bygger på [GitSyncs iOS-automatisering](https://gitsync.viscouspotenti.al/wiki/sync-options/background/app-based).
+
+**Husk:** Automatiseringen starter en synkronisering; den garanterer ikke, at den er færdig, før du begynder at skrive. Vent på resultatet, når du skifter mellem telefon og computer.
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Den daglige rutine
+
+**Før du skriver:** Sørg for, at ændringer fra din anden enhed er sendt til GitHub. Hent dem på telefonen, og vent på, at synkroniseringen er færdig.
+
+**Når du er færdig:** Lad GitSync sende dine ændringer, før du fortsætter på en anden enhed. Du kan altid starte synkroniseringen manuelt.
+
+**Når du er offline:** Skriv videre i Obsidian. Synkroniser, når du igen har internet, før du redigerer de samme noter på en anden enhed.
+
+:::tip[Computeren skal også synkronisere]
+GitSync på telefonen kan kun hente det, der er nået til GitHub. Gemmer du blot en note på computeren, skal den stadig committes og pushes. Brug din sædvanlige Git-klient eller Obsidian Git på computeren.
+:::
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Hvis noget ikke virker
+
+| Problem | Kontrollér dette |
+| --- | --- |
+| Repositoryet mangler på listen | Kontrollér konto og appens adgang til repositoryet. Prøv derefter den direkte HTTPS-adresse. En søgegrænse på 100 repositories kan også spille ind; se [afsnittet om manglende repositories](#hvis-repositoryet-mangler-på-listen). |
+| Kloning fejler med **403** | Serveren afviser adgangen. Følg [kontrollen af login og repositoryadgang](#kontrollér-adgang-hvis-kloning-afvises), og prøv derefter at logge ind igen. |
+| Mappen Obsidian mangler i Arkiver | Opret først en lokal vault i Obsidian, og kig under **På min iPhone**. |
+| Filerne er hentet, men noterne mangler | Åbner du den rigtige vault? Ligger filerne i en ekstra undermappe? Er de `.md`-filer? |
+| Noten kommer ikke op på GitHub | Tjek GitSyncs fejlbesked, internetforbindelsen, din skriveadgang og den valgte branch. |
+| Automatiseringen virker ikke | Kør genvejen manuelt. Tjek derefter udløseren og **Kør med det samme**. |
+| Der står, at Git-indekset er låst | Vent på igangværende synkronisering, og kontrollér, at Obsidian Git er deaktiveret på telefonen. |
+
+### Hvis to versioner er i konflikt
+
+Åbn **MERGE CONFLICT** i GitSync. Gennemgå forskellene, vælg eller sammensæt den tekst, der skal bevares, og afslut konfliktløsningen, før du synkroniserer igen. Se [GitSyncs konfliktvejledning](https://gitsync.viscouspotenti.al/wiki/merge-conflict-resolution).
+
+**Upload + Overwrite** og **Download + Overwrite** kan erstatte ændringer på den ene side. Brug den almindelige synkronisering og konfliktløsning, når du vil bevare arbejde fra begge enheder.
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
+
+## Kilder og videre hjælp
+
+Vejledningen er kontrolleret mod dokumentationen **23. september 2026**. Knapnavne kan variere med appversion og sprog.
+
+- [GitSyncs officielle wiki](https://gitsync.viscouspotenti.al/wiki/) beskriver appens funktioner og indstillinger.
+- [Udviklerens Obsidian-guide](https://viscouspotenti.al/posts/gitsync-all-devices-tutorial) viser opsætning på både telefon og computer.
+- [Obsidian om synkronisering](https://obsidian.md/help/sync-notes) forklarer lokale vaults og de forskellige synkroniseringsmetoder.
+
+</Slide>

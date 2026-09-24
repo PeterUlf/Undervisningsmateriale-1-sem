@@ -1,0 +1,15 @@
+/* Keep presentation adjustments local to the structure lesson. */
+@media screen {
+  body:has(.design-structure-example) #presentation-dialog .generated-slide {
+    min-height: 0;
+    padding: 2rem;
+  }
+
+  body:has(.design-structure-example) #presentation-dialog .generated-slide h2 {
+    margin-top: 0;
+  }
+
+  body:has(.design-structure-example) #presentation-dialog .generated-slide p {
+    padding: 0;
+  }
+}

@@ -185,6 +185,15 @@ export default defineConfig({
                     class: "badge-theme-1",
                   },
                 },
+                {
+                  label: "Obsidian på iPhone med GitSync",
+                  slug: "git/obsidian-iphone-gitsync",
+                  badge: {
+                    text: "Tema 2",
+                    variant: "tip",
+                    class: "badge-theme-2",
+                  },
+                },
               ],
             },
             {
@@ -206,7 +215,11 @@ export default defineConfig({
         {
           label: "UX",
           collapsed: true,
-          items: ["ux/indhold-billeder-og-tekst", "ux/billeder-med-ai"],
+          items: [
+            "ux/indhold-billeder-og-tekst",
+            "ux/billeder-med-ai",
+            "ux/struktur-og-planlaegning-af-design",
+          ],
         },
         {
           label: "Quizzer",

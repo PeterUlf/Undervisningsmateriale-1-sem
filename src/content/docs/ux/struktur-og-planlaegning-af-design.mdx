@@ -1,0 +1,325 @@
+---
+title: Struktur og planlægning af design
+draft: false
+description: Oplæg på 15–20 minutter om informationsarkitektur, navigation, sitemap, brugerflow og wireframes. Med en valgfri wireframeøvelse til dit emnesite.
+sidebar:
+  label: Struktur og planlægning af design
+  order: 30
+  badge:
+    text: Tema 3
+    variant: tip
+    class: badge-theme-3
+---
+
+import Slide from "../../../components/Slide.astro";
+import DesignStructureExample from "../../../components/DesignStructureExample.astro";
+import "../../../styles/design-structure-lesson.css";
+
+<Slide>
+
+## Struktur og planlægning af design
+
+**Tema 3 · UX I · Oplæg · 15–20 min.**
+
+Hvordan hjælper du brugeren med at finde det rigtige indhold og komme videre?
+
+Efter oplægget kan du:
+
+- forklare, hvad **informationsarkitektur** gør for et website.
+- vælge tydelige **kategorier, menupunkter og veje gennem indholdet**.
+- skelne mellem **sitemap, brugerflow og wireframe**.
+
+Vi følger et emnesite om **gåture i København** fra indhold til skitse. Til sidst er der en **valgfri øvelse på 20 min.**, som ligger ud over oplægget.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Start med en opgave, brugeren vil løse
+
+> Jeg vil finde en kort gåtur ved havnen og se, hvor den starter.
+
+**Hvilket indhold skal brugeren kunne finde?**
+
+| Brugerens spørgsmål | Indhold, der hjælper |
+| --- | --- |
+| Hvilke ture kan jeg vælge? | En oversigt over ruter |
+| Passer turen til mig? | Længde, varighed, underlag og beskrivelse |
+| Hvor starter jeg? | Startsted og kort |
+
+Brug jeres research til at vælge en vigtig opgave. Markér det, I endnu kun antager om målgruppen.
+
+**Eksemplet er fiktivt.** Vi arbejder med struktur; rutens oplysninger skal undersøges, før et rigtigt site udgives.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Informationsarkitektur er en del af UX
+
+**Informationsarkitektur (IA)** handler om at organisere, navngive og forbinde indhold, så brugeren kan finde og forstå det.
+
+| Begreb | Spørgsmål i vores eksempel |
+| --- | --- |
+| **IA · informationsarkitektur** | Hvor hører ruterne til, og hvad kalder vi dem? |
+| **UI · brugergrænseflade** | Hvordan vises menuen, rutekortene og linksene? |
+| **UX · brugeroplevelse** | Kan jeg finde en passende tur og føle mig klar til at tage afsted? |
+
+UX omfatter den samlede oplevelse: indhold, brugervenlighed, tilgængelighed, tillid og følelser. Struktur og visuel udformning påvirker begge oplevelsen.
+
+Kilder: NN/g om [IA og navigation](https://www.nngroup.com/articles/ia-vs-navigation/) og [definitionen af UX](https://www.nngroup.com/articles/definition-user-experience/).
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Fire systemer, der arbejder sammen
+
+| System | Hvad beslutter du? | På emnesitet |
+| --- | --- | --- |
+| **Organisering** | Hvad hører sammen? | Ruter grupperet efter område |
+| **Navngivning · labels** | Hvad kalder vi indhold og handlinger? | “Ruter” og “Se ruten på kort” |
+| **Navigation** | Hvordan kommer brugeren rundt? | Hovedmenu og links mellem sider |
+| **Søgning** | Hvordan finder brugeren indhold med egne søgeord? | Søg efter “havnen” |
+
+**De samme ord skal hænge sammen på tværs.** Hvis menuen hedder “Ruter”, skal brugeren kunne genkende ordet på siden, der åbner.
+
+De fire systemer beskrives af Rosenfeld, Morville og Arango i [Information Architecture: For the Web and Beyond](https://www.oreilly.com/library/view/information-architecture-4th/9781491913529/).
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Organisering: Hvad hører sammen?
+
+**Vælg både en struktur og et princip for at gruppere indholdet.**
+
+| Struktur | Idé | Eksempel |
+| --- | --- | --- |
+| **Hierarkisk** | Fra overblik til detaljer | Ruter → Havneruten |
+| **Sekventiel** | En rækkefølge af trin | En guide: Forbered → Find startsted → Følg ruten |
+| **Matrixbaseret** | Flere indgange til samme indhold | Find en rute efter både område og længde |
+
+Du kan gruppere efter fx **emne, geografi, opgave eller målgruppe** og ordne indhold **alfabetisk eller efter dato**. Det er valg om organisering; labels er de ord, du sætter på grupperne.
+
+**Til et lille emnesite:** Begynd med få tydelige grupper. Flere strukturer kan godt indgå i samme site.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Navngivning: Kan brugeren gætte destinationen?
+
+**En label er fx et menupunkt, en overskrift eller teksten på et link.** Brug ord, målgruppen kender.
+
+<DesignStructureExample kind="labels" />
+
+**“Mystery meat navigation”** er navigation, hvor brugeren må gætte, hvad et link betyder eller fører til. Det kan fx være ukendte ikoner uden synlig tekst.
+
+Vis betydningen med det samme. Forklaringer, der kun dukker op ved hover, hjælper ikke en bruger på en touchskærm.
+
+**Spørg før et klik:** Hvad forventer du at finde bag “Ruter”?
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Navigation og søgning: Flere veje til indholdet
+
+**Navigation skal hjælpe med: Hvor er jeg? Hvor kan jeg gå hen? Hvordan kommer jeg tilbage?**
+
+- **Global navigation:** Hovedmenuen går igen på tværs af sitet, fx “Ruter”, “Praktisk” og “Om sitet”.
+- **Lokal navigation:** Links inden for et område, fx fra ruteoversigten til de enkelte ruter.
+- **Links i indholdet:** Næste relevante skridt, fx “Se ruten på kort”.
+
+**Søgning** finder indhold ud fra brugerens ord. **Filtre** afgrænser en liste efter egenskaber, fx område eller længde. De kan bruges sammen, men er forskellige funktioner.
+
+På et lille emnesite kan en overskuelig menu og gode links være nok. Tilføj søgning eller filtre, når indholdet og brugerens opgave giver grund til det.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Sitemap: Hvilke sider har vi?
+
+Et **sitemap** viser siderne og deres indbyrdes hierarki. Her er et lille udsnit:
+
+<DesignStructureExample kind="sitemap" />
+
+Stregerne viser **over- og underordning**. De fastlægger ikke en rækkefølge af klik, og alle undersider behøver ikke stå i hovedmenuen.
+
+Her bruger vi et visuelt sitemap til planlægning. Et teknisk **XML-sitemap** til søgemaskiner har et andet formål.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Brugerflow: Hvordan løses én opgave?
+
+Et **brugerflow**, tegnet som et flowchart, viser trin og valg på vej mod et mål. Her starter brugeren på forsiden:
+
+<DesignStructureExample kind="flow" />
+
+**Afrundede felter:** start eller mål. **Kasser:** trin. **Diamant:** et valg. **Pile:** retningen gennem forløbet.
+
+Brugeren kan også lande direkte på en underside. Prøv derfor senere flowet med en anden indgang.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Tre tegninger – tre forskellige spørgsmål
+
+| Redskab | Spørgsmål | Det viser du |
+| --- | --- | --- |
+| **Sitemap** | Hvilke sider findes, og hvor hører de til? | Sider og hierarki |
+| **Brugerflow** | Hvordan kommer brugeren i mål? | Trin, handlinger og valg |
+| **Wireframe** | Hvad skal være hvor på en side? | Indhold, placering og prioritet |
+
+**På vores emnesite:**
+
+- Sitemap placerer **Havneruten** under **Ruter**.
+- Flowet viser vejen fra **valg af rute til startstedet på kortet**.
+- Wireframen giver **længde, startsted og kort** en plads på rutesiden.
+
+De tre redskaber hjælper dig med at opdage forskellige problemer.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Wireframes: Gør indholdets prioritet synlig
+
+En **wireframe** er en enkel skitse af en sides opbygning. **Low fidelity / lo-fi** betyder, at detaljeniveauet er lavt, så skitsen er hurtig at ændre.
+
+Vis:
+
+- **navigation og overskrift**, så brugeren ved, hvor de er.
+- **det vigtigste indhold**, i en begrundet rækkefølge.
+- **billed- og kortfelter**, med en note om deres funktion.
+- **links og handlinger**, med forståelige tekster.
+
+Brug enkle former og få gråtoner. Vent med de endelige farver, skrifttyper og billedvalg, så de ikke overtager diskussionen.
+
+**Skriv gerne rigtige overskrifter og linktekster allerede nu.** “Se startsted på kort” gør skitsen lettere at vurdere end en kasse med “knap”.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Samme indhold på mobil og desktop
+
+<DesignStructureExample kind="wireframes" />
+
+**Mobil:** Ét tydeligt læseforløb. **Desktop:** Flere felter kan stå ved siden af hinanden.
+
+Længde, startsted og link til kortet har stadig høj prioritet. Et stort stemningsbillede skal ikke skubbe svaret på brugerens opgave langt ned.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Fra solution sketch til noget, du kan afprøve
+
+Din **solution sketch** viser din idé til en løsning. Wireframes gør idéen konkret på de sider, brugeren skal igennem.
+
+1. **Vælg en brugeropgave**, og find det nødvendige indhold.
+2. **Lav et lille sitemap og et flow**, så du ved, hvilke sider du skal skitsere.
+3. **Tegn wireframes på papir eller i Figma.** Brug kasser, tekst og noter; i Figma kan hver side være en frame.
+4. **Afprøv og ret til.** Gå tilbage til både struktur, ord og layout, når du finder et problem.
+
+Papir er hurtigt til de første idéer. I Figma kan du lettere genbruge elementer og arbejde videre mod en prototype. Et wireframe-kit er valgfrit.
+
+**Start med struktur, men forvent at ændre den undervejs.**
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Hurtigt tjek: Hvad vil du ændre?
+
+**Brug 30–60 sekunder på at vælge et redskab til hvert problem.**
+
+1. Ingen ved, under hvilket menupunkt ruterne findes.
+2. Brugeren vælger en rute, men kan ikke komme videre til startstedet.
+3. Startstedet står langt nede under et stort billede.
+
+<details>
+<summary>Vis forslag til svar</summary>
+
+1. **Organisering og labels:** Undersøg gruppering og navngivning i dit sitemap og din menu.
+2. **Brugerflow:** Find det manglende trin eller link på vej mod målet.
+3. **Wireframe:** Flyt den vigtige information frem i sidens hierarki.
+
+Et problem kan kræve ændringer i flere redskaber. Forklar, hvorfor du vil starte dér.
+
+</details>
+
+**Tag med:** Organisér indholdet → gør vejen tydelig → prioritér indholdet på siden → afprøv.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Valgfri øvelse: Wireframes til dit emnesite
+
+**20 min. · Individuelt · Efter oplægget**
+
+Tag udgangspunkt i din **solution sketch**. Har du endnu ikke en, så brug eksemplet med gåture.
+
+1. **2 min.:** Skriv én brugeropgave, og vælg 3–4 sider, der hjælper med at løse den.
+2. **14 min.:** Tegn en lo-fi wireframe for hver side på papir. Vis menu, overskrift, vigtigt indhold, billedfelter og næste handling.
+3. **4 min.:** Tegn pile mellem siderne. Følg opgaven selv, og ret mindst ét sted, hvor indhold eller vej videre er uklart.
+
+**Du skal stå med:** 3–4 skitser, et sammenhængende forløb og en kort begrundelse for, hvad der har fået høj prioritet.
+
+**Hvis du når mere:** Tegn den vigtigste side til både mobil og desktop.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Brug skitserne til at få feedback
+
+**Som videre arbejde:** Giv en medstuderende en opgave uden at fortælle, hvor der skal klikkes.
+
+> Find en tur ved havnen, og vis mig, hvor du vil finde turens startsted.
+
+- Lad personen **pege og tænke højt**. Vent med at forklare dit design.
+- Notér **uklare ord, manglende indhold og steder, hvor personen går i stå**.
+- Ret én ting, og prøv opgaven igen.
+
+En medstuderende kan finde tidlige problemer. Afprøv også med personer fra målgruppen, når du har mulighed for det.
+
+**Næste skridt:** Arbejd videre med visuelt design og prototype. Brug [Indhold – billeder og tekst](/ux/indhold-billeder-og-tekst/) til at gøre indhold og handlinger konkrete.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Kilder og videre læsning
+
+Oplægget bygger på **“12_Struktur_planlægning_af_design”**, PDF med 18 slides. Eksempler og diagrammer er udarbejdet til dette materiale.
+
+- **Rosenfeld, Morville og Arango:** [Information Architecture: For the Web and Beyond, 4. udgave, 2015](https://www.oreilly.com/library/view/information-architecture-4th/9781491913529/) — organisering, labels, navigation og søgning.
+- **Nielsen Norman Group:** [IA og navigation](https://www.nngroup.com/articles/ia-vs-navigation/) og [definitionen af UX](https://www.nngroup.com/articles/definition-user-experience/) — begreber og sammenhænge.
+- **Lynch og Horton:** [Web Style Guide: Site Structure](https://webstyleguide.com/wsg3/3-information-architecture/3-site-structure.html) — hierarki, sekvenser og forbindelser mellem sider.
+- **Nielsen Norman Group:** [Wireflows](https://www.nngroup.com/articles/wireflows/) — om at forbinde wireframes og brugerflow.
+
+</Slide>

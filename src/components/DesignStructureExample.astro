@@ -1,0 +1,194 @@
+---
+interface Props {
+  kind: 'labels' | 'sitemap' | 'flow' | 'wireframes';
+}
+
+const { kind } = Astro.props;
+---
+
+<figure class:list={['design-structure-example', `example-${kind}`]}>
+  {kind === 'labels' && (
+    <>
+      <div class="label-comparison">
+        <div class="label-panel">
+          <p class="eyebrow">Uklart</p>
+          <div class="mock-menu"><span>Univers</span><span>Oplev</span><span>Mere</span></div>
+          <p>Hvor ville du lede efter en rute?</p>
+        </div>
+        <div class="label-panel label-clear">
+          <p class="eyebrow">Konkret</p>
+          <div class="mock-menu"><span>Ruter</span><span>Praktisk</span><span>Om sitet</span></div>
+          <p>Ordene fortæller, hvad du kan finde.</p>
+        </div>
+      </div>
+      <figcaption>Illustration af to menuer til samme emnesite. Menupunkterne er ikke links.</figcaption>
+    </>
+  )}
+
+  {kind === 'sitemap' && (
+    <>
+      <div class="sitemap-tree">
+        <span class="tree-node tree-root">Forside</span>
+        <ul class="tree-branches" role="list">
+          <li>
+            <span class="tree-node">Ruter</span>
+            <ul class="tree-leaves" role="list">
+              <li><span class="tree-node">Havneruten</span></li>
+              <li><span class="tree-node">Parkruten</span></li>
+            </ul>
+          </li>
+          <li><span class="tree-node">Praktisk</span></li>
+          <li><span class="tree-node">Om sitet</span></li>
+        </ul>
+      </div>
+      <figcaption>Tre niveauer: Forside → hovedområder → rutesider. Ruterne er undersider til “Ruter”.</figcaption>
+    </>
+  )}
+
+  {kind === 'flow' && (
+    <>
+      <div class="flow-diagram">
+        <ol class="flow-steps" role="list">
+          <li class="flow-start">Start på forsiden</li>
+          <li>Åbn “Ruter”</li>
+          <li>Åbn “Havneruten”</li>
+          <li>Læs længde og startsted</li>
+        </ol>
+        <div class="flow-join" aria-hidden="true">
+          <svg viewBox="0 0 100 20" preserveAspectRatio="none"><path d="M 88.5 0 V 8 H 50 V 20" /></svg>
+        </div>
+        <div class="flow-decision"><span>Passer<br />turen?</span></div>
+        <div class="flow-split" aria-hidden="true">
+          <svg viewBox="0 0 100 20" preserveAspectRatio="none"><path d="M 50 0 V 8 M 25 20 V 8 H 75 V 20" /></svg>
+        </div>
+        <div class="flow-branches">
+          <div><p class="branch-label">Ja ↓</p><div class="flow-end">Åbn kortet → find startstedet</div></div>
+          <div><p class="branch-label">Nej ↓</p><div class="flow-return">Tilbage til “Ruter” → vælg en anden</div></div>
+        </div>
+      </div>
+      <figcaption>Ét muligt forløb. Ved “Nej” vender brugeren tilbage til ruteoversigten og prøver igen.</figcaption>
+    </>
+  )}
+
+  {kind === 'wireframes' && (
+    <>
+      <div class="wireframe-comparison">
+        {['Mobil', 'Desktop'].map((device) => (
+          <div class:list={['wireframe-device', device === 'Mobil' ? 'wire-mobile' : 'wire-desktop']}>
+            <p class="device-label">{device} · Ruteside</p>
+            <div class="wireframe-page">
+              <div class="wire-nav"><b>Byvandring</b><span>Ruter · Praktisk · Om</span></div>
+              <div class="wire-content">
+                <div class="wire-main">
+                  <p class="wire-title">Havneruten</p>
+                  <p class="wire-intro">Kort beskrivelse af turen</p>
+                  <div class="wire-facts"><b>Længde og varighed</b><span>Startsted og underlag</span></div>
+                  <span class="wire-action">Se startsted på kort →</span>
+                </div>
+                <div class="wire-image">Foto af området</div>
+              </div>
+              <div class="wire-map">Kort med rute og startsted</div>
+            </div>
+          </div>
+        ))}
+      </div>
+      <figcaption>Skematiske wireframes af samme side. Felterne beskriver indhold; illustrationens menuer og handlinger er ikke klikbare.</figcaption>
+    </>
+  )}
+</figure>
+
+<style>
+  .design-structure-example {
+    --diagram-bg: var(--sl-color-bg);
+    --diagram-panel: var(--sl-color-gray-6);
+    --diagram-line: var(--sl-color-gray-3);
+    margin: 1rem 0;
+    font-size: 1rem;
+    line-height: 1.45;
+  }
+  .design-structure-example p { margin: 0; padding: 0; }
+  .design-structure-example figcaption { margin-top: .75rem; color: var(--sl-color-gray-2); font-size: .8rem; }
+  .label-comparison { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .8rem; }
+  .label-panel { margin: 0; padding: 1rem; border: 1px solid var(--diagram-line); border-radius: .6rem; }
+  .label-clear { border: 2px solid var(--sl-color-text-accent); }
+  .eyebrow { font-size: .8rem; font-weight: 700; }
+  .mock-menu { display: flex; flex-wrap: wrap; gap: .5rem 1rem; margin: .8rem 0; font-weight: 700; }
+  .label-panel > p:last-child { font-size: .9rem; }
+
+  .sitemap-tree { padding: .5rem; text-align: center; }
+  .tree-node { display: block; padding: .65rem .5rem; border: 1px solid var(--diagram-line); border-radius: .4rem; background: var(--diagram-panel); font-weight: 650; }
+  .tree-root { width: 40%; margin: 0 auto; background: var(--sl-color-accent-low); }
+  .sitemap-tree ul { list-style: none; padding: 0; margin: 0; }
+  .sitemap-tree li { margin: 0; padding: 0; position: relative; }
+  .sitemap-tree .tree-branches { display: grid; grid-template-columns: 1.3fr 1fr 1fr; padding-top: 2rem; position: relative; }
+  .tree-branches::before { content: ''; position: absolute; top: 0; left: 50%; height: 1rem; border-left: 2px solid var(--diagram-line); }
+  .tree-branches > li { padding: 0 .5rem; }
+  .tree-branches > li::before { content: ''; position: absolute; left: 0; right: 0; top: -1rem; border-top: 2px solid var(--diagram-line); }
+  .tree-branches > li:first-child::before { left: 50%; }
+  .tree-branches > li:last-child::before { right: 50%; }
+  .tree-branches > li::after { content: ''; position: absolute; left: 50%; top: -1rem; height: 1rem; border-left: 2px solid var(--diagram-line); }
+  .sitemap-tree .tree-leaves { margin-left: .6rem; padding-left: .9rem; border-left: 2px solid var(--diagram-line); text-align: left; }
+  .tree-leaves > li { padding-top: .7rem; }
+  .tree-leaves > li::before { content: ''; position: absolute; left: -.9rem; top: calc(50% + .35rem); width: .9rem; border-top: 2px solid var(--diagram-line); }
+  .tree-leaves .tree-node { background: var(--diagram-bg); font-size: .9rem; font-weight: 400; }
+
+  .flow-diagram { padding: .5rem; }
+  .flow-steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.5rem; margin: 0; padding: 0; list-style: none; }
+  .flow-steps li { position: relative; display: grid; place-content: center; margin: 0; padding: .65rem; border: 1px solid var(--diagram-line); background: var(--diagram-panel); text-align: center; }
+  .flow-steps .flow-start { border-radius: 2rem; }
+  .flow-steps li:not(:last-child)::after { content: '→'; position: absolute; right: -1.35rem; top: calc(50% - .7em); }
+  .flow-join, .flow-split { position: relative; height: 1.5rem; margin: 0; }
+  .flow-join svg, .flow-split svg { display: block; width: 100%; height: 100%; margin: 0; overflow: visible; }
+  .flow-join path, .flow-split path { fill: none; stroke: var(--diagram-line); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+  .flow-join::after { content: ''; position: absolute; bottom: -1px; left: calc(50% - 4px); border-left: 4px solid transparent; border-right: 4px solid transparent; border-top: 6px solid var(--diagram-line); }
+  .flow-decision { display: grid; place-items: center; width: 5rem; height: 5rem; margin: 1rem auto; border: 2px solid var(--sl-color-text-accent); background: var(--diagram-bg); transform: rotate(45deg); }
+  .flow-decision span { transform: rotate(-45deg); text-align: center; font-weight: 650; }
+  .flow-branches { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; text-align: center; }
+  .flow-branches > div { margin: 0; }
+  .flow-branches .branch-label { margin-bottom: .5rem; font-weight: 700; }
+  .flow-end, .flow-return { padding: .65rem; border: 1px solid var(--diagram-line); background: var(--diagram-panel); }
+  .flow-end { border-radius: 2rem; }
+
+  .wireframe-comparison { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.65fr); gap: 1rem; align-items: start; color: #242424; }
+  .wireframe-device { margin: 0; min-width: 0; }
+  .wireframe-device .device-label { margin-bottom: .5rem; color: var(--sl-color-text); font-size: .85rem; font-weight: 700; }
+  .wireframe-page { border: 2px solid #666; background: #fff; }
+  .wire-nav { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .3rem 1rem; padding: .65rem; border-bottom: 1px solid #888; font-size: .7rem; }
+  .wire-nav span { margin: 0; }
+  .wire-content { display: grid; gap: .75rem; padding: .75rem; margin: 0; }
+  .wire-desktop .wire-content { grid-template-columns: 1.3fr 1fr; }
+  .wire-main { min-width: 0; }
+  .wire-main .wire-title { color: #242424; font-size: 1.1rem; font-weight: 750; }
+  .wire-main .wire-intro { color: #242424; margin-top: .3rem; font-size: .75rem; }
+  .wire-facts { display: grid; gap: .2rem; margin-top: .75rem; padding: .5rem; border: 1px solid #888; font-size: .7rem; }
+  .wire-facts span { margin: 0; }
+  .wire-action { display: block; margin-top: .6rem; padding: .45rem; background: #e9e9e9; border: 1px solid #555; font-size: .7rem; font-weight: 700; }
+  .wire-image, .wire-map { display: grid; place-items: center; text-align: center; border: 1px dashed #777; background: #f3f3f3; font-size: .75rem; color: #333; }
+  .wire-image { min-height: 3.5rem; margin: 0; padding: .5rem; }
+  .wire-map { min-height: 3.5rem; margin: 0 .75rem .75rem; padding: .5rem; }
+
+  @media (max-width: 40rem) {
+    .label-comparison, .wireframe-comparison { grid-template-columns: minmax(0, 1fr); }
+    .wire-mobile { width: 75%; max-width: 18rem; }
+    .tree-branches > li { padding: 0 .2rem; }
+    .tree-node { font-size: .85rem; overflow-wrap: anywhere; }
+    .tree-leaves .tree-node { font-size: .8rem; }
+    .flow-steps { grid-template-columns: minmax(0, 1fr); gap: 1.5rem; }
+    .flow-steps li:not(:last-child)::after { content: '↓'; top: 100%; left: calc(50% - .4em); right: auto; }
+    .flow-join svg { display: none; }
+    .flow-join::before { content: ''; position: absolute; left: 50%; height: 100%; border-left: 1.5px solid var(--diagram-line); }
+  }
+  @media print {
+    .design-structure-example { --diagram-bg: white; --diagram-panel: #f5f5f5; --diagram-line: #777; break-inside: avoid; color: #222; font-size: 10pt; }
+    .design-structure-example figcaption { color: #444; font-size: 8pt; }
+    .tree-root { background: #eee; }
+    .label-clear, .flow-decision { border-color: #333; }
+    .label-comparison { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .wireframe-comparison { grid-template-columns: minmax(0, .85fr) minmax(0, 1.65fr); }
+    .wire-mobile { width: auto; }
+    .flow-steps { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .flow-steps li:not(:last-child)::after { content: '→'; right: -1.35rem; left: auto; top: calc(50% - .7em); }
+    .flow-join svg { display: block; }
+    .flow-join::before { display: none; }
+  }
+</style>
