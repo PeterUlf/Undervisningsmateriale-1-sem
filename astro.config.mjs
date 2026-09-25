@@ -15,7 +15,10 @@ function getDraftSlugs(dir = docsDir, base = "") {
     const relativePath = `${base}${entry.name}`;
 
     if (entry.isDirectory()) {
-      for (const slug of getDraftSlugs(new URL(`${entry.name}/`, dir), `${relativePath}/`)) {
+      for (const slug of getDraftSlugs(
+        new URL(`${entry.name}/`, dir),
+        `${relativePath}/`,
+      )) {
         slugs.add(slug);
       }
       continue;
@@ -24,15 +27,18 @@ function getDraftSlugs(dir = docsDir, base = "") {
     if (!/\.(mdx|md)$/.test(entry.name)) continue;
 
     const source = readFileSync(entryUrl, "utf8");
-    const frontmatterEnd = source.startsWith("---\n") ? source.indexOf("\n---", 4) : -1;
-    const frontmatter = frontmatterEnd > -1 ? source.slice(4, frontmatterEnd) : "";
+    const frontmatterEnd = source.startsWith("---\n")
+      ? source.indexOf("\n---", 4)
+      : -1;
+    const frontmatter =
+      frontmatterEnd > -1 ? source.slice(4, frontmatterEnd) : "";
 
     if (/^draft:\s*true\s*$/m.test(frontmatter)) {
       slugs.add(
         relativePath
           .replace(/\.(mdx|md)$/, "")
           .replace(/\/index$/, "")
-          .replace(/^index$/, "")
+          .replace(/^index$/, ""),
       );
     }
   }
@@ -52,14 +58,16 @@ function filterDraftSidebar(items) {
 
   return items
     .map((item) => {
-      if (typeof item === "string") return draftSlugs.has(item) ? undefined : item;
+      if (typeof item === "string")
+        return draftSlugs.has(item) ? undefined : item;
 
       const itemSlug = item.slug ?? linkToSlug(item.link);
       if (itemSlug !== undefined && draftSlugs.has(itemSlug)) return undefined;
 
       if ("items" in item && Array.isArray(item.items)) {
         const filteredItems = filterDraftSidebar(item.items);
-        if (filteredItems.length === 0 && !("autogenerate" in item)) return undefined;
+        if (filteredItems.length === 0 && !("autogenerate" in item))
+          return undefined;
         return { ...item, items: filteredItems };
       }
 
@@ -150,19 +158,11 @@ export default defineConfig({
             },
             {
               label: "HTML",
-              items: [
-                "html/grundlaeggende",
-                "html/semantisk",
-              ],
+              items: ["html/grundlaeggende", "html/semantisk"],
             },
             {
               label: "CSS",
-              items: [
-                "css/intro",
-                "css/reset",
-                "css/flexbox",
-                "css/grid",
-              ],
+              items: ["css/intro", "css/reset", "css/flexbox", "css/grid"],
             },
             {
               label: "Git & GitHub",
@@ -203,7 +203,7 @@ export default defineConfig({
                   label: "Strukturen i Figma",
                   slug: "astro/figma/strukturen-i-figma",
                   badge: {
-                    text: "Tema 1",
+                    text: "Tema 3",
                     variant: "tip",
                     class: "badge-theme-1",
                   },
