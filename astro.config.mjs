@@ -208,6 +208,15 @@ export default defineConfig({
                     class: "badge-theme-1",
                   },
                 },
+                {
+                  label: "Wireframekit i Figma",
+                  slug: "astro/figma/find-og-brug-wireframekit",
+                  badge: {
+                    text: "Tema 3",
+                    variant: "tip",
+                    class: "badge-theme-3",
+                  },
+                },
               ],
             },
           ],
