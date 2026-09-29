@@ -1,0 +1,224 @@
+---
+title: "Styles i Figma"
+draft: false
+description: "Din første introduktion til styles i Figma: gem tekst og farver, genbrug dem på dit emnesite, og opdater designet ét sted."
+sidebar:
+  label: "Styles"
+  order: 6.06
+  badge:
+    text: Tema 3
+    variant: tip
+    class: badge-theme-3
+---
+
+import Slide from "../../../../components/Slide.astro";
+import FigmaStylesDemo from "../../../../components/FigmaStylesDemo.astro";
+
+# Styles i Figma
+
+Hav din Figma-fil til emnesitet åben. Du skal kunne oprette tekst og figurer og finde **Design**-panelet i højre side. Du kan genbesøge [Strukturen i Figma](/astro/figma/strukturen-i-figma/), hvis du har brug for det.
+
+**Tema 3 · ca. 15 minutters oplæg + 10 minutters individuel øvelse.** Vi arbejder med tekst- og farvestyles i din egen fil. Arbejdsgangene er kontrolleret mod Figmas officielle vejledning den 28. september 2026.
+
+<Slide>
+
+## Hvad er en style?
+
+En **style** er en gemt indstilling eller samling af indstillinger, som du giver et navn og genbruger i dit design.
+
+Forestil dig, at dit emnesite har otte sider med hver sin hovedoverskrift. Alle hovedoverskrifter skal bruge samme skrifttype, størrelse og linjeafstand. Du gemmer opsætningen som `Tekst/H1` og bruger den på alle otte.
+
+**Når du redigerer stylen, følger de tilknyttede overskrifter med.** Det gør det lettere at holde designet ensartet. [Sådan fungerer styles i Figma](https://help.figma.com/hc/en-us/articles/360039238753-Styles-in-Figma-Design).
+
+Efter gennemgangen skal du kunne:
+
+- oprette en tekststyle og en farvestyle
+- anvende samme style flere steder
+- redigere en style og se ændringen i hele filen
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## To slags styles at starte med
+
+| Type | Hvad gemmer du? | Eksempel |
+| --- | --- | --- |
+| **Text style** | Skrifttype, vægt, størrelse og linjeafstand | `Tekst/H1` |
+| **Color style** | En farve, du kan bruge til fx fyld, tekst eller kant | `Farve/Accent` |
+
+En tekststyle gemmer **tekstens udseende**, så to overskrifter kan have samme style og forskellig ordlyd.
+
+**Tekstfarven vælges separat under Fill.** Den indgår ikke i tekststylen. Du kan derfor kombinere én tekststyle med forskellige farvestyles. [Læs om tekststyles hos Figma](https://www.figma.com/best-practices/typography-systems-in-figma/).
+
+Figma har også styles til effekter og layoutguides. Her starter vi med tekst og farver.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## 1. Opret din første tekststyle
+
+1. Lav et tekstlag, og skriv en hovedoverskrift til en side i dit emnesite, fx **Find din næste opskrift**.
+2. Marker tekstlaget, og vælg fx **Inter**, **Bold**, størrelse **40** og linjeafstand **48 px**.
+3. Klik på **style-ikonet med de fire prikker** ved tekstindstillingerne i højre Design-panel.
+4. Klik på **+** i style-vælgeren for at oprette en style.
+5. Kald den `Tekst/H1`, og klik **Create style**.
+
+Navnet skal nu stå ved tekstindstillingerne på laget. Det viser, at teksten bruger stylen.
+
+**H1 henviser til sidens hovedoverskrift i HTML.** Style-navnet viser den tiltænkte brug og opretter ikke automatisk et HTML-element. I HTML vælger du overskriftsniveau efter indholdets hierarki; størrelsen bestemmer du med CSS. [Læs om overskrifter i HTML](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/Heading_Elements).
+
+Tallene er et udgangspunkt til øvelsen. Du kan senere tilpasse dem til dit eget design. [Figmas vejledning til at oprette styles](https://help.figma.com/hc/en-us/articles/360038746534-Create-color-text-effect-and-layout-guide-styles).
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## 2. Brug tekststylen igen
+
+1. Lav et nyt tekstlag med hovedoverskriften til en anden side i dit emnesite.
+2. Marker det, og åbn style-vælgeren ved tekstindstillingerne.
+3. Find og vælg `Tekst/H1` fra den aktuelle fil.
+
+Begge tekster bruger nu samme opsætning. Du behøver kun at skrive deres forskellige indhold.
+
+Lav derefter en style til brødtekst. Her er et lille startsæt:
+
+| Style | Skrifttype og vægt | Størrelse / linjeafstand |
+| --- | --- | --- |
+| `Tekst/H1` | Inter Bold | 40 / 48 px |
+| `Tekst/Brødtekst` | Inter Regular | 16 / 24 px |
+
+Brug styles fra vælgeren, når du tilføjer tekst. **Ens tal i felterne giver ikke i sig selv en forbindelse til stylen.** [Sådan anvender du en style](https://help.figma.com/hc/en-us/articles/360040316193-Apply-styles-to-layers-and-objects).
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## 3. Opret en farvestyle
+
+1. Tegn et rektangel, og marker det.
+2. Vælg en farve under **Fill**, fx `#2563EB`.
+3. Klik på **style-ikonet ved Fill**, og derefter **+** i vælgeren.
+4. Vælg **Style**, hvis du bliver bedt om at vælge, hvad du vil oprette.
+5. Skriv `Farve/Accent`, og klik **Create style**.
+
+Farven er nu gemt med et navn. [Figmas vejledning til at oprette styles](https://help.figma.com/hc/en-us/articles/360038746534-Create-color-text-effect-and-layout-guide-styles).
+
+For at bruge den igen: Marker en anden figur, åbn style-vælgeren ved **Fill**, og vælg `Farve/Accent` under **Libraries**. Her finder du også styles fra din egen fil.
+
+**Tjek, at style-navnet står ved Fill.** Hvis du bare skriver samme farvekode på to figurer, er de stadig uafhængige. [Sådan anvender du en farvestyle](https://help.figma.com/hc/en-us/articles/360040316193-Apply-styles-to-layers-and-objects).
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## 4. Ret én style — se ændringen flere steder
+
+Prøv eksemplet: Skift farven i `Farve/Accent`, og se begge knapflader følge med.
+
+<FigmaStylesDemo />
+
+Gør det derefter i Figma:
+
+1. Marker en figur, som bruger `Farve/Accent`, og klik på style-navnet ved **Fill**.
+2. Højreklik på stylen i vælgeren, og vælg **Edit style**.
+3. Skift farven, og se begge figurer opdatere.
+
+Du redigerer den **fælles style**. Prøv også at ændre størrelsen i `Tekst/H1` på samme måde. [Figmas vejledning til at redigere styles](https://help.figma.com/hc/en-us/articles/360039820134-Manage-and-share-styles).
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Giv dine styles navne, du kan vælge efter
+
+Navnet skal fortælle, hvad stylen bruges til på dit emnesite.
+
+| Navn | Bruges til |
+| --- | --- |
+| `Tekst/H1` | Sidens hovedoverskrift: `<h1>` |
+| `Tekst/H2` | Overskrift til et hovedafsnit: `<h2>` |
+| `Tekst/Brødtekst` | Almindelige tekstafsnit: `<p>` |
+| `Farve/Accent` | Elementer, der skal fremhæves |
+| `Farve/Tekst` | Den almindelige tekstfarve |
+| `Farve/Baggrund` | Sidens baggrund |
+
+**Skråstregen `/` samler styles i grupper.** Du kan se filens styles i højre panel under **Styles / Local styles**, når intet er markeret. [Læs om navngivning og organisering](https://help.figma.com/hc/en-us/articles/360039820134-Manage-and-share-styles).
+
+Start med `Tekst/H1` og `Tekst/Brødtekst`. Tilføj `Tekst/H2`, når dit indhold har brug for overskrifter til hovedafsnit.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Hvis det ikke virker
+
+| Problem | Tjek dette |
+| --- | --- |
+| Kun én figur ændrer farve | Bruger begge `Farve/Accent`, og redigerer du selve stylen? |
+| Tekstens farve følger ikke tekststylen | Vælg farvestylen separat under **Fill** |
+| Du kan ikke finde din tekststyle | Marker et tekstlag, og åbn vælgeren ved tekstindstillingerne |
+| En style fra et kit kan ikke redigeres | Den kan høre til en anden fil. Opret dine egne styles til denne øvelse |
+
+**Detach style** bryder forbindelsen til stylen. Laget beholder sit udseende, men følger ikke længere ændringer i stylen. Vælg stylen igen for at tilknytte den. [Læs om at fjerne og anvende styles](https://help.figma.com/hc/en-us/articles/360040316193-Apply-styles-to-layers-and-objects).
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Øvelse: Et lille startsæt til dit emnesite
+
+**Individuelt · 10 minutter.** Arbejd i din egen Figma-fil.
+
+1. Opret `Tekst/H1` og `Tekst/Brødtekst`.
+2. Opret `Farve/Accent`, `Farve/Tekst` og `Farve/Baggrund` med farver, der passer til dit emne.
+3. Lav to små frames til hver sin side med en hovedoverskrift, brødtekst og farvet figur. Brug dine styles på begge.
+4. Rediger accentfarven via **Edit style**. Tjek, at begge figurer følger med.
+5. Rediger overskriftens størrelse i stylen. Tjek, at begge overskrifter følger med.
+
+**Du er færdig, når** du kan ændre begge frames ved at rette én style. Tag et screenshot af dit startsæt til procesdokumentationen.
+
+Hvis du har tid: Anvend dine styles på en side i dit emnesite. Tjek, at teksten er let at læse på den valgte baggrund.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Tag det med videre
+
+**Opret → anvend → rediger.** Det er arbejdsgangen, du skal kunne gentage.
+
+- En tekststyle samler dine typografiske valg.
+- En farvestyle gør en farve nem at genbruge.
+- Forbindelsen til stylen gør, at senere ændringer følger med.
+
+Tjek dig selv: To figurer har samme blå farve, men kun den ene bruger `Farve/Accent`. **Hvilken ændrer sig, når du redigerer stylen?**
+
+<details>
+  <summary>Se svaret</summary>
+  <p>Kun figuren, der bruger stylen. Den anden har sin egen farveværdi, selvom farverne så ens ud før ændringen.</p>
+</details>
+
+Brug dine styles, når du [bygger komponenter i Figma](/astro/figma/komponenter/). I tema 9 vender vi tilbage til styles og bygger videre på dem.
+
+</Slide>

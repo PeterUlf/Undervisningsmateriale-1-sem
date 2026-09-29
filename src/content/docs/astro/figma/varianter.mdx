@@ -1,65 +1,48 @@
 ---
-title: "Figma Varianter"
-draft: true
-description: "Et kort slide-deck til undervisning i varianter, component sets og variant properties i Figma."
+title: "Lav varianter i Figma"
+draft: false
+description: "Lav en Primary- og Secondary-variant af din knap, saml dem i et component set, og brug dem på dit emnesite."
 sidebar:
   label: "Varianter"
   order: 6.08
   badge:
-    text: Tema 9
+    text: Tema 3
     variant: tip
-    class: badge-theme-9
+    class: badge-theme-3
 ---
 
 import Slide from "../../../../components/Slide.astro";
 
-# Figma varianter
+# Lav varianter i Figma
 
-Denne side er lavet som et kort slide-deck til gennemgang i klassen. Hav gerne Figma åbent, så du kan prøve trinnene undervejs.
+Byg videre på knappen fra [øvelsen om komponenter](/astro/figma/komponenter/). Hav din Figma-fil åben med knappens main component og dine instances.
 
-Læs evt. mere her: https://help.figma.com/hc/en-us/articles/360056440594-Create-and-use-variants
-
-<Slide>
-
-## Hvad skal du kunne bagefter?
-
-- forstå hvad en **variant** er i Figma
-- samle beslægtede komponenter i et **component set**
-- bruge egenskaber som fx `Type`, `State` og `Size`
-- skifte variant på en instance uden at bygge knappen forfra
-
-</Slide>
-
-<div class="page-break"></div>
+**Tema 3 · ca. 10 minutters oplæg + 5 minutters individuel øvelse.** Arbejdsgangen er kontrolleret i Figmas officielle vejledning den 28. september 2026.
 
 <Slide>
 
-## Hvad er en variant?
+## Hvad bruger man varianter til?
 
-En variant er én version af en komponent i en **familie**.
+Du bruger **varianter**, når den samme komponent skal have flere faste udgaver. En knap kan fx være tydelig eller afdæmpet, alt efter hvor vigtig handlingen er.
 
-Eksempel:
-
-- samme knap
-- samme grundidé
-- men forskellig type, størrelse eller tilstand
+På et opskriftssite vil du især hjælpe brugeren med at **se opskriften**, men også give mulighed for at **gemme den til senere**:
 
 <div class="variant-family-grid">
   <div class="variant-family-card">
-    <span class="variant-mini-tag">Type=Primary</span>
-    <button class="variant-demo-button primary">Køb nu</button>
+    <span class="variant-mini-tag">Type = Primary</span>
+    <button class="variant-demo-button primary" type="button">Se opskriften</button>
+    <p>En tydelig knap til sidens vigtigste handling.</p>
   </div>
   <div class="variant-family-card">
-    <span class="variant-mini-tag">Type=Secondary</span>
-    <button class="variant-demo-button secondary">Læs mere</button>
-  </div>
-  <div class="variant-family-card">
-    <span class="variant-mini-tag">Type=Ghost</span>
-    <button class="variant-demo-button ghost">Gem</button>
+    <span class="variant-mini-tag">Type = Secondary</span>
+    <button class="variant-demo-button secondary" type="button">Gem til senere</button>
+    <p>En mere afdæmpet knap til en mindre vigtig handling.</p>
   </div>
 </div>
 
-Det er altså ikke tre helt forskellige komponenter, men tre versioner af samme mønster.
+Begge er knapper med samme grundform, typografi og luft omkring teksten. **Primary og Secondary beskriver forskellen i udseende og vægt.** Knapteksten kan du ændre uafhængigt af varianten.
+
+Du samler udgaverne i et **component set** og vælger den ønskede variant i højre panel. Så kan du genbruge de samme knaptyper på hele sitet og gøre det tydeligt, hvilken handling der er vigtigst.
 
 </Slide>
 
@@ -67,22 +50,15 @@ Det er altså ikke tre helt forskellige komponenter, men tre versioner af samme 
 
 <Slide>
 
-## Hvorfor bruge varianter?
+## 1. Tilføj en variant til din knap
 
-Varianter hjælper, når noget er:
+1. Marker knappens **main component**. Står du på en instance, så højreklik og vælg **Go to main component**.
+2. Højreklik på originalen, og vælg **Main component → Add variant**.
+3. Figma samler originalen og en ny variant i et **component set**.
 
-- beslægtet
-- gentaget
-- bevidst forskelligt på få punkter
+De to knapper ser ens ud endnu. På næste slide giver vi dem navne og forskellige roller.
 
-I stedet for at have mange næsten ens komponenter kan du samle dem i ét system.
-
-Det gør det lettere at:
-
-- finde den rigtige komponent
-- holde styr på states
-- skifte mellem versioner i højre panel
-- bygge et mere ryddeligt designbibliotek
+**Husk:** En almindelig duplikering af en selvstændig main component i samme fil laver en instance. Brug **Add variant** her.
 
 </Slide>
 
@@ -90,34 +66,18 @@ Det gør det lettere at:
 
 <Slide>
 
-## Komponenter vs. varianter
+## 2. Navngiv sættet og varianterne
 
-Tænk sådan her:
+1. Kald det samlede **component set** for `Button`.
+2. Marker sættet. Under **Properties** i højre panel: dobbeltklik på variant-egenskabens navn, og skriv `Type`.
+3. Marker den første variant, og sæt dens `Type`-værdi til `Primary` i højre panel.
+4. Marker den anden, og sæt dens værdi til `Secondary`.
 
-| Situation                               | Bedste valg       |
-| --------------------------------------- | ----------------- |
-| Helt nyt UI-mønster                     | ny komponent      |
-| Samme mønster med få bevidste forskelle | variant           |
-| Kun lokal tekst eller billede ændres    | instance override |
-
-<div class="columns-2">
-  <div class="variant-panel">
-    <h3>For mange separate komponenter</h3>
-    <ul>
-      <li>`Button Primary`</li>
-      <li>`Button Secondary`</li>
-      <li>`Button Ghost`</li>
-    </ul>
-  </div>
-
-  <div class="variant-panel">
-    <h3>Én familie med varianter</h3>
-    <ul>
-      <li>`Button`</li>
-      <li>`Type = Primary / Secondary / Ghost`</li>
-    </ul>
-  </div>
-</div>
+| Begreb | I vores eksempel |
+| --- | --- |
+| Component set | `Button` — hele familien |
+| Property (egenskab) | `Type` — det, du vælger mellem |
+| Value (værdi) | `Primary` eller `Secondary` |
 
 </Slide>
 
@@ -125,21 +85,17 @@ Tænk sådan her:
 
 <Slide>
 
-## Sådan laver du varianter
+## 3. Giv Secondary sit eget udseende
 
-Et typisk workflow er:
+Marker **Secondary-knappen inde i sættet**.
 
-1. Lav først én komponent, fx en `Primary`-knap.
-2. Dupliker den til de andre versioner.
-3. Giv dem de forskelle, du vil have, fx farve eller størrelse.
-4. Marker dem alle.
-5. Vælg **Combine as variants**.
+- Giv den en lys baggrund under **Fill**.
+- Brug en mørk tekstfarve og evt. en kant under **Stroke**.
+- Behold samme tekststørrelse, padding og afrunding som Primary.
 
-Nu får du et **component set**, hvor Figma samler dem som én familie.
+**Navnet ændrer ikke designet.** Du vælger selv, hvordan forskellen skal se ud.
 
-:::tip[Husk]
-Lav helst varianter af elementer, der allerede er tydeligt beslægtede.
-:::
+Behold teksten “Se opskriften” på begge, mens du sammenligner. Så kan du se, om forskellen i udseende er tydelig, og om teksten er let at læse.
 
 </Slide>
 
@@ -147,26 +103,16 @@ Lav helst varianter af elementer, der allerede er tydeligt beslægtede.
 
 <Slide>
 
-## Gode variant properties
+## 4. Vælg variant i dit layout
 
-De mest nyttige properties er ofte:
+1. Åbn **Assets**, find `Button`, og træk en instance ind på din side.
+2. Marker hele instancen.
+3. Find `Type` i højre panel, og vælg `Secondary`.
+4. Skift tilbage til `Primary` for at se forskellen.
 
-| Property | Typiske værdier                 | Bruges til           |
-| -------- | ------------------------------- | -------------------- |
-| `Type`   | `Primary`, `Secondary`, `Ghost` | visuel stil          |
-| `State`  | `Default`, `Hover`, `Disabled`  | interaktionstilstand |
-| `Size`   | `Small`, `Medium`, `Large`      | størrelse            |
+Tilpas knappens tekst til handlingen på dit eget emnesite. Du kan redigere tekstlaget direkte eller bruge en tekstegenskab, hvis knappen har en.
 
-Et godt system kunne derfor hedde:
-
-```text
-Button
-Type = Primary / Secondary
-State = Default / Hover
-Size = Small / Large
-```
-
-Jo tydeligere navnene er, jo lettere er de at bruge senere.
+**Type vælger udseendet. Teksten beskriver handlingen.** Du behøver ikke en ny variant for hver knaptekst.
 
 </Slide>
 
@@ -174,27 +120,15 @@ Jo tydeligere navnene er, jo lettere er de at bruge senere.
 
 <Slide>
 
-## Sådan bruger du en variant
+## Har du allerede lavet to komponenter?
 
-Når du har lavet et component set, kan du:
+Så kan du samle dem:
 
-1. Trække en instance ind fra **Assets**.
-2. Markere instancen i dit layout.
-3. Skifte `Type`, `State` eller `Size` i højre panel.
+1. Marker begge **main components**.
+2. Klik **Combine as variants** i højre panel.
+3. Navngiv sættet og egenskaben som på slide 3.
 
-<div class="variant-switch-demo">
-  <div class="variant-switch-card">
-    <h3>Samme instance</h3>
-    <div class="variant-switch-flow">
-      <button class="variant-demo-button primary">Primary</button>
-      <span>→</span>
-      <button class="variant-demo-button secondary">Secondary</button>
-      <span>→</span>
-      <button class="variant-demo-button ghost">Ghost</button>
-    </div>
-    <p>Du skifter version uden at bygge komponenten på ny.</p>
-  </div>
-</div>
+**Add variant** udvider én komponent. **Combine as variants** samler eksisterende komponenter.
 
 </Slide>
 
@@ -202,37 +136,16 @@ Når du har lavet et component set, kan du:
 
 <Slide>
 
-## Hvornår skal du ikke bruge varianter?
+## Hvis det ikke virker
 
-Lav ikke nødvendigvis en variant hvis:
+| Problem | Tjek dette |
+| --- | --- |
+| Du ser ingen `Type`-vælger | Marker hele instancen, ikke tekstlaget |
+| Begge valg ser ens ud | Giv Secondary et andet udseende i sættet |
+| Figma melder konflikt | Varianterne må ikke have samme kombination af værdier |
+| En variant hedder `Hover`, men reagerer ikke | Navnet alene opretter ingen interaktion |
 
-- forskellen kun findes ét sted
-- komponenterne reelt har forskellig struktur
-- det er hurtigere og tydeligere med en ny komponent
-
-Et product card og en topmenu-knap er fx ikke varianter af hinanden.
-
-De er forskellige mønstre og bør normalt være forskellige komponenter.
-
-</Slide>
-
-<div class="page-break"></div>
-
-<Slide>
-
-## Typiske fejl
-
-- Du laver varianter af ting, der ikke hører sammen.
-- Du bruger uklare property-navne som `Variant 1` og `Variant 2`.
-- Du blander størrelse, state og type sammen uden system.
-- Du laver mange næsten ens komponenter i stedet for ét component set.
-- Du glemmer at teste om en instance faktisk kan skiftes let i højre panel.
-
-Et godt første tjek er derfor:
-
-1. Er dette samme komponentfamilie?
-2. Hvilken property beskriver forskellen bedst?
-3. Vil en anden kunne forstå navnene uden forklaring?
+En automatisk hover-effekt kræver en forbindelse mellem varianter i **Prototype** med handlingen **Change to**. Det kan I arbejde videre med efter denne introduktion.
 
 </Slide>
 
@@ -240,26 +153,17 @@ Et godt første tjek er derfor:
 
 <Slide>
 
-## Miniøvelse: Lav et button set
+## Øvelse: To versioner af din knap
 
-Lav i Figma:
+**Individuelt · 5 minutter.** Fortsæt i din egen fil fra knapøvelsen.
 
-- en `Primary`-knap
-- en `Secondary`-knap
-- en `Ghost`-knap
+1. Lav en `Secondary`-variant af din knap med **Add variant**.
+2. Navngiv sættet `Button` og egenskaben `Type`.
+3. Giv Secondary et mere afdæmpet udseende end Primary.
+4. Indsæt to instances i dit emnesite: én af hver type.
+5. Giv dem tekster, der passer til to handlinger på din side.
 
-### Krav
-
-1. Saml dem i ét component set.
-2. Giv dem property'en `Type`.
-3. Lav mindst én ekstra property, fx `Size` eller `State`.
-4. Indsæt en instance og skift variant i layoutet.
-
-### Når øvelsen virker
-
-- du kan ændre variant uden at erstatte komponenten
-- navnene er tydelige
-- alle versioner føles som samme familie
+**Du er færdig, når** du kan skifte begge instances mellem Primary og Secondary i højre panel. Tag et screenshot til din procesdokumentation.
 
 </Slide>
 
@@ -267,14 +171,28 @@ Lav i Figma:
 
 <Slide>
 
-## Næste skridt
+## Hvad kan du bruge det til bagefter?
 
-- [Se Figma-filen igen](/astro/figma/)
-- [Genbesøg Figma – Komponenter](/astro/figma/komponenter/)
-- [Fortsæt til Figma – Variables](/astro/figma/variables/)
-- [Gå til Astro – Komponenter](/astro/komponenter/)
+Start med de to knapper. Tilføj flere valgmuligheder, når dit emnesite har brug for dem:
+
+| Behov | Mulig løsning |
+| --- | --- |
+| To størrelser af samme knap | Egenskaben `Size` med fx `Small` og `Large` |
+| Knappens normale og aktive tilstand | Egenskaben `State` med fx `Default` og `Pressed` |
+| En anden knaptekst | Rediger teksten på instancen |
+| Et ikon, der kan vises eller skjules | En boolean-egenskab |
+
+[Genbesøg komponenter og instances](/astro/figma/komponenter/) · [Arbejd videre med dit wireframekit](/astro/figma/find-og-brug-wireframekit/)
 
 </Slide>
+
+## Kilder og videre læsning
+
+- [Figma: Opret og brug varianter](https://help.figma.com/hc/en-us/articles/360056440594-Create-and-use-variants)
+- [Figma: Opret og indsæt instances](https://help.figma.com/hc/en-us/articles/360039150173-Create-and-insert-component-instances)
+- [Figma: Rediger instances med komponentegenskaber](https://help.figma.com/hc/en-us/articles/8883757553943-Edit-instances-with-component-properties)
+- [Figma: Egenskaber som Type, Size og State](https://help.figma.com/hc/en-us/articles/5579474826519-Explore-component-properties)
+- [Figma: Gør varianter interaktive](https://help.figma.com/hc/en-us/articles/360061175334-Create-interactive-components-with-variants)
 
 <style is:global>{`
   .variant-family-grid {

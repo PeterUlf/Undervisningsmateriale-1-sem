@@ -1,24 +1,23 @@
 ---
 title: "Figma Komponenter"
-draft: true
-description: "Et kort slide-deck til undervisning i komponenter, instances og varianter i Figma."
+draft: false
+description: "Et slide-deck til Tema 3 om komponenter, instances, komponentegenskaber, varianter og slots i Figma."
 sidebar:
   label: "Komponenter"
   order: 6.07
   badge:
-    text: Tema 9
+    text: Tema 3
     variant: tip
-    class: badge-theme-9
+    class: badge-theme-3
 ---
 
 import Slide from "../../../../components/Slide.astro";
 
 # Figma Komponenter
 
-Denne side er lavet som et kort slide-deck til gennemgang i klassen. Hav gerne Figma åbent, så du kan prøve hvert trin med det samme.
+Denne side bygger videre på [Strukturen i Figma](/astro/figma/strukturen-i-figma/) og [Wireframekit i Figma](/astro/figma/find-og-brug-wireframekit/). Eksemplerne kan bruges i dit eget emnesite.
 
-Læs evt. mere her:
-https://help.figma.com/hc/en-us/articles/360038662654-Guide-to-components-in-Figma
+**Tema 3 · Figma Design.** Gennemgået mod Figmas officielle vejledning den 28. september 2026. Kilder står nederst på siden.
 
 <Slide>
 
@@ -29,6 +28,7 @@ https://help.figma.com/hc/en-us/articles/360038662654-Guide-to-components-in-Fig
 - kende de vigtigste genveje til komponenter og instances
 - indsætte og genbruge komponenter flere steder
 - forstå idéen i **varianter** som fx primary/secondary
+- tilpasse indhold med **component properties** og kende idéen i **slots**
 
 </Slide>
 
@@ -44,10 +44,10 @@ Det kan fx være:
 
 - en knap
 - et kort
-- en menu-item
+- et menupunkt
 - et inputfelt
 
-Tænk på det som en slags **master**.
+Originalen hedder **main component** i Figma.
 
 Når du bruger den ude i dit design, arbejder du typisk med en **instance**.
 
@@ -120,6 +120,25 @@ Lav helst komponenten af en **færdig lille UI-del** og ikke af tilfældige løs
 
 <Slide>
 
+## Øvelse: Lav en knap som komponent
+
+**Individuelt · ca. 8 minutter.** Lav en knap til dit eget emnesite i Figma.
+
+1. Skriv en kort knaptekst med tekstværktøjet, fx **“Se opskriften”**.
+2. Marker tekstlaget, og tryk `Shift + A`. Figma laver en frame med **Auto Layout** omkring teksten.
+3. Marker framen. Tilføj baggrundsfarve under **Fill**, vælg en læsbar tekstfarve, og sæt **padding** (luft omkring teksten) til fx 12 px lodret og 20 px vandret. Sæt bredde og højde til **Hug contents**, så knappen følger teksten.
+4. Højreklik på hele knappens frame, vælg **Create component**, og kald den `Button / Primary`. Det er din **main component** (originalen).
+5. Åbn **Assets**, og træk knappen ind i dit layout to gange. Du har nu to **instances** med forbindelse til originalen.
+6. Dobbeltklik på teksten i den ene instance, og giv den en længere tekst. Ret derefter baggrundsfarven på **main component**.
+
+**Tjek dit resultat:** Begge instances får den nye farve. Den ændrede knaptekst bevares, og knappen tilpasser sin bredde til teksten.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
 ## Komponent-genveje du bør kende
 
 | Handling              | Mac                        | PC                       |
@@ -167,7 +186,9 @@ Det er vigtigt at kende forskellen:
   </div>
 </div>
 
-Hvis du ændrer fx padding eller farve på main component, følger instances ofte med.
+I samme fil følger instances ændringer i main component. Har du fx givet én instance sin egen farve, bevarer den denne **override** (lokale ændring), når originalens farve ændres.
+
+Komponenter fra et publiceret bibliotek får opdateringer via biblioteket, hvor du kan gennemse og acceptere ændringerne.
 
 </Slide>
 
@@ -180,7 +201,7 @@ Hvis du ændrer fx padding eller farve på main component, følger instances oft
 Når komponenten er lavet, kan du bruge den igen via:
 
 - **Assets-panelet** (`Option + 2` på Mac / `Alt + 2` på PC)
-- **Quick insert** med `Shift + I`
+- **Quick insert** med `Shift + I`, som åbner komponentsøgningen i **Actions**
 - copy/paste af en eksisterende instance
 - duplikering med `Option/Alt`-træk eller `⌘/Ctrl + D`
 
@@ -196,23 +217,21 @@ Det normale er:
 
 <Slide>
 
-## Hvad må du ændre på en instance?
+## Tilpas med component properties
 
-En instance må ofte godt have små lokale ændringer, fx:
+Marker en instance, og se efter **Properties** i højre panel. Hvis komponentens skaber har sat egenskaberne op, kan du fx:
 
-- tekst
-- billede
-- ikon
-- enkelte farver eller størrelser
+| Egenskab | Eksempel på dit emnesite |
+| --- | --- |
+| **Text** | Skift knappens tekst til “Se opskriften” |
+| **Boolean** | Vis eller skjul et ikon |
+| **Instance swap** | Udskift et indlejret ikon med et andet |
+| **Variant** | Vælg fx `Primary` eller `Secondary` |
+| **Slot** | Tilføj indhold i et fleksibelt område |
 
-Men pas på:
+Du kan også lave lokale ændringer direkte i lagene, fx skifte tekst eller billede. De kaldes **overrides** og bryder ikke forbindelsen til originalen.
 
-- hvis du ændrer for meget, mister du idéen med komponenten
-- hvis alle instances bliver forskellige, burde det måske være flere komponenter eller varianter i stedet
-
-En god tommelfingerregel er:
-
-> Delene skal stadig føles som samme UI-mønster.
+**Ældre videoer:** Figma begyndte at udfase **simplified instances** den 23. marts 2026. Egenskaber og lag, som funktionen tidligere skjulte, vises nu som standard.
 
 </Slide>
 
@@ -226,15 +245,15 @@ Prøv i denne rækkefølge:
 
 1. Tjek om du har markeret selve instancen eller et lag inde i den.
 2. Brug **Go to main component**, hvis ændringen egentlig skal ske i originalen.
-3. Brug **Reset all changes**, hvis en lokal override bare skal tilbage til standarden.
-4. Brug **Push changes to main component**, hvis en lokal ændring skal være den nye standard.
+3. Åbn **More actions** ved komponentnavnet i højre panel. Vælg **Reset → Reset all changes**, eller nulstil kun den enkelte egenskab.
+4. Vælg **Push changes to main component** i samme menu, hvis ændringen skal være standard for alle instances.
 5. Brug **Detach instance** som sidste udvej, hvis forbindelsen skal brydes.
 
 :::caution[Pas på]
 Når du detach'er en instance, får den ikke længere opdateringer fra main component.
 :::
 
-**Push changes to main component** virker kun, når main component ligger i samme fil som instancen.
+**Push changes to main component** kræver, at originalen ligger i samme fil. For en komponent inde i en anden komponent skal du rette originalen direkte.
 
 </Slide>
 
@@ -270,7 +289,9 @@ Eksempler:
   </div>
 </div>
 
-Tænk på varianter som en ryddelig måde at samle beslægtede versioner på.
+Saml beslægtede komponenter ved at markere dem og vælge **Combine as variants**. De bliver til et **component set**, hvor du kan navngive egenskaber som `Style`, `Size` og `State`.
+
+Brug varianter til tilbagevendende forskelle i udseende eller tilstand. En ny knaptekst behøver ikke sin egen variant.
 
 </Slide>
 
@@ -278,23 +299,20 @@ Tænk på varianter som en ryddelig måde at samle beslægtede versioner på.
 
 <Slide>
 
-## Hvornår er noget en variant?
+## Slots: plads til forskelligt indhold
 
-Brug typisk en variant når forskellen er **planlagt og tilbagevendende**.
+Et **slot** er et fleksibelt område inde i en komponent. Her kan en instance få ekstra indhold og en anden rækkefølge, mens forbindelsen til originalen bevares.
 
-Eksempel:
+**Eksempel:** Et kort på dit emnesite kan indeholde to eller fire tips, men beholde samme ramme og grunddesign.
 
-- samme knap
-- samme opbygning
-- men forskellig stil eller størrelse
+1. Marker en frame **inde i main component**.
+2. Højreklik, og vælg **Convert to slot**.
+3. Indsæt en instance af komponenten i dit layout.
+4. Tilføj eller omarranger indhold i instancens slot.
 
-Lav derimod ikke nødvendigvis en variant hvis:
+Et kit skal være sat op med slots, før du kan bruge dem i dets instances. Almindelige instances har ikke automatisk et frit indholdsområde.
 
-- forskellen kun findes ét sted
-- elementet reelt er et helt andet mønster
-- du stadig ikke ved, hvordan komponenten skal bruges
-
-Start hellere enkelt og udvid senere.
+Start med komponenter, tekst og varianter. Slots er relevante, når selve indholdets opbygning skal kunne variere.
 
 </Slide>
 
@@ -314,7 +332,7 @@ Et godt første tjek er derfor:
 
 1. Står jeg på main component eller en instance?
 2. Er dette egentlig samme mønster?
-3. Skal det løses med override, variant eller en ny komponent?
+3. Skal det løses med en egenskab, override, variant, slot eller en ny komponent?
 
 </Slide>
 
@@ -322,26 +340,17 @@ Et godt første tjek er derfor:
 
 <Slide>
 
-## Miniøvelse: Byg en komponentpakke
+## Demonstration: Et kort til dit emnesite
 
-Lav dette i Figma:
+Tag udgangspunkt i et kort fra dit wireframekit, eller lav et enkelt kort med billede, overskrift og knap.
 
-- en `Primary`-knap
-- en `Secondary`-knap
-- en lille card-komponent
+1. Find kortets **main component**, eller gør dit eget kort til en komponent.
+2. Indsæt to instances på en side i dit emnesite.
+3. Giv dem forskellig tekst og forskellige billeder via egenskaber eller lag.
+4. Ret fx hjørnernes runding i originalen. Se, hvordan begge instances følger med.
+5. Giv den ene instance en lokal farve. Ret originalens farve, og se forskellen.
 
-### Krav
-
-1. Brug Auto Layout i selve komponenten.
-2. Gør knappen til en komponent med genvejen.
-3. Lav mindst to instances i en frame.
-4. Lav mindst to varianter af knappen.
-
-### Når øvelsen virker
-
-- ændrer du main component, opdateres instances
-- du kan se forskel på component og instance
-- varianterne føles som samme familie
+Kortene har hvert sit indhold og deler grunddesign. Du behøver ikke at bruge **Detach instance** for at skifte tekst og billeder.
 
 </Slide>
 
@@ -351,13 +360,27 @@ Lav dette i Figma:
 
 ## Næste skridt
 
-- [Se Figma-filen igen](/astro/figma/)
-- [Fortsæt til Figma – Varianter](/astro/figma/varianter/)
-- [Fortsæt til Figma – Variables](/astro/figma/variables/)
-- [Fortsæt til Figma – Auto Layout](/astro/figma/auto-layout/)
-- [Gå til Astro – Komponenter](/astro/komponenter/)
+- [Genbesøg Strukturen i Figma](/astro/figma/strukturen-i-figma/)
+- [Brug komponenter fra dit wireframekit](/astro/figma/find-og-brug-wireframekit/)
+- [Fortsæt til Lav varianter i Figma](/astro/figma/varianter/)
+
+Brug dine komponenter på tværs af emnesitets sider. Dokumentér et eksempel på en main component og dens instances i dit Figma-projekt.
 
 </Slide>
+
+## Kilder og videre læsning
+
+Figmas officielle vejledninger, kontrolleret den 28. september 2026:
+
+- [Grundbegreber: komponenter og instances](https://help.figma.com/hc/en-us/articles/360038662654-Guide-to-components-in-Figma)
+- [Opret komponenter](https://help.figma.com/hc/en-us/articles/360038663154-Create-components-to-reuse-in-designs)
+- [Lav en knap med Auto Layout og gør den til en komponent](https://help.figma.com/hc/en-us/articles/14078912322199-Create-a-simple-button-component)
+- [Indsæt instances og brug genveje](https://help.figma.com/hc/en-us/articles/360039150173-Create-and-insert-component-instances)
+- [Component properties og udfasning af simplified instances](https://help.figma.com/hc/en-us/articles/5579474826519-Explore-component-properties)
+- [Rediger instances via egenskaber](https://help.figma.com/hc/en-us/articles/8883757553943-Edit-instances-with-component-properties)
+- [Overrides, nulstilling og ændringer i originalen](https://help.figma.com/hc/en-us/articles/360039150733-Apply-changes-to-instances)
+- [Slots i komponenter](https://help.figma.com/hc/en-us/articles/38231200344599-Use-slots-to-build-flexible-components-in-Figma)
+- [Biblioteker og opdateringer på tværs af filer](https://help.figma.com/hc/en-us/articles/360041051154-Guide-to-libraries-in-Figma)
 
 <style is:global>{`
   .component-hero {
