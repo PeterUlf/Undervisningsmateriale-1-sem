@@ -220,6 +220,7 @@ export default defineConfig({
                 "astro/figma/styles",
                 "astro/figma/komponenter",
                 "astro/figma/varianter",
+                "astro/figma/interaktivitet",
               ],
             },
           ],

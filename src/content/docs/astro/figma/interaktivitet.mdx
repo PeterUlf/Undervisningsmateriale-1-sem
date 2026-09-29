@@ -1,0 +1,195 @@
+---
+title: "Interaktivitet"
+draft: false
+description: "Gør en knap klikbar i Figma: forbind to frames, vælg On click og Navigate to, og afprøv dit emnesite som en prototype."
+sidebar:
+  label: "Interaktivitet"
+  order: 6.09
+  badge:
+    text: Tema 3
+    variant: tip
+    class: badge-theme-3
+---
+
+import Slide from "../../../../components/Slide.astro";
+import FigmaInteractionDemo from "../../../../components/FigmaInteractionDemo.astro";
+
+# Interaktivitet
+
+Nu skal brugeren kunne klikke på din knap og komme videre til en anden side. Hav din Figma-fil til emnesitet åben, og brug gerne knappen fra [øvelsen om komponenter](/astro/figma/komponenter/).
+
+**Tema 3 · ca. 10 minutters oplæg + 10 minutters øvelse.** Arbejdsgangene er kontrolleret mod Figmas officielle vejledning den 29. september 2026.
+
+<Slide>
+
+## Fra design til klikbar prototype
+
+En **prototype** viser, hvordan brugeren kan bevæge sig gennem dit design. I Figma tilføjer du en interaktion, som bestemmer, hvad der sker, når brugeren fx klikker på en knap.
+
+Prøv at klikke på **Se opskriften** i eksemplet:
+
+<FigmaInteractionDemo />
+
+Du skal kunne lave samme forløb i Figma: **Klik på knappen → vis en anden frame → kom tilbage igen.**
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## 1. Gør to frames klar
+
+1. Opret to frames i samme størrelse på den samme **page** i din Figma-fil.
+2. Kald dem `Forside` og `Opskrift`. Placer dem ved siden af hinanden på canvas.
+3. Giv hver frame en tydelig overskrift, så du kan se forskel på siderne.
+4. Placer en knap med teksten **Se opskriften** inde i `Forside`.
+
+Begge skærme skal være selvstændige frames. `Opskrift` skal ligge uden for `Forside`, så du kan navigere til den som en ny skærm.
+
+Har du allerede frames fra dit [wireframekit](/astro/figma/find-og-brug-wireframekit/), kan du bruge dem. Du kan også lave knappen som en lille frame med tekst og baggrund; den behøver ikke være en komponent.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## 2. Forbind knappen med næste frame
+
+1. Åbn **Prototype**-fanen i højre panel.
+2. Marker **hele knappen** inde i `Forside`. Bruger du en komponent, så marker instancen på siden.
+3. Hold markøren over den lille blå cirkel ved knappens kant. Den viser et **+**.
+4. Træk fra **+** over til framen `Opskrift`, og slip.
+
+Der vises en forbindelseslinje fra knappen til destinationen. Knappen er nu forbindelsens **hotspot**: det område, brugeren skal klikke på.
+
+**Marker hele knappen**, så både teksten og området omkring den kan klikkes på. Du kan vælge knappens yderste lag i **Layers**, hvis det er svært at ramme på canvas.
+
+[Figmas vejledning til at forbinde en prototype](https://help.figma.com/hc/en-us/articles/360040315773-Connect-your-prototype).
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## 3. Vælg, hvad klikket skal gøre
+
+Klik på forbindelsen for at åbne **Interaction details**, og tjek disse indstillinger:
+
+| Indstilling | Vælg | Hvad betyder det? |
+| --- | --- | --- |
+| **Trigger** | `On click` | Interaktionen starter ved et klik eller tryk |
+| **Action** | `Navigate to` | Prototypen skifter til en anden frame |
+| **Destination** | `Opskrift` | Det er denne frame, brugeren skal se |
+| **Animation** | `Instant` | Skærmen skifter med det samme |
+
+Læs forbindelsen som en sætning: **Når brugeren klikker på knappen, skal prototypen vise Opskrift.**
+
+Start med `Instant`, så det er let at se, om forbindelsen virker. Du kan afprøve animationer senere.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## 4. Vælg startside, og prøv knappen
+
+1. Marker hele framen `Forside`.
+2. Find **Flow starting point** i Prototype-panelet. Klik **+**, hvis framen ikke allerede er et startpunkt.
+3. Giv flowet navnet `Se en opskrift`.
+4. Klik **Present** i værktøjslinjen for at åbne prototypen i en ny fane.
+5. Start dit flow, og klik på **Se opskriften**. Nu skal `Opskrift` vises.
+
+Figma opretter ofte startpunktet automatisk ved den første forbindelse. Tjek, at det sidder på `Forside`.
+
+**Test i Present eller Preview.** På det almindelige canvas markerer et klik laget. **Preview** lader dig også afprøve prototypen direkte i editoren.
+
+[Læs om startpunkter](https://help.figma.com/hc/en-us/articles/360039823894-Create-and-manage-prototype-flows) · [Læs om Present og Preview](https://help.figma.com/hc/en-us/articles/360040318013-Play-your-prototypes).
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## 5. Giv brugeren en vej tilbage
+
+1. Gå tilbage til editoren, og tilføj en knap med teksten **Tilbage til forsiden** i `Opskrift`.
+2. Marker knappen i Prototype-fanen, og træk en forbindelse til `Forside`.
+3. Vælg **On click → Navigate to → Forside** og **Instant**.
+4. Afprøv hele turen i prototypen: **Forside → Opskrift → Forside**.
+
+Nu kan brugeren selv komme videre og tilbage gennem dit design.
+
+Figma har også handlingen **Back**, som går til den forrige besøgte skærm. Her bruger vi **Navigate to → Forside**, fordi knappen altid skal føre til forsiden. [Læs om prototype-handlinger](https://help.figma.com/hc/en-us/articles/360040035874-Prototype-actions).
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Hvilken handling skal du vælge?
+
+| Du vil … | Vælg |
+| --- | --- |
+| Gå til en anden side i prototypen | **Navigate to** og den ønskede frame |
+| Gå tilbage til den forrige besøgte skærm | **Back** |
+| Åbne en rigtig webadresse | **Open link** og en URL |
+| Skifte mellem varianter af samme komponent | **Change to** |
+
+Når du skal fra forsiden til en underside, bruger du **Navigate to**.
+
+Hvis du har lavet [Primary- og Secondary-varianter](/astro/figma/varianter/), har du allerede flere udgaver af knappens udseende. Du tilføjer forbindelsen i **Prototype** for at bestemme, hvor et klik fører hen.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Hvis knappen ikke virker
+
+| Problem | Tjek dette |
+| --- | --- |
+| Klikket markerer bare knappen | Åbn **Present** eller **Preview**, og klik dér |
+| Kun teksten kan klikkes på | Læg forbindelsen på hele knappens frame eller instance |
+| Du kan ikke vælge destinationen | `Opskrift` skal være en selvstændig frame på samme page |
+| Den forkerte side vises | Klik på forbindelsen, og tjek **Destination** |
+| Prototypen starter på en forkert side | Tjek startpunktet, og vælg det rigtige flow |
+| Intet sker i prototypen | Tjek **On click**, og om et andet lag ligger oven på knappen |
+
+**Følg forbindelsen:** Starter linjen på den rigtige knap, og ender den på den rigtige frame?
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Øvelse: Gør en handling klikbar på dit emnesite
+
+**Individuelt · 10 minutter.** Brug to sider fra dit eget emnesite.
+
+1. Vælg en knap, og giv den en tekst, der fortæller, hvad brugeren får, fx **Se ruten** eller **Læs opskriften**.
+2. Forbind knappen med den relevante frame via **On click → Navigate to**.
+3. Lav en tydelig vej tilbage, og vælg flowets startpunkt.
+4. Åbn prototypen i **Present**, og afprøv turen begge veje.
+5. Lad en medstuderende prøve uden at pege på knapperne. Kan de finde frem og tilbage?
+
+**Du er færdig, når** begge knapper virker i prototypen, og hele knapfladen kan klikkes på. Tag et screenshot af forbindelserne til din procesdokumentation.
+
+Hvis du har tid: Tilføj en tredje side til flowet i dit emnesite.
+
+</Slide>
+
+## Kilder og videre læsning
+
+- [Figma: Introduktion til prototyper](https://help.figma.com/hc/en-us/articles/360040314193-Guide-to-prototyping-in-Figma)
+- [Figma: Forbind knapper og frames](https://help.figma.com/hc/en-us/articles/360040315773-Connect-your-prototype)
+- [Figma: Vælg handlingen ved et klik](https://help.figma.com/hc/en-us/articles/360040035874-Prototype-actions)
+- [Figma: Opret startpunkter og flows](https://help.figma.com/hc/en-us/articles/360039823894-Create-and-manage-prototype-flows)
+- [Figma: Afprøv prototypen](https://help.figma.com/hc/en-us/articles/360040318013-Play-your-prototypes)
