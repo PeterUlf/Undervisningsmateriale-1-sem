@@ -1,111 +1,300 @@
 ---
-title: Om test
-draft: true
-description: Overblik over centrale testmetoder og hvornår de bruges.
+title: Intro til test
+draft: false
+description: Introduktion til UX-test, brugeradfærd og metoder til at undersøge dit design.
 sidebar:
-  label: "Om test"
-  order: 6
+  label: Intro til test
+  order: 1
   badge:
-    text: Tema 5
+    text: Tema 3
     variant: tip
-    class: badge-theme-5
+    class: badge-theme-3
 ---
 
 import Slide from "../../../components/Slide.astro";
+import "../../../styles/test-lesson.css";
 
 <Slide>
 
-# Om test
+<div class="test-title">
 
-Test er en vigtig del af designprocessen, fordi det sikrer, at dit website eller produkt fungerer for rigtige brugere. Forskellige testmetoder bruges på forskellige tidspunkter og med forskellige mål.
+# Intro til test
 
-</Slide>
+UX-test · Forstå brugeren, og forbedr dit design.
 
-<div class="page-break"></div>
-<Slide>
-
-## Hvornår er venner, familie og medstuderende okay?
-
-### Det er **okay** at bruge venner, familie og medstuderende, når:
-
-- du er tidligt i processen
-- du vil have hurtig feedback
-- du tester førstehåndsindtryk
-- de minder nogenlunde om målgruppen
-- de ikke allerede kender løsningen for godt
-
-Det er **ikke så godt** at bruge dem, når:
-
-- testen kræver repræsentative brugere fra målgruppen
-- de ved for meget om projektet på forhånd
-- du vil bruge resultaterne som stærk dokumentation
-- du skal undersøge, hvordan rigtige brugere faktisk løser opgaver
-
-**Husk:** Jo tættere testen er på en rigtig brugssituation, jo vigtigere er det at teste på den rigtige målgruppe.
+</div>
 
 </Slide>
-
-<div class="page-break"></div>
-<Slide>
-
-## Oversigt over testmetoder
-
-### 1. 5-sekunders-test
-
-- **Tidspunkt:** Meget tidligt – fx idé, skitse, mockup eller tidlig prototype
-- **Testpersoner:** Repræsentative brugere fra målgruppen
-- **Antal:** 3–5
-- **Formål:** Førstehåndsindtryk og visuel tydelighed
-- **Kan venner/familie bruges?** 🟡 Ja, tidligt i processen, hvis de minder om målgruppen. 🔴 Nej, hvis de kender løsningen for godt
-
-### 2. Heuristisk evaluering
-
-- **Tidspunkt:** Tidligt i designet, ofte før brugertest
-- **Testpersoner:** Usability-eksperter eller fagligt stærke medstuderende
-- **Antal:** 3–5
-- **Formål:** At finde usability-problemer ud fra heuristikker
-- **Kan venner/familie bruges?** 🟢 Medstuderende: ja, hvis de arbejder fagligt. 🔴 Familie/venner: nej
-
-### 3. Tænke-højt-test
-
-- **Tidspunkt:** Når der findes prototype eller fungerende site
-- **Testpersoner:** Repræsentative brugere fra målgruppen
-- **Antal:** 3–5
-- **Formål:** At finde problemer i navigation, opgaver og brugeroplevelse
-- **Kan venner/familie bruges?** 🟡 Kun hvis de ligner målgruppen. 🔴 Ikke hvis de kender projektet for godt
-
-### 4. Likert-test
-
-- **Tidspunkt:** Efter brugertest eller efter lancering
-- **Testpersoner:** Almindelige brugere
-- **Antal:** 10–20 svar eller flere
-- **Formål:** At måle tilfredshed og oplevelse
-- **Kan venner/familie bruges?** 🟡 Ja, hvis du vil have hurtige svar. 🔴 Ikke ideelt til præcis målgruppe-dokumentation
-
-### 5. Lighthouse-test
-
-- **Tidspunkt:** Når sitet er teknisk klar
-- **Testpersoner:** Ingen
-- **Antal:** Ingen fast grænse
-- **Formål:** Performance, tilgængelighed og SEO
-- **Kan venner/familie bruges?** ⚪ Ikke relevant
-
-</Slide>
-
 <div class="page-break"></div>
 
 <Slide>
 
-## Opsummering
+## Hvorfor teste?
 
-- Brug flere testmetoder for at få et nuanceret billede
-- Test tidligt og ofte – det er billigere at rette fejl tidligt
-- Husk at test ikke handler om at "bestå", men om at lære og forbedre
+Vi vil gerne forstå **brugerens behov og adfærd**.
 
-## Næste skridt
+Som designere har vi en idé om, hvordan vores site bliver brugt. Test hjælper os med at undersøge, om den idé holder.
 
-Fortsæt i rækken:
+- Forstår brugeren, hvad sitet handler om?
+- Kan brugeren finde det, de leder efter?
+- Hvor opstår der tvivl eller problemer?
 
-[Gå til Heuristisk evaluering →](/test/heuristisk-test/)
+Vi observerer, måler og undersøger, så vi kan **forbedre designet på baggrund af det, vi lærer**.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Hvordan får vi indsigt?
+
+Der findes mange metoder til at undersøge, hvordan mennesker bruger digitale løsninger.
+
+| Tilgang | Hvad får vi viden om? | Eksempel |
+| --- | --- | --- |
+| **Kvalitativ** | Hvordan brugeren oplever og forstår sitet | Observer en bruger, der tænker højt under en opgave |
+| **Kvantitativ** | Hvor mange, hvor ofte eller hvor meget | Mål, hvor mange brugere der gennemfører en opgave |
+
+Metoderne kan supplere hinanden. Tal kan vise et mønster; observationer og samtaler kan hjælpe os med at forstå det.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Eksempler på metoder
+
+<div class="test-columns">
+<div>
+
+### Observer og spørg
+
+- Observation
+- Kortsortering
+- Tænke-højt-test
+- Five-act-interview
+- 5-sekunders-test
+
+</div>
+<div>
+
+### Vurder og mål
+
+- Heuristisk evaluering
+- Likert-skala
+- A/B-splittest
+- Eye tracking
+- Adfærdsanalyse med fx Hotjar og Google Analytics
+
+</div>
+</div>
+
+**Vælg metode efter det, du vil undersøge.** I dette forløb arbejder vi især med 5-sekunders-test og tænke-højt-test.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Observation
+
+<div class="test-columns">
+<div>
+
+Vi indsamler viden ved at **se, hvad brugeren gør**.
+
+- Observer en konkret situation eller opgave.
+- Notér handlinger, pauser og steder, hvor brugeren går i stå.
+- Hold observation og fortolkning adskilt.
+
+**Observation:** “Brugeren åbner tre menupunkter.”
+
+**Fortolkning:** “Måske er kategorierne uklare.”
+
+</div>
+<figure class="test-figure">
+  <img src="/illustrationer/test/observation.png" alt="En observatør ser på en anden person og tager noter." width="320" height="215" />
+  <figcaption>Illustration fra oplægget. <a href="https://studypoints.blogspot.com/2014/11/discuss-observation-as-technique-of.html">Billedreference</a>.</figcaption>
+</figure>
+</div>
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Kortsortering
+
+<div class="test-columns">
+<div>
+
+Kortsortering hjælper os med at forstå, **hvordan brugeren grupperer indhold**.
+
+1. Skriv indhold eller emner på kort.
+2. Lad brugeren samle kort, der hører sammen.
+3. Tal om grupperne og deres navne.
+
+Brug indsigten til at arbejde med sitets **informationsarkitektur, kategorier og menu**.
+
+</div>
+<figure class="test-figure">
+  <img src="/illustrationer/test/kortsortering.jpg" alt="Kort med boghandelens indhold sorteret i kolonner under navngivne kategorier." width="1400" height="901" />
+  <figcaption>Eksempel fra oplægget. <a href="https://medium.com/@shouldibuythisforyou/heuristics-e2f0982b435a">Billedreference</a>.</figcaption>
+</figure>
+</div>
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Tænke-højt-test og five-act-interview
+
+<div class="test-columns">
+<div>
+
+I en **tænke-højt-test** løser brugeren opgaver og siger højt, hvad de tænker. Vi observerer både handlinger og reaktioner.
+
+Tre roller: **testperson, facilitator og observatør**.
+
+Et **five-act-interview** sætter afprøvningen ind i en samtale med fem dele: velkomst, baggrund, introduktion til prototypen, opgaver og opsamling.
+
+Notér undervejs. Hvis I optager lyd eller skærm, så aftal det med testpersonen først.
+
+</div>
+<figure class="test-figure">
+  <img src="/illustrationer/test/taenke-hoejt.png" alt="Illustration af en person, der sætter ord på sine tanker foran computeren." width="1018" height="750" />
+  <figcaption>Illustration fra <a href="https://blog.uxtweak.com/think-aloud-online-usability-testing/">UXtweak</a>. Se også <a href="https://www.youtube.com/watch?v=U9ZG19XTbd4">GV's five-act-interview</a>.</figcaption>
+</figure>
+</div>
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Heuristisk evaluering
+
+<div class="test-columns">
+<div>
+
+En faglig gennemgang af brugergrænsefladen med udgangspunkt i **principper for god brugervenlighed** – fx Jakob Nielsens 10 heuristikker.
+
+- Gennemgå sitet systematisk.
+- Beskriv de problemer, du finder.
+- Vurder alvorligheden, fx fra **1: kosmetisk** til **4: kritisk**.
+- Sammenhold vurderingerne, og prioritér problemerne.
+
+Det er en ekspertvurdering, som kan supplere test med brugere. Se [Nielsens skala for alvorlighed](https://www.nngroup.com/articles/how-to-rate-the-severity-of-usability-problems/).
+
+</div>
+<figure class="test-figure">
+  <img src="/illustrationer/test/heuristikker.png" alt="Oversigt over Nielsens 10 heuristikker, blandt andet synlig systemstatus, konsistens og forebyggelse af fejl." width="1100" height="750" />
+  <figcaption>Oversigt fra oplægget. <a href="https://medium.com/uxpress/usability-inspection-method-2-the-effectiveness-of-heuristic-evaluation-1c875513a408">Billedreference</a>.</figcaption>
+</figure>
+</div>
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## 5-sekunders-test og Likert-skala
+
+<div class="test-columns">
+<div>
+
+### Førstehåndsindtryk
+
+Vis forsiden i **5 sekunder**, skjul den, og spørg, hvad brugeren husker og tror, siden handler om.
+
+Det giver feedback på, om forsiden kommunikerer det, du ønsker.
+
+<figure class="test-figure">
+  <img src="/illustrationer/test/brugertest.jpg" alt="To personer ved en computer under en afprøvning af en hjemmeside." width="2048" height="1366" />
+  <figcaption>Foto fra oplægget, krediteret Colourbox.</figcaption>
+</figure>
+</div>
+<div>
+
+### Holdninger og tilfredshed
+
+Med en **Likert-skala** angiver brugeren fx, hvor enig eller uenig de er i et udsagn:
+
+“Det var nemt at finde rundt på siden.”
+
+<figure class="test-figure">
+  <img src="/illustrationer/test/likert-skala.png" alt="Eksempel på en fempunktsskala fra meget utilfreds til meget tilfreds." width="768" height="278" />
+  <figcaption>Eksempel fra oplægget, krediteret WPForms.</figcaption>
+</figure>
+</div>
+</div>
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## A/B-splittest og eye tracking
+
+<div class="test-columns">
+<div>
+
+### Hvilken version virker bedst?
+
+I en **A/B-splittest** ser forskellige brugere version A eller B. Vi sammenligner en bestemt handling, fx hvor mange der tilmelder sig.
+
+<figure class="test-figure">
+  <img src="/illustrationer/test/ab-splittest.jpg" alt="Illustration af to hjemmesideversioner, A og B, vist til hver sin gruppe brugere." width="1024" height="683" />
+  <figcaption>Illustration, ikke resultater fra vores test. <a href="https://www.socialemedier.dk/split-test-5-maader-forbedre-dine-sociale-medie-annoncer/">Billedreference</a>.</figcaption>
+</figure>
+</div>
+<div>
+
+### Hvor kigger brugeren?
+
+**Eye tracking** måler, hvor brugeren kigger, og hvor længe. Det kan vise, hvilke dele af siden der får opmærksomhed.
+
+<figure class="test-figure">
+  <img src="/illustrationer/test/eye-tracking.png" alt="Heatmap over en annonce, hvor farvede områder viser fordelingen af blik på billede og tekst." width="2500" height="976" />
+  <figcaption>Eksempel fra <a href="https://ergomania.eu/eye-tracking-in-practice/">Ergomania</a>.</figcaption>
+</figure>
+</div>
+</div>
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Adfærd på et website
+
+Værktøjer som **Hotjar** og **Google Analytics** kan bruges til at undersøge, hvordan et website bliver brugt.
+
+- Hvilke sider besøger brugerne?
+- Hvilke handlinger udfører de?
+- Hvor afbryder de et forløb?
+
+Målinger kan pege på noget, vi bør undersøge nærmere. En tænke-højt-test kan hjælpe os med at forstå, **hvad der sker i situationen**.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Fra test til forbedring
+
+**Test → saml observationer → vælg en ændring → test igen.**
+
+I tema 3 bruger vi to metoder på jeres egne sites eller prototyper:
+
+| Metode | Det undersøger vi |
+| --- | --- |
+| **5-sekunders-test** | Kommunikerer forsiden det, vi ønsker? |
+| **Tænke-højt-test** | Kan brugeren forstå sitet og løse opgaver? |
+
+Start med førstehåndsindtrykket:
+
+[Gå til 5-sekunders-test →](/test/5-sek-test/)
 
 </Slide>

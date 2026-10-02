@@ -1,0 +1,70 @@
+/* Layout shared by the three Tema 3 lessons, including cloned slideshow content. */
+.test-title {
+  padding-block: clamp(1.5rem, 5vw, 4rem);
+}
+
+.test-title::before {
+  content: "";
+  display: block;
+  width: 3rem;
+  height: 3px;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(to right, #1a9988 65%, #eb5600 65%);
+}
+
+.test-columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(1rem, 3vw, 2rem);
+  align-items: start;
+}
+
+.test-columns > * {
+  min-width: 0;
+  margin-top: 0;
+}
+
+.test-figure {
+  margin: 1rem 0;
+}
+
+.test-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 22rem;
+  object-fit: contain;
+  border-radius: 0.25rem;
+}
+
+.test-figure figcaption {
+  margin-top: 0.5rem;
+  font-size: 0.75em;
+  line-height: 1.5;
+  color: var(--sl-color-gray-2);
+}
+
+@media screen {
+  body:has(.test-title) #presentation-dialog .generated-slide {
+    min-height: 0;
+    padding: 2rem;
+  }
+
+  body:has(.test-title) #presentation-dialog .generated-slide h2 {
+    margin-top: 0;
+  }
+
+  body:has(.test-title) #presentation-dialog .generated-slide p {
+    padding: 0;
+  }
+
+  body:has(.test-title) #presentation-dialog .test-figure img {
+    max-height: 34vh;
+  }
+}
+
+@media (max-width: 45rem) {
+  .test-columns {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

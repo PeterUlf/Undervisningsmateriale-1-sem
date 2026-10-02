@@ -1,117 +1,148 @@
 ---
 title: Tænke-højt-test
-draft: true
-description: Brugertest hvor testpersoner tænker højt under opgaver.
+draft: false
+description: Virker designet og brugervenligheden? Lad brugeren løse opgaver og tænke højt undervejs.
 sidebar:
-  label: "Tænke-højt test"
-  order: 40
+  label: Tænke-højt-test
+  order: 3
   badge:
-    text: Tema 5
+    text: Tema 3
     variant: tip
-    class: badge-theme-5
+    class: badge-theme-3
 ---
 
 import Slide from "../../../components/Slide.astro";
+import "../../../styles/test-lesson.css";
 
 <Slide>
+
+<div class="test-title">
 
 # Tænke-højt-test
 
-En **tænke-højt-test** er en brugertest, hvor testpersonen løser opgaver på et website og siger højt, hvad de tænker undervejs. Det giver indblik i brugerens oplevelse, forståelse og eventuelle problemer.
+Virker designet?
+
+Og vigtigst: Kan brugeren finde rundt og løse sine opgaver?
+
+</div>
 
 </Slide>
-
-<div class="page-break"></div>
-<Slide>
-
-## Hvorfor bruge tænke-højt-test?
-
-- Fanger brugerens umiddelbare reaktioner og tanker
-- Afslører misforståelser og forvirring
-- Giver konkrete forslag til forbedringer
-
-</Slide>
-
-<div class="page-break"></div>
-<Slide>
-
-## Sådan udfører du en tænke-højt-test
-
-1. Forbered 3-5 meget specifikke opgaver, som brugeren skal løse på sitet
-2. Bed brugeren sige alt, hvad de tænker og oplever, mens de løser opgaverne
-3. Observer og tag noter – stil kun opklarende spørgsmål, hvis brugeren går i stå
-4. Analyser optagelser/noter for at finde mønstre og problemer
-
-</Slide>
-
-<div class="page-break"></div>
-<Slide>
-
-## Sådan formulerer du gode opgaver
-
-- Opgaverne skal være **konkrete og målrettede**
-- Beskriv helst et **behov eller mål** i stedet for at beskrive præcis, hvad brugeren skal klikke på
-- Hvis du vil teste, om dine menupunkter og ordvalg bliver forstået, er det en god ide **ikke** at bruge de samme ord, som står på siden
-- På den måde kan du bedre se, om brugeren selv forstår de ord og labels, du har valgt
-
-### Eksempler
-
-- I stedet for: "Klik på Kontakt og find mailadressen"
-- Brug: "Du vil gerne skrive til virksomheden. Hvor vil du lede efter deres mailadresse?"
-
-- I stedet for: "Find priser under Abonnementer"
-- Brug: "Forestil dig, at du overvejer at købe løsningen. Hvor ville du kigge for at finde prisen?"
-
-</Slide>
-
-<div class="page-break"></div>
-<Slide>
-
-## Gode råd til tænke-højt-test
-
-- Fortæl brugeren, at det er sitet – ikke dem – der bliver testet
-- Vær neutral og undgå at hjælpe for meget
-- Brug opgaver, der tester forståelse, ikke bare klik-rækkefølge
-- Optag gerne testen (video/lyd) for senere analyse
-- Test gerne flere brugere for at se forskellige reaktioner
-
-</Slide>
-
-<div class="page-break"></div>
-<Slide>
-
-## Fordele og ulemper
-
-**Fordele:**
-- Giver dyb indsigt i brugerens oplevelse
-- Afslører skjulte problemer
-- Kræver ikke mange deltagere
-
-**Ulemper:**
-- Kan være tidskrævende at analysere
-- Nogle brugere kan føle sig utilpasse ved at tænke højt
-- Resultaterne kan variere meget fra person til person
-
-</Slide>
-
-<div class="page-break"></div>
-<Slide>
-
-Læs mere om brugertest og tænke-højt-metoden:
-
-[NNGroup: Thinking Aloud: The #1 Usability Tool](https://www.nngroup.com/articles/thinking-aloud-the-1-usability-tool/)
-
-[Usability.gov: Think Aloud Protocol](https://www.usability.gov/how-to-and-tools/methods/think-aloud-protocol.html)
-
-</Slide>
-
 <div class="page-break"></div>
 
 <Slide>
 
-## Næste skridt
+## Test af hele hjemmesiden
 
-Fortsæt i rækken:
+I en **tænke-højt-test** løser testpersonen opgaver på et site eller i en klikbar prototype og siger højt, hvad de tænker undervejs.
 
-[Gå til Hvorfor Astro? →](/astro/hvorfor-astro/)
+Vi undersøger:
+
+- **Forståelse:** Hvad tror brugeren, siden handler om?
+- **Oplevelse:** Hvilke ord, følelser og værdier forbinder brugeren med siden?
+- **Brugervenlighed:** Kan brugeren fx finde en artikel, kontakte os eller gennemføre et køb?
+
+Har du valgt en usædvanlig menu eller interaktion? Lav en opgave, der undersøger, om brugeren forstår den.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Forbered testen
+
+1. Vælg **3–5 opgaver**, der er vigtige på dit site, og som kan afprøves i den nuværende version.
+2. Find deltagere fra **målgruppen**. I klasseøvelsen øver I metoden med hinanden.
+3. Klargør sitet eller prototypen, og aftal, hvem der tager noter.
+4. Forklar, hvad der skal ske, og bed personen tænke højt.
+
+Du kan fx sige:
+
+> “Vi tester siden, ikke dig. Den er stadig under udvikling. Jeg vil gerne se, hvad der skal forbedres. Sig højt, hvad du tænker og leder efter. Jeg hjælper dig ikke med at finde vej under opgaverne.”
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Lav opgaver med et mål
+
+Beskriv en **situation og et behov**. Lad brugeren selv finde vejen.
+
+| Undgå at give løsningen | Giv i stedet en opgave |
+| --- | --- |
+| “Klik på Kontakt” | “Du har et spørgsmål til virksomheden. Find ud af, hvordan du kan skrive til dem.” |
+| “Åbn menuen Ruter” | “Du vil gå en kort tur i weekenden. Find en tur, der passer, og se, hvor den starter.” |
+| “Klik på Abonnementer” | “Du overvejer at købe løsningen. Find ud af, hvad den vil koste dig.” |
+
+Undgå at kopiere menupunkternes ord ind i opgaven, hvis du vil undersøge, om brugeren selv kan finde og forstå dem.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Gennemfør testen
+
+1. Giv **én opgave ad gangen**.
+2. Lad testpersonen styre musen og fortælle, hvad de tænker.
+3. Lyt og observer. Undgå at forklare designet eller vise den rigtige vej.
+4. Bliver personen stille, så spørg neutralt: **“Hvad tænker du lige nu?”**
+5. Tal bagefter om, hvad der var nemt eller svært, og få uddybet det, I observerede.
+
+Observatøren noterer **handlinger, citater og steder, hvor personen går i stå**. Aftal det på forhånd, hvis I vil optage skærm eller lyd.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Øvelse: Test i grupper på tre
+
+**Forberedelse: 5 minutter.** Lav opgaver til dit site, og planlæg din introduktion til testen.
+
+| Rolle | Opgave |
+| --- | --- |
+| **Facilitator** | Ejeren af sitet introducerer testen og stiller opgaverne |
+| **Testperson** | Løser opgaverne og tænker højt |
+| **Observatør** | Tager noter uden at hjælpe |
+
+Brug **maks. 10 minutter pr. testrunde**. Rotér rollerne, så alle får testet deres site og prøver alle tre roller.
+
+Evaluér efter hver runde eller til sidst. Fortæl, hvad der var svært ved rollen, og giv hinanden feedback på, **hvad der fungerede godt i testledelsen**.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Saml op på det, I fandt
+
+Beskriv problemer på sitet som **konkrete observationer**, så de kan bruges til forbedringer.
+
+| Opgave | Observation eller citat | Mulig forbedring |
+| --- | --- | --- |
+| Find en kort gåtur | “Jeg kan ikke se, hvor lang turen er” | Vise længden i ruteoversigten |
+| Find kontaktoplysninger | Brugeren leder i menuen og opgiver | Gøre kontaktindgangen tydeligere |
+
+*Tabellen er et tænkt eksempel. Brug jeres egne noter.*
+
+Vælg de vigtigste problemer, ret designet, og **test igen**. Husk også, hvad der fungerede, så du kan bevare det.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Kilder og videre arbejde
+
+Kilder fra oplægget:
+
+- [Userdesign: Tænke-højt-test](https://www.userdesign.dk/usability-test/taenke-hojt-test/)
+- [Tovejs: Tænke-højt](https://tovejs.dk/2020/05/28/taenke-hoejt/)
+- [Københavns Universitet: Brugertest (PDF)](https://innovation.sites.ku.dk/files/2013/12/Brugertest_innovation.blogs_.ku_.dk_.pdf)
+
+**Arbejd videre med dit site:** Gem opgaver, observationer og de ændringer, testen førte til. Afprøv derefter med personer fra målgruppen.
+
+[Tilbage til intro til test →](/test/om-test/)
+
 </Slide>

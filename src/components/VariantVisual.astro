@@ -1,0 +1,222 @@
+---
+interface Props {
+  kind: 'intro' | 'add' | 'name' | 'style' | 'use' | 'check' | 'exercise';
+}
+const { kind } = Astro.props;
+const steps = { intro: '01', add: '02', name: '03', style: '04', use: '05', check: '06', exercise: '07' };
+const source = 'https://help.figma.com/hc/en-us/articles/360056440594-Create-and-use-variants';
+const base = '/illustrationer/figma-varianter/';
+---
+
+<section class:list={['variant-visual', 'not-content', `vv-${kind}`]} aria-label={`Slide ${steps[kind]} om varianter`}>
+  <div class="vv-topline"><span>Figma / Varianter</span><span>{steps[kind]} <span class="vv-muted">/ 07</span></span></div>
+
+  {kind === 'intro' && (
+    <>
+      <div class="vv-split vv-hero">
+        <div class="vv-copy">
+          <p class="vv-eyebrow">Samme komponent. Flere udgaver.</p>
+          <h2>Én knap.<br />To tydelige valg.</h2>
+          <p class="vv-lead">Giv den vigtigste handling mest vægt.</p>
+          <p class="vv-meta">Tema 3 · 10 min. oplæg + 5 min. øvelse</p>
+        </div>
+        <figure class="vv-family">
+          <div class="vv-set-name"><span aria-hidden="true">❖</span> Button</div>
+          <div class="vv-family-items">
+            <div><span class="vv-button primary">Se opskriften</span><span class="vv-label">Primary · mest vægt</span></div>
+            <div><span class="vv-button secondary">Gem til senere</span><span class="vv-label">Secondary · mindre vægt</span></div>
+          </div>
+          <figcaption>Illustration af to varianter i ét component set.</figcaption>
+        </figure>
+      </div>
+      <div class="vv-bottom"><span class="vv-dot"></span> Et component set samler udgaverne af din knap.</div>
+      <details class="vv-notes">
+        <summary>Noter til gennemgangen</summary>
+        <p>Spørg holdet: Hvilken handling lægger I først mærke til? Primary og Secondary beskriver knappens rolle og udseende. Knapteksten kan ændres uafhængigt af varianten.</p>
+        <p>Hav knappen fra <a href="/astro/figma/komponenter/">komponentøvelsen</a> klar. Dette er et separat visuelt forslag med syv slides. De udfoldelige noter vises i læsevisningen.</p>
+      </details>
+    </>
+  )}
+
+  {kind === 'add' && (
+    <>
+      <div class="vv-split vv-instruction">
+        <div class="vv-copy">
+          <p class="vv-eyebrow">Trin 1 / Opret</p>
+          <h2>Giv knappen<br />en variant.</h2>
+          <ol class="vv-short-steps">
+            <li><span>1</span> Marker din main component.</li>
+            <li><span>2</span> Klik på <strong>Add variant</strong>.</li>
+          </ol>
+          <p class="vv-meta">Nu har du to udgaver i et component set.</p>
+        </div>
+        <figure class="vv-screenshot">
+          <a class="vv-shot-window" href={`${base}add-variant.png`} target="_blank" rel="noopener" aria-label="Åbn hele Figma-skærmbilledet med Add variant">
+            <div class="vv-shot-scene">
+              <img src={`${base}add-variant.png`} width="1920" height="1440" alt="En main component er markeret i Figma. I højre panel vises ikonet Add variant med en diamant og et plus." />
+              <span class="vv-marker vv-marker-component" aria-hidden="true">1</span>
+              <span class="vv-marker vv-marker-add" aria-hidden="true">2</span>
+              <span class="vv-target vv-target-add" aria-hidden="true"></span>
+            </div>
+          </a>
+          <figcaption><a href={source} target="_blank" rel="noopener">Skærmbillede: Figma</a><span>Se hele skærmbilledet ↗</span></figcaption>
+        </figure>
+      </div>
+      <div class="vv-bottom"><span class="vv-dot"></span> Begge udgaver ser ens ud endnu. Det ændrer vi om lidt.</div>
+      <details class="vv-notes">
+        <summary>Trin, alternativ adgang og fejlfinding</summary>
+        <p>Står du på en instance? Højreklik og vælg <strong>Go to main component</strong>. Du kan også oprette varianten ved at højreklikke på originalen og vælge <strong>Main component → Add variant</strong>.</p>
+        <p>En almindelig duplikering af en selvstændig main component i samme fil laver en instance. Brug Add variant i denne øvelse.</p>
+        <p>Har du allerede to main components, kan du markere begge og vælge <strong>Combine as variants</strong>. <a href={`${base}combine-as-variants.png`} target="_blank" rel="noopener">Se Figmas skærmbillede</a>.</p>
+      </details>
+    </>
+  )}
+
+  {kind === 'name' && (
+    <>
+      <div class="vv-split vv-instruction">
+        <div class="vv-copy">
+          <p class="vv-eyebrow">Trin 2 / Navngiv</p>
+          <h2>Giv forskellen<br />et navn.</h2>
+          <div class="vv-naming">
+            <div><span>Sættet</span><strong>Button</strong></div>
+            <div><span>Egenskaben</span><strong>Type</strong></div>
+            <div><span>Værdierne</span><strong>Primary<br />Secondary</strong></div>
+          </div>
+        </div>
+        <figure class="vv-screenshot">
+          <a class="vv-shot-window vv-panel-window" href={`${base}rename-property.png`} target="_blank" rel="noopener" aria-label="Åbn hele Figma-skærmbilledet med redigering af en egenskab">
+            <div class="vv-shot-scene vv-panel-scene">
+              <img src={`${base}rename-property.png`} width="1920" height="1440" alt="Figma viser egenskaberne for et component set. Navnet State er markeret og kan redigeres i Properties." />
+            </div>
+            <span class="vv-panel-callout">↖ Dobbeltklik på navnet</span>
+          </a>
+          <figcaption><a href={source} target="_blank" rel="noopener">Skærmbillede: Figma</a><span>Her redigeres State. I din øvelse skriver du Type.</span></figcaption>
+        </figure>
+      </div>
+      <div class="vv-bottom"><span class="vv-dot"></span> Type er spørgsmålet. Primary og Secondary er valgene.</div>
+      <details class="vv-notes">
+        <summary>Sådan navngiver du sættet og begge varianter</summary>
+        <ol>
+          <li>Marker hele component settet, og kald det <strong>Button</strong>.</li>
+          <li>Find <strong>Properties</strong> i højre panel. Dobbeltklik på variant-egenskabens navn, og skriv <strong>Type</strong>.</li>
+          <li>Marker den første variant, og sæt dens Type-værdi til <strong>Primary</strong>.</li>
+          <li>Marker den anden variant, og sæt værdien til <strong>Secondary</strong>.</li>
+        </ol>
+        <p>Skærmbilledet er Figmas større eksempel. Vi bruger samme arbejdsgang med to varianter og én egenskab. De to varianter skal have forskellige Type-værdier.</p>
+      </details>
+    </>
+  )}
+
+  {kind === 'style' && (
+    <>
+      <p class="vv-eyebrow">Trin 3 / Formgiv</p>
+      <h2>Samme tekst. To udtryk.</h2>
+      <div class="vv-comparison">
+        <div class="vv-compare-item">
+          <span class="vv-label">Type = Primary</span>
+          <span class="vv-button primary">Se opskriften</span>
+          <p>Fyldt flade.<br /><strong>Tydelig handling.</strong></p>
+        </div>
+        <div class="vv-compare-item">
+          <span class="vv-label">Type = Secondary</span>
+          <span class="vv-button secondary">Se opskriften</span>
+          <p>Lys flade og kant.<br /><strong>Mere afdæmpet.</strong></p>
+        </div>
+      </div>
+      <div class="vv-bottom"><span class="vv-dot"></span> Behold samme størrelse, luft og afrunding. Tilpas Fill og Stroke.</div>
+      <details class="vv-notes">
+        <summary>Det ændrer du i Figma</summary>
+        <p>Marker Secondary inde i component settet. Giv den en lys baggrund under <strong>Fill</strong>, mørk tekst og eventuelt en kant under <strong>Stroke</strong>. Behold samme tekststørrelse, padding og afrunding som Primary.</p>
+        <p>Navnet ændrer ikke designet automatisk. Behold samme tekst på begge, mens du sammenligner deres visuelle vægt. Brug gerne dine <a href="/astro/figma/styles/">tekst- og farvestyles</a>.</p>
+      </details>
+    </>
+  )}
+
+  {kind === 'use' && (
+    <>
+      <div class="vv-split">
+        <div class="vv-copy">
+          <p class="vv-eyebrow">Trin 4 / Brug</p>
+          <h2>Skift variant.<br />Behold knappen.</h2>
+          <p class="vv-lead">Indsæt en instance fra Assets.<br />Vælg dens Type i højre panel.</p>
+          <p class="vv-meta">Prøv princippet i illustrationen →</p>
+        </div>
+        <variant-choice-demo class="vv-demo">
+          <label class="vv-selector"><span>Type</span><select aria-label="Vælg variant i illustrationen"><option value="primary">Primary</option><option value="secondary">Secondary</option></select></label>
+          <div class="vv-demo-canvas"><span class="vv-instance-label">◇ Instance</span><span class="vv-button primary" data-demo-button>Se opskriften</span></div>
+          <p class="vv-demo-status" role="status">Primary: en fyldt knap.</p>
+          <span class="vv-demo-caption">Interaktiv illustration af et variantskift.</span>
+        </variant-choice-demo>
+      </div>
+      <div class="vv-bottom"><span class="vv-dot"></span> Type vælger udseendet. Knapteksten beskriver handlingen.</div>
+      <details class="vv-notes">
+        <summary>Trin og typiske problemer</summary>
+        <ol>
+          <li>Åbn <strong>Assets</strong>, find <strong>Button</strong>, og træk en instance ind på din side.</li>
+          <li>Marker hele instancen. Find <strong>Type</strong> i højre panel.</li>
+          <li>Vælg <strong>Secondary</strong>, og skift derefter tilbage til <strong>Primary</strong>.</li>
+        </ol>
+        <p>Ingen Type-vælger? Marker hele instancen, ikke tekstlaget. Ser begge valg ens ud? Giv Secondary et andet udseende i component settet. Knapteksten kan ændres direkte eller med en tekstegenskab.</p>
+        <p>Skiftet i illustrationen er et undervisningseksempel. En klikbar knap i dit emnesite kræver en forbindelse under <a href="/astro/figma/interaktivitet/">Prototype</a>.</p>
+      </details>
+    </>
+  )}
+
+  {kind === 'check' && (
+    <>
+      <p class="vv-eyebrow">Stop op / Tal sammen</p>
+      <h2>Ny tekst.<br />Ny variant?</h2>
+      <div class="vv-question-buttons"><span class="vv-button primary">Se opskriften</span><span class="vv-button primary">Læs artiklen</span></div>
+      <p class="vv-lead">De har samme udseende. Kun ordene er forskellige.</p>
+      <details class="vv-reveal">
+        <summary>Vis svaret</summary>
+        <p><strong>Nej.</strong> Brug samme variant, og tilpas teksten på hver instance.</p>
+      </details>
+      <details class="vv-notes">
+        <summary>Noter til gennemgangen</summary>
+        <p>Lad de studerende begrunde deres svar, før du åbner forklaringen. Pointen er, at en ny formulering ikke i sig selv kræver en ny variant.</p>
+        <p>Når der opstår behov, kan man tilføje fx <strong>Size</strong> med Small og Large eller <strong>State</strong> med Default og Pressed. At kalde en variant Hover opretter ikke automatisk en hover-interaktion; det kræver en prototypeforbindelse med <strong>Change to</strong>.</p>
+      </details>
+    </>
+  )}
+
+  {kind === 'exercise' && (
+    <>
+      <div class="vv-split">
+        <div class="vv-copy">
+          <p class="vv-eyebrow">Din tur / Individuelt</p>
+          <h2>To udgaver.<br />Dit emnesite.</h2>
+          <ol class="vv-short-steps"><li><span>1</span> Lav Primary og Secondary.</li><li><span>2</span> Brug én instance af hver.</li><li><span>3</span> Giv dem relevante tekster.</li></ol>
+        </div>
+        <div class="vv-task-card"><span class="vv-time">5<span>min.</span></span><p>Du er færdig, når du kan skifte begge instances med <strong>Type</strong>.</p><div class="vv-task-buttons"><span class="vv-button primary">Se opskriften</span><span class="vv-button secondary">Gem til senere</span></div></div>
+      </div>
+      <div class="vv-bottom"><span class="vv-dot"></span> Vis dit resultat til din sidemakker.</div>
+      <details class="vv-notes">
+        <summary>Øvelse, videre læsning og billedkilder</summary>
+        <p>Fortsæt i din fil fra komponentøvelsen. Kald sættet Button og egenskaben Type. Tilpas Secondary, indsæt to instances, og afprøv begge valg. Tag et screenshot til procesdokumentationen.</p>
+        <p>Alle skærmbilleder er fra <a href={source}>Figmas officielle vejledning om varianter</a>, hentet 29. september 2026. Udsnittene viser Figmas eksempel; knapperne i de øvrige illustrationer er tegnet til denne undervisning.</p>
+        <p><a href="/astro/figma/varianter/">Den nuværende variant-side</a> · <a href="/astro/figma/interaktivitet/">Gør knappen klikbar</a> · <a href="https://help.figma.com/hc/en-us/articles/5579474826519-Explore-component-properties">Figma: Komponentegenskaber</a> · <a href="https://help.figma.com/hc/en-us/articles/360061175334-Create-interactive-components-with-variants">Figma: Interaktive varianter</a></p>
+      </details>
+    </>
+  )}
+</section>
+
+<script>
+  class VariantChoiceDemo extends HTMLElement {
+    connectedCallback() {
+      const select = this.querySelector('select');
+      const button = this.querySelector('[data-demo-button]');
+      const status = this.querySelector('[role="status"]');
+      if (!select || !button) return;
+      select.value = button.classList.contains('secondary') ? 'secondary' : 'primary';
+      select.onchange = () => {
+        const secondary = select.value === 'secondary';
+        button.classList.toggle('secondary', secondary);
+        button.classList.toggle('primary', !secondary);
+        if (status) status.textContent = secondary ? 'Secondary: en lys knap med kant.' : 'Primary: en fyldt knap.';
+      };
+    }
+  }
+  if (!customElements.get('variant-choice-demo')) customElements.define('variant-choice-demo', VariantChoiceDemo);
+</script>

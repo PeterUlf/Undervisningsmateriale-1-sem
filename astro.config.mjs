@@ -235,6 +235,15 @@ export default defineConfig({
           ],
         },
         {
+          label: "Test",
+          collapsed: true,
+          items: [
+            "test/om-test",
+            "test/5-sek-test",
+            "test/taenke-hoejt-test",
+          ],
+        },
+        {
           label: "Quizzer",
           collapsed: true,
           items: [
