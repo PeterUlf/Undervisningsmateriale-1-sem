@@ -6,9 +6,10 @@ const badgeText = Astro.locals.starlightRoute.entry.data.sidebar?.badge?.text;
 const themeLabel = String(badgeText || '').match(/^Tema\s+\d+$/i)?.[0];
 const hasThemePrefix = /^Tema\s+\d+\b/i.test(title);
 const displayTitle = themeLabel && !hasThemePrefix ? `${themeLabel}: ${title}` : title;
+const isPausePage = Astro.url.pathname.replace(/\/$/, '') === '/pause-ur';
 ---
 
-<h1 id="_top">{displayTitle}</h1>
+<h1 id="_top" class:list={{ 'sr-only': isPausePage }}>{displayTitle}</h1>
 
 <PresentationMode />
 

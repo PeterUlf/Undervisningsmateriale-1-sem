@@ -225,7 +225,9 @@ const availableThemes = Array.from(new Set(Object.values(publishedLinkThemeMap))
 
       const themeNumber = isAll ? getThemeForLink(link) : getPublishedThemeForLink(link);
 
-      if (isAll) {
+      const isPausePage = normalizeLinkHref(link.getAttribute('href')) === '/pause-ur/';
+
+      if (isAll || isPausePage) {
         listItem.style.display = '';
         return;
       }
