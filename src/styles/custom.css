@@ -518,6 +518,32 @@ html {
   margin-bottom: 0.5rem;
 }
 
+/* Adskil slides i webvisningen uden at påvirke slideshow eller print. */
+@media screen {
+  .sl-markdown-content > .slide {
+    --slide-gutter: clamp(0.75rem, 2vw, 1.5rem);
+    margin-block: 1.5rem;
+    margin-inline: calc(-1 * var(--slide-gutter));
+    padding: 1.5rem var(--slide-gutter);
+    border-radius: 0.75rem;
+  }
+
+  /* Tæl kun slides, så page-breaks og andre elementer ikke ændrer rytmen. */
+  .sl-markdown-content > .slide:nth-child(even of .slide) {
+    background-color: color-mix(in srgb, var(--sl-color-bg) 94%, var(--sl-color-text));
+  }
+
+  .sl-markdown-content > .slide > :first-child,
+  .sl-markdown-content > .slide > .sl-heading-wrapper:first-child h2 {
+    margin-top: 0 !important;
+  }
+
+  .sl-markdown-content > .slide > h2:first-child::before,
+  .sl-markdown-content > .slide > .sl-heading-wrapper:first-child h2::before {
+    margin-top: 0;
+  }
+}
+
 /* Nummerering i "On this page" (Table of Contents) */
 starlight-toc nav > ul {
   counter-reset: toc-counter;

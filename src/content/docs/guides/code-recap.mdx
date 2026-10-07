@@ -1,0 +1,397 @@
+---
+title: Code recap
+draft: false
+description: En god start på emnesitet med mappestruktur, semantisk HTML, overskuelig CSS og responsivt design.
+sidebar:
+  label: Code recap
+  order: 4
+  badge:
+    text: Tema 3
+    variant: tip
+    class: badge-theme-3
+---
+
+import Slide from "../../../components/Slide.astro";
+
+<Slide>
+
+## En god start er en kæmpe hjælp
+
+Vi skal tilbage til koden og bruge det, vi lærte i tema 2, på **emnesitet i tema 3**.
+
+En god struktur fra begyndelsen gør det lettere at bygge videre og finde fejl.
+
+Vi repeterer:
+
+- **Mapper og filnavne**, så du kan finde dine filer.
+- **HTML**, så indholdet har en logisk opbygning.
+- **CSS**, så styling og layout er til at overskue.
+- **Responsivt design og test**, så sitet fungerer på forskellige skærme.
+
+Hav dit eget projekt åbent, og tjek det undervejs.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Start med en god mappestruktur
+
+Saml filer af samme type i mapper. Hold strukturen enkel:
+
+```text
+emnesite/
+├── index.html
+├── kontakt.html
+├── css/
+│   ├── styles.css
+│   └── layout.css
+├── images/
+│   ├── foto.webp
+│   └── favicon.svg
+└── fonte/
+```
+
+Brug **små bogstaver og beskrivende filnavne**. Undgå mellemrum, æ, ø og å, fx `min-side.html`.
+
+I dette projekt samler vi farver, fonte og grundstyling i `styles.css` og layout i `layout.css`.
+
+**Tjek:** Ligger alle dine filer i rodmappen, eller har de en tydelig plads?
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Husk det, der står i head
+
+Start hver HTML-side med sprog, tegnsæt, viewport og en **beskrivende titel**. Link til dine stylesheets:
+
+```html
+<!doctype html>
+<html lang="da">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Forside | Mit emnesite</title>
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    <!-- Sidens synlige indhold -->
+  </body>
+</html>
+```
+
+Stierne passer til mappestrukturen på forrige slide. Giv kontaktsiden sin egen titel, fx **“Kontakt | Mit emnesite”**.
+
+Bruger du Google Fonts, skal fontens stylesheet også indlæses. En lokal font skal forbindes med `@font-face` i din CSS.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Giv HTML en logisk struktur
+
+Brug dit layoutdiagram til at opdele indholdet. Vælg elementer efter deres **betydning**, og giv dine classes beskrivende navne.
+
+```html
+<header>
+  <nav aria-label="Hovedmenu">
+    <a href="index.html">Forside</a>
+    <a href="kontakt.html">Kontakt</a>
+  </nav>
+</header>
+
+<main>
+  <h1>Gåture i byen</h1>
+  <section>
+    <h2>En tur ved havnen</h2>
+    <div class="grid_1-1">
+      <p>Følg vandet, og oplev byen til fods.</p>
+      <img src="images/foto.webp" alt="Gangsti langs havnekajen" />
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>Et emnesite om gåture</p>
+</footer>
+```
+
+`main` indeholder sidens hovedindhold. En `section` samler et emne med en overskrift. Her bruges `div` til at gruppere tekst og billede i et layout.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Start CSS med en grundlæggende reset
+
+En reset giver et ensartet udgangspunkt. Sæt den **øverst i `styles.css`**, før din øvrige styling.
+
+<div class="columns-2">
+<div>
+
+**Afstande og boksstørrelse**
+
+```css
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+```
+
+Med `border-box` regnes padding og border med i den bredde, du angiver.
+
+</div>
+<div>
+
+**Billeder, der tilpasser sig**
+
+```css
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+```
+
+Billedet kan blive mindre med sin container og beholder sine proportioner.
+
+</div>
+</div>
+
+Du har nu fjernet standardafstandene. Tilføj selv passende luft omkring fx overskrifter, afsnit og lister.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## God CSS-skik: Gentag ikke dig selv
+
+**DRY = Don't Repeat Yourself.** Saml fælles styling, så den kun skal ændres ét sted.
+
+<div class="columns-2">
+<div>
+
+**Gentagelse**
+
+```css
+.intro {
+  color: #243b35;
+  line-height: 1.6;
+}
+
+.beskrivelse {
+  color: #243b35;
+  line-height: 1.6;
+}
+```
+
+</div>
+<div>
+
+**Samme regler samlet**
+
+```css
+.intro,
+.beskrivelse {
+  color: #243b35;
+  line-height: 1.6;
+}
+```
+
+</div>
+</div>
+
+Genbrug også classes, når flere elementer har samme funktion eller layout, fx `.kort` eller `.grid_1-1`.
+
+**Tjek:** Kan en fælles regel erstatte noget, du har kopieret flere gange?
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Responsivt design: Tænk mobile first
+
+Start med styling til små skærme. Udvid layoutet, **når indholdet har brug for mere plads**.
+
+Her får tekst og billede fra HTML-eksemplet én kolonne på små skærme og to lige brede kolonner fra `800px`:
+
+```css
+/* layout.css */
+.grid_1-1 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 800px) {
+  .grid_1-1 {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+```
+
+`800px` er et **eksempel på et breakpoint**. Vælg det ud fra dit eget layout, og test også bredderne mellem mobil og desktop.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Hvor skal media queries stå?
+
+Du kan samle dem efter grundreglerne i dit stylesheet eller **indlejre dem i den regel, de hører til**.
+
+De to eksempler giver samme resultat. Vælg én af dem:
+
+<div class="columns-2">
+<div>
+
+**Efter grundreglen**
+
+```css
+h1 {
+  font-size: 2rem;
+}
+
+@media (min-width: 800px) {
+  h1 {
+    font-size: 3rem;
+  }
+}
+```
+
+</div>
+<div>
+
+**Indlejret i reglen**
+
+```css
+h1 {
+  font-size: 2rem;
+
+  @media (min-width: 800px) {
+    font-size: 3rem;
+  }
+}
+```
+
+</div>
+</div>
+
+Det er altså en måde at organisere koden på, når media queries står nederst i filen. **Det er ikke et krav i CSS.** Hold en konsekvent struktur, som du kan finde rundt i.
+
+Læs om [indlejrede media queries hos MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Nesting/At-rules).
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Test og validér løbende
+
+Vent ikke med at teste, til hele sitet er færdigt.
+
+1. **Validér hver HTML-side** med [W3C's HTML-validator](https://validator.w3.org/nu/). Du kan indsætte koden, uploade filen eller teste en offentlig URL.
+2. **Åbn browserens DevTools.** Undersøg, hvilke CSS-regler der rammer et element, og om nogen bliver overskrevet.
+3. **Træk browseren smallere og bredere.** Se efter vandret scroll, billeder, der stikker ud, og tekst, der bliver klemt.
+4. **Klik på alle links**, og brug Tab til at bevæge dig gennem menuen.
+5. **Test i flere browsere og på en telefon**, når du har mulighed for det.
+
+Ret én fejl ad gangen, gem, og test igen. En side kan godt se rigtig ud og stadig have fejl i sin HTML.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Prøv GitHub Pages tidligt
+
+Når grundstrukturen er klar, kan du udgive dit emnesite med **GitHub Pages**.
+
+1. **Commit og push** HTML, CSS, billeder og fonte til dit repository på GitHub. Bevar mappestrukturen, og sørg for, at `index.html` ligger i roden.
+2. **Første gang:** Åbn **Settings → Pages** i dit repository. Under **Source** vælger du **Deploy from a branch**, vælger `main` og `/(root)` og klikker **Save**.
+3. Vent på, at sitet er udgivet, og åbn webadressen under **Settings → Pages**. Besøg også undersiderne, og tjek billeder, fonte, styling og links.
+4. Når du retter noget, skal du **commit og push igen**. GitHub Pages opdaterer derefter sitet fra den valgte branch.
+
+**Hvis noget mangler:** Tjek, at filen er pushet, og at udgivelsen er gennemført under **Actions**. Kontrollér stien og store og små bogstaver: `Foto.webp` og `foto.webp` er forskellige filnavne på serveren.
+
+Et projektsite ligger typisk på `https://brugernavn.github.io/emnesite/`. Brug relative stier som `css/styles.css`. En sti med indledende `/`, fx `/css/styles.css`, springer projektmappen `emnesite/` over.
+
+En sti i HTML tager udgangspunkt i HTML-filen. En relativ `url(...)` i et eksternt stylesheet tager udgangspunkt i **CSS-filen**. Fra `css/styles.css` skal du fx bruge `../fonte/min-font.woff2` for at nå en font i mappen `fonte`.
+
+Genopfrisk [filplacering og stier](/guides/filplacering-og-stier/), eller se [GitHubs vejledning til Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site).
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Alt det med småt: Billeder, fonte og favicon
+
+De små detaljer er også en del af det færdige site:
+
+| Tjek | Hvad skal du undersøge? |
+| --- | --- |
+| **Billeder** | Passer format og dimensioner til brugen, og er filerne komprimeret? |
+| **Alt-tekst** | Beskriver teksten billedets funktion eller indhold? Rent dekorative billeder får `alt=""`. |
+| **Fonte** | Indlæses den valgte font og de vægte, du bruger, også på GitHub Pages? |
+| **Favicon** | Er ikonet linket korrekt i `head`, og vises det i browserfanen? |
+| **Links** | Fører menu, logo og links i indholdet til de rigtige sider? |
+
+Vælg billedformat efter indholdet, fx **WebP til fotos** og **SVG til vektorgrafik**.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Skal sitet kunne findes i søgemaskiner?
+
+Hvis dit øvelsessite skal holdes ude af søgeresultater, kan du sætte følgende i `head` på **hver side**, der ikke skal indekseres:
+
+```html
+<meta name="robots" content="noindex" />
+```
+
+`noindex` beder søgemaskiner om ikke at vise siden i søgeresultaterne. Siden er stadig tilgængelig for personer, der har linket.
+
+Søgemaskinen skal kunne hente siden for at læse instruktionen. Blokér derfor ikke samtidig siden i `robots.txt`, hvis du vil have `noindex` læst.
+
+**Tjek opgavens krav**, og tag stilling til indeksering. `noindex` er ikke adgangskontrol.
+
+Læs [Googles vejledning om noindex](https://developers.google.com/search/docs/crawling-indexing/block-indexing).
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Tjek dit eget emnesite
+
+Brug **10 minutter** på at gennemgå dit projekt:
+
+- Er mapper og filnavne overskuelige, og virker stierne?
+- Har hver side en titel, viewport, stylesheets og en logisk HTML-struktur?
+- Starter CSS med en reset, og kan gentagne regler samles?
+- Fungerer layoutet fra en smal skærm til en bred skærm?
+- Er alle HTML-sider valideret, og virker billeder, fonte, favicon og links?
+- Er sitet på GitHub Pages testet, og har du taget stilling til indeksering?
+
+**Vælg én konkret forbedring, ret den, og vis sidemakkeren, hvad du ændrede.**
+
+Har du brug for mere repetition? Se [grundlæggende HTML](/html/grundlaeggende/), [intro til CSS](/css/intro/) og [CSS Grid](/css/grid/).
+
+*Baseret på præsentationen “Et lille recap” i Kode Recap (1).pdf.*
+
+</Slide>

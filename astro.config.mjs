@@ -149,6 +149,7 @@ export default defineConfig({
                 class: "badge-theme-2",
               },
             },
+            "guides/code-recap",
             {
               label: "Billeder",
               items: [
