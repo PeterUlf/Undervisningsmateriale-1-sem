@@ -91,9 +91,41 @@ Læg filerne ved websitets rod, fx ved siden af `index.html`, og tilføj linkene
 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 ```
 
-SVG-linket giver browsere, der understøtter SVG-favicons, mulighed for at bruge SVG-filen. ICO-filen fungerer som et kompatibelt alternativ. Sørg for, at stierne passer til filernes placering; hvis websitet udgives i en undermappe, skal stien også passe til den placering.
+SVG-linket giver browsere, der understøtter SVG-favicons, mulighed for at bruge SVG-filen. ICO-filen fungerer som et kompatibelt alternativ. Stien i `href` skal passe til ikonfilens placering.
 
-### Bonus: lad et SVG-ikon følge mørkt tema
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Stier til faviconet
+
+Faviconet må gerne ligge i en mappe, fx `ikoner`. Det er starten af stien i `href`, der fortæller browseren, hvor den skal lede:
+
+| Sti i `href` | Betydning |
+| --- | --- |
+| `favicon.svg` | Uden noget foran filnavnet leder browseren i samme mappe som den aktuelle HTML-side. |
+| `ikoner/favicon.svg` | Uden `/` eller `../` foran starter browseren også ved HTML-siden og går ind i undermappen `ikoner`. |
+| `./ikoner/favicon.svg` | `./` betyder den aktuelle mappe. Det virker som `ikoner/favicon.svg`. |
+| `../ikoner/favicon.svg` | `../` betyder én mappe op. Derefter går browseren ind i `ikoner`. To niveauer op skrives `../../`. |
+| `/ikoner/favicon.svg` | En foranstillet `/` starter ved domænets rod, uanset hvilken mappe HTML-siden ligger i. |
+
+**Eksempel:** HTML-siden ligger på `https://eksempel.dk/emnesite/sider/om.html`, og faviconet ligger i `emnesite/ikoner/`. Gå én mappe op fra `sider` og derefter ind i `ikoner`:
+
+```html
+<link rel="icon" href="../ikoner/favicon.svg" type="image/svg+xml" />
+```
+
+Her ville `/ikoner/favicon.svg` pege på `https://eksempel.dk/ikoner/favicon.svg`. Med en foranstillet `/` skal stien derfor være `/emnesite/ikoner/favicon.svg`, hvis websitet ligger i undermappen `emnesite`.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Bonus: lad et SVG-ikon følge mørkt tema
 
 I en SVG-fil kan en `prefers-color-scheme`-media query skifte ikonets farve, når browseren eller enheden bruger mørkt tema:
 
