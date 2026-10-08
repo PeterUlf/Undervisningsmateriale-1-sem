@@ -1,0 +1,296 @@
+---
+title: Layoutdiagrammer
+draft: false
+description: Fra wireframes til HTML og CSS. Planlæg mobil og desktop med farvede kasser, røde grid-containere og class-navne.
+sidebar:
+  label: Layoutdiagrammer
+  order: 5
+  badge:
+    text: Tema 3
+    variant: tip
+    class: badge-theme-3
+---
+
+import Slide from "../../../components/Slide.astro";
+import LayoutDiagram from "../../../components/LayoutDiagram.astro";
+import "../../../styles/layout-diagram-lesson.css";
+
+<Slide>
+
+## Planlæg din HTML med et layoutdiagram
+
+Et **layoutdiagram** viser, hvilke kasser din side består af, hvilke kasser der ligger inden i andre, og hvor du vil bruge grid.
+
+Du tager udgangspunkt i dine **wireframes til både mobil og desktop**. En prototype kan også bruges som grundlag.
+
+1. Sammenlign de to layouts.
+2. Tegn kasser om elementer, der skal høre sammen.
+3. Skriv de planlagte **class-navne øverst i kasserne**.
+4. Oversæt kasserne til HTML, tilføj CSS, og test resultatet.
+
+Diagrammet hjælper dig med at beslutte strukturen, før du begynder at kode.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Første trin: Se på mobil og desktop
+
+<div class="layout-source-pair">
+  <figure>
+    <a href="/illustrationer/layoutdiagrammer/wireframe-mobil.svg" aria-label="Åbn wireframe til mobil i fuld størrelse">
+      <img src="/illustrationer/layoutdiagrammer/wireframe-mobil.svg" alt="Mobil: Overskrift efterfulgt af billede og tekst for gruppe 1, 2 og 3 i én kolonne." />
+    </a>
+    <figcaption>Mobil · læs oppefra og ned.</figcaption>
+  </figure>
+  <figure>
+    <a href="/illustrationer/layoutdiagrammer/wireframe-desktop.svg" aria-label="Åbn wireframe til desktop i fuld størrelse">
+      <img src="/illustrationer/layoutdiagrammer/wireframe-desktop.svg" alt="Desktop: Gruppe 1 og 2 står over hinanden til venstre. I gruppe 1 står billedet til venstre for teksten; i gruppe 2 står billedet til højre. Gruppe 3 danner en kolonne til højre." />
+    </a>
+    <figcaption>Desktop · to hovedkolonner og forskellige layouts inden i venstre kolonne.</figcaption>
+  </figure>
+</div>
+
+**Start mobile first:** Hvad falder naturligt under hinanden? Hvad skal ændre sig på desktop?
+
+Se efter **kolonner, grupper og elementer, der bytter plads**. Klik på tegningerne for at se dem større.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Andet trin: Tegn kasser inden i kasser
+
+Tegn først de store containere og derefter deres indhold. Skriv **class-navnet øverst i hver kasse**.
+
+<div class="layout-color-key" aria-label="Farveforklaring til diagrammet">
+  <span class="key-grid">Rød: grid-container</span>
+  <span class="key-group">Blå: gruppering</span>
+  <span class="key-content">Grøn: indhold</span>
+</div>
+
+<LayoutDiagram />
+
+Farverne gør indlejringen tydelig. **De er tegneregler til diagrammet**, så dit website behøver ikke få røde, blå og grønne rammer.
+
+I dette forslag aktiveres grid på desktop. Skift visning, og følg, hvordan **de samme kasser** ligger på mobil.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Fra de store kasser til HTML
+
+Den yderste `.grid_2-1` har **to direkte børn**: `.indhold` og `.ekstra`. Det er dem, der bliver hovedkolonnerne på desktop.
+
+```html
+<main class="side">
+  <h1>Sidens overskrift</h1>
+  <div class="grid_2-1">
+    <div class="indhold">
+      <section class="grid_1-2">
+        <!-- Billede 1 og tekst 1 -->
+      </section>
+      <section class="grid_2-1 bytter">
+        <!-- Billede 2 og tekst 2 -->
+      </section>
+    </div>
+    <section class="ekstra">
+      <!-- Billede 3 og tekst 3 -->
+    </section>
+  </div>
+</main>
+```
+
+De to sektioner i `.indhold` ligger inde i den venstre hovedkolonne. **Hvert grid styrer sine egne direkte børn.**
+
+`grid_2-1 bytter` er to classes på samme element. I diagrammet står det som `.grid_2-1.bytter`.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Gruppér den tekst, der skal følges ad
+
+Inde i den første sektion skal overskrift og afsnit ligge i **samme tekstkolonne**. Derfor får de en fælles `.tekst`-kasse:
+
+```html
+<section class="grid_1-2">
+  <img class="billede" src="images/foto-1.webp" alt="Udsigt over havnen" />
+  <div class="tekst">
+    <h2>En tur ved havnen</h2>
+    <p>Følg vandet, og oplev byen til fods.</p>
+  </div>
+</section>
+```
+
+Her har grid-containeren **to direkte børn**: billedet og tekstkassen. `h2` og `p` bliver inde i tekstkassen.
+
+Brug samme indre struktur i de andre sektioner. Billeder og tekster skal selvfølgelig passe til dit eget indhold.
+
+**Vælg HTML-element efter betydning:** En `section` samler et emne med en overskrift. En `div` kan samle elementer af hensyn til layoutet.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Giv class-navnene deres layout i CSS
+
+Navnet `.grid_1-2` er vores huskeregel for kolonneforholdet. **Et class-navn laver først et grid, når vi skriver CSS til det.**
+
+<div class="columns-2">
+<div>
+
+**Grundregler · mobil**
+
+```css
+.side {
+  max-width: 1100px;
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+
+.indhold > * + *,
+.ekstra > * + *,
+.grid_1-2 > * + *,
+.grid_2-1 > * + * {
+  margin-top: 1.5rem;
+}
+```
+
+Indholdet følger HTML-rækkefølgen i én kolonne. Brug også [en reset og fleksible billeder](/guides/code-recap/#start-css-med-en-grundlæggende-reset).
+
+</div>
+<div>
+
+**Udvidelse · desktop**
+
+```css
+@media (min-width: 800px) {
+  .grid_1-2,
+  .grid_2-1 {
+    display: grid;
+    gap: 1.5rem;
+    align-items: start;
+  }
+
+  .grid_1-2 {
+    grid-template-columns: 1fr 2fr;
+  }
+
+  .grid_2-1 {
+    grid-template-columns: 2fr 1fr;
+  }
+
+  .grid_1-2 > *,
+  .grid_2-1 > * {
+    margin-top: 0;
+  }
+}
+```
+
+</div>
+</div>
+
+`800px` er et eksempel. Find et breakpoint, hvor **dit indhold** har plads til kolonnerne.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Når billede og tekst bytter plads
+
+I PowerPointens andet indholdsområde står **billede 2 før tekst 2 på mobil**. På desktop står teksten til venstre og billedet til højre.
+
+Behold mobilrækkefølgen i HTML, og tilføj disse regler til desktop-layoutet:
+
+```css
+@media (min-width: 800px) {
+  .bytter > .billede {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .bytter > .tekst {
+    grid-column: 1;
+    grid-row: 1;
+  }
+}
+```
+
+Classen `.bytter` sidder på sektionen med `class="grid_2-1 bytter"`. Begge børn placeres i **samme række**.
+
+CSS ændrer den visuelle placering. Læse- og tastaturrækkefølgen følger stadig HTML, så indholdet skal give mening i den rækkefølge. Læs om [grid og læserækkefølge hos MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Grid_layout/Accessibility).
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Øvelse 1: Find de fælles kasser
+
+<figure class="layout-exercise">
+  <a href="/illustrationer/layoutdiagrammer/wireframe-1.pdf">
+    <img src="/illustrationer/layoutdiagrammer/wireframe-1.png" width="1698" height="1572" loading="lazy" alt="Wireframe 1: Mobil viser billede 1, tekst 1, billede 2, tekst 2, billede 3 og tekst 3. Desktop viser par 1 og 2 ved siden af hinanden øverst. Billede 3 og tekst 3 står ved siden af hinanden nederst." />
+  </a>
+  <figcaption>Wireframe 1 · mobil til venstre, desktop til højre. <a href="/illustrationer/layoutdiagrammer/wireframe-1.pdf">Åbn PDF til øvelsen</a>.</figcaption>
+</figure>
+
+1. Følg numrene fra mobil til desktop. Hvilket billede hører til hvilken tekst?
+2. Tegn containere rundt om de grupper, der skal følges ad. Markér grid-containere med **rødt**.
+3. Skriv class-navne øverst. Forklar, hvilke **direkte børn** hvert grid skal placere.
+
+[Åbn løsningen til opgave 1 →](/guides/layoutdiagrammer-loesninger/#opgave-1)
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Øvelse 2: Kan du genbruge strukturen?
+
+<figure class="layout-exercise">
+  <a href="/illustrationer/layoutdiagrammer/wireframe-2.pdf">
+    <img src="/illustrationer/layoutdiagrammer/wireframe-2.png" width="1698" height="1572" loading="lazy" alt="Wireframe 2: Mobilrækkefølgen er stadig billede og tekst 1, 2 og 3. På desktop står billede 1 øverst til venstre og billede 3 øverst til højre, tekst 1 og tekst 2 i midten, og billede 2 og tekst 3 nederst." />
+  </a>
+  <figcaption>Wireframe 2 · samme mobilrækkefølge, ændret placering på desktop. <a href="/illustrationer/layoutdiagrammer/wireframe-2.pdf">Åbn PDF til øvelsen</a>.</figcaption>
+</figure>
+
+**Billede 2 og billede 3 har byttet placering på desktop.** Teksterne står på de samme pladser som i wireframe 1.
+
+- Kan kasserne fra øvelse 1 stadig rumme det nye layout?
+- Hvilke elementer skal kunne placeres uafhængigt af hinanden?
+- Tegn et nyt forslag, og bevar en meningsfuld HTML-rækkefølge på mobil.
+
+[Åbn løsningen til opgave 2 →](/guides/layoutdiagrammer-loesninger/#opgave-2)
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Tredje trin: Byg, test og ret til
+
+Byg først strukturen med korte tekster og billeder, så du kan undersøge layoutet. Fyld derefter det endelige indhold ind.
+
+Tjek både mobil, desktop og bredderne imellem:
+
+- Passer **kasserne inden i hinanden** med din HTML?
+- Står de rigtige class-navne både i diagrammet og i koden?
+- Placerer hvert grid de børn, du havde tænkt dig?
+- Følger indholdet en logisk rækkefølge på mobil?
+- Virker layoutet også med længere tekster og dine egne billeder?
+
+**Ret både diagram og kode**, hvis du finder en bedre struktur. Diagrammet er en plan, du kan forbedre undervejs.
+
+Fortsæt med dit eget emnesite, og brug [Code recap](/guides/code-recap/) som tjekliste. Se også [CSS Grid](/css/grid/).
+
+*Grundlag: “Lav layoutdiagram.pptx”, “wireframe 1.pdf” og “wireframe 2.pdf”. De farvede kasser og class-navnene i det interaktive eksempel er en bearbejdning til denne side.*
+
+</Slide>

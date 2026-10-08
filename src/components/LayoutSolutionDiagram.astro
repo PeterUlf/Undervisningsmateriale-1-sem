@@ -1,0 +1,125 @@
+---
+interface Props { exercise: 1 | 2 }
+const { exercise } = Astro.props;
+const fields = [
+  { label: '.billede_1', content: 'Billede 1', kind: 'image', position: 'b1' },
+  { label: '.tekst.tekst_1', content: 'Tekst 1', kind: 'text', position: 't1' },
+  { label: '.billede_2', content: 'Billede 2', kind: 'image', position: 'b2' },
+  { label: '.tekst.tekst_2', content: 'Tekst 2', kind: 'text', position: 't2' },
+  { label: '.billede_3', content: 'Billede 3', kind: 'image', position: 'b3' },
+  { label: '.tekst.tekst_3', content: 'Tekst 3', kind: 'text', position: 't3' },
+];
+---
+
+<layout-solution-diagram class="solution-diagram" data-view="desktop">
+  <div class="solution-controls" role="group" aria-label={`Vis løsning ${exercise} til mobil eller desktop`}>
+    <button type="button" data-view-button="mobile" aria-pressed="false">Mobil</button>
+    <button type="button" data-view-button="desktop" aria-pressed="true">Desktop</button>
+    <span>Rød = grid på desktop · blå = gruppering · grøn = indhold</span>
+  </div>
+  <figure>
+    <div class="solution-scroll" role="region" aria-label={`Layoutdiagram til opgave ${exercise}`} tabindex="0">
+      <div class="solution-canvas">
+        <div class="solution-box solution-page">
+          <div class="solution-label"><code>.side</code><span>main</span></div>
+          {exercise === 1 ? (
+            <>
+              <div class="solution-box solution-grid">
+                <div class="solution-label"><code>.grid_1-1</code><span>div · to direkte børn</span></div>
+                <div class="solution-two-columns">
+                  {[1, 2].map((n) => (
+                    <div class="solution-box solution-group">
+                      <div class="solution-label"><code>.kort</code><span>article</span></div>
+                      <div class="solution-box solution-leaf solution-image"><div class="solution-label"><code>img</code></div>Billede {n}</div>
+                      <div class="solution-box solution-leaf"><div class="solution-label"><code>.tekst</code><span>div · h2 + p</span></div>Tekst {n}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div class="solution-box solution-grid">
+                <div class="solution-label"><code>.grid_1-1</code><span>section · to direkte børn</span></div>
+                <div class="solution-two-columns">
+                  <div class="solution-box solution-leaf solution-image"><div class="solution-label"><code>img</code></div>Billede 3</div>
+                  <div class="solution-box solution-leaf"><div class="solution-label"><code>.tekst</code><span>div · h2 + p</span></div>Tekst 3</div>
+                </div>
+              </div>
+            </>
+          ) : (
+            <div class="solution-box solution-grid">
+              <div class="solution-label"><code>.grid_opgave_2</code><span>div · seks direkte børn</span></div>
+              <div class="solution-two-columns solution-six-fields">
+                {fields.map((field) => (
+                  <div class:list={['solution-box', 'solution-leaf', field.kind === 'image' && 'solution-image']} data-position={field.position}>
+                    <div class="solution-label"><code>{field.label}</code><span>{field.kind === 'image' ? 'img' : 'section · h2 + p'}</span></div>
+                    {field.content}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+    <figcaption>Opgave {exercise} · class-navne øverst og samme HTML-rækkefølge på mobil og desktop. Farverne viser strukturen.</figcaption>
+  </figure>
+</layout-solution-diagram>
+
+<style>
+  .solution-diagram { display: block; margin-block: 1rem; font-size: 1rem; }
+  .solution-controls { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; }
+  .solution-controls button { margin: 0; padding: .4rem .8rem; border: 1px solid var(--sl-color-gray-3); border-radius: .35rem; background: var(--sl-color-bg); color: var(--sl-color-text); font: inherit; cursor: pointer; }
+  .solution-controls button[aria-pressed="true"] { background: var(--sl-color-accent-low); border-color: var(--sl-color-text-accent); color: var(--sl-color-text-accent); }
+  .solution-controls > span { font-size: .8rem; }
+  .solution-controls button:focus-visible, .solution-scroll:focus-visible { outline: 2px solid var(--sl-color-text-accent); outline-offset: 3px; }
+  .solution-diagram figure { margin: .75rem 0 0; }
+  .solution-scroll { overflow-x: auto; background: #fff; border-radius: .4rem; }
+  .solution-canvas { min-width: 29rem; padding: .6rem; color: #222; }
+  .solution-canvas * { margin: 0; box-sizing: border-box; }
+  .solution-box { padding: .6rem; min-width: 0; border: 2px solid; }
+  .solution-page { border-color: #555; background: #fff; }
+  .solution-grid { border-color: #bf2525; background: #fff7f7; }
+  .solution-group { border-color: #2458ae; background: #f4f7ff; }
+  .solution-leaf { border-color: #26814c; background: #f3fbf5; font-size: .9rem; }
+  .solution-image { background: #edf7f0; }
+  .solution-group > .solution-leaf + .solution-leaf, .solution-page > .solution-grid + .solution-grid { margin-top: .65rem; }
+  .solution-label { display: flex; flex-wrap: wrap; align-items: baseline; gap: .2rem .5rem; margin-bottom: .45rem; }
+  .solution-label code { color: #222; background: none; padding: 0; font-size: .9rem; font-weight: 700; white-space: normal; overflow-wrap: anywhere; }
+  .solution-label span { color: #555; font-size: .7rem; }
+  .solution-two-columns { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: .65rem; align-items: start; }
+  [data-view="desktop"] [data-position="b1"] { grid-column: 1; grid-row: 1; }
+  [data-view="desktop"] [data-position="b3"] { grid-column: 2; grid-row: 1; }
+  [data-view="desktop"] [data-position="t1"] { grid-column: 1; grid-row: 2; }
+  [data-view="desktop"] [data-position="t2"] { grid-column: 2; grid-row: 2; }
+  [data-view="desktop"] [data-position="b2"] { grid-column: 1; grid-row: 3; }
+  [data-view="desktop"] [data-position="t3"] { grid-column: 2; grid-row: 3; }
+  [data-view="mobile"] .solution-canvas { min-width: 0; max-width: 25rem; margin-inline: auto; }
+  [data-view="mobile"] .solution-two-columns { grid-template-columns: minmax(0, 1fr); }
+  .solution-diagram figcaption { margin-top: .65rem; color: var(--sl-color-gray-2); font-size: .8rem; }
+  @media print {
+    .solution-controls { display: none; }
+    .solution-scroll { overflow: visible; }
+    .solution-canvas { min-width: 0; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+    .solution-diagram figcaption { color: #444; }
+  }
+</style>
+
+<script>
+  class LayoutSolutionDiagram extends HTMLElement {
+    private initialized = false;
+    connectedCallback() {
+      if (this.initialized) return;
+      this.initialized = true;
+      this.querySelectorAll<HTMLButtonElement>('[data-view-button]').forEach((button) => {
+        button.onclick = () => this.showView(button.dataset.viewButton || 'desktop');
+      });
+      this.showView(window.matchMedia('(max-width: 40rem)').matches ? 'mobile' : this.dataset.view || 'desktop');
+    }
+    showView(view: string) {
+      this.dataset.view = view;
+      this.querySelectorAll<HTMLButtonElement>('[data-view-button]').forEach((button) => {
+        button.setAttribute('aria-pressed', String(button.dataset.viewButton === view));
+      });
+    }
+  }
+  if (!customElements.get('layout-solution-diagram')) customElements.define('layout-solution-diagram', LayoutSolutionDiagram);
+</script>

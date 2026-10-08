@@ -150,6 +150,7 @@ export default defineConfig({
               },
             },
             "guides/code-recap",
+            "guides/layoutdiagrammer",
             {
               label: "Billeder",
               items: [
@@ -159,7 +160,7 @@ export default defineConfig({
             },
             {
               label: "HTML",
-              items: ["html/grundlaeggende", "html/semantisk"],
+              items: ["html/grundlaeggende", "html/semantisk", "html/favicon"],
             },
             {
               label: "CSS",
@@ -241,6 +242,7 @@ export default defineConfig({
           items: [
             "test/om-test",
             "test/5-sek-test",
+            "test/lighthouse-test",
             "test/taenke-hoejt-test",
           ],
         },

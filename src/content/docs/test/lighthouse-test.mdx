@@ -1,7 +1,7 @@
 ---
 title: Lighthouse-test i Chrome
-draft: true
-description: Mål performance, tilgængelighed, SEO og best practices.
+draft: false
+description: Kør Lighthouse i Chrome, forstå rapporten, og brug den til at forbedre jeres website.
 sidebar:
   label: "Lighthouse test"
   order: 30
@@ -15,28 +15,29 @@ import Slide from "../../../components/Slide.astro";
 
 <Slide>
 
-# Lighthouse-test i Chrome
+# Lighthouse-test
 
-**Lighthouse** er et gratis værktøj indbygget i Google Chrome, der kan analysere og vurdere kvaliteten af en webside inden for områder som performance, tilgængelighed, SEO og best practices.
+### Teknisk test af jeres website
 
-**Fokus i Tema 5:**
-
-I Tema 5 har vi arbejdet med at optimere billedstørrelse, billedfiler og filformater – særligt .webp – for at optimere performance og brugeroplevelse på websites, som et absolut minimum. Korrekt brug af billeder har stor betydning for både hastighed og kvalitet, hvilket også afspejles i Lighthouse-testens målinger.
+**Lighthouse** er et open source-værktøj fra Google, som automatisk undersøger en webside og laver en rapport med målinger og forslag til forbedringer.
 
 </Slide>
 
 <div class="page-break"></div>
 <Slide>
 
-## Hvad kan Lighthouse teste?
+## Hvad tester Lighthouse – og hvorfor?
 
-- Ydeevne (Performance)
-- Tilgængelighed (Accessibility)
-- Best practices
-- SEO (Søgemaskineoptimering)
-- Progressive Web App (PWA)
+Chrome DevTools viser rapporter inden for fire kategorier:
 
-En Progressive Web App (PWA) er et website, der fungerer som en app på mobilen eller computeren. En PWA kan installeres på hjemskærmen, virker offline og kan sende push-beskeder – ligesom "rigtige" apps. Det gør brugeroplevelsen hurtigere og mere app-lignende, selvom det stadig er et website.
+- **Performance** – indlæsning og oplevet hastighed
+- **Accessibility** – nogle maskinelt kontrollerbare tilgængelighedsforhold
+- **Best Practices** – tekniske anbefalinger
+- **SEO** – nogle grundlæggende forhold, der hjælper søgemaskiner med at forstå siden
+
+I denne øvelse fokuserer vi især på **Performance**, **Accessibility** og **SEO**. Lighthouse undersøger den side, du vælger – ikke automatisk alle sider på hele websitet.
+
+Brug rapporten til at finde mulige problemer og forbedringer. En score er et fingerpeg, ikke en samlet dom over kvaliteten af websitet.
 
 </Slide>
 
@@ -45,41 +46,34 @@ En Progressive Web App (PWA) er et website, der fungerer som en app på mobilen 
 
 ## Sådan kører du en Lighthouse-test
 
-1. Åbn websiden i Google Chrome.
-2. Højreklik og vælg "Inspicér" (eller brug F12) for at åbne DevTools.
-3. Gå til fanen "Lighthouse".
-4. Vælg hvilke kategorier du vil teste.
-5. Klik på "Analyze page load" eller "Generate report".
-6. Vent et øjeblik – du får nu en rapport med scores og konkrete forslag til forbedringer.
+1. Åbn den side, du vil teste, i Google Chrome.
+2. Højreklik på siden, og vælg **Inspicér** for at åbne DevTools.
+3. Vælg fanen **Lighthouse**.
+4. Vælg kategorier og enhed, fx mobil eller computer.
+5. Klik på **Analyze page load** og derefter **Run audit**.
+6. Når testen er færdig, gennemgå rapportens scores og forslag.
+
+Knappenavne kan variere lidt mellem Chrome-versioner. Lighthouse tester siden i den valgte opsætning, så vælg den visning, du vil undersøge.
 
 </Slide>
 
 <div class="page-break"></div>
 <Slide>
 
-## Fordele og ulemper
+## Hvad skal I kigge efter?
 
-**Fordele:**
+### Performance
+- Store eller unødigt tunge billeder kan gøre siden langsommere. Undersøg filstørrelse, dimensioner og format.
 
-- Gratis og let at bruge
-- Giver konkrete forbedringsforslag
-- Kan gemme og dele rapporter
+### Accessibility
+- Kig fx efter utilstrækkelig kontrast og billeder, der mangler alternativ tekst.
+- Lighthouse kan finde nogle automatiske fejl, men kan ikke afgøre, om en alternativ tekst giver god mening for brugeren.
 
-**Ulemper:**
+### SEO
+- Kig fx efter sidetitel og links, som søgemaskiner kan følge.
+- Rapporten kontrollerer kun udvalgte forhold; den kan ikke garantere en god placering i søgeresultaterne.
 
-- Måler kun én side ad gangen
-- Resultater kan variere afhængigt af netværk og computer
-
-</Slide>
-
-<div class="page-break"></div>
-<Slide>
-
-Læs mere om Lighthouse:
-
-[Google Lighthouse dokumentation](https://developer.chrome.com/docs/lighthouse/)
-
-[Sådan bruger du Lighthouse – Google Developers](https://web.dev/measure/)
+Lighthouse finder ikke alle problemer. Kombinér rapporten med manuel kontrol og test med rigtige brugere, når det er relevant.
 
 </Slide>
 
@@ -87,9 +81,27 @@ Læs mere om Lighthouse:
 
 <Slide>
 
-## Næste skridt
+## Øvelse: test og forbedr jeres eget site
 
-Fortsæt i rækken:
+1. Åbn jeres website, og vælg én side, I vil undersøge.
+2. Kør Lighthouse, og skriv kategoriernes scores ned.
+3. Vælg 2–3 konkrete forbedringspunkter fra rapporten.
+4. Implementér ændringerne.
+5. Kør testen igen på samme side med samme enhedsvalg, og sammenlign rapporterne.
 
-[Gå til Tænke-højt-test →](/test/taenke-hoejt-test/)
+Resultater kan ændre sig med computer, netværk, Chrome-udvidelser og andre forhold. Sammenlign derfor under så ens betingelser som muligt, og brug forslagene til at vælge næste skridt – ikke til kun at jagte en høj score.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Læs mere
+
+[Google Lighthouse: overblik og dokumentation](https://developer.chrome.com/docs/lighthouse/overview/)
+
+[Lighthouse i Chrome DevTools](https://developer.chrome.com/docs/devtools/lighthouse/)
+
+Fortsæt derefter med [Tænke-højt-test →](/test/taenke-hoejt-test/).
 </Slide>

@@ -1,0 +1,177 @@
+---
+title: "Tema 3: Layoutdiagrammer – løsninger"
+description: Løsningsforslag til de to wireframe-opgaver med layoutdiagram, HTML og CSS til mobil og desktop.
+draft: false
+pagefind: false
+sidebar:
+  hidden: true
+prev: false
+next: false
+---
+
+import Slide from "../../../components/Slide.astro";
+import LayoutSolutionDiagram from "../../../components/LayoutSolutionDiagram.astro";
+import { Code } from "@astrojs/starlight/components";
+import { baseCss, solutions } from "../../../data/layoutdiagram-solutions";
+import "../../../styles/layout-diagram-lesson.css";
+
+<Slide>
+
+## Løsningsforslag til begge opgaver
+
+Her er **én mulig løsning til hver wireframe**. Begge bevarer mobilrækkefølgen:
+
+**Billede 1 → tekst 1 → billede 2 → tekst 2 → billede 3 → tekst 3.**
+
+For hver opgave kan du se et layoutdiagram, den tilhørende HTML og de CSS-regler, der laver layoutet.
+
+- [Gå til opgave 1](#opgave-1).
+- [Gå til opgave 2](#opgave-2).
+- Brug [den fælles grundstyling](#fælles-grundstyling) sammen med CSS til den valgte opgave.
+
+[← Tilbage til gennemgangen og opgaverne](/guides/layoutdiagrammer/)
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Opgave 1
+
+De første to billede/tekst-par kan samles i **hver sit `.kort`**. De to kort bliver direkte børn i den øverste `.grid_1-1`.
+
+Det tredje billede og tekstfelt ligger i endnu en `.grid_1-1` nedenunder.
+
+<LayoutSolutionDiagram exercise={1} />
+
+På desktop placerer det øverste grid **to kort** ved siden af hinanden. Det nederste grid placerer **billede 3 og tekst 3** ved siden af hinanden. Inde i hvert kort bliver billede og tekst stående over hinanden.
+
+[Åbn det fungerende eksempel til opgave 1](/eksempler/layoutdiagrammer/opgave-1.html) · [Se den originale wireframe](/illustrationer/layoutdiagrammer/wireframe-1.pdf)
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Opgave 1: HTML
+
+Begge grid-containere har **to direkte børn**. Hvert kort holder sit billede og sin tekst samlet.
+
+<Code code={solutions[0].html} lang="html" title="Indhold i body · opgave 1" />
+
+På mobil læses hele kort 1 før kort 2, og derefter kommer billede og tekst 3.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Opgave 1: CSS
+
+På mobil følger felterne dokumentets rækkefølge. Fra `800px` aktiveres grid på begge `.grid_1-1`-containere:
+
+<Code code={solutions[0].css} lang="css" title="Layoutregler · opgave 1" />
+
+- `grid-template-columns` giver **to lige brede kolonner**.
+- `gap` laver afstand mellem kolonnerne. Børnenes ekstra `margin-top` fjernes på desktop.
+- `.kort` får ikke grid. Billedet og teksten følger stadig hinanden lodret, med afstand fra `.kort > * + *`.
+
+`minmax(0, 1fr)` fordeler pladsen ligeligt og tillader kolonnerne at blive smalle. `800px` er det valgte breakpoint i dette eksempel.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Opgave 2
+
+På desktop har billede 2 og billede 3 byttet placering i forhold til opgave 1. Her skal billeder og tekster kunne placeres **uafhængigt af hinanden**.
+
+Løsningen bruger derfor én `.grid_opgave_2` med **alle seks felter som direkte børn**.
+
+<LayoutSolutionDiagram exercise={2} />
+
+På desktop er rækkefølgen i de tre rækker:
+
+1. Billede 1 · billede 3.
+2. Tekst 1 · tekst 2.
+3. Billede 2 · tekst 3.
+
+[Åbn det fungerende eksempel til opgave 2](/eksempler/layoutdiagrammer/opgave-2.html) · [Se den originale wireframe](/illustrationer/layoutdiagrammer/wireframe-2.pdf)
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Opgave 2: HTML
+
+Skriv de seks felter i den rækkefølge, der giver mening på **mobil**. Giv dem særskilte classes, så CSS kan placere dem på desktop:
+
+<Code code={solutions[1].html} lang="html" title="Indhold i body · opgave 2" />
+
+Hver tekstsektion samler en overskrift og et afsnit. Classes som `tekst_1` bestemmer placeringen, mens den fælles class `tekst` bruges til styling.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Opgave 2: CSS
+
+Fra `800px` får containeren to kolonner. Hvert af de seks felter får sin egen **kolonne og række**:
+
+<Code code={solutions[1].css} lang="css" title="Layoutregler · opgave 2" />
+
+Fx placerer `.billede_3` sig i **kolonne 2, række 1**. `.billede_2` placerer sig i **kolonne 1, række 3**. Rækkerne oprettes automatisk, når vi placerer felterne i dem.
+
+Alle placeringer ligger inde i media queryen. På mobil er der derfor ingen grid-placering, og felterne følger HTML-rækkefølgen.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Fælles grundstyling
+
+Gem den fælles CSS først i dit stylesheet, og tilføj derefter **layoutreglerne til den opgave, du arbejder med**.
+
+<details>
+<summary>Vis den fælles CSS til billeder, tekst og sidens bredde</summary>
+
+<Code code={baseCss} lang="css" title="Grundstyling · begge opgaver" />
+
+</details>
+
+Læg opgavens HTML inde i `body` på en almindelig HTML-side. I `head` skal du blandt andet have:
+
+```html
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="styles.css" />
+```
+
+De fungerende eksempler bruger disse pladsholdere: [billede 1](/eksempler/layoutdiagrammer/billede-1.svg), [billede 2](/eksempler/layoutdiagrammer/billede-2.svg) og [billede 3](/eksempler/layoutdiagrammer/billede-3.svg). Gem dem ved siden af din HTML-fil, eller brug egne billeder og tilpas stier og alt-tekster.
+
+Grå baggrunde, afstande og korte eksempeltekster hjælper med at vise layoutet. Felternes præcise højde afhænger af dit indhold.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Kontrollér løsningen i browseren
+
+Åbn et fungerende eksempel, og ændr browserens bredde:
+
+- **Under 800px:** Begge løsninger skal vise billede og tekst 1, 2 og 3 i én kolonne.
+- **Fra 800px:** Opgave 1 viser to kort øverst og billede/tekst 3 nederst.
+- **Fra 800px:** Opgave 2 viser billede 1 og 3 øverst, tekst 1 og 2 i midten og billede 2 og tekst 3 nederst.
+
+CSS ændrer den visuelle placering. HTML-rækkefølgen skal stadig være meningsfuld, også for oplæsning og tastaturnavigation.
+
+Sammenlign dit diagram med HTML: **Er de elementer, du vil placere, direkte børn af den rigtige grid-container?**
+
+[← Tilbage til opgaverne](/guides/layoutdiagrammer/)
+
+</Slide>

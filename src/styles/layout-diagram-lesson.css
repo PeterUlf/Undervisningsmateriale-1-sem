@@ -1,0 +1,97 @@
+.layout-source-pair {
+  display: grid;
+  grid-template-columns: minmax(0, .55fr) minmax(0, 1.7fr);
+  gap: 1rem;
+  align-items: start;
+}
+
+.layout-source-pair > figure {
+  margin: 0;
+  min-width: 0;
+}
+
+.layout-source-pair img {
+  display: block;
+  width: 100%;
+  height: 25rem;
+  object-fit: contain;
+  object-position: top;
+  background: white;
+  border-radius: .3rem;
+  padding: .5rem;
+}
+
+.layout-source-pair figcaption,
+.layout-exercise figcaption {
+  margin-top: .5rem;
+  font-size: .8rem;
+  color: var(--sl-color-gray-2);
+}
+
+.layout-exercise {
+  margin-block: 1rem;
+}
+
+.layout-exercise img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  max-height: 30rem;
+  margin-inline: auto;
+  background: white;
+  border-radius: .3rem;
+  padding: .5rem;
+}
+
+.layout-color-key {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem 1rem;
+  margin-block: 1rem;
+  font-size: .9rem;
+}
+
+.layout-color-key span {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  margin: 0;
+}
+
+.layout-color-key span::before {
+  content: "";
+  width: 1rem;
+  height: 1rem;
+  border: 3px solid var(--key-color);
+  background: white;
+}
+
+.layout-color-key .key-grid { --key-color: #bf2525; }
+.layout-color-key .key-group { --key-color: #2458ae; }
+.layout-color-key .key-content { --key-color: #26814c; }
+
+@media screen {
+  body:has(.layout-diagram-demo, .solution-diagram) #presentation-dialog .generated-slide {
+    min-height: 0;
+    padding: 2rem;
+  }
+
+  body:has(.layout-diagram-demo, .solution-diagram) #presentation-dialog .generated-slide h2 {
+    margin-top: 0;
+  }
+
+  body:has(.layout-diagram-demo, .solution-diagram) #presentation-dialog .generated-slide p {
+    padding: 0;
+  }
+}
+
+@media (max-width: 40rem) {
+  .layout-source-pair { grid-template-columns: minmax(0, 1fr); }
+  .layout-source-pair img { height: auto; max-height: 25rem; }
+}
+
+@media print {
+  .layout-source-pair { grid-template-columns: minmax(0, .55fr) minmax(0, 1.7fr); }
+  .layout-source-pair img { height: 18rem; }
+  .layout-exercise img { max-height: 20rem; }
+}

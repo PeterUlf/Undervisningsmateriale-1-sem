@@ -1,0 +1,132 @@
+---
+title: Favicon
+draft: false
+description: Tilføj et favicon, så dit website får sit eget ikon i browseren
+sidebar:
+  label: Favicon
+  order: 3
+  badge:
+    text: Tema 3
+    variant: tip
+    class: badge-theme-3
+---
+
+import Slide from "../../../components/Slide.astro";
+
+<Slide>
+
+# Favicon
+
+### En lille detalje, der gør et website lettere at genkende
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Hvad er et favicon?
+
+Et **favicon** (historisk fra _favorite icon_) er et lille ikon, der repræsenterer et website. Det vises typisk ved sidens titel i browserfanen og kan også dukke op i bogmærker og browserhistorik.
+
+På mobil kan en gemt genvej bruge et særskilt ikon, fx et **Apple Touch Icon** eller ikoner fra et web app manifest. Det er relaterede website-ikoner, men de er ikke altid det samme favicon som i browserfanen.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Hvorfor bruge et favicon?
+
+- Det gør det lettere at finde dit website blandt mange åbne faner og bogmærker.
+- Det understøtter websitets visuelle identitet.
+- Et enkelt, tydeligt ikon kan stadig genkendes, når det vises meget småt.
+
+Et favicon er ikke nødvendigt for, at websitet fungerer. Uden et eget ikon kan browseren vise et standardikon; det betyder ikke i sig selv, at der er noget galt med websitet.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Filformat og størrelse
+
+- **PNG** er et enkelt, bredt understøttet valg til et almindeligt favicon.
+- **ICO** er et traditionelt format med bred browserkompatibilitet og kan indeholde flere ikonstørrelser.
+- **SVG** er vektorbaseret og kan skaleres skarpt. Understøttelsen afhænger dog af browser og version, så behold gerne en PNG- eller ICO-fil som fallback.
+
+**16 × 16 px** og **32 × 32 px** er almindelige favicon-størrelser, ikke universelle krav. Lav ikonet kvadratisk, enkelt og tydeligt i lille størrelse. Til favicons i Googles søgeresultater kræver Google mindst 8 × 8 px og anbefaler mere end 48 × 48 px. Det er Googles særskilte retningslinje for søgeresultater, ikke et generelt krav for browserfaner.
+
+[Googles retningslinjer for favicon i søgeresultater](https://developers.google.com/search/docs/appearance/favicon-in-search)
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Værktøjer til at lave et ikon
+
+- [Favicon.io](https://favicon.io/) kan generere ikoner fra tekst, emoji eller et billede og hente de filer, der skal bruges på et website.
+- [Favicon.cc](https://www.favicon.cc/) lader dig tegne et ikon direkte i browseren.
+
+Vælg et motiv med få detaljer og god kontrast. Tjek, at det stadig er til at kende, når det vises i 16 × 16 px.
+
+[W3Schools: HTML Favicon](https://www.w3schools.com/html/html_favicon.asp)
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Tilføj favicon til HTML
+
+Læg filerne ved websitets rod, fx ved siden af `index.html`, og tilføj linkene i sidens `<head>`:
+
+```html
+<link rel="icon" href="/favicon.ico" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+```
+
+SVG-linket giver browsere, der understøtter SVG-favicons, mulighed for at bruge SVG-filen. ICO-filen fungerer som et kompatibelt alternativ. Sørg for, at stierne passer til filernes placering; hvis websitet udgives i en undermappe, skal stien også passe til den placering.
+
+### Bonus: lad et SVG-ikon følge mørkt tema
+
+I en SVG-fil kan en `prefers-color-scheme`-media query skifte ikonets farve, når browseren eller enheden bruger mørkt tema:
+
+```css
+path {
+  fill: #222;
+}
+
+@media (prefers-color-scheme: dark) {
+  path {
+    fill: #fff;
+  }
+}
+```
+
+Dette er CSS inde i selve SVG-filen, ikke i HTML-sidens stylesheet. Det virker kun i understøttende browsere, så behold en synlig standardfarve og test ikonet i både lyst og mørkt tema.
+
+[CSS-Tricks: SVG-favicons og mørkt tema](https://css-tricks.com/svg-favicons-and-all-the-fun-things-we-can-do-with-them/)
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Opgave: lav favicon til jeres emnesite
+
+Brug **15 minutter** på at:
+
+1. Lave et favicon, der passer til jeres emnesite.
+2. Gemme ikonfilen i projektet og tilføje den i `<head>`.
+3. Åbne websitet og kontrollere, at ikonet vises i browserfanen.
+
+Hold motivet enkelt, og tjek at det også kan genkendes i lille størrelse.
+
+</Slide>

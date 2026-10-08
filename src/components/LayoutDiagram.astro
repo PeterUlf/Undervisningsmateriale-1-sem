@@ -1,0 +1,124 @@
+---
+// Class-navnene i tegningen svarer til eksemplerne i layoutdiagram-lektionen.
+---
+
+<layout-diagram-demo class="layout-diagram-demo" data-view="desktop">
+  <div class="ld-controls" role="group" aria-label="Vis layoutdiagram til mobil eller desktop">
+    <span>Vis layout:</span>
+    <button type="button" data-view-button="mobile" aria-pressed="false">Mobil</button>
+    <button type="button" data-view-button="desktop" aria-pressed="true">Desktop</button>
+  </div>
+  <p class="ld-status" aria-live="polite">Desktop: To hovedkolonner. Billede 2 står til højre for tekst 2.</p>
+  <figure class="ld-figure">
+    <div class="ld-scroll" tabindex="0" role="region" aria-label="Layoutdiagram med farvede kasser. Kan scrolles vandret på små skærme.">
+      <div class="ld-canvas">
+        <div class="ld-box ld-page">
+          <div class="ld-label"><code>.side</code><span>main · max-width</span></div>
+          <div class="ld-heading">h1 · Sidens overskrift</div>
+          <div class="ld-box ld-grid ld-outer">
+            <div class="ld-label"><code>.grid_2-1</code><span>div · grid på desktop</span></div>
+            <div class="ld-outer-content">
+              <div class="ld-box ld-group">
+                <div class="ld-label"><code>.indhold</code><span>div · samler de to sektioner</span></div>
+                <div class="ld-box ld-grid ld-first">
+                  <div class="ld-label"><code>.grid_1-2</code><span>section · grid på desktop</span></div>
+                  <div class="ld-row">
+                    <div class="ld-box ld-leaf ld-image"><div class="ld-label"><code>.billede</code><span>img</span></div><span>Billede 1</span></div>
+                    <div class="ld-box ld-leaf ld-text"><div class="ld-label"><code>.tekst</code><span>div</span></div><span>h2 + p · Tekst 1</span></div>
+                  </div>
+                </div>
+                <div class="ld-box ld-grid ld-second">
+                  <div class="ld-label"><code>.grid_2-1.bytter</code><span>section · grid på desktop</span></div>
+                  <div class="ld-row">
+                    <div class="ld-box ld-leaf ld-image"><div class="ld-label"><code>.billede</code><span>img</span></div><span>Billede 2</span></div>
+                    <div class="ld-box ld-leaf ld-text"><div class="ld-label"><code>.tekst</code><span>div</span></div><span>h2 + p · Tekst 2</span></div>
+                  </div>
+                </div>
+              </div>
+              <div class="ld-box ld-group ld-third">
+                <div class="ld-label"><code>.ekstra</code><span>section · tredje indholdsgruppe</span></div>
+                <div class="ld-box ld-leaf"><div class="ld-label"><code>.billede</code><span>img</span></div><span>Billede 3</span></div>
+                <div class="ld-box ld-leaf"><div class="ld-label"><code>.tekst</code><span>div</span></div><span>h2 + p · Tekst 3</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <figcaption>Samme kasser og samme HTML-rækkefølge i begge visninger. De røde kasser får grid på desktop. Farverne er hjælp til at læse diagrammet.</figcaption>
+  </figure>
+</layout-diagram-demo>
+
+<style>
+  .layout-diagram-demo { display: block; margin-block: 1rem; font-size: 1rem; }
+  .ld-controls { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; }
+  .ld-controls > span { margin-right: .25rem; font-weight: 600; }
+  .ld-controls button { margin: 0; border: 1px solid var(--sl-color-gray-3); border-radius: .35rem; padding: .4rem .8rem; background: var(--sl-color-bg); color: var(--sl-color-text); font: inherit; cursor: pointer; }
+  .ld-controls button[aria-pressed="true"] { border-color: var(--sl-color-text-accent); background: var(--sl-color-accent-low); color: var(--sl-color-text-accent); }
+  .ld-controls button:focus-visible, .ld-scroll:focus-visible { outline: 2px solid var(--sl-color-text-accent); outline-offset: 3px; }
+  .layout-diagram-demo .ld-status { padding: 0; margin-block: .6rem; font-size: .85rem; }
+  .layout-diagram-demo .ld-figure { margin: 0; }
+  .ld-scroll { overflow-x: auto; padding: .2rem; border-radius: .4rem; background: white; }
+  .ld-canvas { min-width: 39rem; padding: .5rem; color: #222; background: white; }
+  .ld-canvas * { box-sizing: border-box; margin: 0; }
+  .ld-box { min-width: 0; border: 2px solid; padding: .5rem; background: #fff; }
+  .ld-page { border-color: #525252; }
+  .ld-grid { border-color: #bf2525; background: #fff7f7; }
+  .ld-group { border-color: #2458ae; background: #f4f7ff; }
+  .ld-leaf { border-color: #26814c; background: #f3fbf5; }
+  .ld-label { display: flex; flex-wrap: wrap; gap: .1rem .6rem; align-items: baseline; margin-bottom: .45rem; }
+  .ld-label code { padding: 0; background: none; color: #222; font-size: .82rem; font-weight: 700; overflow-wrap: anywhere; white-space: normal; }
+  .ld-label > span { color: #555; font-size: .65rem; line-height: 1.3; }
+  .ld-leaf > span, .ld-heading { font-size: .75rem; }
+  .ld-heading { padding: .4rem 0 .7rem; }
+  .ld-outer-content { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: .6rem; align-items: start; }
+  .ld-row { display: grid; gap: .5rem; }
+  .ld-first .ld-row { grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); }
+  .ld-second { margin-top: .6rem; }
+  .ld-second .ld-row { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); }
+  .ld-second .ld-image { grid-column: 2; grid-row: 1; }
+  .ld-second .ld-text { grid-column: 1; grid-row: 1; }
+  .ld-third > .ld-leaf + .ld-leaf { margin-top: .6rem; }
+  .ld-figure figcaption { margin-top: .65rem; color: var(--sl-color-gray-2); font-size: .8rem; line-height: 1.5; }
+  [data-view="mobile"] .ld-canvas { min-width: 0; max-width: 25rem; margin-inline: auto; }
+  [data-view="mobile"] .ld-outer-content, [data-view="mobile"] .ld-row { grid-template-columns: minmax(0, 1fr); }
+  [data-view="mobile"] .ld-second .ld-image, [data-view="mobile"] .ld-second .ld-text { grid-column: auto; grid-row: auto; }
+  @media print {
+    .ld-controls { display: none; }
+    .ld-scroll { overflow: visible; }
+    .ld-canvas { min-width: 0; }
+    .ld-canvas, .ld-canvas * { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+    .ld-figure figcaption { color: #444; }
+  }
+</style>
+
+<script>
+  class LayoutDiagramDemo extends HTMLElement {
+    private initialized = false;
+
+    connectedCallback() {
+      if (this.initialized) return;
+      this.initialized = true;
+      // Hver instans, inklusive kopierne i slideshowet, får egne handlers.
+      this.querySelectorAll<HTMLButtonElement>('[data-view-button]').forEach((button) => {
+        button.onclick = () => this.showView(button.dataset.viewButton || 'desktop');
+      });
+      this.showView(window.matchMedia('(max-width: 40rem)').matches ? 'mobile' : this.dataset.view || 'desktop');
+    }
+
+    showView(view: string) {
+      this.dataset.view = view;
+      this.querySelectorAll<HTMLButtonElement>('[data-view-button]').forEach((button) => {
+        button.setAttribute('aria-pressed', String(button.dataset.viewButton === view));
+      });
+      const status = this.querySelector('.ld-status');
+      if (status) status.textContent = view === 'mobile'
+        ? 'Mobil: Én kolonne. Billede og tekst følger rækkefølgen 1 → 2 → 3.'
+        : 'Desktop: To hovedkolonner. Billede 2 står til højre for tekst 2.';
+    }
+  }
+
+  if (!customElements.get('layout-diagram-demo')) {
+    customElements.define('layout-diagram-demo', LayoutDiagramDemo);
+  }
+</script>
