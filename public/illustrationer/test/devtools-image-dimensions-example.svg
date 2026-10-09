@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1480" height="500" viewBox="0 0 1480 500">
+  <rect width="1480" height="500" rx="18" fill="#202124"/>
+  <rect x="0" y="0" width="1480" height="62" rx="18" fill="#303134"/>
+  <rect x="0" y="44" width="1480" height="18" fill="#303134"/>
+  <circle cx="31" cy="31" r="7" fill="#81c995"/>
+  <text x="55" y="39" fill="#e8eaed" font-family="Arial, sans-serif" font-size="24">Chrome DevTools · Console</text>
+  <text x="48" y="105" fill="#bdc1c6" font-family="Arial, sans-serif" font-size="19">Vælg først &lt;img&gt;-elementet under Elements, så $0 henviser til billedet.</text>
+  <text x="48" y="159" fill="#8ab4f8" font-family="monospace" font-size="22">&gt; $0.naturalWidth + " × " + $0.naturalHeight</text>
+  <text x="76" y="194" fill="#e8eaed" font-family="monospace" font-size="22">"2400 × 1600"</text>
+  <text x="48" y="247" fill="#8ab4f8" font-family="monospace" font-size="22">&gt; $0.getBoundingClientRect().width</text>
+  <text x="76" y="282" fill="#e8eaed" font-family="monospace" font-size="22">600</text>
+  <text x="48" y="335" fill="#8ab4f8" font-family="monospace" font-size="22">&gt; $0.getBoundingClientRect().height</text>
+  <text x="76" y="370" fill="#e8eaed" font-family="monospace" font-size="22">400</text>
+  <rect x="810" y="118" width="620" height="280" rx="14" fill="#292a2d" stroke="#5f6368" stroke-width="2"/>
+  <text x="850" y="166" fill="#fbbc04" font-family="Arial, sans-serif" font-size="21" font-weight="700">Supplerende måling · ikke Lighthouse-output</text>
+  <text x="850" y="224" fill="#e8eaed" font-family="Arial, sans-serif" font-size="24">Billedfilens pixelmål</text>
+  <text x="850" y="262" fill="#8ab4f8" font-family="monospace" font-size="27">2400 × 1600 px</text>
+  <text x="850" y="323" fill="#e8eaed" font-family="Arial, sans-serif" font-size="24">Vist størrelse i browseren</text>
+  <text x="850" y="361" fill="#8ab4f8" font-family="monospace" font-size="27">600 × 400 CSS-px</text>
+</svg>

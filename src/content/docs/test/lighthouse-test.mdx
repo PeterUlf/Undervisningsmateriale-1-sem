@@ -4,11 +4,11 @@ draft: false
 description: Kør Lighthouse i Chrome, forstå rapporten, og brug den til at forbedre jeres website.
 sidebar:
   label: "Lighthouse test"
-  order: 30
+  order: 4
   badge:
-    text: Tema 5
+    text: Tema 3
     variant: tip
-    class: badge-theme-5
+    class: badge-theme-3
 ---
 
 import Slide from "../../../components/Slide.astro";
@@ -26,7 +26,7 @@ import Slide from "../../../components/Slide.astro";
 <div class="page-break"></div>
 <Slide>
 
-## Hvad tester Lighthouse – og hvorfor?
+## Hvad tester Lighthouse?
 
 Chrome DevTools viser rapporter inden for fire kategorier:
 
@@ -37,7 +37,16 @@ Chrome DevTools viser rapporter inden for fire kategorier:
 
 I denne øvelse fokuserer vi især på **Performance**, **Accessibility** og **SEO**. Lighthouse undersøger den side, du vælger – ikke automatisk alle sider på hele websitet.
 
-Brug rapporten til at finde mulige problemer og forbedringer. En score er et fingerpeg, ikke en samlet dom over kvaliteten af websitet.
+</Slide>
+
+<div class="page-break"></div>
+<Slide>
+
+## Hvorfor bruge Lighthouse?
+
+Lighthouse giver en hurtig teknisk kontrol af en valgt side og peger på mulige problemer, du kan undersøge og forbedre. Det kan fx hjælpe med at finde tunge billeder, kontrastproblemer eller manglende alternativ tekst.
+
+Kør testen igen efter ændringer, og sammenlign resultaterne under så ens betingelser som muligt. En score er et fingerpeg – ikke en samlet dom over websitets kvalitet eller brugeroplevelse. Kombinér derfor rapporten med manuel kontrol og brugertest.
 
 </Slide>
 
@@ -50,7 +59,7 @@ Brug rapporten til at finde mulige problemer og forbedringer. En score er et fin
 2. Højreklik på siden, og vælg **Inspicér** for at åbne DevTools.
 3. Vælg fanen **Lighthouse**.
 4. Vælg kategorier og enhed, fx mobil eller computer.
-5. Klik på **Analyze page load** og derefter **Run audit**.
+5. Klik på **Analyze page load** for at starte testen.
 6. Når testen er færdig, gennemgå rapportens scores og forslag.
 
 Knappenavne kan variere lidt mellem Chrome-versioner. Lighthouse tester siden i den valgte opsætning, så vælg den visning, du vil undersøge.
@@ -74,6 +83,64 @@ Knappenavne kan variere lidt mellem Chrome-versioner. Lighthouse tester siden i 
 - Rapporten kontrollerer kun udvalgte forhold; den kan ikke garantere en god placering i søgeresultaterne.
 
 Lighthouse finder ikke alle problemer. Kombinér rapporten med manuel kontrol og test med rigtige brugere, når det er relevant.
+
+</Slide>
+
+<div class="page-break"></div>
+<Slide>
+
+## Billedformat: find billeder, der kan blive lettere
+
+<figure>
+  <img src="/illustrationer/test/lighthouse-modern-formats.png" alt="Lighthouse-rapport med fundet “Serve images in next-gen formats”, billedadresser, filstørrelser og estimerede besparelser." width="880" height="337" style="display: block; width: 100%; max-width: 880px; height: auto; margin-inline: auto;" />
+  <figcaption>Skærmbillede fra <a href="https://developer.chrome.com/docs/lighthouse/performance/uses-webp-images/">Chrome Developers: moderne billedformater</a> (CC BY 4.0). Tekster og layout kan variere mellem Chrome-versioner.</figcaption>
+</figure>
+
+Se efter fundet **Serve images in modern formats** eller **Serve images in next-gen formats**. Åbn fundet for at se, hvilke billedfiler Lighthouse mener kan fylde mindre.
+
+I dette forløb sigter vi efter **WebP (`.webp`)** til almindelige webfotos. Lighthouse kan også foreslå AVIF. Vælg format efter jeres arbejdsgang, og kontrollér, at billedkvaliteten stadig er god.
+
+</Slide>
+
+<div class="page-break"></div>
+<Slide>
+
+## Billedstørrelse: KiB er ikke pixelmål
+
+<figure>
+  <img src="/illustrationer/test/lighthouse-properly-sized.png" alt="Lighthouse-fundet “Properly size images” med billedadresser, filstørrelser og estimerede besparelser." width="880" height="290" style="display: block; width: 100%; max-width: 880px; height: auto; margin-inline: auto;" />
+  <figcaption>Skærmbillede fra <a href="https://developer.chrome.com/docs/lighthouse/performance/uses-responsive-images/">Chrome Developers: korrekt billedstørrelse</a> (CC BY 4.0). Lighthouse sammenholder billedets viste størrelse med billedfilens størrelse, men besparelsen vises her som datamængde – ikke pixels.</figcaption>
+</figure>
+
+Et fund som **Properly size images** peger på billeder, der muligvis er større end nødvendigt til den plads, de vises på. Kig på billedets URL og den estimerede besparelse. Høj KiB betyder mere data; det fortæller ikke i sig selv, hvor mange pixels billedet har.
+
+Vælg billedet under **Elements** i DevTools, og brug Console til at se pixelmålene. Eksemplet viser en fil på **2400 × 1600 px**, der vises som **600 × 400 CSS-px**:
+
+<figure>
+  <img src="/illustrationer/test/devtools-image-dimensions-example.svg" alt="Forenklet DevTools Console-eksempel: naturalWidth og naturalHeight viser billedet som 2400 gange 1600 pixels; getBoundingClientRect viser en vist størrelse på 600 gange 400 CSS-pixels." width="1480" height="500" style="display: block; width: 100%; max-width: 880px; height: auto; margin-inline: auto;" />
+  <figcaption>Supplerende, forenklet eksempel på måling i DevTools Console – det er ikke en del af Lighthouse-rapporten.</figcaption>
+</figure>
+
+Hvis et billede vises meget mindre, kan I eksportere en mindre version eller levere passende størrelser til forskellige skærme. Sammenlign også filstørrelsen, ikke kun pixelmålene.
+
+</Slide>
+
+<div class="page-break"></div>
+<Slide>
+
+## Manglende alternativ tekst
+
+<figure>
+  <img src="/illustrationer/test/lighthouse-missing-alt-example.svg" alt="Forenklet Lighthouse Accessibility-fund: to billedadresser er markeret med alt mangler, efterfulgt af forslag om beskrivende alt-tekst eller tom alt-attribut for dekorative billeder." width="1480" height="650" style="display: block; width: 100%; max-width: 880px; height: auto; margin-inline: auto;" />
+  <figcaption>Forenklet eksempel – konkrete fund og formuleringer varierer mellem Lighthouse-versioner.</figcaption>
+</figure>
+
+I **Accessibility** kan et fund som **Image elements do not have [alt] attributes** vise, hvilke billeder der mangler en `alt`-attribut. Klik på fundet for at undersøge de berørte elementer.
+
+- Beskrivende billeder skal have kort, relevant alternativ tekst, fx `alt="Rød cykel foran en murstensvæg"`.
+- Rent dekorative billeder skal normalt have tom alternativ tekst: `alt=""`.
+
+Lighthouse kan opdage, at teksten mangler, men ikke vurdere, om den beskriver billedet godt. Tjek derfor selv, om teksten hjælper en bruger, der ikke kan se billedet.
 
 </Slide>
 
