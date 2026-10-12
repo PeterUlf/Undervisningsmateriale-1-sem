@@ -356,6 +356,7 @@ const hidePresentation = Astro.url.pathname === "/quiz/tema-8" || Astro.url.path
       children.forEach(child => {
         // Ignorer scripts, styles og UI elementer
         if (['STYLE', 'SCRIPT', 'LINK', 'META'].includes(child.tagName)) return;
+        if (child.hasAttribute('data-presentation-ignore')) return;
         if (child.classList.contains('presentation-ui') || child.querySelector('.presentation-ui')) return;
         // Ignorer page-break divs
         if (child.classList.contains('page-break')) return;

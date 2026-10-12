@@ -9,7 +9,7 @@ const draftLinks = Object.fromEntries(docs.map((doc) => [publicHref(doc), draftH
 draftLinks['/tema-oversigt/'] = '/draft/tema-oversigt/';
 ---
 
-<aside class="draft-notice" aria-label="Kladdevisning">
+<aside class="draft-notice" aria-label="Kladdevisning" data-presentation-ignore>
   <strong>{isDraft ? 'Draft · denne side er en kladde' : 'Kladdevisning · alle sider er tilgængelige'}</strong>
   <nav aria-label="Kladdevisning">
     <a href="/draft/?tema=all">Alle sider inkl. drafts</a>

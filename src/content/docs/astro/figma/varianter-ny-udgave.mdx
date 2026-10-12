@@ -1,0 +1,273 @@
+---
+title: "Figma-varianter – ny udgave"
+description: "Et forløb på 40 minutter med AI-studiehjælp, summeøvelse, afprøvbare eksempler og en selvstændig opgave om tre knapstørrelser."
+draft: true
+pagefind: false
+sidebar:
+  label: "Varianter – ny udgave"
+  order: 6.09
+  badge:
+    text: Tema 3
+    variant: tip
+    class: badge-theme-3
+---
+
+import Slide from "../../../../components/Slide.astro";
+import VariantStudyFigure from "../../../../components/VariantStudyFigure.astro";
+
+<Slide>
+
+## Brug AI til at forstå Figma-varianter
+
+Brug AI til at undersøge **din begrundelse for at vælge en variant**. Du kender allerede komponenter og instances.
+
+**En prompt til senere brug:**
+
+> Jeg går på 1. semester på multimediedesign og kender Figma-komponenter og instances. Hjælp mig med at forstå, hvornår en knap har brug for en variant. Bed først om mit eget bud og min begrundelse. Stil ét spørgsmål ad gangen, og vent på mit svar. Giv små hints, hvis jeg går i stå, men lav ikke komponenten eller opgavens løsning for mig.
+
+**Følg op:** “Undersøg min forklaring på forskellen mellem en ny knaptekst og en ny variant. Stil ét kontrolspørgsmål, og vent.”
+
+AI er til senere øvelse og selvstudium. **Summeøvelsen om lidt er kun samtale.**
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Flere udgaver, et fælles system
+
+**Tema 3 · 1. semester · 40 minutter inklusive aktiviteter.**
+
+Du skal kunne:
+
+1. Samle beslægtede knapper i et **component set** med tydelige valgmuligheder.
+2. Vælge variant på en **instance** og skelne mellem udseende og tekst.
+3. Tilpasse princippet til et andet behov og afprøve, om det virker.
+
+Vi bruger et **tænkt site til en designaften**. Hav din Figma-fil og en enkel main component fra [komponentøvelsen](/astro/figma/komponenter/) klar. Du kan også lave en ny knap med den kendte arbejdsgang.
+
+**Forløbet:** Tal sammen → se og afprøv → løs en ændret opgave → vurder og forbedr.
+
+[Sammenlign med den oprindelige variantside](/astro/figma/varianter/) · [Undervisernoter og tidsplan](/dette-site/figma-varianter-undervisernoter/)
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Sum: Hvilken handling får mest opmærksomhed?
+
+**3 minutter · grupper på 3–5 · kun samtale, ingen AI eller opslag.**
+
+Arrangøren vil gerne have tilmeldinger. Besøgende skal også kunne se programmet, før de beslutter sig. Her er to tænkte udkast:
+
+<VariantStudyFigure kind="problem" />
+
+**Hvilket udkast hjælper bedst med de to behov — og hvorfor?**
+
+Lad alle komme med et bud. Vær klar til at dele én begrundelse; I behøver ikke være enige.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Del to bud fra holdet
+
+**2 minutter · kort fælles opsamling.**
+
+Vi hører to forskellige begrundelser:
+
+- Hvilken handling lagde I først mærke til?
+- Hvad i udformningen påvirkede jeres valg?
+
+Hold fast i jeres første bud. Nu undersøger vi, hvordan en valgt forskel kan gøres **konsekvent og genbrugelig** i Figma.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Gør forskellen til et valg
+
+I udkast B giver den fyldte knap “Tilmeld mig” mere visuel vægt. Knapperne kan stadig tilhøre samme familie: samme typografi, form og luft, men forskellig vægt.
+
+<VariantStudyFigure kind="family" />
+
+Et **component set** samler familiens varianter. **Type** er egenskaben; **Primary** og **Secondary** er dens værdier. En instance bruger én variant ad gangen.
+
+**Knapteksten er indhold.** “Se program” behøver ikke sin egen variant, hvis udseendet allerede findes.
+
+Faglig reference: [Figma om varianter og component sets](https://help.figma.com/hc/en-us/articles/39636737843735-Components-collection-Variants-and-component-set-fundamentals).
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Demonstration: Opret en ekstra udgave
+
+**Se først arbejdsgangen i underviserens Figma-fil.**
+
+1. Marker knappens **main component**. Fra en instance kan du vælge **Go to main component**.
+2. Højreklik på originalen: **Main component → Add variant**.
+3. Figma samler de to udgaver i et **component set**.
+
+<VariantStudyFigure kind="create" />
+
+To eksisterende main components kan i stedet samles med **Combine as variants**. Brug kun én af arbejdsgangene her.
+
+Kilde til arbejdsgangen: [Figma: Create and use variants](https://help.figma.com/hc/en-us/articles/360056440594-Create-and-use-variants).
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Navngiv forskellen, og tegn den
+
+1. Kald sættet **Button**. Marker hele sættet, dobbeltklik på variant-egenskabens navn under **Properties**, og skriv **Type**.
+2. Marker hver variant, og giv dens Type værdien **Primary** eller **Secondary** i højre panel.
+3. Giv Secondary lys **Fill**, mørk tekst og en tydelig **Stroke**. Behold typografi, padding og afrunding.
+
+<VariantStudyFigure kind="naming" />
+
+Behold “Tilmeld mig” på begge, mens du sammenligner. **Navnet alene ændrer ikke udseendet.**
+
+Ved konflikt: To varianter må ikke have samme kombination af egenskabsværdier. [Figmas vejledning om navngivning og værdier](https://help.figma.com/hc/en-us/articles/360056440594-Create-and-use-variants).
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Prøv: Hvad ændrer Type, og hvad bliver bevaret?
+
+**2 minutter · kort fælles afprøvning.**
+
+Skriv “Se program”, skift Type til Secondary og tilbage. Sig til sidemakkeren, hvad der ændrer sig, og hvad der bliver stående.
+
+<VariantStudyFigure kind="play" />
+
+I Figma: Træk en instance fra **Assets** til dit layout. Marker hele instancen, og vælg **Type** i højre panel. Rediger teksten i tekstlaget.
+
+Valget her demonstrerer princippet. En rigtig klik- eller hover-interaktion skal opsættes i **Prototype**; variantens navn opretter den ikke.
+
+Kilder: [Instances og Assets](https://help.figma.com/hc/en-us/articles/360039150173-Create-and-insert-component-instances) · [Komponentegenskaber](https://help.figma.com/hc/en-us/articles/5579474826519-Explore-component-properties) · [Interaktive varianter](https://help.figma.com/hc/en-us/articles/360061175334-Create-interactive-components-with-variants).
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Din opgave: Tre størrelser til tre situationer
+
+**10 minutter · individuelt i Figma, derefter feedback i grupper på 3–5.** Vi bruger 2 minutter på instruktion og kriterier, før arbejdstiden starter.
+
+Designaftenen har nu brug for den samme knap tre steder:
+
+| Placering | Behov |
+| --- | --- |
+| En tæt liste over workshops | En kompakt knap. |
+| Et kort med én workshop | En knap med almindelig luft. |
+| Siden, hvor man tilmelder sig | En mere rummelig knap. |
+
+Lav et **nyt, selvstændigt component set med tre størrelser og kun én variant-egenskab**. Brug en enkel main component som udgangspunkt. Behold samme typografi, farver og afrunding; tilpas luft omkring teksten. Vælg selv meningsfulde navne og passende padding.
+
+Indsæt tre instances på en arbejdsframe med labels for de tre placeringer. Brug mindst to forskellige knaptekster. **Aflever i din Figma-fil:** sættet, de tre instances og én sætning om, hvorfor størrelserne passer til behovene. Opgaven kræver ikke prototypeforbindelser.
+
+Brug kriterierne på næste slide. AI må hjælpe med spørgsmål efter dit eget første forsøg; brug studieprompten fra slide 1.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Kriterier og hjælp til opgaven
+
+| Kriterium | Virkeligt godt | Godt nok | For lidt endnu |
+| --- | --- | --- | --- |
+| Struktur og navne | Tre tydelige størrelser, navne en makker forstår uden forklaring. | Ét sæt, én egenskab, tre forskellige værdier, ingen konflikt. | Løse knapper eller dublerede værdier. Saml sættet og tjek navnene. |
+| Sammenhæng | Luft og placering begrundes, også ved længere tekst. | Tre størrelser via padding; samme grunddesign og læsbar tekst. | Kun farve eller tekst er ændret. Arbejd med pladsen omkring teksten. |
+| Afprøvning | Alle valg er testet, og mindst én forbedring forklares. | Alle tre instances kan skifte størrelse; tekst bevares og klippes ikke. | Kun et billede af resultatet. Afprøv instancernes valg i Figma. |
+
+<details>
+<summary>Vis et hint</summary>
+
+Spørg dig selv: Hvilken forskel skal man vælge mellem denne gang? Hvor meget luft har hver placering brug for? Brug samme tekst, mens du sammenligner størrelserne. Test bagefter med længere tekst.
+
+Hvis du mangler en startknap: Skriv en tekst, brug `Shift + A`, tilføj Fill og padding, og lav hele framen til en komponent. Det er den kendte arbejdsgang fra komponentøvelsen.
+
+</details>
+
+<details>
+<summary>Vis et løsningsforslag — sammenlign med dit eget</summary>
+
+Et muligt sæt er **WorkshopButton** med egenskaben **Size** og værdierne **Compact**, **Regular** og **Spacious**. Tilføj varianter med Add variant; giv hver sin værdi. Vælg fx padding på henholdsvis 6/10, 10/16 og 16/24 px (lodret/vandret), og lad knappernes størrelse følge indholdet med Hug contents. Tallene er forslag, ikke krav.
+
+<VariantStudyFigure kind="sizes" />
+
+Brug Compact i listen, Regular på kortet og Spacious ved tilmelding. Behold fx 16 px tekst på alle tre. Det genbrugte princip er et navngivet valg mellem varianter; forskellen ligger nu i størrelsen frem for den visuelle vægt.
+
+Indsæt tre instances fra Assets. Skift hver af dem mellem alle tre Size-værdier. Prøv “Se workshop” og “Tilmeld mig designaftenen”. Kontrollér, at teksten bevares, og at knappen følger teksten uden afklipning. Hvis to valg ser ens ud, tjek padding på varianterne i sættet.
+
+Andre navne og størrelser kan være lige så gode, når de opfylder behovene og kriterierne.
+
+</details>
+
+**Hvis du bliver hurtigt færdig:** Prøv en længere knaptekst i en smal frame. Forbedr størrelserne inden for de samme tre værdier, og begrund dit valg. Det er ekstra; nye egenskaber er ikke nødvendige.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Test hinandens valg, og forbedr én ting
+
+**5 minutter · grupper på 3–5 ved bordet.**
+
+Lad hver person kort vise sin fil. En anden i gruppen vælger størrelser på en instance og prøver en længere tekst.
+
+1. Kan alle tre valg findes, og gør de noget forskelligt?
+2. Passer størrelserne til de tre placeringer?
+3. Kan teksten læses, og bevares den ved skift?
+
+Brug kriterierne til én konkret tilbagemelding. **Ret mindst én ting i din egen løsning**, og fortæl, hvad rettelsen forbedrer. Hvis løsningen allerede fungerer, så gør navngivningen eller forklaringen tydeligere.
+
+Åbn først løsningsforslaget, efter at du selv har forsøgt og afprøvet.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Tilbage til jeres første bud
+
+**3 minutter · først gruppen, så et individuelt svar.**
+
+Genbesøg de to udkast til designaftenen: Hvad ville I beholde eller ændre i jeres første begrundelse? Hvordan kan varianter gøre jeres valg konsekvent på flere sider?
+
+Afslut hver især med at forklare til en makker:
+
+> Knappen skal skifte fra “Se program” til “Læs program”. Hvornår er det nok at redigere teksten, og hvornår ville du oprette en variant? Begrund med dit eget eksempel.
+
+Brug næste gang et reelt behov fra dit emnesite som begrundelse for at tilføje en variant.
+
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+
+## Kilder, illustrationer og sammenligning
+
+Arbejdsgangene er kontrolleret mod Figmas officielle vejledninger **12. oktober 2026**. Links står ved de relevante trin.
+
+<h3 id="illustrationernes-ophav">Illustrationernes ophav</h3>
+
+Alle figurer og den interaktive model er udarbejdet til dette undervisningssite med AI-assistance fra **Codex**, 12. oktober 2026. De er skematiske illustrationer, ikke Figma-skærmbilleder. Kilde: denne sides komponent `src/components/VariantStudyFigure.astro`.
+
+**Brugsgrundlag:** Originalt materiale udarbejdet på bestilling til dette site; ingen eksterne billedfiler er genbrugt. Der er ikke valgt en særskilt åben licens til illustrationerne. Navne og pile indgår i de originale figurer. [Registrering af illustrationer og kontrol](/dette-site/figma-varianter-undervisernoter/#illustrationer-og-brugsgrundlag).
+
+**Sammenlign udgaverne:** [Oprindelig variantside](/astro/figma/varianter/) · [Tidligere visuelt forslag](/draft/astro/figma/varianter-visuelt-forslag/) · [Undervisernoter til denne udgave](/dette-site/figma-varianter-undervisernoter/).
+
+</Slide>

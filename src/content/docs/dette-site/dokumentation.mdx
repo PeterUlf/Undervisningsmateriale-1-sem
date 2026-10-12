@@ -134,6 +134,8 @@ En undervisningsside består typisk af flere `<Slide>`-blokke. `src/components/S
 
 `PresentationMode.astro` samler slideblokkene i en dialog, der fylder skærmen. Den styrer næste/forrige slide, tæller, tastaturnavigation, lukning og print. Hvis en side ikke har eksplicitte slideblokke, kan komponenten danne slides ud fra overskrifter. Brug eksplicitte blokke i nye undervisningsforløb, så opdelingen er forudsigelig.
 
+Kladdebanneret er markeret med `data-presentation-ignore`, så det ikke bliver et ekstra slide før undervisningens første slide.
+
 Printfunktionen bruger browserens printdialog, hvor man også kan gemme som PDF. Print-CSS og eventuelle `<div class="page-break"></div>` styrer sideskift. Pakkerne `jspdf` og `html2canvas` står i `package.json`, men den aktuelle slideshow-printfunktion bruger dem ikke.
 
 Interaktive komponenter giver eksempler, der kan afprøves direkte:
@@ -199,10 +201,12 @@ Mappen `powerpoints brugt som grundlag/` indeholder kildemateriale. Filer her bl
 
 Start med [undervisningsprompten](/dette-site/undervisningsprompt/) og en relevant eksisterende side. Et forløb varer normalt 15–45 minutter. Et længere emne deles op i flere forløb.
 
+Forkundskaber udledes af tema og draft-status: Alle sider i tidligere temaer regnes som gennemgåede, inklusive drafts. I det aktuelle tema regnes kun ikke-drafts som gennemgåede; senere temaer indgår ikke. Læs temaet i `sidebar.badge.text` og brug indholdsfilernes draft-status, da en `/draft/`-adresse også kan vise en udgivet side.
+
 1. Opret en MDX-fil under det relevante fagområde i `src/content/docs/`.
 2. Udfyld titel, beskrivelse og temabadge. Start med `draft: true`.
 3. Importér Slide-komponenten, og fordel forløbet i tydelige slideblokke.
-4. Brug første slide til en kort vejledning i AI som studiemakker til emnet, med en konkret prompt, der hjælper uden at give løsningen. Indled derefter det faglige arbejde med en summeopgave: grupper på 3–5, kun samtale uden AI, normalt 2–4 og højst 5 minutter. Lad den efterfølgende forklaring besvare det problem, grupperne lige har drøftet.
+4. Indled det faglige arbejde med en summeopgave: grupper på 3–5, kun samtale uden AI, normalt 2–4 og højst 5 minutter. Medtag kun AI-vejledning, hvis den har en konkret faglig værdi, og placér den efter den første summeøvelse og opsamling. Lad den efterfølgende forklaring besvare det problem, grupperne lige har drøftet.
 5. Brug visuelle eksempler og øvelser, der anvender de samme principper i en ny situation. Vis kriterierne for et godt svar, og lad hints og løsninger være sammenfoldet som udgangspunkt.
 6. Tilføj siden til den normale sidemenu i `astro.config.mjs`, og afprøv den i kladdevisning, slideshow og på en smal skærm.
 7. Sæt `draft: false`, når siden er klar til almindelig udgivelse, og byg sitet igen.
@@ -226,16 +230,6 @@ import Slide from "../../../components/Slide.astro";
 
 <Slide>
 
-## Brug AI som studiemakker i emnet
-
-Indsæt en kort, emnespecifik studieprompt og én opfølgning fra undervisningspromptens regler. AI skal stille spørgsmål, give små hints og lade dig selv forklare og afprøve. Vejledningen er til senere brug; summeøvelsen er uden AI.
-
-</Slide>
-
-<div class="page-break"></div>
-
-<Slide>
-
 ## Summe: Hvordan ville I løse problemet?
 
 **3 minutter · grupper på 3–5 · kun samtale**
@@ -243,6 +237,19 @@ Indsæt en kort, emnespecifik studieprompt og én opfølgning fra undervisningsp
 Indsæt et konkret problem, som dagens forklaring hjælper med at løse.
 
 </Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Del to bud
+
+Hør kort to forskellige begrundelser fra holdet.
+
+</Slide>
+
+{/* Hvis AI er fagligt relevant: Indsæt et kort AI-slide her.
+    Udelad det helt, hvis det ikke hjælper med det konkrete emne. */}
 
 <div class="page-break"></div>
 

@@ -1,0 +1,130 @@
+---
+interface Props {
+  kind: 'problem' | 'family' | 'create' | 'naming' | 'play' | 'sizes';
+}
+const { kind } = Astro.props;
+const descriptions = {
+  problem: 'To udkast til samme tilmeldingskort. I A er begge handlinger fyldte. I B har Se program en kant.',
+  family: 'Sættet Button indeholder Primary og Secondary. En instance i layoutet vælger én af de to.',
+  create: 'Main component efterfulgt af Add variant og et sæt med to endnu ens knapper.',
+  naming: 'Button er sættet. Type er egenskaben. Primary og Secondary er værdierne.',
+  play: 'Skift knappens udseende og tekst hver for sig. Teksten bevares ved skift af Type.',
+  sizes: 'Et muligt størrelsessystem: Compact, Regular og Spacious med samme tekst og udtryk, men forskellig luft.',
+};
+---
+
+<figure class="variant-study-figure">
+  {kind === 'problem' && (
+    <div class="vs-pair" role="img" aria-label={descriptions.problem}>
+      {['A', 'B'].map((version) => (
+        <div class="vs-card">
+          <span class="vs-label">Udkast {version}</span>
+          <strong>Designaften · 24. oktober</strong>
+          <p>En tænkt begivenhed for designstuderende.</p>
+          <span class="vs-button">Tilmeld mig</span>
+          <span class:list={['vs-button', { 'vs-outline': version === 'B' }]}>Se program</span>
+        </div>
+      ))}
+    </div>
+  )}
+  {kind === 'family' && (
+    <div class="vs-flow" role="img" aria-label={descriptions.family}>
+      <div class="vs-set">
+        <strong>Button · component set</strong>
+        <div class="vs-pair">
+          <div><span class="vs-label">Type = Primary</span><span class="vs-button">Tilmeld mig</span></div>
+          <div><span class="vs-label">Type = Secondary</span><span class="vs-button vs-outline">Tilmeld mig</span></div>
+        </div>
+      </div>
+      <span class="vs-arrow" aria-hidden="true">→</span>
+      <div class="vs-card"><span class="vs-label">Instance i layoutet</span><span class="vs-button vs-outline">Se program</span><span>Type = Secondary</span></div>
+    </div>
+  )}
+  {kind === 'create' && (
+    <div class="vs-pair" role="img" aria-label={descriptions.create}>
+      <div class="vs-card"><span class="vs-label">1 · Marker originalen</span><span class="vs-button">Tilmeld mig</span><strong>Main component</strong><span class="vs-route">Add variant →</span></div>
+      <div class="vs-set"><span class="vs-label">2 · To varianter i ét sæt</span><span class="vs-button">Tilmeld mig</span><span class="vs-button">Tilmeld mig</span><span>Udseendet er stadig ens.</span></div>
+    </div>
+  )}
+  {kind === 'naming' && (
+    <div class="vs-pair" role="img" aria-label={descriptions.naming}>
+      <div class="vs-set"><strong>Button</strong><span class="vs-label">Type = Primary</span><span class="vs-button">Tilmeld mig</span><span class="vs-label">Type = Secondary</span><span class="vs-button vs-outline">Tilmeld mig</span></div>
+      <div class="vs-card"><strong>Hvad vælger du?</strong><div class="vs-property"><span>Type</span><strong>Secondary ▾</strong></div><span>↑ Egenskab og valgt værdi</span><p>Skematisk eksempel på et valg, ikke et skærmbillede af Figma.</p></div>
+    </div>
+  )}
+  {kind === 'play' && (
+    <variant-study-demo>
+      <div class="vs-pair">
+        <div class="vs-card vs-controls">
+          <label>Type<select data-variant-choice><option value="primary">Primary</option><option value="secondary">Secondary</option></select></label>
+          <label>Knaptekst<input data-variant-text type="text" value="Tilmeld mig" maxlength="50" /></label>
+          <p>Skift udseende og tekst uafhængigt.</p>
+        </div>
+        <div class="vs-card vs-preview"><span class="vs-label">Instance i dit layout</span><span class="vs-button" data-variant-preview>Tilmeld mig</span><p role="status" data-variant-status>Type = Primary · teksten er “Tilmeld mig”.</p></div>
+      </div>
+    </variant-study-demo>
+  )}
+  {kind === 'sizes' && (
+    <div class="vs-size-row" role="img" aria-label={descriptions.sizes}>
+      <div><span class="vs-label">Compact · liste</span><span class="vs-button vs-compact">Se workshop</span></div>
+      <div><span class="vs-label">Regular · kort</span><span class="vs-button">Se workshop</span></div>
+      <div><span class="vs-label">Spacious · tilmelding</span><span class="vs-button vs-spacious">Se workshop</span></div>
+    </div>
+  )}
+  <figcaption>{kind === 'play' ? 'Interaktiv illustration' : 'Skematisk illustration'} til dette site · AI-assistance: Codex, 12. oktober 2026. Ingen særskilt åben licens. <a href="/dette-site/figma-varianter-undervisernoter/#illustrationer-og-brugsgrundlag">Kilde og brugsgrundlag</a>.</figcaption>
+</figure>
+
+<script>
+  class VariantStudyDemo extends HTMLElement {
+    connectedCallback() {
+      const select = this.querySelector<HTMLSelectElement>('[data-variant-choice]');
+      const input = this.querySelector<HTMLInputElement>('[data-variant-text]');
+      const preview = this.querySelector<HTMLElement>('[data-variant-preview]');
+      const status = this.querySelector<HTMLElement>('[data-variant-status]');
+      if (!select || !input || !preview || !status) return;
+      // Recover the displayed state when the slideshow creates a new instance.
+      select.value = preview.classList.contains('vs-outline') ? 'secondary' : 'primary';
+      input.value = preview.textContent || '';
+      const update = () => {
+        const secondary = select.value === 'secondary';
+        preview.classList.toggle('vs-outline', secondary);
+        preview.textContent = input.value;
+        status.textContent = `Type = ${secondary ? 'Secondary' : 'Primary'} · teksten er “${input.value}”.`;
+      };
+      select.onchange = update;
+      input.oninput = update;
+      update();
+    }
+  }
+  if (!customElements.get('variant-study-demo')) customElements.define('variant-study-demo', VariantStudyDemo);
+</script>
+
+<style>
+  .variant-study-figure { --vs-ink: #173b33; --vs-green: #185a46; --vs-purple: #6846a1; margin: 1.2rem 0; padding: 1.1rem; border: 1px solid #d1d9cd; border-radius: .8rem; background: #f7f5ef; color: var(--vs-ink); }
+  .variant-study-figure * { box-sizing: border-box; }
+  .vs-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; align-items: stretch; }
+  .vs-card, .vs-set { display: grid; gap: .8rem; align-content: start; min-width: 0; padding: 1rem; border: 1px solid #c8d2c4; border-radius: .6rem; background: #fffdf7; }
+  .vs-set { border: 2px dashed var(--vs-purple); background: #f0eaf8; }
+  .vs-card p, .vs-set p { margin: 0; font-size: .95rem; }
+  .vs-label { display: block; margin: 0 0 .5rem; font-size: .85rem; font-weight: 650; color: #4b5f56; }
+  .vs-button { display: inline-flex; justify-content: center; align-items: center; justify-self: start; max-width: 100%; padding: .7rem 1.1rem; border: 2px solid var(--vs-green); border-radius: .55rem; background: var(--vs-green); color: #fff; font-size: 1.05rem; font-weight: 700; line-height: 1.3; overflow-wrap: anywhere; text-align: center; }
+  .vs-outline { background: #fffdf7; color: var(--vs-green); }
+  .vs-flow { display: grid; gap: .75rem; align-items: center; }
+  .vs-arrow { font-size: 1.8rem; text-align: center; transform: rotate(90deg); }
+  .vs-route { color: var(--vs-purple); font-weight: 700; }
+  .vs-property { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem; padding: .7rem; border: 2px solid var(--vs-purple); border-radius: .3rem; }
+  variant-study-demo { display: block; }
+  .vs-controls label { display: grid; gap: .4rem; font-weight: 650; }
+  .vs-controls :is(select, input) { width: 100%; min-width: 0; padding: .6rem; border: 1px solid #84998a; border-radius: .3rem; background: #fff; color: var(--vs-ink); font: inherit; }
+  .vs-preview { align-content: center; justify-items: center; text-align: center; }
+  .vs-preview .vs-button { justify-self: center; }
+  .vs-size-row { display: flex; flex-wrap: wrap; align-items: center; gap: 1.3rem; }
+  .vs-compact { padding: .35rem .65rem; }
+  .vs-spacious { padding: 1.05rem 1.7rem; }
+  .variant-study-figure figcaption { margin-top: 1rem; font-size: .8rem; line-height: 1.5; color: #4b5f56; }
+  .variant-study-figure a { color: #185a46; }
+  .variant-study-figure :is(input, select, a):focus-visible { outline: 3px solid #9b3c25; outline-offset: 3px; }
+  @media (min-width: 1100px) { .vs-flow { grid-template-columns: minmax(0, 1.5fr) auto minmax(0, 1fr); } .vs-arrow { transform: none; } }
+  @media (max-width: 600px) { .vs-pair { grid-template-columns: 1fr; } }
+  @media print { .variant-study-figure { break-inside: avoid; print-color-adjust: exact; -webkit-print-color-adjust: exact; } .vs-controls { display: none; } variant-study-demo .vs-pair { grid-template-columns: 1fr; } }
+</style>

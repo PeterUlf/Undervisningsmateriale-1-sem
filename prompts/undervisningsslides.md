@@ -11,16 +11,34 @@ Du skal hjælpe mig med at udvikle undervisningsslides til multimediedesignerudd
 - Emne: [udfyld]
 - Tema: [udfyld]
 - Samlet undervisningstid inklusive aktiviteter og opsamling: [15–45 minutter; angiv ønsket varighed, hvis den er kendt]
-- Det har de studerende allerede arbejdet med: [udfyld]
+- Forkundskaber: [udled automatisk fra tema og draft-status efter reglerne nedenfor; angiv kun eventuelle undtagelser eller tilføjelser]
 - Efter undervisningen skal de kunne: [udfyld, eller foreslå 2–3 konkrete læringsmål]
 - Aktuelt projekt eller case: [udfyld, eller foreslå en lille relevant case]
 - Materiale, der skal bruges som reference: [filstier, links eller vedhæftninger]
 - Regler for nettet og AI i de efterfølgende anvendelsesopgaver: [udfyld, hvis relevant; den indledende samtale er altid uden opslag og AI]
 - Output: [som udgangspunkt MDX til mit eksisterende Starlight-site; ellers angiv format]
 
-Tema 1–6 er 1. semester. De efterfølgende temaer i mit materiale er 2. semester. Brug dette til at tilpasse støtte og kompleksitet, men antag ikke, at et bestemt tema eller semester i sig selv dokumenterer alle nødvendige forkundskaber.
+Tema 1–6 er 1. semester. De efterfølgende temaer i mit materiale er 2. semester. Brug dette til at tilpasse støtte og kompleksitet, og udled de konkrete forkundskaber fra materialet efter reglerne nedenfor.
 
 Hvis afgørende oplysninger mangler, så stil højst tre korte, samlede spørgsmål. Fortsæt med de dele, der kan laves. Ved mindre uklarheder skal du vælge en rimelig løsning og nævne antagelsen. Hvis referencematerialet ikke er tilgængeligt, skal du sige det frem for at påstå, at du følger det.
+
+### Udled forkundskaber fra tema og draft-status
+
+Når jeg angiver tema N, er følgende udgangspunktet for det, de studerende allerede har fået undervisning i:
+
+1. **Alle sider i tidligere temaer** (temaer med et lavere nummer end N) regnes som tilgængelige og gennemgåede, også hvis siderne er markeret som drafts.
+2. **Sider i det aktuelle tema N** regnes kun som gennemgåede, hvis de ikke er drafts: `draft: false` eller standardværdien false, når feltet er udeladt.
+3. **Drafts i det aktuelle tema og alle sider i senere temaer** må ikke forudsættes gennemgået. De kan bruges som inspiration, men nødvendige begreber herfra skal introduceres i forløbet eller udgå af opgaven.
+
+**Eksempel: Tema 3.** Alt materiale i tema 1 og 2 er tilgængeligt og undervist i, uanset draft-status. I tema 3 tæller kun sider, der ikke er drafts. Tema 3-drafts og materiale fra tema 4 og frem indgår ikke i forkundskaberne.
+
+Læs temaet fra sidernes metadata, i dette projekt `sidebar.badge.text`, fx `Tema 3`, og brug den faktiske draft-status i indholdssamlingen. Brug hele materialet, inklusive drafts, frem for kun den offentlige menu eller søgning. Ved lokal adgang læses filerne i `src/content/docs/`; ved adgang via sitet bruges kladdevisningen og sidernes temamarkeringer. En URL under `/draft/` fortæller ikke i sig selv, at indholdet er en draft, da visningen også indeholder udgivne sider. Sider uden et kendt tema kan kun regnes med, hvis jeg udtrykkeligt har angivet dem som forkundskaber.
+
+Udvælg og læs de fagligt relevante sider i dette grundlag. Beskriv kort i undervisernoterne, hvilke konkrete færdigheder det giver anledning til at bygge videre på, med henvisninger til siderne. Skeln mellem tidligere gennemgået stof og det, dagens forløb skal træne eller forklare. Undgå at genundervise hele tidligere forløb; brug en kort påmindelse eller et link, når det er nok. At et stof er gennemgået, betyder ikke, at alle studerende mestrer det uden støtte.
+
+Ved en ny udgave af et eksisterende forløb gælder samme regel om forkundskaber. Bevar samtidig forløbets faglige mål, så nyudgaven kan sammenlignes med den gamle; lav ikke automatisk en avanceret fortsættelse, blot fordi den gamle udgave er udgivet.
+
+Mine udtrykkelige undtagelser eller tilføjelser har forrang. Bed mig ikke udfylde forkundskaberne manuelt, når tema og materiale er tilgængelige. Hvis tema, draft-status eller nødvendige sider ikke kan læses, så angiv præcist usikkerheden frem for at opfinde indhold eller påstå, at det er gennemgået. Fortsæt med det dokumenterede grundlag.
 
 ### Mine valgte greb fra det eksisterende materiale
 
@@ -28,19 +46,22 @@ Kombinér disse præferencer i nye forløb, når de passer til emnet:
 
 | Reference i projektet | Det skal videreføres |
 | --- | --- |
+| `src/content/docs/astro/figma/varianter-visuelt-forslag.mdx` | Den primære visuelle reference: varme, lyse slideflader, store mørke overskrifter, god luft, korte instruktioner og store illustrationer. Se afsnittet om foretrukket visuelt udtryk. |
 | `src/content/docs/guides/layoutdiagrammer.mdx` og den tilhørende løsningsside | Eksempler, som de studerende kan afprøve direkte, samt løsningsforslag, der først vises efter et aktivt valg. |
 | `src/content/docs/git/intro-til-github.mdx` | Faktiske skærmbilleder og konkrete billeder med pile, der peger præcist på det relevante. |
 | `src/content/docs/ux/struktur-og-planlaegning-af-design.mdx` | Overskuelige tabeller, som sammenligner begreber, viser forskelle eller forbinder et problem med et eksempel. |
 
 Tilføj summe-slides efter reglerne nedenfor. De er en fast del af den nye skabelon, selv om de mangler i referenceforløbene.
 
-### Første slide: Brug AI til at forstå netop dette emne
+### Valgfri AI-vejledning efter den første summeøvelse
 
-Det allerførste slide i hvert forløb skal vise, hvordan de studerende kan bruge AI som studiemakker til det konkrete emne. Brug en titel som “Brug AI til at forstå [emne]”. Giv kort vejledning og en prompt, de kan kopiere, når de senere studerer eller arbejder med emnet. Slidet er en introduktion til en arbejdsform, ikke en aktivitet, hvor de skal åbne AI med det samme. Den indledende summeøvelse er fortsat kun samtale uden AI og opslag.
+Medtag kun AI-vejledning, hvis AI kan hjælpe de studerende med at forstå eller undersøge noget konkret i netop dette emne. Vurdér relevansen ud fra læringsmål og aktivitet: fx at undersøge en misforståelse, få spørgsmål til sin begrundelse eller få gradvise hints til et fagligt problem. En generel opfordring til at “spørge AI” er ikke nok. Udelad vejledningen helt, hvis den ikke tilfører en tydelig faglig hjælp, eller hvis direkte afprøvning af den konkrete arbejdsgang er mere relevant. Notér kort begrundelsen for valg eller fravalg i undervisernoterne.
+
+Hvis vejledningen er relevant, skal den stå på et kort slide **efter den første summeøvelse og den korte fælles opsamling**, før den faglige forklaring. De studerende skal først have tænkt selv og delt deres bud. Brug en titel som “Brug AI til at forstå [emne]”. Giv kort vejledning og en prompt, de kan kopiere, når de senere studerer eller arbejder med emnet. Slidet er en introduktion til en arbejdsform, ikke en aktivitet, hvor de skal åbne AI med det samme. Summeøvelsen er altid kun samtale uden AI og opslag.
 
 Tilpas vejledningen til emnet, læringsmålene og de oplyste forkundskaber. Forklar med én kort sætning, hvad AI kan hjælpe dem med at undersøge eller forstå: fx at forudsige, hvad en CSS-regel gør, begrunde en gruppering af indhold eller undersøge, hvor deres forståelse af en Git-arbejdsgang er usikker. Vælg én relevant anvendelse frem for at gentage en generel liste over AI-muligheder på alle forløb.
 
-Første slide skal indeholde:
+Når AI-slidet medtages, skal det indeholde:
 
 - **En konkret anvendelse:** Hvad kan du bruge AI til at forstå i lige præcis dette emne?
 - **En kort, kopierbar studieprompt:** Angiv emne og niveau, lad den studerende dele sit eget bud, og bed AI stille ét spørgsmål ad gangen og vente på svaret. Bed om små hints og feedback på forståelsen uden færdig kode, færdigt produkt eller løsning på opgaven.
@@ -56,13 +77,13 @@ Udfyld de emnefaglige felter i den færdige slide; aflever ikke en generisk prom
 
 En opfølgning kan fx være: “Her er min forklaring: … Stil ét spørgsmål, der undersøger, om jeg har forstået [det konkrete princip]. Vent med at forklare, til jeg har svaret.” Tilpas også denne til emnet. Hvis AI giver for meget af løsningen, kan opfølgningen i stedet bede om at gå tilbage til ét spørgsmål eller ét lille hint.
 
-Hold slidet læsbart: én hovedprompt, én kort opfølgning og få linjers vejledning. Afsæt højst cirka ét minut til introduktionen og medregn det i tidsplanen. Afslør ikke teori, løsningsgreb eller svaret på det kommende summeproblem. Den senere brug af AI skal følge de angivne regler for anvendelsesopgaverne; hvis AI ikke er tilladt dér, er vejledningen til efterfølgende selvstudium. AI-svar skal undersøges gennem de studerendes egne forklaringer, afprøvning og sammenhold med undervisningsmaterialet.
+Hold slidet læsbart: én hovedprompt, én kort opfølgning og få linjers vejledning. Afsæt højst cirka ét minut til introduktionen og medregn det i tidsplanen. Vejledningen skal vise en arbejdsform og må ikke udlevere opgavens løsning eller foregribe den faglige forklaring. Den senere brug af AI skal følge de angivne regler for anvendelsesopgaverne; hvis AI ikke er tilladt dér, kan vejledningen være til efterfølgende selvstudium, når det er relevant. AI-svar skal undersøges gennem de studerendes egne forklaringer, afprøvning og sammenhold med undervisningsmaterialet. Når AI-vejledningen udelades, går forløbet direkte fra opsamlingen til den faglige forklaring; indsæt ikke et tomt erstatningsslide.
 
 ### Pædagogisk princip: Sum først – forklaring bagefter
 
 De studerende skal først tale sammen om det centrale problem, før jeg forklarer teori, begreber eller løsning. Jeg underviser store hold, og samtalen skal give alle mulighed for at deltage og rette opmærksomheden mod emnet. De arbejder i grupper på 3–5 personer med dem, de sidder ved. Det foregår i undervisningen og kræver ikke hjemmearbejde før timen.
 
-Efter den korte introduktion til AI som studiemakker og forløbets retning skal den første faglige aktivitet være en konkret situation, et vist eksempel, en skitse, et resultat eller et lille problem, som de kan tale om med deres eksisterende viden. De skal bare snakke sammen: ingen søgning på nettet, AI, research, kodearbejde eller skriftlig aflevering. De må gerne være usikre og komme med foreløbige eller forkerte bud. Spørgsmålet må ikke kræve beherskelse af det nye stof for overhovedet at komme i gang.
+Efter den korte introduktion til forløbets retning skal den første faglige aktivitet være en konkret situation, et vist eksempel, en skitse, et resultat eller et lille problem, som de kan tale om med deres eksisterende viden. Eventuel AI-vejledning kommer først efter denne samtale og opsamlingen. De skal bare snakke sammen: ingen søgning på nettet, AI, research, kodearbejde eller skriftlig aflevering. De må gerne være usikre og komme med foreløbige eller forkerte bud. Spørgsmålet må ikke kræve beherskelse af det nye stof for overhovedet at komme i gang.
 
 Giv nødvendig praktisk information, og vis et eventuelt eksempel på selve sliden, men vent med den faglige forklaring. Spørg fx: “Hvad lægger I mærke til?”, “Hvad tror I vil ske?”, “Hvilken løsning ville I vælge, og hvorfor?” eller “Hvad har I brug for at finde ud af?” Undgå blot at bede dem slå definitionen af dagens begreb op.
 
@@ -98,12 +119,12 @@ Underviseren samler kort op og kobler forklaringen direkte til samme situation. 
 
 ### Fast opbygning af et undervisningsforløb
 
-Brug følgende rækkefølge. Første trin skal være ét kort slide; de efterfølgende trin kan fylde ét eller flere slides. Gentag en kort samtale før en ny central problemstilling, når det giver mening; lav ikke en ny gruppeaktivitet for hvert lille begreb.
+Brug følgende rækkefølge. Hold introduktionen kort; hvert trin kan fylde ét eller flere slides efter behov. Det valgfrie AI-trin må højst fylde ét kort slide og skal udelades, når det ikke er relevant. Gentag en kort samtale før en ny central problemstilling, når det giver mening; lav ikke en ny gruppeaktivitet for hvert lille begreb.
 
-1. **AI som studiemakker til emnet.** Første slide viser en konkret anvendelse, en emnespecifik studieprompt og én kort opfølgning efter reglerne ovenfor. Fokus er spørgsmål, hints og feedback, der hjælper de studerende med selv at forstå og løse. Der bruges ikke AI under introduktionen eller summeøvelsen.
-2. **Retning og relevans.** Præsenter emnet, en konkret anvendelse og 2–3 læringsmål. Afslør ikke løsningen på det indledende samtalespørgsmål.
-3. **Summe-slide.** En kort samtale i grupper på 3–5, normalt 2–4 minutter og højst 5. Vis en konkret situation og ét spørgsmål om det problem, undervisningen skal hjælpe med at løse. Bed alle i gruppen dele deres bud.
-4. **Del enkelte bud.** Brug som udgangspunkt 1–2 minutter på at høre fx to forskellige bud fra holdet. Der skal ikke være fremlæggelse fra alle grupper. Spørg kort til begrundelsen og brug svarene som indgang til forklaringen. Angiv samtaletid og fælles opsamling hver for sig.
+1. **Retning og relevans.** Præsenter emnet, en konkret anvendelse og 2–3 læringsmål. Afslør ikke løsningen på det indledende samtalespørgsmål.
+2. **Summe-slide.** En kort samtale i grupper på 3–5, normalt 2–4 minutter og højst 5. Vis en konkret situation og ét spørgsmål om det problem, undervisningen skal hjælpe med at løse. Bed alle i gruppen dele deres bud.
+3. **Del enkelte bud.** Brug som udgangspunkt 1–2 minutter på at høre fx to forskellige bud fra holdet. Der skal ikke være fremlæggelse fra alle grupper. Spørg kort til begrundelsen og brug svarene som indgang til forklaringen. Angiv samtaletid og fælles opsamling hver for sig.
+4. **AI som studiemakker — kun hvis relevant.** Efter den første samtale og opsamling vises en konkret anvendelse, en emnespecifik studieprompt og én kort opfølgning efter reglerne ovenfor. Fokus er spørgsmål, hints og feedback, der hjælper de studerende med selv at forstå og løse. Hvis AI ikke tilfører en konkret faglig hjælp, udelades dette trin helt. Der bruges ikke AI under summeøvelsen eller denne korte vejledning.
 5. **Faglig forklaring og eksempel.** Forklar stoffet kort og præcist. Vend tilbage til det samme problem og vis, hvad begreberne eller metoden hjælper med at forstå. Tilføj undervisernoter med mulige misforståelser og forslag til opfølgende spørgsmål; påstå ikke, at grupperne faktisk har sagt noget bestemt.
 6. **Anvend selv.** En egentlig opgave, hvor de bruger det gennemgåede princip i en ændret situation efter variationsreglerne nedenfor. Angiv mål, tid, arbejdsform, materiale, leverance og konkrete krav. Brug kun den startkode eller støtte, de har brug for. Ved længere forløb kan en støttet øvelse efterfølges af en mere åben opgave.
 7. **Vurder og forbedr.** De studerende vurderer deres løsning efter de opgavespecifikke kriterier og forbedrer mindst én ting. Til kodeopgaver skal der stå, hvordan de afprøver resultatet, og hvad de skal kunne observere.
@@ -169,6 +190,24 @@ På 1. semester skal opgaver som udgangspunkt have tydelige rammer, små oversku
 
 Hold hvert slide fokuseret på én hovedidé eller aktivitet. Del tætte forklaringer og store tabeller over flere slides. Læg længere uddybninger i undervisernoter eller supplerende materiale.
 
+### Foretrukket visuelt udtryk: Varianter – visuelt forslag
+
+Brug [Varianter – visuelt forslag](/draft/astro/figma/varianter-visuelt-forslag/) som **primær visuel reference for nye slides**, også når emnet er et andet end Figma. Udtrykket gælder hele slidet: komposition, typografi, farver, luft og forholdet mellem tekst og illustration.
+
+Læs referencefilen `src/content/docs/astro/figma/varianter-visuelt-forslag.mdx`, komponenten `src/components/VariantVisual.astro` og stilarket `src/styles/variants-visual.css`, når du har adgang til projektet. Viderefør disse konkrete greb:
+
+- **Rolige slideflader:** En varm, lys baggrund (`#f7f5ef`), diskrete rammer, afrundede hjørner og god indvendig luft. Hvert slide skal opleves som en samlet, overskuelig flade.
+- **Tydelig typografi:** Store, markante overskrifter i mørkegrøn (`#18352e`), gerne med et velvalgt linjeskift. Brug en enkel sans serif som referencefilens Helvetica Neue/Arial. Skriv korte overskrifter og få støttende linjer; lad figuren forklare en væsentlig del af pointen.
+- **En lille, fast farvepalette:** Brug grøn (`#185a46`) til centrale elementer og rustorange (`#b53e25`) til fx trin og præcise markeringer. Lilla kan markere komponentfamilier eller tilsvarende faglige grupper, hvor det giver mening. Farver skal have en tydelig funktion og tilstrækkelig kontrast.
+- **Tekst og illustration i balance:** Brug ofte to kolonner på større skærme: en kort forklaring eller få trin til venstre og en stor illustration, et skærmbillede eller en interaktiv demonstration til højre. Giv det visuelle mindst lige så meget plads som teksten. Stabl indholdet på små skærme.
+- **Variation inden for samme stil:** Brug sideordnede eksempler til sammenligninger, en stor figur til en central sammenhæng og et tydeligt aktivitetskort med tid til opgaver. Vælg layout efter slidets funktion.
+- **Diskret orientering:** En lille emne- eller trinmarkering øverst og eventuelt en kort hovedpointe nederst, adskilt med en fin linje. Hvis der bruges slidenumre, skal de følge det faktiske forløb og vises ét sted.
+- **Plads til undervisningen:** Hold lange forklaringer og undervisernoter uden for præsentationsfladen. Hint og løsninger kan åbnes aktivt; selve opgaven og kvalitetskriterierne skal være synlige og læsbare.
+
+Tilpas det visuelle udtryk til den aftalte pædagogiske rækkefølge: summeøvelse før forklaring, AI-vejledning kun når relevant og efter første summeøvelse og opsamling, varierede opgaver og synlige kriterier. Referenceforslagets syv slides er ikke et krav til antallet, og dets rækkefølge erstatter ikke promptens undervisningsstruktur. Reglerne om billedrettigheder gælder også ved genbrug af materiale fra referencen.
+
+Kontrollér udtrykket i både almindelig sidevisning og slideshow. Del et overfyldt slide op frem for at gøre tekst, tabeller eller billedkreditering for små. Bevar også læsbarhed på mobil og i print/PDF.
+
 ### Illustrationer og visuel variation
 
 Jeg ønsker flere illustrationer og større visuel variation i materialet. Planlæg de visuelle forklaringer samtidig med indholdet, og lad dem bære en tydelig del af formidlingen. Foreslå for hvert centralt begreb et relevant visuelt eksempel, hvor det giver faglig mening, og indarbejd de valgte eksempler i slidesene.
@@ -219,7 +258,7 @@ Hvis rettighederne ikke kan verificeres, så undlad at indsætte billedet. Find 
 
 Læs først de relevante referencefiler og genbrug projektets eksisterende komponenter og visuelle mønstre. De undersøgte sider bruger MDX, frontmatter med titel, beskrivelse og temaoplysninger, komponenten `Slide` og `<div class="page-break"></div>` mellem slides. Kontrollér importstier og metadata i forhold til den konkrete filplacering.
 
-Tilpas indholdet til den eksisterende visuelle ramme. Nye slides skal ikke automatisk udløse et nyt layout, nye komponenter eller ændringer i den fælles styling.
+Brug det visuelle forslag som udgangspunkt inden for sitets eksisterende ramme. Genbrug eller tilpas dets relevante layout- og stilgreb til det nye indhold; komponenten indeholder Figma-specifik tekst og kan ikke nødvendigvis bruges uændret til andre emner. Afgræns eventuelle nødvendige stilarter til undervisningsslidesene. Nye slides skal ikke automatisk udløse et redesign af sitet eller ændringer i den fælles navigation og styling.
 
 Lever undervisernoter separat fra de studerendes slides. Løsningsforslag, som de studerende skal kunne åbne selv, følger reglerne om skjult standardvisning ovenfor.
 
@@ -227,14 +266,18 @@ Lever undervisernoter separat fra de studerendes slides. Løsningsforslag, som d
 
 Lever:
 
-1. En kort oversigt med læringsmål, nødvendige forkundskaber, tidsplan og valgte illustrationer. Ved flere forløb: vis opdelingen og varigheden af hver del.
-2. Selve slidesene i det aftalte format, inklusive et første slide om emnespecifik AI-studiehjælp, summe-slides, relevante afprøvbare eksempler, anvendelsesopgaver, synlige vurderingskriterier og løsningsforslag, der er skjult som udgangspunkt.
-3. Separate undervisernoter med forbindelsen mellem gruppesvar og forklaring, forventelige misforståelser, vejledende løsningsforslag og en kort angivelse af, hvordan hver opgave varierer det gennemgåede eksempel.
+1. En kort oversigt med læringsmål, forkundskaber udledt af tema og draft-status med henvisninger til relevante sider, tidsplan og valgte illustrationer. Ved flere forløb: vis opdelingen og varigheden af hver del.
+2. Selve slidesene i det aftalte format, inklusive summe-slides, relevante afprøvbare eksempler, anvendelsesopgaver, synlige vurderingskriterier og løsningsforslag, der er skjult som udgangspunkt. Medtag kun emnespecifik AI-studiehjælp, hvis den er relevant, og placér den efter den første summeøvelse og opsamling.
+3. Separate undervisernoter med forbindelsen mellem gruppesvar og forklaring, forventelige misforståelser, vejledende løsningsforslag, en kort begrundelse for valg eller fravalg af AI-vejledning og en angivelse af, hvordan hver opgave varierer det gennemgåede eksempel.
 4. En kort liste over anvendte kilder og eventuelle antagelser samt en billedkildeliste med filsti, ophav, kildelink, licens eller andet dokumenteret tilladelsesgrundlag, ændringer og kontroldato. Indarbejd de synlige billedkrediteringer i slidesene.
 
-Kontrollér inden levering, at første slide i hvert forløb forklarer AI-studiehjælp til netop emnet og har en kopierbar prompt samt én kort opfølgning. De skal fremkalde egne bud, spørgsmål, gradvise hints og feedback frem for færdige løsninger. Kontrollér, at emne og niveau er udfyldt konkret, at slidet ikke afslører summeproblemets løsning, og at AI først bruges senere, hvor det er tilladt.
+Kontrollér inden levering, at forkundskaberne følger reglen: alle tidligere temaer uanset draft-status, kun ikke-drafts i det aktuelle tema og intet fra senere temaer uden særskilt aftale. Kontrollér, at opgaverne kan løses med dette grundlag og dagens undervisning.
+
+Kontrollér, at AI-vejledning kun medtages, når den har en konkret faglig relevans, og at den i så fald kommer efter den første summeøvelse og opsamling. Et eventuelt AI-slide skal have en emnespecifik, kopierbar prompt og én kort opfølgning, som fremkalder egne bud, spørgsmål, gradvise hints og feedback frem for færdige løsninger. Kontrollér, at emne og niveau er udfyldt konkret, og at AI først bruges senere, hvor det er tilladt. Hvis AI ikke er relevant, skal vejledningen være helt udeladt.
 
 Kontrollér, at hvert forløb har et særskilt summe-slide før forklaringen, at samtalen varer højst 5 minutter og kan gennemføres mundtligt uden opslag eller nye faglige forkundskaber. Kontrollér, at problemet fra summe-sliden bliver taget op i forklaringen, at alle i grupperne inviteres til at tale, og at opsamlingen fungerer på et stort hold. Kontrollér, at anvendelsesopgaver og synlige kriterier undersøger læringsmålene, og at hint og løsninger kræver et aktivt valg for at blive vist. Kontrollér også, at hvert forløb holder sig inden for 45 minutter, at de valgte illustrationer hjælper med at forstå stoffet, og at tekst, pile, tabeller og figurer er læselige i de enkelte slides. Ret manglerne inden levering.
+
+Sammenlign det visuelle resultat med “Varianter – visuelt forslag”: Har slidesene samme rolige flader, tydelige typografiske hierarki, luft, farvepalette og store visuelle eksempler? Kontrollér også, at den valgte komposition fungerer for summeøvelser, AI-vejledning når relevant og opgaver med kriterier.
 
 Gennemgå også materialet for gentagelser og opgaver, der ligger for tæt på gennemgangen: Hver anvendelsesopgave skal kræve en relevant tilpasning og kunne løses med kendte principper. Fjern overflødige forklaringer, og omskriv opgaver, som kan løses ved blot at kopiere det viste eksempel uændret. Kontrollér, at de synlige krav og det skjulte løsningsforslag følger samme variant.
 
@@ -265,6 +308,10 @@ Brugeren ønsker desuden summe-slides, hvor grupperne taler om det problem, dage
 
 Brugeren har desuden oplevet unødige gentagelser og opgaver, der ligger for tæt på de gennemgåede eksempler. Opgaverne skal bruge samme faglige princip i en ændret situation, fx tre kolonner efter en gennemgang af to kolonner i CSS Grid. Prompten kræver derfor en fagligt relevant variation uden uvarslede nye krav samt en kontrol af gentagelser før levering.
 
-Brugeren ønsker, at første slide viser, hvordan AI kan hjælpe de studerende med at forstå netop forløbets emne uden at få opgavens løsning. Prompten kræver derfor en emnespecifik studieprompt og en kort opfølgning med egne bud, ét spørgsmål ad gangen, små hints og feedback. Den indledende gruppesamtale er fortsat uden AI.
+Brugeren ønsker kun AI-vejledning, når den er fagligt relevant, og først efter den første summeøvelse og den korte opsamling. Hvis den medtages, skal en emnespecifik studieprompt og en kort opfølgning hjælpe med egne bud, ét spørgsmål ad gangen, små hints og feedback uden at give opgavens løsning. Den indledende gruppesamtale er fortsat uden AI. Dette erstatter det tidligere krav om et obligatorisk AI-slide først i forløbet.
 
 Brugeren ønsker kun billeder, som må bruges på sitet, med tydelig angivelse af kilde og licens. Prompten kræver derfor kontrol af brugsrettigheder, synlige billedkrediteringer og en billedkildeliste. Billeder med uafklarede rettigheder skal udelades eller erstattes.
+
+Brugeren har fastlagt forkundskaberne ud fra tema og draft-status: Alt fra tidligere temaer regnes som gennemgået, også drafts; fra det aktuelle tema regnes kun ikke-drafts som gennemgået. Senere temaer er ikke forkundskaber. Dette erstatter det tidligere krav om manuelt at angive, hvad de studerende har arbejdet med.
+
+Brugeren har valgt udtrykket på `src/content/docs/astro/figma/varianter-visuelt-forslag.mdx` som primær visuel reference. Nye slides skal videreføre dets komposition, farver, store overskrifter, luft og visuelle eksempler, samtidig med at de følger promptens pædagogiske struktur og regler om billedrettigheder.
