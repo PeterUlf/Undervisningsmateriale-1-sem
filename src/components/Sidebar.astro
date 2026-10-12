@@ -2,8 +2,10 @@
 import { getCollection } from 'astro:content';
 import type { Props } from '@astrojs/starlight/props';
 import Default from '@astrojs/starlight/components/Sidebar.astro';
+import { draftHref } from '../utils/draft-navigation';
 
 const docs = await getCollection('docs');
+const isDraftView = /^\/draft(?:\/|$)/.test(Astro.url.pathname);
 
 const extractTemaNumber = (value?: string) => value?.match(/\d+/)?.[0] || '';
 const normalizeDocPath = (value: string) => {
@@ -12,6 +14,7 @@ const normalizeDocPath = (value: string) => {
   return withoutIndex === '' ? '/' : `${withoutIndex}/`;
 };
 const docHref = (doc: { id: string }) => {
+  if (isDraftView) return draftHref(doc);
   const path = normalizeDocPath(doc.id);
   return path === '/' ? '/' : `/${path}`;
 };
@@ -32,7 +35,7 @@ const publishedLinkThemeMap = Object.fromEntries(
   docs.flatMap((doc) => {
     const temaNumber = extractTemaNumber(doc.data.sidebar?.badge?.text);
 
-    if (doc.data.draft || !temaNumber) {
+    if ((!isDraftView && doc.data.draft) || !temaNumber) {
       return [];
     }
 
@@ -57,7 +60,8 @@ const availableThemes = Array.from(new Set(Object.values(publishedLinkThemeMap))
 
 <Default {...Astro.props}><slot /></Default>
 
-<script define:vars={{ availableThemes, linkThemeMap, publishedLinkThemeMap, draftLinkMap }}>
+<script define:vars={{ availableThemes, linkThemeMap, publishedLinkThemeMap, draftLinkMap, isDraftView }}>
+  const themeStorageKey = isDraftView ? 'draftSelectedTheme' : 'selectedTheme';
   const themeNames = {
     1: 'Introuge',
     2: 'Web I',
@@ -123,14 +127,14 @@ const availableThemes = Array.from(new Set(Object.values(publishedLinkThemeMap))
     sidebarLinks.forEach((link) => {
       const href = normalizeLinkHref(link.getAttribute('href'));
 
-      if (!draftLinkMap[href] || link.querySelector('.sidebar-draft-badge')) {
+      if (!draftLinkMap[href] || [...link.querySelectorAll('.sl-badge')].some((badge) => badge.textContent?.trim() === 'Draft')) {
         return;
       }
 
       const badge = document.createElement('span');
       badge.className = 'sl-badge sidebar-draft-badge';
       badge.textContent = 'Draft';
-      badge.title = 'Kladde - ikke publiceret i production';
+      badge.title = 'Kladde';
       link.appendChild(badge);
     });
   }
@@ -204,7 +208,8 @@ const availableThemes = Array.from(new Set(Object.values(publishedLinkThemeMap))
     const urlParams = new URLSearchParams(window.location.search);
     const rawUrlTheme = urlParams.get('tema');
     const urlTheme = normalizeTheme(rawUrlTheme);
-    const storedTheme = normalizeTheme(localStorage.getItem('selectedTheme') || 'all');
+    const isDraftOverview = /^\/draft\/(?:tema-oversigt\/)?$/.test(window.location.pathname);
+    const storedTheme = isDraftOverview ? 'all' : normalizeTheme(localStorage.getItem(themeStorageKey) || 'all');
 
     if (rawUrlTheme) {
       return availableThemes.includes(urlTheme) ? urlTheme : 'all';
@@ -225,9 +230,11 @@ const availableThemes = Array.from(new Set(Object.values(publishedLinkThemeMap))
 
       const themeNumber = isAll ? getThemeForLink(link) : getPublishedThemeForLink(link);
 
-      const isPausePage = normalizeLinkHref(link.getAttribute('href')) === '/pause-ur/';
+      const linkPath = normalizeLinkHref(link.getAttribute('href'));
+      const isPausePage = linkPath === '/pause-ur/' || linkPath === '/draft/pause-ur/';
+      const isDraftUtility = isDraftView && (linkPath === '/draft/' || linkPath.startsWith('/draft/dette-site/') || linkPath === '/draft/om-dette-site/' || linkPath === '/draft/guides/forbedringsforslag-materiale-draft/');
 
-      if (isAll || isPausePage) {
+      if (isAll || isPausePage || isDraftUtility) {
         listItem.style.display = '';
         return;
       }
@@ -287,11 +294,7 @@ const availableThemes = Array.from(new Set(Object.values(publishedLinkThemeMap))
   function updateThemeUrl(selectedTheme) {
     const url = new URL(window.location.href);
 
-    if (selectedTheme === 'all') {
-      url.searchParams.delete('tema');
-    } else {
-      url.searchParams.set('tema', selectedTheme);
-    }
+    url.searchParams.set('tema', selectedTheme);
 
     window.history.replaceState({}, '', url.toString());
   }
@@ -312,9 +315,9 @@ const availableThemes = Array.from(new Set(Object.values(publishedLinkThemeMap))
     select.value = selectedTheme;
 
     if (selectedTheme === 'all') {
-      localStorage.removeItem('selectedTheme');
+      localStorage.removeItem(themeStorageKey);
     } else {
-      localStorage.setItem('selectedTheme', selectedTheme);
+      localStorage.setItem(themeStorageKey, selectedTheme);
     }
 
     window.requestAnimationFrame(() => {
@@ -330,12 +333,21 @@ const availableThemes = Array.from(new Set(Object.values(publishedLinkThemeMap))
       const nextTheme = normalizeTheme(target.value);
 
       if (nextTheme === 'all') {
-        localStorage.removeItem('selectedTheme');
+        localStorage.removeItem(themeStorageKey);
       } else {
-        localStorage.setItem('selectedTheme', nextTheme);
+        localStorage.setItem(themeStorageKey, nextTheme);
       }
 
       updateThemeUrl(nextTheme);
+      filterMenuItems(sidebarRoot, nextTheme);
+      if (isDraftView) document.dispatchEvent(new CustomEvent('draft-theme-change', { detail: nextTheme }));
+    });
+
+    if (isDraftView) document.addEventListener('draft-theme-change', (event) => {
+      const nextTheme = normalizeTheme(event.detail);
+      select.value = nextTheme;
+      if (nextTheme === 'all') localStorage.removeItem(themeStorageKey);
+      else localStorage.setItem(themeStorageKey, nextTheme);
       filterMenuItems(sidebarRoot, nextTheme);
     });
 

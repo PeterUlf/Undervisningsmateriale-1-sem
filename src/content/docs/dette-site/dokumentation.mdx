@@ -1,0 +1,305 @@
+---
+title: Dokumentation af sitet
+description: Projektets opbygning, tilpasninger til Starlight og en praktisk vejledning til at vedligeholde undervisningssitet.
+draft: true
+pagefind: false
+tableOfContents:
+  minHeadingLevel: 2
+  maxHeadingLevel: 2
+sidebar:
+  label: Dokumentation
+  order: 2
+---
+
+Denne side beskriver undervisningssitets opbygning og de ændringer, der er lavet oven på en standardinstallation af Starlight. Den er både et overblik og en hjælp, når noget skal ændres.
+
+**Gennemgået 12. oktober 2026** ud fra projektets kildekode. Opdatér dokumentationen, når navigation, komponenter eller udgivelsesflow ændres.
+
+## Sådan hænger sitet sammen
+
+Sitet er bygget med **Astro**, som laver de færdige websider, og **Starlight**, som leverer dokumentationslayoutet. Undervisningsindholdet ligger hovedsageligt i MDX-filer: Markdown med mulighed for at indsætte komponenter, billeder og interaktive eksempler.
+
+```text
+Indhold i src/content/docs/ + komponenter + billeder
+                         ↓
+                   npm run build
+                         ↓
+            Færdigt statisk site i dist/
+                         ↓
+                     Netlify
+                         ↓
+           Browser: læsning, slides og øvelser
+```
+
+Sitet kræver ikke en database eller en server, der sammensætter sider ved hvert besøg. Astro bygger siderne på forhånd. JavaScript i browseren håndterer blandt andet temavalg, slideshow og interaktive eksempler.
+
+Undervisning om fx databaser eller andre frameworks er **indhold på sitet**. Det betyder ikke, at undervisningssitet selv bruger disse teknologier.
+
+## Hvad er standard, og hvad er tilpasset?
+
+Starlight indeholder allerede navigation, indholdsfortegnelse, søgning, kodevisning og lyst/mørkt tema. Frontmatter er indstillingerne øverst i en indholdsfil; felter som `title`, `description`, `draft`, `pagefind`, `sidebar` og `hero` er standardfelter. Se [Starlights frontmatter-reference](https://starlight.astro.build/reference/frontmatter/).
+
+| Område | Fra Starlight | Tilpasning i dette site |
+| --- | --- | --- |
+| Udseende | Dokumentationslayout og temaindstillinger. | Rapide-temaet og egen CSS til undervisningsmaterialet. |
+| Indhold | Markdown, MDX og frontmatter. | Undervisningsforløb opdelt med en egen Slide-komponent. |
+| Navigation | Sidepanel med grupper og links. | Temafilter, temafarver og navne på undervisningens temaer. |
+| Forside | Splash-layout og hero. | Præsentation af underviseren og en temavælger. |
+| Oversigter | Almindelige dokumentationssider. | En særskilt temaoversigt og en oversigt over alle sider inkl. drafts. |
+| Præsentation | Læsning som webside. | Slideshow, tastaturnavigation og print af slides. |
+| Øvelser | Indhold kan udvides med komponenter. | Layoutdiagrammer, quizzer, Figma-eksempler og andre øvelser. |
+| Kladder | Drafts kan ses under udvikling og udelades normalt fra produktionsbygget. | Ekstra adresser under /draft/ gør kladder tilgængelige i det byggede site. |
+| Titel-link | Sitets titel fungerer som navigation. | Klik på titlen åbner temaoversigten med alle temaer valgt. |
+
+**Muligheden for at udskifte Starlight-komponenter er indbygget.** Det særlige her er koden i de komponenter, vi har valgt at udskifte. Se [Starlights vejledning til komponenttilpasning](https://starlight.astro.build/guides/overriding-components/).
+
+## Mapper og centrale filer
+
+```text
+astro.config.mjs                 Samlet konfiguration og normal sidemenu
+package.json                    Pakker og kommandoer
+package-lock.json               Fastlagte pakkeversioner
+prompts/
+  undervisningsslides.md         Den fælles undervisningsprompt
+src/
+  content.config.ts             Starlights indholdssamling og standardskema
+  content/docs/                 Undervisningssider i Markdown og MDX
+    dette-site/                 Interne vejledninger og dokumentation
+  components/                   Egne komponenter og Starlight-tilpasninger
+  pages/                        Særlige sider og genererede eksempelruter
+    tema-oversigt.astro          Oversigt over udgivne sider efter tema
+    draft/                      Oversigt og sidevisning inkl. kladder
+  data/                         Data til genbrugelige undervisningseksempler
+  utils/                        Fælles hjælpefunktioner
+  styles/                       Globale og emnespecifikke styles
+  assets/                       Billeder, der importeres i kildekoden
+  routeData.ts                  Titel-link og metadata for kladdevisningen
+public/                         Filer, der kopieres direkte til websitet
+dist/                           Resultatet af et build
+```
+
+En indholdsfil som `src/content/docs/css/grid.mdx` får normalt adressen `/css/grid/`. Mapperne følger fagområder som CSS, Git og UX. Temaet angives i sidens metadata og behøver derfor ikke være en del af mappenavnet.
+
+`src/content.config.ts` bruger Starlights `docsLoader()` og `docsSchema()` uden ekstra felter. Vi vedligeholder altså ikke et særskilt indholdsskema.
+
+Ret i kildefilerne. `dist/`, `.astro/` og `node_modules/` er genererede mapper og er ikke stedet at foretage varige ændringer.
+
+## Konfiguration og udskiftede komponenter
+
+`astro.config.mjs` samler sitets titel, Rapide-plugin, global CSS, komponenttilpasninger, sidemenu og route middleware. Middleware er her kode, der justerer Starlights data for den side, der bliver bygget.
+
+Tre Starlight-komponenter er udskiftet:
+
+- **PageTitleWrapper.astro** viser sidens titel, tilføjer et eventuelt temanummer og indsætter slideshow-knappen. Sider under “Dette site” vises som dokumentation uden slideshow-knap og automatisk “Side”-nummerering. Pauseuret har også en særskilt titelvisning.
+- **Sidebar.astro** udvider sidemenuen med temavalg og filtrering. Den bruger forskellige indstillinger til den almindelige visning og kladdevisningen.
+- **CustomHead.astro** videresender aktuelt til Starlights standardkomponent. Den tilføjer ikke selv særlige metadata.
+
+De tre filer ligger i `src/components/`. Fælles ændringer i sidernes data ligger i `src/routeData.ts`: titel-linket sættes til `/tema-oversigt/?tema=all`, og adresser under `/draft/` får `noindex, nofollow` og udelukkes fra Pagefind-søgningen.
+
+Det visuelle bygger på `starlight-theme-rapide` og `src/styles/custom.css`. Den sidste fil indeholder blandt andet temafarver, slidebaggrunde, kolonnelayout, tabelvisning, nummerering og printregler. Emnespecifik CSS importeres fra de relevante undervisningssider, fx `layout-diagram-lesson.css` og `design-structure-lesson.css`.
+
+`src/styles/global.css` findes også i projektet, men er ikke den globale stylesheet, som Starlight-konfigurationen indlæser. Den centrale fil er `custom.css`.
+
+## Temaer og navigation
+
+Temaet aflæses fra `sidebar.badge.text` i sidens frontmatter. Brug den eksisterende skrivemåde:
+
+```yaml
+sidebar:
+  label: Grid
+  order: 3
+  badge:
+    text: Tema 2
+    variant: tip
+    class: badge-theme-2
+```
+
+Badges er en Starlight-funktion. At teksten `Tema 2` bruges til filtrering, er vores tilpasning. Klassen `badge-theme-2` styrer farven gennem CSS.
+
+**Tema 1–6 hører til 1. semester; de efterfølgende temaer hører til 2. semester.** Temaerne bruges på tværs af fagmapperne.
+
+Der er tre steder, hvor sider bliver fundet:
+
+1. **Den normale sidemenu** er i hovedsagen manuelt sammensat i `astro.config.mjs`. En ny side skal tilføjes i den relevante gruppe for at være med her.
+2. **Temaoversigten** i `src/pages/tema-oversigt.astro` læser indholdssamlingen og grupperer udgivne sider efter deres temabadge. Den udelader drafts, også når udviklingsserveren kører.
+3. **Kladdeoversigten** samler automatisk alle dokumentationssider, også kladder og sider, som ikke står i den normale sidemenu.
+
+Temavalget kan stå i adressen, fx `?tema=2`. Browseren husker også valget: `selectedTheme` i normal visning og `draftSelectedTheme` i kladdevisning. `?tema=all` vælger alle temaer eksplicit. Forsidens temavælger er komponenten `HomeHeroThemeSelector.astro`.
+
+Hvis en side ikke dukker op det forventede sted, så kontrollér dens `draft`-værdi, temabadge, den valgte filtrering og registreringen i sidemenuen.
+
+## Slides, interaktion og print
+
+En undervisningsside består typisk af flere `<Slide>`-blokke. `src/components/Slide.astro` omslutter blot indholdet med en `div` med klassen `slide`. Det gør samme indhold brugbart både som en lang webside og som en præsentation.
+
+`PresentationMode.astro` samler slideblokkene i en dialog, der fylder skærmen. Den styrer næste/forrige slide, tæller, tastaturnavigation, lukning og print. Hvis en side ikke har eksplicitte slideblokke, kan komponenten danne slides ud fra overskrifter. Brug eksplicitte blokke i nye undervisningsforløb, så opdelingen er forudsigelig.
+
+Printfunktionen bruger browserens printdialog, hvor man også kan gemme som PDF. Print-CSS og eventuelle `<div class="page-break"></div>` styrer sideskift. Pakkerne `jspdf` og `html2canvas` står i `package.json`, men den aktuelle slideshow-printfunktion bruger dem ikke.
+
+Interaktive komponenter giver eksempler, der kan afprøves direkte:
+
+| Komponent | Formål |
+| --- | --- |
+| LayoutDiagram og LayoutSolutionDiagram | Arbejde med og vise layoutdiagrammer. |
+| DesignStructureExample | Vise fx sitemap, brugerflow og wireframes. |
+| FigmaInteractionDemo og FigmaStylesDemo | Demonstrere Figma-principper i materialet. |
+| Quiz | Multiple choice med feedback. |
+| PauseTimer | Vise et pauseur. |
+| YouTubeVideo og YouTubePlaylist | Indlejre videoindhold. |
+
+Komponenterne ligger i `src/components/`. Løsningsdata til layoutdiagrammer ligger samlet i `src/data/layoutdiagram-solutions.ts`. Ruten `src/pages/eksempler/layoutdiagrammer/[opgave].html.ts` bygger selvstændige HTML-eksempler ud fra disse data; den kræver ikke en kørende backend.
+
+**Når en interaktiv komponent ændres:** Afprøv den både på websiden og i slideshowet. Slideshowet kopierer indholdet, og event listeners sat direkte på et oprindeligt element følger ikke automatisk med kopien. Komponenter skal derfor kunne initialisere deres interaktion i den nye visning.
+
+## Drafts og området “Dette site”
+
+En side markeres som kladde med `draft: true` i frontmatter. “Dette site” bruger denne markering på sine sider.
+
+| Visning | Udgivne sider | Drafts |
+| --- | --- | --- |
+| Lokal udvikling med npm run dev | Tilgængelige på normale adresser. | Tilgængelige på normale adresser. |
+| Almindeligt produktionssite | Tilgængelige på normale adresser. | Udeladt fra normale adresser og den normale sidemenu. |
+| /draft/ i det byggede site | Tilgængelige i kladdevisning. | Tilgængelige i kladdevisning. |
+
+Kladdevisningen er en tilføjelse til Starlight. Den bygger ekstra sider fra **de samme indholdsfiler**; man skal ikke vedligeholde en særskilt kopi af indholdet.
+
+```text
+/draft/?tema=all                   Alle dokumentationssider inkl. drafts
+/draft/css/grid/                   Grid i kladdevisning
+/draft/dette-site/                 Området Dette site
+/draft/forside/                    Forsiden i kladdevisning
+/draft/tema-oversigt/?tema=all      Oversigten inkl. drafts
+```
+
+De vigtigste dele er:
+
+- `src/pages/draft/[...slug].astro` bygger en kladdevisning af hver side i indholdssamlingen.
+- `DraftOverview.astro` viser alle sider med søgning i titel, beskrivelse og sti samt filtrering efter tema og status.
+- `DraftNotice.astro` viser kladdemarkeringen og omskriver kendte interne dokumentlinks, så navigationen bliver i kladdevisningen. Omskrivningen af indholdslinks sker med JavaScript i browseren.
+- `src/utils/draft-navigation.ts` samler adresser, gruppering og sidemenu. Dokumenterne grupperes efter fagområde, med “Dette site” først.
+- `filterDraftSidebar()` i `astro.config.mjs` fjerner draft-links og tomme grupper fra den normale sidemenu ved produktionsbuild.
+
+Sitets titel øverst til venstre åbner altid den almindelige temaoversigt med alle temaer. **Forlad kladdevisning** går til sidens udgivne version, hvis den findes, eller til den almindelige temaoversigt.
+
+Kladdevisningen er udeladt fra den almindelige Pagefind-søgning og markeret med `noindex`. Den er **tilgængelig for alle, der kender adressen**; draft er ikke adgangskontrol. Oversigten omfatter dokumentationssiderne i `src/content/docs/`, ikke hver enkelt billedfil eller selvstændigt HTML-eksempel.
+
+## Billeder og andre materialer
+
+Filer i `public/` publiceres med en adresse fra sitets rod. Eksempel: `public/illustrationer/mit-diagram.svg` kan bruges som `/illustrationer/mit-diagram.svg`. Her ligger også mapper til billeder, PDF-filer og selvstændige eksempler.
+
+`src/assets/` bruges til billeder, der importeres i kildekoden og kan behandles af Astro. Følg den praksis, der allerede bruges på den side, du redigerer.
+
+Til undervisningsmaterialet foretrækkes illustrationer, der forklarer noget konkret: skærmdumps med pile, før/efter-eksempler og diagrammer med tydelige labels. Tilføj beskrivende alternativ tekst, og sørg for, at detaljer kan læses i slideshowet.
+
+Undervisningsprompten kræver, at brugsretten til hvert billede er dokumenteret. Angiv ophav, oprindelig kilde, licens eller tilladelsesgrundlag og eventuelle ændringer ved billedet eller i en tydeligt tilknyttet billedkildeliste. Krediteringen skal også kunne findes i slideshow og print/PDF. Billeder med uafklarede rettigheder skal erstattes eller udelades; den fulde fremgangsmåde står i [undervisningsprompten](/dette-site/undervisningsprompt/).
+
+Mappen `powerpoints brugt som grundlag/` indeholder kildemateriale. Filer her bliver ikke automatisk publiceret, blot fordi de ligger i projektet.
+
+## Sådan tilføjes et undervisningsforløb
+
+Start med [undervisningsprompten](/dette-site/undervisningsprompt/) og en relevant eksisterende side. Et forløb varer normalt 15–45 minutter. Et længere emne deles op i flere forløb.
+
+1. Opret en MDX-fil under det relevante fagområde i `src/content/docs/`.
+2. Udfyld titel, beskrivelse og temabadge. Start med `draft: true`.
+3. Importér Slide-komponenten, og fordel forløbet i tydelige slideblokke.
+4. Brug første slide til en kort vejledning i AI som studiemakker til emnet, med en konkret prompt, der hjælper uden at give løsningen. Indled derefter det faglige arbejde med en summeopgave: grupper på 3–5, kun samtale uden AI, normalt 2–4 og højst 5 minutter. Lad den efterfølgende forklaring besvare det problem, grupperne lige har drøftet.
+5. Brug visuelle eksempler og øvelser, der anvender de samme principper i en ny situation. Vis kriterierne for et godt svar, og lad hints og løsninger være sammenfoldet som udgangspunkt.
+6. Tilføj siden til den normale sidemenu i `astro.config.mjs`, og afprøv den i kladdevisning, slideshow og på en smal skærm.
+7. Sæt `draft: false`, når siden er klar til almindelig udgivelse, og byg sitet igen.
+
+Et minimalt udgangspunkt i `src/content/docs/css/nyt-emne.mdx`:
+
+```mdx
+---
+title: Nyt emne
+description: En kort beskrivelse af det, de studerende skal lære.
+draft: true
+sidebar:
+  label: Nyt emne
+  badge:
+    text: Tema 2
+    variant: tip
+    class: badge-theme-2
+---
+
+import Slide from "../../../components/Slide.astro";
+
+<Slide>
+
+## Brug AI som studiemakker i emnet
+
+Indsæt en kort, emnespecifik studieprompt og én opfølgning fra undervisningspromptens regler. AI skal stille spørgsmål, give små hints og lade dig selv forklare og afprøve. Vejledningen er til senere brug; summeøvelsen er uden AI.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Summe: Hvordan ville I løse problemet?
+
+**3 minutter · grupper på 3–5 · kun samtale**
+
+Indsæt et konkret problem, som dagens forklaring hjælper med at løse.
+
+</Slide>
+
+<div class="page-break"></div>
+
+<Slide>
+
+## Forklaring og eksempel
+
+Knyt forklaringen til gruppernes bud, og vis princippet med et eksempel.
+
+</Slide>
+```
+
+Eksemplet viser filstrukturen; et færdigt forløb skal også have passende afprøvning og opgaver. Importstien afhænger af, hvor dybt MDX-filen ligger i mapperne.
+
+Den fælles prompt vedligeholdes i `prompts/undervisningsslides.md`. `TeachingPrompt.astro` viser filen direkte på promptsiden og kopierer teksten mellem markørerne `PROMPT START` og `PROMPT SLUT`. Behold markørerne, og ret kun prompten i kildefilen.
+
+## Kør, kontrollér og udgiv
+
+Kommandoerne køres fra projektets rod. Ved en ny lokal installation installeres de fastlagte pakker først:
+
+```sh
+npm ci
+```
+
+Start udviklingsserveren:
+
+```sh
+npm run dev
+```
+
+Kontrollér derefter produktionsudgaven. Det er nødvendigt ved ændringer i drafts og navigation, fordi udviklingsserveren også viser kladder på almindelige adresser:
+
+```sh
+npm run build
+npm run preview
+```
+
+Åbn den lokale adresse, som terminalen viser. Kontrollér den ændrede side, dens links og relevante funktioner. For undervisningsslides omfatter det også slideshow og eventuelle interaktive eksempler. Hvis print er ændret, kontrollér printvisningen.
+
+Det færdige site ligger i `dist/`. Ved udgivelse på Netlify er projektets buildkommando `npm run build`, og outputmappen er `dist`. Et lokalt build udgiver ikke i sig selv ændringerne.
+
+Den konkrete kobling til Git, udgivelsesbranch og automatiske builds styres i Netlifys projektindstillinger. De er ikke dokumenteret gennem en `netlify.toml` i dette projekt og skal kontrolleres dér, hvis udgivelsesopsætningen ændres.
+
+Pakkerne står i `package.json`, mens `package-lock.json` fastholder de konkrete versioner. Ved opdatering af Astro, Starlight eller Rapide bør især de udskiftede komponenter, temafilteret, slideshowet og kladdevisningen afprøves igen.
+
+## Hvor retter jeg hvad?
+
+- **Undervisningstekst og opgaver:** Den relevante MDX-fil i `src/content/docs/`.
+- **Den fælles prompt:** `prompts/undervisningsslides.md`.
+- **Sitetitel, menugrupper og tilknyttede plugins:** `astro.config.mjs`.
+- **Destinationen for titel-linket og kladde-metadata:** `src/routeData.ts`.
+- **Temafilteret i sidemenuen:** `src/components/Sidebar.astro`.
+- **Den normale temaoversigt:** `src/pages/tema-oversigt.astro`.
+- **Kladdeoversigten:** `src/components/DraftOverview.astro`.
+- **Grupper og adresser i kladdevisningen:** `src/utils/draft-navigation.ts`.
+- **Slideshow og printadfærd:** `src/components/PresentationMode.astro` og relevante CSS-regler.
+- **Fælles farver, tabeller og slideudseende:** `src/styles/custom.css`.
+- **Denne dokumentation:** `src/content/docs/dette-site/dokumentation.mdx`.
+
+Den ældre side [Om dette site](/om-dette-site/) beskriver også arbejdet med AI og tilblivelsen af materialet. Denne dokumentationsside er reference for den aktuelle tekniske opbygning.

@@ -1,0 +1,35 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import DraftNotice from '../../components/DraftNotice.astro';
+import { docSlug, docTheme, draftSidebar, publicHref } from '../../utils/draft-navigation';
+
+export async function getStaticPaths() {
+  const docs = await getCollection('docs');
+  return docs.map((doc) => ({ params: { slug: docSlug(doc) || 'forside' }, props: { doc } }));
+}
+
+interface Props { doc: CollectionEntry<'docs'> }
+const { doc } = Astro.props;
+const docs = await getCollection('docs');
+const { Content, headings } = await render(doc);
+const { sidebar, editUrl, ...frontmatter } = doc.data;
+const theme = docTheme(doc);
+const title = theme && !/^Tema\s+\d+\b/i.test(doc.data.title) ? `Tema ${theme}: ${doc.data.title}` : doc.data.title;
+// Collection entries already contain parsed icons; StarlightPage expects the input form.
+const hero = frontmatter.hero && {
+  ...frontmatter.hero,
+  actions: frontmatter.hero.actions.map((action) => ({
+    ...action,
+    icon: action.icon?.type === 'icon' ? action.icon.name : action.icon?.html,
+  })),
+};
+---
+
+<StarlightPage
+  frontmatter={{ ...frontmatter, hero, title, draft: false, pagefind: false, editUrl: false, prev: false, next: false }}
+  sidebar={draftSidebar(docs)} hasSidebar={true} headings={headings}
+>
+  <DraftNotice isDraft={doc.data.draft} publishedHref={doc.data.draft ? undefined : publicHref(doc)} />
+  <Content frontmatter={doc.data} />
+</StarlightPage>

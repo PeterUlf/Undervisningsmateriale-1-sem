@@ -81,6 +81,7 @@ export default defineConfig({
   integrations: [
     starlight({
       title: "MMD undervisningsmateriale E2026 V 0.6",
+      routeMiddleware: "./src/routeData.ts",
       customCss: ["./src/styles/custom.css"],
       components: {
         PageTitle: "./src/components/PageTitleWrapper.astro",
@@ -97,13 +98,14 @@ export default defineConfig({
       ],
       sidebar: filterDraftSidebar([
         {
-          label: "Om dette site",
-          slug: "om-dette-site",
-          badge: {
-            text: "Tema",
-            variant: "tip",
-            class: "badge-theme-site",
-          },
+          label: "Dette site",
+          collapsed: true,
+          items: [
+            "dette-site",
+            "dette-site/undervisningsprompt",
+            "dette-site/dokumentation",
+            "om-dette-site",
+          ],
         },
         {
           label: "⏰ Pause",

@@ -1,0 +1,90 @@
+---
+import { getCollection } from 'astro:content';
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import DraftNotice from './DraftNotice.astro';
+import { docTheme, draftHref, draftSidebar, groupDocs } from '../utils/draft-navigation';
+
+const docs = await getCollection('docs');
+const groups = groupDocs(docs);
+const themes = [...new Set(docs.map(docTheme).filter(Boolean))].sort((a, b) => Number(a) - Number(b));
+const draftCount = docs.filter((doc) => doc.data.draft).length;
+---
+
+<StarlightPage frontmatter={{ title: 'Alle sider inkl. drafts', description: 'Samlet oversigt over undervisning og kladder.', pagefind: false, tableOfContents: false, prev: false, next: false }} sidebar={draftSidebar(docs)}>
+  <DraftNotice />
+  <p>{docs.length} sider i alt · {draftCount} drafts. Find en side efter titel, emne eller status.</p>
+  <div class="draft-filters">
+    <label>Søg efter en side<input id="draft-search" type="search" placeholder="Fx grid, Figma eller prompt" /></label>
+    <label>Tema<select id="draft-theme"><option value="all">Alle temaer</option>{themes.map((theme) => <option value={theme}>Tema {theme}</option>)}</select></label>
+    <label>Status<select id="draft-status"><option value="all">Alle sider</option><option value="draft">Kun drafts</option><option value="published">Kun udgivne</option></select></label>
+  </div>
+  <p id="draft-result-count" role="status" aria-live="polite"></p>
+  {groups.map((group) => (
+    <section class="draft-group">
+      <h2>{group.label}</h2>
+      <ul class="draft-pages" role="list">
+        {group.docs.map((doc) => (
+          <li data-draft-page data-theme={docTheme(doc)} data-status={doc.data.draft ? 'draft' : 'published'} data-search={`${doc.data.title} ${doc.data.description || ''} ${doc.id}`.toLocaleLowerCase('da')}>
+            <a href={draftHref(doc)}>{doc.data.title}</a>
+            <span class:list={['page-status', { 'is-draft': doc.data.draft }]}>{doc.data.draft ? 'Draft' : 'Udgivet'}</span>
+            {docTheme(doc) && <span class="page-theme">Tema {docTheme(doc)}</span>}
+            {doc.data.description && <p>{doc.data.description}</p>}
+          </li>
+        ))}
+      </ul>
+    </section>
+  ))}
+</StarlightPage>
+
+<script>
+  const search = document.querySelector<HTMLInputElement>('#draft-search');
+  const theme = document.querySelector<HTMLSelectElement>('#draft-theme');
+  const status = document.querySelector<HTMLSelectElement>('#draft-status');
+  const result = document.querySelector('#draft-result-count');
+  const pages = [...document.querySelectorAll<HTMLElement>('[data-draft-page]')];
+  const groups = [...document.querySelectorAll<HTMLElement>('.draft-group')];
+
+  if (search && theme && status && result) {
+    const initialTheme = new URLSearchParams(location.search).get('tema') || 'all';
+    if ([...theme.options].some((option) => option.value === initialTheme)) theme.value = initialTheme;
+    function filter() {
+      let count = 0;
+      for (const page of pages) {
+        page.hidden = !(page.dataset.search?.includes(search!.value.trim().toLocaleLowerCase('da'))
+          && (theme!.value === 'all' || page.dataset.theme === theme!.value)
+          && (status!.value === 'all' || page.dataset.status === status!.value));
+        if (!page.hidden) count++;
+      }
+      for (const group of groups) group.hidden = !group.querySelector('[data-draft-page]:not([hidden])');
+      result!.textContent = `${count} af ${pages.length} sider`;
+    }
+    search.addEventListener('input', filter);
+    status.addEventListener('change', filter);
+    theme.addEventListener('change', () => {
+      const url = new URL(location.href);
+      url.searchParams.set('tema', theme.value);
+      history.replaceState({}, '', url);
+      document.dispatchEvent(new CustomEvent('draft-theme-change', { detail: theme.value }));
+      filter();
+    });
+    document.addEventListener('draft-theme-change', (event) => {
+      theme.value = (event as CustomEvent<string>).detail;
+      filter();
+    });
+    filter();
+  }
+</script>
+
+<style>
+  .draft-filters { display: flex; flex-wrap: wrap; gap: 1rem; }
+  .draft-filters label { display: grid; gap: .35rem; font-weight: 600; flex: 1; min-width: 10rem; }
+  .draft-filters label:first-child { flex: 2; }
+  .draft-filters input, .draft-filters select { min-width: 0; width: 100%; padding: .6rem; border: 1px solid var(--sl-color-gray-4); border-radius: .4rem; background: var(--sl-color-bg); color: var(--sl-color-white); font: inherit; }
+  .draft-pages { list-style: none; padding: 0; }
+  .draft-pages li { border-bottom: 1px solid var(--sl-color-gray-5); padding: .85rem 0; }
+  .draft-pages p { margin: .35rem 0 0; font-size: .9rem; }
+  .page-status, .page-theme { margin-left: .5rem; font-size: .75rem; white-space: nowrap; }
+  .page-status { padding: .15rem .4rem; border: 1px solid var(--sl-color-gray-4); border-radius: .25rem; }
+  .is-draft { border-color: var(--sl-color-orange); color: var(--sl-color-orange-high); background: var(--sl-color-orange-low); }
+  [hidden] { display: none !important; }
+</style>

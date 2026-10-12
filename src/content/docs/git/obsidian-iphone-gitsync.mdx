@@ -1,6 +1,6 @@
 ---
 title: Obsidian på iPhone med GitSync
-draft: false
+draft: true
 description: Synkroniser et GitHub-repository med Obsidian på iPhone trin for trin, og automatiser synkroniseringen med Genveje.
 sidebar:
   label: Obsidian på iPhone med GitSync
@@ -19,10 +19,10 @@ import Slide from "../../../components/Slide.astro";
 
 Her lærer du at hente et eksisterende GitHub-repository ind i **Obsidian på din iPhone** og sende dine ændringer tilbage til GitHub.
 
-| Del | Opgave |
-| --- | --- |
-| GitHub | Gemmer de fælles filer og deres versionshistorik. |
-| GitSync | Henter og sender ændringer mellem GitHub og din iPhone. |
+| Del      | Opgave                                                        |
+| -------- | ------------------------------------------------------------- |
+| GitHub   | Gemmer de fælles filer og deres versionshistorik.             |
+| GitSync  | Henter og sender ændringer mellem GitHub og din iPhone.       |
 | Obsidian | Åbner og redigerer noterne i den lokale mappe, din **vault**. |
 
 Vi bruger appen **GitSync fra ViscousPotential**. Almindelig synkronisering af ét repository og automatisering med Genveje er gratis. Flere repositories og Git LFS kræver Premium. Se [GitSyncs FAQ](https://gitsync.viscouspotenti.al/wiki/faq).
@@ -83,9 +83,9 @@ Opret en **ny, separat vault** til guiden. Kopiér dine eksisterende noter til e
 
 Det er loginmetoden i hovedforløbet. Vil du bruge en SSH-nøgle, kan du i stedet følge [SSH-alternativet](#alternativ-log-ind-med-ssh) og derefter fortsætte fra trin 4.
 
-| Valg i GitSync | Hvad betyder det? |
-| --- | --- |
-| **GITHUB (SCOPED)** | Du kan give adgang til udvalgte repositories. Det er valget i denne guide. |
+| Valg i GitSync         | Hvad betyder det?                                                                                                            |
+| ---------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| **GITHUB (SCOPED)**    | Du kan give adgang til udvalgte repositories. Det er valget i denne guide.                                                   |
 | **GITHUB (ALL REPOS)** | Giver bred adgang til de repositories, din konto kan give appen adgang til. Vælg det kun, hvis du ønsker den bredere adgang. |
 
 Valget handler om **adgang til GitHub**. Du vælger bagefter, hvilket repository der skal hentes til telefonen.
@@ -113,10 +113,10 @@ At **clone** betyder at hente repositoryet til telefonen første gang.
 
 På skærmen **Clone Remote Repository** skal du beholde disse indstillinger under **Advanced Options**:
 
-| Indstilling | Vælg | Hvorfor? |
-| --- | --- | --- |
-| **Shallow Clone (Depth)** | Lad feltet stå på **full**. | Henter hele versionshistorikken. Du behøver ikke indtaste et tal. |
-| **Bare Clone** | **Slået fra**. | Obsidian skal bruge de almindelige filer. En bare clone indeholder Git-data uden en arbejdsmappe med noterne. |
+| Indstilling               | Vælg                        | Hvorfor?                                                                                                      |
+| ------------------------- | --------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| **Shallow Clone (Depth)** | Lad feltet stå på **full**. | Henter hele versionshistorikken. Du behøver ikke indtaste et tal.                                             |
+| **Bare Clone**            | **Slået fra**.              | Obsidian skal bruge de almindelige filer. En bare clone indeholder Git-data uden en arbejdsmappe med noterne. |
 
 Se [Gits forklaring af kloning](https://git-scm.com/docs/git-clone) for betydningen af historikdybde og bare clone.
 
@@ -265,11 +265,11 @@ Lav først en lille test uden automatisering:
 
 **Tjek:** Begge linjer skal nu stå i noten. Så har du afprøvet synkronisering i begge retninger.
 
-| Git-ord | Betydning |
-| --- | --- |
-| Commit | Gemmer en version af ændringerne i Git. |
-| Push | Sender commits til GitHub. |
-| Pull | Henter og indarbejder ændringer fra GitHub. |
+| Git-ord | Betydning                                   |
+| ------- | ------------------------------------------- |
+| Commit  | Gemmer en version af ændringerne i Git.     |
+| Push    | Sender commits til GitHub.                  |
+| Pull    | Henter og indarbejder ændringer fra GitHub. |
 
 Læs mere i vores [introduktion til Git og GitHub](/git/).
 
@@ -328,15 +328,15 @@ GitSync på telefonen kan kun hente det, der er nået til GitHub. Gemmer du blot
 
 ## Hvis noget ikke virker
 
-| Problem | Kontrollér dette |
-| --- | --- |
-| Repositoryet mangler på listen | Kontrollér konto og appens adgang til repositoryet. Prøv derefter den direkte HTTPS-adresse. En søgegrænse på 100 repositories kan også spille ind; se [afsnittet om manglende repositories](#hvis-repositoryet-mangler-på-listen). |
-| Kloning fejler med **403** | Serveren afviser adgangen. Følg [kontrollen af login og repositoryadgang](#kontrollér-adgang-hvis-kloning-afvises), og prøv derefter at logge ind igen. |
-| Mappen Obsidian mangler i Arkiver | Opret først en lokal vault i Obsidian, og kig under **På min iPhone**. |
-| Filerne er hentet, men noterne mangler | Åbner du den rigtige vault? Ligger filerne i en ekstra undermappe? Er de `.md`-filer? |
-| Noten kommer ikke op på GitHub | Tjek GitSyncs fejlbesked, internetforbindelsen, din skriveadgang og den valgte branch. |
-| Automatiseringen virker ikke | Kør genvejen manuelt. Tjek derefter udløseren og **Kør med det samme**. |
-| Der står, at Git-indekset er låst | Vent på igangværende synkronisering, og kontrollér, at Obsidian Git er deaktiveret på telefonen. |
+| Problem                                | Kontrollér dette                                                                                                                                                                                                                    |
+| -------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Repositoryet mangler på listen         | Kontrollér konto og appens adgang til repositoryet. Prøv derefter den direkte HTTPS-adresse. En søgegrænse på 100 repositories kan også spille ind; se [afsnittet om manglende repositories](#hvis-repositoryet-mangler-på-listen). |
+| Kloning fejler med **403**             | Serveren afviser adgangen. Følg [kontrollen af login og repositoryadgang](#kontrollér-adgang-hvis-kloning-afvises), og prøv derefter at logge ind igen.                                                                             |
+| Mappen Obsidian mangler i Arkiver      | Opret først en lokal vault i Obsidian, og kig under **På min iPhone**.                                                                                                                                                              |
+| Filerne er hentet, men noterne mangler | Åbner du den rigtige vault? Ligger filerne i en ekstra undermappe? Er de `.md`-filer?                                                                                                                                               |
+| Noten kommer ikke op på GitHub         | Tjek GitSyncs fejlbesked, internetforbindelsen, din skriveadgang og den valgte branch.                                                                                                                                              |
+| Automatiseringen virker ikke           | Kør genvejen manuelt. Tjek derefter udløseren og **Kør med det samme**.                                                                                                                                                             |
+| Der står, at Git-indekset er låst      | Vent på igangværende synkronisering, og kontrollér, at Obsidian Git er deaktiveret på telefonen.                                                                                                                                    |
 
 ### Hvis to versioner er i konflikt
 

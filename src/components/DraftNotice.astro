@@ -1,0 +1,44 @@
+---
+import { getCollection } from 'astro:content';
+import { publicHref, draftHref } from '../utils/draft-navigation';
+
+interface Props { isDraft?: boolean; publishedHref?: string }
+const { isDraft = false, publishedHref } = Astro.props;
+const docs = await getCollection('docs');
+const draftLinks = Object.fromEntries(docs.map((doc) => [publicHref(doc), draftHref(doc)]));
+draftLinks['/tema-oversigt/'] = '/draft/tema-oversigt/';
+---
+
+<aside class="draft-notice" aria-label="Kladdevisning">
+  <strong>{isDraft ? 'Draft · denne side er en kladde' : 'Kladdevisning · alle sider er tilgængelige'}</strong>
+  <nav aria-label="Kladdevisning">
+    <a href="/draft/?tema=all">Alle sider inkl. drafts</a>
+    <a href="/draft/dette-site/">Dette site</a>
+    <a href={publishedHref || '/tema-oversigt/?tema=all'} data-public-link>Forlad kladdevisning</a>
+  </nav>
+</aside>
+
+<script define:vars={{ draftLinks }}>
+  function keepDraftNavigation() {
+    document.querySelectorAll('a[href]').forEach((link) => {
+      if (link.matches('.site-title, [data-public-link]')) return;
+      const href = link.getAttribute('href');
+      if (!href || href.startsWith('#')) return;
+      const url = new URL(href, window.location.href);
+      if (url.origin !== window.location.origin) return;
+      const path = url.pathname.replace(/\/+$/, '') + '/';
+      const target = draftLinks[path];
+      if (target) link.setAttribute('href', target + url.search + url.hash);
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', keepDraftNavigation);
+  else keepDraftNavigation();
+  document.addEventListener('astro:page-load', keepDraftNavigation);
+</script>
+
+<style>
+  .draft-notice { padding: 1rem; margin-bottom: 1.5rem; border: 1px solid var(--sl-color-orange); border-radius: .5rem; background: var(--sl-color-orange-low); color: var(--sl-color-white); }
+  .draft-notice nav { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; margin-top: .5rem; }
+  .draft-notice a { color: inherit; }
+  @media print { .draft-notice { display: none; } }
+</style>

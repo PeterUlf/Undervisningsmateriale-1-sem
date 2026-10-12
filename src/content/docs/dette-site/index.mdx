@@ -1,0 +1,33 @@
+---
+title: Dette site
+description: Vejledning, undervisningsprompt og kladder til arbejdet med sitet.
+draft: true
+pagefind: false
+sidebar:
+  label: Overblik
+  order: 0
+---
+
+Her samler jeg materiale til at udvikle og vedligeholde undervisningssitet.
+
+- [Prompt til nye undervisningsslides](/dette-site/undervisningsprompt/) – den fælles skabelon med summe-slides, illustrationer, varierede opgaver og vurderingskriterier.
+- [Dokumentation af sitet](/dette-site/dokumentation/) – projektets opbygning, tilpasninger til Starlight og vedligeholdelse.
+- [Om dette site](/om-dette-site/) – tilblivelsen af materialet og arbejdet med AI.
+- [Forbedringsforslag til materialet](/guides/forbedringsforslag-materiale-draft/) – interne overvejelser om undervisningsmaterialet.
+- [Alle sider inkl. drafts](/draft/?tema=all) – søg og filtrér i hele materialet.
+
+## Se en side i kladdevisning
+
+Tilføj `/draft` foran sidens normale sti. Eksempel:
+
+```text
+/css/grid/ → /draft/css/grid/
+```
+
+Kladdevisningen viser både udgivne sider og drafts. Links mellem undervisningssider bliver i kladdevisningen. Brug **Forlad kladdevisning** for at vende tilbage til det almindelige site.
+
+Området er tilgængeligt for alle, der kender adressen. Det er udeladt fra den normale søgning og markeret, så søgemaskiner ikke skal indeksere det.
+
+## Opdatér prompten
+
+Den fælles prompt ligger i `prompts/undervisningsslides.md`. Promptsiden læser direkte fra filen, så ændringer kun skal laves ét sted.
