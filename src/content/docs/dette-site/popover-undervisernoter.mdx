@@ -25,9 +25,11 @@ Hvert forløb samler tekster, opgaver og eksemplernes HTML/CSS i sin egen MDX-fi
 
 Søg efter en overskrift eller kommentaren `Slide 2:` for at finde den ønskede slide. Ved hvert `CodePenExample` står eksemplets titel i `title`, knappens tekst i `label` og koden i `html` og `css`. Ret koden mellem backticks, og lad backticks og de omgivende klammer stå. Den samme kode vises i eksemplet, under “Vis kode til manuel kopiering” og i CodePen. Eksempler på andre slides er selvstændige, så en rettelse ændrer kun det eksempel, du står ved.
 
-CSS i et eksempels `css`-felt styrer selve demonstrationen. Slidenes fælles farver, typografi og layout ligger i `src/styles/popover-lesson.css`. Rammen ligger i `src/components/PopoverSlide.astro`, og mekanikken til forhåndsvisning, CodePen og kodevisning ligger i `src/components/CodePenExample.astro`.
+CSS i et eksempels `css`-felt styrer selve demonstrationen. Del 1 bruger almindelige `Slide`-blokke og sitets fælles farver, typografi og layout fra `src/styles/custom.css`. CodePen-boksene bruger `src/styles/codepen-example.css`, som indlæses af `src/components/CodePenExample.astro`.
 
-Hvis du tilføjer eller fjerner slides, skal du også rette `slideCount` øverst i MDX-filen samt de efterfølgende `step`-numre og slidekommentarer.
+I del 1 tæller slideshowet automatisk `Slide`-blokkene. Ved nye eller slettede slides skal du blot tilpasse slidekommentarerne og sideskiftene.
+
+Del 2 bruger fortsat `PopoverSlide.astro` og `src/styles/popover-lesson.css`. Her skal `slideCount`, de efterfølgende `step`-numre og slidekommentarerne stadig tilpasses, hvis antallet af slides ændres.
 
 ## Forkundskaber
 

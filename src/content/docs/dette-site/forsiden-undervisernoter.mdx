@@ -1,0 +1,66 @@
+---
+title: Forsiden – undervisernoter
+description: Et forenklet CodePen-eksempel og overførsel til event-skabelonens eksisterende CSS.
+draft: true
+pagefind: false
+sidebar:
+  hidden: true
+---
+
+## Afgrænsning og redigering
+
+[Forsiden](/draft/css/forsiden/) undersøger kun `main` og tre sektioner. Det selvstændige CodePen-eksempel er bevidst enklere end event-skabelonen: Kolonnerne defineres direkte på `main` som `1fr 50% 1fr`. Den smalle midte gør forskellen synlig også i CodePens resultatpanel. `body` har kun margin og tekststyling. Der er ingen menu, header, footer, variabler, JavaScript eller CSS nesting i eksemplet.
+
+Tekst, illustrationer, kode, hint og løsning redigeres i `src/content/docs/css/forsiden.mdx`. Hele demonstrationens HTML/CSS står i `CodePenExample` på slide 2. Komponenten bruger de samme strenge til forhåndsvisning, manuel kopiering og formularen, der åbner CodePen. Der er ikke oprettet en gemt Pen.
+
+Den udleverede kode er læst i workspace-mappen `T4 event-site-skabelon-main`: `index.html`, `style.css` og `starter.css`. Den lokale kopi indeholder Peters tilføjelser. Skabelonens filer ændres ikke. Sidens eksisterende kladdestatus er bevaret.
+
+## Forkundskaber og mål
+
+Tema 4 er på 1. semester. Følgende relevante tema 2-forløb regnes som gennemgåede:
+
+- `html/grundlaeggende.mdx` (`draft: false`): elementer, klasser og HTML-struktur.
+- `html/semantisk.mdx` (`draft: true`): `main` og `section`. Draft tæller med, fordi temaet er tidligere.
+- `css/intro.mdx` (`draft: false`): selectorer, specificitet, padding og nedarvning.
+- `css/grid.mdx` (`draft: false`): grid-container, kolonner, `fr` og placering med gridlinjer.
+
+Målet er stadig at forklare standardplaceringen i midten og lave en fuldbredde-sektion med samlet indhold i kolonne 2. Dagens fokus er forskellen på sektionens placering i `main` og den indre `div` i sektionens eget grid. Forkundskaber er ikke sikker mestring; ingen senere temaer eller tema 4-drafts forudsættes.
+
+## Kort gennemgang — cirka 17 minutter
+
+| Del | Tid |
+| --- | --- |
+| Introduktion, samtale og opsamling, slide 1 | 3 minutter |
+| Åbn og undersøg eksemplet, slide 2 | 2 minutter |
+| De to grids med illustrationer, slide 3–4 | 3 minutter |
+| Tilpasning og kontrol, slide 5 | 3 minutter |
+| Body: højde, rækker og kolonner, slide 6 | 3 minutter |
+| Main og faldgruber, slide 7–8 | 3 minutter |
+
+Saml et par observationer efter den indledende samtale. Spørg eventuelt, hvilke kanter der flugter, og hvad der har forskellig bredde. Knyt svarene til forskellen på en baggrund og det indhold, den omgiver. Undgå at forudsætte bestemte gruppesvar.
+
+## Eksemplet og opgaven
+
+Eksemplet viser tre fungerende sektioner: en bred, en smal og en bred. Begge brede sektioner har en indre `div`; en manglende `div` omtales som faldgrube til sidst frem for at være udgangspunktet.
+
+Opgaven kræver, at den studerende ændrer den midterste sektions struktur, vælger klasse og samler en overskrift og et afsnit i en fælles `div`. Det er en lille faglig tilpasning frem for blot at ændre tekst eller farve. Hint og løsning er lukket fra starten. Brug det synlige tjek til feedback: Fungerer bredder og tekstflugt, kan den studerende forklare begge placeringer, og holder det i et smallere resultatpanel? Ret og afprøv igen ved fejl.
+
+AI-vejledning er fravalgt. Direkte redigering og afprøvning af dette lille eksempel giver den ønskede feedback.
+
+## Faglige opmærksomhedspunkter
+
+- `50%` er en undervisningsforenkling, ikke en anbefaling om at ændre skabelonens bredde. De to `1fr`-kolonner deler resten af bredden. Med eksemplets korte tekster er der ingen ekstra breddekrav, der forstyrrer den fordeling.
+- I skabelonen definerer `body` kolonnerne som `minmax(1rlh, 1fr) minmax(0, 75rem) minmax(1rlh, 1fr)`. `main` arver dem og spænder allerede over hele bredden. De studerende skal bevare denne opsætning, når princippet overføres.
+- Body forklares særskilt på slide 6: `margin`, minimumshøjde, rækker og kolonner. `100svh` følger den lille viewporthøjde, på mobil med browserens værktøjslinjer fremme; det er en minimumshøjde, ikke en låst højde. `auto 1fr auto` giver header/footer indholdshøjde og main den resterende plads. `align-content: start` i main samler sektionernes rækker øverst i dette område.
+- `main > *` rammer alle direkte elementbørn, også en eventuel ekstra wrapper. `width: 100%` udvider ikke et grid-element til andre kolonner.
+- `grid-column: 2` placerer her elementet i den midterste kolonne. `1 / -1` spænder over det eksplicitte grid fra første til sidste linje.
+- `inherit` henter kolonnedefinitionen fra forælderen. Det er et selvstændigt indre grid, ikke `subgrid`. Kolonnerne flugter her, fordi bredde og kolonnedefinition er ens, uden vandret padding, border eller gap, der ændrer geometrien.
+- Eksemplet bruger `section.full > div` uden nesting. Den rammer kun direkte `div`-børn og gør de to niveauer tydelige. Peters oprindelige nestede `div`-regel svarer til `section.full div`, som også matcher dybere `div`-elementer. Forskellen er nævnt i sidens kildefelt.
+- `section.full` har højere specificitet end `main > *` og overskriver placeringen. Den eksisterende lodrette padding gælder stadig. I skabelonen er `--space-3` defineret som `3rem`; demoen bruger `1rem` for at være kompakt.
+- Uden en indre `div` rammer placeringsreglen ikke indholdet. Løs tekst bliver et anonymt, automatisk placeret grid-element; direkte `h2` eller `p` auto-placeres også, hvis de ikke har en anden placeringsregel.
+
+## Illustrationer og kilder
+
+Slide 1 viser resultatets tre flader. Slide 3 viser `main` med en midterkolonne på halvdelen af bredden. Slide 4 viser den brede sektion og dens indre `div`. Illustrationerne er selvstændig HTML/CSS direkte i MDX-filen med tekstalternativer; der bruges ingen eksterne billeder. Illustrationernes styling er pædagogisk opmærkning, ikke kode til de studerendes løsning. Slide 2 viser det faktiske eksempel.
+
+Kilderne er linket på sidste slide. CSS-principperne blev kontrolleret mod MDN den 2. november 2026. Skabelonens detaljer er kontrolleret mod den lokale kopi. GitHub-linket angiver materialets udgangspunkt; onlineversionen kunne ikke hentes ved den oprindelige kontrol.

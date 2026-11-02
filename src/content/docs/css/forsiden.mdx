@@ -1,0 +1,323 @@
+---
+title: Forsiden
+draft: true
+description: Et enkelt CodePen-eksempel med main, tre sektioner og to forskellige bredder.
+# Ret tekst, illustrationer og kode direkte ved hver Slide.
+# Hele CodePen-eksemplet står på slide 2: samme kode til demo, kopiering og CodePen.
+sidebar:
+  label: Forsiden
+  order: 4
+  badge:
+    text: Tema 4
+    variant: tip
+    class: badge-theme-4
+---
+
+import Slide from "../../../components/Slide.astro";
+import CodePenExample from "../../../components/CodePenExample.astro";
+
+{/* Slide 1: Et enkelt udsnit af forsiden */}
+<Slide>
+
+## Forsiden — kun det inde i `main`
+
+Din forside bygger på de udleverede filer fra [event-site-skabelonen på GitHub](https://github.com/EK-MMD/event-site-skabelon).
+
+Her undersøger vi princippet i et **lille, selvstændigt eksempel: én `main` og tre sektioner**. Midterkolonnen fylder kun **50 %**, så forskellen på de to bredder er nem at se.
+
+<div role="img" aria-label="Skitse af tre sektioner: Oplev vores event og Billetter har en baggrund i fuld bredde. Program har kun baggrund i den midterste halvdel. Alle tre tekster starter samme sted." style="border: 1px solid #64748b; margin-block: 1rem; color: #172b3a;">
+  <div style="background: #cce5ff; padding: 1rem 25%; margin: 0;">Oplev vores event</div>
+  <div style="background: #ffd6cc; margin: 0 25%; padding-block: 1rem;">Program</div>
+  <div style="background: #cce5ff; padding: 1rem 25%; margin: 0;">Billetter</div>
+</div>
+
+**Tal sammen i 2 minutter, i grupper på 3–5:** Hvad er forskellen på baggrundens bredde og tekstens placering i de tre sektioner?
+
+Kun samtale — uden kode, opslag eller AI. Del én observation med holdet, før vi åbner eksemplet.
+
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 2: Hele det forenklede eksempel */}
+<Slide>
+
+## Åbn det lille eksempel i CodePen
+
+Alle tre tekster starter samme sted. De blå baggrunde går helt til kanten; den lyserøde bliver i midten.
+
+<CodePenExample
+  title="Forsiden – main og tre sektioner"
+  height={240}
+  label="Åbn eksemplet i CodePen"
+  html={`
+    <main>
+      <section class="full">
+        <div>Oplev vores event</div>
+      </section>
+
+      <section class="only_main">
+        Program
+      </section>
+
+      <section class="full">
+        <div>Billetter</div>
+      </section>
+    </main>
+  `}
+  css={`
+    /* Kun for at gøre eksemplet let at se */
+    body {
+      margin: 0;
+      font: 18px / 1.5 system-ui;
+      color: #172b3a;
+    }
+
+    /* Main har tre kolonner: luft, indhold, luft */
+    main {
+      display: grid;
+      grid-template-columns: 1fr 50% 1fr;
+    }
+
+    /* Sektionerne starter i midterkolonnen */
+    main > * {
+      grid-column: 2;
+      padding-block: 1rem;
+    }
+
+    section.only_main {
+      background: #ffd6cc;
+    }
+
+    /* En bred sektion får også sit eget grid */
+    section.full {
+      background: #cce5ff;
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: inherit;
+    }
+
+    section.full > div {
+      grid-column: 2;
+    }
+  `}
+/>
+
+HTML-panelet indeholder kun `main` og de tre sektioner. CSS-panelet indeholder hele eksemplet. JavaScript-panelet er tomt.
+
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 3: Det ydre grid */}
+<Slide>
+
+## `main` placerer sektionerne
+
+```css
+main {
+  display: grid;
+  grid-template-columns: 1fr 50% 1fr;
+}
+
+main > * {
+  grid-column: 2;
+  padding-block: 1rem;
+}
+```
+
+<div role="img" aria-label="Main har tre kolonner. Kolonne 1 og 3 deler den resterende plads. Kolonne 2 er 50 procent bred og indeholder sektionen Program." style="display: grid; grid-template-columns: 1fr 2fr 1fr; border: 2px solid #64748b; margin-block: 1rem; color: #172b3a; text-align: center;">
+  <div style="background: #eef2f6; padding: 1rem .25rem; margin: 0;">1<br />Luft</div>
+  <div style="background: #ffd6cc; border-inline: 2px dashed #64748b; padding: 1rem .25rem; margin: 0;">2 · 50 %<br /><strong>Program</strong></div>
+  <div style="background: #eef2f6; padding: 1rem .25rem; margin: 0;">3<br />Luft</div>
+</div>
+
+`1fr` på hver side deler den resterende plads ligeligt. Midterkolonnen får halvdelen af bredden.
+
+`main > *` vælger **alle direkte børn af `main`** — her de tre sektioner. `grid-column: 2` placerer dem i midterkolonnen. `padding-block` giver luft foroven og forneden.
+
+**`only_main` ændrer kun baggrundsfarven. Placeringen kommer fra `main > *`.**
+
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 4: Det indre grid */}
+<Slide>
+
+## `full` fylder bredden — dens `div` står i midten
+
+```css
+section.full {
+  background: #cce5ff;
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: inherit;
+}
+
+section.full > div {
+  grid-column: 2;
+}
+```
+
+<div role="img" aria-label="Den blå section spænder over alle tre kolonner i main. Inde i sektionen gentages de tre kolonner, og div med teksten Billetter står i kolonne 2." style="background: #cce5ff; color: #172b3a; border: 2px solid #305b87; margin-block: 1rem;">
+  <div style="text-align: center; padding: .5rem; margin: 0;"><strong>section.full · fra første til sidste gridlinje</strong></div>
+  <div style="display: grid; grid-template-columns: 1fr 2fr 1fr; margin: 0; padding-block: .75rem;">
+    <div style="grid-column: 2; background: white; outline: 2px dashed #305b87; padding-block: .75rem; margin: 0; text-align: center;"><strong>div · kolonne 2</strong><br />Billetter</div>
+  </div>
+</div>
+
+- `grid-column: 1 / -1` placerer **sektionen** fra første til sidste gridlinje i `main`.
+- `display: grid` og `inherit` giver sektionen **sit eget grid med samme kolonnedefinition**. Her flugter kolonnerne, fordi sektionen har samme bredde som `main`.
+- `section.full > div` placerer **den indre `div`** i sektionens kolonne 2.
+
+**To placeringer: Sektionen i `main`. Teksten i sektionens `div`.**
+
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 5: Lille forsøg med samme eksempel */}
+<Slide>
+
+## Prøv: Gør Program-sektionen bred
+
+**3 minutter · individuelt · i det åbne CodePen-eksempel**
+
+Giv også **Program** en blå baggrund i fuld bredde. Teksten skal stadig starte samme sted som de to andre tekster. Tilføj en overskrift og et kort tekstafsnit samlet i midten.
+
+Brug de eksisterende CSS-regler. Tilpas HTML'en, og afprøv ved at gøre resultatpanelet smallere.
+
+**Tjek:** Går alle tre baggrunde til kanten? Flugter teksten stadig? Kan du pege på de to regler, der bestemmer henholdsvis sektionens og indholdets placering?
+
+<details>
+<summary>Hint</summary>
+
+Klassen `full` gør sektionen bred. Hvilket element rammer reglen `section.full > div`? Saml overskrift og tekst i dét element.
+
+</details>
+
+<details>
+<summary>Se et løsningsforslag</summary>
+
+Erstat den midterste sektion med:
+
+```html
+<section class="full">
+  <div>
+    <h2>Program</h2>
+    <p>Musik og oplevelser hele dagen.</p>
+  </div>
+</section>
+```
+
+Sektionen spænder over alle kolonner. Den fælles `div` placeres i kolonne 2 og holder overskriften og afsnittet samlet.
+
+</details>
+
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 6: Body definerer sidens grid */}
+<Slide>
+
+## `body` laver sidens overordnede grid
+
+Disse regler står allerede i skabelonens **`style.css`**:
+
+<div class="columns-2">
+<div>
+
+```css
+body {
+  margin: 0;
+  min-height: 100svh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns:
+    minmax(1rlh, 1fr)
+    minmax(0, 75rem)
+    minmax(1rlh, 1fr);
+}
+```
+
+</div>
+<div>
+
+**Sidens kant og højde**
+
+- `margin: 0` fjerner browserens standardafstand langs sidens kant.
+- `min-height: 100svh` gør siden mindst lige så høj som browserens lille visningsområde — på mobil med browserens værktøjslinjer fremme. Siden kan blive højere, hvis indholdet kræver det.
+
+**Tre rækker: `auto 1fr auto`**
+
+Header og footer får plads efter deres indhold. Den midterste række med `main` tager den resterende højde. Derfor kan footeren stå nederst, selv på en side med lidt indhold.
+
+</div>
+</div>
+
+**Tre kolonner: luft · indhold · luft**
+
+`minmax(minimum, maksimum)` angiver, hvor lille og stor en kolonne må være:
+
+- **Midten:** `minmax(0, 75rem)` kan krympe og er højst `75rem`. `rem` følger skriftstørrelsen på `html`.
+- **Siderne:** `minmax(1rlh, 1fr)` giver mindst én linjehøjdes luft fra `html` (`1rlh`). De to `1fr` deler den resterende bredde ligeligt, så indholdet står centreret.
+
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 7: Main genbruger kolonnerne og placerer sektionerne */}
+<Slide>
+
+## `main` genbruger kolonnerne fra `body`
+
+Disse regler står også allerede i **`style.css`**:
+
+```css
+main {
+  display: grid;
+  grid-template-columns: inherit;
+  grid-column: 1 / -1;
+  align-content: start;
+}
+
+main > * {
+  grid-column: 2;
+  padding-block: var(--space-3);
+}
+```
+
+- `grid-column: 1 / -1` lader **hele `main`** spænde over alle tre kolonner i `body`.
+- `display: grid` og `grid-template-columns: inherit` giver `main` sit eget grid med kolonnedefinitionen fra `body`.
+- `align-content: start` samler sektionernes rækker øverst, selv når `main` har ekstra højde.
+- `main > *` placerer **de direkte børn af `main`** i kolonne 2 og giver dem luft foroven og forneden. `--space-3` er her `3rem`.
+
+**Behold grundlayoutet.** CodePens `50%` gjorde kun eksemplet tydeligt. I skabelonen kommer indholdsbredden fra `body`.
+
+Tag princippet med over: Tilføj sektionerne i `main` og CSS-reglerne til `only_main`, `full` og dens indre `div`.
+
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 8: Faldgruber i den eksisterende CSS */}
+<Slide>
+
+## Faldgruber, når du bygger videre
+
+- **`width: 100%` er ikke nok.** En sektion i kolonne 2 fylder så kun den kolonne. Brug `grid-column: 1 / -1` til at spænde over alle tre.
+- **Den brede sektion skal ligge direkte i `main`.** Et ekstra omsluttende element bliver selv placeret i kolonne 2 af `main > *`.
+- **Husk den indre `div`.** Reglen `section.full > div` rammer hverken løs tekst eller en `h2` direkte i sektionen. Saml indholdet i én `div`.
+- **Der er allerede luft.** `main > *` giver sektionerne `padding-block: var(--space-3)` — her `3rem` foroven og forneden. Det gælder også `full`.
+- **Placeringen overskrives, resten bliver.** `section.full` er mere specifik end `main > *` på grund af klassen og vinder for `grid-column`. Det fjerner ikke den eksisterende padding.
+
+**I skabelonen er grundlayoutet klart. Din opgave er at vælge, hvilke sektioner der bliver i midten, og hvilke der skal spænde over alle kolonner.**
+
+<details>
+<summary>Kilder og forskelle fra det første eksempel</summary>
+
+- [Event-site-skabelonen](https://github.com/EK-MMD/event-site-skabelon): Den eksisterende CSS er kontrolleret i den lokale udleverede kopi. `main > *` står omkring linje 40.
+- Eksemplet bruger almindelige CSS-regler uden nesting. `section.full > div` vælger kun direkte `div`-børn. Peters oprindelige nestede `div`-regel svarer til `section.full div` og vælger også dybere `div`-elementer.
+- [MDN: grid-column](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/grid-column)
+- [MDN: inherit](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/inherit)
+- [MDN: direkte børn med `>`](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Selectors/Child_combinator)
+- [MDN: CSS-længder — `svh`, `rem` og `rlh`](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/length)
+
+</details>
+
+</Slide>

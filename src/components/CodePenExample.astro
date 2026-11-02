@@ -1,5 +1,6 @@
 ---
 import { Code } from 'astro:components';
+import '../styles/codepen-example.css';
 interface Props {
   title: string;
   html: string;
@@ -30,7 +31,7 @@ const data = JSON.stringify({ title, html, css, js: '', editors: '110', layout: 
 const srcdoc = `<!doctype html><html lang="da"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${title.replaceAll('&', '&amp;').replaceAll('<', '&lt;')}</title><style>${css}</style></head><body>${html}</body></html>`;
 ---
 
-<div class="codepen-example">
+<div class="codepen-example not-content">
   {preview && <div class="codepen-preview">
     {previewHeading && <h3 class="codepen-heading">{previewHeading}</h3>}
     <iframe title={`Afprøv: ${title}`} srcdoc={srcdoc} sandbox="allow-scripts" loading="lazy" height={height}></iframe>
@@ -40,9 +41,9 @@ const srcdoc = `<!doctype html><html lang="da"><head><meta charset="utf-8"><meta
     <div class="codepen-controls-panel">
       <form action="https://codepen.io/pen/define" method="post" target="_blank" rel="noopener noreferrer">
         <input type="hidden" name="data" value={data} />
-        <button type="submit">{label}<span class="pl-sr-only"> (åbner en ny fane)</span></button>
+        <button type="submit">{label}<span class="codepen-sr-only"> (åbner en ny fane)</span></button>
       </form>
-      <details class="pl-reveal pl-code-fallback">
+      <details class="codepen-code-fallback">
         <summary>Vis kode til manuel kopiering</summary>
         <p>HTML-panelet</p><Code code={html} lang="html" />
         {css && <><p>CSS-panelet</p><Code code={css} lang="css" /></>}
