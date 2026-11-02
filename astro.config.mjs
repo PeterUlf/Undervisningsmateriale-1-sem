@@ -168,7 +168,7 @@ export default defineConfig({
             },
             {
               label: "CSS",
-              items: ["css/intro", "css/reset", "css/flexbox", "css/grid", "css/forsiden", "css/popover-transitions"],
+              items: ["css/intro", "css/reset", "css/flexbox", "css/grid", "css/forsiden", "css/custom-properties", "css/popover-transitions"],
             },
             {
               label: "Git & GitHub",

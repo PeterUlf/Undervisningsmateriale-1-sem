@@ -1,0 +1,64 @@
+---
+title: Custom properties – undervisernoter
+description: Grundlag, tidsplan og feedback til CSS-variabler i tema 4.
+draft: true
+pagefind: false
+sidebar:
+  hidden: true
+---
+
+## Materiale og afgrænsning
+
+[Custom properties](/draft/css/custom-properties/) er en introduktion til at navngive, genbruge og lokalt ændre farver og afstande. Alt redigerbart undervisningsindhold står i `src/content/docs/css/custom-properties.mdx`, inklusive illustration, CodePen-kode, opgave, hint og løsning.
+
+Forløbet knytter an til event-skabelonens `style.css`, men kræver ikke, at det separate forløb Forsiden er gennemgået. Forsiden er en kladde i tema 4 og tæller derfor ikke automatisk som forkundskab. Der undervises ikke i Grid, JavaScript, `@property`, fallback eller variabelkæder her.
+
+## Forkundskaber
+
+Begge følgende filer er udgivet i tema 2 og er tidligere stof:
+
+- `html/grundlaeggende.mdx`: elementer, klasser og elementer inde i hinanden.
+- `css/intro.mdx`: regler og værdier, class-selectorer, nedarvning, margin/padding, farver og `rem`.
+
+Forudsæt kendskab, men ikke sikker mestring. `--navn`, `var()`, fælles værdier på `html` og lokal ændring af en arvet custom property forklares i dette forløb. `main > *` forklares kort ved skabelonens kode, så det ikke forudsætter Forsiden.
+
+## Læringsmål og tidsplan
+
+De studerende skal kunne definere en custom property, bruge den med `var()` og vælge mellem en fælles ændring og en lokal undtagelse.
+
+| Del | Tid |
+| --- | --- |
+| Retning, slide 1 | 1 minut |
+| Samtale og fælles opsamling, slide 2 | 3 minutter |
+| Definition, brug og illustration, slide 3 | 2 minutter |
+| CodePen og fælles ændringer, slide 4 | 2 minutter |
+| Lokal farve, slide 5 | 2 minutter |
+| Anvendelse, kontrol og forbedring, slide 6 | 4 minutter |
+| Skabelon og afslutning, slide 7 | 2 minutter |
+| **I alt** | **16 minutter** |
+
+I opsamlingen kan du spørge: Hvordan opdager vi, hvis ét område blev glemt? Hvilke områder skal ændres sammen? Forbind buddene med behovet for én fælles definition uden at forudsætte bestemte svar. Genbesøg problemet med de gentagne farvekoder, når begge sektioner ændres i CodePen.
+
+## Demonstration og opgave
+
+CodePen-eksemplet er selvstændigt med to tekstsektioner og to custom properties. Den synlige ændring sker ved redigering i CodePen. Knappen sender samme HTML/CSS som sidens forhåndsvisning og kopieringskode; der er ikke oprettet en gemt Pen. Afstanden mellem sektionerne er bevidst en direkte `1rem`, så forskellen på forbrug af en variabel og en fast værdi kan ses.
+
+På slide 5 ændres den ene sektions baggrund med en lokal custom property. På slide 6 skal princippet overføres til en anden egenskab, padding, og en tredje sektion. Ændringen på `html` bruges som kontrol af, at undtagelsen er lokal. Opgaven kræver derfor valg af relevant variabel og placering, ikke blot en ny farve. Hvis den studerende beholdt `.highlight` fra slide 5, må denne sektion fortsat have sin lokale farve; det påvirker ikke afstandsopgaven.
+
+Kriterierne er undervisningsfeedback, ikke eksamenskrav. Hint og løsning starter lukket. Ekstraopgaven undersøger, om den studerende skelner mellem definition, brug og andre deklarationer, der ikke bruger variablen. AI-vejledning er fravalgt, fordi direkte afprøvning af de korte regler giver konkret feedback.
+
+## Typiske misforståelser
+
+- Definitionen alene giver ikke en baggrund eller afstand. Værdien skal bruges i en relevant deklaration med `var()`.
+- Det er egne navne. `--section-space` er et undervisningseksempel, mens `--space-3` findes i skabelonen. Et tal i navnet fastsætter ikke værdien.
+- Custom properties med `--` nedarves som udgangspunkt. En deklaration på et element gælder dér frem for en arvet værdi og kan arves videre af dets børn. Den ændrer ikke søskende eller forældre.
+- `html` og `:root` vælger samme element i HTML, men har forskellig specificitet. Brug skabelonens eksisterende `html` frem for at indføre en konkurrerende global blok.
+- Kun deklarationer, der bruger værdien, følger ændringen. Lokale definitioner kan betyde, at ikke alle forbrugere følger værdien på `html`.
+- Navne er følsomme over for store/små bogstaver. Husk de to bindestreger, parenteserne og passende enhed i afstandsværdier.
+- En værdi skal passe til den egenskab, der bruger den; fx er en farve ikke en gyldig padding. Fallback og ugyldige værdier behandles ikke i denne introduktion.
+
+## Illustration og kilder
+
+Illustrationen på slide 3 er selvstændig HTML/CSS i MDX med tekstalternativ. Den viser én værdi, som bruges af to sektioner. Ingen eksterne billeder er anvendt. CodePen-forhåndsvisningen viser den faktiske kode; illustrationen og teksten kan også læses, når print skjuler iframe-forhåndsvisningen.
+
+Den lokale `T4 event-site-skabelon-main/style.css` er grundlaget for sidste slide. Kilderne MDN og W3C er kontrolleret den 2. november 2026 og linket i undervisningen. Skabelonens kode er gengivet som relevante udsnit, ikke som fulde erstatningsregler. De udleverede filer er ikke ændret.

@@ -1,0 +1,260 @@
+---
+title: Custom properties
+draft: true
+description: Giv farver og afstande navne, genbrug dem med var(), og tilpas dem lokalt.
+# Ret tekst, eksempler og illustration direkte ved hver Slide.
+# Hele CodePen-eksemplet står på slide 4.
+sidebar:
+  label: Custom properties
+  order: 5
+  badge:
+    text: Tema 4
+    variant: tip
+    class: badge-theme-4
+---
+
+import Slide from "../../../components/Slide.astro";
+import CodePenExample from "../../../components/CodePenExample.astro";
+
+{/* Slide 1: Retning og relevans */}
+<Slide>
+
+## Custom properties
+
+**Custom properties** kaldes også **CSS-variabler**. De giver værdier navne, så du kan genbruge dem i din CSS.
+
+Du møder dem allerede i [event-site-skabelonen](https://github.com/EK-MMD/event-site-skabelon), hvor farver og afstande er samlet øverst i `style.css`.
+
+Efter gennemgangen skal du kunne:
+
+- definere en værdi og bruge den flere steder med `var()`;
+- ændre en fælles værdi eller lave en lokal undtagelse.
+
+Vi bruger små sektioner fra en tænkt eventforside som eksempel.
+
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 2: Samtale før syntaksen */}
+<Slide>
+
+## Sum: Tre steder med samme farve
+
+**2 minutter · grupper på 3–5 · kun samtale, uden opslag, AI eller kodearbejde**
+
+På en tænkt eventside skal tre områder altid have samme baggrund. Lige nu står farven tre steder:
+
+```css
+.program {
+  background: #e8f0ff;
+}
+.billetter {
+  background: #e8f0ff;
+}
+.praktisk {
+  background: #e8f0ff;
+}
+```
+
+**Hvad kan gå galt, når farven skal ændres — og hvordan ville I helst vedligeholde den?**
+
+Lad alle komme med et bud. Del én overvejelse med holdet, før vi ser løsningen.
+
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 3: Definér og brug en værdi */}
+<Slide>
+
+## Giv værdien et navn — brug den med `var()`
+
+```css
+html {
+  --color-surface: #e8f0ff;
+}
+
+section {
+  background: var(--color-surface);
+}
+```
+
+- `--color-surface` er et navn, vi selv vælger. Det begynder med **to bindestreger**.
+- `#e8f0ff` er værdien, vi gemmer under navnet.
+- `var(--color-surface)` henter værdien til `background`.
+
+<div role="img" aria-label="Én fælles værdi, color-surface, bruges af både sektionen Program og sektionen Billetter." style="border: 1px solid currentColor; border-radius: .5rem; padding: 1rem; margin-block: 1rem; text-align: center;">
+  <strong>--color-surface: #e8f0ff</strong>
+  <div style="margin: .5rem 0;">↓ bruges af begge sektioner ↓</div>
+  <div style="display: flex; flex-wrap: wrap; gap: .75rem; margin: 0; color: #172b3a;">
+    <div style="flex: 1 1 8rem; background: #e8f0ff; padding: 1rem; margin: 0;">Program</div>
+    <div style="flex: 1 1 8rem; background: #e8f0ff; padding: 1rem; margin: 0;">Billetter</div>
+  </div>
+</div>
+
+Værdien på `html` **nedarves** til elementerne inde i det. Du vil også se `:root` brugt til fælles værdier; i et HTML-dokument vælger det `html`-elementet.
+
+**Navnet alene giver ingen farve. En regel skal bruge værdien med `var()`.**
+
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 4: Samme kode til demo, kopiering og CodePen */}
+<Slide>
+
+## Prøv: Én ændring rammer begge sektioner
+
+Åbn eksemplet i CodePen. Skift `--color-surface` til `#ffe5c2`, og skift derefter `--section-space` fra `1rem` til `2rem`.
+
+<CodePenExample
+  title="Custom properties – fælles farve og afstand"
+  height={210}
+  label="Åbn eksemplet i CodePen"
+  html={`
+    <main>
+      <section>Program</section>
+      <section>Billetter</section>
+    </main>
+  `}
+  css={`
+    /* Værdier, vi kan ændre ét sted */
+    html {
+      --color-surface: #e8f0ff;
+      --section-space: 1rem;
+    }
+
+    /* Begge sektioner bruger værdierne */
+    section {
+      background: var(--color-surface);
+      padding: var(--section-space);
+      margin-block: 1rem;
+    }
+
+    /* Kun for læsbarhed i eksemplet */
+    body {
+      margin: 1rem;
+      font: 18px / 1.5 system-ui;
+      color: #172b3a;
+    }
+  `}
+/>
+
+Begge sektioner ændrer sig, fordi de bruger de samme værdier. Afstanden **mellem** sektionerne bliver ved med at være `1rem`: `margin-block` bruger her et tal direkte.
+
+Custom properties kan altså bruges til både farver og afstande. Husk enheden i fx `2rem`.
+
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 5: En lokal værdi */}
+<Slide>
+
+## En sektion kan have sin egen værdi
+
+Sæt først `--color-surface` på `html` tilbage til `#e8f0ff`. Giv så sektionen med Billetter en klasse, og tilføj en lokal værdi:
+
+```html
+<section class="highlight">Billetter</section>
+```
+
+```css
+.highlight {
+  --color-surface: #ffe5c2;
+}
+```
+
+Program bruger fortsat farven fra `html`. Billetter bruger værdien på `.highlight`, når den samme `section`-regel læser `var(--color-surface)`.
+
+Den lokale værdi gælder også for elementer inde i sektionen, som arver den. Den ændrer **ikke** værdien på `html` eller i de andre sektioner.
+
+**En fælles værdi giver ensartethed. En lokal værdi giver en afgrænset undtagelse.**
+
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 6: Anvend samme princip på afstand */}
+<Slide>
+
+## Opgave: En kompakt sektion
+
+**4 minutter · individuelt · brug det åbne CodePen-eksempel**
+
+Tilføj en tredje sektion med teksten **Praktisk info** og klassen `compact`. Den skal bruge den fælles baggrundsfarve, men have kun `0.5rem` indvendig luft.
+
+Lav undtagelsen med en **lokal custom property**. Behold den fælles `section`-regel. Sæt derefter `--section-space` på `html` til `2rem`, og kontrollér, at kun de to almindelige sektioner får mere luft. Ret eventuelle fejl, og prøv igen.
+
+- **Godt:** Det virker, og du kan forklare, hvor hver sektion henter sin afstand.
+- **Tilstrækkeligt:** Kun Praktisk info har `0.5rem` padding via en lokal variabel; de andre følger værdien på `html`.
+- **Mangler endnu:** Alle sektioner ændres, eller du har sat `padding` direkte på `.compact`. Find den variabel, den fælles regel bruger.
+
+<details>
+<summary>Hint</summary>
+
+På forrige slide ændrede vi en farve lokalt. Hvilket variabelnavn læser `padding` i eksemplet?
+
+</details>
+
+<details>
+<summary>Se et løsningsforslag</summary>
+
+Tilføj inde i `main`:
+
+```html
+<section class="compact">Praktisk info</section>
+```
+
+Tilføj i CSS:
+
+```css
+.compact {
+  --section-space: 0.5rem;
+}
+```
+
+Den eksisterende `padding: var(--section-space)` bruger nu den lokale værdi på denne sektion. De andre sektioner arver fortsat afstanden fra `html`. Farven er stadig fælles, fordi `.compact` ikke ændrer den.
+
+</details>
+
+**Hvis du er hurtigt færdig:** Forklar, hvorfor ændringen af `--section-space` ikke ændrer afstanden mellem sektionerne.
+
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 7: Overførsel til de udleverede filer */}
+<Slide>
+
+## Find dem i den udleverede `style.css`
+
+Disse værdier står allerede øverst i event-skabelonen. Her er et udsnit og et sted, hvor en værdi bruges:
+
+```css
+html {
+  --color-page: #f7f7f7;
+  --color-surface: #fff;
+  --color-text: #222;
+  --space-3: 3rem;
+
+  background: var(--color-page);
+  color: var(--color-text);
+}
+
+main > * {
+  padding-block: var(--space-3);
+}
+```
+
+`main > *` vælger de direkte børn af `main`. Ændrer du `--space-3`, ændres deres luft foroven og forneden — samt andre steder, der bruger samme værdi.
+
+**Når du bygger videre:** Find både definitionen og de steder, hvor navnet bruges. `--section-space` var vores eget navn i CodePen; det findes ikke i skabelonen fra starten.
+
+Husk to bindestreger, `var(...)` ved brug og præcis samme stavning. `--space-3` og `--Space-3` er forskellige navne. Tallet i navnet bestemmer ikke værdien: Det gør `3rem` efter kolon.
+
+<details>
+<summary>Kilder</summary>
+
+- [Event-site-skabelonen](https://github.com/EK-MMD/event-site-skabelon). Udsnittet er kontrolleret mod den lokale kopi af `style.css`.
+- [MDN: Brug CSS custom properties](https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Cascading_variables/Using_custom_properties)
+- [W3C: CSS Custom Properties](https://www.w3.org/TR/css-variables-1/)
+
+</details>
+
+</Slide>
