@@ -1,6 +1,6 @@
 ---
 title: CSS-overgange på en popover
-draft: true
+draft: false
 description: "40 minutter med transition, allow-discrete, overlay og @starting-style. Afprøv og tilpas eksempler i CodePen."
 sidebar:
   order: 8
@@ -22,28 +22,32 @@ sidebar:
 # Ved nye eller slettede slides: ret slideCount, step og slidekommentarer.
 ---
 
-import Slide from '../../../components/Slide.astro';
-import PopoverSlide from '../../../components/PopoverSlide.astro';
-import CodePenExample from '../../../components/CodePenExample.astro';
-import { Code } from 'astro:components';
+import Slide from "../../../components/Slide.astro";
+import PopoverSlide from "../../../components/PopoverSlide.astro";
+import CodePenExample from "../../../components/CodePenExample.astro";
+import { Code } from "astro:components";
 
 export const slideCount = 15;
-
 
 {/* Slide 1: Når boksen dukker op */}
 
 <Slide>
-<PopoverSlide step={1} total={slideCount} part="Popover / Overgange">
-  <p class="pl-eyebrow">Del 2 · ca. 40 minutter · efter Popups med HTML</p>
-  <h2>Når boksen dukker op</h2>
-  <p class="pl-lead">En CSS-overgang kan vise, at noget ændrer sig, uden at holde brugeren unødigt hen.</p>
-  <ul class="pl-list">
-    <li>Du kan forklare forskellen på skjult, åben og på vej væk.</li>
-    <li>Du kan tilpasse indgang og udgang med CSS.</li>
-    <li>Du kan afprøve bevægelsen og respektere reduceret bevægelse.</li>
-  </ul>
-  <span slot="takeaway">Hav CodePen klar. Vi arbejder videre med den samme workshop-case.</span>
-</PopoverSlide>
+  <PopoverSlide step={1} total={slideCount} part="Popover / Overgange">
+    <p class="pl-eyebrow">Del 2 · ca. 40 minutter · efter Popups med HTML</p>
+    <h2>Når boksen dukker op</h2>
+    <p class="pl-lead">
+      En CSS-overgang kan vise, at noget ændrer sig, uden at holde brugeren
+      unødigt hen.
+    </p>
+    <ul class="pl-list">
+      <li>Du kan forklare forskellen på skjult, åben og på vej væk.</li>
+      <li>Du kan tilpasse indgang og udgang med CSS.</li>
+      <li>Du kan afprøve bevægelsen og respektere reduceret bevægelse.</li>
+    </ul>
+    <span slot="takeaway">
+      Hav CodePen klar. Vi arbejder videre med den samme workshop-case.
+    </span>
+  </PopoverSlide>
 </Slide>
 <div class="page-break"></div>
 
@@ -209,6 +213,7 @@ export const slideCount = 15;
         `}
       />
     </div>
+
   </div>
   <span slot="takeaway">Kun samtale. Alle giver et bud. I må gerne foreslå en tredje mulighed.</span>
 </PopoverSlide>
@@ -218,146 +223,257 @@ export const slideCount = 15;
 {/* Slide 3: Hvad lagde I mærke til? */}
 
 <Slide>
-<PopoverSlide step={3} total={slideCount} part="Popover / Overgange">
-  <p class="pl-eyebrow">Fælles opsamling · 1 minut</p>
-  <h2>Hvad lagde I mærke til?</h2>
-  <p class="pl-lead">Vi hører to begrundelser. Hvornår hjalp bevægelsen, og hvornår blev den ventetid?</p>
-  <p>A skifter med det samme. B bruger 1,4 sekunder. Nu undersøger vi, hvordan CSS styrer forskellen.</p>
-  <span slot="takeaway">Målet er en overgang, der passer til handlingen og brugerens behov.</span>
-</PopoverSlide>
+  <PopoverSlide step={3} total={slideCount} part="Popover / Overgange">
+    <p class="pl-eyebrow">Fælles opsamling · 1 minut</p>
+    <h2>Hvad lagde I mærke til?</h2>
+    <p class="pl-lead">
+      Vi hører to begrundelser. Hvornår hjalp bevægelsen, og hvornår blev den
+      ventetid?
+    </p>
+    <p>
+      A skifter med det samme. B bruger 1,4 sekunder. Nu undersøger vi, hvordan
+      CSS styrer forskellen.
+    </p>
+    <span slot="takeaway">
+      Målet er en overgang, der passer til handlingen og brugerens behov.
+    </span>
+  </PopoverSlide>
 </Slide>
 <div class="page-break"></div>
 
 {/* Slide 4: En transition forbinder to værdier */}
 
 <Slide>
-<PopoverSlide step={4} total={slideCount} part="Popover / Overgange">
-  <div class="pl-split">
-    <div>
-      <h2>En transition forbinder to værdier</h2>
-      <Code lang="css" code={`.knap {
+  <PopoverSlide step={4} total={slideCount} part="Popover / Overgange">
+    <div class="pl-split">
+      <div>
+        <h2>En transition forbinder to værdier</h2>
+        <Code
+          lang="css"
+          code={`.knap {
   background: #185a46;
   transition: background-color 300ms ease;
 }
 .knap:hover, .knap:focus-visible {
   background: #843621;
-}`} />
-    </div>
-    <div>
-      <CodePenExample
-        title="Transition på en knap"
-        height={170}
-        label="Åbn i CodePen"
-        html={`
+}`}
+        />
+      </div>
+      <div>
+        <CodePenExample
+          title="Transition på en knap"
+          height={170}
+          label="Åbn i CodePen"
+          html={`
           <button type="button" class="knap">Peg eller brug Tab</button>
         `}
-        css={`
-          * { box-sizing: border-box; }
-          body {
-            margin: 0;
-            padding: 24px;
-            font: 18px/1.5 system-ui, sans-serif;
-            color: #18352e;
-            background: #edf1e9;
-          }
-          h1, h2 { line-height: 1.15; }
-          h1 { font-size: 1.5rem; }
-          h2 { margin-top: 0; font-size: 1.35rem; }
-          button {
-            padding: .7rem 1rem;
-            border: 2px solid #185a46;
-            border-radius: .5rem;
-            background: #185a46;
-            color: white;
-            font: inherit;
-            cursor: pointer;
-          }
-          button:focus-visible, a:focus-visible {
-            outline: 3px solid #b53e25;
-            outline-offset: 4px;
-          }
-          article { margin-bottom: 1.5rem; }
-          .knap {
-            background: #185a46;
-            transition: background-color 300ms ease;
-          }
-          .knap:hover, .knap:focus-visible {
-            background: #843621;
-          }
-          @media (prefers-reduced-motion: reduce) {
-            .knap { transition: none; }
-          }
-        `}
-      />
-      <p class="pl-meta"><code>background-color</code>: hvad der ændrer sig.<br /><code>300ms</code>: varigheden.<br /><code>ease</code>: hastighedens forløb. En valgfri forsinkelse står til sidst, fx <code>100ms</code>.</p>
+          css={`
+            * {
+              box-sizing: border-box;
+            }
+            body {
+              margin: 0;
+              padding: 24px;
+              font:
+                18px/1.5 system-ui,
+                sans-serif;
+              color: #18352e;
+              background: #edf1e9;
+            }
+            h1,
+            h2 {
+              line-height: 1.15;
+            }
+            h1 {
+              font-size: 1.5rem;
+            }
+            h2 {
+              margin-top: 0;
+              font-size: 1.35rem;
+            }
+            button {
+              padding: 0.7rem 1rem;
+              border: 2px solid #185a46;
+              border-radius: 0.5rem;
+              background: #185a46;
+              color: white;
+              font: inherit;
+              cursor: pointer;
+            }
+            button:focus-visible,
+            a:focus-visible {
+              outline: 3px solid #b53e25;
+              outline-offset: 4px;
+            }
+            article {
+              margin-bottom: 1.5rem;
+            }
+            .knap {
+              background: #185a46;
+              transition: background-color 300ms ease;
+            }
+            .knap:hover,
+            .knap:focus-visible {
+              background: #843621;
+            }
+            @media (prefers-reduced-motion: reduce) {
+              .knap {
+                transition: none;
+              }
+            }
+          `}
+        />
+        <p class="pl-meta">
+          <code>background-color</code>: hvad der ændrer sig.
+          <br />
+          <code>300ms</code>: varigheden.
+          <br />
+          <code>ease</code>: hastighedens forløb. En valgfri forsinkelse står
+          til sidst, fx <code>100ms</code>.
+        </p>
+      </div>
     </div>
-  </div>
-  <span slot="takeaway">Reglen står på grundtilstanden, så overgangen virker begge veje. Den kræver to forskellige værdier.</span>
-</PopoverSlide>
+    <span slot="takeaway">
+      Reglen står på grundtilstanden, så overgangen virker begge veje. Den
+      kræver to forskellige værdier.
+    </span>
+  </PopoverSlide>
 </Slide>
 <div class="page-break"></div>
 
 {/* Slide 5: Skjult er en særlig tilstand */}
 
 <Slide>
-<PopoverSlide step={5} total={slideCount} part="Popover / Overgange">
-  <h2>Skjult er en særlig tilstand</h2>
-  <table class="pl-table">
-    <thead><tr><th>CSS-egenskab</th><th>Hvad sker der under overgangen?</th></tr></thead>
-    <tbody>
-      <tr><th><code>opacity</code></th><td>Kan gå gennem mellemværdier fra 0 til 1.</td></tr>
-      <tr><th><code>display</code></th><td>Skifter mellem diskrete værdier. Der findes ikke en halv <code>display: none</code>.</td></tr>
-    </tbody>
-  </table>
-  <Code lang="css" code={`transition: opacity 250ms ease,
-            display 250ms allow-discrete;`} />
-  <p><code>allow-discrete</code> tillader dette skift i en transition. Ved lukning kan browseren vente med <code>display: none</code>, til overgangen er færdig.</p>
-  <span slot="takeaway">Ved åbning bliver elementet synligt fra starten, så indgangen kan ses.</span>
-</PopoverSlide>
+  <PopoverSlide step={5} total={slideCount} part="Popover / Overgange">
+    <h2>Skjult er en særlig tilstand</h2>
+    <table class="pl-table">
+      <thead>
+        <tr>
+          <th>CSS-egenskab</th>
+          <th>Hvad sker der under overgangen?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>
+            <code>opacity</code>
+          </th>
+          <td>Kan gå gennem mellemværdier fra 0 til 1.</td>
+        </tr>
+        <tr>
+          <th>
+            <code>display</code>
+          </th>
+          <td>
+            Skifter mellem diskrete værdier. Der findes ikke en halv{" "}
+            <code>display: none</code>.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <Code
+      lang="css"
+      code={`transition: opacity 250ms ease,
+            display 250ms allow-discrete;`}
+    />
+    <p>
+      <code>allow-discrete</code> tillader dette skift i en transition. Ved
+      lukning kan browseren vente med <code>display: none</code>, til overgangen
+      er færdig.
+    </p>
+    <span slot="takeaway">
+      Ved åbning bliver elementet synligt fra starten, så indgangen kan ses.
+    </span>
+  </PopoverSlide>
 </Slide>
 <div class="page-break"></div>
 
 {/* Slide 6: Popoveren ligger i top layer */}
 
 <Slide>
-<PopoverSlide step={6} total={slideCount} part="Popover / Overgange">
-  <h2>Popoveren ligger i top layer</h2>
-  <p class="pl-lead">Browseren viser en åben popover i et særligt lag over sidens almindelige indhold.</p>
-  <Code lang="css" code={`transition: opacity 250ms ease,
+  <PopoverSlide step={6} total={slideCount} part="Popover / Overgange">
+    <h2>Popoveren ligger i top layer</h2>
+    <p class="pl-lead">
+      Browseren viser en åben popover i et særligt lag over sidens almindelige
+      indhold.
+    </p>
+    <Code
+      lang="css"
+      code={`transition: opacity 250ms ease,
             display 250ms allow-discrete,
-            overlay 250ms allow-discrete;`} />
-  <p><code>overlay</code> i listen udsætter fjernelsen fra dette lag, så boksen kan færdiggøre sin udgang.</p>
-  <p class="pl-meta">Browseren styrer selve overlay-værdien. Vi bruger den kun i transition-listen.</p>
-  <span slot="takeaway"><code>overlay</code> handler om placeringen i top layer. <code>::backdrop</code> er det visuelle lag bag boksen.</span>
-</PopoverSlide>
+            overlay 250ms allow-discrete;`}
+    />
+    <p>
+      <code>overlay</code> i listen udsætter fjernelsen fra dette lag, så boksen
+      kan færdiggøre sin udgang.
+    </p>
+    <p class="pl-meta">
+      Browseren styrer selve overlay-værdien. Vi bruger den kun i
+      transition-listen.
+    </p>
+    <span slot="takeaway">
+      <code>overlay</code> handler om placeringen i top layer.{" "}
+      <code>::backdrop</code> er det visuelle lag bag boksen.
+    </span>
+  </PopoverSlide>
 </Slide>
 <div class="page-break"></div>
 
 {/* Slide 7: Tre tilstande at holde styr på */}
 
 <Slide>
-<PopoverSlide step={7} total={slideCount} part="Popover / Overgange">
-  <h2>Tre tilstande at holde styr på</h2>
-  <table class="pl-table">
-    <thead><tr><th>Tilstand</th><th>Vores eksempel</th><th>CSS</th></tr></thead>
-    <tbody>
-      <tr><th>Indgangens start</th><td>Usynlig og lidt mindre.</td><td><code>@starting-style</code></td></tr>
-      <tr><th>Åben</th><td>Synlig i fuld størrelse.</td><td><code>:popover-open</code></td></tr>
-      <tr><th>Udgangens slutning</th><td>Usynlig og lidt mindre igen.</td><td>Grundreglen <code>[popover]</code></td></tr>
-    </tbody>
-  </table>
-  <p class="pl-meta">Senere ændrer I indgang og udgang til hver sin placering.</p>
-  <span slot="takeaway">Indgangen behøver ikke være udgangen kørt baglæns.</span>
-</PopoverSlide>
+  <PopoverSlide step={7} total={slideCount} part="Popover / Overgange">
+    <h2>Tre tilstande at holde styr på</h2>
+    <table class="pl-table">
+      <thead>
+        <tr>
+          <th>Tilstand</th>
+          <th>Vores eksempel</th>
+          <th>CSS</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>Indgangens start</th>
+          <td>Usynlig og lidt mindre.</td>
+          <td>
+            <code>@starting-style</code>
+          </td>
+        </tr>
+        <tr>
+          <th>Åben</th>
+          <td>Synlig i fuld størrelse.</td>
+          <td>
+            <code>:popover-open</code>
+          </td>
+        </tr>
+        <tr>
+          <th>Udgangens slutning</th>
+          <td>Usynlig og lidt mindre igen.</td>
+          <td>
+            Grundreglen <code>[popover]</code>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="pl-meta">
+      Senere ændrer I indgang og udgang til hver sin placering.
+    </p>
+    <span slot="takeaway">
+      Indgangen behøver ikke være udgangen kørt baglæns.
+    </span>
+  </PopoverSlide>
 </Slide>
 <div class="page-break"></div>
 
 {/* Slide 8: Grundreglen og udgangen */}
 
 <Slide>
-<PopoverSlide step={8} total={slideCount} part="Popover / Overgange">
-  <h2>Grundreglen og udgangen</h2>
-  <Code lang="css" code={`[popover] {
+  <PopoverSlide step={8} total={slideCount} part="Popover / Overgange">
+    <h2>Grundreglen og udgangen</h2>
+    <Code
+      lang="css"
+      code={`[popover] {
   opacity: 0;
   transform: scale(.94);
   transition:
@@ -365,10 +481,17 @@ export const slideCount = 15;
     transform 250ms ease,
     display 250ms allow-discrete,
     overlay 250ms allow-discrete;
-}`} />
-  <p><code>scale(.94)</code> gør boksen til 94 % af dens størrelse. Ved lukning går den mod disse værdier.</p>
-  <span slot="takeaway">Alle fire overgange har samme varighed, så boksen bliver i top layer, indtil udgangen slutter.</span>
-</PopoverSlide>
+}`}
+    />
+    <p>
+      <code>scale(.94)</code> gør boksen til 94 % af dens størrelse. Ved lukning
+      går den mod disse værdier.
+    </p>
+    <span slot="takeaway">
+      Alle fire overgange har samme varighed, så boksen bliver i top layer,
+      indtil udgangen slutter.
+    </span>
+  </PopoverSlide>
 </Slide>
 <div class="page-break"></div>
 
@@ -388,11 +511,12 @@ export const slideCount = 15;
 }
 
 @starting-style {
-  [popover]:popover-open {
-    opacity: 0;
-    transform: scale(.94);
-  }
+[popover]:popover-open {
+opacity: 0;
+transform: scale(.94);
+}
 }`} />
+
   </div>
   <span slot="takeaway">Browseren får nu en startværdi til indgangen og en slutværdi for den åbne boks.</span>
 </PopoverSlide>
@@ -402,17 +526,29 @@ export const slideCount = 15;
 {/* Slide 10: Når brugeren ønsker mindre bevægelse */}
 
 <Slide>
-<PopoverSlide step={10} total={slideCount} part="Popover / Overgange">
-  <h2>Når brugeren ønsker mindre bevægelse</h2>
-  <Code lang="css" code={`@media (prefers-reduced-motion: reduce) {
+  <PopoverSlide step={10} total={slideCount} part="Popover / Overgange">
+    <h2>Når brugeren ønsker mindre bevægelse</h2>
+    <Code
+      lang="css"
+      code={`@media (prefers-reduced-motion: reduce) {
   [popover] {
     transition: none;
   }
-}`} />
-  <p class="pl-lead">Boksen skal stadig kunne åbnes og lukkes. Overgangen springes over, når brugeren har valgt reduceret bevægelse.</p>
-  <p class="pl-meta">Afprøv indstillingen “reduced motion” i browserens udviklerværktøjer eller “Reducer bevægelse” i operativsystemet.</p>
-  <span slot="takeaway">Sæt reglen efter transition-reglerne. Bevægelsen er et ekstra lag oven på funktionen.</span>
-</PopoverSlide>
+}`}
+    />
+    <p class="pl-lead">
+      Boksen skal stadig kunne åbnes og lukkes. Overgangen springes over, når
+      brugeren har valgt reduceret bevægelse.
+    </p>
+    <p class="pl-meta">
+      Afprøv indstillingen “reduced motion” i browserens udviklerværktøjer eller
+      “Reducer bevægelse” i operativsystemet.
+    </p>
+    <span slot="takeaway">
+      Sæt reglen efter transition-reglerne. Bevægelsen er et ekstra lag oven på
+      funktionen.
+    </span>
+  </PopoverSlide>
 </Slide>
 <div class="page-break"></div>
 
@@ -511,6 +647,7 @@ export const slideCount = 15;
         }
       `}
     />
+
   </div>
   <span slot="takeaway">HTML og størrelsesreglerne er de samme som før. Overgangen ligger til sidst i CSS-panelet.</span>
 </PopoverSlide>
@@ -715,6 +852,7 @@ export const slideCount = 15;
         />
       </details>
     </div>
+
   </div>
   <span slot="takeaway">Resultat: En popover med forskellig indgang og udgang. Forklar, hvorfor de kræver hver sin værdi.</span>
 </PopoverSlide>
@@ -724,47 +862,106 @@ export const slideCount = 15;
 {/* Slide 13: Tre synlige tegn på, at det virker */}
 
 <Slide>
-<PopoverSlide step={13} total={slideCount} part="Popover / Overgange">
-  <p class="pl-eyebrow">Afprøv, vurder og ret · 4 minutter</p>
-  <h2>Tre synlige tegn på, at det virker</h2>
-  <table class="pl-table">
-    <thead><tr><th>Niveau</th><th>Det skal I kunne vise</th></tr></thead>
-    <tbody>
-      <tr><th>På vej</th><td>Boksen åbner. Bevægelsen virker kun den ene vej eller bruger samme start- og slutplacering.</td></tr>
-      <tr><th>Det fungerer</th><td>Boksen kommer nedefra og forsvinder opad. Udgangen får tid til at afslutte. Luk og Esc virker.</td></tr>
-      <tr><th>Du kan forklare det</th><td>I forklarer alle tre værdier og viser, at reduceret bevægelse fjerner overgangen, mens boksen stadig virker.</td></tr>
-    </tbody>
-  </table>
-  <p>Byt betjening. Åbn og luk tre gange, også hurtigt. Ret én ting, og gentag afprøvningen.</p>
-  <span slot="takeaway">En langsom, midlertidig varighed kan gøre fejlen tydeligere. Sæt den tilbage bagefter.</span>
-</PopoverSlide>
+  <PopoverSlide step={13} total={slideCount} part="Popover / Overgange">
+    <p class="pl-eyebrow">Afprøv, vurder og ret · 4 minutter</p>
+    <h2>Tre synlige tegn på, at det virker</h2>
+    <table class="pl-table">
+      <thead>
+        <tr>
+          <th>Niveau</th>
+          <th>Det skal I kunne vise</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>På vej</th>
+          <td>
+            Boksen åbner. Bevægelsen virker kun den ene vej eller bruger samme
+            start- og slutplacering.
+          </td>
+        </tr>
+        <tr>
+          <th>Det fungerer</th>
+          <td>
+            Boksen kommer nedefra og forsvinder opad. Udgangen får tid til at
+            afslutte. Luk og Esc virker.
+          </td>
+        </tr>
+        <tr>
+          <th>Du kan forklare det</th>
+          <td>
+            I forklarer alle tre værdier og viser, at reduceret bevægelse
+            fjerner overgangen, mens boksen stadig virker.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      Byt betjening. Åbn og luk tre gange, også hurtigt. Ret én ting, og gentag
+      afprøvningen.
+    </p>
+    <span slot="takeaway">
+      En langsom, midlertidig varighed kan gøre fejlen tydeligere. Sæt den
+      tilbage bagefter.
+    </span>
+  </PopoverSlide>
 </Slide>
 <div class="page-break"></div>
 
 {/* Slide 14: Hvad hjælper bevægelsen med? */}
 
 <Slide>
-<PopoverSlide step={14} total={slideCount} part="Popover / Overgange">
-  <p class="pl-eyebrow">Til jeres projekt · 2 minutter</p>
-  <h2>Hvad hjælper bevægelsen med?</h2>
-  <p class="pl-lead">Vend tilbage til jeres popup-idé. Hvilken overgang ville I vælge nu, og hvorfor?</p>
-  <p>Vælg en diskret overgang eller et direkte skift. Begrund valget ud fra det, brugeren skal gøre.</p>
-  <span slot="takeaway">Sammenlign med jeres første bud på A og B. Hvad har afprøvningen ændret?</span>
-</PopoverSlide>
+  <PopoverSlide step={14} total={slideCount} part="Popover / Overgange">
+    <p class="pl-eyebrow">Til jeres projekt · 2 minutter</p>
+    <h2>Hvad hjælper bevægelsen med?</h2>
+    <p class="pl-lead">
+      Vend tilbage til jeres popup-idé. Hvilken overgang ville I vælge nu, og
+      hvorfor?
+    </p>
+    <p>
+      Vælg en diskret overgang eller et direkte skift. Begrund valget ud fra
+      det, brugeren skal gøre.
+    </p>
+    <span slot="takeaway">
+      Sammenlign med jeres første bud på A og B. Hvad har afprøvningen ændret?
+    </span>
+  </PopoverSlide>
 </Slide>
 <div class="page-break"></div>
 
 {/* Slide 15: Hvilken regel styrer indgangen? */}
 
 <Slide>
-<PopoverSlide step={15} total={slideCount} part="Popover / Overgange">
-  <p class="pl-eyebrow">Individuel afslutning · 1 minut</p>
-  <h2>Hvilken regel styrer indgangen?</h2>
-  <p class="pl-lead">Boksen skal starte længere nede, men slutte samme sted. Hvilken værdi vil du ændre?</p>
-  <details class="pl-reveal"><summary>Vis forklaringen efter dit eget bud</summary><p>Ændr <code>translateY()</code> inde i <code>@starting-style</code>. Bevar 0 i den åbne tilstand og −12 px i grundreglen, hvis udgangen skal være uændret.</p></details>
-  <p class="pl-meta">Videre læsning: <a href="https://slides.com/dannievinther/details-accordion">Dannie Vinthers slides om accordion</a> og <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/details">HTML-elementerne details og summary</a>. De folder indhold ud i sidens normale layout.</p>
-  <span slot="takeaway">Tilbage til <a href="/draft/html/popover/">Popups med HTML</a>.</span>
-</PopoverSlide>
+  <PopoverSlide step={15} total={slideCount} part="Popover / Overgange">
+    <p class="pl-eyebrow">Individuel afslutning · 1 minut</p>
+    <h2>Hvilken regel styrer indgangen?</h2>
+    <p class="pl-lead">
+      Boksen skal starte længere nede, men slutte samme sted. Hvilken værdi vil
+      du ændre?
+    </p>
+    <details class="pl-reveal">
+      <summary>Vis forklaringen efter dit eget bud</summary>
+      <p>
+        Ændr <code>translateY()</code> inde i <code>@starting-style</code>.
+        Bevar 0 i den åbne tilstand og −12 px i grundreglen, hvis udgangen skal
+        være uændret.
+      </p>
+    </details>
+    <p class="pl-meta">
+      Videre læsning:{" "}
+      <a href="https://slides.com/dannievinther/details-accordion">
+        Dannie Vinthers slides om accordion
+      </a>{" "}
+      og{" "}
+      <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/details">
+        HTML-elementerne details og summary
+      </a>
+      . De folder indhold ud i sidens normale layout.
+    </p>
+    <span slot="takeaway">
+      Tilbage til <a href="/draft/html/popover/">Popups med HTML</a>.
+    </span>
+  </PopoverSlide>
 </Slide>
 
 <aside data-presentation-ignore="true">
