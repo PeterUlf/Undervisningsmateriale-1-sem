@@ -258,6 +258,10 @@ Hvis rettighederne ikke kan verificeres, så undlad at indsætte billedet. Find 
 
 Læs først de relevante referencefiler og genbrug projektets eksisterende komponenter og visuelle mønstre. De undersøgte sider bruger MDX, frontmatter med titel, beskrivelse og temaoplysninger, komponenten `Slide` og `<div class="page-break"></div>` mellem slides. Kontrollér importstier og metadata i forhold til den konkrete filplacering.
 
+Gør forløbene lette at redigere manuelt: Saml hvert forløbs undervisningsindhold i én MDX-fil. Placér overskrift, tekst, opgave, hint, løsning og eksemplets HTML/CSS direkte ved den slide, der bruger dem. Markér hver slide med en kommentar som `{/* Slide 2: Hvad er en popup? */}`, og tilføj en kort redigeringsvejledning som kommentar øverst i filen. Brug almindelig Markdown, hvor layoutet tillader det.
+
+Fælles komponenter og CSS må håndtere udseende og funktioner. Undervisningstekst og eksempelkode skal kunne findes og ændres i MDX-filen uden at følge importer til en separat datafil. Ved `CodePenExample` angives `title`, `label`, `html` og `css` direkte på komponenten, så forhåndsvisning, manuel kopiering og CodePen bruger samme kode. Hvert eksempel skal kunne rettes selvstændigt; acceptér gentagelse, når det gør den manuelle redigering enklere.
+
 Brug det visuelle forslag som udgangspunkt inden for sitets eksisterende ramme. Genbrug eller tilpas dets relevante layout- og stilgreb til det nye indhold; komponenten indeholder Figma-specifik tekst og kan ikke nødvendigvis bruges uændret til andre emner. Afgræns eventuelle nødvendige stilarter til undervisningsslidesene. Nye slides skal ikke automatisk udløse et redesign af sitet eller ændringer i den fælles navigation og styling.
 
 Lever undervisernoter separat fra de studerendes slides. Løsningsforslag, som de studerende skal kunne åbne selv, følger reglerne om skjult standardvisning ovenfor.

@@ -1,0 +1,940 @@
+---
+title: Popups med HTML Popover
+draft: true
+description: "40 minutter om popovers med en 2-minutters summeøvelse, CodePen-eksempler og opgaver i HTML og CSS."
+sidebar:
+  order: 4
+  badge:
+    text: Tema 4
+    variant: tip
+    class: badge-theme-4
+
+# REDIGERING
+# Søg efter "Slide 2:" eller en overskrift for at finde den ønskede slide.
+# Tekst, opgaver, hint og løsninger står ved den slide, de hører til.
+# I CodePenExample retter du title, label, html og css direkte her i filen.
+# Overskrifter over boksene: previewHeading og controlsHeading.
+# html og css står mellem backticks. Lad backticks og klammerne stå.
+# Samme kode bruges til forhåndsvisning, manuel kopiering og CodePen.
+# Hvert eksempel er selvstændigt. En ændring her ændrer kun dette eksempel.
+# Slidenes fælles udseende: src/styles/popover-lesson.css.
+# Slideramme: src/components/PopoverSlide.astro.
+# CodePen-knap og kodevisning: src/components/CodePenExample.astro.
+# Ved nye eller slettede slides: ret slideCount, step og slidekommentarer.
+---
+
+import Slide from "../../../components/Slide.astro";
+import PopoverSlide from "../../../components/PopoverSlide.astro";
+import CodePenExample from "../../../components/CodePenExample.astro";
+import { Code } from "astro:components";
+
+export const slideCount = 14;
+
+{/* Slide 1: Popups med HTML */}
+
+<Slide>
+  <PopoverSlide step={1} total={slideCount} kind="intro">
+    <p class="pl-eyebrow">Del 1 · ca. 40 minutter · HTML og CSS i CodePen</p>
+    <h2>Popups med HTML</h2>
+    <p class="pl-lead">Ekstra information, når brugeren har brug for den.</p>
+    <ul class="pl-list">
+      <li>Du kan forbinde en knap med en popover.</li>
+      <li>Du kan tilpasse boksen til indhold og skærmstørrelse.</li>
+      <li>Du kan afprøve betjeningen og begrunde brugen i jeres projekt.</li>
+    </ul>
+    <span slot="takeaway">
+      Vi bygger videre på HTML-attributter og CSS-selectors. Eksemplerne kræver
+      ingen JavaScript.
+    </span>
+  </PopoverSlide>
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 2: Hvad er en popup? */}
+
+<Slide>
+  <PopoverSlide step={2} total={slideCount}>
+    <div class="pl-split">
+      <div>
+        <p class="pl-eyebrow">Begrebet først</p>
+        <h2>Hvad er en popup?</h2>
+        <p class="pl-lead">En boks, der dukker op oven på det indhold, du allerede ser.</p>
+        <p>Her bruger vi ordet om et lag på den samme webside. Det kan fx vise hjælp eller ekstra information.</p>
+        <p class="pl-meta">Prøv “Se materialer” i det tænkte workshop-site.</p>
+      </div>
+      <CodePenExample
+        title="Popover: materialer til en workshop"
+        label="Åbn i CodePen ->"
+        previewHeading="Eksempel:"
+        controlsHeading="Prøv i CodePen"
+        html={`
+          <h1>Værkstedet</h1>
+          <p>Et tænkt site om kreative workshops.</p>
+          <button type="button" popovertarget="materialer">Se materialer</button>
+
+          <div id="materialer" popover>
+            <h2>Det ligger klar til dig</h2>
+            <p>Vi har papir, farver og pensler. Medbring selv en arbejdsskjorte.</p>
+            <button type="button" popovertarget="materialer"
+              popovertargetaction="hide">Luk</button>
+          </div>
+        `}
+        css={`
+          * {
+            box-sizing: border-box;
+          }
+          body {
+            margin: 0;
+            padding: 24px;
+            font:
+              18px/1.5 system-ui,
+              sans-serif;
+            color: #18352e;
+            background: #edf1e9;
+          }
+          h1,
+          h2 {
+            line-height: 1.15;
+          }
+          h1 {
+            font-size: 1.5rem;
+          }
+          h2 {
+            margin-top: 0;
+            font-size: 1.35rem;
+          }
+          button {
+            padding: 0.7rem 1rem;
+            border: 2px solid #185a46;
+            border-radius: 0.5rem;
+            background: #185a46;
+            color: white;
+            font: inherit;
+            cursor: pointer;
+          }
+          button:focus-visible,
+          a:focus-visible {
+            outline: 3px solid #b53e25;
+            outline-offset: 4px;
+          }
+          article {
+            margin-bottom: 1.5rem;
+          }
+          [popover] {
+            width: min(90vw, 32rem);
+            max-height: 85dvh;
+            overflow: auto;
+            padding: 1.5rem;
+            border: 2px solid #185a46;
+            border-radius: 0.8rem;
+            background: #fffdf7;
+            color: #18352e;
+          }
+          [popover]:popover-open {
+            display: grid;
+            gap: 0.75rem;
+          }
+          [popover] p {
+            margin: 0;
+          }
+          [popover] button {
+            justify-self: start;
+          }
+          [popover]::backdrop {
+            background: rgb(24 53 46 / 18%);
+          }
+        `}
+      />
+    </div>
+    <span slot="takeaway">“Popup” er et bredt ord. I dag bygger vi den med HTML-funktionen <code>popover</code>.</span>
+
+  </PopoverSlide>
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 3: Hvor har I mødt en popup? */}
+
+<Slide>
+  <PopoverSlide step={3} total={slideCount} kind="sum">
+    <p class="pl-eyebrow">
+      Summeøvelse · grupper på 3–5 · tal med dem, I sidder ved
+    </p>
+    <div class="pl-split">
+      <div>
+        <h2>Hvor har I mødt en popup?</h2>
+        <p class="pl-lead">
+          Hvor har I set en popup, og hvordan kunne I bruge en i jeres projekt?
+          Lad alle komme med et bud. Vælg ét eksempel og én idé, som I kan dele
+          med holdet. Kun samtale. Vent med at åbne CodePen, søge på nettet
+          eller bruge AI.
+        </p>
+      </div>
+      <div class="pl-activity">
+        <p class="pl-time">2</p>
+        <p class="pl-lead">minutter</p>
+        <p>I behøver ikke være enige.</p>
+      </div>
+    </div>
+    <span slot="takeaway">
+      Gem jeres projektidé. Vi vender tilbage til den efter øvelserne.
+    </span>
+  </PopoverSlide>
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 4: To eksempler fra holdet */}
+
+<Slide>
+  <PopoverSlide step={4} total={slideCount}>
+    <p class="pl-eyebrow">Fælles opsamling · 1 minut</p>
+    <h2>To eksempler fra holdet</h2>
+    <p class="pl-lead">Hvad viste popupen, og hvornår dukkede den op?</p>
+    <p>Vi hører to gruppers eksempler og en idé til jeres eget projekt.</p>
+    <span slot="takeaway">
+      Lyt efter, om boksen hjalp med en opgave eller afbrød det, brugeren var i
+      gang med.
+    </span>
+  </PopoverSlide>
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 5: Popover eller modal dialog? */}
+
+<Slide>
+  <PopoverSlide step={5} total={slideCount}>
+    <h2>Popover eller modal dialog?</h2>
+    <table class="pl-table">
+      <thead>
+        <tr>
+          <th>Popover</th>
+          <th>Modal dialog</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Ekstra indhold over siden.</td>
+          <td>En opgave eller beslutning får fokus.</td>
+        </tr>
+        <tr>
+          <td>Resten af siden bliver ikke låst.</td>
+          <td>Resten af siden bliver utilgængelig, mens dialogen er åben.</td>
+        </tr>
+        <tr>
+          <td>Fx information om materialer.</td>
+          <td>Fx bekræftelse før en sletning.</td>
+        </tr>
+        <tr>
+          <td>
+            <code>popover</code> på et HTML-element.
+          </td>
+          <td>
+            <code>&lt;dialog&gt;</code> åbnet modalt, fx med{" "}
+            <code>showModal()</code>.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="pl-meta">
+      Et mørkt baggrundslag gør ikke i sig selv en popup modal. Et{" "}
+      <code>&lt;dialog&gt;</code>-element kan også åbnes uden at være modalt.
+    </p>
+    <span slot="takeaway">
+      Vi bruger popover til supplerende indhold, som brugeren selv kan åbne.
+    </span>
+  </PopoverSlide>
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 6: En knap og et matchende id */}
+
+<Slide>
+<PopoverSlide step={6} total={slideCount}>
+  <h2>En knap og et matchende id</h2>
+  <Code lang="html" code={`<button type="button" popovertarget="materialer">
+  Se materialer
+</button>
+
+<div id="materialer" popover>
+  <h2>Det ligger klar til dig</h2>
+  <p>Vi har papir, farver og pensler.</p>
+</div>`} />
+  <ul class="pl-list">
+    <li><code>popover</code> giver boksen browserens åbne/lukke-funktion.</li>
+    <li><code>id</code> identificerer boksen. Hvert id skal være unikt.</li>
+    <li><code>popovertarget</code> skal matche id’et præcist, uden <code>#</code>.</li>
+  </ul>
+  <span slot="takeaway">Find de to steder, hvor der står <code>materialer</code>. De danner forbindelsen.</span>
+</PopoverSlide>
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 7: Åbn og luk */}
+
+<Slide>
+<PopoverSlide step={7} total={slideCount}>
+  <h2>Åbn og luk</h2>
+  <p>Med <code>popover</code> får du som standard <code>auto</code>: knappen skifter mellem åben og lukket. Klik udenfor eller <kbd>Esc</kbd> lukker også boksen.</p>
+  <Code lang="html" code={`<!-- Denne knap står inde i boksen -->
+<button type="button" popovertarget="materialer"
+  popovertargetaction="hide">Luk</button>`} />
+  <p><code>popovertargetaction</code> kan være <code>show</code>, <code>hide</code> eller <code>toggle</code>. Uden attributten er handlingen <code>toggle</code>.</p>
+  <p class="pl-meta"><code>popover="manual"</code> kræver en eksplicit lukkehandling. Klik udenfor og Esc lukker den ikke automatisk. Vi bruger <code>auto</code> i øvelserne.</p>
+  <span slot="takeaway">En tydelig “Luk”-knap hjælper brugeren med at finde udgangen.</span>
+</PopoverSlide>
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 8: To knapper. To forskellige bokse. */}
+
+<Slide>
+  <PopoverSlide step={8} total={slideCount} kind="exercise">
+    <p class="pl-eyebrow">Øvelse 1 · 7 minutter · to og to i CodePen</p>
+    <div class="pl-split">
+      <div>
+        <h2>
+          To knapper.
+          <br />
+          To forskellige bokse.
+        </h2>
+        <p>
+          Startkoden har to workshops. Tilføj de attributter, der forbinder hver
+          knap med den rigtige boks og dens “Luk”-knap.
+        </p>
+        <ol class="pl-list">
+          <li>
+            Giv boksene hvert sit id og <code>popover</code>.
+          </li>
+          <li>Forbind både åbne- og lukkeknapperne.</li>
+          <li>Afprøv begge bokse med klik og tastatur.</li>
+        </ol>
+      </div>
+      <div>
+        <CodePenExample
+          title="Øvelse 1: to workshops, to popovers"
+          preview={false}
+          label="Åbn startkoden i CodePen"
+          html={`
+            <h1>Vælg en workshop</h1>
+            <article>
+              <h2>Tryk på papir</h2>
+              <!-- Forbind knappen med den rigtige popover. -->
+              <button type="button">Praktisk om tryk</button>
+            </article>
+            <article>
+              <h2>Form i ler</h2>
+              <button type="button">Praktisk om ler</button>
+            </article>
+
+            <!-- Giv hver boks et unikt id og popover-attributten. -->
+
+            <div class="info">
+              <h2>Tryk: tid og sted</h2>
+              <p>Vi mødes kl. 10 i lokale 2. Medbring en arbejdsskjorte.</p>
+              <button type="button">Luk</button>
+            </div>
+            <div class="info">
+              <h2>Ler: tid og sted</h2>
+              <p>Vi mødes kl. 13 i lokale 5. Vi har ler og værktøj klar.</p>
+              <button type="button">Luk</button>
+            </div>
+          `}
+          css={`
+            * { box-sizing: border-box; }
+            body {
+              margin: 0;
+              padding: 24px;
+              font: 18px/1.5 system-ui, sans-serif;
+              color: #18352e;
+              background: #edf1e9;
+            }
+            h1, h2 { line-height: 1.15; }
+            h1 { font-size: 1.5rem; }
+            h2 { margin-top: 0; font-size: 1.35rem; }
+            button {
+              padding: .7rem 1rem;
+              border: 2px solid #185a46;
+              border-radius: .5rem;
+              background: #185a46;
+              color: white;
+              font: inherit;
+              cursor: pointer;
+            }
+            button:focus-visible, a:focus-visible {
+              outline: 3px solid #b53e25;
+              outline-offset: 4px;
+            }
+            article { margin-bottom: 1.5rem; }
+          `}
+        />
+        <p class="pl-meta">
+          HTML og CSS er udfyldt. JavaScript-panelet skal være tomt. Gem på din
+          CodePen-konto, hvis du vil beholde et link.
+        </p>
+        <details class="pl-reveal">
+          <summary>Et hint</summary>
+          <p>
+            Hver workshop har sin egen forbindelse. Et id som <code>tryk</code>{" "}
+            skal stå på boksen og som target på begge tilhørende knapper.
+          </p>
+        </details>
+        <details class="pl-reveal">
+          <summary>Et løsningsforslag efter jeres forsøg</summary>
+          <p>
+            Unikke id’er holder forbindelserne adskilt. <code>hide</code> lukker
+            den boks, knappen peger på. Afprøv også, at Esc lukker den åbne
+            boks.
+          </p>
+          <CodePenExample
+            title="Løsningsforslag: to workshops"
+            preview={false}
+            label="Åbn løsningsforslaget"
+            html={`
+              <h1>Vælg en workshop</h1>
+              <article>
+                <h2>Tryk på papir</h2>
+                <button type="button" popovertarget="tryk">Praktisk om tryk</button>
+              </article>
+              <article>
+                <h2>Form i ler</h2>
+                <button type="button" popovertarget="ler">Praktisk om ler</button>
+              </article>
+              <div id="tryk" popover>
+                <h2>Tryk: tid og sted</h2>
+                <p>Vi mødes kl. 10 i lokale 2. Medbring en arbejdsskjorte.</p>
+                <button type="button" popovertarget="tryk"
+                  popovertargetaction="hide">Luk</button>
+              </div>
+              <div id="ler" popover>
+                <h2>Ler: tid og sted</h2>
+                <p>Vi mødes kl. 13 i lokale 5. Vi har ler og værktøj klar.</p>
+                <button type="button" popovertarget="ler"
+                  popovertargetaction="hide">Luk</button>
+              </div>
+            `}
+            css={`
+              * { box-sizing: border-box; }
+              body {
+                margin: 0;
+                padding: 24px;
+                font: 18px/1.5 system-ui, sans-serif;
+                color: #18352e;
+                background: #edf1e9;
+              }
+              h1, h2 { line-height: 1.15; }
+              h1 { font-size: 1.5rem; }
+              h2 { margin-top: 0; font-size: 1.35rem; }
+              button {
+                padding: .7rem 1rem;
+                border: 2px solid #185a46;
+                border-radius: .5rem;
+                background: #185a46;
+                color: white;
+                font: inherit;
+                cursor: pointer;
+              }
+              button:focus-visible, a:focus-visible {
+                outline: 3px solid #b53e25;
+                outline-offset: 4px;
+              }
+              article { margin-bottom: 1.5rem; }
+              [popover] {
+                width: min(90vw, 32rem);
+                max-height: 85dvh;
+                overflow: auto;
+                padding: 1.5rem;
+                border: 2px solid #185a46;
+                border-radius: .8rem;
+                background: #fffdf7;
+                color: #18352e;
+              }
+              [popover]:popover-open {
+                display: grid;
+                gap: .75rem;
+              }
+              [popover] p { margin: 0; }
+              [popover] button { justify-self: start; }
+              [popover]::backdrop {
+                background: rgb(24 53 46 / 18%);
+              }
+            `}
+          />
+        </details>
+      </div>
+    </div>
+    <span slot="takeaway">
+      Resultat: To popovers, der viser det rigtige indhold. Vis dem til din
+      makker, og forklar forbindelserne.
+    </span>
+
+  </PopoverSlide>
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 9: CSS til boksen og dens tilstand */}
+
+<Slide>
+<PopoverSlide step={9} total={slideCount}>
+  <h2>CSS til boksen og dens tilstand</h2>
+  <Code lang="css" code={`[popover] { border: 2px solid #185a46; }
+
+[popover]:popover-open {
+display: grid;
+gap: .75rem;
+}
+
+[popover]::backdrop {
+background: rgb(24 53 46 / 18%);
+}`} />
+
+  <p><code>[popover]</code> er en attribut-selector. <code>:popover-open</code> vælger den åbne tilstand. <code>::backdrop</code> er laget bag boksen.</p>
+  <span slot="takeaway">Sæt kun <code>display: grid</code> på den åbne tilstand. Ellers kan du tilsidesætte browserens skjulning med <code>display: none</code>.</span>
+</PopoverSlide>
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 10: Plads til en lille skærm */}
+
+<Slide>
+  <PopoverSlide step={10} total={slideCount}>
+    <div class="pl-split">
+      <div>
+        <h2>Plads til en lille skærm</h2>
+        <Code
+          lang="css"
+          code={`[popover] {
+  box-sizing: border-box;
+  width: min(90vw, 32rem);
+  max-height: 85dvh;
+  overflow: auto;
+  padding: 1.5rem;
+}`}
+        />
+      </div>
+      <div>
+        <p>
+          <code>min()</code> vælger den mindste bredde: 90 % af vinduet eller 32
+          rem.
+        </p>
+        <p>
+          <code>85dvh</code> begrænser højden til 85 % af den aktuelle
+          vindueshøjde.
+        </p>
+        <p>
+          <code>overflow: auto</code> gør indholdet scrollbar, når pladsen
+          slipper op.
+        </p>
+        <CodePenExample
+          title="Popover: materialer til en workshop"
+          preview={false}
+          label="Åbn det stylede eksempel"
+          html={`
+            Eksempel: <h1>Værkstedet</h1>
+            <p>Et tænkt site om kreative workshops.</p>
+            <button type="button" popovertarget="materialer">Se materialer</button>
+
+            <div id="materialer" popover>
+              <h2>Det ligger klar til dig</h2>
+              <p>Vi har papir, farver og pensler. Medbring selv en arbejdsskjorte.</p>
+              <button type="button" popovertarget="materialer"
+                popovertargetaction="hide">Luk</button>
+            </div>
+          `}
+          css={`
+            * {
+              box-sizing: border-box;
+            }
+            body {
+              margin: 0;
+              padding: 24px;
+              font:
+                18px/1.5 system-ui,
+                sans-serif;
+              color: #18352e;
+              background: #edf1e9;
+            }
+            h1,
+            h2 {
+              line-height: 1.15;
+            }
+            h1 {
+              font-size: 1.5rem;
+            }
+            h2 {
+              margin-top: 0;
+              font-size: 1.35rem;
+            }
+            button {
+              padding: 0.7rem 1rem;
+              border: 2px solid #185a46;
+              border-radius: 0.5rem;
+              background: #185a46;
+              color: white;
+              font: inherit;
+              cursor: pointer;
+            }
+            button:focus-visible,
+            a:focus-visible {
+              outline: 3px solid #b53e25;
+              outline-offset: 4px;
+            }
+            article {
+              margin-bottom: 1.5rem;
+            }
+            [popover] {
+              width: min(90vw, 32rem);
+              max-height: 85dvh;
+              overflow: auto;
+              padding: 1.5rem;
+              border: 2px solid #185a46;
+              border-radius: 0.8rem;
+              background: #fffdf7;
+              color: #18352e;
+            }
+            [popover]:popover-open {
+              display: grid;
+              gap: 0.75rem;
+            }
+            [popover] p {
+              margin: 0;
+            }
+            [popover] button {
+              justify-self: start;
+            }
+            [popover]::backdrop {
+              background: rgb(24 53 46 / 18%);
+            }
+          `}
+        />
+      </div>
+    </div>
+    <span slot="takeaway">
+      Boksen skal passe til skærmen, og brugeren skal kunne nå hele indholdet og
+      lukke den.
+    </span>
+
+  </PopoverSlide>
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 11: Samme boks. Meget mere indhold. */}
+
+<Slide>
+  <PopoverSlide step={11} total={slideCount} kind="exercise">
+    <p class="pl-eyebrow">Øvelse 2 · 6 minutter · to og to i CodePen</p>
+    <div class="pl-split">
+      <div>
+        <h2>
+          Samme boks.
+          <br />
+          Meget mere indhold.
+        </h2>
+        <p>
+          I startkoden er forbindelserne færdige. Den ene workshop har fået en
+          lang beskrivelse.
+        </p>
+        <ul class="pl-list">
+          <li>Style begge bokse med en fælles selector.</li>
+          <li>Begræns bredde og højde. Gør langt indhold scrollbar.</li>
+          <li>Tilføj et diskret baggrundslag og luft i den åbne boks.</li>
+        </ul>
+      </div>
+      <div>
+        <CodePenExample
+          title="Øvelse 2: en popover med meget indhold"
+          preview={false}
+          label="Åbn øvelse 2 i CodePen"
+          html={`
+            <h1>Vælg en workshop</h1>
+            <article>
+              <h2>Tryk på papir</h2>
+              <button type="button" popovertarget="tryk">Praktisk om tryk</button>
+            </article>
+            <article>
+              <h2>Form i ler</h2>
+              <button type="button" popovertarget="ler">Praktisk om ler</button>
+            </article>
+            <div id="tryk" popover>
+              <h2>Tryk: tid og sted</h2>
+              <p>Vi mødes kl. 10 i lokale 2. Medbring en arbejdsskjorte.</p>
+              <button type="button" popovertarget="tryk"
+                popovertargetaction="hide">Luk</button>
+            </div>
+            <div id="ler" popover>
+              <h2>Ler: tid og sted</h2>
+              <p>Du får en introduktion til værktøjet og tid til at prøve selv. Vi holder en kort pause undervejs. Fortæl underviseren, hvis du har brug for hjælp. Når workshoppen slutter, rydder vi bordene og lægger materialerne på plads.</p>
+              <p>Du får en introduktion til værktøjet og tid til at prøve selv. Vi holder en kort pause undervejs. Fortæl underviseren, hvis du har brug for hjælp. Når workshoppen slutter, rydder vi bordene og lægger materialerne på plads.</p>
+              <p>Du får en introduktion til værktøjet og tid til at prøve selv. Vi holder en kort pause undervejs. Fortæl underviseren, hvis du har brug for hjælp. Når workshoppen slutter, rydder vi bordene og lægger materialerne på plads.</p>
+              <p>Du får en introduktion til værktøjet og tid til at prøve selv. Vi holder en kort pause undervejs. Fortæl underviseren, hvis du har brug for hjælp. Når workshoppen slutter, rydder vi bordene og lægger materialerne på plads.</p>
+              <p>Du får en introduktion til værktøjet og tid til at prøve selv. Vi holder en kort pause undervejs. Fortæl underviseren, hvis du har brug for hjælp. Når workshoppen slutter, rydder vi bordene og lægger materialerne på plads.</p>
+              <button type="button" popovertarget="ler"
+                popovertargetaction="hide">Luk</button>
+            </div>
+          `}
+          css={`
+            * {
+              box-sizing: border-box;
+            }
+            body {
+              margin: 0;
+              padding: 24px;
+              font:
+                18px/1.5 system-ui,
+                sans-serif;
+              color: #18352e;
+              background: #edf1e9;
+            }
+            h1,
+            h2 {
+              line-height: 1.15;
+            }
+            h1 {
+              font-size: 1.5rem;
+            }
+            h2 {
+              margin-top: 0;
+              font-size: 1.35rem;
+            }
+            button {
+              padding: 0.7rem 1rem;
+              border: 2px solid #185a46;
+              border-radius: 0.5rem;
+              background: #185a46;
+              color: white;
+              font: inherit;
+              cursor: pointer;
+            }
+            button:focus-visible,
+            a:focus-visible {
+              outline: 3px solid #b53e25;
+              outline-offset: 4px;
+            }
+            article {
+              margin-bottom: 1.5rem;
+            }
+          `}
+        />
+        <p class="pl-meta">
+          Gør resultatfeltet ca. 320 px bredt og 400 px højt. Kan du læse
+          teksten og nå “Luk” uden vandret scroll?
+        </p>
+        <details class="pl-reveal">
+          <summary>Et løsningsforslag efter jeres forsøg</summary>
+          <p>
+            Maksimal højde og <code>overflow: auto</code> gør den lange tekst
+            tilgængelig i den lille boks. Bredden tilpasser sig resultatfeltet.
+          </p>
+          <CodePenExample
+            title="Løsningsforslag: popovers på en lille skærm"
+            preview={false}
+            label="Åbn løsningen med lang tekst"
+            html={`
+              <h1>Vælg en workshop</h1>
+              <article>
+                <h2>Tryk på papir</h2>
+                <button type="button" popovertarget="tryk">Praktisk om tryk</button>
+              </article>
+              <article>
+                <h2>Form i ler</h2>
+                <button type="button" popovertarget="ler">Praktisk om ler</button>
+              </article>
+              <div id="tryk" popover>
+                <h2>Tryk: tid og sted</h2>
+                <p>Vi mødes kl. 10 i lokale 2. Medbring en arbejdsskjorte.</p>
+                <button type="button" popovertarget="tryk"
+                  popovertargetaction="hide">Luk</button>
+              </div>
+              <div id="ler" popover>
+                <h2>Ler: tid og sted</h2>
+                <p>Du får en introduktion til værktøjet og tid til at prøve selv. Vi holder en kort pause undervejs. Fortæl underviseren, hvis du har brug for hjælp. Når workshoppen slutter, rydder vi bordene og lægger materialerne på plads.</p>
+                <p>Du får en introduktion til værktøjet og tid til at prøve selv. Vi holder en kort pause undervejs. Fortæl underviseren, hvis du har brug for hjælp. Når workshoppen slutter, rydder vi bordene og lægger materialerne på plads.</p>
+                <p>Du får en introduktion til værktøjet og tid til at prøve selv. Vi holder en kort pause undervejs. Fortæl underviseren, hvis du har brug for hjælp. Når workshoppen slutter, rydder vi bordene og lægger materialerne på plads.</p>
+                <p>Du får en introduktion til værktøjet og tid til at prøve selv. Vi holder en kort pause undervejs. Fortæl underviseren, hvis du har brug for hjælp. Når workshoppen slutter, rydder vi bordene og lægger materialerne på plads.</p>
+                <p>Du får en introduktion til værktøjet og tid til at prøve selv. Vi holder en kort pause undervejs. Fortæl underviseren, hvis du har brug for hjælp. Når workshoppen slutter, rydder vi bordene og lægger materialerne på plads.</p>
+                <button type="button" popovertarget="ler"
+                  popovertargetaction="hide">Luk</button>
+              </div>
+            `}
+            css={`
+              * {
+                box-sizing: border-box;
+              }
+              body {
+                margin: 0;
+                padding: 24px;
+                font:
+                  18px/1.5 system-ui,
+                  sans-serif;
+                color: #18352e;
+                background: #edf1e9;
+              }
+              h1,
+              h2 {
+                line-height: 1.15;
+              }
+              h1 {
+                font-size: 1.5rem;
+              }
+              h2 {
+                margin-top: 0;
+                font-size: 1.35rem;
+              }
+              button {
+                padding: 0.7rem 1rem;
+                border: 2px solid #185a46;
+                border-radius: 0.5rem;
+                background: #185a46;
+                color: white;
+                font: inherit;
+                cursor: pointer;
+              }
+              button:focus-visible,
+              a:focus-visible {
+                outline: 3px solid #b53e25;
+                outline-offset: 4px;
+              }
+              article {
+                margin-bottom: 1.5rem;
+              }
+              [popover] {
+                width: min(90vw, 32rem);
+                max-height: 85dvh;
+                overflow: auto;
+                padding: 1.5rem;
+                border: 2px solid #185a46;
+                border-radius: 0.8rem;
+                background: #fffdf7;
+                color: #18352e;
+              }
+              [popover]:popover-open {
+                display: grid;
+                gap: 0.75rem;
+              }
+              [popover] p {
+                margin: 0;
+              }
+              [popover] button {
+                justify-self: start;
+              }
+              [popover]::backdrop {
+                background: rgb(24 53 46 / 18%);
+              }
+            `}
+          />
+        </details>
+      </div>
+    </div>
+    <span slot="takeaway">
+      Resultat: Begge bokse fungerer med samme CSS, selv om indholdets længde er
+      forskellig.
+    </span>
+  </PopoverSlide>
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 12: Virker det for en anden? */}
+
+<Slide>
+  <PopoverSlide step={12} total={slideCount}>
+    <p class="pl-eyebrow">Makkerafprøvning · 4 minutter</p>
+    <h2>Virker det for en anden?</h2>
+    <table class="pl-table">
+      <thead>
+        <tr>
+          <th>Niveau</th>
+          <th>Det skal I kunne vise</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>På vej</th>
+          <td>
+            En boks åbner. Et forkert target, en lukkeknap eller størrelsen
+            mangler stadig at blive rettet.
+          </td>
+        </tr>
+        <tr>
+          <th>Det fungerer</th>
+          <td>
+            Begge knapper viser den rigtige boks. “Luk”, klik udenfor og Esc
+            virker. Den lange tekst kan læses i et smalt resultatfelt.
+          </td>
+        </tr>
+        <tr>
+          <th>Du kan forklare det</th>
+          <td>
+            I viser det med Tab og Enter og forklarer id/target, den åbne
+            selector og valget af maksimal højde.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      Byt betjening. Find én konkret ting at forbedre, ret den, og afprøv igen.
+    </p>
+    <span slot="takeaway">
+      Tastatur: Tab til knappen, Enter for at åbne, videre til “Luk”, eller brug
+      Esc.
+    </span>
+  </PopoverSlide>
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 13: Hvad vil I bruge den til? */}
+
+<Slide>
+  <PopoverSlide step={13} total={slideCount}>
+    <p class="pl-eyebrow">Tilbage til jeres projekt · 3 minutter</p>
+    <h2>Hvad vil I bruge den til?</h2>
+    <p class="pl-lead">
+      Tag idéen fra summeøvelsen frem igen. Ville I stadig vælge en popup?
+    </p>
+    <ul class="pl-list">
+      <li>Hvilken knap åbner den, og hvad får brugeren at vide?</li>
+      <li>Kan brugeren have brug for informationen direkte på siden?</li>
+      <li>Hvordan kan brugeren lukke og fortsætte?</li>
+    </ul>
+    <span slot="takeaway">
+      Del én begrundet beslutning. En placering direkte på siden kan også være
+      et godt valg.
+    </span>
+  </PopoverSlide>
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 14: En sidste forbindelse */}
+
+<Slide>
+  <PopoverSlide step={14} total={slideCount}>
+    <p class="pl-eyebrow">Individuel afslutning · 1 minut</p>
+    <h2>En sidste forbindelse</h2>
+    <Code
+      lang="html"
+      code={`<button popovertarget="info">Se info</button>
+<div id="praktisk" popover>Praktisk information</div>`}
+    />
+    <p class="pl-lead">Hvorfor åbner boksen ikke, og hvad vil du ændre?</p>
+    <details class="pl-reveal">
+      <summary>Vis forklaringen efter dit eget bud</summary>
+      <p>
+        Knappen peger på <code>info</code>, men boksen hedder{" "}
+        <code>praktisk</code>. Vælg ét navn, og brug det begge steder.
+      </p>
+    </details>
+    <span slot="takeaway">
+      Næste del:{" "}
+      <a href="/draft/css/popover-transitions/">CSS-overgange på en popover</a>.
+    </span>
+  </PopoverSlide>
+</Slide>
+
+<aside data-presentation-ignore="true">
+
+## Kilder og undervisernoter
+
+Forløbet følger emnerne i [Dannie Vinthers præsentation om Popover](https://slides.com/dannievinther/popover-details/fullscreen). Forklaringer, workshop-case og øvelseskode er skrevet til dette forløb.
+
+Faglig dokumentation: [Popover API](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API/Using), [popover-attributten](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/popover) og [dialog-elementet](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dialog). CodePen-knapperne bruger [CodePens officielle prefill-funktion](https://blog.codepen.io/documentation/prefill/).
+
+[Tidsplan, forkundskaber og undervisernoter](/draft/dette-site/popover-undervisernoter/).
+
+</aside>

@@ -1,0 +1,53 @@
+---
+import { Code } from 'astro:components';
+interface Props {
+  title: string;
+  html: string;
+  css?: string;
+  preview?: boolean;
+  controls?: boolean;
+  height?: number;
+  label?: string;
+  previewHeading?: string;
+  controlsHeading?: string;
+}
+const { title, html: htmlSource, css: cssSource = '', preview = true, controls = true, height = 280, label = 'Åbn i CodePen', previewHeading = '', controlsHeading = '' } = Astro.props;
+
+// MDX-eksempler kan indrykkes sammen med resten af sliden. Fjern kun den
+// fælles indrykning, så indrykning inde i HTML og CSS bevares ved kopiering.
+function removeCommonIndent(source: string) {
+  const lines = source.replace(/\r\n/g, '\n').split('\n');
+  while (lines.length && !lines[0].trim()) lines.shift();
+  while (lines.length && !lines[lines.length - 1].trim()) lines.pop();
+  const nonempty = lines.filter((line) => line.trim());
+  if (!nonempty.length) return '';
+  const indent = Math.min(...nonempty.map((line) => line.match(/^[\t ]*/)[0].length));
+  return lines.map((line) => line.slice(indent)).join('\n');
+}
+const html = removeCommonIndent(htmlSource);
+const css = removeCommonIndent(cssSource);
+const data = JSON.stringify({ title, html, css, js: '', editors: '110', layout: 'left', html_pre_processor: 'none', css_pre_processor: 'none', css_starter: 'neither', css_prefix: 'neither' });
+const srcdoc = `<!doctype html><html lang="da"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${title.replaceAll('&', '&amp;').replaceAll('<', '&lt;')}</title><style>${css}</style></head><body>${html}</body></html>`;
+---
+
+<div class="codepen-example">
+  {preview && <div class="codepen-preview">
+    {previewHeading && <h3 class="codepen-heading">{previewHeading}</h3>}
+    <iframe title={`Afprøv: ${title}`} srcdoc={srcdoc} sandbox="allow-scripts" loading="lazy" height={height}></iframe>
+  </div>}
+  {controls && <div class="codepen-controls">
+    {controlsHeading && <h3 class="codepen-heading codepen-controls-heading">{controlsHeading}</h3>}
+    <div class="codepen-controls-panel">
+      <form action="https://codepen.io/pen/define" method="post" target="_blank" rel="noopener noreferrer">
+        <input type="hidden" name="data" value={data} />
+        <button type="submit">{label}<span class="pl-sr-only"> (åbner en ny fane)</span></button>
+      </form>
+      <details class="pl-reveal pl-code-fallback">
+        <summary>Vis kode til manuel kopiering</summary>
+        <p>HTML-panelet</p><Code code={html} lang="html" />
+        {css && <><p>CSS-panelet</p><Code code={css} lang="css" /></>}
+        <p>Brug almindelig HTML og CSS. Lad JavaScript-panelet være tomt.</p>
+      </details>
+    </div>
+  </div>}
+</div>

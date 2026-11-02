@@ -1,0 +1,30 @@
+<variant-choice-demo class="vv-demo">
+  <label class="vv-selector"><span>Type</span><select aria-label="Vælg variant i illustrationen"><option value="primary">Primary</option><option value="secondary">Secondary</option></select></label>
+  <label class="vv-selector"><span>Tekst</span><input aria-label="Knaptekst i illustrationen" type="text" value="Se opskriften" maxlength="45" /></label>
+  <div class="vv-demo-canvas"><span class="vv-instance-label">◇ Instance</span><span class="vv-button primary" data-demo-button>Se opskriften</span></div>
+  <p class="vv-demo-status" role="status">Primary: en fyldt knap.</p>
+  <p class="vv-demo-caption">Interaktiv illustration. Type ændrer udseendet; tekstfeltet ændrer ordene.</p>
+</variant-choice-demo>
+
+<script>
+  class VariantChoiceDemo extends HTMLElement {
+    connectedCallback() {
+      const select = this.querySelector('select');
+      const input = this.querySelector('input');
+      const button = this.querySelector('[data-demo-button]');
+      const status = this.querySelector('[role="status"]');
+      if (!select || !input || !button) return;
+      // Presentation mode clones the slide. Initialise each copy from its own visible state.
+      select.value = button.classList.contains('secondary') ? 'secondary' : 'primary';
+      input.value = button.textContent || '';
+      select.onchange = () => {
+        const secondary = select.value === 'secondary';
+        button.classList.toggle('secondary', secondary);
+        button.classList.toggle('primary', !secondary);
+        if (status) status.textContent = secondary ? 'Secondary: en lys knap med kant.' : 'Primary: en fyldt knap.';
+      };
+      input.oninput = () => { button.textContent = input.value; };
+    }
+  }
+  if (!customElements.get('variant-choice-demo')) customElements.define('variant-choice-demo', VariantChoiceDemo);
+</script>

@@ -1,0 +1,339 @@
+---
+title: "AI i dag"
+description: "Projekter, plugins, skills og agenter — forstå tokens, spar på forbruget, og brug AI i VS Code. Opdateret 21. oktober 2026."
+draft: false
+sidebar:
+  label: "AI i dag"
+tableOfContents: false
+---
+
+import Slide from "../../../components/Slide.astro";
+import AILessonSlide from "../../../components/AILessonSlide.astro";
+
+<Slide>
+<AILessonSlide eyebrow="Et aktuelt overblik · 40 minutter inklusive aktiviteter">
+  <div class="ai-split">
+    <div>
+      <h2>AI i dag.<br />Fra spørgsmål<br />til samarbejde.</h2>
+      <p class="ai-lead">Hvordan giver du AI et godt arbejdsgrundlag — og får et resultat, du kan bruge?</p>
+      <p class="ai-meta">Vi ser på generativ AI med ChatGPT og Codex som konkrete eksempler. Funktioner og adgang afhænger af produkt, konto og opsætning.</p>
+    </div>
+    <div class="ai-card ai-tint">
+      <span class="ai-card-title">Efter forløbet kan du</span>
+      <ol class="ai-steps">
+        <li><span>Skelne mellem projekter, plugins, skills og agenter.</span></li>
+        <li><span>Forklare tokens og begrænse unødigt forbrug.</span></li>
+        <li><span>Give AI en afgrænset opgave og vurdere resultatet — også i VS Code.</span></li>
+      </ol>
+    </div>
+  </div>
+  <span slot="takeaway">Selvstændigt forløb på tværs af temaer · status pr. 21. oktober 2026.</span>
+</AILessonSlide>
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+<AILessonSlide eyebrow="Sum · 3 minutter · grupper på 3–5" illustration>
+  <div class="ai-split">
+    <div>
+      <h2>Hvorfor rammer<br />AI ved siden af?</h2>
+      <p class="ai-lead">Tænkt case: I laver et site til en studiefestival. AI har skrevet en flot tekst, men tidspunktet er gammelt, og tonen passer ikke til målgruppen.</p>
+      <p class="ai-question">Hvad ville I give AI eller bede den om, så næste udkast bliver brugbart?</p>
+      <p class="ai-meta">Tal med dem, I sidder ved. Kun samtale — uden opslag og AI.</p>
+    </div>
+    <figure class="ai-stack">
+      <div class="ai-card"><span class="ai-label">Jeres besked</span><p>“Lav en god forside til festivalen.”</p></div>
+      <div class="ai-card ai-purple"><span class="ai-label">Udkastet</span><p>“Velkommen til årets eksklusive brancheevent. Vi mødes fredag kl. 18.”</p></div>
+      <figcaption>Fiktiv samtale. I ved, at arrangementet er for studerende og starter kl. 16.</figcaption>
+    </figure>
+  </div>
+  <span slot="takeaway">Lad alle give et bud. Vær klar til at dele én overvejelse.</span>
+</AILessonSlide>
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+<AILessonSlide eyebrow="Fælles opsamling · 1 minut">
+  <h2>Hvad manglede<br />i arbejdsgrundlaget?</h2>
+  <div class="ai-cards">
+    <div class="ai-card"><h3>Vi hører to bud</h3><p>Hvad ville I ændre i jeres besked eller i det materiale, AI får?</p></div>
+    <div class="ai-card ai-tint"><h3>Giv en begrundelse</h3><p>Hvordan ville det hjælpe jer med at opdage eller undgå en fejl?</p></div>
+  </div>
+  <span slot="takeaway">Gem jeres første bud. Nu undersøger vi, hvilke muligheder der kan hjælpe.</span>
+</AILessonSlide>
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+<AILessonSlide eyebrow="Generativ AI · modellen og dens omgivelser" illustration>
+  <h2>AI kan svare.<br />Med værktøjer kan den også handle.</h2>
+  <div class="ai-cards">
+    <div class="ai-card"><h3>Samtale og indhold</h3><p>Forklare, foreslå, skrive og arbejde med fx tekst, billeder og kode.</p><blockquote class="ai-prompt">“Giv tre forslag til en tydelig overskrift.”</blockquote></div>
+    <div class="ai-card ai-tint"><h3>Arbejde i flere trin</h3><p>Hente materiale, ændre filer og kontrollere et resultat, når værktøjerne er tilgængelige.</p><blockquote class="ai-prompt">“Læs briefet, ret forsiden, og kontrollér ændringen.”</blockquote></div>
+  </div>
+  <p class="ai-meta">Modellen laver forslag ud fra den kontekst, den får. Aktuelle oplysninger kræver aktuelle kilder; et sikkert formuleret svar kan stadig være forkert.</p>
+  <span slot="takeaway">Spørg både: “Hvad ved den her?” og “Hvad har den adgang til at gøre?”</span>
+  <span slot="sources"><a href="https://learn.chatgpt.com/docs/use-chatgpt">Brug ChatGPT og ChatGPT Work</a>.</span>
+</AILessonSlide>
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+<AILessonSlide eyebrow="Projekter · saml det, arbejdet bygger på" illustration>
+  <div class="ai-split">
+    <div>
+      <h2>Et projekt giver<br />fælles kontekst.</h2>
+      <p class="ai-lead"><strong>Kontekst</strong> er de oplysninger og instruktioner, AI har til rådighed i opgaven.</p>
+      <p class="ai-meta">I et ChatGPT-projekt kan relaterede chats bruge fælles filer og instruktioner. I Codex i VS Code er den åbne mappe eller workspace det lokale projekt.</p>
+      <p class="ai-meta">En ny chat er god til en ny delopgave. Den skal stadig have de relevante beslutninger og kilder.</p>
+    </div>
+    <figure>
+      <div class="ai-card ai-tint">
+        <span class="ai-card-title">Projekt: Studiefestival</span>
+        <div class="ai-stack">
+          <div class="ai-card"><strong>Grundlag</strong><p>Brief · målgruppe · godkendt program</p></div>
+          <div class="ai-card"><strong>Instruktion</strong><p>“Skriv kort på dansk. Brug programmet til tider. Markér oplysninger, der mangler.”</p></div>
+          <div class="ai-chips"><span>Chat: Forside</span><span>Chat: Programside</span></div>
+        </div>
+      </div>
+      <figcaption>Skematisk projekt. Et ChatGPT-projekt giver ikke automatisk adgang til din computer.</figcaption>
+    </figure>
+  </div>
+  <span slot="takeaway">Saml relevant materiale, og hold det opdateret. Projektet gør ikke automatisk alle oplysninger korrekte.</span>
+  <span slot="sources"><a href="https://learn.chatgpt.com/docs/projects">Projekter og chats</a>.</span>
+</AILessonSlide>
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+<AILessonSlide eyebrow="Plugins · tilføj muligheder" illustration>
+  <div class="ai-split">
+    <div>
+      <h2>Et plugin udvider<br />værktøjskassen.</h2>
+      <p class="ai-lead">En installerbar pakke med skills, forbindelser til værktøjer — eller begge dele.</p>
+      <p class="ai-meta">En forbindelse kan fx gøre dokumenter tilgængelige eller give mulighed for at arbejde i en anden tjeneste. Nogle steder møder du også ord som apps og integrationer.</p>
+      <p class="ai-meta">Forbindelsen bruger de rettigheder, du har givet. At kunne læse et dokument er ikke det samme som at kunne redigere det.</p>
+    </div>
+    <figure class="ai-flow">
+      <div class="ai-card"><strong>Din opgave</strong><p>“Brug det opdaterede festivalprogram.”</p></div>
+      <div class="ai-arrow" aria-hidden="true">↓</div>
+      <div class="ai-card ai-purple"><strong>Plugin med dokumentværktøj</strong><p>Find og læs den tilsluttede kilde.</p></div>
+      <div class="ai-arrow" aria-hidden="true">↓</div>
+      <div class="ai-card ai-tint"><strong>Dokument i fx Google Drive</strong><p>Adgang kræver en relevant forbindelse.</p></div>
+      <figcaption>Principskitse. Funktioner afhænger af det konkrete plugin og dine tilladelser.</figcaption>
+    </figure>
+  </div>
+  <span slot="takeaway">Brug et plugin, når opgaven kræver en mulighed, AI ellers mangler.</span>
+  <span slot="sources"><a href="https://developers.openai.com/plugins/concepts/plugins">Plugin-arkitektur</a>.</span>
+</AILessonSlide>
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+<AILessonSlide eyebrow="Skills · genbrug en arbejdsgang" illustration>
+  <div class="ai-split">
+    <div>
+      <h2>En skill beskriver,<br />hvordan arbejdet udføres.</h2>
+      <p class="ai-lead">Genbrugelige instruktioner med eventuelle skabeloner, eksempler og scripts.</p>
+      <p class="ai-meta">En skill har en <code>SKILL.md</code>, der beskriver, hvornår og hvordan den bruges. Den kan aktiveres ved en passende opgave eller vælges direkte.</p>
+      <p class="ai-meta">Et plugin kan indeholde flere skills. En skill kan også fungere uden en ekstern forbindelse.</p>
+    </div>
+    <figure class="ai-card ai-purple">
+      <span class="ai-label">Tænkt skill · tjek-webtekst / SKILL.md</span>
+      <ol class="ai-steps">
+        <li><span>Læs målgruppen og den godkendte kilde.</span></li>
+        <li><span>Tjek fakta, tone og tydelig handling.</span></li>
+        <li><span>Foreslå højst tre begrundede ændringer.</span></li>
+      </ol>
+      <figcaption>Samme metode kan bruges på både forside og programside.</figcaption>
+    </figure>
+  </div>
+  <span slot="takeaway">En skill er en genbrugelig opskrift. Den er ikke en ny model eller en garanti for et godt resultat.</span>
+  <span slot="sources"><a href="https://developers.openai.com/plugins/concepts/skills">Skills</a>.</span>
+</AILessonSlide>
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+<AILessonSlide eyebrow="Agenter · arbejd mod et mål i flere trin" illustration>
+  <div class="ai-split">
+    <div>
+      <h2>En agent kan<br />føre opgaven videre.</h2>
+      <p class="ai-lead">Den bruger modellen og tilgængelige værktøjer til at vælge næste skridt, handle og kontrollere resultatet.</p>
+      <p class="ai-meta">Giv et mål, en afgrænsning og et tegn på, at opgaven er løst: “Ret tidspunktet på forsiden efter programmet, og kontrollér siden.”</p>
+      <p class="ai-meta"><strong>Underagenter</strong> kan løse afgrænsede delopgaver parallelt. Hver agent bruger selv tokens; flere agenter er ikke automatisk billigere.</p>
+    </div>
+    <figure class="ai-card ai-tint">
+      <ol class="ai-steps">
+        <li><span><strong>Undersøg:</strong> læs program og forside.</span></li>
+        <li><span><strong>Handl:</strong> ret den relevante tekst.</span></li>
+        <li><span><strong>Kontrollér:</strong> sammenlign med kilden, og afprøv siden.</span></li>
+        <li><span><strong>Vurdér:</strong> færdig, eller kræves endnu et trin?</span></li>
+      </ol>
+      <figcaption>Forenklet arbejdsgang. En agent kan også gå i stå eller træffe et forkert valg.</figcaption>
+    </figure>
+  </div>
+  <span slot="takeaway">Du vurderer ændringerne og resultatet. Giv adgang og handlefrihed, der passer til opgaven.</span>
+  <span slot="sources"><a href="https://learn.chatgpt.com/docs/use-chatgpt">ChatGPT Work</a> · <a href="https://learn.chatgpt.com/docs/agent-configuration/subagents">Underagenter</a>.</span>
+</AILessonSlide>
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+<AILessonSlide eyebrow="Tilbage til festivalen · fire forskellige roller">
+  <h2>Hvad bidrager de hver især med?</h2>
+  <table class="ai-table">
+    <thead><tr><th scope="col">Begreb</th><th scope="col">Rolle</th><th scope="col">I vores tænkte case</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Projekt</th><td data-label="Rolle">Samler kontekst</td><td data-label="I casen">Brief, målgruppe og godkendt program.</td></tr>
+      <tr><th scope="row">Plugin</th><td data-label="Rolle">Tilføjer muligheder</td><td data-label="I casen">Adgang til programmet i en tilsluttet tjeneste.</td></tr>
+      <tr><th scope="row">Skill</th><td data-label="Rolle">Beskriver metoden</td><td data-label="I casen">Genbrugeligt tjek af fakta og tone.</td></tr>
+      <tr><th scope="row">Agent</th><td data-label="Rolle">Udfører forløbet</td><td data-label="I casen">Læser, retter og kontrollerer forsiden.</td></tr>
+    </tbody>
+  </table>
+  <span slot="takeaway">De kan arbejde sammen. En lille opgave kræver måske kun en besked og et relevant tekstuddrag.</span>
+</AILessonSlide>
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+<AILessonSlide eyebrow="Tokens · det, modellen behandler" illustration>
+  <div class="ai-split ai-top">
+    <div>
+      <h2>En token er<br />et lille stykke tekst.</h2>
+      <p class="ai-lead">Det kan være et ord, en del af et ord eller et tegn. Antallet afhænger af modellen og sproget.</p>
+      <figure>
+        <div class="ai-token-parts"><span> token</span><span>ization</span></div>
+        <figcaption>Eksempel fra OpenAI: det engelske “ tokenization” opdeles her i to tokens. Danske ord kan blive opdelt anderledes.</figcaption>
+      </figure>
+      <p class="ai-meta"><strong>Kontekstvinduet</strong> er grænsen for, hvor meget modellen kan have med i én behandling, inklusive plads til svaret.</p>
+    </div>
+    <div class="ai-stack">
+      <div class="ai-card"><h3>Input · det, modellen modtager</h3><p>Din besked + instruktioner + medsendt historik, filindhold og værktøjsresultater.</p></div>
+      <div class="ai-card ai-purple"><h3>Output · det, modellen genererer</h3><p>Svaret og eventuelle værktøjskald. Nogle modeller bruger også reasoning-tokens til intern bearbejdning.</p></div>
+      <p class="ai-meta">Billeder og andre input kan også bruge tokens. Et kort synligt svar betyder derfor ikke nødvendigvis et lille forbrug.</p>
+    </div>
+  </div>
+  <span slot="takeaway">Tokens er en forbrugsenhed. Pris og brugsgrænser afhænger af produkt, model og abonnement.</span>
+  <span slot="sources"><a href="https://developers.openai.com/api/docs/concepts">Tokens</a> · <a href="https://developers.openai.com/api/docs/guides/conversation-state">Kontekst</a> · <a href="https://developers.openai.com/api/docs/guides/token-counting">Tokenoptælling</a>.</span>
+</AILessonSlide>
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+<AILessonSlide eyebrow="Spar tokens · behold det, der gør svaret bedre">
+  <div class="ai-split ai-top">
+    <div>
+      <h2>Afgræns opgaven.<br />Giv relevant kontekst.</h2>
+      <ol class="ai-steps">
+        <li><span><strong>Vælg materialet:</strong> peg på den relevante fil eller det nødvendige uddrag.</span></li>
+        <li><span><strong>Bestil et format:</strong> fx tre forslag eller kun de ændrede linjer.</span></li>
+        <li><span><strong>Ret præcist:</strong> bed om at ændre ét afsnit frem for at genskrive alt.</span></li>
+        <li><span><strong>Hold fokus:</strong> brug en ny chat ved et nyt emne, og tag vigtige beslutninger med.</span></li>
+      </ol>
+    </div>
+    <div class="ai-stack">
+      <div class="ai-card"><span class="ai-label">Uklart — kan give mange omveje</span><p>“Gør hele sitet bedre. Her er alt vores materiale.”</p></div>
+      <div class="ai-card ai-purple"><span class="ai-label">Afgrænset — mål, kilde og leverance</span><p>“Brug afsnittet Praktisk i programmet. Ret kun tid og sted i forsideteksten. Behold tonen. Vis det rettede afsnit og højst to forklarende punkter.”</p></div>
+      <p class="ai-meta">Genbrug korte instruktioner og relevante skills. De sparer gentagelser i arbejdet, men fylder stadig, når de læses. Brug flere agenter, når opdelingen giver værdi.</p>
+    </div>
+  </div>
+  <span slot="takeaway">En lidt længere, præcis besked kan spare flere runder. Undlad oplysninger, der er irrelevante — behold dem, der er nødvendige.</span>
+  <span slot="sources"><a href="https://learn.chatgpt.com/docs/learn/best-practices">Arbejdsgange og kontekst</a> · <a href="https://learn.chatgpt.com/docs/agent-configuration/subagents">Underagenters forbrug</a>.</span>
+</AILessonSlide>
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+<AILessonSlide eyebrow="Anvend selv · par · 5 minutters arbejde, derefter 2 minutters forbedring">
+  <div class="ai-split ai-top">
+    <div>
+      <h2>Nu er materialet<br />allerede hos jer.</h2>
+      <p class="ai-lead">Ny tænkt case: AI skal foreslå en kort introduktion til dit portfolio. Alle nødvendige oplysninger ligger i den åbne projektmappe.</p>
+      <p class="ai-meta"><strong>Materiale:</strong> Målgruppen er praktiksteder. Du vil vise dine egne bidrag til tre studieprojekter. Du har et brief, tre projektbeskrivelser og 40 gamle chatudskrifter.</p>
+      <p class="ai-meta">I skal planlægge opgaven; I behøver hverken en AI-konto eller at oprette filer. Brug slidesene som opslag.</p>
+    </div>
+    <div class="ai-card ai-tint">
+      <span class="ai-card-title">Aflever en kort plan og en prompt</span>
+      <ol class="ai-steps">
+        <li><span>Vælg, hvilke oplysninger AI behøver.</span></li>
+        <li><span>Begrund, om der er brug for et plugin, en skill eller en agent med filadgang.</span></li>
+        <li><span>Skriv en prompt på højst fem linjer: mål, materiale, afgrænsning og ønsket svar.</span></li>
+      </ol>
+    </div>
+  </div>
+  <span slot="takeaway">Planen skal begrænse unødigt tokenforbrug og forhindre, at AI opfinder erfaring. Se kriterierne på næste slide før start.</span>
+</AILessonSlide>
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+<AILessonSlide eyebrow="Portfolio-opgaven · kriterier, hint og forbedring">
+  <h2>Kan en anden følge jeres plan?</h2>
+  <div class="ai-cards ai-thirds">
+    <div class="ai-card ai-tint"><h3>Godt nok</h3><p>I udvælger relevante oplysninger, begrunder behovet for værktøjer og skriver en prompt med målgruppe, længde og krav om dokumenterede oplysninger.</p></div>
+    <div class="ai-card"><h3>Et virkeligt godt svar</h3><p>I forklarer også, hvad I fravælger, og hvordan I vil tjekke påstande om egne bidrag. I forbedrer én uklarhed efter feedback fra et andet par.</p></div>
+    <div class="ai-card"><h3>For lidt endnu</h3><p>“Brug alt og gør det godt” mangler valg og afgrænsning. Vælg først materialet, og skriv derefter, hvad svaret skal indeholde.</p></div>
+  </div>
+  <details class="ai-reveal"><summary>Vis et hint</summary><p>Hvad skal hentes udefra, når alt nødvendigt materiale allerede ligger i mappen? Skal AI ændre filer, eller er et tekstforslag nok?</p></details>
+  <details class="ai-reveal"><summary>Vis et løsningsforslag</summary><p>Vælg brief og uddrag om egne bidrag; fravælg de gamle chats. En allerede tilgængelig fillæser er nok. Et ekstra plugin er ikke nødvendigt. En skill er nyttig ved gentagne teksttjek, men valgfri her. En agent, der redigerer filer, er heller ikke nødvendig for et tekstforslag.</p><blockquote class="ai-prompt">Skriv et forslag til en portfolio-introduktion på højst 80 ord til praktiksteder. Brug briefet og afsnittene om mine egne bidrag i de tre projektbeskrivelser. Tilføj ikke erfaring eller færdigheder, som kilderne ikke dokumenterer. Giv teksten og højst to punkter med oplysninger, jeg bør afklare. Redigér ingen filer.</blockquote><p>Tjek hver påstand mod projektbeskrivelserne. Sammenlign med jeres egen plan; andre valg kan også fungere, hvis I begrunder dem.</p></details>
+  <span slot="takeaway">Byt med et andet par, og forbedr én ting. Hurtigt færdige: Hvad ændres, hvis oplysningerne kun findes i et tilsluttet dokument?</span>
+</AILessonSlide>
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+<AILessonSlide eyebrow="Vend tilbage · 2 minutter · først selv, så kort i gruppen">
+  <h2>Hvad ville I<br />gøre anderledes nu?</h2>
+  <div class="ai-cards">
+    <div class="ai-card"><h3>Tilbage til festivalen</h3><p>Se på jeres første bud. Vælg én ændring i arbejdsgrundlaget eller arbejdsgangen, og forklar hvorfor.</p></div>
+    <div class="ai-card ai-purple"><h3>Dit eget svar</h3><p>Skriv én sætning: Hvordan adskiller en skill sig fra en agent — og hvad vil du selv gøre for at spare tokens?</p></div>
+  </div>
+  <details class="ai-reveal"><summary>Kilder og videre læsning · kontrolleret 21. oktober 2026</summary><ul class="ai-list"><li><a href="https://learn.chatgpt.com/docs/projects">Projekter og chats</a> · <a href="https://developers.openai.com/plugins/concepts/plugins">Plugins</a> · <a href="https://developers.openai.com/plugins/concepts/skills">Skills</a></li><li><a href="https://learn.chatgpt.com/docs/use-chatgpt">ChatGPT Work</a> · <a href="https://learn.chatgpt.com/docs/agent-configuration/subagents">Underagenter</a></li><li><a href="https://developers.openai.com/api/docs/concepts">Tokens</a> · <a href="https://developers.openai.com/api/docs/guides/conversation-state">Kontekstvindue</a> · <a href="https://developers.openai.com/api/docs/guides/token-counting">Tokenoptælling</a></li><li><a href="https://learn.chatgpt.com/docs/learn/best-practices">Gode arbejdsgange</a> · <a href="https://learn.chatgpt.com/docs/codex/ide">Codex i din editor</a></li></ul></details>
+  <span slot="takeaway">Tag det med videre: relevant kontekst, passende værktøjer og et resultat, du kan kontrollere. Til sidst ser vi det i VS Code.</span>
+</AILessonSlide>
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+<AILessonSlide eyebrow="AI i VS Code · kom i gang med Codex" illustration>
+  <div class="ai-split">
+    <div>
+      <h2>AI ved siden af<br />dine egne filer.</h2>
+      <ol class="ai-steps">
+        <li><span>Åbn din projektmappe i VS Code.</span></li>
+        <li><span>Installér OpenAI's Codex-udvidelse via den officielle vejledning, og log ind.</span></li>
+        <li><span>Åbn Codex-panelet. Vælg eller henvis til den relevante fil eller kode.</span></li>
+        <li><span>Giv en lille opgave. Gennemgå ændringerne, og afprøv resultatet.</span></li>
+      </ol>
+    </div>
+    <figure>
+      <div class="ai-editor">
+        <div class="ai-editor-bar">VS Code · dit projekt</div>
+        <div class="ai-editor-body">
+          <div><strong>Filer</strong><p><code>index.html</code></p><p><code>style.css</code></p><p><code>brief.md</code></p></div>
+          <div><strong>Codex</strong><p>“Forklar den markerede kode med tre korte punkter.”</p><p>Læs svaret ved siden af filen.</p></div>
+        </div>
+      </div>
+      <figcaption>Skematisk illustration af arbejdsformen, ikke et skærmbillede af brugerfladen.</figcaption>
+    </figure>
+  </div>
+  <span slot="takeaway">Forklaring, fejlfinding, ændringer og review kan foregå i editoren. Gem et Git-checkpoint før en større ændring.</span>
+  <span slot="sources"><a href="https://learn.chatgpt.com/docs/codex/ide">Officiel vejledning og installation: Codex IDE extension</a>.</span>
+</AILessonSlide>
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+<AILessonSlide eyebrow="AI i VS Code · tre konkrete måder at bruge hjælpen på">
+  <h2>Forstå. Undersøg. Forbedr.</h2>
+  <div class="ai-cards ai-thirds">
+    <div class="ai-card"><h3>Forstå koden</h3><p>“Forklar den markerede CSS for en begynder. Bed først om mit eget bud, og stil ét spørgsmål ad gangen. Vent på mit svar. Ændr ingen filer.”</p></div>
+    <div class="ai-card ai-purple"><h3>Find årsagen til en fejl</h3><p>“Menuen går ud over kanten på mobil. Undersøg menuens HTML og CSS. Forklar den sandsynlige årsag, og foreslå den mindste rettelse.”</p></div>
+    <div class="ai-card ai-tint"><h3>Lav og kontrollér en afgrænset ændring</h3><p>“Ret kun menuens mobilvisning. Bevar indholdet. Kontrollér ved 375 og 1280 pixels, og fortæl, hvad du faktisk har afprøvet.”</p></div>
+  </div>
+  <p class="ai-meta">Når du lærer: Bed om et mindre hint, hvis svaret går for hurtigt. Når AI ændrer kode: læs <strong>diffen</strong> — de ændrede linjer — og test selv i browseren.</p>
+  <span slot="takeaway">Start med én fil og én tydelig opgave. Du skal kunne forklare og efterprøve det, du beholder.</span>
+  <span slot="sources"><a href="https://learn.chatgpt.com/docs/codex/ide">Codex i editoren</a> · <a href="https://learn.chatgpt.com/docs/learn/best-practices">Afgrænsning og kontrol</a>.</span>
+</AILessonSlide>
+</Slide>

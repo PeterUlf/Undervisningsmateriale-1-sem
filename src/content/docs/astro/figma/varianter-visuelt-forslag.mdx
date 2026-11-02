@@ -1,7 +1,8 @@
 ---
 title: "Varianter – visuelt forslag"
 draft: true
-description: "Et visuelt forslag til undervisningen: syv slides med store eksempler, skærmbilleder fra Figma og en lille interaktiv demonstration."
+pagefind: false
+description: "40 minutter om Figma-varianter: sum først, afprøv eksemplet, og løs en varieret opgave med synlige kriterier og skjult løsning."
 sidebar:
   hidden: true
   badge:
@@ -12,18 +13,294 @@ sidebar:
 
 import Slide from "../../../../components/Slide.astro";
 import VariantVisual from "../../../../components/VariantVisual.astro";
+import VariantChoiceDemo from "../../../../components/VariantChoiceDemo.astro";
 import "../../../../styles/variants-visual.css";
 
-<Slide><VariantVisual kind="intro" /></Slide>
+export const slideCount = 15;
+
+<Slide>
+<VariantVisual step={1} total={slideCount} kind="intro">
+  <div class="vv-split vv-hero">
+    <div>
+      <p class="vv-eyebrow">Tema 3 · 1. semester · 40 minutter</p>
+      <h2>Flere udgaver.<br />Et fælles design.</h2>
+      <p class="vv-lead">Hvordan holder vi styr på knapper, som skal bruges forskelligt?</p>
+      <p class="vv-meta">Vi bygger videre på <a href="/astro/figma/komponenter/">komponenter og instances</a>. Hav din Figma-fil og en enkel main component klar.</p>
+    </div>
+    <div class="vv-task-card">
+      <p class="vv-eyebrow">Efter forløbet kan du</p>
+      <ol class="vv-short-steps">
+        <li><span>1</span><div>Samle beslægtede knapper som varianter.</div></li>
+        <li><span>2</span><div>Vælge en variant og tilpasse tekst på en instance.</div></li>
+        <li><span>3</span><div>Overføre princippet til et nyt behov og afprøve resultatet.</div></li>
+      </ol>
+    </div>
+  </div>
+  <span slot="takeaway">Tal sammen → se og afprøv → løs selv → vurder og forbedr.</span>
+</VariantVisual>
+</Slide>
 <div class="page-break"></div>
-<Slide><VariantVisual kind="add" /></Slide>
+
+<Slide>
+<VariantVisual step={2} total={slideCount} kind="sum" illustration="To udkast til et opskriftsite">
+  <div class="vv-split">
+    <div>
+      <p class="vv-eyebrow">Sum · 3 minutter · grupper på 3–5</p>
+      <h2>Hvilket udkast<br />ville I vælge?</h2>
+      <p class="vv-lead">Tænkt case: Besøgende skal kunne åbne en opskrift eller gemme den til senere.</p>
+      <p class="vv-question"><strong>Hvilket udkast hjælper bedst med de to muligheder — og hvorfor?</strong></p>
+      <p class="vv-meta">Tal med dem, I sidder ved. Kun samtale: ingen AI, opslag eller arbejde i Figma.</p>
+    </div>
+    <figure class="vv-case-pair">
+      <div class="vv-case"><span class="vv-label">Udkast A</span><strong>Aftensmad på 20 minutter</strong><div class="vv-case-buttons"><span class="vv-button primary">Se opskriften</span><span class="vv-button primary">Gem til senere</span></div></div>
+      <div class="vv-case"><span class="vv-label">Udkast B</span><strong>Aftensmad på 20 minutter</strong><div class="vv-case-buttons"><span class="vv-button primary">Se opskriften</span><span class="vv-button secondary">Gem til senere</span></div></div>
+      <figcaption>To tænkte udkast til samme side.</figcaption>
+    </figure>
+  </div>
+  <span slot="takeaway">Alle giver et bud. Vær klar til at dele én begrundelse; I behøver ikke være enige.</span>
+</VariantVisual>
+</Slide>
 <div class="page-break"></div>
-<Slide><VariantVisual kind="name" /></Slide>
+
+<Slide>
+<VariantVisual step={3} total={slideCount} kind="share">
+  <div class="vv-split">
+    <div>
+      <p class="vv-eyebrow">Fælles opsamling · 2 minutter</p>
+      <h2>To bud.<br />To begrundelser.</h2>
+      <p class="vv-lead">Hvilken handling lagde I først mærke til? Hvad i udformningen påvirkede det?</p>
+    </div>
+    <div class="vv-task-card"><span class="vv-time">2<span>bud fra holdet</span></span><p>Vi hører to forskellige overvejelser. Resten lytter efter noget, de selv overså.</p></div>
+  </div>
+  <span slot="takeaway">Gem jeres første bud. Nu undersøger vi, hvordan en valgt forskel kan genbruges i Figma.</span>
+</VariantVisual>
+</Slide>
 <div class="page-break"></div>
-<Slide><VariantVisual kind="style" /></Slide>
+
+<Slide>
+<VariantVisual step={4} total={slideCount} kind="ai">
+  <p class="vv-eyebrow">AI som studiemakker · 1 minut · til senere brug</p>
+  <h2>Brug AI til at forstå varianter.</h2>
+  <p class="vv-lead">Undersøg din begrundelse for, hvornår en knap har brug for en ny variant.</p>
+  <blockquote class="vv-study-prompt">Jeg går på 1. semester på multimediedesign og kender Figma-komponenter og instances. Hjælp mig med at forstå, hvornår en knap behøver en variant. Bed først om mit bud og min begrundelse. Stil ét spørgsmål ad gangen, og vent på mit svar. Giv små hints og feedback på min forståelse, men ingen færdig komponent eller løsning på opgaven.</blockquote>
+  <p class="vv-follow-up"><strong>Følg op:</strong> “Stil ét kontrolspørgsmål til min forklaring om knaptekst og varianter. Vent på mit svar.”</p>
+  <span slot="takeaway">Kopiér teksten, når du får brug for den. Vi åbner ikke AI nu. Afprøv senere dens forslag i Figma.</span>
+</VariantVisual>
+</Slide>
 <div class="page-break"></div>
-<Slide><VariantVisual kind="use" /></Slide>
+
+<Slide>
+<VariantVisual step={5} total={slideCount} kind="family" illustration="En knapfamilie med to varianter">
+  <div class="vv-split">
+    <div>
+      <p class="vv-eyebrow">Fra jeres bud til et genbrugeligt valg</p>
+      <h2>Én familie.<br />To udtryk.</h2>
+      <p class="vv-lead">I udkast B får “Se opskriften” mest vægt. Den anden mulighed er stadig synlig.</p>
+      <p class="vv-question">Et <strong>component set</strong> samler beslægtede udgaver. Hver udgave er en <strong>variant</strong>.</p>
+    </div>
+    <figure class="vv-family">
+      <div class="vv-set-name">❖ Button · component set</div>
+      <div class="vv-family-items">
+        <div><span class="vv-button primary">Se opskriften</span><span class="vv-label">Type = Primary · mest vægt</span></div>
+        <div><span class="vv-button secondary">Gem til senere</span><span class="vv-label">Type = Secondary · mindre vægt</span></div>
+      </div>
+      <figcaption>Illustration: samme familie, forskellig visuel vægt.</figcaption>
+    </figure>
+  </div>
+  <span slot="takeaway">Vi vælger B til demonstrationen. En instance bruger én variant fra familien.</span>
+</VariantVisual>
+</Slide>
 <div class="page-break"></div>
-<Slide><VariantVisual kind="check" /></Slide>
+
+<Slide>
+<VariantVisual step={6} total={slideCount} kind="add" illustration="Arbejdsgangen fra original til component set">
+  <div class="vv-split">
+    <div>
+      <p class="vv-eyebrow">Trin 1 / Opret · se demonstrationen</p>
+      <h2>Giv knappen<br />en variant.</h2>
+      <ol class="vv-short-steps">
+        <li><span>1</span><div>Marker din <strong>main component</strong>.</div></li>
+        <li><span>2</span><div>Højreklik: <strong>Main component → Add variant</strong>.</div></li>
+        <li><span>3</span><div>Figma samler udgaverne i et sæt.</div></li>
+      </ol>
+      <p class="vv-meta">Fra en instance: vælg først <strong>Go to main component</strong>.</p>
+    </div>
+    <figure class="vv-flow">
+      <div class="vv-flow-original"><span class="vv-label">1 · Originalen er valgt</span><span class="vv-button primary">Se opskriften</span></div>
+      <div class="vv-flow-arrow"><span>2 · Add variant</span><span aria-hidden="true">↓</span></div>
+      <div class="vv-family"><span class="vv-set-name">3 · Component set</span><div class="vv-mini-pair"><span class="vv-button primary">Se opskriften</span><span class="vv-button primary">Se opskriften</span></div></div>
+      <figcaption>Skematisk illustration af arbejdsgangen, ikke et Figma-skærmbillede.</figcaption>
+    </figure>
+  </div>
+  <span slot="takeaway">Udgaverne ser ens ud endnu. <a href="https://help.figma.com/hc/en-us/articles/360056440594-Create-and-use-variants">Se arbejdsgangen hos Figma</a>.</span>
+</VariantVisual>
+</Slide>
 <div class="page-break"></div>
-<Slide><VariantVisual kind="exercise" /></Slide>
+
+<Slide>
+<VariantVisual step={7} total={slideCount} kind="name" illustration="Sammenhængen mellem egenskab og værdier">
+  <div class="vv-split">
+    <div>
+      <p class="vv-eyebrow">Trin 2 / Navngiv</p>
+      <h2>Giv forskellen<br />et navn.</h2>
+      <ol class="vv-short-steps">
+        <li><span>1</span><div>Kald hele sættet <strong>Button</strong>.</div></li>
+        <li><span>2</span><div>Under <strong>Properties</strong>: dobbeltklik på egenskabens navn, og skriv <strong>Type</strong>.</div></li>
+        <li><span>3</span><div>Marker hver variant. Giv dem hver sin værdi: <strong>Primary</strong> og <strong>Secondary</strong>.</div></li>
+      </ol>
+    </div>
+    <figure class="vv-property-map">
+      <div class="vv-family"><span class="vv-set-name">Button</span><div class="vv-property-question"><span class="vv-label">Egenskab · det, du vælger efter</span><strong>Type</strong></div><div class="vv-branch" aria-hidden="true">↙ &nbsp; ↘</div><div class="vv-values"><div><strong>Primary</strong><span class="vv-label">Én værdi</span></div><div><strong>Secondary</strong><span class="vv-label">En anden værdi</span></div></div></div>
+      <figcaption>Skematisk illustration: én egenskab med to mulige værdier.</figcaption>
+    </figure>
+  </div>
+  <span slot="takeaway">Type er spørgsmålet. Primary og Secondary er valgene. Navnene ændrer ikke udseendet automatisk.</span>
+</VariantVisual>
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+<VariantVisual step={8} total={slideCount} kind="style" illustration="Sammenligning af Primary og Secondary">
+  <p class="vv-eyebrow">Trin 3 / Formgiv</p>
+  <h2>Samme tekst. To udtryk.</h2>
+  <div class="vv-comparison">
+    <div class="vv-compare-item"><span class="vv-label">Type = Primary</span><span class="vv-button primary">Se opskriften</span><p>Fyldt flade.<br /><strong>Tydelig handling.</strong></p></div>
+    <div class="vv-compare-item"><span class="vv-label">Type = Secondary</span><span class="vv-button secondary">Se opskriften</span><p>Lys flade og kant.<br /><strong>Mere afdæmpet.</strong></p></div>
+  </div>
+  <span slot="takeaway">Tilpas Secondary med Fill, tekstfarve og Stroke. Behold samme typografi, padding og afrunding.</span>
+</VariantVisual>
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+<VariantVisual step={9} total={slideCount} kind="use" illustration="Interaktiv model af en instance">
+  <div class="vv-split">
+    <div>
+      <p class="vv-eyebrow">Trin 4 / Brug · prøv selv</p>
+      <h2>Skift udseendet.<br />Behold ordene.</h2>
+      <p class="vv-lead">I Figma: indsæt en instance fra <strong>Assets</strong>. Marker hele instancen, og vælg dens <strong>Type</strong>.</p>
+      <ol class="vv-short-steps"><li><span>1</span><div>Her på siden: skriv “Læs artiklen”.</div></li><li><span>2</span><div>Skift Type. Hvad ændres, og hvad bliver?</div></li></ol>
+    </div>
+    <VariantChoiceDemo />
+  </div>
+  <span slot="takeaway">Modellen adskiller tekst og variant. I Figma skal tekstlag matche på tværs af varianterne, så en tekstændring kan bevares.</span>
+</VariantVisual>
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+<VariantVisual step={10} total={slideCount} kind="check" illustration="To knapper med samme udseende og forskellig tekst">
+  <p class="vv-eyebrow">Kort kontrol · 1 minut</p>
+  <h2>Ny tekst.<br />Ny variant?</h2>
+  <div class="vv-question-buttons"><span class="vv-button primary">Se opskriften</span><span class="vv-button primary">Læs artiklen</span></div>
+  <p class="vv-lead">Udseendet er ens. Kun ordene er forskellige. Giv selv et bud, før du åbner svaret.</p>
+  <details class="vv-reveal"><summary>Vis forklaringen</summary><p><strong>Nej, ikke alene på grund af teksten.</strong> Brug samme variant, og tilpas tekstlaget på hver instance. En variant er relevant, når du har brug for et tilbagevendende designvalg.</p></details>
+</VariantVisual>
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+<VariantVisual step={11} total={slideCount} kind="exercise">
+  <div class="vv-split">
+    <div>
+      <p class="vv-eyebrow">Din tur / Individuelt · opgaven fortsætter på næste slide</p>
+      <h2>Tre størrelser.<br />Ét sæt.</h2>
+      <p class="vv-lead">Et tænkt arrangementssite skal bruge en kompakt knap i en liste, en mellemstor på et kort og en stor ved tilmelding.</p>
+      <p class="vv-question">Lav et <strong>nyt, selvstændigt component set</strong> med tre størrelser. Brug én egenskab, og vælg selv navne og padding. Behold samme farver og typografi.</p>
+    </div>
+    <div class="vv-task-card">
+      <span class="vv-time">8<span>minutter i Figma</span></span>
+      <p><strong>Start:</strong> en enkel knap med Auto Layout fra komponentøvelsen.</p>
+      <p><strong>Vis:</strong> dit sæt og tre instances på en test-frame — én til hver placering. Afprøv alle tre valg og en længere knaptekst.</p>
+    </div>
+  </div>
+  <span slot="takeaway">Brug materialet. AI må først hjælpe med spørgsmål eller hints efter dit eget forsøg. Se kriterierne, før du går i gang.</span>
+</VariantVisual>
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+<VariantVisual step={12} total={slideCount} kind="criteria">
+  <h2>Hvornår virker det?</h2>
+  <p class="vv-task-reminder">Lav ét sæt med tre størrelser til liste, kort og tilmelding. Vis tre instances. <strong>8 minutters arbejde.</strong></p>
+  <table class="vv-rubric">
+    <caption>Tre tegn på kvalitet i din løsning</caption>
+    <thead><tr><th scope="col">Se efter</th><th scope="col">Virkeligt godt</th><th scope="col">Godt nok</th><th scope="col">For lidt endnu</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Sæt og valg</th><td data-label="Virkeligt godt">Tre valg virker på alle instances; en anden kan forstå navnene.</td><td data-label="Godt nok">Ét sæt, én egenskab og tre forskellige værdier kan vælges.</td><td data-label="For lidt endnu">Løse kopier, manglende valg eller ens værdier.</td></tr>
+      <tr><th scope="row">Størrelser</th><td data-label="Virkeligt godt">Du begrunder størrelserne ud fra de tre placeringer.</td><td data-label="Godt nok">Tre tydelige størrelser via padding; fælles farver og typografi.</td><td data-label="For lidt endnu">Kun navne eller farver er ændret; størrelserne er ens.</td></tr>
+      <tr><th scope="row">Afprøvning</th><td data-label="Virkeligt godt">Du finder og retter et problem, fx ved længere tekst.</td><td data-label="Godt nok">Tre instances virker; alle valg og længere tekst er afprøvet uden afklipning.</td><td data-label="For lidt endnu">Kun originalerne vises, eller tekst bliver klippet af.</td></tr>
+    </tbody>
+  </table>
+  <div class="vv-help">
+    <details class="vv-reveal"><summary>Vis et hint</summary><p>Se på den kendte knaps Auto Layout: Hvad gør mere eller mindre padding? Hvordan kan den samme variant-egenskab rumme ét valg mere end i demonstrationen?</p></details>
+    <details class="vv-reveal vv-solution">
+      <summary>Vis løsningsforslag</summary>
+      <p><strong>Et løsningsforslag:</strong> Kald sættet <strong>EventButton</strong>, egenskaben <strong>Size</strong> og værdierne <strong>Small, Medium, Large</strong>. Hold farver, tekstlagets navn og typografi ens.</p>
+      <p>Opret tre varianter med Add variant. Prøv fx lodret/vandret padding på <strong>8/12, 12/20 og 16/28</strong> pixels og Hug contents. Mere padding gør knappen større uden at skalere teksten. Tallene er eksempler, ikke faste krav.</p>
+      <p>Indsæt tre instances fra Assets. Vælg en størrelse til hver placering. Skift gennem alle tre valg på hver instance, og prøv “Reserver en plads til designaftenen”. Kontrollér, at teksten bevares og ikke klippes.</p>
+      <p>Det virker, fordi Size vælger mellem tre beslægtede udgaver i samme sæt. Sammenlign din løsning med kriterierne og dette forslag: Hvad vil du beholde eller forbedre?</p>
+    </details>
+  </div>
+  <span slot="takeaway">Virkeligt godt bygger oven på godt nok. Der kræves ikke bestemte pixelværdier.</span>
+</VariantVisual>
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+<VariantVisual step={13} total={slideCount} kind="review">
+  <div class="vv-split">
+    <div>
+      <p class="vv-eyebrow">Afprøv og forbedr · 4 minutter</p>
+      <h2>Lad en anden<br />prøve valgene.</h2>
+      <ol class="vv-short-steps">
+        <li><span>1</span><div><strong>2 minutter i par:</strong> prøv hinandens tre størrelser og en længere tekst. Ved ulige antal: én trio.</div></li>
+        <li><span>2</span><div>Brug de tre kriterier. Peg på én ting, der virker, og én ting, der kan blive tydeligere.</div></li>
+        <li><span>3</span><div><strong>2 minutter selv:</strong> forbedr mindst én ting, og afprøv den igen.</div></li>
+      </ol>
+    </div>
+    <div class="vv-task-card"><span class="vv-time">2 + 2<span>minutter</span></span><p>Vis ændringen i Figma, og forklar, hvilket problem den løser.</p><p><strong>Hvis du er færdig:</strong> prøv den længste knaptekst fra dit eget projekt. Ekstra afprøvning er valgfri.</p></div>
+  </div>
+  <span slot="takeaway">Et fungerende skift fortæller mere end et screenshot af tre knapper.</span>
+</VariantVisual>
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+<VariantVisual step={14} total={slideCount} kind="exit">
+  <div class="vv-split">
+    <div>
+      <p class="vv-eyebrow">Tilbage til første bud · 3 minutter</p>
+      <h2>Hvad ville I<br />ændre nu?</h2>
+      <p class="vv-lead"><strong>2 minutter i gruppen:</strong> Tænk på opskriftssidens “Se opskriften” og “Gem til senere”. Hvad ville I fastholde eller ændre i jeres første bud — og hvorfor?</p>
+    </div>
+    <div class="vv-task-card"><p class="vv-eyebrow">1 minut · individuelt</p><p>Knappen “Læs mere” skal nu hedde “Se program”. Udseendet er det samme.</p><p><strong>Vil du ændre en instance eller oprette en variant? Begrund dit valg med én sætning.</strong></p><p class="vv-meta">Skriv dit svar, før I sammenligner i gruppen.</p></div>
+  </div>
+  <span slot="takeaway">Kan du forklare dit valg og vise det i Figma, har du noget at bygge videre på.</span>
+</VariantVisual>
+</Slide>
+<div class="page-break"></div>
+
+<Slide>
+<VariantVisual step={15} total={slideCount} kind="sources">
+  <p class="vv-eyebrow">Kilder og videre arbejde · til senere</p>
+  <h2>Find tilbage til stoffet.</h2>
+  <div class="vv-split vv-source-columns">
+    <div>
+      <p><strong>Faglige kilder</strong></p>
+      <ul class="vv-links">
+        <li><a href="https://help.figma.com/hc/en-us/articles/360056440594-Create-and-use-variants">Figma: Opret og brug varianter</a></li>
+        <li><a href="https://help.figma.com/hc/en-us/articles/5579474826519-Explore-component-properties">Figma: Komponentegenskaber</a></li>
+        <li><a href="/astro/figma/komponenter/">Komponenter, instances og Auto Layout</a></li>
+      </ul>
+      <p class="vv-meta">Arbejdsgange kontrolleret i Figmas dokumentation 12. oktober 2026.</p>
+    </div>
+    <div>
+      <p><strong>Billeder og illustrationer</strong></p>
+      <p class="vv-question">Originale HTML/CSS-illustrationer til dette site med AI-assistance fra <strong>Codex, 12. oktober 2026</strong>. Ingen eksterne billedfiler er anvendt her; ingen særskilt åben licens er tildelt.</p>
+      <p class="vv-question"><a href="/dette-site/figma-varianter-visuelt-undervisernoter/#billedkilder">Billedkilder, filstier og brugsgrundlag</a></p>
+    </div>
+  </div>
+  <span slot="takeaway"><a href="/dette-site/figma-varianter-visuelt-undervisernoter/">Separate undervisernoter og tidsplan</a> · <a href="/astro/figma/varianter/">Oprindelig variantside</a> · <a href="/astro/figma/varianter-ny-udgave/">Forrige nyudgave</a></span>
+</VariantVisual>
+</Slide>

@@ -232,9 +232,10 @@ const availableThemes = Array.from(new Set(Object.values(publishedLinkThemeMap))
 
       const linkPath = normalizeLinkHref(link.getAttribute('href'));
       const isPausePage = linkPath === '/pause-ur/' || linkPath === '/draft/pause-ur/';
+      const isAIPage = linkPath.startsWith('/ai/') || linkPath.startsWith('/draft/ai/');
       const isDraftUtility = isDraftView && (linkPath === '/draft/' || linkPath.startsWith('/draft/dette-site/') || linkPath === '/draft/om-dette-site/' || linkPath === '/draft/guides/forbedringsforslag-materiale-draft/');
 
-      if (isAll || isPausePage || isDraftUtility) {
+      if (isAll || isPausePage || isAIPage || isDraftUtility) {
         listItem.style.display = '';
         return;
       }

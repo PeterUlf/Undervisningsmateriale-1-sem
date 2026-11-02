@@ -1,0 +1,4 @@
+interface:
+  display_name: "Undervisningssite"
+  short_description: "Lav og revidér MDX-forløb til undervisningssitet"
+  default_prompt: "Brug $undervisningssite til at oprette eller revidere et undervisningsforløb med sitets fælles design og pædagogiske principper."

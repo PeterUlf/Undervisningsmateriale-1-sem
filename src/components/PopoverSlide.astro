@@ -1,0 +1,16 @@
+---
+import '../styles/popover-lesson.css';
+interface Props {
+  step: number;
+  total: number;
+  part?: string;
+  kind?: string;
+}
+const { step, total, part = 'Popover', kind = '' } = Astro.props;
+---
+
+<section class:list={['popover-slide', 'not-content', kind && `pl-${kind}`]} aria-label={`Slide ${step} af ${total}: ${part}`}>
+  <div class="pl-topline"><span>HTML & CSS / {part}</span><span>{String(step).padStart(2, '0')} / {total}</span></div>
+  <slot />
+  {Astro.slots.has('takeaway') && <div class="pl-bottom"><slot name="takeaway" /></div>}
+</section>

@@ -1,0 +1,124 @@
+---
+title: "AI i dag – undervisernoter"
+description: "Læringsmål, tidsplan, faglige præciseringer og kilder til det selvstændige AI-forløb."
+draft: false
+pagefind: false
+sidebar:
+  hidden: true
+tableOfContents:
+  minHeadingLevel: 2
+  maxHeadingLevel: 2
+---
+
+[Åbn slides: AI i dag](/ai/ai-i-dag/)
+
+Forløbet er opdateret **21. oktober 2026** og ligger under en selvstændig **AI**-overskrift uden temabadge. Det omfatter 16 slides og er planlagt til 40 minutter inklusive samtaler, øvelse og overgange. Undervisernoterne er adskilt fra slideshowet.
+
+## Læringsmål og forberedelse
+
+De studerende skal kunne:
+
+- skelne mellem projekter, plugins, skills og agenter og begrunde deres relevans for en opgave.
+- forklare input og output som tokenforbrug og vælge konkret, relevant kontekst.
+- skrive en afgrænset opgave til AI og beskrive, hvordan resultatet kontrolleres, også i VS Code.
+
+**Forkundskaber:** Brugeren har udtrykkeligt ønsket et forløb uden tema. Derfor forudsættes ingen bestemte temasider gennemgået. Alle centrale AI-begreber introduceres her. Den afsluttende VS Code-del er en demonstration; de studerende skal ikke allerede kunne installere udvidelser, arbejde med Git eller fejlfinde CSS. Forklar kort, at HTML beskriver indhold, CSS udseende, og at en diff viser ændrede linjer, hvis det er nyt for holdet.
+
+Hav eventuelt en lille, kendt projektmappe klar til demonstrationen. Installation og kontooprettelse indgår ikke som fælles aktivitet i de 40 minutter. Vis de to sidste slides uden liveværktøj, hvis adgang mangler. Portfolio-opgaven kan gennemføres med papir eller noter og kræver ikke AI-adgang.
+
+Den [fælles undervisningsprompt](/draft/dette-site/undervisningsprompt/) og [det visuelle variantforløb](/draft/astro/figma/varianter-visuelt-forslag/) bruges som redaktionelle referencer, ikke som forudsat fagligt stof. Lyse flader, grønne overskrifter og store skematiske figurer er videreført i et særskilt stilark.
+
+## Tidsplan – 40 minutter
+
+| Slide | Aktivitet | Tid |
+| --- | --- | --- |
+| 1 | Retning og læringsmål | 1 min. |
+| 2 | Sum i grupper på 3–5, uden AI og opslag | 3 min. |
+| 3 | To bud fra holdet | 1 min. |
+| 4 | Generativ AI og arbejde med værktøjer | 2 min. |
+| 5–8 | Projekter, plugins, skills og agenter | 8 min. |
+| 9 | Saml begreberne i festivalcasen | 1 min. |
+| 10 | Tokens, input, output og kontekstvindue | 3 min. |
+| 11 | Afgrænsning og tokenbesparelser | 2 min. |
+| 12–13 | Instruktion og kriterier: 1 min.; arbejde: 5 min.; feedback og forbedring: 2 min. | 8 min. |
+| 14 | Tilbage til første bud og individuelt svar | 2 min. |
+| 15–16 | VS Code: arbejdsgang og konkrete prompts | 4 min. |
+| Alle | Overgange, spørgsmål og buffer | 5 min. |
+
+Ved en live-demonstration bruges noget af bufferen; hold den til én relevant fil og én besked. Opgavens 5 minutter på slide 12 og 13 er den samme arbejdsperiode.
+
+## Fra summeøvelse til forklaring
+
+Festivalen og alle beskeder i eksemplerne er fiktive. På slide 2 fremgår fejlen, men hverken begreber eller en færdig løsning. Alle kan bidrage uden AI-erfaring. Hør to begrundede bud frem for en fremlæggelsesrunde fra alle grupper.
+
+Mulige forbindelser til teorien — ikke påstande om faktiske elevsvar:
+
+- **“Fortæl, hvem teksten er til.”** Kobl til brief og projektinstruktioner.
+- **“Giv den det rigtige program.”** Kobl til kilder. En upload eller et tekstuddrag kan være nok; en forbindelse kan være nyttig, når kilden ligger i en ekstern tjeneste.
+- **“Den skal tjekke sig selv.”** Kobl til et konkret kontroltrin. Et ekstra AI-svar er ikke i sig selv dokumentation for, at tidspunktet er rigtigt.
+- **“Skriv en bedre prompt.”** Bed dem præcisere, hvilke oplysninger der vil ændre resultatet. Formulering alene kan ikke erstatte en manglende kilde.
+
+Slide 9 genbruger samme case, og slide 14 lader dem ændre deres oprindelige bud med en begrundelse. Det individuelle spørgsmål på slide 14 giver et særskilt tegn på forståelse.
+
+## Faglige præciseringer og misforståelser
+
+**Afgrænsning af “AI i dag”:** Dette er et praktisk overblik over generativ AI, især ChatGPT og Codex. Det er ikke en udtømmende gennemgang af alle former for AI. Undgå at love ens funktioner i alle produkter eller på alle konti. Produktnavne, adgang og brugerflader kan ændre sig; kontrollér de officielle links før en senere undervisning.
+
+**Projekt, plugin, skill og agent** beskriver forskellige roller, der kan overlappe i et produkt. De fire rækker er en pædagogisk model, ikke fire gensidigt udelukkende produkter. En skill kan være pakket i et plugin, og en agent kan bruge begge dele. Man behøver ikke installere alle fire for at løse en lille opgave.
+
+**Instruktioner:** Projektinstruktioner giver varige rammer. I et Codex-repository kan `AGENTS.md` indeholde projektvejledning, mens en `SKILL.md` beskriver en genbrugelig arbejdsgang. At skrive sådanne filer er ikke det samme som at træne en ny model. Se [gode arbejdsgange](https://learn.chatgpt.com/docs/learn/best-practices) og [skills](https://developers.openai.com/plugins/concepts/skills).
+
+**Tokens:** Eksemplet “ tokenization” kommer fra [OpenAI's begrebsforklaring](https://developers.openai.com/api/docs/concepts). Undgå at præsentere “ét ord = én token” eller en engelsk tommelfingerregel som præcis dansk optælling. Billeder, værktøjsbeskrivelser og formatering kan også påvirke forbruget. I Responses API indgår reasoning-tokens i det rapporterede outputforbrug; de skal ikke lægges til endnu en gang. Se [tokenoptælling](https://developers.openai.com/api/docs/guides/token-counting).
+
+**Kontekst og hukommelse:** Projektmateriale på disk er ikke ensbetydende med, at hele materialet sendes i hver forespørgsel. Det relevante er, hvad værktøjet faktisk læser og medsender. Lang historik kan øge inputmængden; klienter kan også udvælge eller sammenfatte indhold. Den konkrete håndtering varierer. I API-forløb kan tidligere indhold tælle igen i nye kald; se [samtaletilstand og kontekstvindue](https://developers.openai.com/api/docs/guides/conversation-state).
+
+**Besparelse:** Anbefalingerne er didaktiske anvendelser af kontekstprincipperne, ikke målte besparelser. Kortere relevant input og et passende svarformat kan reducere forbruget. Et vigtigt krav må ikke fjernes for at forkorte prompten. Færre tokens kan mindske API-omkostninger, men et abonnement og en API-afregning er ikke den samme betalingsmodel. Materialet lover derfor ingen bestemt besparelse i kroner eller procent.
+
+**Underagenter:** Parallel opgaveløsning kan spare tid og holde hovedsamtalen fokuseret. Det er ikke en automatisk tokenbesparelse, fordi hver agent udfører eget model- og værktøjsarbejde. Se [underagenter](https://learn.chatgpt.com/docs/agent-configuration/subagents).
+
+**VS Code:** De sidste to slides bruger Codex som konkret eksempel. Læsning, redigering og afprøvning afhænger af værktøjer og tilladelser. Prompten om mobilvisning er et eksempel på et ønsket kontrolresultat, ikke et løfte om, at browserafprøvning altid er tilgængelig. Hvis AI ikke kan udføre kontrollen, skal det fremgå, og den studerende afprøver selv. En gemt fil er ikke i sig selv et Git-checkpoint. Se [Codex i editoren](https://learn.chatgpt.com/docs/codex/ide).
+
+## Opgavevariation og feedback
+
+**Genbrugt princip:** Vælg relevant kontekst, passende værktøjer, en tydelig leverance og en konkret kontrol.
+
+**Ændring fra gennemgangen:** Festivaleksemplet har en kilde i en ekstern tjeneste og kan indebære filændringer. Portfolio-opgaven har alle nødvendige kilder lokalt og beder kun om et tekstforslag. Studerende kan derfor ikke blot kopiere festivalens plugin- og agentvalg; de skal vurdere behovet igen.
+
+**Det skal de selv beslutte:** Hvilke uddrag der er relevante, hvad der kan udelades, om ekstra værktøjer gavner, og hvordan de afgrænser og kontrollerer output. Ingen kodekundskaber er nødvendige.
+
+Kriterierne er synlige på slide 13. Lad dette slide stå fremme under arbejdet. Hint og løsningsforslag er separate, lukkede bokse, som først åbnes aktivt. Bed parrene sammenligne valgene og forbedre én uklarhed. “Godt nok” kræver ikke installation eller en automatiseret agent.
+
+Hvis et par vælger at bruge en skill, så bed dem begrunde, hvorfor den gentagne arbejdsgang er relevant. Hvis de vælger en agent, så spørg, hvilke handlinger der faktisk er nødvendige. Flere værktøjer giver ikke i sig selv et bedre svar.
+
+## AI som studiemakker
+
+Et særskilt AI-studiehjælpsslide efter den første samtale er fravalgt: selve forløbet handler om at forstå AI-brug, og en ekstra metadialog før begreberne ville gentage indholdet. Den afsluttende VS Code-del viser i stedet konkret, hvordan man kan bede om eget bud, ét spørgsmål ad gangen og små hints. Den er et eksempel til senere brug, ikke en ny aktivitet. Summeøvelsen og portfolio-planen kan gennemføres helt uden AI.
+
+## Illustrationer
+
+Der er ingen importerede fotografier, logoer eller skærmbilleder. Figurerne er originale HTML/CSS-illustrationer udarbejdet til dette forløb med AI-assistance, Codex, **21. oktober 2026**. De er mærket som skematiske eller fiktive, hvor det er relevant, og synlig kreditering følger figurerne i sidevisning, slideshow og print.
+
+| Placering | Indhold | Kilde og vilkår |
+| --- | --- | --- |
+| `src/content/docs/ai/ai-i-dag.mdx`, slide 2 og 4 | Fiktiv samtale og sammenligning af svar/handling | Originalt undervisningsindhold; ingen tredjepartsasset. |
+| Samme fil, slide 5–8 | Projektmappe, pluginforbindelse, skill og agentforløb | Originale principskitser baseret på de faglige kilder nedenfor. |
+| Samme fil, slide 10 | To tokenfelter | Original grafisk fremstilling af det korte eksempel i OpenAI's begrebsforklaring. |
+| Samme fil, slide 15 | Editor med filer og AI-panel | Original skematisk illustration; ikke en gengivelse af VS Codes faktiske brugerflade. |
+| `src/components/AILessonSlide.astro` og `src/styles/ai-lesson.css` | Ramme, typografi og figurers styling | Udarbejdet i projektet med den eksisterende visuelle reference som grundlag. |
+
+Ingen særskilt åben licens er tilføjet. Materialet er lavet til brugerens site; ophavsret til tredjepartsbrugerflader eller logoer påstås ikke. Der er ingen eksterne billedfiler, der kræver en separat tilladelse. Kontroldato: 21. oktober 2026.
+
+## Faglige kilder
+
+Officielle kilder, kontrolleret 21. oktober 2026. De relevante links står også på slidesene:
+
+- [Projekter og chats](https://learn.chatgpt.com/docs/projects)
+- [ChatGPT og ChatGPT Work](https://learn.chatgpt.com/docs/use-chatgpt)
+- [Plugin-arkitektur](https://developers.openai.com/plugins/concepts/plugins)
+- [Skills](https://developers.openai.com/plugins/concepts/skills)
+- [Underagenter](https://learn.chatgpt.com/docs/agent-configuration/subagents)
+- [Begreber og tokens](https://developers.openai.com/api/docs/concepts)
+- [Samtaletilstand og kontekstvindue](https://developers.openai.com/api/docs/guides/conversation-state)
+- [Tokenoptælling](https://developers.openai.com/api/docs/guides/token-counting)
+- [Gode arbejdsgange](https://learn.chatgpt.com/docs/learn/best-practices)
+- [Codex i editoren](https://learn.chatgpt.com/docs/codex/ide)

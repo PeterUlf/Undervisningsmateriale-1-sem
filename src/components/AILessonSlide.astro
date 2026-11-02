@@ -1,0 +1,19 @@
+---
+import '../styles/ai-lesson.css';
+
+interface Props {
+  eyebrow: string;
+  illustration?: boolean;
+}
+
+const { eyebrow, illustration = false } = Astro.props;
+---
+
+<section class="ai-lesson not-content">
+  <div class="ai-topline"><span>AI / I dag</span><span>21.10.2026</span></div>
+  <p class="ai-eyebrow">{eyebrow}</p>
+  <slot />
+  {Astro.slots.has('takeaway') && <div class="ai-takeaway"><slot name="takeaway" /></div>}
+  {Astro.slots.has('sources') && <p class="ai-sources">Kilder: <slot name="sources" /></p>}
+  {illustration && <p class="ai-credit">Original illustration med AI-assistance · Codex, 21.10.2026 · <a href="/dette-site/ai-i-dag-undervisernoter/#illustrationer">Ophav og vilkår</a>.</p>}
+</section>

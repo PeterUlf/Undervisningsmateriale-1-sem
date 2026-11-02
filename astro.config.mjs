@@ -105,6 +105,7 @@ export default defineConfig({
             "dette-site/undervisningsprompt",
             "dette-site/dokumentation",
             "dette-site/figma-varianter-undervisernoter",
+            "dette-site/figma-varianter-visuelt-undervisernoter",
             "om-dette-site",
           ],
         },
@@ -163,11 +164,11 @@ export default defineConfig({
             },
             {
               label: "HTML",
-              items: ["html/grundlaeggende", "html/semantisk", "html/favicon"],
+              items: ["html/grundlaeggende", "html/semantisk", "html/favicon", "html/popover"],
             },
             {
               label: "CSS",
-              items: ["css/intro", "css/reset", "css/flexbox", "css/grid"],
+              items: ["css/intro", "css/reset", "css/flexbox", "css/grid", "css/popover-transitions"],
             },
             {
               label: "Git & GitHub",
@@ -230,6 +231,11 @@ export default defineConfig({
               ],
             },
           ],
+        },
+        {
+          label: "AI",
+          collapsed: true,
+          items: ["ai/ai-i-dag"],
         },
         {
           label: "UX",

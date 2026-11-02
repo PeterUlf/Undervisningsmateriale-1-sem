@@ -1,0 +1,115 @@
+---
+title: "Popover: undervisernoter"
+draft: true
+pagefind: false
+description: "Tidsplan, faglige valg og praktisk vejledning til to forløb om popovers."
+sidebar:
+  hidden: true
+---
+
+## Forløbene
+
+- [Del 1: Popups med HTML](/draft/html/popover/) har 14 slides og varer ca. 40 minutter.
+- [Del 2: CSS-overgange på en popover](/draft/css/popover-transitions/) har 15 slides og varer ca. 40 minutter.
+
+Tema 4 er en foreløbig placering med udgangspunkt i referenceforløbet. De to dele er selvstændige slidesæt, så der er plads til samtale, arbejde og afprøvning. Hold en pause mellem dem efter behov.
+
+Brugerens ønskede rækkefølge har forrang: først en kort forklaring af, hvad en popup er, derefter præcis 2 minutters summeøvelse. Samtalen handler om, hvor grupperne har set popups, og hvordan de kunne bruge en i deres projekt. Først bagefter introduceres HTML og CSS.
+
+## Ret indholdet manuelt
+
+Hvert forløb samler tekster, opgaver og eksemplernes HTML/CSS i sin egen MDX-fil:
+
+- Del 1: `src/content/docs/html/popover.mdx`.
+- Del 2: `src/content/docs/css/popover-transitions.mdx`.
+
+Søg efter en overskrift eller kommentaren `Slide 2:` for at finde den ønskede slide. Ved hvert `CodePenExample` står eksemplets titel i `title`, knappens tekst i `label` og koden i `html` og `css`. Ret koden mellem backticks, og lad backticks og de omgivende klammer stå. Den samme kode vises i eksemplet, under “Vis kode til manuel kopiering” og i CodePen. Eksempler på andre slides er selvstændige, så en rettelse ændrer kun det eksempel, du står ved.
+
+CSS i et eksempels `css`-felt styrer selve demonstrationen. Slidenes fælles farver, typografi og layout ligger i `src/styles/popover-lesson.css`. Rammen ligger i `src/components/PopoverSlide.astro`, og mekanikken til forhåndsvisning, CodePen og kodevisning ligger i `src/components/CodePenExample.astro`.
+
+Hvis du tilføjer eller fjerner slides, skal du også rette `slideCount` øverst i MDX-filen samt de efterfølgende `step`-numre og slidekommentarer.
+
+## Forkundskaber
+
+Grundlaget følger projektets regel om tema og draft-status. Relevant materiale fra Tema 2 er gennemgået, uanset draft-status:
+
+- [HTML Grundlæggende](/html/grundlaeggende/): elementer, attributter og dokumentstruktur.
+- [Intro til CSS](/css/intro/): selectors, egenskaber, værdier og almindelig styling.
+- [Tekst på billede og hover](/css/tekst-paa-billede/): CodePen, `:hover`, `transition` og `transform`.
+
+At stoffet er gennemgået er ikke det samme som, at alle mestrer det. Gentag derfor forbindelsen mellem target og id og de tre animationstilstande, men genundervis ikke hele CSS-forløbet. Den eksisterende side om animationer er en Tema 4-draft og er ikke en forudsætning. JavaScript og modal implementering er heller ikke forudsætninger. `min()`, viewport-enheder, attribut-selectors og de nye animationsegenskaber forklares i forløbet.
+
+AI-vejledning er udeladt, fordi direkte afprøvning i CodePen giver konkret feedback på dagens spørgsmål. Summeøvelserne foregår uden AI, opslag eller kodearbejde. De øvrige øvelser kan løses med startkoden, slides og makkerens forklaring.
+
+## Tidsplan: Del 1
+
+| Slides | Tid | Indhold |
+| --- | --- | --- |
+| 1–2 | 4 min. | Retning, definition og den korte demonstration |
+| 3 | 2 min. | Summeøvelse i grupper på 3–5 |
+| 4 | 1 min. | To gruppers bud |
+| 5–7 | 7 min. | Popover/modal, forbindelser og lukning |
+| 8 | 7 min. | Øvelse 1 med to popovers, inklusive åbning af CodePen |
+| 9–10 | 5 min. | Styling, selectors og begrænset størrelse |
+| 11 | 6 min. | Øvelse 2 med lang tekst |
+| 12 | 4 min. | Makkerafprøvning og forbedring |
+| 13 | 3 min. | Tilbage til projektidéen |
+| 14 | 1 min. | Individuelt kontrolspørgsmål |
+| **I alt** | **40 min.** | |
+
+## Tidsplan: Del 2
+
+| Slides | Tid | Indhold |
+| --- | --- | --- |
+| 1 | 1 min. | Retning og kobling til del 1 |
+| 2–3 | 3 min. | 2 minutters samtale og 1 minuts opsamling |
+| 4 | 3 min. | Påmindelse om transition |
+| 5–7 | 7 min. | Display, top layer og tre tilstande |
+| 8–9 | 6 min. | Gennemgang af CSS |
+| 10–11 | 3 min. | Reduceret bevægelse og samlet eksempel |
+| 12 | 10 min. | Øvelse 3, inklusive åbning og instruktion |
+| 13 | 4 min. | Afprøvning og forbedring |
+| 14–15 | 3 min. | Projektkobling og individuel afslutning |
+| **I alt** | **40 min.** | |
+
+## Gennemførelse
+
+Ved popup-definitionen: Åbn boksen og luk den igen. Undlad at folde koden ud inden summeøvelsen. Giv derefter grupperne 2 minutter, og hør to eksempler på højst ét minut. Mulige opfølgninger er “Hvem tog initiativet til at åbne den?” og “Kunne brugeren komme videre uden at reagere?”. Foregiv ikke, at bestemte svar er kommet fra holdet.
+
+Vis derefter forskellen på den brede betegnelse popup, HTML-popover og modal dialog. En `popover` kan være på forskellige elementer og giver ikke i sig selv en semantisk dialogrolle. `::backdrop` skaber ikke modalitet eller en fokusfælde. Modal kode gennemgås ikke i dette forløb.
+
+I øvelse 1 går de studerende fra én forbindelse til to selvstændige forbindelser. Standard `auto` betyder normalt, at en ny popover lukker en anden åben auto-popover. Undtagelsen med indlejrede popovers er uden for øvelsen. Lad gerne en makker finde fejlen, hvis begge knapper åbner samme boks.
+
+I øvelse 2 ændrer den lange tekst det reelle layoutkrav. Den færdige løsning skal have både højdebegrænsning og scroll. Hold øje med den almindelige fejl at sætte `display: grid` direkte på `[popover]`. Stil spørgsmålet “Hvilken CSS-regel sørger nu for, at boksen faktisk er skjult?”.
+
+I del 2 kan du midlertidigt øge alle fire varigheder samtidigt for at vise indgang og udgang. For at isolere en fejl kan du fjerne `@starting-style`, `display` eller `overlay` fra det komplette eksempel én ad gangen. Gendan bagefter. Øvelse 3 kræver, at indgang og udgang får forskellige Y-værdier, så løsningen ikke kan kopieres uændret fra demonstrationen.
+
+Hvis systemet allerede har reduceret bevægelse slået til, viser sammenligningen A/B ingen animation. Forklar hvorfor. Afprøv den normale variant på en egnet demonstrationsmaskine og vis bagefter, at reduceret bevægelse fjerner overgangen. Bed ikke studerende, som har behov for indstillingen, om at slå den fra.
+
+## CodePen og browser
+
+“Åbn i CodePen” sender det konkrete eksempels HTML og CSS til CodePens officielle prefill-endpoint i en ny fane. Det opretter et redigerbart udkast. Et varigt gemt Pen-link kræver, at brugeren gemmer i sin egen konto. Der er ingen opdigtede eller på forhånd oprettede Pen-links.
+
+Hvis CodePen-knappen bliver blokeret, åbnes [en tom Pen](https://codepen.io/pen/), og koden kopieres fra “Vis kode til manuel kopiering”. Brug ingen preprocessors. JavaScript-panelet skal være tomt. De indlejrede forhåndsvisninger bruger præcis samme HTML og CSS som CodePen-knapperne. HTML-fragmentet hører til HTML-panelet, uden en ekstra `html`- eller `body`-ramme.
+
+Afprøv i den browser, holdet bruger. Grundlæggende popovers og de enkelte CSS-egenskaber har ikke identisk browserunderstøttelse. Manglende understøttelse af en animation må ikke forhindre selve åbne/lukke-funktionen. `overlay` anvendes som et supplement til referencepræsentationen, fordi det holder boksen i top layer under udgangen.
+
+I slideshowet ligger demonstrationskoden i separate iframes. Klik inde i eksemplet før tastaturafprøvning. Tastaturet påvirker så eksemplet. Klik udenfor eksemplet for at navigere videre i slidesættet. Hint og løsninger er lukkede fra starten og åbnes aktivt efter eget forsøg.
+
+## Kilder og rettigheder
+
+Emneudvælgelsen følger [Dannie Vinther: Popover](https://slides.com/dannievinther/popover-details/fullscreen): begreber, HTML-attributter, CSS-selectors, størrelsesbegrænsning og transitions. Originalen slutter med et link til accordion. Det samme gør del 2. Accordion-forløbet er derfor videre læsning, ikke en tredje planlagt lektion.
+
+Tekst, tænkt workshop-case og eksempelkode er selvstændigt udarbejdet til denne undervisning med AI-assistance, 2. november 2026. Visningerne viser den faktiske eksempelkode. Ingen billeder eller skærmbilleder er kopieret fra referencepræsentationen.
+
+Faglige kilder:
+
+- [MDN: Using the Popover API](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API/Using)
+- [MDN: popover-attributten](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/popover)
+- [MDN: dialog-elementet](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dialog)
+- [MDN: transition](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/transition)
+- [MDN: transition-behavior](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/transition-behavior)
+- [MDN: overlay](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/overlay)
+- [MDN: @starting-style](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@starting-style)
+- [MDN: prefers-reduced-motion](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@media/prefers-reduced-motion)
+- [CodePen: POST to Prefill Editors](https://blog.codepen.io/documentation/prefill/)
