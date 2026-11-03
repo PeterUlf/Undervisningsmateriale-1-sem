@@ -17,7 +17,9 @@ sidebar:
 # html og css står mellem backticks. Lad backticks og klammerne stå.
 # Samme kode bruges til forhåndsvisning, manuel kopiering og CodePen.
 # Hvert eksempel er selvstændigt. En ændring her ændrer kun dette eksempel.
-# Slidenes fælles udseende: src/styles/custom.css.
+# Slidenes fælles udseende: paper-varianten i src/styles/custom.css.
+# variant="paper" giver rammen; label er den lille emnelinje øverst.
+# slide-split, slide-panel og slide-takeaway styrer kun layout, ikke indhold.
 # Slideramme: src/components/Slide.astro.
 # CodePen-knap og kodevisning: src/components/CodePenExample.astro.
 # CodePen-boksenes styling: src/styles/codepen-example.css.
@@ -30,36 +32,40 @@ import CodePenExample from "../../../components/CodePenExample.astro";
 
 {/* Slide 1: Popups med HTML */}
 
-<Slide>
+<Slide variant="paper" label="Tema 4 · HTML / Popover">
 
 ## Popups med HTML
 
-**Del 1 · ca. 40 minutter · HTML og CSS i CodePen**
+<p class="slide-meta">Del 1 · ca. 40 minutter · HTML og CSS i CodePen</p>
 
-Ekstra information, når brugeren har brug for den.
+<p class="slide-lead">Ekstra information, når brugeren har brug for den.</p>
 
 - Du kan forbinde en knap med en popover.
 - Du kan tilpasse boksen til indhold og skærmstørrelse.
 - Du kan afprøve betjeningen og begrunde brugen i jeres projekt.
 
+<div class="slide-takeaway">
+
 Vi bygger videre på HTML-attributter og CSS-selectors. Eksemplerne kræver ingen JavaScript.
+
+</div>
 
 </Slide>
 <div class="page-break"></div>
 
 {/* Slide 2: Hvad er en popup? */}
 
-<Slide>
+<Slide variant="paper" label="Begreb · Prøv eksemplet">
 
 ## Hvad er en popup?
 
-<div class="columns-2">
+<div class="slide-split">
 
 <div>
 
 **Begrebet først**
 
-En boks, der dukker op oven på det indhold, du allerede ser.
+<p class="slide-lead">En boks, der dukker op oven på det indhold, du allerede ser.</p>
 
 Her bruger vi ordet om et lag på den samme webside. Det kan fx vise hjælp eller ekstra information.
 
@@ -153,39 +159,47 @@ background: rgb(24 53 46 / 18%);
 
 </div>
 
+<div class="slide-takeaway">
+
 “Popup” er et bredt ord. I dag bygger vi den med HTML-funktionen `popover`.
+
+</div>
 
 </Slide>
 <div class="page-break"></div>
 
 {/* Slide 3: Hvor har I mødt en popup? */}
 
-<Slide>
+<Slide variant="paper" label="Samtale · Jeres erfaringer">
 
 ## Hvor har I mødt en popup?
 
-**Summeøvelse · 2 minutter · grupper på 3–5 · tal med dem, I sidder ved**
+<p class="slide-meta">Summeøvelse · 2 minutter · grupper på 3–5 · tal med dem, I sidder ved</p>
 
-Hvor har I set en popup, og hvordan kunne I bruge en i jeres projekt?
+<p class="slide-lead">Hvor har I set en popup, og hvordan kunne I bruge en i jeres projekt?</p>
 
 Lad alle komme med et bud. Vælg ét eksempel og én idé, som I kan dele med holdet. I behøver ikke være enige.
 
 **Kun samtale.** Vent med at åbne CodePen, søge på nettet eller bruge AI.
 
+<div class="slide-takeaway">
+
 Gem jeres projektidé. Vi vender tilbage til den efter øvelserne.
+
+</div>
 
 </Slide>
 <div class="page-break"></div>
 
 {/* Slide 4: To eksempler fra holdet */}
 
-<Slide>
+<Slide variant="paper" label="Fælles opsamling">
 
 ## To eksempler fra holdet
 
-**Fælles opsamling · 1 minut**
+<p class="slide-meta">Fælles opsamling · 1 minut</p>
 
-Hvad viste popupen, og hvornår dukkede den op?
+<p class="slide-lead">Hvad viste popupen, og hvornår dukkede den op?</p>
 
 Vi hører to gruppers eksempler og en idé til jeres eget projekt.
 
@@ -194,7 +208,7 @@ Vi hører to gruppers eksempler og en idé til jeres eget projekt.
 
 {/* Slide 5: Popover eller modal dialog? */}
 
-<Slide>
+<Slide variant="paper" label="Sammenligning · Vælg med omtanke">
 
 ## Popover eller modal dialog?
 
@@ -207,16 +221,23 @@ Vi hører to gruppers eksempler og en idé til jeres eget projekt.
 
 Et mørkt baggrundslag gør ikke i sig selv en popup modal. Et `<dialog>`-element kan også åbnes uden at være modalt.
 
+<div class="slide-takeaway">
+
 Vi bruger popover til supplerende indhold, som brugeren selv kan åbne.
+
+</div>
 
 </Slide>
 <div class="page-break"></div>
 
 {/* Slide 6: En knap og et matchende id */}
 
-<Slide>
+<Slide variant="paper" label="HTML · Forbindelsen">
 
 ## En knap og et matchende id
+
+<div class="slide-split">
+<div>
 
 ```html
 <button type="button" popovertarget="materialer">Se materialer</button>
@@ -227,18 +248,23 @@ Vi bruger popover til supplerende indhold, som brugeren selv kan åbne.
 </div>
 ```
 
+</div>
+<div class="slide-panel">
+
 - `popover` giver boksen browserens åbne/lukke-funktion.
 - `id` identificerer boksen. Hvert id skal være unikt.
 - `popovertarget` skal matche id’et præcist, uden `#`.
 
 Find de to steder, hvor der står `materialer`. De danner forbindelsen.
 
+</div>
+</div>
 </Slide>
 <div class="page-break"></div>
 
 {/* Slide 7: Åbn og luk */}
 
-<Slide>
+<Slide variant="paper" label="HTML · Betjening">
 
 ## Åbn og luk
 
@@ -255,20 +281,24 @@ Når du bruger en popover, fungerer knappen automatisk som en tænd/sluk-kontakt
 
 `popover="manual"` kræver en eksplicit lukkehandling. Klik udenfor og Esc lukker den ikke automatisk. Vi bruger `auto` i øvelserne.
 
+<div class="slide-takeaway">
+
 En tydelig “Luk”-knap hjælper brugeren med at finde udgangen.
+
+</div>
 
 </Slide>
 <div class="page-break"></div>
 
 {/* Slide 8: To knapper. To forskellige bokse. */}
 
-<Slide>
+<Slide variant="paper" label="Øvelse 1 · To forbindelser">
 
 ## To knapper. To forskellige bokse.
 
-**Øvelse 1 · 7 minutter · to og to i CodePen**
+<p class="slide-meta">Øvelse 1 · 7 minutter · to og to i CodePen</p>
 
-<div class="columns-2">
+<div class="slide-split">
 
 <div>
 
@@ -454,16 +484,23 @@ Unikke id’er holder forbindelserne adskilt. `hide` lukker den boks, knappen pe
 
 </div>
 
+<div class="slide-takeaway">
+
 **Resultat:** To popovers, der viser det rigtige indhold. Vis dem til din makker, og forklar forbindelserne.
+
+</div>
 
 </Slide>
 <div class="page-break"></div>
 
 {/* Slide 9: CSS til boksen og dens tilstand */}
 
-<Slide>
+<Slide variant="paper" label="CSS · Tilstand og udseende">
 
 ## CSS til boksen og dens tilstand
+
+<div class="slide-split">
+<div>
 
 ```css
 [popover] {
@@ -480,20 +517,25 @@ Unikke id’er holder forbindelserne adskilt. `hide` lukker den boks, knappen pe
 }
 ```
 
+</div>
+<div class="slide-panel">
+
 `[popover]` er en attribut-selector. `:popover-open` vælger den åbne tilstand. `::backdrop` er laget bag boksen.
 
 Sæt kun `display: grid` på den åbne tilstand. Ellers kan du tilsidesætte browserens skjulning med `display: none`.
 
+</div>
+</div>
 </Slide>
 <div class="page-break"></div>
 
 {/* Slide 10: Plads til en lille skærm */}
 
-<Slide>
+<Slide variant="paper" label="CSS · Små skærme">
 
 ## Plads til en lille skærm
 
-<div class="columns-2">
+<div class="slide-split">
 
 <div>
 
@@ -604,20 +646,24 @@ background: rgb(24 53 46 / 18%);
 
 </div>
 
+<div class="slide-takeaway">
+
 Boksen skal passe til skærmen, og brugeren skal kunne nå hele indholdet og lukke den.
+
+</div>
 
 </Slide>
 <div class="page-break"></div>
 
 {/* Slide 11: Samme boks. Meget mere indhold. */}
 
-<Slide>
+<Slide variant="paper" label="Øvelse 2 · Mere indhold">
 
 ## Samme boks. Meget mere indhold.
 
-**Øvelse 2 · 6 minutter · to og to i CodePen**
+<p class="slide-meta">Øvelse 2 · 6 minutter · to og to i CodePen</p>
 
-<div class="columns-2">
+<div class="slide-split">
 
 <div>
 
@@ -817,18 +863,24 @@ Maksimal højde og `overflow: auto` gør den lange tekst tilgængelig i den lill
 
 </div>
 
+<div class="slide-takeaway">
+
 **Resultat:** Begge bokse fungerer med samme CSS, selv om indholdets længde er forskellig.
+
+</div>
 
 </Slide>
 <div class="page-break"></div>
 
 {/* Slide 12: Virker det for en anden? */}
 
-<Slide>
+<Slide variant="paper" label="Afprøvning · Giv feedback">
 
 ## Virker det for en anden?
 
-**Makkerafprøvning · 4 minutter**
+<p class="slide-meta">Makkerafprøvning · 4 minutter</p>
+
+<div class="slide-rubric">
 
 | Niveau              | Det skal I kunne vise                                                                                                       |
 | ------------------- | --------------------------------------------------------------------------------------------------------------------------- |
@@ -836,39 +888,49 @@ Maksimal højde og `overflow: auto` gør den lange tekst tilgængelig i den lill
 | Det fungerer        | Begge knapper viser den rigtige boks. “Luk”, klik udenfor og Esc virker. Den lange tekst kan læses i et smalt resultatfelt. |
 | Du kan forklare det | I viser det med Tab og Enter og forklarer id/target, den åbne selector og valget af maksimal højde.                         |
 
+</div>
+
 Byt betjening. Find én konkret ting at forbedre, ret den, og afprøv igen.
 
+<div class="slide-takeaway">
+
 Tastatur: Tab til knappen, Enter for at åbne, videre til “Luk”, eller brug Esc.
+
+</div>
 
 </Slide>
 <div class="page-break"></div>
 
 {/* Slide 13: Hvad vil I bruge den til? */}
 
-<Slide>
+<Slide variant="paper" label="Anvendelse · Jeres projekt">
 
 ## Hvad vil I bruge den til?
 
-**Tilbage til jeres projekt · 3 minutter**
+<p class="slide-meta">Tilbage til jeres projekt · 3 minutter</p>
 
-Tag idéen fra summeøvelsen frem igen. Ville I stadig vælge en popup?
+<p class="slide-lead">Tag idéen fra summeøvelsen frem igen. Ville I stadig vælge en popup?</p>
 
 - Hvilken knap åbner den, og hvad får brugeren at vide?
 - Kan brugeren have brug for informationen direkte på siden?
 - Hvordan kan brugeren lukke og fortsætte?
 
+<div class="slide-takeaway">
+
 Del én begrundet beslutning. En placering direkte på siden kan også være et godt valg.
+
+</div>
 
 </Slide>
 <div class="page-break"></div>
 
 {/* Slide 14: En sidste forbindelse */}
 
-<Slide>
+<Slide variant="paper" label="Afslutning · Find fejlen">
 
 ## En sidste forbindelse
 
-**Individuel afslutning · 1 minut**
+<p class="slide-meta">Individuel afslutning · 1 minut</p>
 
 ```html
 <button popovertarget="info">Se info</button>
@@ -895,7 +957,11 @@ Knappen peger på `info`, men boksen hedder `praktisk`. Vælg ét navn, og brug 
 
 </details>
 
+<div class="slide-takeaway">
+
 Næste del: [CSS-overgange på en popover](/draft/css/popover-transitions/).
+
+</div>
 
 </Slide>
 

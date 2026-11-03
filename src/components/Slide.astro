@@ -1,7 +1,18 @@
 ---
 // src/components/Slide.astro
+interface Props {
+  variant?: 'paper';
+  label?: string;
+}
+const { variant, label } = Astro.props;
 ---
 
 <div class="slide">
-  <slot />
+  {variant === 'paper' ? (
+    /* Den indre ramme følger med, når slideshowet kopierer slidens indhold. */
+    <div class="slide-paper">
+      {label && <p class="slide-label">{label}</p>}
+      <div class="slide-body"><slot /></div>
+    </div>
+  ) : <slot />}
 </div>
