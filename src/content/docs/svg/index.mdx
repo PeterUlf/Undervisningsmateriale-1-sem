@@ -20,7 +20,7 @@ import Slide from "../../../components/Slide.astro";
 ## Hvorfor bruge SVG?
 
 1. **Skalerbarhed:** Ser skarpt ud på alle skærme (mobil, retina, storskærm).
-2. **Filstørrelse:** Ofte meget mindre end JPG/PNG for simple logoer, ikoner og illustrationer.
+2. **Filstørrelse:** Ofte mindre end rasterbilleder for enkle logoer, ikoner og vektorillustrationer.
 3. **Styling:** Kan styles med CSS (farve, størrelse, animation).
 4. **Interaktivitet:** Kan manipuleres med JavaScript.
 
@@ -45,11 +45,17 @@ import Slide from "../../../components/Slide.astro";
 - **Vektor = matematiske former**
 - **SVG holder kvalitet ved zoom**
 
+### Clon repository
+
+1. Du skal først clone dette repository fra GitHub: [https://github.com/PeterUlf/E2025-T4-SVG.git](https://github.com/PeterUlf/E2025-T4-SVG.git)
+   - Spørg, hvis du ikke ved, hvordan man cloner et repository.
+
 ### Øvelse: Raster vs. vektor
 
-1. Zoom ind på PNG-filen `File_SVG_logo.png`
-2. Zoom derefter ind på SVG-filen `File_SVG_logo.svg`
-3. Kan du se forskel, når du zoomer meget ind?
+2. Gå ind i mappen `svg`.
+3. Zoom ind på PNG-filen `File_SVG_logo.png`
+4. Zoom derefter ind på SVG-filen `File_SVG_logo.svg`
+5. Kan du se forskel, når du zoomer meget ind?
 
 </Slide>
 <div class="page-break"></div>
@@ -60,21 +66,9 @@ import Slide from "../../../components/Slide.astro";
 ![Reopen as source text](/illustrationer/svg_i_vsc.webp)
 
 Du får formentlig brug for at se din svg som code.
-
 Det gøres ved at klikke på knappen: **Reopen as source text** (ofte oppe i højre hjørne af editoren).
 
-**Tip:** Du kan også åbne SVG-filer i browseren ved at bruge Live Server extensionen.
-
-</Slide>
-<div class="page-break"></div>
-<Slide>
-
-## Øvelse: Find `<svg>` i koden
-
-1. Du skal først clone dette repository fra GitHub: [https://github.com/PeterUlf/E2025-T4-SVG.git](https://github.com/PeterUlf/E2025-T4-SVG.git)
-   - (Spørg din lærer, hvis du ikke ved, hvordan man cloner et repository)
-2. Gå ind i mappen `svg`
-3. Åbn SVG-filen `File_SVG_logo.svg` i VS Code og find `<svg>...</svg>`
+### Åbn SVG-filen `File_SVG_logo.svg` i VS Code, og find `<svg>...</svg>`.
 
 </Slide>
 <div class="page-break"></div>
@@ -102,6 +96,13 @@ Det gøres ved at klikke på knappen: **Reopen as source text** (ofte oppe i hø
 2. Åbn filen i browseren.
 3. Virker det?
 4. Prøv at fjerne `xmlns` – hvad sker der?
+
+<details>
+<summary>Se forklaringen</summary>
+
+En selvstændig `.svg`-fil læses som XML. Uden `xmlns` bliver elementerne ikke placeret i SVG-navnerummet, så browseren ikke genkender dem som SVG, og tegningen gengives ikke korrekt. Inline SVG i HTML får SVG-navnerummet automatisk, så dér kan `xmlns` udelades.
+
+</details>
 
 </Slide>
 <div class="page-break"></div>
@@ -169,6 +170,10 @@ Selvom SVG'en kun er 100x100 pixels, viser den et 200x200 koordinatsystem - cirk
 
 ## viewBox som "kamera"
 
+<div class="columns-2">
+
+<div>
+
 `viewBox` fungerer lidt som et **kamera**, der bestemmer:
 
 - hvilket udsnit af tegningen man ser
@@ -180,6 +185,10 @@ Selvom SVG'en kun er 100x100 pixels, viser den et 200x200 koordinatsystem - cirk
 - SVG'ens `width` og `height` = hvor stor rammen er på skærmen
 - `viewBox` = hvilket koordinatområde der vises i rammen
 
+</div>
+
+<div>
+
 ### Eksempel med zoom-effekt:
 
 ```svg
@@ -187,15 +196,22 @@ Selvom SVG'en kun er 100x100 pixels, viser den et 200x200 koordinatsystem - cirk
 <svg width="100" height="100" viewBox="0 0 100 100">
   <circle cx="50" cy="50" r="40" fill="blue" />
 </svg>
-
+ 
 <!-- Zoomet ind: viser kun 50x50 område -->
 <svg width="100" height="100" viewBox="0 0 50 50">
   <circle cx="25" cy="25" r="20" fill="red" />
 </svg>
 ```
 
-Den røde cirkel ser dobbelt så stor ud!
+Den røde cirkel ser lige så stor ud, selvom radius er halvt så stor!
 
+</div>
+
+</div>
+
+</Slide>
+<div class="page-break"></div>
+<Slide>
 ### Øvelse: Eksperimenter med viewBox
 
 1. Lav en SVG med en cirkel: `width="200" height="200"` og `viewBox="0 0 200 200"`
@@ -320,12 +336,12 @@ Den røde firkant er roteret **45 grader** omkring punktet **(70, 70)** = centru
 
 ## SVG i webprojekter
 
-Du kan bruge SVG på to måder:
+SVG kan indlejres på to almindelige måder:
 
 ### 1. Som et billede (`<img>`-tag)
 
-✅ **Fordele:** Simpelt, cachebart, nemt at genbruge  
-❌ **Ulemper:** Kan ikke styles med CSS eller manipuleres med JavaScript
+✅ **Fordele:** Simpelt, ligger i en separat fil, som browseren kan cache og genbruge  
+❌ **Ulemper:** Sidens CSS og JavaScript kan ikke målrette SVG'ens indre former
 
 ```html
 <img src="logo.svg" alt="Mit logo" width="100" />
@@ -335,8 +351,8 @@ Du kan bruge SVG på to måder:
 
 ### 2. Inline SVG (direkte i HTML)
 
-✅ **Fordele:** Kan styles med CSS, interaktiv med JavaScript, ingen ekstra HTTP-request  
-❌ **Ulemper:** Større HTML-fil, kan ikke caches separat
+✅ **Fordele:** Sidens CSS og JavaScript kan arbejde med SVG'ens indre elementer; ingen separat forespørgsel efter en SVG-fil  
+❌ **Ulemper:** HTML'en bliver større, og SVG'en kan ikke caches som en separat fil
 
 ```html
 <svg width="100" height="100">
@@ -348,11 +364,45 @@ Du kan bruge SVG på to måder:
 
 **Husk:** Standalone `.svg`-filer skal have `xmlns="http://www.w3.org/2000/svg"`, men inline SVG i HTML behøver det ikke.
 
+**Tilgængelighed:** Giv meningsfulde `<img>`-billeder en beskrivende `alt`-tekst, og brug `alt=""` til rent dekorative billeder. Dekorativ inline SVG kan have `aria-hidden="true"`. Hvis SVG'en formidler vigtig information, så giv den et tilgængeligt navn, fx med `<title>`. Se [WAI's vejledning om alt-tekst](https://www.w3.org/WAI/tutorials/images/decision-tree/) og [MDN om SVG `<title>`](https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/title).
+
 ### Øvelse
 
 1. Indsæt en cirkel-SVG direkte i `oevelse.html` lige under `<h1>`.
 2. Tilføj samme SVG som en fil og brug `<img src="cirkel.svg">`
 3. Åbn HTML-dokumentet i Live Server - virker begge?
+
+</Slide>
+<div class="page-break"></div>
+{/* Slide: Genbrug grafik med <use> */}
+<Slide>
+
+## Genbrug med `<use>`
+
+`<symbol>` gemmer en SVG-figur, og `<use>` kan vise den flere gange uden at gentage figurens kode.
+
+```html
+<svg viewBox="0 0 52 24" width="104" height="48" aria-hidden="true">
+  <defs>
+    <symbol id="pil-demo" viewBox="0 0 24 24">
+      <path
+        d="M4 12h16m-7-7 7 7-7 7"
+        fill="none"
+        stroke="black"
+        stroke-width="2"
+      />
+    </symbol>
+  </defs>
+  <use href="#pil-demo" width="24" height="24" />
+  <use href="#pil-demo" x="28" width="24" height="24" />
+</svg>
+```
+
+- `id="pil-demo"` navngiver symbolet.
+- `href="#pil-demo"` henviser til symbolet i samme SVG.
+- `x="28"` flytter den anden kopi mod højre.
+
+**Husk:** Brug `href` som i eksemplet. `xlink:href` er en ældre variant. [MDN: `<use>`](https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/use)
 
 </Slide>
 <div class="page-break"></div>
@@ -404,24 +454,25 @@ Når du bruger inline SVG, kan du style det med CSS:
 
 ### Brug `<img src="ikon.svg">`:
 
-- ✅ Logoer der ikke skal ændres
-- ✅ Dekorative illustrationer
-- ✅ Når du vil cachning og hurtig load
+- ✅ Når SVG'en ikke skal styles eller styres indefra
+- ✅ Når filen skal kunne genbruges og caches separat
 
 ### Brug inline `<svg>`:
 
 - ✅ Ikoner der skal ændre farve (fx menu-ikoner)
 - ✅ Interaktive elementer (klikbare dele)
 - ✅ Animationer med CSS/JavaScript
-- ✅ Når du vil undgå ekstra HTTP-requests
+
+### Brug `<symbol>` og `<use>`:
+
+- ✅ Når du vil genbruge den samme figur flere gange i én SVG
 
 ### Brug `viewBox`:
 
-- ✅ Når SVG'en skal være responsiv
-- ✅ Når du vil zoome ind/ud på indhold
-- ✅ Når du vil sikre korrekt skalering
+- ✅ Når indholdet skal skaleres til forskellige SVG-størrelser
+- ✅ Sammen med en fleksibel størrelse, når SVG'en skal være responsiv
 
-**Pro tip:** Brug altid `viewBox` i dine SVG'er for bedre responsivitet!
+**Tip:** Brug `viewBox` til SVG'er, der skal kunne skaleres, og styr visningsstørrelsen med CSS.
 
 </Slide>
 
