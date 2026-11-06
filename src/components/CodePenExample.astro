@@ -5,6 +5,8 @@ interface Props {
   title: string;
   html: string;
   css?: string;
+  js?: string;
+  layout?: 'stack' | 'split';
   preview?: boolean;
   controls?: boolean;
   height?: number;
@@ -12,7 +14,7 @@ interface Props {
   previewHeading?: string;
   controlsHeading?: string;
 }
-const { title, html: htmlSource, css: cssSource = '', preview = true, controls = true, height = 280, label = 'Åbn i CodePen', previewHeading = '', controlsHeading = '' } = Astro.props;
+const { title, html: htmlSource, css: cssSource = '', js: jsSource = '', layout = 'stack', preview = true, controls = true, height = 280, label = 'Åbn i CodePen', previewHeading = '', controlsHeading = '' } = Astro.props;
 
 // MDX-eksempler kan indrykkes sammen med resten af sliden. Fjern kun den
 // fælles indrykning, så indrykning inde i HTML og CSS bevares ved kopiering.
@@ -27,11 +29,14 @@ function removeCommonIndent(source: string) {
 }
 const html = removeCommonIndent(htmlSource);
 const css = removeCommonIndent(cssSource);
-const data = JSON.stringify({ title, html, css, js: '', editors: '110', layout: 'left', html_pre_processor: 'none', css_pre_processor: 'none', css_starter: 'neither', css_prefix: 'neither' });
-const srcdoc = `<!doctype html><html lang="da"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${title.replaceAll('&', '&amp;').replaceAll('<', '&lt;')}</title><style>${css}</style></head><body>${html}</body></html>`;
+const js = removeCommonIndent(jsSource);
+const data = JSON.stringify({ title, html, css, js, editors: js ? '111' : '110', layout: 'left', html_pre_processor: 'none', css_pre_processor: 'none', js_pre_processor: 'none', css_starter: 'neither', css_prefix: 'neither' });
+// Scriptet kører efter eksemplets HTML, også i slideshowets nye iframe.
+const script = js ? `<script>${js.replace(/<\/script/gi, '<\\/script')}</script>` : '';
+const srcdoc = `<!doctype html><html lang="da"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${title.replaceAll('&', '&amp;').replaceAll('<', '&lt;')}</title><style>${css}</style></head><body>${html}${script}</body></html>`;
 ---
 
-<div class="codepen-example not-content">
+<div class:list={['codepen-example', 'not-content', { 'codepen-example--split': layout === 'split' && preview && controls }]}>
   {preview && <div class="codepen-preview">
     {previewHeading && <h3 class="codepen-heading">{previewHeading}</h3>}
     <iframe title={`Afprøv: ${title}`} srcdoc={srcdoc} sandbox="allow-scripts" loading="lazy" height={height}></iframe>
@@ -47,7 +52,8 @@ const srcdoc = `<!doctype html><html lang="da"><head><meta charset="utf-8"><meta
         <summary>Vis kode til manuel kopiering</summary>
         <p>HTML-panelet</p><Code code={html} lang="html" />
         {css && <><p>CSS-panelet</p><Code code={css} lang="css" /></>}
-        <p>Brug almindelig HTML og CSS. Lad JavaScript-panelet være tomt.</p>
+        {js && <><p>JavaScript-panelet</p><Code code={js} lang="javascript" /></>}
+        <p>{js ? 'Brug almindelig HTML, CSS og JavaScript uden preprocessorer.' : 'Brug almindelig HTML og CSS. Lad JavaScript-panelet være tomt.'}</p>
       </details>
     </div>
   </div>}

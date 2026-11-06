@@ -1,0 +1,92 @@
+---
+title: Interaktiv SVG – undervisernoter
+description: Grundlag, progression, tidsplan og kontrol af forløbet om teknikken bag svg.html.
+draft: true
+pagefind: false
+sidebar:
+  hidden: true
+---
+
+## Forløb og redigering
+
+[Interaktiv SVG med HTML og JavaScript](/draft/svg/interaktiv-svg/) gennemgår metoden i Hund i Snor-projektets `svg.html`. Alt undervisningsindhold, demoens HTML/CSS/JavaScript, opgave, hint og løsning står i `src/content/docs/svg/interaktiv-svg.mdx`. Ret det konkrete kodefelt på slide 11, når demoen skal ændres; forhåndsvisning, kopieringskode og CodePen bruger samme kilde.
+
+Siden er en kladde i tema 4. Der er antaget et forløb på ca. 40 minutter med fokus på at læse og tilpasse en lille sammenhængende metode. De studerende skal forklare arbejdsdelingen, følge en værdi fra HTML gennem JavaScript til CSS og forbinde et fjerde valg med en position.
+
+## Faktisk grundlag
+
+Gennemgået 4. november 2026 i `T4/T4 E26 opgave HUND I SNOR/event-site-skabelon/`:
+
+- `svg.html`: tre eksterne `<use>`-referencer og tre `<details>` med `name="fest"`, unikke id’er og `data-position`.
+- `script.js`: `querySelector`, `if (eventMap)`, tre navngivne elementreferencer, funktionen `updateSvgPosition`, `toggle`-listeners, kopiering med `dataset` og nulstilling med `delete`.
+- `style.css`: `.spot` bruger `translate`, `opacity` og `transition`; positionerne sætter `--x`, `--y` og `--z`; grundværdien for `--z` er 0.
+- `SVG/band.svg`: `viewBox="0 0 1344 768"` og grupperne `baggrund`, `logoer` og `spot`.
+
+Undervisningen er afgrænset til denne metode. Den forklarer ikke formularer, URLSearchParams eller andre dele af det fælles script. Eventprojektets filer er ikke ændret.
+
+## Forkundskaber
+
+| Kilde | Metadata | Det, vi bygger videre på |
+| --- | --- | --- |
+| `html/grundlaeggende.mdx` | Tema 2, udgivet | Elementer, attributter og HTML-dokumentets struktur. |
+| `css/intro.mdx` | Tema 2, udgivet | Regler, class- og id-selectorer samt nedarvning. |
+| `guides/filplacering-og-stier.mdx` | Tema 2, udgivet | Relative stier og forskellen på `./` og `/`. |
+| `svg/index.mdx` | Tema 4, udgivet | Grupper, viewBox, koordinater, former og SVG i HTML. |
+| `css/custom-properties.mdx` | Tema 4, udgivet | Definition, `var()` og lokal ændring af arvede CSS-værdier. |
+
+Tidligere gennemgang er ikke sikker mestring. Giv korte påmindelser om selectorer og variabler. `javascript/index.mdx` er en kladde i tema 4, så JavaScript-introen forudsættes **ikke** gennemgået. DOM, `const`, `querySelector`, `null`, `if/else`, funktioner, events, `dataset` og `delete` forklares i det konkrete eksempel. Det samme gælder `<details>`, `<summary>`, `name`, `open` og `<use>`.
+
+Undlad at introducere arrays, loops, arrow functions eller event delegation som en nødvendig del af opgaven. De tre eksplicitte listeners er valgt for at følge Peters kode og give en overskuelig tilpasning med et fjerde punkt.
+
+## Tidsplan og opsamling
+
+| Del | Tid |
+| --- | --- |
+| Retning, slide 1 | 1 minut |
+| Samtale, slide 2 | 3 minutter |
+| Fælles opsamling og kæde, slide 3 | 2 minutter |
+| HTML og SVG, slide 4–6 | 6 minutter |
+| JavaScript i tre trin, slide 7–9 | 9 minutter |
+| CSS og demonstration, slide 10–11 | 6 minutter |
+| Individuel tilpasning, slide 12 | 8 minutter |
+| Afprøvning og forbedring, slide 13 | 3 minutter |
+| Afslutning, slide 14 | 2 minutter |
+| **I alt** | **40 minutter** |
+
+Saml to bud fra grupperne. Mulige opfølgninger: Hvad skal der ske med markeringen, hvis alt lukkes? Kan flere punkter være åbne, hvis der kun er ét spotlys? Hvilket sted ville I aflæse det aktuelle valg? Forbind svarene med kæden på slide 3 uden at foregive bestemte elevsvar.
+
+Vis forløbet i rækkefølge; lad den første samtale være mundtlig. På slide 11 afprøves det samlede eksempel. Bed holdet udpege, hvor værdien `second` befinder sig før og efter et valg. Den afsluttende forklaring kan fx være: details får open, browseren sender toggle, funktionen finder det åbne punkt, kopierer fourth til SVG’en, og den matchende CSS-regel flytter og viser spottet.
+
+## Demo og faglige præciseringer
+
+Demoen er en selvstændig skematisk SVG skrevet til forløbet. Spotfiguren ligger i `<defs>` og bruges med `href="#spot"`, så eksemplet kan åbnes direkte i CodePen uden at afhænge af en ekstern fil. Ekstern genbrug fra `band.svg` forklares med den faktiske struktur på slide 6. Der bruges andre koordinater i demoen, fordi tegningen er anderledes.
+
+Tre bevidste forskelle fra originalen er synlige i materialet:
+
+- Stierne på SVG-sliden bruger alle `./SVG/`; originalens første reference starter med `/SVG/`. Forklar forskellen ved publicering i en undermappe.
+- Demoen kalder `updateSvgPosition()` efter opsætningen. Det gør synkronisering ved start eksplicit, også når HTML indeholder et åbent punkt.
+- Demoen definerer `--x` og `--y` fra starten, begrænser transition til de relevante egenskaber og respekterer `prefers-reduced-motion`. `transform-box: view-box` gør referenceboksen for procentflytning tydelig.
+
+`if (eventMap)` beskytter det fælles script på sider uden SVG’en, men beskytter ikke mod et manglende details-element på en side med SVG’en. Eksemplet forudsætter én accordion med de tre id’er. Ved en fejl i et id bliver referencen `null`, og `addEventListener` giver en fejl. Brug det som fejlsøgningspunkt, ikke som anledning til at indføre et nyt abstraktionslag.
+
+`querySelector(".accordion-item[open]")` finder kun det første match. Derfor er den fælles, ikke-tomme `name` vigtig for denne metode. En anden accordion på samme side skal have sit eget gruppenavn, og søgningerne skal afgrænses til den relevante container, hvis eksemplet senere udvides. Demoens iframe holder både id’er og details-gruppen adskilt fra undervisningssidens egne hintbokse og slideshowkopien.
+
+`toggle` håndterer både åbning og lukning, herunder når browseren lukker et andet punkt i gruppen. Funktionen læser den aktuelle tilstand ved hvert kald; den antager ikke, at elementet, som udløste hændelsen, nødvendigvis er åbent. Derfor bruges ikke en click-listener på summary.
+
+En ekstern `<use>` er en genbrugt grafikinstans. Vi flytter det synlige `<use class="spot">`; vi søger ikke efter eksterne `<path>`-elementer med `document.querySelector`. Behold filen på samme origin og brug en lokal HTTP-server ved afprøvning. `viewBox` og lagrækkefølge forklares kort ud fra Intro til SVG.
+
+## Opgave, feedback og variation
+
+Øvelsen kræver to tilpasninger: et fjerde punkt med en position på en anden række og en åben starttilstand. Dermed skal den studerende forbinde HTML, listener og CSS, anvende både vandret og lodret forskydning og afprøve initialisering. Det er mere end en ny tekst eller farve. De nødvendige procentværdier står i opgaven; hintet forklarer koordinater og referenceboks, så SVG-matematik ikke bliver en uvarslet forudsætning.
+
+Løsningen bruger `--x: 40%`, `--y: 50%`, `--z: 1`, en fjerde listener og `open` på Musik. Den fælles funktion ændres ikke. Minimumskontrollen er genindlæsning, nyt valg, skift tilbage til et oprindeligt punkt og fuld lukning. Tastatur og mundtlig forklaring uddyber kvaliteten. Kriterierne er undervisningsfeedback, ikke officielle eksamenskrav.
+
+Ekstraopgaven flytter Info i HTML-rækkefølgen. Forbindelsen bevares, fordi den følger id og data-værdi, ikke placering som første eller sidste element. Hint og løsning starter lukket. AI-studiehjælp er fravalgt, fordi direkte inspektion af attributten og afprøvning af den korte kæde giver den mest konkrete feedback her.
+
+## Illustrationer, kilder og kontrol
+
+Der anvendes ingen eksterne billedfiler eller kopier af bandillustrationen. Diagrammet på slide 3 er almindelig tekst, og demoens SVG er selvstændigt skrevet i MDX-filen. Den er synligt mærket som skematisk og har en tekstbeskrivelse. Der tilføjes ingen ny licens til Peters materiale.
+
+Standardhenvisningerne på sidste slide er kontrolleret 4. november 2026: WHATWG HTML for details/dataset, WHATWG DOM for querySelector, SVG 2 for use og W3C CSS Transforms for translate. Grundprincippet kan læses i tekst og kode ved print; den interaktive iframe skjules af den eksisterende printstil.
+
+Ved ændringer kontrolleres både almindelig visning, slideshowets nye iframe, smal skærm, lukket udgangspunkt for hint/løsning, starttilstand, skift mellem punkter og nulstilling. Tjek også, at HTML/CSS/JavaScript i CodePen-formularen matcher forhåndsvisning og kopieringskode.

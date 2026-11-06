@@ -100,6 +100,8 @@ Det visuelle bygger på `starlight-theme-rapide` og `src/styles/custom.css`. Den
 
 `src/styles/global.css` findes også i projektet, men er ikke den globale stylesheet, som Starlight-konfigurationen indlæser. Den centrale fil er `custom.css`.
 
+`CodePenExample.astro` samler afprøvbare kodeeksempler. Skriv `html`, `css` og eventuelt `js` direkte på komponenten i MDX-filen. De samme værdier bruges i iframe-forhåndsvisningen, kodevisningen til kopiering og formularen til CodePen. JavaScript kører efter eksemplets HTML i en iframe med `sandbox="allow-scripts"`; slideshowets kopi får sin egen iframe. Eksempler uden `js` beholder deres HTML/CSS-visning. Med `layout="split"` står forhåndsvisning og kodekontroller ved siden af hinanden på brede skærme og stables på smalle. Se `svg/interaktiv-svg.mdx` for et eksempel med alle tre sprog.
+
 ## Temaer og navigation
 
 Temaet aflæses fra `sidebar.badge.text` i sidens frontmatter. Brug den eksisterende skrivemåde:

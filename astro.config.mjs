@@ -160,6 +160,8 @@ export default defineConfig({
               items: [
                 "photo/billeders-brugsrettigheder-metadata",
                 "css/tekst-paa-billede",
+                "svg",
+                "svg/interaktiv-svg",
               ],
             },
             {

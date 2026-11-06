@@ -12,6 +12,12 @@
 }
 
 .codepen-example > div { min-width: 0; }
+@media (min-width: 64rem) {
+  .codepen-example--split {
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    align-items: start;
+  }
+}
 .codepen-example p { margin: 0; }
 .codepen-example .codepen-heading {
   margin: 0 0 .6rem;
@@ -80,6 +86,7 @@
 .codepen-sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
 
 @media print {
+  .codepen-example--split { grid-template-columns: minmax(0, 1fr); }
   .codepen-example .codepen-preview,
   .codepen-example .codepen-controls-heading,
   .codepen-example form { display: none; }

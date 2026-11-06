@@ -1,0 +1,568 @@
+---
+title: Interaktiv SVG med HTML og JavaScript
+description: Følg teknikken i svg.html fra details og summary til toggle, dataset og et spotlys, der flyttes med CSS.
+draft: false
+# Ret tekst og korte kodeudsnit ved den relevante Slide.
+# Det komplette, afprøvbare eksempel står direkte på slide 11 i html, css og js.
+# Opgave, hint og løsning står på slide 12. Undervisernoter ligger under dette-site/.
+sidebar:
+  label: Interaktiv SVG
+  order: 2
+  badge:
+    text: Tema 4
+    variant: tip
+    class: badge-theme-4
+---
+
+import Slide from "../../../components/Slide.astro";
+import CodePenExample from "../../../components/CodePenExample.astro";
+
+{/* Slide 1: Retning og relevans */}
+
+<Slide variant="paper" label="Tema 4 · HTML / JavaScript / SVG">
+
+## Fra åbnet tekst til flyttet spotlys
+
+I Hund i Snor-eksemplets [svg.html](https://peterulf.github.io/event-site-skabelon/svg.html) kan du åbne **Øl**, **Musik** eller **Merch**. Et spotlys i illustrationen følger dit valg.
+
+Efter forløbet skal du kunne:
+
+- forklare, hvad HTML, JavaScript og CSS hver bidrager med;
+- følge værdien fra et åbent tekstpunkt til SVG’ens `data-position`;
+- forbinde et nyt tekstpunkt med et nyt sted i illustrationen.
+
+<div class="slide-takeaway">
+
+**Ca. 40 minutter inklusive øvelse.** Vi læser konkrete udsnit fra `svg.html`, `script.js` og `style.css` og afprøver et forenklet eksempel.
+
+</div>
+
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 2: Samtale før forklaringen */}
+
+<Slide variant="paper" label="Samtale · En tekst og en illustration">
+
+## Sum: Hvad skal følges ad?
+
+<p class="slide-meta">
+  3 minutter · grupper på 3–5 · kun samtale, uden opslag, AI eller kodearbejde
+</p>
+
+Forestil jer koncertsiden i to situationer:
+
+| Brugeren gør dette                           | Siden skal vise dette                       |
+| -------------------------------------------- | ------------------------------------------- |
+| Åbner **Musik**                              | Tekst om musikken og et spotlys ved scenen. |
+| Lukker **Musik**, så alle punkter er lukkede | Ingen åben tekst og intet spotlys.          |
+
+**Hvilke oplysninger skal siden holde styr på, så tekst og illustration bliver ved med at passe sammen?**
+
+Lad alle komme med et bud. Vær klar til at dele én overvejelse; I behøver ikke kende koden endnu.
+
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 3: Fælles opsamling og overblik */}
+
+<Slide variant="paper" label="Opsamling · Følg ændringen">
+
+## Tre sprog samarbejder
+
+**Del to bud fra samtalen.** Sammenhold dem derefter med denne kæde:
+
+```text
+HTML: Et tekstpunkt åbnes eller lukkes
+                  ↓ toggle
+JavaScript: Find det åbne punkt, og læs data-position
+                  ↓ dataset.position
+SVG: Får fx data-position="second"
+                  ↓ CSS-selector
+CSS: Flyt og vis spotlyset
+```
+
+HTML styrer åbning og lukning. JavaScript overfører valget. CSS bestemmer, hvor spotlyset vises.
+
+**Når alt er lukket:** JavaScript fjerner SVG’ens `data-position`, og CSS skjuler spotlyset. Det løser samtalens anden situation.
+
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 4: HTML har åbne/lukke-funktionen indbygget */}
+
+<Slide variant="paper" label="HTML · details og summary">
+
+## Browseren åbner og lukker teksten
+
+En **accordion** er en samling tekstafsnit, du kan folde ud. Her bygges den med `<details>` og `<summary>`:
+
+```html
+<details
+  class="accordion-item"
+  id="details-first"
+  data-position="first"
+  name="fest"
+>
+  <summary>Øl</summary>
+  <div>
+    <p>Her kan du købe alkoholfri øl.</p>
+  </div>
+</details>
+```
+
+- `<summary>` er overskriften, du aktiverer med mus eller tastatur.
+- `<details>` får attributten `open`, når indholdet vises.
+- Alle tre punkter har `name="fest"`: **højst ét er åbent ad gangen**. Alle kan godt være lukkede.
+
+JavaScript er altså ikke nødvendigt for at folde teksten ud. `open="false"` lukker heller ikke et punkt: Attributten skal fjernes.
+
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 5: Adskil navnene */}
+
+<Slide variant="paper" label="HTML · Navne med forskellige opgaver">
+
+## Hvad betyder de fire attributter?
+
+| Attribut på punktet Øl   | Opgave                                                    |
+| ------------------------ | --------------------------------------------------------- |
+| `class="accordion-item"` | Fælles klasse, så vi kan finde og style punkterne.        |
+| `id="details-first"`     | Unik identifikation af netop dette element.               |
+| `name="fest"`            | Grupperer punkterne, så browseren kun åbner ét ad gangen. |
+| `data-position="first"`  | Vores egen værdi, som skal forbindes med en position.     |
+
+På **Musik** bruges `id="details-second"` og `data-position="second"`. På **Merch** bruges `details-third` og `third`.
+
+<div class="slide-takeaway">
+
+`data-*` gemmer egne data på et element. **`first`, `second` og `third` er selvvalgte tekstværdier**; de er ikke koordinater og gør ikke noget af sig selv.
+
+</div>
+
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 6: SVG-grupper hentes fra en fil */}
+
+<Slide variant="paper" label="SVG · Genbrug dele med use">
+
+## Én SVG-fil, tre dele på siden
+
+`band.svg` indeholder grupper med id’erne `baggrund`, `logoer` og `spot`. Et `<use>` viser en genbrugt udgave af den valgte gruppe:
+
+```html
+<svg class="event-map" viewBox="0 0 1344 768">
+  <use class="scene" href="./SVG/band.svg#baggrund"></use>
+  <use class="logo" href="./SVG/band.svg#logoer"></use>
+  <use class="spot" href="./SVG/band.svg#spot"></use>
+</svg>
+```
+
+`./SVG/band.svg` er filen. `#spot` peger på `id="spot"` i filen. Klassen `.spot` sidder på sidens `<use>`, som vi flytter og skjuler med CSS. Det sidste lag tegnes oven på de tidligere.
+
+**Praktisk:** Brug Live Server, og behold SVG-filen på samme website. Her er stierne gjort ens med `./`; originalens baggrund bruger `/SVG/…`, som starter fra domænets rod.
+
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 7: DOM, const og querySelector */}
+
+<Slide variant="paper" label="JavaScript · Find elementerne">
+
+## Giv elementerne navne i JavaScript
+
+Browserens model af sidens elementer kaldes **DOM**. `document` giver adgang til den. `querySelector()` finder det første element, som passer til en CSS-selector:
+
+```javascript
+const eventMap = document.querySelector(".event-map");
+
+if (eventMap) {
+  const firstDetails = document.querySelector("#details-first");
+  const secondDetails = document.querySelector("#details-second");
+  const thirdDetails = document.querySelector("#details-third");
+  // Her kommer funktionen og de tre event listeners.
+}
+```
+
+`const` giver en værdi et fast navn; elementets attributter kan stadig ændres. Hvis SVG’en ikke findes, får vi `null` — ingen værdi. `if (eventMap)` sørger for kun at køre blokken på sider med SVG’en.
+
+I `svg.html` står `<script src="./script.js"></script>` lige før `</body>`. Derfor findes elementerne allerede, når denne kode kører.
+
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 8: Samme funktion med direkte opslag og med const */}
+
+<Slide variant="paper" label="JavaScript · Læs og overfør valget">
+
+## Find det åbne punkt hver gang
+
+```javascript title="Uden const – find elementerne direkte"
+function updateSvgPosition() {
+  if (document.querySelector(".accordion-item[open]")) {
+    document.querySelector(".event-map").dataset.position =
+      document.querySelector(".accordion-item[open]").dataset.position;
+  } else {
+    delete document.querySelector(".event-map").dataset.position;
+  }
+}
+```
+
+```javascript title="Med const – gem elementerne under navne"
+function updateSvgPosition() {
+  const eventMap = document.querySelector(".event-map");
+  const openDetails = document.querySelector(".accordion-item[open]");
+  if (openDetails) {
+    eventMap.dataset.position = openDetails.dataset.position;
+  } else {
+    delete eventMap.dataset.position;
+  }
+}
+```
+
+To udgaver af samme **funktion** – brug kun én. Begge kopierer `data-position` fra det åbne punkt til SVG’en og fjerner attributten, når alle punkter lukkes.
+
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 9: toggle og starttilstand */}
+
+<Slide variant="paper" label="JavaScript · Reagér på en ændring">
+
+## Kør funktionen, når et punkt skifter tilstand
+
+En **event** er browserens besked om, at noget er sket. `toggle` kommer, når et `<details>` er åbnet eller lukket. En **event listener** lytter efter beskeden:
+
+```javascript
+firstDetails.addEventListener("toggle", updateSvgPosition);
+secondDetails.addEventListener("toggle", updateSvgPosition);
+thirdDetails.addEventListener("toggle", updateSvgPosition);
+
+updateSvgPosition();
+```
+
+De tre listeners står efter funktionen, stadig inde i `if (eventMap)`. Ved hvert skift finder funktionen det punkt, der **nu** er åbent; både åbning og lukning kan udløse den.
+
+**To skrivemåder:** Uden `()` afleverer vi funktionen til senere. Med `()` kører vi den med det samme.
+
+Det sidste kald er en lille tilføjelse til originalen: Det synkroniserer starttilstanden, også hvis et punkt har `open` fra begyndelsen.
+
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 10: CSS er slutningen af kæden */}
+
+<Slide variant="paper" label="CSS · Fra tekstværdi til position">
+
+## CSS flytter selve spotlyset
+
+Her er de relevante regler fra `style.css`, forkortet til position og synlighed:
+
+<div class="slide-split">
+<div>
+
+```css
+.event-map {
+  --z: 0;
+}
+.spot {
+  translate: var(--x) var(--y);
+  opacity: var(--z);
+  transition: 0.5s;
+}
+```
+
+</div>
+<div>
+
+```css
+.event-map[data-position="second"] {
+  --x: 34%;
+  --y: -2%;
+  --z: 1;
+}
+```
+
+Reglen matcher SVG’en, når JavaScript har skrevet `data-position="second"`.
+
+</div>
+</div>
+
+De tre **custom properties** arves af `.spot`: `--x` og `--y` flytter vandret og lodret; `--z` bruges til gennemsigtighed, hvor **0 skjuler** og **1 viser**. Navnet `--z` er ikke en z-akse.
+
+Når attributten fjernes, gælder `--z: 0` igen. Demoen på næste slide giver også `--x` og `--y` startværdien `0%`, så de altid har en værdi.
+
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 11: Samlet afprøvbart eksempel – al kode vedligeholdes her */}
+
+<Slide variant="paper" label="Afprøv · Hele forbindelsen">
+
+## Åbn, skift og luk igen
+
+Prøv **Øl → Musik → Merch → luk Merch**. Prøv også Tab og Enter. Tekst og spot skal følges ad, og spottet skal forsvinde, når alt er lukket.
+
+<CodePenExample
+  title="Interaktiv SVG – details, toggle og dataset"
+  layout="split"
+  height={350}
+  html={`
+    <svg class="event-map" viewBox="0 0 600 240"
+         role="img" aria-label="Skematisk koncertkort: Øl, Musik og Merch øverst. Info nederst.">
+      <defs>
+        <g id="spot">
+          <circle cx="60" cy="55" r="42" fill="none"
+                  stroke="#b53e25" stroke-width="5"></circle>
+        </g>
+      </defs>
+      <rect width="600" height="240" rx="12" fill="#e8eee8"></rect>
+      <g fill="#18352e" text-anchor="middle" font-size="22">
+        <text x="60" y="63">Øl</text>
+        <text x="300" y="63">Musik</text>
+        <text x="540" y="63">Merch</text>
+        <text x="300" y="183">Info</text>
+      </g>
+      <use class="spot" href="#spot"></use>
+    </svg>
+
+    <div class="accordion">
+      <details class="accordion-item" id="details-first" data-position="first" name="fest">
+        <summary>Øl</summary>
+        <p>Her kan du købe alkoholfri øl.</p>
+      </details>
+      <details class="accordion-item" id="details-second" data-position="second" name="fest">
+        <summary>Musik</summary>
+        <p>Her står scenen. Husk ørepropper.</p>
+      </details>
+      <details class="accordion-item" id="details-third" data-position="third" name="fest">
+        <summary>Merch</summary>
+        <p>Her kan du se bandets merchandise.</p>
+      </details>
+    </div>
+
+`}
+  css={` \* { box-sizing: border-box; }
+body {
+margin: 0;
+padding: 12px;
+font: 16px/1.4 system-ui, sans-serif;
+color: #18352e;
+background: #f7f5ef;
+}
+.event-map {
+display: block;
+width: 100%;
+max-height: 170px;
+--x: 0%;
+--y: 0%;
+--z: 0;
+}
+.spot {
+transform-box: view-box;
+translate: var(--x) var(--y);
+opacity: var(--z);
+transition: translate 0.5s, opacity 0.5s;
+}
+.event-map[data-position="first"] {
+--x: 0%; --y: 0%; --z: 1;
+}
+.event-map[data-position="second"] {
+--x: 40%; --y: 0%; --z: 1;
+}
+.event-map[data-position="third"] {
+--x: 80%; --y: 0%; --z: 1;
+}
+.accordion { margin-top: 12px; }
+.accordion-item { border-bottom: 1px solid #9daea4; }
+summary { padding: 6px; cursor: pointer; font-weight: 600; }
+summary:focus-visible { outline: 3px solid #b53e25; outline-offset: 2px; }
+p { margin: 4px 6px 8px; }
+@media (prefers-reduced-motion: reduce) {
+.spot { transition: none; }
+}
+`}
+  js={`
+const eventMap = document.querySelector(".event-map");
+
+    if (eventMap) {
+      const firstDetails = document.querySelector("#details-first");
+      const secondDetails = document.querySelector("#details-second");
+      const thirdDetails = document.querySelector("#details-third");
+
+      function updateSvgPosition() {
+        const openDetails = document.querySelector(".accordion-item[open]");
+        if (openDetails) {
+          eventMap.dataset.position = openDetails.dataset.position;
+        } else {
+          delete eventMap.dataset.position;
+        }
+      }
+
+      firstDetails.addEventListener("toggle", updateSvgPosition);
+      secondDetails.addEventListener("toggle", updateSvgPosition);
+      thirdDetails.addEventListener("toggle", updateSvgPosition);
+
+      updateSvgPosition();
+    }
+
+`}
+/>
+
+**Skematisk illustration til øvelsen.** Her ligger `spot` i `<defs>` i samme SVG, så `href="#spot"` virker uden en ekstern fil. `<defs>` gemmer figuren til genbrug. Originalen henter den fra `band.svg`. Principperne er de samme; koordinaterne er tilpasset denne tegning.
+
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 12: Anvendelse med et nyt punkt og en ændret starttilstand */}
+
+<Slide variant="paper" label="Øvelse · Tilføj Info">
+
+## Forbind et fjerde sted
+
+<p class="slide-meta">
+  8 minutter · individuelt · brug demoens kode i CodePen eller egne filer
+</p>
+
+**Mål:** Forbind **Info** nederst på kortet med et fjerde valg. Lad **Musik være åbent fra start**.
+
+<div class="slide-split">
+<div>
+
+1. Tilføj et `<details>` med tekst, eget id, `data-position` med værdien `fourth` og samme `name` som de andre.
+2. Find elementet i JavaScript, og tilføj en `toggle`-listener til funktionen.
+3. Tilføj CSS til `fourth`: Flyt spottet **40 % til højre og 50 % ned**, så det rammer Info.
+4. Sæt `open` på Musik, og genindlæs.
+
+Vis resultatet til sidemanden, og forklar forbindelsen.
+
+</div>
+<div>
+
+| Feedback                   | Kendetegn                                                                            |
+| -------------------------- | ------------------------------------------------------------------------------------ |
+| **Godt nok**               | Musik markeres fra start; Info åbner alene og får spottet; fuld lukning skjuler det. |
+| **Et virkeligt godt svar** | Du forklarer kæden og tester tastatur samt skift tilbage til de gamle punkter.       |
+| **For lidt endnu**         | Teksten åbner, men spottet følger ikke med. Find det manglende led.                  |
+
+</div>
+</div>
+
+<div class="slide-split">
+<div>
+<details>
+<summary>Vis hint</summary>
+
+Brug de samme byggeklodser som til `third`. Det nye id skal være unikt, mens `name="fest"` og `class="accordion-item"` skal bevares. Funktionen skal stadig finde det åbne punkt, så den behøver ingen ny `if`-gren.
+
+Musiks `open` og det afsluttende `updateSvgPosition()` giver en tydelig starttilstand. I lokale filer skal CSS forbindes i `<head>`, og scriptet skal stå før `</body>`.
+
+**Koordinaterne bag flytningen:** Demoens `transform-box: view-box` lader procentflytning bruge bredden 600 og højden 240. 40 % vandret er 240 enheder; 50 % lodret er 120 enheder. Spottets centrum flyttes dermed fra `(60, 55)` til Info ved `(300, 175)`.
+
+</details>
+</div>
+<div>
+
+<details>
+<summary>Vis et løsningsforslag</summary>
+
+Tilføj dette efter Merch inde i `.accordion`:
+
+```html
+<details
+  class="accordion-item"
+  id="details-fourth"
+  data-position="fourth"
+  name="fest"
+>
+  <summary>Info</summary>
+  <p>Her kan du få hjælp og finde glemte sager.</p>
+</details>
+```
+
+Tilføj `open` på Musiks eksisterende starttag:
+
+```html
+<details
+  class="accordion-item"
+  id="details-second"
+  data-position="second"
+  name="fest"
+  open
+></details>
+```
+
+Tilføj de to linjer inde i `if (eventMap)`, før det afsluttende funktionskald:
+
+```javascript
+const fourthDetails = document.querySelector("#details-fourth");
+fourthDetails.addEventListener("toggle", updateSvgPosition);
+```
+
+Tilføj CSS-reglen:
+
+```css
+.event-map[data-position="fourth"] {
+  --x: 40%;
+  --y: 50%;
+  --z: 1;
+}
+```
+
+Funktionen kan allerede kopiere værdien `fourth`. Flytningen er 240 enheder til højre og 120 ned. Genindlæs, åbn Info, gå tilbage til Øl og luk Øl: Startmarkering, nyt valg, gammelt valg og nulstilling skal alle virke.
+
+</details>
+</div>
+</div>
+
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 13: Kontrol og forbedring */}
+
+<Slide variant="paper" label="Afprøv · Find det manglende led">
+
+## Test kæden, ét led ad gangen
+
+<p class="slide-meta">
+  3 minutter · to og to · vis jeres arbejde, og ret én eventuel fejl
+</p>
+
+Test **genindlæs → Info → Øl → luk Øl** med mus og derefter tastatur. Sammenlign med kriterierne på opgavesliden.
+
+| Det, I ser                                  | Det næste sted at kigge                                                           |
+| ------------------------------------------- | --------------------------------------------------------------------------------- |
+| Flere tekstpunkter kan stå åbne             | Har de præcis samme `name`?                                                       |
+| SVG’en får ingen `data-position`            | Kontrollér id, selector og `toggle`-listener. Se efter fejl i browserens Console. |
+| SVG’en får `fourth`, men spottet vises ikke | Matcher CSS værdien `fourth`, og sættes `--z: 1`?                                 |
+| Spottet bliver stående, når alt lukkes      | Fjernes attributten i `else`, og er grundværdien `--z: 0`?                        |
+
+Højreklik på illustrationen, vælg **Inspect/Undersøg**, og find `<svg class="event-map">`. Hold øje med `data-position`, mens I skifter punkt.
+
+**Hurtigt færdig?** Flyt Info op før Øl i HTML. Forudsig og afprøv, om forbindelsen stadig virker uden ændringer i JavaScript og CSS. Begrund hvorfor.
+
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 14: Afslutning og kilder */}
+
+<Slide variant="paper" label="Opsamling · Fra valg til visning">
+
+## Kan du forklare hele vejen?
+
+Afslut denne forklaring til din sidemand:
+
+> Når jeg åbner Info, får dets `<details>` … Browseren sender … Funktionen finder … Den kopierer … Derfor matcher CSS …
+
+**Tilbage til summeøvelsen:** Den åbne tekst er udgangspunktet. Vi kopierer dens værdi til SVG’en og fjerner værdien igen, når alle punkter lukkes.
+
+### Kilder og videre læsning
+
+- [HTML Standard: details, name, open og toggle](https://html.spec.whatwg.org/multipage/interactive-elements.html#the-details-element).
+- [DOM Standard: querySelector](https://dom.spec.whatwg.org/#dom-parentnode-queryselector) og [HTML Standard: data-attributter og dataset](https://html.spec.whatwg.org/multipage/dom.html#dom-dataset).
+- [SVG 2: use og genbrug af grafik](https://svgwg.org/svg2-draft/struct.html#UseElement) og [CSS Transforms: translate](https://www.w3.org/TR/css-transforms-2/#individual-transforms).
+- På sitet: [Intro til SVG](/svg/) og [Custom properties](/css/custom-properties/).
+
+</Slide>
