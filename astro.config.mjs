@@ -166,7 +166,7 @@ export default defineConfig({
             },
             {
               label: "HTML",
-              items: ["html/grundlaeggende", "html/semantisk", "html/favicon", "html/popover"],
+              items: ["html/grundlaeggende", "html/semantisk", "html/favicon", "html/popover", "html/details-accordion"],
             },
             {
               label: "CSS",

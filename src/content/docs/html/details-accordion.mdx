@@ -1,0 +1,62 @@
+---
+title: Accordions med details og summary
+description: TLDR om HTML-accordions, open, name, CSS-selectorer og animation med link til Dannie Vinthers slides.
+draft: false
+# Kort reference til tema 4. Ret opsummering, eksempel og kildelink nedenfor.
+# Grundlag: Dannie Vinthers Details (Accordion), gennemgået 8. november 2026.
+# Siden er et kort opslag, ikke et selvstændigt øvelsesforløb.
+sidebar:
+  label: Accordions – TLDR
+  order: 5
+  badge:
+    text: Tema 4
+    variant: tip
+    class: badge-theme-4
+---
+
+import Slide from "../../../components/Slide.astro";
+
+{/* Slide 1: TLDR og link til den fulde gennemgang */}
+
+<Slide variant="paper" label="Tema 4 · HTML / CSS · TLDR">
+
+## TLDR: Accordions med details og summary
+
+En **accordion** er indhold, du kan folde ud og lukke igen. Med `<details>` og `<summary>` klarer browseren funktionen uden JavaScript.
+
+<div class="slide-split">
+<div>
+
+```html
+<details name="faq" open>
+  <summary>Hvornår åbner vi?</summary>
+  <p>Vi åbner kl. 10.</p>
+</details>
+
+<details name="faq">
+  <summary>Hvor finder du os?</summary>
+  <p>Ved hovedindgangen.</p>
+</details>
+```
+
+</div>
+<div>
+
+- **`details`** samler overskrift og indhold. **`summary`** er den overskrift, du klikker på.
+- **`open`** viser indholdet fra start. Uden attributten starter afsnittet lukket.
+- **Samme `name`** grupperer afsnittene, så højst ét kan være åbent ad gangen.
+
+</div>
+</div>
+
+**Tilpas med CSS:**
+
+- `details[open]` eller `details:open` vælger et åbent afsnit. `::details-content` vælger det indhold, der foldes ud.
+- Skjul standardpilen med `summary::marker`, og lav fx et plus/minus med `summary::after`.
+- Animér højden fra `0` til `auto` med `interpolate-size: allow-keywords`. Brug `transition` og `transition-behavior: allow-discrete` på `::details-content`, og klip indholdet med `overflow: clip`. Animationen kræver browserstøtte til de nyere CSS-egenskaber.
+
+### Se hele gennemgangen
+
+[Dannie Vinther: Details (Accordion) – forklaringer, eksempler og øvelser](https://slides.com/dannievinther/details-accordion/).
+
+</Slide>
