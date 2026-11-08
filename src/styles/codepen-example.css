@@ -42,6 +42,7 @@
 }
 
 .codepen-example form { margin: 0; }
+.codepen-example .codepen-instructions { margin-top: 1rem; }
 .codepen-example button {
   display: inline-flex;
   align-items: center;

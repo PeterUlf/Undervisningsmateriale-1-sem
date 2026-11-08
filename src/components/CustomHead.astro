@@ -6,3 +6,19 @@ import Default from '@astrojs/starlight/components/Head.astro';
 <Default {...Astro.props}>
 	<slot />
 </Default>
+
+<script>
+  function openGitHubLinksInNewTab() {
+    document.querySelectorAll<HTMLAnchorElement>('a[href]').forEach((link) => {
+      const isGitHub = link.hostname === 'github.com' || link.hostname.endsWith('.github.com');
+      if (!isGitHub || !['https:', 'http:'].includes(link.protocol)) return;
+
+      link.target = '_blank';
+      link.relList.add('noopener', 'noreferrer');
+    });
+  }
+
+  // Gælder både Markdown- og HTML-links. Slideshowet kopierer attributterne med.
+  openGitHubLinksInNewTab();
+  document.addEventListener('astro:page-load', openGitHubLinksInNewTab);
+</script>

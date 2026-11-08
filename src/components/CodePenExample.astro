@@ -13,8 +13,14 @@ interface Props {
   label?: string;
   previewHeading?: string;
   controlsHeading?: string;
+  // Kun betroede eksempler fra projektet: lokale SVG-use-referencer kræver
+  // samme origin. Basen peger på eksemplets mappe under public/.
+  localFilesBase?: string;
 }
-const { title, html: htmlSource, css: cssSource = '', js: jsSource = '', layout = 'stack', preview = true, controls = true, height = 280, label = 'Åbn i CodePen', previewHeading = '', controlsHeading = '' } = Astro.props;
+const { title, html: htmlSource, css: cssSource = '', js: jsSource = '', layout = 'stack', preview = true, controls = true, height = 280, label = 'Åbn i CodePen', previewHeading = '', controlsHeading = '', localFilesBase } = Astro.props;
+if (localFilesBase && (!localFilesBase.startsWith('/') || localFilesBase.startsWith('//'))) {
+  throw new Error('localFilesBase skal være en sti på dette site, fx /eksempler/interaktiv-svg/.');
+}
 
 // MDX-eksempler kan indrykkes sammen med resten af sliden. Fjern kun den
 // fælles indrykning, så indrykning inde i HTML og CSS bevares ved kopiering.
@@ -33,28 +39,31 @@ const js = removeCommonIndent(jsSource);
 const data = JSON.stringify({ title, html, css, js, editors: js ? '111' : '110', layout: 'left', html_pre_processor: 'none', css_pre_processor: 'none', js_pre_processor: 'none', css_starter: 'neither', css_prefix: 'neither' });
 // Scriptet kører efter eksemplets HTML, også i slideshowets nye iframe.
 const script = js ? `<script>${js.replace(/<\/script/gi, '<\\/script')}</script>` : '';
-const srcdoc = `<!doctype html><html lang="da"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${title.replaceAll('&', '&amp;').replaceAll('<', '&lt;')}</title><style>${css}</style></head><body>${html}${script}</body></html>`;
+const base = localFilesBase ? `<base href="${localFilesBase.replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;')}">` : '';
+const srcdoc = `<!doctype html><html lang="da"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">${base}<title>${title.replaceAll('&', '&amp;').replaceAll('<', '&lt;')}</title><style>${css}</style></head><body>${html}${script}</body></html>`;
 ---
 
 <div class:list={['codepen-example', 'not-content', { 'codepen-example--split': layout === 'split' && preview && controls }]}>
   {preview && <div class="codepen-preview">
     {previewHeading && <h3 class="codepen-heading">{previewHeading}</h3>}
-    <iframe title={`Afprøv: ${title}`} srcdoc={srcdoc} sandbox="allow-scripts" loading="lazy" height={height}></iframe>
+    <iframe title={`Afprøv: ${title}`} srcdoc={srcdoc} sandbox={localFilesBase ? 'allow-scripts allow-same-origin' : 'allow-scripts'} loading="lazy" height={height}></iframe>
   </div>}
   {controls && <div class="codepen-controls">
     {controlsHeading && <h3 class="codepen-heading codepen-controls-heading">{controlsHeading}</h3>}
     <div class="codepen-controls-panel">
-      <form action="https://codepen.io/pen/define" method="post" target="_blank" rel="noopener noreferrer">
+      {!localFilesBase && <form action="https://codepen.io/pen/define" method="post" target="_blank" rel="noopener noreferrer">
         <input type="hidden" name="data" value={data} />
         <button type="submit">{label}<span class="codepen-sr-only"> (åbner en ny fane)</span></button>
-      </form>
+      </form>}
+      {localFilesBase && <p>Brug koden i egne filer med Live Server. Læg SVG-filen ved siden af din HTML-fil.</p>}
       <details class="codepen-code-fallback">
         <summary>Vis kode til manuel kopiering</summary>
-        <p>HTML-panelet</p><Code code={html} lang="html" />
-        {css && <><p>CSS-panelet</p><Code code={css} lang="css" /></>}
-        {js && <><p>JavaScript-panelet</p><Code code={js} lang="javascript" /></>}
+        <p>{localFilesBase ? 'HTML til body' : 'HTML-panelet'}</p><Code code={html} lang="html" />
+        {css && <><p>{localFilesBase ? 'CSS-filen' : 'CSS-panelet'}</p><Code code={css} lang="css" /></>}
+        {js && <><p>{localFilesBase ? 'JavaScript-filen' : 'JavaScript-panelet'}</p><Code code={js} lang="javascript" /></>}
         <p>{js ? 'Brug almindelig HTML, CSS og JavaScript uden preprocessorer.' : 'Brug almindelig HTML og CSS. Lad JavaScript-panelet være tomt.'}</p>
       </details>
+      {Astro.slots.has('instructions') && <div class="codepen-instructions"><slot name="instructions" /></div>}
     </div>
   </div>}
 </div>

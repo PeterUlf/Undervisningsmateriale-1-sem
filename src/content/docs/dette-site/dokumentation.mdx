@@ -92,7 +92,7 @@ Tre Starlight-komponenter er udskiftet:
 
 - **PageTitleWrapper.astro** viser sidens titel, tilføjer et eventuelt temanummer og indsætter slideshow-knappen. Sider under “Dette site” vises som dokumentation uden slideshow-knap og automatisk “Side”-nummerering. Pauseuret har også en særskilt titelvisning.
 - **Sidebar.astro** udvider sidemenuen med temavalg og filtrering. Den bruger forskellige indstillinger til den almindelige visning og kladdevisningen.
-- **CustomHead.astro** videresender aktuelt til Starlights standardkomponent. Den tilføjer ikke selv særlige metadata.
+- **CustomHead.astro** bruger Starlights standardkomponent og tilføjer et fælles script til GitHub-links. Links til `github.com` og dets underdomæner får `target="_blank"` og `rel="noopener noreferrer"`, så de åbner i en ny fane eller et nyt vindue. Det gælder både Markdown- og HTML-links; slideshowets kopier beholder attributterne. Browseren afgør, om der åbnes en fane eller et vindue.
 
 De tre filer ligger i `src/components/`. Fælles ændringer i sidernes data ligger i `src/routeData.ts`: titel-linket sættes til `/tema-oversigt/?tema=all`, og adresser under `/draft/` får `noindex, nofollow` og udelukkes fra Pagefind-søgningen.
 
@@ -101,6 +101,8 @@ Det visuelle bygger på `starlight-theme-rapide` og `src/styles/custom.css`. Den
 `src/styles/global.css` findes også i projektet, men er ikke den globale stylesheet, som Starlight-konfigurationen indlæser. Den centrale fil er `custom.css`.
 
 `CodePenExample.astro` samler afprøvbare kodeeksempler. Skriv `html`, `css` og eventuelt `js` direkte på komponenten i MDX-filen. De samme værdier bruges i iframe-forhåndsvisningen, kodevisningen til kopiering og formularen til CodePen. JavaScript kører efter eksemplets HTML i en iframe med `sandbox="allow-scripts"`; slideshowets kopi får sin egen iframe. Eksempler uden `js` beholder deres HTML/CSS-visning. Med `layout="split"` står forhåndsvisning og kodekontroller ved siden af hinanden på brede skærme og stables på smalle. Se `svg/interaktiv-svg.mdx` for et eksempel med alle tre sprog.
+
+Til eksempler, der skal hente en SVG-fil med eksternt `<use>`, kan komponenten få `localFilesBase="/eksempler/interaktiv-svg/"`. Den sti skal være på eget site. Forhåndsvisningen får en `<base>` og `sandbox="allow-scripts allow-same-origin"`. Brug kun denne variant til betroet kode i projektet. Den viser kode til kopiering uden CodePen-knap, fordi eksternt use på tværs af domæner kan blive blokeret. Eksemplets relative filstier virker lokalt, når SVG-filen ligger sammen med elevens HTML-fil. Standardeksempler beholder `sandbox="allow-scripts"`. Et valgfrit `slot="instructions"` kan samle downloadlinks og korte instruktioner ved kodekontrollerne; teksten skrives direkte i MDX ved eksemplet.
 
 ## Temaer og navigation
 
@@ -188,6 +190,8 @@ Sitets titel øverst til venstre åbner altid den almindelige temaoversigt med a
 Kladdevisningen er udeladt fra den almindelige Pagefind-søgning og markeret med `noindex`. Den er **tilgængelig for alle, der kender adressen**; draft er ikke adgangskontrol. Oversigten omfatter dokumentationssiderne i `src/content/docs/`, ikke hver enkelt billedfil eller selvstændigt HTML-eksempel.
 
 ## Billeder og andre materialer
+
+Filer til et undervisningseksempel samles under `public/eksempler/<forløb>/` og navngives `<forløb>-<indhold>.<filtype>`, fx `public/eksempler/interaktiv-svg/interaktiv-svg-kort.svg`. Så viser både mappen og en downloadet fil, hvilket forløb den hører til.
 
 Filer i `public/` publiceres med en adresse fra sitets rod. Eksempel: `public/illustrationer/mit-diagram.svg` kan bruges som `/illustrationer/mit-diagram.svg`. Her ligger også mapper til billeder, PDF-filer og selvstændige eksempler.
 

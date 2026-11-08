@@ -1217,6 +1217,9 @@ body:has(.slide-paper) { --sl-content-width: 64rem; }
 }
 .slide-paper .expressive-code { min-width: 0; max-width: 100%; }
 .slide-paper .expressive-code pre { font-size: .95rem; line-height: 1.6; }
+/* Tynd rød ramme om tekst valgt med mark='...' i en kodeblok. */
+.code-focus-red .expressive-code mark { background: transparent; }
+.code-focus-red .expressive-code mark::before { border: 1px solid #dc2626; }
 .slide-paper details {
   padding: .85rem 1rem;
   border: 1px solid #c5d0bc;

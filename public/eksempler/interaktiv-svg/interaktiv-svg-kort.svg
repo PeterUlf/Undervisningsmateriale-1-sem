@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 300">
+  <title>Øvelseskort med Indgang, Scene og Café</title>
+  
+  <g id="baggrund">
+    <rect width="600" height="300" rx="12" fill="#e8eee8" />
+    <path d="M60 120H300V240" fill="none" stroke="#9daea4" stroke-width="6" stroke-dasharray="8 8" />
+    <g fill="#fffdf8" stroke="#496055" stroke-width="2">
+      <ellipse cx="60" cy="120" rx="36" ry="9" />
+      <ellipse cx="300" cy="120" rx="36" ry="9" />
+      <ellipse cx="300" cy="240" rx="36" ry="9" />
+    </g>
+    <g fill="#18352e" text-anchor="middle" font-family="system-ui, sans-serif" font-size="22">
+      <text x="60" y="155">Indgang</text>
+      <text x="300" y="155">Scene</text>
+      <text x="300" y="275">Café</text>
+    </g>
+  </g>
+    <g id="person" fill="#b53e25" stroke="#18352e" stroke-width="3">
+      <circle cx="60" cy="67" r="13" />
+      <rect x="47" y="83" width="26" height="27" rx="7" />
+      <path d="M53 110v10 M67 110v10" fill="none" stroke-width="6" />
+    </g>
+    <g id="punkt">
+      <circle cx="300" cy="240" r="24" fill="none" stroke="#b53e25" stroke-width="4" />
+    </g>
+  
+
+
+</svg>

@@ -3,7 +3,8 @@ title: Interaktiv SVG med HTML og JavaScript
 description: Få et klik på summary til at køre en funktion, og flyt din SVG-figur med use og translate. Afprøv hvert trin i CodePen.
 draft: false
 # Ret forklaring og kode ved den relevante Slide.
-# De tre selvstændige CodePen-eksempler står på slide 4, 7 og 9.
+# CodePen-eksempler står på slide 4, 7 og 9. Lokale SVG-eksempler står på slide 13 og 18.
+# SVG-fil: public/eksempler/interaktiv-svg/interaktiv-svg-kort.svg.
 # HTML, CSS og JS i hvert eksempel bruges også til forhåndsvisning og kopiering.
 # Små opgaver, hint og løsninger står ved eksemplerne og på slide 10.
 # Undervisernoter: dette-site/interaktiv-svg-undervisernoter.mdx.
@@ -35,7 +36,9 @@ Du bygger forbindelsen i tre trin:
 
 <div class="slide-takeaway">
 
-**Ca. 35 minutter · små individuelle trin i CodePen.** Du bruger `querySelector`, `addEventListener`, funktioner og `.style` fra JavaScript-undervisningen. Til sidst kan du bruge samme fremgangsmåde med din egen figur.
+**Grundforløb: ca. 35 minutter · små individuelle trin i CodePen.** Du bruger `querySelector`, `addEventListener`, funktioner og `.style` fra JavaScript-undervisningen. Til sidst kan du bruge samme fremgangsmåde med din egen figur.
+
+**Udvidelse efter slide 12: ca. 20 minutter.** Brug en SVG-fil, og lad figurens position og størrelse følge det åbne afsnit.
 
 </div>
 
@@ -79,8 +82,7 @@ Du bygger forbindelsen i tre trin:
 ## Lad klikket køre en funktion
 
 ```javascript
-document.querySelector("#vaelg-scene")
-  .addEventListener("click", vaelgScene);
+document.querySelector("#vaelg-scene").addEventListener("click", vaelgScene);
 
 function vaelgScene() {
   document.querySelector("#besked").textContent = "Du valgte scenen.";
@@ -136,7 +138,8 @@ Skriv `vaelgScene` **uden `()` i listeneren**. Funktionen skal først køre ved 
     function vaelgScene() {
       document.querySelector("#besked").textContent = "Du valgte scenen.";
     }
-  `}
+
+`}
 />
 
 **Tjek:** Klik Scene → Indgang → Scene. Beskeden skal følge dit seneste valg. Prøv også Tab og Enter. Fælles `name="steder"` på de to `details` sørger for, at højst ét afsnit er åbent.
@@ -154,7 +157,8 @@ Indgang har allerede id’et `vaelg-indgang`. Brug en ny funktion, fx `vaelgIndg
 Tilføj dette i JS-panelet. Behold også koden til Scene:
 
 ```javascript
-document.querySelector("#vaelg-indgang")
+document
+  .querySelector("#vaelg-indgang")
   .addEventListener("click", vaelgIndgang);
 
 function vaelgIndgang() {
@@ -182,11 +186,11 @@ Din SVG kan bestå af en baggrund og en figur. Giv delene hver sit id i SVG-file
 </svg>
 ```
 
-| Del af koden | Det betyder den |
-| --- | --- |
-| `./svg/kort.svg` | Filen med tegningen. Brug din egen filsti og dens `viewBox`. |
-| `#person` | Den gruppe i filen, som har `id="person"`. |
-| `class="figur"` | Vores navn på det `<use>`, vi vil flytte med CSS og JavaScript. |
+| Del af koden     | Det betyder den                                                 |
+| ---------------- | --------------------------------------------------------------- |
+| `./svg/kort.svg` | Filen med tegningen. Brug din egen filsti og dens `viewBox`.    |
+| `#person`        | Den gruppe i filen, som har `id="person"`.                      |
+| `class="figur"`  | Vores navn på det `<use>`, vi vil flytte med CSS og JavaScript. |
 
 **Styr `.figur` på siden.** Så flytter du hele den genbrugte figur samlet. Baggrundens `<use>` bliver stående.
 
@@ -216,12 +220,12 @@ Figuren skal være adskilt fra baggrundsgruppen, så den ikke også vises som en
 </div>
 <div>
 
-| Værdi | Flytning |
-| --- | --- |
-| `0% 0%` | Oprindelig placering |
-| `40% 0%` | Mod højre |
-| `0% 40%` | Nedad |
-| `40% -10%` | Mod højre og opad |
+| Værdi      | Flytning             |
+| ---------- | -------------------- |
+| `0% 0%`    | Oprindelig placering |
+| `40% 0%`   | Mod højre            |
+| `0% 40%`   | Nedad                |
+| `40% -10%` | Mod højre og opad    |
 
 </div>
 </div>
@@ -284,7 +288,8 @@ Værdierne er en **forskydning fra figurens udgangspunkt**. `40% 0%` flytter ikk
       transform-box: view-box;
       translate: 0% 0%;
     }
-  `}
+
+`}
 />
 
 **Tjek:** Kun personen flytter sig; tekst og baggrund bliver stående. Gør resultatvinduet smallere: Personen skal stadig stå ved samme sted.
@@ -319,8 +324,7 @@ Erstat værdien i samme CSS-regel hver gang. Alle positioner regnes fra figurens
 Nu skal klikket gøre det, du lige gjorde manuelt i CSS:
 
 ```javascript
-document.querySelector("#vaelg-scene")
-  .addEventListener("click", gaaTilScene);
+document.querySelector("#vaelg-scene").addEventListener("click", gaaTilScene);
 
 function gaaTilScene() {
   document.querySelector(".figur").style.translate = "40% 0%";
@@ -392,25 +396,27 @@ Prøv **Scene → Indgang → Scene**. Åbn eksemplet i CodePen, og find de to l
       <summary id="vaelg-cafe">Café</summary>
       <p>Her kan du holde en pause. Forbind selv dette valg med figuren.</p>
     </details>
-  `}
+
+`}
   css={`
-    body { margin: 0; padding: 12px; font: 16px/1.4 system-ui, sans-serif; color: #18352e; background: #f7f5ef; }
-    svg { display: block; width: 100%; max-height: 220px; }
-    details { border-bottom: 1px solid #9daea4; padding: 7px 0; }
-    summary { cursor: pointer; font-weight: 650; }
-    summary:focus-visible { outline: 3px solid #b53e25; outline-offset: 3px; }
-    p { margin: 8px 0; }
+body { margin: 0; padding: 12px; font: 16px/1.4 system-ui, sans-serif; color: #18352e; background: #f7f5ef; }
+svg { display: block; width: 100%; max-height: 220px; }
+details { border-bottom: 1px solid #9daea4; padding: 7px 0; }
+summary { cursor: pointer; font-weight: 650; }
+summary:focus-visible { outline: 3px solid #b53e25; outline-offset: 3px; }
+p { margin: 8px 0; }
 
     .figur {
       transform-box: view-box;
       translate: 0% 0%;
     }
-  `}
+
+`}
   js={`
-    document.querySelector("#vaelg-scene")
-      .addEventListener("click", gaaTilScene);
-    document.querySelector("#vaelg-indgang")
-      .addEventListener("click", gaaTilIndgang);
+document.querySelector("#vaelg-scene")
+.addEventListener("click", gaaTilScene);
+document.querySelector("#vaelg-indgang")
+.addEventListener("click", gaaTilIndgang);
 
     function gaaTilScene() {
       document.querySelector(".figur").style.translate = "40% 0%";
@@ -421,7 +427,8 @@ Prøv **Scene → Indgang → Scene**. Åbn eksemplet i CodePen, og find de to l
       document.querySelector(".figur").style.translate = "0% 0%";
       document.querySelector("#besked").textContent = "Figuren står ved indgangen.";
     }
-  `}
+
+`}
 />
 
 **Skematisk øvelseskort.** I CodePen gemmes personen i `<defs>` i samme SVG, så `href="#person"` virker uden ekstra filer. `<defs>` viser ikke selv figuren; det gør `<use>`. I dit projekt kan `href` i stedet pege på din SVG-fil.
@@ -457,8 +464,7 @@ Brug `#vaelg-cafe` til klikket og `.figur` til flytningen. Du fandt Café-positi
 Tilføj koden i JS-panelet, og behold de to eksisterende forbindelser:
 
 ```javascript
-document.querySelector("#vaelg-cafe")
-  .addEventListener("click", gaaTilCafe);
+document.querySelector("#vaelg-cafe").addEventListener("click", gaaTilCafe);
 
 function gaaTilCafe() {
   document.querySelector(".figur").style.translate = "40% 40%";
@@ -495,7 +501,9 @@ Tilføj `transition` til din eksisterende `.figur`-regel i CodePen 3:
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .figur { transition: none; }
+  .figur {
+    transition: none;
+  }
 }
 ```
 
@@ -530,25 +538,637 @@ Hver ny værdi sættes fra figurens oprindelige placering. Skal den tilbage ved 
 </Slide>
 <div class="page-break"></div>
 
-{/* Slide 13: Fejlsøgning og faglige kilder */}
+{/* Slide 13: Hent baggrund, punkt og figur fra en SVG-fil */}
+
+<Slide variant="paper" label="Udvidelse · Tre dele fra din SVG-fil">
+
+## Baggrund, punkt og figur med use
+
+Brug fremgangsmåden fra slide 12 med **en rigtig SVG-fil**. Ét `<svg>` henter baggrund, punkt og figur med hver sit `<use>`. Klik på stederne:
+
+<CodePenExample
+  title="SVG-fil med baggrund, punkt og flytbar figur"
+  layout="split"
+  localFilesBase="/eksempler/interaktiv-svg/"
+  height={430}
+  html={`
+    <div class="kort">
+      <svg class="svg-kort" viewBox="0 0 600 300" aria-hidden="true">
+        <use class="baggrund" href="./interaktiv-svg-kort.svg#baggrund"></use>
+        <use class="punkt" href="./interaktiv-svg-kort.svg#punkt"></use>
+        <use class="figur" href="./interaktiv-svg-kort.svg#person"></use>
+      </svg>
+    </div>
+    <p id="besked" aria-live="polite">Figuren står ved indgangen.</p>
+    <details name="steder">
+      <summary id="vaelg-indgang">Indgang</summary>
+      <p>Her begynder dit besøg.</p>
+    </details>
+    <details name="steder">
+      <summary id="vaelg-scene">Scene</summary>
+      <p>Her kan du høre musikken.</p>
+    </details>
+    <details name="steder">
+      <summary id="vaelg-cafe">Café</summary>
+      <p>Her kan du holde en pause.</p>
+    </details>
+  `}
+  css={`
+    body { margin: 0; padding: 12px; font: 16px/1.4 system-ui, sans-serif; color: #18352e; background: #f7f5ef; }
+    .kort { max-width: 440px; margin-inline: auto; }
+    .kort > svg {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    .svg-kort { pointer-events: none; }
+    .figur {
+      transform-box: view-box;
+      translate: 0% 0%;
+      transition: translate 0.5s;
+    }
+    details { border-bottom: 1px solid #9daea4; padding: 5px 0; }
+    summary { cursor: pointer; font-weight: 650; }
+    summary:focus-visible { outline: 3px solid #b53e25; outline-offset: 3px; }
+    p { margin: 6px 0; }
+    @media (prefers-reduced-motion: reduce) {
+      .figur { transition: none; }
+    }
+  `}
+  js={`
+    document.querySelector("#vaelg-scene").addEventListener("click", gaaTilScene);
+    document.querySelector("#vaelg-indgang").addEventListener("click", gaaTilIndgang);
+    document.querySelector("#vaelg-cafe").addEventListener("click", gaaTilCafe);
+
+    function gaaTilScene() {
+      document.querySelector(".figur").style.translate = "40% 0%";
+      document.querySelector("#besked").textContent = "Figuren står ved scenen.";
+    }
+    function gaaTilIndgang() {
+      document.querySelector(".figur").style.translate = "0% 0%";
+      document.querySelector("#besked").textContent = "Figuren står ved indgangen.";
+    }
+    function gaaTilCafe() {
+      document.querySelector(".figur").style.translate = "40% 40%";
+      document.querySelector("#besked").textContent = "Figuren står ved caféen.";
+    }
+
+`}
+
+>
+
+  <div slot="instructions">
+    <p><a href="/eksempler/interaktiv-svg/interaktiv-svg-kort.svg" download="interaktiv-svg-kort.svg">Hent SVG-filen til eksemplet</a>. Gem den ved siden af din HTML-fil. Skematisk øvelseskort.</p>
+    <p><a href="https://github.com/PeterUlf/E2025-T4-SVG-EKSEMPEL" target="_blank" rel="noopener noreferrer">Åbn GitHub-eksemplet med baggrund og figur som use</a>. Hent eller klon projektet, og åbn <code>index.html</code> med Live Server.</p>
+  </div>
+</CodePenExample>
+
+- `#baggrund`, `#punkt` og `#person` vælger hver sin gruppe i SVG-filen.
+- Rækkefølgen i HTML bestemmer lagene: **baggrund → punkt → figur**. Her flytter JavaScript kun `.figur`; punktet bliver ved Café.
+
+<details>
+<summary>Overfør lagene til din egen tegning</summary>
+
+JavaScript vælger figurens `<use>` med `.figur`. Dermed kan du flytte personen uden at flytte hele SVG’en.
+
+I Illustrator samler du de dele, der skal bevæge sig sammen, i et selvstændigt lag. Efter eksport kontrollerer du gruppernes id’er og filens `viewBox` i SVG-koden. Den bevægelige figur må ikke også indgå i baggrundsgruppen, da den så bliver tegnet to gange.
+
+Hvert `<use>` henter kun gruppen med det angivne id. Grupperne behøver ikke ligge i `<defs>`. Skal noget stå foran figuren, kan du vise det med endnu et `<use>` efter figurens `<use>`.
+
+På din egen side skal filstien og `viewBox` passe til din fil. Brug Live Server.
+
+**Hvorfor ikke åbne denne variant direkte i CodePen?** Eksterne `<use>`-referencer kræver _samme origin_: samme protokol, domæne og port som HTML-siden. CodePens resultat og SVG-filen på GitHub eller undervisningssitet har forskellige origins. En fuld URL eller CORS-tilladelse på SVG-filen løser ikke i sig selv begrænsningen for `<use>`. Med Live Server hentes HTML og SVG fra samme origin. Se [MDN om eksterne SVG-referencer](https://developer.mozilla.org/en-US/docs/Web/SVG/Guides/Linking).
+
+</details>
+
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 14: Kopiér stedets navn fra details til SVG-kortet */}
+
+<Slide variant="paper" label="Eksempel 2 · Stedets navn">
+
+## 1: Giv kortet besked om det valgte sted
+
+I <a href="https://github.com/PeterUlf/E2026-T4-SVG-EKSEMPEL2" target="_blank" rel="noopener noreferrer">Eksempel 2 på GitHub</a> skal figuren følges **det åbne afsnit**, altså den summary der er åben. Vi tager først Scene som eksempel: Hvordan får kortet besked om, at stedet er `scene`?
+
+<div class="slide-split">
+<div>
+
+### 1. Gem navnet i HTML
+
+```html mark='data-position="scene"'
+<details
+  id="details-scene"
+  class="accordion-item"
+  name="steder"
+  data-position="scene"
+>
+  <summary>Scene</summary>
+  <p>Her kan du høre musikken.</p>
+</details>
+```
+
+`data-position` er en attribut, vi selv har tilføjet. Den gemmer stedets navn: teksten `"scene"`.
+
+</div>
+<div>
+
+### 2. Kopiér navnet til kortet
+
+```javascript
+const scene = document.querySelector("#details-scene");
+const kort = document.querySelector(".svg-kort");
+
+kort.dataset.position = scene.dataset.position;
+```
+
+De to `const`-linjer giver os korte navne til afsnittet og SVG-kortet. `dataset.position` er JavaScripts måde at læse og skrive `data-position` på.
+
+Læs den sidste linje sådan: **Hent stedets navn fra `scene`, og gem det på `kort`.**
+
+</div>
+</div>
+
+SVG-kortets starttag har nu fået `data-position="scene"`:
+
+```html mark='data-position="scene"'
+<svg
+  class="svg-kort"
+  viewBox="0 0 600 300"
+  aria-hidden="true"
+  data-position="scene"
+></svg>
+```
+
+<div class="slide-takeaway">
+
+Vi har nu skrevet **hvilket sted** der er valgt på kortet. På næste slide fortæller CSS, **hvor figuren skal stå**, når værdien er `scene`.
+
+</div>
+
+<details>
+<summary>HTML til alle tre afsnit</summary>
+
+Alle tre `details` får `class="accordion-item"`, så JavaScript kan finde dem som en gruppe. Fælles `name="steder"` sørger for, at højst ét afsnit er åbent. Hvert afsnit har sit eget id og stednavn:
+
+```html
+<details
+  id="details-indgang"
+  class="accordion-item"
+  name="steder"
+  data-position="indgang"
+>
+  <summary>Indgang</summary>
+  <p>Her begynder dit besøg.</p>
+</details>
+<details
+  id="details-scene"
+  class="accordion-item"
+  name="steder"
+  data-position="scene"
+  open
+>
+  <summary>Scene</summary>
+  <p>Her kan du høre musikken.</p>
+</details>
+<details
+  id="details-cafe"
+  class="accordion-item"
+  name="steder"
+  data-position="cafe"
+>
+  <summary>Café</summary>
+  <p>Her kan du holde en pause.</p>
+</details>
+```
+
+`open` gør Scene åben fra start. SVG’en beholder sine tre `<use>`-elementer fra slide 13.
+
+</details>
+
+<details>
+<summary>Hvis du bygger videre på eksemplet fra slide 13</summary>
+
+Erstat de gamle `click`-listeners og `.style.translate`-linjer med den nye JavaScript-kode fra slide 16. Brug CSS’en fra slide 15 til placeringen. De gamle `.style.translate`-linjer skriver en stil direkte på figuren, som ellers ville overstyre de nye CSS-regler. Genindlæs siden efter ændringen.
+
+</details>
+
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 15: Oversæt stednavnet til figurens forskydning */}
+
+<Slide variant="paper" label="Eksempel 2 · Fra stednavn til placering">
+
+## 2: CSS flytter figuren til det valgte sted
+
+Kortet har nu `data-position="scene"`. **CSS skal oversætte `scene` til den kendte forskydning `40% 0%`.**
+
+<div class="slide-split">
+<div>
+
+### 1. Vælg de to tal
+
+```css
+.svg-kort {
+  --x: 0%;
+  --y: 0%;
+}
+.svg-kort[data-position="scene"] {
+  --x: 40%;
+  --y: 0%;
+}
+```
+
+`--x` og `--y` er **CSS-variabler**: navne til de to tal. `--x` er den vandrette forskydning, og `--y` er den lodrette.
+
+Den nederste regel gælder kun, når kortet har `data-position="scene"`.
+
+</div>
+<div>
+
+### 2. Brug tallene på figuren
+
+```css
+.figur {
+  transform-box: view-box;
+  translate: var(--x) var(--y);
+  transition: translate 0.5s;
+}
+```
+
+Figurens `<use>` ligger inde i SVG-kortet og **arver de to værdier**. `var(--x)` og `var(--y)` henter dem.
+
+Ved Scene svarer linjen derfor til **`translate: 40% 0%;`** — figuren flyttes mod højre, ligesom i grundforløbet.
+
+</div>
+</div>
+
+<div class="slide-takeaway">
+
+**Kortet gemmer stednavnet og de to tal. Figuren bruger tallene til at flytte sig.** Kun `.figur` får `translate`, så baggrunden bliver stående.
+
+</div>
+
+<details>
+<summary>Hvad med Café, Indgang og intet valg?</summary>
+
+Tilføj denne regel efter reglerne for kortet:
+
+```css
+.svg-kort[data-position="cafe"] {
+  --x: 40%;
+  --y: 40%;
+}
+```
+
+| Værdi på kortet                       | Forskydning | Resultat                  |
+| ------------------------------------- | ----------- | ------------------------- |
+| `scene`                               | `40% 0%`    | Figuren står ved Scene.   |
+| `cafe`                                | `40% 40%`   | Figuren står ved Café.    |
+| `indgang` eller ingen `data-position` | `0% 0%`     | Figuren står ved Indgang. |
+
+Indgang bruger grundværdierne fra den første `.svg-kort`-regel. Alle forskydninger regnes fra figurens oprindelige placering ved Indgang.
+
+Genopfrisk [CSS-variabler og var()](/css/custom-properties/).
+
+</details>
+
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 16: Opdatér kortet, hver gang et afsnit åbnes eller lukkes */}
+
+<Slide variant="paper" label="Eksempel 2 · Reagér på åbning og lukning">
+
+## 3: Opdatér kortet, når brugeren skifter sted
+
+<div class="slide-split">
+<div>
+
+På slide 14 valgte vi Scene direkte. Nu skal en funktion finde **det afsnit, der er åbent**. Browseren giver et åbent `<details>` attributten `open`.
+
+</div>
+<figure class="slide-panel" style="margin: 0; width: 100%; max-width: 20rem; padding: 1rem;">
+  <p style="margin: 0 0 0.6rem;"><strong>Illustration</strong></p>
+  <img
+    src="/illustrationer/interaktiv-svg/interaktiv-svg-scene-aaben.png"
+    alt="Afsnittene Indgang, Scene og Café. Scene er foldet ud med teksten Her kan du høre musikken, og beskeden øverst er Valgt sted: Scene."
+    width="534"
+    height="420"
+    loading="lazy"
+    style="display: block; width: 100%; height: auto;"
+  />
+  <figcaption style="margin-top: 0.6rem; font-size: 0.85rem;">Scene er åben; Indgang og Café er lukkede. Skærmbillede leveret af Peter Ulf.</figcaption>
+</figure>
+</div>
+
+<div class="slide-split">
+<div>
+
+### 1. Find og kopiér det åbne sted
+
+```javascript
+const kort = document.querySelector(".svg-kort");
+
+function opdaterFigur() {
+  const aabent = document.querySelector(".accordion-item[open]");
+  if (aabent) {
+    kort.dataset.position = aabent.dataset.position;
+  } else {
+    delete kort.dataset.position;
+  }
+}
+```
+
+- `.accordion-item[open]` finder et af vores afsnit, som er åbent.
+- `if (aabent)`: Vi fandt et — kopiér dets stednavn til kortet.
+- `else`: Alle er lukkede — fjern kortets `data-position`. CSS bruger så `0% 0%`, og figuren går til Indgang.
+
+</div>
+<div>
+
+### 2. Kør funktionen ved ændringer (eksempel herunder gælder for "scene")
+
+```javascript
+document
+  .querySelector("#details-scene")
+  .addEventListener("toggle", opdaterFigur);
+
+opdaterFigur();
+```
+
+`toggle` er en hændelse, browseren sender, **efter et `details` er åbnet eller lukket**. Listeneren får vores funktion til at køre ved begge dele.
+
+Sæt en tilsvarende listener på `#details-indgang` og `#details-cafe`. Alle tre kalder samme funktion.
+
+Det sidste `opdaterFigur()` kører funktionen én gang ved indlæsning, så kortet også passer til det afsnit, der er åbent fra start.
+
+</div>
+</div>
+
+<div class="slide-takeaway">
+
+**Åbn Scene → funktionen finder det åbne afsnit → kortet får `scene` → CSS flytter figuren til scenen.**
+
+</div>
+
+<details>
+<summary>Samlet JavaScript til alle tre steder</summary>
+
+Denne kode erstatter JavaScript-udsnittet fra slide 14. Brug HTML’en med alle tre afsnit fra slide 14 og CSS’en fra slide 15, inklusive Café-reglen.
+
+```javascript
+const kort = document.querySelector(".svg-kort");
+
+function opdaterFigur() {
+  const aabent = document.querySelector(".accordion-item[open]");
+  if (aabent) {
+    kort.dataset.position = aabent.dataset.position;
+  } else {
+    delete kort.dataset.position;
+  }
+}
+
+document
+  .querySelector("#details-scene")
+  .addEventListener("toggle", opdaterFigur);
+document
+  .querySelector("#details-indgang")
+  .addEventListener("toggle", opdaterFigur);
+document
+  .querySelector("#details-cafe")
+  .addEventListener("toggle", opdaterFigur);
+
+opdaterFigur();
+```
+
+**Tjek:** Åbn Scene → åbn Café → luk Café. Figuren skal stå ved Scene, derefter Café og til sidst Indgang.
+
+Når et nyt afsnit åbnes, lukker det tidligere automatisk på grund af `name="steder"`. Funktionen finder hver gang det afsnit, der er åbent nu. `delete` fjerner kun kortets `data-position`; selve SVG-kortet bliver på siden.
+
+</details>
+
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 17: Scale og flere selvstændige use-elementer */}
+
+<Slide variant="paper" label="Udvidelse · Flere dele kan reagere">
+
+## Samme valg kan ændre størrelse og et ekstra punkt
+
+SVG-filen indeholder også `punkt`. De tre `<use>`-elementer står i denne rækkefølge, så personen tegnes øverst:
+
+```html
+<use class="baggrund" href="./interaktiv-svg-kort.svg#baggrund"></use>
+<use class="punkt" href="./interaktiv-svg-kort.svg#punkt"></use>
+<use class="figur" href="./interaktiv-svg-kort.svg#person"></use>
+```
+
+<div class="slide-split">
+<div>
+
+```css
+.figur {
+  scale: 1;
+  transform-origin: 10% 40%;
+}
+.svg-kort[data-position="cafe"] .figur {
+  scale: 1.2;
+}
+```
+
+`1.2` gør personen 20 % større. `transform-origin` er centrum for skaleringen. Her er det fødderne ved `(60, 120)` i vores `viewBox`. Behold figurens `transform-box: view-box`.
+
+</div>
+<div>
+
+```css
+.punkt {
+  opacity: 0;
+  scale: 1;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.svg-kort[data-position="cafe"] .punkt {
+  opacity: 1;
+  scale: 1.2;
+}
+```
+
+`opacity: 0` skjuler punktet, og `1` viser det. `fill-box` lader punktet skalere om midten af sin egen form. Punktet flyttes ikke med procent.
+
+</div>
+</div>
+
+**Til din egen figur:** Vælg et passende centrum for skaleringen, og kontrollér placeringen igen, når størrelsen ændres.
+
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 18: Samlet eksempel med de nye greb fra PowerPointen */}
+
+<Slide variant="paper" label="Udvidelse · Det samlede eksempel">
+
+## Fra åbent afsnit til flyttet og skaleret figur
+
+**Scene er åben fra start.** Prøv Café → Indgang → Scene → luk Scene. Ved Café vokser personen, og punktet vises. Når alt er lukket, vender personen tilbage til indgangen.
+
+<CodePenExample
+  title="SVG-fil med dataset, toggle, CSS-variabler og scale"
+  layout="split"
+  localFilesBase="/eksempler/interaktiv-svg/"
+  height={420}
+  html={`
+    <div class="kort">
+      <svg class="svg-kort" viewBox="0 0 600 300" aria-hidden="true">
+        <use class="baggrund" href="./interaktiv-svg-kort.svg#baggrund"></use>
+        <use class="punkt" href="./interaktiv-svg-kort.svg#punkt"></use>
+        <use class="figur" href="./interaktiv-svg-kort.svg#person"></use>
+      </svg>
+    </div>
+    <p id="besked" aria-live="polite">Figuren står ved indgangen.</p>
+    <details class="accordion-item" id="details-indgang" name="steder" data-position="indgang">
+      <summary>Indgang</summary>
+      <p>Her begynder dit besøg.</p>
+    </details>
+    <details class="accordion-item" id="details-scene" name="steder" data-position="scene" open>
+      <summary>Scene</summary>
+      <p>Her kan du høre musikken.</p>
+    </details>
+    <details class="accordion-item" id="details-cafe" name="steder" data-position="cafe">
+      <summary>Café</summary>
+      <p>Her vokser personen, og punktet bliver synligt.</p>
+    </details>
+  `}
+  css={`
+    body { margin: 0; padding: 12px; font: 16px/1.4 system-ui, sans-serif; color: #18352e; background: #f7f5ef; }
+    .kort { max-width: 440px; margin-inline: auto; }
+    .kort > svg {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    .svg-kort {
+      pointer-events: none;
+      --x: 0%;
+      --y: 0%;
+    }
+    .figur {
+      transform-box: view-box;
+      transform-origin: 10% 40%;
+      translate: var(--x) var(--y);
+      scale: 1;
+      transition: translate 0.5s, scale 0.5s;
+    }
+    .svg-kort[data-position="scene"] {
+      --x: 40%;
+      --y: 0%;
+    }
+    .svg-kort[data-position="cafe"] {
+      --x: 40%;
+      --y: 40%;
+    }
+    .svg-kort[data-position="cafe"] .figur { scale: 1.2; }
+    .punkt {
+      opacity: 0;
+      scale: 1;
+      transform-box: fill-box;
+      transform-origin: center;
+      transition: opacity 0.5s, scale 0.5s;
+    }
+    .svg-kort[data-position="cafe"] .punkt { opacity: 1; scale: 1.2; }
+    details { border-bottom: 1px solid #9daea4; padding: 5px 0; }
+    summary { cursor: pointer; font-weight: 650; }
+    summary:focus-visible { outline: 3px solid #b53e25; outline-offset: 3px; }
+    p { margin: 6px 0; }
+    @media (prefers-reduced-motion: reduce) {
+      .figur, .punkt { transition: none; }
+    }
+  `}
+  js={`
+    const kort = document.querySelector(".svg-kort");
+
+    document.querySelector("#details-indgang")
+      .addEventListener("toggle", opdaterFigur);
+    document.querySelector("#details-scene")
+      .addEventListener("toggle", opdaterFigur);
+    document.querySelector("#details-cafe")
+      .addEventListener("toggle", opdaterFigur);
+
+    function opdaterFigur() {
+      const aabent = document.querySelector(".accordion-item[open]");
+      if (aabent) {
+        kort.dataset.position = aabent.dataset.position;
+        document.querySelector("#besked").textContent =
+          "Valgt sted: " + aabent.querySelector("summary").textContent;
+      } else {
+        delete kort.dataset.position;
+        document.querySelector("#besked").textContent =
+          "Alt er lukket. Figuren står ved indgangen.";
+      }
+    }
+
+    opdaterFigur();
+
+`}
+
+>
+
+  <div slot="instructions">
+
+<a
+  href="https://github.com/PeterUlf/E2026-T4-SVG-EKSEMPEL2"
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  Åbn eksemplet på GitHub
+</a>
+.
+
+Klon eller hent repositoriet, åbn projektmappen i VS Code, og start `index.html` med Live Server. Repositoriet indeholder den tilrettede version af eksemplet.
+
+  </div>
+</CodePenExample>
+
+**Prøv selv · 5 minutter:** Lad personen vokse ved Scene i stedet for Café, men behold punktet ved Café. Ret CSS-selectoren for figurens `scale`. Test også tastatur og lukning af alle afsnit.
+
+<details>
+<summary>Hint og kontrol</summary>
+
+Find reglen, der slutter med `.figur`, og skift dens `data-position` fra `cafe` til `scene`. Behold reglen for `.punkt`. Det virker, når Scene giver en stor person uden punkt, Café giver en normal person med punkt, og fuld lukning giver en normal person ved Indgang uden punkt.
+
+Demoen opdaterer også en tekstbesked. `aabent.querySelector("summary")` søger kun inde i det åbne afsnit, så beskeden kan bruge dets synlige overskrift.
+
+</details>
+
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 19: Fejlsøgning og faglige kilder */}
 
 <Slide variant="paper" label="Husk · Klik, funktion, flytning">
 
 ## Find det led, der mangler
 
-| Det, du ser | Kontrollér dette |
-| --- | --- |
-| Teksten åbner, men funktionen reagerer ikke | Matcher `summary`-id, selector og funktionsnavn? Er scriptet indlæst? Se også Console. |
-| Hele kortet flytter sig | Vælger `.figur` dit `<use>` og ikke hele `<svg>`? |
-| Figuren flytter forkert | Er rækkefølgen vandret/lodret? Har `.figur` `transform-box: view-box`? |
-| Rettelser i CSS virker ikke efter et klik | `.style.translate` har sat en værdi direkte på elementet, som overstyrer CSS-reglen. Genindlæs eller ret værdien i funktionen. |
+| Det, du ser                                 | Kontrollér dette                                                                                                               |
+| ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| Teksten åbner, men funktionen reagerer ikke | Matcher `summary`-id, selector og funktionsnavn? Er scriptet indlæst? Se også Console.                                         |
+| Figuren i fil-eksemplet vises ikke          | Kontrollér filsti, `#person`, Live Server og at filen ligger på samme website.                                                 |
+| Figuren følger ikke lukning i udvidelsen    | Lyt efter `toggle` på `details`, og kontrollér `delete` samt CSS-grundværdierne.                                               |
+| Hele kortet flytter sig                     | Vælger `.figur` dit `<use>` og ikke hele `<svg>`?                                                                              |
+| Figuren flytter forkert                     | Er rækkefølgen vandret/lodret? Har `.figur` `transform-box: view-box`?                                                         |
+| Rettelser i CSS virker ikke efter et klik   | `.style.translate` har sat en værdi direkte på elementet, som overstyrer CSS-reglen. Genindlæs eller ret værdien i funktionen. |
 
-**Husk forbindelsen:** Du vælger en `summary`, lytter efter `click` og lader en funktion ændre `translate` på figurens `<use>`.
+**Grundforløbet:** Et klik på `summary` ændrer `translate` direkte. **Udvidelsen:** `toggle` på `details` opdaterer SVG-lagets `data-position`, og CSS bestemmer position, størrelse og synlighed.
 
 ### Kilder og videre læsning
 
 - [HTML Standard: details og summary](https://html.spec.whatwg.org/multipage/interactive-elements.html#the-details-element) · [MDN: addEventListener](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener).
 - [SVG 2: use](https://svgwg.org/svg2-draft/struct.html#UseElement) · [CSS Transforms: translate](https://www.w3.org/TR/css-transforms-2/#individual-transforms) og [transform-box](https://www.w3.org/TR/css-transforms-1/#transform-box).
-- På sitet: [Intro til SVG](/svg/).
+- [MDN: SVG som billede](https://developer.mozilla.org/en-US/docs/Web/SVG/Guides/SVG_as_an_image), [dataset](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/dataset) og [toggle](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/toggle_event).
+- På sitet: [Intro til SVG](/svg/) og [Custom properties](/css/custom-properties/).
 
 </Slide>
