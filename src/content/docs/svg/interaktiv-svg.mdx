@@ -1,10 +1,12 @@
 ---
 title: Interaktiv SVG med HTML og JavaScript
-description: Følg teknikken i svg.html fra details og summary til toggle, dataset og et spotlys, der flyttes med CSS.
+description: Få et klik på summary til at køre en funktion, og flyt din SVG-figur med use og translate. Afprøv hvert trin i CodePen.
 draft: false
-# Ret tekst og korte kodeudsnit ved den relevante Slide.
-# Det komplette, afprøvbare eksempel står direkte på slide 11 i html, css og js.
-# Opgave, hint og løsning står på slide 12. Undervisernoter ligger under dette-site/.
+# Ret forklaring og kode ved den relevante Slide.
+# De tre selvstændige CodePen-eksempler står på slide 4, 7 og 9.
+# HTML, CSS og JS i hvert eksempel bruges også til forhåndsvisning og kopiering.
+# Små opgaver, hint og løsninger står ved eksemplerne og på slide 10.
+# Undervisernoter: dette-site/interaktiv-svg-undervisernoter.mdx.
 sidebar:
   label: Interaktiv SVG
   order: 2
@@ -17,552 +19,536 @@ sidebar:
 import Slide from "../../../components/Slide.astro";
 import CodePenExample from "../../../components/CodePenExample.astro";
 
-{/* Slide 1: Retning og relevans */}
+{/* Slide 1: Fra klik til en figur, der flytter sig */}
 
 <Slide variant="paper" label="Tema 4 · HTML / JavaScript / SVG">
 
-## Fra åbnet tekst til flyttet spotlys
+## Flyt din figur med et klik
 
-I Hund i Snor-eksemplets [svg.html](https://peterulf.github.io/event-site-skabelon/svg.html) kan du åbne **Øl**, **Musik** eller **Merch**. Et spotlys i illustrationen følger dit valg.
+En besøgende klikker på **Scene**. Teksten foldes ud, og en figur i illustrationen flytter hen til scenen.
 
-Efter forløbet skal du kunne:
+Du bygger forbindelsen i tre trin:
 
-- forklare, hvad HTML, JavaScript og CSS hver bidrager med;
-- følge værdien fra et åbent tekstpunkt til SVG’ens `data-position`;
-- forbinde et nyt tekstpunkt med et nyt sted i illustrationen.
+1. Få et klik på `<summary>` til at køre en funktion.
+2. Flyt den del af SVG’en, du viser med `<use>`.
+3. Lad forskellige valg flytte figuren til forskellige steder.
 
 <div class="slide-takeaway">
 
-**Ca. 40 minutter inklusive øvelse.** Vi læser konkrete udsnit fra `svg.html`, `script.js` og `style.css` og afprøver et forenklet eksempel.
+**Ca. 35 minutter · små individuelle trin i CodePen.** Du bruger `querySelector`, `addEventListener`, funktioner og `.style` fra JavaScript-undervisningen. Til sidst kan du bruge samme fremgangsmåde med din egen figur.
 
 </div>
 
 </Slide>
 <div class="page-break"></div>
 
-{/* Slide 2: Samtale før forklaringen */}
-
-<Slide variant="paper" label="Samtale · En tekst og en illustration">
-
-## Sum: Hvad skal følges ad?
-
-<p class="slide-meta">
-  3 minutter · grupper på 3–5 · kun samtale, uden opslag, AI eller kodearbejde
-</p>
-
-Forestil jer koncertsiden i to situationer:
-
-| Brugeren gør dette                           | Siden skal vise dette                       |
-| -------------------------------------------- | ------------------------------------------- |
-| Åbner **Musik**                              | Tekst om musikken og et spotlys ved scenen. |
-| Lukker **Musik**, så alle punkter er lukkede | Ingen åben tekst og intet spotlys.          |
-
-**Hvilke oplysninger skal siden holde styr på, så tekst og illustration bliver ved med at passe sammen?**
-
-Lad alle komme med et bud. Vær klar til at dele én overvejelse; I behøver ikke kende koden endnu.
-
-</Slide>
-<div class="page-break"></div>
-
-{/* Slide 3: Fælles opsamling og overblik */}
-
-<Slide variant="paper" label="Opsamling · Følg ændringen">
-
-## Tre sprog samarbejder
-
-**Del to bud fra samtalen.** Sammenhold dem derefter med denne kæde:
-
-```text
-HTML: Et tekstpunkt åbnes eller lukkes
-                  ↓ toggle
-JavaScript: Find det åbne punkt, og læs data-position
-                  ↓ dataset.position
-SVG: Får fx data-position="second"
-                  ↓ CSS-selector
-CSS: Flyt og vis spotlyset
-```
-
-HTML styrer åbning og lukning. JavaScript overfører valget. CSS bestemmer, hvor spotlyset vises.
-
-**Når alt er lukket:** JavaScript fjerner SVG’ens `data-position`, og CSS skjuler spotlyset. Det løser samtalens anden situation.
-
-</Slide>
-<div class="page-break"></div>
-
-{/* Slide 4: HTML har åbne/lukke-funktionen indbygget */}
+{/* Slide 2: Det element, brugeren klikker på */}
 
 <Slide variant="paper" label="HTML · details og summary">
 
-## Browseren åbner og lukker teksten
-
-En **accordion** er en samling tekstafsnit, du kan folde ud. Her bygges den med `<details>` og `<summary>`:
+## Start med det, brugeren klikker på
 
 ```html
-<details
-  class="accordion-item"
-  id="details-first"
-  data-position="first"
-  name="fest"
->
-  <summary>Øl</summary>
-  <div>
-    <p>Her kan du købe alkoholfri øl.</p>
-  </div>
+<details>
+  <summary id="vaelg-scene">Scene</summary>
+  <p>Her kan du høre musikken.</p>
 </details>
+
+<p id="besked">Vælg et sted.</p>
 ```
 
-- `<summary>` er overskriften, du aktiverer med mus eller tastatur.
-- `<details>` får attributten `open`, når indholdet vises.
-- Alle tre punkter har `name="fest"`: **højst ét er åbent ad gangen**. Alle kan godt være lukkede.
+- `<details>` indeholder det afsnit, der kan åbnes og lukkes.
+- `<summary>` er den synlige overskrift, brugeren aktiverer.
+- `id="vaelg-scene"` gør det let at finde netop denne overskrift i JavaScript.
 
-JavaScript er altså ikke nødvendigt for at folde teksten ud. `open="false"` lukker heller ikke et punkt: Attributten skal fjernes.
-
-</Slide>
-<div class="page-break"></div>
-
-{/* Slide 5: Adskil navnene */}
-
-<Slide variant="paper" label="HTML · Navne med forskellige opgaver">
-
-## Hvad betyder de fire attributter?
-
-| Attribut på punktet Øl   | Opgave                                                    |
-| ------------------------ | --------------------------------------------------------- |
-| `class="accordion-item"` | Fælles klasse, så vi kan finde og style punkterne.        |
-| `id="details-first"`     | Unik identifikation af netop dette element.               |
-| `name="fest"`            | Grupperer punkterne, så browseren kun åbner ét ad gangen. |
-| `data-position="first"`  | Vores egen værdi, som skal forbindes med en position.     |
-
-På **Musik** bruges `id="details-second"` og `data-position="second"`. På **Merch** bruges `details-third` og `third`.
+**HTML klarer allerede åbning og lukning.** Nu skal det samme klik også ændre beskeden under afsnittet.
 
 <div class="slide-takeaway">
 
-`data-*` gemmer egne data på et element. **`first`, `second` og `third` er selvvalgte tekstværdier**; de er ikke koordinater og gør ikke noget af sig selv.
+`summary` ligger inde i `details`. Selectoren `details summary` finder en sådan overskrift; `#vaelg-scene` finder vores konkrete valg. Der skal ikke stå `details:summary`.
 
 </div>
 
 </Slide>
 <div class="page-break"></div>
 
-{/* Slide 6: SVG-grupper hentes fra en fil */}
+{/* Slide 3: Genbrug det kendte mønster fra JavaScript */}
 
-<Slide variant="paper" label="SVG · Genbrug dele med use">
+<Slide variant="paper" label="JavaScript · Vælg, lyt, reagér">
 
-## Én SVG-fil, tre dele på siden
+## Lad klikket køre en funktion
 
-`band.svg` indeholder grupper med id’erne `baggrund`, `logoer` og `spot`. Et `<use>` viser en genbrugt udgave af den valgte gruppe:
+```javascript
+document.querySelector("#vaelg-scene")
+  .addEventListener("click", vaelgScene);
+
+function vaelgScene() {
+  document.querySelector("#besked").textContent = "Du valgte scenen.";
+}
+```
+
+1. `querySelector()` finder overskriften med det rigtige id.
+2. `addEventListener("click", vaelgScene)` lytter efter klik og kalder funktionen.
+3. Funktionen finder **et andet element** og ændrer dets tekst.
+
+Skriv `vaelgScene` **uden `()` i listeneren**. Funktionen skal først køre ved klik. `vaelgScene()` ville kalde den med det samme.
+
+**I egne filer:** Placér `<script src="./js/script.js"></script>` lige før `</body>`, så elementerne findes, når scriptet kører. I CodePen skriver du kun JavaScript-koden i JS-panelet.
+
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 4: CodePen 1 – en synlig reaktion på summary */}
+
+<Slide variant="paper" label="CodePen 1 · Klik og se en reaktion">
+
+## Giv Indgang sin egen reaktion
+
+**4 minutter · individuelt.** Klik på Scene i eksemplet. Åbn derefter CodePen, og giv **Indgang** en listener og en funktion, som ændrer beskeden til `Du valgte indgangen.`
+
+<CodePenExample
+  title="Trin 1 – klik på summary"
+  layout="split"
+  height={220}
+  html={`
+    <details name="steder">
+      <summary id="vaelg-scene">Scene</summary>
+      <p>Her kan du høre musikken.</p>
+    </details>
+    <details name="steder">
+      <summary id="vaelg-indgang">Indgang</summary>
+      <p>Her begynder dit besøg.</p>
+    </details>
+    <p id="besked" aria-live="polite">Vælg et sted.</p>
+  `}
+  css={`
+    body { margin: 0; padding: 16px; font: 18px/1.5 system-ui, sans-serif; color: #18352e; background: #f7f5ef; }
+    details { border-bottom: 1px solid #9daea4; padding: 8px 0; }
+    summary { cursor: pointer; font-weight: 650; }
+    summary:focus-visible { outline: 3px solid #b53e25; outline-offset: 3px; }
+    p { margin: 8px 0; }
+    #besked { font-weight: 650; }
+  `}
+  js={`
+    document.querySelector("#vaelg-scene")
+      .addEventListener("click", vaelgScene);
+
+    function vaelgScene() {
+      document.querySelector("#besked").textContent = "Du valgte scenen.";
+    }
+  `}
+/>
+
+**Tjek:** Klik Scene → Indgang → Scene. Beskeden skal følge dit seneste valg. Prøv også Tab og Enter. Fælles `name="steder"` på de to `details` sørger for, at højst ét afsnit er åbent.
+
+<details>
+<summary>Hint</summary>
+
+Indgang har allerede id’et `vaelg-indgang`. Brug en ny funktion, fx `vaelgIndgang`, og lad begge funktioner ændre det samme element: `#besked`.
+
+</details>
+
+<details>
+<summary>Et løsningsforslag</summary>
+
+Tilføj dette i JS-panelet. Behold også koden til Scene:
+
+```javascript
+document.querySelector("#vaelg-indgang")
+  .addEventListener("click", vaelgIndgang);
+
+function vaelgIndgang() {
+  document.querySelector("#besked").textContent = "Du valgte indgangen.";
+}
+```
+
+</details>
+
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 5: Vælg den del af SVG'en, der skal flyttes */}
+
+<Slide variant="paper" label="SVG · Et håndtag på figuren">
+
+## Flyt figurens use-element
+
+Din SVG kan bestå af en baggrund og en figur. Giv delene hver sit id i SVG-filen, og vis dem med hver sit `<use>` i HTML:
 
 ```html
-<svg class="event-map" viewBox="0 0 1344 768">
-  <use class="scene" href="./SVG/band.svg#baggrund"></use>
-  <use class="logo" href="./SVG/band.svg#logoer"></use>
-  <use class="spot" href="./SVG/band.svg#spot"></use>
+<svg viewBox="0 0 600 300">
+  <use href="./svg/kort.svg#baggrund"></use>
+  <use class="figur" href="./svg/kort.svg#person"></use>
 </svg>
 ```
 
-`./SVG/band.svg` er filen. `#spot` peger på `id="spot"` i filen. Klassen `.spot` sidder på sidens `<use>`, som vi flytter og skjuler med CSS. Det sidste lag tegnes oven på de tidligere.
+| Del af koden | Det betyder den |
+| --- | --- |
+| `./svg/kort.svg` | Filen med tegningen. Brug din egen filsti og dens `viewBox`. |
+| `#person` | Den gruppe i filen, som har `id="person"`. |
+| `class="figur"` | Vores navn på det `<use>`, vi vil flytte med CSS og JavaScript. |
 
-**Praktisk:** Brug Live Server, og behold SVG-filen på samme website. Her er stierne gjort ens med `./`; originalens baggrund bruger `/SVG/…`, som starter fra domænets rod.
+**Styr `.figur` på siden.** Så flytter du hele den genbrugte figur samlet. Baggrundens `<use>` bliver stående.
 
-</Slide>
-<div class="page-break"></div>
-
-{/* Slide 7: DOM, const og querySelector */}
-
-<Slide variant="paper" label="JavaScript · Find elementerne">
-
-## Giv elementerne navne i JavaScript
-
-Browserens model af sidens elementer kaldes **DOM**. `document` giver adgang til den. `querySelector()` finder det første element, som passer til en CSS-selector:
-
-```javascript
-const eventMap = document.querySelector(".event-map");
-
-if (eventMap) {
-  const firstDetails = document.querySelector("#details-first");
-  const secondDetails = document.querySelector("#details-second");
-  const thirdDetails = document.querySelector("#details-third");
-  // Her kommer funktionen og de tre event listeners.
-}
-```
-
-`const` giver en værdi et fast navn; elementets attributter kan stadig ændres. Hvis SVG’en ikke findes, får vi `null` — ingen værdi. `if (eventMap)` sørger for kun at køre blokken på sider med SVG’en.
-
-I `svg.html` står `<script src="./script.js"></script>` lige før `</body>`. Derfor findes elementerne allerede, når denne kode kører.
+Figuren skal være adskilt fra baggrundsgruppen, så den ikke også vises som en fast del af baggrunden. Brug Live Server og en SVG-fil på samme website.
 
 </Slide>
 <div class="page-break"></div>
 
-{/* Slide 8: Samme funktion med direkte opslag og med const */}
+{/* Slide 6: Placering før interaktion */}
 
-<Slide variant="paper" label="JavaScript · Læs og overfør valget">
+<Slide variant="paper" label="CSS · Vandret og lodret">
 
-## Find det åbne punkt hver gang
-
-```javascript title="Uden const – find elementerne direkte"
-function updateSvgPosition() {
-  if (document.querySelector(".accordion-item[open]")) {
-    document.querySelector(".event-map").dataset.position =
-      document.querySelector(".accordion-item[open]").dataset.position;
-  } else {
-    delete document.querySelector(".event-map").dataset.position;
-  }
-}
-```
-
-```javascript title="Med const – gem elementerne under navne"
-function updateSvgPosition() {
-  const eventMap = document.querySelector(".event-map");
-  const openDetails = document.querySelector(".accordion-item[open]");
-  if (openDetails) {
-    eventMap.dataset.position = openDetails.dataset.position;
-  } else {
-    delete eventMap.dataset.position;
-  }
-}
-```
-
-To udgaver af samme **funktion** – brug kun én. Begge kopierer `data-position` fra det åbne punkt til SVG’en og fjerner attributten, når alle punkter lukkes.
-
-</Slide>
-<div class="page-break"></div>
-
-{/* Slide 9: toggle og starttilstand */}
-
-<Slide variant="paper" label="JavaScript · Reagér på en ændring">
-
-## Kør funktionen, når et punkt skifter tilstand
-
-En **event** er browserens besked om, at noget er sket. `toggle` kommer, når et `<details>` er åbnet eller lukket. En **event listener** lytter efter beskeden:
-
-```javascript
-firstDetails.addEventListener("toggle", updateSvgPosition);
-secondDetails.addEventListener("toggle", updateSvgPosition);
-thirdDetails.addEventListener("toggle", updateSvgPosition);
-
-updateSvgPosition();
-```
-
-De tre listeners står efter funktionen, stadig inde i `if (eventMap)`. Ved hvert skift finder funktionen det punkt, der **nu** er åbent; både åbning og lukning kan udløse den.
-
-**To skrivemåder:** Uden `()` afleverer vi funktionen til senere. Med `()` kører vi den med det samme.
-
-Det sidste kald er en lille tilføjelse til originalen: Det synkroniserer starttilstanden, også hvis et punkt har `open` fra begyndelsen.
-
-</Slide>
-<div class="page-break"></div>
-
-{/* Slide 10: CSS er slutningen af kæden */}
-
-<Slide variant="paper" label="CSS · Fra tekstværdi til position">
-
-## CSS flytter selve spotlyset
-
-Her er de relevante regler fra `style.css`, forkortet til position og synlighed:
+## Flyt figuren med translate
 
 <div class="slide-split">
 <div>
 
 ```css
-.event-map {
-  --z: 0;
-}
-.spot {
-  translate: var(--x) var(--y);
-  opacity: var(--z);
-  transition: 0.5s;
+.figur {
+  transform-box: view-box;
+  translate: 40% 0%;
 }
 ```
+
+`translate` forskyder figuren fra dens oprindelige placering. Første værdi er **vandret**, anden er **lodret**.
 
 </div>
 <div>
 
-```css
-.event-map[data-position="second"] {
-  --x: 34%;
-  --y: -2%;
-  --z: 1;
-}
-```
-
-Reglen matcher SVG’en, når JavaScript har skrevet `data-position="second"`.
+| Værdi | Flytning |
+| --- | --- |
+| `0% 0%` | Oprindelig placering |
+| `40% 0%` | Mod højre |
+| `0% 40%` | Nedad |
+| `40% -10%` | Mod højre og opad |
 
 </div>
 </div>
 
-De tre **custom properties** arves af `.spot`: `--x` og `--y` flytter vandret og lodret; `--z` bruges til gennemsigtighed, hvor **0 skjuler** og **1 viser**. Navnet `--z` er ikke en z-akse.
+`transform-box: view-box` får procentværdierne til at bruge SVG’ens `viewBox`: vandret i forhold til bredden, lodret i forhold til højden.
 
-Når attributten fjernes, gælder `--z: 0` igen. Demoen på næste slide giver også `--x` og `--y` startværdien `0%`, så de altid har en værdi.
+I en `viewBox="0 0 600 300"` er **40 % vandret = 240 enheder** og **40 % lodret = 120 enheder**. Flytningen skalerer sammen med tegningen.
+
+<div class="slide-takeaway">
+
+Værdierne er en **forskydning fra figurens udgangspunkt**. `40% 0%` flytter ikke figuren 40 % længere for hvert klik.
+
+</div>
 
 </Slide>
 <div class="page-break"></div>
 
-{/* Slide 11: Samlet afprøvbart eksempel – al kode vedligeholdes her */}
+{/* Slide 7: CodePen 2 – afprøv position uden JavaScript */}
 
-<Slide variant="paper" label="Afprøv · Hele forbindelsen">
+<Slide variant="paper" label="CodePen 2 · Find positionerne">
 
-## Åbn, skift og luk igen
+## Flyt figuren ved at rette CSS
 
-Prøv **Øl → Musik → Merch → luk Merch**. Prøv også Tab og Enter. Tekst og spot skal følges ad, og spottet skal forsvinde, når alt er lukket.
+**4 minutter · individuelt.** Åbn CodePen. Ret kun `translate` i `.figur`: Flyt først personen til **Scene**, derefter til **Café**, og til sidst tilbage til **Indgang**.
 
 <CodePenExample
-  title="Interaktiv SVG – details, toggle og dataset"
+  title="Trin 2 – flyt et use-element med CSS"
   layout="split"
-  height={350}
+  height={250}
   html={`
-    <svg class="event-map" viewBox="0 0 600 240"
-         role="img" aria-label="Skematisk koncertkort: Øl, Musik og Merch øverst. Info nederst.">
+    <svg viewBox="0 0 600 300" role="img"
+         aria-label="Øvelseskort med Indgang øverst til venstre, Scene øverst i midten og Café nederst i midten.">
       <defs>
-        <g id="spot">
-          <circle cx="60" cy="55" r="42" fill="none"
-                  stroke="#b53e25" stroke-width="5"></circle>
+        <g id="person" fill="#b53e25" stroke="#18352e" stroke-width="3">
+          <circle cx="60" cy="67" r="13"></circle>
+          <rect x="47" y="83" width="26" height="27" rx="7"></rect>
+          <path d="M53 110v10 M67 110v10" fill="none" stroke-width="6"></path>
         </g>
       </defs>
-      <rect width="600" height="240" rx="12" fill="#e8eee8"></rect>
-      <g fill="#18352e" text-anchor="middle" font-size="22">
-        <text x="60" y="63">Øl</text>
-        <text x="300" y="63">Musik</text>
-        <text x="540" y="63">Merch</text>
-        <text x="300" y="183">Info</text>
+      <rect width="600" height="300" rx="12" fill="#e8eee8"></rect>
+      <path d="M60 120H300V240" fill="none" stroke="#9daea4" stroke-width="6" stroke-dasharray="8 8"></path>
+      <g fill="#fffdf8" stroke="#496055" stroke-width="2">
+        <ellipse cx="60" cy="120" rx="36" ry="9"></ellipse>
+        <ellipse cx="300" cy="120" rx="36" ry="9"></ellipse>
+        <ellipse cx="300" cy="240" rx="36" ry="9"></ellipse>
       </g>
-      <use class="spot" href="#spot"></use>
+      <g fill="#18352e" text-anchor="middle" font-family="system-ui, sans-serif" font-size="22">
+        <text x="60" y="155">Indgang</text>
+        <text x="300" y="155">Scene</text>
+        <text x="300" y="275">Café</text>
+      </g>
+      <use class="figur" href="#person"></use>
     </svg>
+  `}
+  css={`
+    body { margin: 0; padding: 12px; background: #f7f5ef; }
+    svg { display: block; width: 100%; max-height: 220px; }
 
-    <div class="accordion">
-      <details class="accordion-item" id="details-first" data-position="first" name="fest">
-        <summary>Øl</summary>
-        <p>Her kan du købe alkoholfri øl.</p>
-      </details>
-      <details class="accordion-item" id="details-second" data-position="second" name="fest">
-        <summary>Musik</summary>
-        <p>Her står scenen. Husk ørepropper.</p>
-      </details>
-      <details class="accordion-item" id="details-third" data-position="third" name="fest">
-        <summary>Merch</summary>
-        <p>Her kan du se bandets merchandise.</p>
-      </details>
-    </div>
-
-`}
-  css={` \* { box-sizing: border-box; }
-body {
-margin: 0;
-padding: 12px;
-font: 16px/1.4 system-ui, sans-serif;
-color: #18352e;
-background: #f7f5ef;
-}
-.event-map {
-display: block;
-width: 100%;
-max-height: 170px;
---x: 0%;
---y: 0%;
---z: 0;
-}
-.spot {
-transform-box: view-box;
-translate: var(--x) var(--y);
-opacity: var(--z);
-transition: translate 0.5s, opacity 0.5s;
-}
-.event-map[data-position="first"] {
---x: 0%; --y: 0%; --z: 1;
-}
-.event-map[data-position="second"] {
---x: 40%; --y: 0%; --z: 1;
-}
-.event-map[data-position="third"] {
---x: 80%; --y: 0%; --z: 1;
-}
-.accordion { margin-top: 12px; }
-.accordion-item { border-bottom: 1px solid #9daea4; }
-summary { padding: 6px; cursor: pointer; font-weight: 600; }
-summary:focus-visible { outline: 3px solid #b53e25; outline-offset: 2px; }
-p { margin: 4px 6px 8px; }
-@media (prefers-reduced-motion: reduce) {
-.spot { transition: none; }
-}
-`}
-  js={`
-const eventMap = document.querySelector(".event-map");
-
-    if (eventMap) {
-      const firstDetails = document.querySelector("#details-first");
-      const secondDetails = document.querySelector("#details-second");
-      const thirdDetails = document.querySelector("#details-third");
-
-      function updateSvgPosition() {
-        const openDetails = document.querySelector(".accordion-item[open]");
-        if (openDetails) {
-          eventMap.dataset.position = openDetails.dataset.position;
-        } else {
-          delete eventMap.dataset.position;
-        }
-      }
-
-      firstDetails.addEventListener("toggle", updateSvgPosition);
-      secondDetails.addEventListener("toggle", updateSvgPosition);
-      thirdDetails.addEventListener("toggle", updateSvgPosition);
-
-      updateSvgPosition();
+    .figur {
+      transform-box: view-box;
+      translate: 0% 0%;
     }
-
-`}
+  `}
 />
 
-**Skematisk illustration til øvelsen.** Her ligger `spot` i `<defs>` i samme SVG, så `href="#spot"` virker uden en ekstern fil. `<defs>` gemmer figuren til genbrug. Originalen henter den fra `band.svg`. Principperne er de samme; koordinaterne er tilpasset denne tegning.
+**Tjek:** Kun personen flytter sig; tekst og baggrund bliver stående. Gør resultatvinduet smallere: Personen skal stadig stå ved samme sted.
+
+<details>
+<summary>Hint</summary>
+
+Scene ligger 240 enheder til højre for Indgang. Café ligger også 240 enheder til højre, men yderligere 120 enheder nede. Brug bredden 600 og højden 300, når du regner om til procent.
+
+</details>
+
+<details>
+<summary>Se positionerne</summary>
+
+- Scene: `translate: 40% 0%;`
+- Café: `translate: 40% 40%;`
+- Indgang: `translate: 0% 0%;`
+
+Erstat værdien i samme CSS-regel hver gang. Alle positioner regnes fra figurens oprindelige placering ved Indgang, også når du lige har haft den stående ved Scene.
+
+</details>
 
 </Slide>
 <div class="page-break"></div>
 
-{/* Slide 12: Anvendelse med et nyt punkt og en ændret starttilstand */}
+{/* Slide 8: Kombinér de to afprøvede greb */}
 
-<Slide variant="paper" label="Øvelse · Tilføj Info">
+<Slide variant="paper" label="JavaScript + CSS · Klik flytter figuren">
 
-## Forbind et fjerde sted
+## Skift position inde i funktionen
 
-<p class="slide-meta">
-  8 minutter · individuelt · brug demoens kode i CodePen eller egne filer
-</p>
-
-**Mål:** Forbind **Info** nederst på kortet med et fjerde valg. Lad **Musik være åbent fra start**.
-
-<div class="slide-split">
-<div>
-
-1. Tilføj et `<details>` med tekst, eget id, `data-position` med værdien `fourth` og samme `name` som de andre.
-2. Find elementet i JavaScript, og tilføj en `toggle`-listener til funktionen.
-3. Tilføj CSS til `fourth`: Flyt spottet **40 % til højre og 50 % ned**, så det rammer Info.
-4. Sæt `open` på Musik, og genindlæs.
-
-Vis resultatet til sidemanden, og forklar forbindelsen.
-
-</div>
-<div>
-
-| Feedback                   | Kendetegn                                                                            |
-| -------------------------- | ------------------------------------------------------------------------------------ |
-| **Godt nok**               | Musik markeres fra start; Info åbner alene og får spottet; fuld lukning skjuler det. |
-| **Et virkeligt godt svar** | Du forklarer kæden og tester tastatur samt skift tilbage til de gamle punkter.       |
-| **For lidt endnu**         | Teksten åbner, men spottet følger ikke med. Find det manglende led.                  |
-
-</div>
-</div>
-
-<div class="slide-split">
-<div>
-<details>
-<summary>Vis hint</summary>
-
-Brug de samme byggeklodser som til `third`. Det nye id skal være unikt, mens `name="fest"` og `class="accordion-item"` skal bevares. Funktionen skal stadig finde det åbne punkt, så den behøver ingen ny `if`-gren.
-
-Musiks `open` og det afsluttende `updateSvgPosition()` giver en tydelig starttilstand. I lokale filer skal CSS forbindes i `<head>`, og scriptet skal stå før `</body>`.
-
-**Koordinaterne bag flytningen:** Demoens `transform-box: view-box` lader procentflytning bruge bredden 600 og højden 240. 40 % vandret er 240 enheder; 50 % lodret er 120 enheder. Spottets centrum flyttes dermed fra `(60, 55)` til Info ved `(300, 175)`.
-
-</details>
-</div>
-<div>
-
-<details>
-<summary>Vis et løsningsforslag</summary>
-
-Tilføj dette efter Merch inde i `.accordion`:
-
-```html
-<details
-  class="accordion-item"
-  id="details-fourth"
-  data-position="fourth"
-  name="fest"
->
-  <summary>Info</summary>
-  <p>Her kan du få hjælp og finde glemte sager.</p>
-</details>
-```
-
-Tilføj `open` på Musiks eksisterende starttag:
-
-```html
-<details
-  class="accordion-item"
-  id="details-second"
-  data-position="second"
-  name="fest"
-  open
-></details>
-```
-
-Tilføj de to linjer inde i `if (eventMap)`, før det afsluttende funktionskald:
+Nu skal klikket gøre det, du lige gjorde manuelt i CSS:
 
 ```javascript
-const fourthDetails = document.querySelector("#details-fourth");
-fourthDetails.addEventListener("toggle", updateSvgPosition);
-```
+document.querySelector("#vaelg-scene")
+  .addEventListener("click", gaaTilScene);
 
-Tilføj CSS-reglen:
-
-```css
-.event-map[data-position="fourth"] {
-  --x: 40%;
-  --y: 50%;
-  --z: 1;
+function gaaTilScene() {
+  document.querySelector(".figur").style.translate = "40% 0%";
 }
 ```
 
-Funktionen kan allerede kopiere værdien `fourth`. Flytningen er 240 enheder til højre og 120 ned. Genindlæs, åbn Info, gå tilbage til Øl og luk Øl: Startmarkering, nyt valg, gammelt valg og nulstilling skal alle virke.
+- `#vaelg-scene` er den `summary`, brugeren klikker på.
+- `.figur` finder det `<use>`, der skal flyttes.
+- `.style.translate` sætter CSS-egenskaben `translate` på elementet. Begge værdier står i **samme tekststreng**.
+
+Behold `transform-box: view-box` i CSS. JavaScript ændrer kun forskydningen.
+
+<div class="slide-takeaway">
+
+**Klik → funktion → ny forskydning.** Klikker du på Scene igen for at lukke teksten, kører funktionen igen. Figuren bliver ved scenen. Den følger det seneste klik.
+
+</div>
+
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 9: CodePen 3 – et lille udgangspunkt at bygge videre på */}
+
+<Slide variant="paper" label="CodePen 3 · Forbind valg og placering">
+
+## To valg virker – byg det tredje
+
+Prøv **Scene → Indgang → Scene**. Åbn eksemplet i CodePen, og find de to listeners og de to funktioner i JS-panelet. **Café har endnu ingen listener.**
+
+<CodePenExample
+  title="Trin 3 – flyt figuren ved klik på summary"
+  layout="split"
+  height={440}
+  html={`
+    <svg viewBox="0 0 600 300" role="img"
+         aria-label="Øvelseskort med Indgang øverst til venstre, Scene øverst i midten og Café nederst i midten. Figurens aktuelle sted står under kortet.">
+      <defs>
+        <g id="person" fill="#b53e25" stroke="#18352e" stroke-width="3">
+          <circle cx="60" cy="67" r="13"></circle>
+          <rect x="47" y="83" width="26" height="27" rx="7"></rect>
+          <path d="M53 110v10 M67 110v10" fill="none" stroke-width="6"></path>
+        </g>
+      </defs>
+      <rect width="600" height="300" rx="12" fill="#e8eee8"></rect>
+      <path d="M60 120H300V240" fill="none" stroke="#9daea4" stroke-width="6" stroke-dasharray="8 8"></path>
+      <g fill="#fffdf8" stroke="#496055" stroke-width="2">
+        <ellipse cx="60" cy="120" rx="36" ry="9"></ellipse>
+        <ellipse cx="300" cy="120" rx="36" ry="9"></ellipse>
+        <ellipse cx="300" cy="240" rx="36" ry="9"></ellipse>
+      </g>
+      <g fill="#18352e" text-anchor="middle" font-family="system-ui, sans-serif" font-size="22">
+        <text x="60" y="155">Indgang</text>
+        <text x="300" y="155">Scene</text>
+        <text x="300" y="275">Café</text>
+      </g>
+      <use class="figur" href="#person"></use>
+    </svg>
+    <p id="besked" aria-live="polite">Figuren står ved indgangen.</p>
+
+    <details name="steder">
+      <summary id="vaelg-indgang">Indgang</summary>
+      <p>Her begynder dit besøg.</p>
+    </details>
+    <details name="steder">
+      <summary id="vaelg-scene">Scene</summary>
+      <p>Her kan du høre musikken.</p>
+    </details>
+    <details name="steder">
+      <summary id="vaelg-cafe">Café</summary>
+      <p>Her kan du holde en pause. Forbind selv dette valg med figuren.</p>
+    </details>
+  `}
+  css={`
+    body { margin: 0; padding: 12px; font: 16px/1.4 system-ui, sans-serif; color: #18352e; background: #f7f5ef; }
+    svg { display: block; width: 100%; max-height: 220px; }
+    details { border-bottom: 1px solid #9daea4; padding: 7px 0; }
+    summary { cursor: pointer; font-weight: 650; }
+    summary:focus-visible { outline: 3px solid #b53e25; outline-offset: 3px; }
+    p { margin: 8px 0; }
+
+    .figur {
+      transform-box: view-box;
+      translate: 0% 0%;
+    }
+  `}
+  js={`
+    document.querySelector("#vaelg-scene")
+      .addEventListener("click", gaaTilScene);
+    document.querySelector("#vaelg-indgang")
+      .addEventListener("click", gaaTilIndgang);
+
+    function gaaTilScene() {
+      document.querySelector(".figur").style.translate = "40% 0%";
+      document.querySelector("#besked").textContent = "Figuren står ved scenen.";
+    }
+
+    function gaaTilIndgang() {
+      document.querySelector(".figur").style.translate = "0% 0%";
+      document.querySelector("#besked").textContent = "Figuren står ved indgangen.";
+    }
+  `}
+/>
+
+**Skematisk øvelseskort.** I CodePen gemmes personen i `<defs>` i samme SVG, så `href="#person"` virker uden ekstra filer. `<defs>` viser ikke selv figuren; det gør `<use>`. I dit projekt kan `href` i stedet pege på din SVG-fil.
+
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 10: Udvid forbindelsen med en lodret flytning */}
+
+<Slide variant="paper" label="Byg videre · Ét nyt sted">
+
+## Få figuren til at gå til Café
+
+**5 minutter · individuelt · fortsæt i CodePen 3.** Café ligger på en anden række. Forbind valget med den rigtige forskydning i begge retninger.
+
+1. Find Cafés `summary` i HTML, og brug dens id i en ny `click`-listener.
+2. Opret funktionen `gaaTilCafe`, og sæt figurens `translate`.
+3. Lad funktionen også ændre `#besked` til `Figuren står ved caféen.`
+4. Afprøv **Café → Scene → Indgang → Café → luk Café**.
+
+**Det virker, når:** Figuren rammer alle tre steder, beskeden passer, og kun teksten lukker ved sidste klik. Prøv også rækkefølgen med Tab og Enter og i et smalt resultatvindue.
+
+<details>
+<summary>Hint</summary>
+
+Brug `#vaelg-cafe` til klikket og `.figur` til flytningen. Du fandt Café-positionen i CodePen 2. De to procenttal regnes stadig fra Indgang, uanset hvor figuren står nu.
 
 </details>
-</div>
+
+<details>
+<summary>Et løsningsforslag</summary>
+
+Tilføj koden i JS-panelet, og behold de to eksisterende forbindelser:
+
+```javascript
+document.querySelector("#vaelg-cafe")
+  .addEventListener("click", gaaTilCafe);
+
+function gaaTilCafe() {
+  document.querySelector(".figur").style.translate = "40% 40%";
+  document.querySelector("#besked").textContent = "Figuren står ved caféen.";
+}
+```
+
+Den første værdi flytter personen 240 enheder til højre; den anden flytter personen 120 enheder ned. Ved gentagne klik bliver personen samme sted.
+
+</details>
+
+<div class="slide-takeaway">
+
+**Videre, når det virker:** Forklar, hvilket element der modtager klikket, og hvilket der flyttes. Hvis kun teksten åbner, så kontrollér listenerens selector og funktionsnavn først.
+
 </div>
 
 </Slide>
 <div class="page-break"></div>
 
-{/* Slide 13: Kontrol og forbedring */}
+{/* Slide 11: En kort, valgfri forbedring af bevægelsen */}
 
-<Slide variant="paper" label="Afprøv · Find det manglende led">
+<Slide variant="paper" label="CSS · Fra spring til bevægelse">
 
-## Test kæden, ét led ad gangen
+## Lad figuren glide til sin plads
 
-<p class="slide-meta">
-  3 minutter · to og to · vis jeres arbejde, og ret én eventuel fejl
-</p>
+Tilføj `transition` til din eksisterende `.figur`-regel i CodePen 3:
 
-Test **genindlæs → Info → Øl → luk Øl** med mus og derefter tastatur. Sammenlign med kriterierne på opgavesliden.
+```css
+.figur {
+  transform-box: view-box;
+  translate: 0% 0%;
+  transition: translate 0.5s;
+}
 
-| Det, I ser                                  | Det næste sted at kigge                                                           |
-| ------------------------------------------- | --------------------------------------------------------------------------------- |
-| Flere tekstpunkter kan stå åbne             | Har de præcis samme `name`?                                                       |
-| SVG’en får ingen `data-position`            | Kontrollér id, selector og `toggle`-listener. Se efter fejl i browserens Console. |
-| SVG’en får `fourth`, men spottet vises ikke | Matcher CSS værdien `fourth`, og sættes `--z: 1`?                                 |
-| Spottet bliver stående, når alt lukkes      | Fjernes attributten i `else`, og er grundværdien `--z: 0`?                        |
+@media (prefers-reduced-motion: reduce) {
+  .figur { transition: none; }
+}
+```
 
-Højreklik på illustrationen, vælg **Inspect/Undersøg**, og find `<svg class="event-map">`. Hold øje med `data-position`, mens I skifter punkt.
+`transition` laver overgangen mellem den gamle og den nye værdi. `0.5s` betyder et halvt sekund. JavaScript-funktionerne er de samme.
 
-**Hurtigt færdig?** Flyt Info op før Øl i HTML. Forudsig og afprøv, om forbindelsen stadig virker uden ændringer i JavaScript og CSS. Begrund hvorfor.
+**Prøv:** Skift mellem Indgang, Scene og Café. Ændr tiden til `1s`, og sammenlign. Figuren bevæger sig direkte mellem stederne; den følger ikke automatisk den tegnede sti.
+
+Medieforespørgslen slår overgangen fra for brugere, der har valgt mindre bevægelse på deres enhed.
 
 </Slide>
 <div class="page-break"></div>
 
-{/* Slide 14: Afslutning og kilder */}
+{/* Slide 12: Overfør metoden til deres egen SVG */}
 
-<Slide variant="paper" label="Opsamling · Fra valg til visning">
+<Slide variant="paper" label="Dit projekt · Samme greb, din egen tegning">
 
-## Kan du forklare hele vejen?
+## Brug din egen figur og dine egne steder
 
-Afslut denne forklaring til din sidemand:
+1. **Find figurens `<use>`.** Giv det fx `class="figur"`. Bevar din egen filsti, figurens id og SVG’ens `viewBox`.
+2. **Find positionerne i CSS.** Afprøv `translate` med `transform-box: view-box`, ét sted ad gangen. Notér værdierne, og sæt derefter startpositionen tilbage.
+3. **Giv hver `summary` et unikt id.** Forbind hvert valg med en listener og en navngiven funktion.
+4. **Sæt positionen i funktionen.** Brug de værdier, du fandt til netop dit kort, og afprøv skift frem og tilbage.
 
-> Når jeg åbner Info, får dets `<details>` … Browseren sender … Funktionen finder … Den kopierer … Derfor matcher CSS …
+<div class="slide-takeaway">
 
-**Tilbage til summeøvelsen:** Den åbne tekst er udgangspunktet. Vi kopierer dens værdi til SVG’en og fjerner værdien igen, når alle punkter lukkes.
+Din figur kan starte et andet sted end vores. **Procentværdierne skal derfor findes til din tegning.** Start med to steder, og udvid, når forbindelsen virker.
+
+</div>
+
+Hver ny værdi sættes fra figurens oprindelige placering. Skal den tilbage ved genindlæsning, bestemmes udgangspunktet af din CSS.
+
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 13: Fejlsøgning og faglige kilder */}
+
+<Slide variant="paper" label="Husk · Klik, funktion, flytning">
+
+## Find det led, der mangler
+
+| Det, du ser | Kontrollér dette |
+| --- | --- |
+| Teksten åbner, men funktionen reagerer ikke | Matcher `summary`-id, selector og funktionsnavn? Er scriptet indlæst? Se også Console. |
+| Hele kortet flytter sig | Vælger `.figur` dit `<use>` og ikke hele `<svg>`? |
+| Figuren flytter forkert | Er rækkefølgen vandret/lodret? Har `.figur` `transform-box: view-box`? |
+| Rettelser i CSS virker ikke efter et klik | `.style.translate` har sat en værdi direkte på elementet, som overstyrer CSS-reglen. Genindlæs eller ret værdien i funktionen. |
+
+**Husk forbindelsen:** Du vælger en `summary`, lytter efter `click` og lader en funktion ændre `translate` på figurens `<use>`.
 
 ### Kilder og videre læsning
 
-- [HTML Standard: details, name, open og toggle](https://html.spec.whatwg.org/multipage/interactive-elements.html#the-details-element).
-- [DOM Standard: querySelector](https://dom.spec.whatwg.org/#dom-parentnode-queryselector) og [HTML Standard: data-attributter og dataset](https://html.spec.whatwg.org/multipage/dom.html#dom-dataset).
-- [SVG 2: use og genbrug af grafik](https://svgwg.org/svg2-draft/struct.html#UseElement) og [CSS Transforms: translate](https://www.w3.org/TR/css-transforms-2/#individual-transforms).
-- På sitet: [Intro til SVG](/svg/) og [Custom properties](/css/custom-properties/).
+- [HTML Standard: details og summary](https://html.spec.whatwg.org/multipage/interactive-elements.html#the-details-element) · [MDN: addEventListener](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener).
+- [SVG 2: use](https://svgwg.org/svg2-draft/struct.html#UseElement) · [CSS Transforms: translate](https://www.w3.org/TR/css-transforms-2/#individual-transforms) og [transform-box](https://www.w3.org/TR/css-transforms-1/#transform-box).
+- På sitet: [Intro til SVG](/svg/).
 
 </Slide>
