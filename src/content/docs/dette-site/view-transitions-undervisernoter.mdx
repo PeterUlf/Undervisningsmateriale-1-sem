@@ -9,7 +9,7 @@ sidebar:
 
 # View Transitions – undervisernoter
 
-[Åbn forløbet](/draft/css/view-transitions/). Omfang: cirka 30 minutter. Fokus er native cross-document View Transitions mellem to almindelige HTML-dokumenter. Eksemplet er en tænkt projektoversigt.
+[Åbn forløbet](/draft/css/view-transitions/). Omfang: cirka 30 minutter inklusive kopiering og afprøvning. Fokus er native cross-document View Transitions mellem to almindelige HTML-dokumenter. Eksemplet er en tænkt portfolio med plakaten FORM. Den røde plakat med en gul cirkel er lavet i CSS uden eksterne billedfiler.
 
 ## Forkundskaber og afgrænsning
 
@@ -19,24 +19,27 @@ sidebar:
 - `javascript/index.mdx`: Tema 4, kladde; regnes ikke som gennemgået. JavaScript er derfor ikke nødvendigt i opgaven. Same-document-metoden nævnes kun for at skelne de to anvendelser.
 - Parallax er ikke en forudsætning. `view()` har en anden funktion end View Transitions.
 
-Alle redigerbare eksempler står i undervisningsfilen. HTML står på slide 6 og fuld CSS på slide 11. Der bruges to lokale HTML-sider frem for en enkelt CodePen, fordi læringsmålet er navigation mellem dokumenter. Hav editor og Live Server klar før forløbet.
+Alle redigerbare eksempler står i undervisningsfilen. Slide 5 (trin 1) indeholder begge HTML-filer og al grund-CSS. Slide 6–9 tilføjer én CSS-regel ad gangen. Slide 10 (trin 6) ændrer varigheden og indeholder en samlet slutversion til kontrol. Hold den samlede CSS i sync med de enkelte trin. Der bruges to lokale HTML-sider frem for en enkelt CodePen, fordi læringsmålet er navigation mellem dokumenter. Hav editor og Live Server klar før forløbet.
 
 ## Tidsplan
 
 | Del | Tid |
 | --- | --- |
-| Slide 1: Retning | 1 minut |
-| Slide 2: Samtale | 3 minutter |
-| Slide 3: To bud og begrundelser | 1 minut |
-| Slide 4–10: Forklaring af de enkelte dele | 9 minutter |
-| Slide 11: Fælles afprøvning | 4 minutter |
-| Slide 12: Tilpasning i par | 8 minutter |
-| Slide 13: Vurdering og forbedring | 3 minutter |
-| Slide 14: Individuel afslutning | 1 minut |
+| Slide 1: TLDR | 2 minutter |
+| Slide 2–3: Grundprincip og afgrænsning | 3 minutter |
+| Slide 4–5: Clone repo, kopiér startkode, og test begge links | 5 minutter |
+| Slide 6–10: Byg, observer og forklar trin for trin | 8 minutter |
+| Slide 11: Tilpasning i par | 8 minutter |
+| Slide 12: Vurdering og forbedring | 3 minutter |
+| Slide 13: Individuel afslutning | 1 minut |
 
 ## Pædagogiske valg
 
-Samtalen handler om at genkende et projekt efter navigation. Spørg fx: Hvad ville I bevare, hvis layoutet ændrer sig meget? Hvornår bliver en langsom overgang en hindring? Kobl de faktiske bud til navngivne elementer uden at foregive bestemte svar.
+De tidligere summe- og opsamlingsslides er fjernet efter Peters ønske. Forløbet går direkte fra TLDR og begrebsafklaring til et guidet kodeeksempel.
+
+Hvert trin siger, hvor koden indsættes, hvad der skal afprøves, hvad man forventer at se, og hvorfor det sker. Startkoden giver et færdigt layout uden overgange, så crossfade og navngivet bevægelse kan sammenlignes med udgangspunktet. Plakatens forskellige størrelse og placering synliggør matchningen. Samme proportioner på begge sider gør bevægelsen lettere at aflæse. På et smalt vindue bliver den vandrette flytning mindre; størrelsesændringen er stadig synlig.
+
+Trin 4 bruger 1200ms for at gøre animationen let at observere. Trin 6 erstatter værdien med 400ms. Lad de studerende klikke i begge retninger efter hvert trin. Brug ikke genindlæsning som afprøvning af navigationen. Før trin 5 indeholder eksemplet ingen regel for reduceret bevægelse; aftal med holdet at gå direkte til trin 5, hvis nogen har brug for at undgå bevægelsen.
 
 Øvelsen genbruger navngivning og gruppens varighed. Den ændrer antallet af selvstændige elementer fra ét til to med forskellige varigheder. De studerende skal vælge en særskilt identitet og målrette den rigtige gruppe; det er mere end en kosmetisk ændring. Hint og løsning er lukkede fra start. Kriterierne er undervisningsfeedback, ikke eksamenskrav.
 
@@ -59,3 +62,4 @@ Dokumentationen blev gennemgået 16. november 2026. MDN markerer stadig `@view-t
 - [MDN: Using the View Transition API](https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API/Using)
 - [MDN: @view-transition](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@view-transition)
 - [MDN: view-transition-name](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/view-transition-name)
+- [MDN: ::view-transition-group()](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Selectors/::view-transition-group)
