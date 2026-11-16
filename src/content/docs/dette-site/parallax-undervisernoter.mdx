@@ -1,0 +1,45 @@
+---
+title: Parallax – undervisernoter
+description: Grundlag og kort plan for parallax i tema 4.
+draft: true
+pagefind: false
+sidebar:
+  hidden: true
+---
+
+# Parallax – undervisernoter
+
+Materiale: [Parallax](/draft/css/parallax/). Grundlag: `powerpoints brugt som grundlag/Parallax.pdf`, især side 1–3. Det oprindelige eksempel er suppleret med eksplicit rammehøjde, billedtilpasning, keyframes, browserfallback og reduceret bevægelse.
+
+## Forkundskaber
+
+- `css/intro.mdx`: Tema 2, udgivet. CSS-selectorer, egenskaber og værdier.
+- `css/animationer.mdx`: Tema 4, udgivet. Keyframes og animation. Begreberne genopfriskes, da gennemgået stof ikke nødvendigvis mestres sikkert.
+- Scroll-tidslinjer fra tema 5 forudsættes ikke kendt. `view()` og `animation-range` forklares her.
+
+## Plan – cirka 20 minutter
+
+- Slide 1–2: Retning, 2 minutters samtale i grupper på 3–5 og kort opsamling, 4 minutter.
+- Slide 3–10: Gennemgang af ét element ad gangen, 8 minutter.
+- Slide 11–12: Åbn lokalt eksempel, tilpas interval, afprøv og forbedr, 7 minutter.
+- Slide 13: Individuel forklaring og opsamling, 1 minut.
+
+Hav et lokalt eksempel og et billede klar. Hvis de studerende ikke allerede har en editor og Live Server klar, afsættes ekstra tid til opsætning. Den korte aktivitet kræver kun ændring af intervallet; opsætning er ikke læringsmålet.
+
+## Opsamling og misforståelser
+
+Efter samtalen: Hvad sker der, hvis billedet er præcis lige så højt som hullet? Hvor skal det ekstra billedareal være, når vi flytter opad? Forbind de studerendes bud med ramme og billedhøjde uden at forudsætte bestemte svar.
+
+- `height: 300%` måles i forhold til rammens bestemte højde. `translateY(-50%)` måles i forhold til billedets egen boks. Derfor dækker billedet stadig rammen i eksemplet.
+- `view()` sidder på billedet og følger dets boks, ikke rammens passage. En ændring af billedhøjden ændrer derfor også tidslinjens geometri.
+- `animation-range: 0% 60%` er ikke 60 % af hele dokumentets scroll.
+- `animation-timeline` og `animation-range` placeres efter `animation`, så shorthand-reglen ikke nulstiller dem.
+- Hvis intet bevæger sig: kontrollér browserstøtte, reduceret bevægelse, filstier og plads til scroll.
+
+Øvelsen skelner mellem afstand og forløb: keyframes holdes faste, mens intervallet ændres. Kriterierne er undervisningsfeedback, ikke eksamenskrav. Hint og løsning starter lukkede. AI-hjælp er udeladt, da direkte forudsigelse og afprøvning er tilstrækkelig til denne korte opgave.
+
+## Kilder
+
+- `powerpoints brugt som grundlag/Parallax.pdf`
+- [MDN: animation-timeline](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/animation-timeline)
+- [MDN: animation-range](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/animation-range)

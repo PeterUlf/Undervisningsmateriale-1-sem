@@ -1,4 +1,4 @@
-/* Scoped to this lesson, including the site's slideshow and print copies. */
+/* Shared by PopoverSlide and Slide variant="lesson", including slideshow and print copies. */
 .popover-slide {
   --pl-ink: #18352e;
   --pl-green: #185a46;
@@ -58,6 +58,12 @@
   .popover-slide .pl-table { display: block; overflow-x: auto; }
 }
 @media screen {
+  /* Tæl kun slides, så page-break og andet indhold ikke forskyder farverne.
+     Slideshowet får samme rækkefølge, selv om det kopierer slidens indhold. */
+  .slide:nth-child(even of .slide) > .popover-slide,
+  .slide-wrapper:nth-child(even of .slide-wrapper) > .generated-slide > .popover-slide {
+    --pl-paper: #e9eee5;
+  }
   body:has(.popover-slide) #presentation-dialog { background: #e5e8df; }
   body:has(.popover-slide) #presentation-dialog .generated-slide { max-width: 1440px; min-height: 0; padding: clamp(1rem, 2.5vw, 2.5rem); animation: none; }
   #presentation-dialog .popover-slide { min-height: min(620px, calc(100dvh - 10rem)); margin: 0; padding: clamp(1.25rem, 2.4vw, 2.5rem); }

@@ -1,6 +1,6 @@
 ---
 title: CSS Animationer
-draft: true
+draft: false
 description: Lær at lave animationer med CSS keyframes
 
 sidebar:
@@ -14,22 +14,80 @@ sidebar:
 
 import Slide from "../../../components/Slide.astro";
 
-<Slide>
+{/* Slide 1: TL;DR */}
 
-## Hvad er en CSS animation?
+<Slide variant="lesson" label="Tema 4 · CSS · TLDR">
 
-CSS animationer gør det muligt at skabe bevægelse og liv på dine websider uden JavaScript. Med `@keyframes` og `animation` properties kan du lave alt fra simple fade-ins til komplekse animationer.
+## TL;DR — CSS-animationer
 
-En animation består af to dele:
+<p class="pl-lead">CSS-animationer ændrer et elements udseende over tid uden JavaScript.</p>
 
-1. **@keyframes** - Definerer hvad der skal ske (fra start til slut)
-2. **animation** - Anvender animationen på et element
+<div class="pl-split">
+<div>
 
-Når siden loader, starter animationen automatisk. I eksemplet nedenfor glider en boks ind fra oven og fader ind samtidig.
+```css
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.besked {
+  animation: fade-in 1s;
+}
+```
+
+</div>
+<div>
+
+- **`@keyframes`** beskriver, hvad der ændres fra start til slut.
+- **`animation`** vælger animationen og styrer fx varighed og gentagelser.
+- **`animation: fade-in 1s;`** kører animationen `fade-in` én gang over ét sekund.
+- Brug især **`transform`** til bevægelse og **`opacity`** til at tone ind og ud.
+- Tilpas bevægelsen med **`prefers-reduced-motion`**, når brugeren foretrækker mindre animation.
+
+</div>
+</div>
+
+<span slot="takeaway">Navnet i <code>animation</code> skal matche navnet efter <code>@keyframes</code>.</span>
 
 </Slide>
 <div class="page-break"></div>
-<Slide>
+
+{/* Slide 2: Sådan virker CSS-animationer */}
+
+<Slide variant="lesson" label="Tema 4 · CSS / Animationer">
+
+## Hvad er en CSS-animation?
+
+En CSS-animation ændrer et elements udseende over tid uden JavaScript — fx når en besked toner frem.
+
+1. **`@keyframes`** beskriver animationens trin. `from` er starten (0 %), og `to` er slutningen (100 %).
+2. **`animation`** kobler trinene til et element og bestemmer bl.a. varigheden.
+
+```css
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  } /* Gennemsigtig */
+  to {
+    opacity: 1;
+  } /* Synlig */
+}
+
+.besked {
+  animation: fade-in 1s;
+}
+```
+
+Et element med `class="besked"` toner frem én gang over ét sekund, når animationen anvendes. Browseren beregner selv værdierne mellem start og slut.
+
+<span slot="takeaway">Navnet <code>fade-in</code> skal være det samme begge steder. <code>@keyframes</code> alene starter ikke en animation.</span>
+
+[Læs mere: MDN om CSS-animationer](https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Animations/Using)
+
+</Slide>
+<div class="page-break"></div>
+<Slide variant="lesson" label="Tema 4 · CSS / Animationer">
 ## Simpelt Eksempel - Klar til CodePen
 
 **HTML:**
@@ -61,17 +119,11 @@ Når siden loader, starter animationen automatisk. I eksemplet nedenfor glider e
 }
 ```
 
-<a
-  href="https://codepen.io/PeterUlf/pen/zxqmYwj"
-  target="_blank"
-  style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background-color: var(--sl-color-accent-low); color: var(--sl-color-white); border: 1px solid var(--sl-color-accent); border-radius: 0.5rem; text-decoration: none; font-weight: 600; font-size: var(--sl-text-sm); transition: background-color 0.2s;"
->
-  Se eksempel på CodePen →
-</a>
+[Se eksempel på CodePen →](https://codepen.io/PeterUlf/pen/zxqmYwj)
 
 </Slide>
 <div class="page-break"></div>
-<Slide>
+<Slide variant="lesson" label="Tema 4 · CSS / Animationer">
 
 ## Keyframes - From/To
 
@@ -90,7 +142,7 @@ Den simpleste måde at definere en animation på:
 
 </Slide>
 <div class="page-break"></div>
-<Slide>
+<Slide variant="lesson" label="Tema 4 · CSS / Animationer">
 ## Keyframes - Procent
 
 For mere kontrol kan du bruge procent til at definere flere trin:
@@ -125,7 +177,7 @@ For mere kontrol kan du bruge procent til at definere flere trin:
 
 </Slide>
 <div class="page-break"></div>
-<Slide>
+<Slide variant="lesson" label="Tema 4 · CSS / Animationer">
  
 ### Shorthand
 
@@ -140,7 +192,7 @@ I stedet for at skrive hver property kan du bruge shorthand:
 
 </Slide>
 <div class="page-break"></div>
-<Slide> 
+<Slide variant="lesson" label="Tema 4 · CSS / Animationer">
 ## Timing Functions
 
 Styrer hvordan hastigheden ændrer sig gennem animationen:
@@ -157,17 +209,11 @@ animation-timing-function: ease-in-out; /* Langsom begge ender */
 animation-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 ```
 
-<a
-  href="https://cubic-bezier.com/"
-  target="_blank"
-  style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background-color: var(--sl-color-accent-low); color: var(--sl-color-white); border: 1px solid var(--sl-color-accent); border-radius: 0.5rem; text-decoration: none; font-weight: 600; font-size: var(--sl-text-sm); transition: background-color 0.2s;"
->
-  Lav din egen cubic-bezier →
-</a>
+[Lav din egen cubic-bezier →](https://cubic-bezier.com/)
 
 </Slide>
 <div class="page-break"></div>
-<Slide> 
+<Slide variant="lesson" label="Tema 4 · CSS / Animationer">
 ## Iteration Count
 
 ```css
@@ -178,7 +224,7 @@ animation-iteration-count: infinite; /* Kør i uendelighed */
 
 </Slide>
 <div class="page-break"></div>
-<Slide> 
+<Slide variant="lesson" label="Tema 4 · CSS / Animationer">
 ## Direction
 
 ```css
@@ -189,7 +235,7 @@ animation-direction: alternate; /* Frem, tilbage, frem... */
 
 </Slide>
 <div class="page-break"></div>
-<Slide> 
+<Slide variant="lesson" label="Tema 4 · CSS / Animationer">
 ## Fill Mode
 
 Bestemmer hvordan elementet ser ud før og efter animationen:
@@ -203,7 +249,7 @@ animation-fill-mode: both; /* Både forwards og backwards */
 
 </Slide>
 <div class="page-break"></div>
-<Slide> 
+<Slide variant="lesson" label="Tema 4 · CSS / Animationer">
 ## Praktiske Eksempler
 
 ### Fade In
@@ -244,7 +290,7 @@ animation-fill-mode: both; /* Både forwards og backwards */
 
 </Slide>
 <div class="page-break"></div>
-<Slide> 
+<Slide variant="lesson" label="Tema 4 · CSS / Animationer">
 ### Pulserende Knap
 
 ```css
@@ -282,7 +328,7 @@ animation-fill-mode: both; /* Både forwards og backwards */
 
 </Slide>
 <div class="page-break"></div>
-<Slide> 
+<Slide variant="lesson" label="Tema 4 · CSS / Animationer">
 ### Bounce Effect
 
 ```css
@@ -309,7 +355,7 @@ animation-fill-mode: both; /* Både forwards og backwards */
 
 </Slide>
 <div class="page-break"></div>
-<Slide> 
+<Slide variant="lesson" label="Tema 4 · CSS / Animationer">
 ### Shake/Ryst
 
 ```css
@@ -340,7 +386,7 @@ animation-fill-mode: both; /* Både forwards og backwards */
 
 </Slide>
 <div class="page-break"></div>
-<Slide> 
+<Slide variant="lesson" label="Tema 4 · CSS / Animationer">
 ## Pause og Play
 
 Du kan styre om en animation kører eller er sat på pause:
@@ -358,21 +404,23 @@ Du kan styre om en animation kører eller er sat på pause:
 
 </Slide>
 <div class="page-break"></div>
-<Slide> 
+<Slide variant="lesson" label="Tema 4 · CSS / Animationer">
 ## Flere Animationer
 
 Du kan køre flere animationer på samme element:
 
 ```css
 .element {
-  animation: spin 2s linear infinite, pulse 1s ease-in-out infinite,
+  animation:
+    spin 2s linear infinite,
+    pulse 1s ease-in-out infinite,
     fade-in 0.5s ease-out;
 }
 ```
 
 </Slide>
 <div class="page-break"></div>
-<Slide> 
+<Slide variant="lesson" label="Tema 4 · CSS / Animationer">
 ## Tips og Tricks
 
 ### 1. Performance
@@ -403,7 +451,7 @@ Animer kun `transform` og `opacity` for bedst performance:
 
 </Slide>
 <div class="page-break"></div>
-<Slide> 
+<Slide variant="lesson" label="Tema 4 · CSS / Animationer">
 ### 2. will-change
 
 Giv browseren et hint om hvad der skal animeres, så den kan optimere i forvejen:
@@ -429,7 +477,7 @@ Når browseren ved hvad der skal animeres, kan den forberede sig ved at:
 
 </Slide>
 <div class="page-break"></div>
-<Slide>
+<Slide variant="lesson" label="Tema 4 · CSS / Animationer">
 
 ### 3. Reduced Motion
 
@@ -478,7 +526,7 @@ Dette er vigtigt for tilgængelighed - nogle mennesker bliver faktisk syge af be
 
 </Slide>
 <div class="page-break"></div>
-<Slide>
+<Slide variant="lesson" label="Tema 4 · CSS / Animationer">
 
 ## Animation vs Transition
 
@@ -503,7 +551,7 @@ Dette er vigtigt for tilgængelighed - nogle mennesker bliver faktisk syge af be
 
 </Slide>
 <div class="page-break"></div>
-<Slide> 
+<Slide variant="lesson" label="Tema 4 · CSS / Animationer">
 ## Browser Support
 
 CSS animationer er understøttet i alle moderne browsere. For meget gamle browsere kan du bruge prefixes:
@@ -532,13 +580,13 @@ Men det er sjældent nødvendigt i dag.
 
 </Slide>
 <div class="page-break"></div>
-<Slide>
+<Slide variant="lesson" label="Tema 4 · CSS / Animationer">
 
 ## Opgave: Prøv selv!
 
 Brug denne HTML kode til at teste de forskellige animationer fra siden:
 
-<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 2rem 0;">
+<div class="pl-split">
 
 <div>
 
@@ -563,13 +611,7 @@ Brug denne HTML kode til at teste de forskellige animationer fra siden:
 4. Eksperimenter med forskellige `timing-functions` og `duration`
 5. Prøv at lave dine egne animationer!
 
-<a
-  href="https://codepen.io/pen/"
-  target="_blank"
-  style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background-color: var(--sl-color-accent-low); color: var(--sl-color-white); border: 1px solid var(--sl-color-accent); border-radius: 0.5rem; text-decoration: none; font-weight: 600; font-size: var(--sl-text-sm); transition: background-color 0.2s;"
->
-  Åbn CodePen →
-</a>
+[Åbn CodePen →](https://codepen.io/pen/)
 
 </div>
 
@@ -623,11 +665,12 @@ body {
 
 </Slide>
 <div class="page-break"></div>
-<Slide>
+<Slide variant="lesson" label="Tema 4 · CSS / Animationer">
 
 ## Næste Skridt
 
 Fortsæt i rækken:
 
 [Gå til Intro til SVG →](/svg/)
+
 </Slide>

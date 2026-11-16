@@ -45,13 +45,24 @@ Ved en mindre revision anvendes kun de relevante principper; tilføj ikke automa
 
 ## Skriv og byg materialet
 
-Brug almindelige `Slide`-blokke og fælles styling som beskrevet i `AGENTS.md`. Saml det redigerbare indhold ved hver slide. Brug ét tydeligt fokus pr. slide, og flyt længere uddybninger til separate undervisernoter.
+Brug looket fra slide 6, “Popoveren ligger i top layer”, i [CSS-overgange på en popover](../../../src/content/docs/css/popover-transitions.mdx) som standard for nye slides og undervisningssider, medmindre Peter ønsker andet. Det har en lys, varm baggrund, mørkegrøn tekst, store tætte overskrifter, en enkel toptekst og en bundlinje til hovedpointen. Denne reference erstatter det tidligere valg af Accordions – TLDR og `variant="paper"`.
+
+- Brug den eksisterende komponent med `<Slide variant="lesson" label="Tema 4 · CSS / Animationer">`, og tilpas temalinjen til sidens tema og emne. Se [CSS-animationer](../../../src/content/docs/css/animationer.mdx) for brug med almindelig Markdown.
+- Varianten genbruger `src/styles/popover-lesson.css` via `Slide.astro`; tilpasninger til Markdown ligger i `src/styles/custom.css`. Genbrug disse fælles stilarter frem for en ny komponent eller lokal kopi af designet.
+- Bevar den automatiske vekslen mellem varm lys baggrund og svagt grøn baggrund på hver anden slide. Den gør slideskift tydelige ved scrolling og håndteres i fælles CSS, også i slideshowet; angiv ikke farver manuelt i MDX.
+- Brug `pl-lead` til en kort indledning, `pl-meta` til supplerende tekst og `<span slot="takeaway">…</span>` til en kort hovedpointe under bundlinjen, når det passer til indholdet. Slideshowets tæller er automatisk; tilføj ikke `step` eller `total`.
+- Brug `<div class="pl-split">` omkring to indholdsblokke, når kode og forklaring med fordel kan stå ved siden af hinanden. Den fælles styling stabler dem i smalle visninger.
+- Brug almindelige Markdown-links, så de følger det fælles look, og bevar `<div class="page-break"></div>` mellem slides.
+- Ved layoutrevision af en eksisterende side bruges samme look. Små indholdsrettelser kræver ikke omlægning af hele siden eller andre forløb.
+
+Saml det redigerbare indhold ved hver slide. Brug ét tydeligt fokus pr. slide, og flyt længere uddybninger til separate undervisernoter. Referencernes udseende er standarden; deres længde og TLDR-opbygning tilpasses den konkrete opgave.
 
 Vælg illustrationer efter det, de skal forklare. Læs kun de referencer nedenfor, som passer til opgaven:
 
 | Behov | Eksisterende materiale at lære af |
 | --- | --- |
-| Enkel MDX- og slidestruktur | [Grid](../../../src/content/docs/css/grid.mdx) |
+| Visuel reference | [CSS-overgange på en popover, slide 6](../../../src/content/docs/css/popover-transitions.mdx) |
+| Samme look med almindelig MDX | [CSS-animationer](../../../src/content/docs/css/animationer.mdx) |
 | Afprøvbare eksempler og løsninger efter eget forsøg | [Layoutdiagrammer](../../../src/content/docs/guides/layoutdiagrammer.mdx) |
 | Konkrete skærmbilleder og præcise markeringer | [Intro til GitHub](../../../src/content/docs/git/intro-til-github.mdx) |
 | Korte sammenligninger og forklarende tabeller | [Struktur og planlægning af design](../../../src/content/docs/ux/struktur-og-planlaegning-af-design.mdx) |

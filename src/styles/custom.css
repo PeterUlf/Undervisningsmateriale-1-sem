@@ -1110,6 +1110,26 @@ body td {
   }
 }
 
+/* Fælles standard: Slide variant="lesson" genbruger popover-looket.
+   Disse regler tilpasser Markdown-indhold uden at ændre PopoverSlide. */
+body:has(.lesson-slide) { --sl-content-width: 64rem; }
+.sl-markdown-content > .slide:has(> .lesson-slide) { padding: 0; background: none; }
+.lesson-slide { overflow-wrap: anywhere; }
+.lesson-slide .lesson-body > * + *,
+.lesson-slide .pl-split > div > * + * { margin-top: 1rem; }
+.lesson-slide .lesson-body > :first-child,
+.lesson-slide .pl-split > div > :first-child { margin-top: 0; }
+.lesson-slide .sl-heading-wrapper { margin-bottom: 1.25rem; }
+.lesson-slide .sl-heading-wrapper h2 { margin-bottom: 0; }
+.lesson-slide :is(strong, b) { color: inherit; }
+.lesson-slide :is(ul, ol) { padding-left: 1.3rem; }
+.lesson-slide li + li { margin-top: .7rem; }
+.lesson-slide .expressive-code { min-width: 0; max-width: 100%; }
+.lesson-slide .pl-split { align-items: start; }
+@media print {
+  .lesson-slide { padding: 0; }
+}
+
 /* Fælles, valgfrit slideudtryk: <Slide variant="paper" label="…">.
    Alt fagligt indhold bliver i MDX. Den indre ramme kopieres med i slideshowet. */
 body:has(.slide-paper) { --sl-content-width: 64rem; }

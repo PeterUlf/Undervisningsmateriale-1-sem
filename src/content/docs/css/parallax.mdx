@@ -1,0 +1,389 @@
+---
+title: Parallax
+description: Parallax trin for trin – billedramme, størrelse, keyframes og scrollstyret animation.
+draft: false
+# Grundlag: powerpoints brugt som grundlag/Parallax.pdf, især side 1–3.
+# Ret tekst og kode direkte ved den relevante slidekommentar.
+# Det samlede eksempel og øvelsen står på slide 11 og 12.
+sidebar:
+  label: Parallax
+  order: 9
+  badge:
+    text: Tema 4
+    variant: tip
+    class: badge-theme-4
+---
+
+import Slide from "../../../components/Slide.astro";
+
+{/* Slide 1: Overblik */}
+
+<Slide variant="lesson" label="Tema 4 · CSS / Parallax">
+
+## TL;DR: Parallax
+
+<p class="pl-lead">
+  Elementer bevæger sig i forskelligt tempo, når du scroller. Det giver en
+  oplevelse af dybde.
+</p>
+
+Vi bygger effekten med tre dele:
+
+1. **En ramme**, der viser et udsnit af billedet.
+2. **Et større billede**, der kan flyttes inde i rammen.
+3. **En CSS-animation**, som styres af scroll.
+
+Du skal kunne forklare delene og ændre, hvor i scrollforløbet bevægelsen slutter.
+
+<span slot="takeaway">Rammen følger siden. Billedet bevæger sig også inde i rammen.</span>
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 2: Samtale før forklaringen */}
+
+<Slide variant="lesson" label="Tema 4 · Sum · 2 minutter">
+
+## Et billede bag et vindue
+
+Forestil jer et papirbillede bag et hul i et stykke karton. I vil flytte billedet opad, mens hullet stadig er dækket.
+
+**Hvor stort skal billedet være i forhold til hullet — og hvorfor?**
+
+Tal i grupper på 3–5 med dem, I sidder ved. Lad alle give et bud, uden kode, opslag eller AI.
+
+Vi samler to bud op, før vi bygger rammen i HTML og CSS.
+
+<span slot="takeaway">I skal kunne dele én begrundelse. I behøver ikke blive enige.</span>
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 3: HTML-strukturen */}
+
+<Slide variant="lesson" label="Tema 4 · CSS / Parallax">
+
+## HTML: Ramme og billede
+
+```html
+<div class="image-frame">
+  <img src="foto.jpg" alt="En skovsti mellem høje træer" />
+</div>
+```
+
+- **`div`** er rammen. Klassen `image-frame` bruges til at vælge den i CSS.
+- **`img`** er billedet, der skal bevæge sig.
+- **`src`** peger på din billedfil. Tilpas `alt`, så teksten beskriver dit billede.
+
+Som med kartonvinduet skal billedet være større end det udsnit, vi viser.
+
+<span slot="takeaway">Vi styler rammen og billedet hver for sig.</span>
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 4: Rammen */}
+
+<Slide variant="lesson" label="Tema 4 · CSS / Parallax">
+
+## Rammen viser et udsnit
+
+```css
+.image-frame {
+  height: 12rem;
+  overflow: clip;
+}
+```
+
+- **`height`** giver rammen en fast højde. `rem` måles i forhold til sidens rodskriftstørrelse.
+- **`overflow: clip`** skjuler de dele af billedet, der ligger uden for rammen.
+
+Rammen har en bestemt højde, så billedets procenthøjde på næste slide har noget at blive beregnet ud fra.
+
+<span slot="takeaway">Uden klipning vil det store billede stikke ud af rammen.</span>
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 5: Billedets størrelse */}
+
+<Slide variant="lesson" label="Tema 4 · CSS / Parallax">
+
+## Billedet er større end rammen
+
+```css
+.image-frame img {
+  display: block;
+  width: 100%;
+  height: 300%;
+  object-fit: cover;
+}
+```
+
+- **`.image-frame img`** vælger billeder inde i rammen.
+- **`display: block`** fjerner den lille afstand under et billede, der ellers står på en tekstlinje.
+- **`width: 100%` og `height: 300%`** gør billedets boks lige så bred og tre gange så høj som rammen.
+- **`object-fit: cover`** fylder billedboksen uden at forvrænge motivet. Noget af motivet kan blive beskåret.
+
+<span slot="takeaway">Den ekstra højde giver plads til bevægelse uden tomme områder.</span>
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 6: Keyframes */}
+
+<Slide variant="lesson" label="Tema 4 · CSS / Parallax">
+
+## Keyframes beskriver bevægelsen
+
+```css
+@keyframes parallax {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-50%);
+  }
+}
+```
+
+- **`parallax`** er et navn, vi selv vælger.
+- **`from` og `to`** angiver start og slut.
+- **`translateY()`** flytter lodret. En negativ værdi flytter opad.
+- **`-50%`** er halvdelen af billedets egen højde — ikke rammens højde.
+
+Her er billedet tre rammehøjder højt. Vi flytter det 1½ rammehøjde op, så det stadig dækker rammen.
+
+<span slot="takeaway">Keyframes beskriver, hvad der ændres. De starter ikke animationen alene.</span>
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 7: Animation-egenskaben */}
+
+<Slide variant="lesson" label="Tema 4 · CSS / Parallax">
+
+## Kobl animationen til billedet
+
+```css
+.image-frame img {
+  animation: parallax linear both;
+}
+```
+
+| Del        | Betydning                                               |
+| ---------- | ------------------------------------------------------- |
+| `parallax` | Brug keyframes med dette navn.                          |
+| `linear`   | Bevægelsen følger animationens fremdrift jævnt.         |
+| `both`     | Brug startværdien før intervallet og slutværdien efter. |
+
+Vi angiver ingen varighed i sekunder. På næste slide kobler vi animationens fremdrift til scroll.
+
+<span slot="takeaway">Navnet efter <code>@keyframes</code> skal matche navnet i <code>animation</code>.</span>
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 8: View-tidslinjen */}
+
+<Slide variant="lesson" label="Tema 4 · CSS / Parallax">
+
+## Lad scroll styre animationen
+
+```css
+.image-frame img {
+  animation: parallax linear both;
+  animation-timeline: view();
+}
+```
+
+**`animation-timeline`** bestemmer, hvad der styrer animationens fremdrift.
+
+**`view()`** følger elementets passage gennem det synlige område i den nærmeste scrollcontainer. Her er elementet billedet.
+
+Stopper du med at scrolle, stopper bevægelsen. Scroller du tilbage, følger animationen med tilbage.
+
+<span slot="takeaway">Skriv <code>animation-timeline</code> efter <code>animation</code>, som ellers nulstiller tidslinjen.</span>
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 9: Animationens interval */}
+
+<Slide variant="lesson" label="Tema 4 · CSS / Parallax">
+
+## Vælg start og slut med range
+
+```css
+.image-frame img {
+  animation: parallax linear both;
+  animation-timeline: view();
+  animation-range: 0% 60%;
+}
+```
+
+**`animation-range`** vælger det interval af tidslinjen, animationen skal fylde.
+
+- **`0%`**: Start ved begyndelsen af billedets passage.
+- **`60%`**: Nå slutværdien, når 60 % af passagen er gennemført.
+- Derefter beholder billedet slutværdien på grund af `both`.
+
+Ændrer du slutningen til `100%`, fordeles samme bevægelse over en længere scrollstrækning.
+
+<span slot="takeaway">Procenterne gælder billedets view-tidslinje, ikke hele sidens scroll.</span>
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 10: Reduceret bevægelse */}
+
+<Slide variant="lesson" label="Tema 4 · CSS / Parallax">
+
+## Når brugeren ønsker mindre bevægelse
+
+Placér denne regel efter animationens regler:
+
+```css
+@media (prefers-reduced-motion: reduce) {
+  .image-frame img {
+    animation: none;
+  }
+}
+```
+
+- **`@media`** anvender CSS, når en bestemt betingelse er opfyldt.
+- **`prefers-reduced-motion: reduce`** aflæser brugerens ønske om mindre bevægelse.
+- **`animation: none`** fjerner animationen. Billedet bliver stående i rammen.
+
+<span slot="takeaway">Indholdet skal stadig kunne ses, når bevægelsen er slået fra.</span>
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 11: Samlet eksempel */}
+
+<Slide variant="lesson" label="Tema 4 · CSS / Parallax">
+
+## Saml delene og scroll
+
+Opret `index.html` og `style.css` i samme mappe som dit eget `foto.jpg`. Åbn siden med Live Server i en opdateret browser.
+
+<details class="pl-reveal">
+<summary>HTML til index.html</summary>
+
+```html
+<!doctype html>
+<html lang="da">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Parallax</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1>Scroll ned til billedet</h1>
+    <div class="image-frame">
+      <img src="foto.jpg" alt="En skovsti mellem høje træer" />
+    </div>
+    <p>Scroll tilbage og sammenlign bevægelsen.</p>
+  </body>
+</html>
+```
+
+</details>
+
+<details class="pl-reveal">
+<summary>CSS til style.css</summary>
+
+```css
+body {
+  margin: 0;
+  padding: 2rem;
+  font-family: system-ui, sans-serif;
+}
+.image-frame {
+  /* Luft før og efter giver plads til at scrolle. */
+  margin: 70vh auto;
+  max-width: 40rem;
+  height: 12rem;
+  overflow: clip;
+}
+.image-frame img {
+  display: block;
+  width: 100%;
+  height: 300%;
+  object-fit: cover;
+}
+@keyframes parallax {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-50%);
+  }
+}
+/* Aktivér kun effekten, hvis browseren understøtter tidslinjen. */
+@supports (animation-timeline: view()) {
+  .image-frame img {
+    animation: parallax linear both;
+    animation-timeline: view();
+    animation-range: 0% 60%;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .image-frame img {
+    animation: none;
+  }
+}
+```
+
+</details>
+
+`@supports` undersøger, om browseren understøtter en CSS-regel. Uden støtte vises et stillestående billede. `70vh` giver luft svarende til 70 % af vinduets højde før og efter rammen.
+
+<span slot="takeaway">Brug et billede, du må bruge, og tilpas filnavn og alt-tekst til dit motiv.</span>
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 12: Tilpas og afprøv */}
+
+<Slide variant="lesson" label="Tema 4 · Øvelse · 5 minutter · To og to">
+
+## Fordel bevægelsen over mere scroll
+
+Brug eksemplet fra forrige slide. Målet er, at billedet når **samme slutposition senere** i scrollforløbet.
+
+1. Forudsig, hvilken regel I skal ændre. Bevar billedhøjde og keyframes.
+2. Ret reglen, og scroll frem og tilbage. Sammenlign med udgangspunktet.
+3. Vis resultatet for hinanden, og forklar forskellen. Ret, hvis slutpositionen også har ændret sig.
+
+**På vej:** Billedet bevæger sig, men slutpositionen ændres også.  
+**Det fungerer:** Samme slutposition nås over en længere scrollstrækning.  
+**Du kan forklare det:** I skelner mellem bevægelsen i keyframes og intervallet i `animation-range`.
+
+<details class="pl-reveal">
+<summary>Hint</summary>
+
+Hvilken regel bestemmer slutværdien, og hvilken bestemmer, hvornår den nås?
+
+</details>
+<details class="pl-reveal">
+<summary>Løsningsforslag efter jeres forsøg</summary>
+
+Skift til `animation-range: 0% 100%;`. Bevar `translateY(-50%)`. Samme bevægelse fordeles nu over hele billedets passage.
+
+</details>
+
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 13: Opsamling */}
+
+<Slide variant="lesson" label="Tema 4 · CSS / Parallax">
+
+## Hvilken del styrer hvad?
+
+| Jeg vil …                          | Jeg ændrer …               |
+| ---------------------------------- | -------------------------- |
+| vise et højere udsnit              | rammens `height`           |
+| give mere plads til bevægelse      | billedets `height`         |
+| flytte billedet en anden strækning | `translateY()` i keyframes |
+| nå slutpositionen senere           | `animation-range`          |
+| fjerne bevægelsen                  | `animation: none`          |
+
+**Forklar selv:** Hvorfor kan vi ikke bare gøre billedet lige så højt som rammen og stadig flytte det opad?
+
+[Læs mere om animation-timeline](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/animation-timeline) · [animation-range](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/animation-range)
+
+<span slot="takeaway">Rammen viser udsnittet. Keyframes beskriver bevægelsen. Tidslinjen og intervallet styrer fremdriften.</span>
+</Slide>
