@@ -1,0 +1,61 @@
+---
+title: View Transitions – undervisernoter
+description: Plan, forkundskaber og faglige afgrænsninger for tema 4.
+draft: true
+pagefind: false
+sidebar:
+  hidden: true
+---
+
+# View Transitions – undervisernoter
+
+[Åbn forløbet](/draft/css/view-transitions/). Omfang: cirka 30 minutter. Fokus er native cross-document View Transitions mellem to almindelige HTML-dokumenter. Eksemplet er en tænkt projektoversigt.
+
+## Forkundskaber og afgrænsning
+
+- `html/grundlaeggende.mdx`: Tema 2, udgivet. Dokumentstruktur, links og klasser.
+- `css/intro.mdx`: Tema 2, udgivet. Selectorer og egenskaber.
+- `css/animationer.mdx`: Tema 4, udgivet. Animationsvarighed og reduceret bevægelse genopfriskes her.
+- `javascript/index.mdx`: Tema 4, kladde; regnes ikke som gennemgået. JavaScript er derfor ikke nødvendigt i opgaven. Same-document-metoden nævnes kun for at skelne de to anvendelser.
+- Parallax er ikke en forudsætning. `view()` har en anden funktion end View Transitions.
+
+Alle redigerbare eksempler står i undervisningsfilen. HTML står på slide 6 og fuld CSS på slide 11. Der bruges to lokale HTML-sider frem for en enkelt CodePen, fordi læringsmålet er navigation mellem dokumenter. Hav editor og Live Server klar før forløbet.
+
+## Tidsplan
+
+| Del | Tid |
+| --- | --- |
+| Slide 1: Retning | 1 minut |
+| Slide 2: Samtale | 3 minutter |
+| Slide 3: To bud og begrundelser | 1 minut |
+| Slide 4–10: Forklaring af de enkelte dele | 9 minutter |
+| Slide 11: Fælles afprøvning | 4 minutter |
+| Slide 12: Tilpasning i par | 8 minutter |
+| Slide 13: Vurdering og forbedring | 3 minutter |
+| Slide 14: Individuel afslutning | 1 minut |
+
+## Pædagogiske valg
+
+Samtalen handler om at genkende et projekt efter navigation. Spørg fx: Hvad ville I bevare, hvis layoutet ændrer sig meget? Hvornår bliver en langsom overgang en hindring? Kobl de faktiske bud til navngivne elementer uden at foregive bestemte svar.
+
+Øvelsen genbruger navngivning og gruppens varighed. Den ændrer antallet af selvstændige elementer fra ét til to med forskellige varigheder. De studerende skal vælge en særskilt identitet og målrette den rigtige gruppe; det er mere end en kosmetisk ændring. Hint og løsning er lukkede fra start. Kriterierne er undervisningsfeedback, ikke eksamenskrav.
+
+AI-studiehjælp udelades: den korte opgave lægger op til direkte forudsigelse, afprøvning og mundtlig forklaring.
+
+## Faglige opmærksomhedspunkter
+
+- Begge dokumenter skal tilmelde sig og have samme origin: protokol, værtsnavn og port. Undgå redirects til andre origins. Klik på almindelige links i samme fane; test ikke blot ved at skrive URL i adresselinjen.
+- Cross-document-støtte er ikke identisk med støtte til `document.startViewTransition()`. Undgå at bruge tilstedeværelsen af JavaScript-metoden som bevis for, at eksemplet understøttes.
+- Et navn skal være unikt blandt de renderede elementer i hvert dokument. Samme navn på hver af de to sider er tilsigtet.
+- Et CSS-klassenavn og et view-transition-name er forskellige mekanismer; de behøver ikke hedde det samme. Eksemplet bruger `.motiv` og `projektmotiv` for at synliggøre forskellen.
+- Browseren opretter pseudo-elementer til overgangen; der skal ikke tilføjes `view-transition-group`-tags i HTML.
+- Reduceret bevægelse håndteres her ved at fravælge cross-document-overgangen. Det er ikke en generel løsning for alle same-document-eksempler.
+- Forløbet handler ikke om Astros ClientRouter eller en SPA-router. De kræver deres egen introduktion.
+
+## Kilder
+
+Dokumentationen blev gennemgået 16. november 2026. MDN markerer stadig `@view-transition` som “Limited availability”; afprøv på den browser, der bruges til undervisning. Grundnavigationen fungerer uden effekten.
+
+- [MDN: Using the View Transition API](https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API/Using)
+- [MDN: @view-transition](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@view-transition)
+- [MDN: view-transition-name](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/view-transition-name)

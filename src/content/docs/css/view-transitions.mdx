@@ -1,0 +1,407 @@
+---
+title: View Transitions
+description: Overgange mellem HTML-sider med CSS – aktivering, navngivne elementer, varighed og reduceret bevægelse.
+draft: true
+# Ret tekst, kode og opgaver direkte ved hver slide.
+# Samlet eksempel: HTML på slide 6, CSS på slide 11.
+# Plan og forkundskaber: dette-site/view-transitions-undervisernoter.mdx.
+sidebar:
+  label: View Transitions
+  order: 10
+  badge:
+    text: Tema 4
+    variant: tip
+    class: badge-theme-4
+---
+
+import Slide from "../../../components/Slide.astro";
+
+{/* Slide 1: Retning og TLDR */}
+<Slide variant="lesson" label="Tema 4 · CSS / View Transitions">
+
+## TL;DR: View Transitions
+
+<p class="pl-lead">View Transitions gør skift mellem to visninger til en visuel overgang.</p>
+
+Vi arbejder med **to HTML-sider og almindelige links**. Eksemplet kræver ingen JavaScript.
+
+Efter forløbet kan du:
+
+- aktivere overgange mellem sider på samme website,
+- forbinde et element på den gamle side med et på den nye,
+- tilpasse varigheden og respektere reduceret bevægelse.
+
+<span slot="takeaway">Navigationen skal fungere, også når browseren springer animationen over.</span>
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 2: Sum før teknikken */}
+<Slide variant="lesson" label="Tema 4 · Sum · 3 minutter">
+
+## Fra projektkort til projektside
+
+**Tænkt case:** Du klikker på et lille kort med et projekt. En ny side viser projektets titel og en stor præsentation af projektet.
+
+**Hvad skal brugeren kunne genkende, så det er tydeligt, hvilket projekt der blev åbnet?**
+
+Tal i grupper på 3–5 med dem, I sidder ved. Lad alle give et bud. Ingen kode, opslag eller AI.
+
+Vælg én begrundelse, som I kan dele med holdet.
+
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 3: Fælles opsamling */}
+<Slide variant="lesson" label="Tema 4 · Fælles opsamling · 1 minut">
+
+## Hvad skal følge med?
+
+Vi hører to bud og begrundelser.
+
+- Hvilken del af projektet ville I lade brugeren følge med øjnene?
+- Hvornår ville en bevægelse gøre skiftet mere forvirrende?
+
+Nu bruger vi det samme projekt på begge sider og undersøger, hvordan browseren forbinder visningerne.
+
+<span slot="takeaway">Bevægelsen skal gøre sammenhængen lettere at forstå.</span>
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 4: Grundprincippet */}
+<Slide variant="lesson" label="Tema 4 · CSS / View Transitions">
+
+## Browseren forbinder før og efter
+
+1. Browseren fastholder et billede af den gamle visning — et **snapshot**.
+2. Den nye side bliver indlæst.
+3. Browseren animerer overgangen mellem den gamle og den nye visning.
+
+Som udgangspunkt toner den gamle visning ud, mens den nye toner ind. Det kaldes en **crossfade**.
+
+En almindelig CSS-`transition` forbinder ændrede egenskaber på et element. View Transitions kan også forbinde visninger fra to forskellige HTML-dokumenter.
+
+<span slot="takeaway">Du bygger begge sider som normalt. Browseren håndterer den visuelle overgang.</span>
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 5: To anvendelser */}
+<Slide variant="lesson" label="Tema 4 · CSS / View Transitions">
+
+## Mellem sider eller på samme side?
+
+| Situation | Hvordan starter overgangen? |
+| --- | --- |
+| **Mellem HTML-dokumenter** — cross-document | Et link og CSS-reglen `@view-transition`. |
+| **En ændring i samme dokument** — same-document | JavaScript kan bruge `document.startViewTransition()` omkring ændringen. |
+
+**Her arbejder vi med den første løsning.** Vi bruger et projektkort og en separat projektside.
+
+Browserstøtten er forskellig for de to løsninger. Støtte til JavaScript-metoden betyder ikke nødvendigvis støtte til overgange mellem dokumenter.
+
+<span slot="takeaway">View Transitions er ikke det samme som scrollanimationer med <code>view()</code>.</span>
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 6: HTML og filstruktur */}
+<Slide variant="lesson" label="Tema 4 · CSS / View Transitions">
+
+## Start med to sider og ét stylesheet
+
+Opret tre filer i samme mappe: `index.html`, `projekt.html` og `style.css`. HTML-filerne her er klar til kopiering. CSS samles på slide 11.
+
+<details class="pl-reveal">
+<summary>index.html – oversigten</summary>
+
+```html
+<!doctype html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Projekter</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main>
+    <h1>Projekter</h1>
+    <a class="projektkort" href="projekt.html">
+      <div class="motiv motiv-lille" aria-hidden="true">A</div>
+      <h2 class="projekttitel">Projekt A</h2>
+    </a>
+  </main>
+</body>
+</html>
+```
+
+</details>
+<details class="pl-reveal">
+<summary>projekt.html – projektsiden</summary>
+
+```html
+<!doctype html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Projekt A</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main>
+    <a href="index.html">Tilbage til projekter</a>
+    <h1 class="projekttitel">Projekt A</h1>
+    <div class="motiv motiv-stor" aria-hidden="true">A</div>
+    <p>Her kan du læse om projektets idé og resultat.</p>
+  </main>
+</body>
+</html>
+```
+
+</details>
+
+Åbn med **Live Server**, og klik på linkene i samme fane. Begge adresser skal have samme **origin**: protokol, værtsnavn og port, fx `http://localhost:5500`.
+
+<span slot="takeaway">Brug samme server til begge sider. Åbn ikke filerne direkte med <code>file://</code>.</span>
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 7: Aktivering */}
+<Slide variant="lesson" label="Tema 4 · CSS / View Transitions">
+
+## Aktivér på begge sider
+
+Skriv i den fælles `style.css`:
+
+```css
+@view-transition {
+  navigation: auto;
+}
+```
+
+- **`@view-transition`** er en CSS-regel for overgange ved navigation.
+- **`navigation: auto`** tilmelder dokumentet til overgange ved understøttet navigation.
+- **Begge sider skal tilmelde sig.** Derfor indlæser begge HTML-filer den samme CSS-fil.
+
+Klik på et almindeligt link mellem siderne. Et sideskift via adresselinjen er ikke den samme afprøvning.
+
+<span slot="takeaway">Uden browserstøtte virker linket stadig, men siden skifter uden denne animation.</span>
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 8: Navngivne elementer */}
+<Slide variant="lesson" label="Tema 4 · CSS / View Transitions">
+
+## Forbind motivet med et navn
+
+```css
+.motiv {
+  view-transition-name: projektmotiv;
+}
+```
+
+**`view-transition-name`** giver elementet sin egen del af overgangen.
+
+Navnet `projektmotiv` forbinder det lille motiv på oversigten med det store motiv på projektsiden. Browseren kan animere forskellen i placering og størrelse.
+
+**Navnet skal være unikt på hver side.** To synlige elementer med samme navn i samme dokument kan få overgangen til at blive sprunget over.
+
+<span slot="takeaway">Samme navn på tværs af siderne — kun ét element med det navn på hver side.</span>
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 9: Pseudo-elementer og varighed */}
+<Slide variant="lesson" label="Tema 4 · CSS / View Transitions">
+
+## Styr varigheden med CSS
+
+```css
+::view-transition-group(projektmotiv) {
+  animation-duration: 400ms;
+}
+```
+
+**`::view-transition-group()`** er et pseudo-element: noget browseren laver til overgangen, som du kan style uden at skrive mere HTML.
+
+| Selector | Hvad vælger den? |
+| --- | --- |
+| `::view-transition-group(projektmotiv)` | Gruppen for det navngivne motiv, bl.a. bevægelse og størrelse. |
+| `::view-transition-old(projektmotiv)` | Den gamle udgave af motivet. |
+| `::view-transition-new(projektmotiv)` | Den nye udgave af motivet. |
+
+`400ms` er 0,4 sekunder. Start med gruppens varighed; browseren leverer selve standardanimationen.
+
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 10: Reduceret bevægelse */}
+<Slide variant="lesson" label="Tema 4 · CSS / View Transitions">
+
+## Bevar navigationen uden bevægelsen
+
+Placér denne regel efter den almindelige aktivering:
+
+```css
+@media (prefers-reduced-motion: reduce) {
+  @view-transition {
+    navigation: none;
+  }
+}
+```
+
+`prefers-reduced-motion` aflæser brugerens ønske om mindre bevægelse. `navigation: none` fravælger overgangen mellem dokumenterne.
+
+Linkene og indholdet fungerer stadig. Denne regel skal også være i den fælles CSS, som begge sider indlæser.
+
+<span slot="takeaway">Overgangen er en ekstra visuel hjælp. Den må ikke være nødvendig for at forstå eller bruge siden.</span>
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 11: Samlet CSS og afprøvning */}
+<Slide variant="lesson" label="Tema 4 · CSS / View Transitions">
+
+## Afprøv det samlede eksempel
+
+Brug HTML-filerne fra slide 6 og denne `style.css`. Det enkle felt med bogstavet A er vores motiv, så du kan teste uden billedfiler.
+
+<details class="pl-reveal">
+<summary>style.css – layout og overgang</summary>
+
+```css
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  padding: 2rem;
+  font: 1.1rem/1.5 system-ui, sans-serif;
+  color: #18352e;
+  background: #f7f5ef;
+}
+main { max-width: 50rem; margin: auto; }
+a { color: #185a46; }
+a:focus-visible {
+  outline: 3px solid #b53e25;
+  outline-offset: 5px;
+}
+.projektkort { display: block; width: fit-content; }
+.projekttitel { width: fit-content; }
+.motiv {
+  display: grid;
+  place-items: center;
+  max-width: 100%;
+  background: #185a46;
+  color: white;
+  border-radius: 1rem;
+  font-size: 4rem;
+  view-transition-name: projektmotiv;
+}
+.motiv-lille { width: 12rem; height: 8rem; }
+.motiv-stor { width: 40rem; height: 18rem; }
+
+@view-transition {
+  navigation: auto;
+}
+::view-transition-group(projektmotiv) {
+  animation-duration: 400ms;
+}
+@media (prefers-reduced-motion: reduce) {
+  @view-transition {
+    navigation: none;
+  }
+}
+```
+
+</details>
+
+1. Klik fra kort til projektside og tilbage. Følg motivet.
+2. Brug Tab og Enter til at aktivere linket.
+3. Slå reduceret bevægelse til i systemet eller browserens udviklerværktøjer, og gentag.
+
+<p class="pl-meta">Brug en opdateret browser med støtte til cross-document View Transitions. Se den aktuelle kompatibilitet hos <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@view-transition#browser_compatibility">MDN</a>. Et almindeligt sideskift kan være en korrekt fallback.</p>
+
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 12: Anvendelsesopgave */}
+<Slide variant="lesson" label="Tema 4 · Øvelse · 8 minutter · To og to">
+
+## Lad titlen følge med selvstændigt
+
+Brug de tre filer fra eksemplet. Motivets overgang virker allerede.
+
+**Jeres mål:** Titlen “Projekt A” skal også forbindes mellem siderne, men have **sin egen overgang på 250ms**. Motivets overgang skal fortsat være 400ms.
+
+- Vælg titlen via den eksisterende klasse `projekttitel`.
+- Giv titlen en selvstændig identitet i overgangen.
+- Bevar reduceret bevægelse og almindelige links.
+
+**Resultat:** To elementer, der hver kan følges fra oversigt til detalje. Vis begge retninger, og forklar, hvorfor de skal have forskellige navne.
+
+<details class="pl-reveal">
+<summary>Hint</summary>
+
+Hvilken regel forbinder motivet på de to sider? Hvad skal ændres, så titlen får sin egen gruppe, og hvilken selector styrer gruppens varighed?
+
+</details>
+<details class="pl-reveal">
+<summary>Løsningsforslag efter jeres forsøg</summary>
+
+Tilføj i `style.css`:
+
+```css
+.projekttitel {
+  view-transition-name: projekttitel;
+}
+::view-transition-group(projekttitel) {
+  animation-duration: 250ms;
+}
+```
+
+Der er kun én `projekttitel` på hver side. Den kan derfor matches på tværs, selv om HTML-tagget er `h2` på oversigten og `h1` på detaljesiden. Motivet beholder sit navn `projektmotiv`.
+
+</details>
+
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 13: Vurder og forbedr */}
+<Slide variant="lesson" label="Tema 4 · Afprøv og forbedr · 3 minutter">
+
+## Kan brugeren følge begge elementer?
+
+| Niveau | Tegn på forståelse |
+| --- | --- |
+| På vej | Linkene virker, men kun motivet har sin egen overgang, eller navne er dublerede. |
+| Det fungerer | Titel og motiv har forskellige navne og de aftalte varigheder. |
+| Du kan forklare det | I forklarer matchningen, viser begge retninger og afprøver reduceret bevægelse. |
+
+Byt betjening. Brug både mus og tastatur. Afprøv også et smalt vindue.
+
+**Ret mindst én ting** i jeres løsning eller forklaring, og gentag afprøvningen. Hvis animationen mangler, kontrollér browserstøtte, samme origin, CSS på begge sider og unikke navne.
+
+<span slot="takeaway">Vend tilbage til jeres første bud: Gør bevægelsen det lettere at genkende projektet?</span>
+</Slide>
+<div class="page-break"></div>
+
+{/* Slide 14: Opsamling */}
+<Slide variant="lesson" label="Tema 4 · CSS / View Transitions">
+
+## Tre regler at huske
+
+1. **`@view-transition`** aktiverer overgangen på begge sider.
+2. **`view-transition-name`** forbinder et element før og efter.
+3. **`::view-transition-group()`** lader dig tilpasse gruppens animation.
+
+**Forklar selv:** Hvad kan gå galt, hvis to projektkort på samme side begge får `view-transition-name: projektmotiv`?
+
+<details class="pl-reveal">
+<summary>Se forklaringen efter dit eget bud</summary>
+
+Navnet er ikke længere unikt i dokumentet. Browseren kan springe overgangen over. Brug forskellige navne til forskellige elementer, og match det relevante navn på destinationssiden.
+
+</details>
+
+### Kilder
+
+[MDN: Brug View Transition API](https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API/Using) · [Aktivering mellem sider](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@view-transition) · [Navngivning af elementer](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/view-transition-name)
+
+<span slot="takeaway">Brug overgangen til at vise sammenhæng. Bevar en fuldt brugbar side uden animation.</span>
+</Slide>
